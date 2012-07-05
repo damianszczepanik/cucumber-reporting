@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-0": {  "": "src/" }
+    },
+    "require": {
+        "doctrine/orm": "2.2.*",
+        "symfony/dependency-injection": "2.1.*",
+        "symfony/config": "2.1.*",
+        "symfony/yaml": "2.1.*"
+    }
+}

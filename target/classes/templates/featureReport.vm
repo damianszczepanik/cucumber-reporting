@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
+	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="blue/favicon.ico" />
+<style>
+.feature-keyword{font-weight:bold;}
+.feature-description{padding-left:15px;font-style:italic;background-color:beige;}
+.feature-role{font-weight:bold;}
+.feature-action{font-weight:bold;}
+.feature-value{font-weight:bold;}
+.feature-tags{padding-top:10px;padding-left:15px;color:darkblue;}
+.scenario-keyword{font-weight:bold;padding-left:15px;}
+.scenario-scenario_name{padding-left:15px;}
+.step-keyword{font-weight:bold;padding-left:50px;}
+.step-error-message{background-color:#FFEEEE;padding-left:50px;border: 1px solid #D88A8A;}
+.passed{background-color:#C5D88A;}
+.failed{background-color:#D88A8A;}
+.skipped{background-color:#2DEAEC;}
+.undefined{background-color: #ebcc81;}
+
+table.stats-table {
+color:black;
+border-width: 1px;
+border-spacing: 2px;
+border-style: outset;
+border-color: gray;
+border-collapse: collapse;
+background-color: white;
+}
+table.stats-table th {
+color:black;
+border-width: 1px;
+padding: 5px;
+border-style: inset;
+border-color: gray;
+background-color: #66CCEE;
+-moz-border-radius: ;
+}
+table.stats-table td {
+color:black;
+text-align: center;
+border-width: 1px;
+padding: 5px;
+border-style: inset;
+border-color: gray;
+background-color: white;
+-moz-border-radius: ;
+}
+
+table.data-table {
+    color: black;
+    border-width: 1px;
+    border-spacing: 2px;
+    border-style: outset;
+    border-color: #d6d6d6;
+    border-collapse: collapse;
+    background-color: beige;
+}
+table.data-table th {
+    color:black;
+    border-width: 1px;
+    padding: 5px;
+    border-style: inset;
+    border-color: #d6d6d6;
+    background-color: #66CCEE;
+}
+table.data-table td {
+    color:black;
+    text-align: center;
+    border-width: 1px;
+    padding: 5px;
+    border-style: inset;
+    border-color: #d6d6d6;
+    background-color: beige;
+}
+
+.data {
+   padding-left:50px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+</style>
+
+</head>
+<body id="top">
+	<div id="fullwidth_header">
+		<div class="container_12">
+			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+			<div class="grid_6" id="nav">
+				<ul>
+					<li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+					<li><a href="tag-overview.html">Tag Overview</a></li>
+					<li><a href="feature-overview.html">Feature Overview</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="fullwidth_gradient">
+		<div class="container_12">
+			<div class="grid_9 heading">
+				<h2>Feature Result for Build: $build_number</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="container_12">
+		<div class="grid_12">
+
+            <div>
+                <table class="stats-table">
+                    <tr>
+                        <th>Feature</th>
+                        <th>Scenarios</th>
+                        <th>Steps</th>
+                        <th style="background-color:#C5D88A;">Passed</th>
+                        <th style="background-color:#D88A8A;">Failed</th>
+                        <th style="background-color:#2DEAEC;">Skipped</th>
+                        <th style="background-color:#ebcc81;">Pending</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                    </tr>
+
+                    <tr>
+                        <td><a href="$feature.getFileName()">$feature.getRawName()</a></td>
+                        <td>$feature.getNumberOfScenarios()</td>
+                        <td>$feature.getNumberOfSteps()</td>
+                        <td>$feature.getNumberOfPasses()</td>
+                        <td>$feature.getNumberOfFailures()</td>
+                        <td>$feature.getNumberOfSkipped()</td>
+                        <td>$feature.getNumberOfPending()</td>
+                        <td>$feature.getDurationOfSteps()</td>
+                        <td style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
+
+                </table>
+
+            </div>
+
+		<div style="color:black;">
+
+            $feature.getTags()
+            $feature.getName()
+            $feature.getDescription()
+
+            #foreach($scenario in $scenarios)
+                $scenario.getTags()
+                $scenario.getName()
+                #foreach($step in $scenario.getSteps())
+                  $step.getName()
+                    #if($step.hasRows())
+                        <div class="data $step.getDataTableClass()">
+                        <table class="data-table">
+                      #foreach($row in $step.getRows())
+                       <tr>
+                           #foreach($cell in $row.getCells())
+                           <td>$cell</td>
+                           #end
+                       </tr>
+                      #end
+                      </table>
+                        </div>
+                    #end
+                #end
+            #end
+
+	</div>
+	</div>
+
+
+	<div class="container_12">
+		<div class="grid_12 hr"></div>
+		<div class="grid_12 footer">
+			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - $time_stamp</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+</body>
