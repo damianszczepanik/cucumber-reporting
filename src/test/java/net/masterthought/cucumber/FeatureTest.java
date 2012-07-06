@@ -15,7 +15,8 @@ import static org.junit.Assert.assertThat;
 public class FeatureTest {
 
     ReportParser reportParser;
-    Feature feature;
+    Feature passingFeature;
+    Feature failingFeature;
 
     @Before
     public void setUpJsonReports() throws IOException {
@@ -23,8 +24,10 @@ public class FeatureTest {
         jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
         jsonReports.add("src/test/resources/net/masterthought/cucumber/project2.json");
         reportParser = new ReportParser(jsonReports);
-        feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        feature.processSteps();
+        passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
+        passingFeature.processSteps();
+        failingFeature.processSteps();
     }
 
 //    @Test
@@ -35,86 +38,89 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnManagedFileName() {
-        assertThat(feature.getFileName(), is("masterthought-example-ATM.feature.html"));
+        assertThat(passingFeature.getFileName(), is("masterthought-example-ATM.feature.html"));
+    }
+
+    @Test
+    public void shouldGetDescription() {
+        assertThat(passingFeature.getDescription(), is("<div class=\"feature-description\">As a Account Holder<br/><span class=\"feature-action\">I want to</span> withdraw cash from an ATM<br/><span class=\"feature-value\">So that</span> I can get money when the bank is closed</div>"
+        ));
     }
 
     @Test
     public void shouldKnowIfTagsExists() {
-        assertThat(feature.hasTags(), is(true));
+        assertThat(passingFeature.hasTags(), is(true));
     }
 
     @Test
     public void shouldListTheTags() {
         List<String> expectedList = new ArrayList<String>();
         expectedList.add("@super");
-        assertThat(feature.getTagList(), is(expectedList));
+        assertThat(passingFeature.getTagList(), is(expectedList));
     }
 
     @Test
     public void shouldListTheTagsAsHtml() {
-        assertThat(feature.getTags(), is("<div class=\"feature-tags\">@super</div>"));
+        assertThat(passingFeature.getTags(), is("<div class=\"feature-tags\">@super</div>"));
     }
 
     @Test
     public void shouldGetStatus() {
-        assertThat(feature.getStatus(), is(Util.Status.PASSED));
+        assertThat(passingFeature.getStatus(), is(Util.Status.PASSED));
     }
 
     @Test
     public void shouldReturnName() {
-        assertThat(feature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash Project 2</div></div>"));
+        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash Project 2</div></div>"));
     }
 
     @Test
     public void shouldReturnRawName() {
-        assertThat(feature.getRawName(), is("Account Holder withdraws cash Project 2"));
+        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash Project 2"));
     }
 
     @Test
     public void shouldReturnRawStatus() {
-        assertThat(feature.getRawStatus(), is("passed"));
+        assertThat(passingFeature.getRawStatus(), is("passed"));
     }
 
     @Test
     public void shouldGetNumberOfSteps() {
-        assertThat(feature.getNumberOfSteps(), is(40));
-
+        assertThat(passingFeature.getNumberOfSteps(), is(40));
     }
 
     @Test
     public void shouldGetNumberOfPassingSteps() {
-        assertThat(feature.getNumberOfPasses(), is(40));
+        assertThat(passingFeature.getNumberOfPasses(), is(40));
+        assertThat(failingFeature.getNumberOfPasses(), is(5));
 
     }
 
     @Test
     public void shouldGetNumberOfFailingSteps() {
-        assertThat(feature.getNumberOfFailures(), is(0));
-
+        assertThat(passingFeature.getNumberOfFailures(), is(0));
+        assertThat(failingFeature.getNumberOfFailures(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfSkippedSteps() {
-        assertThat(feature.getNumberOfSkipped(), is(0));
-
+        assertThat(passingFeature.getNumberOfSkipped(), is(0));
+        assertThat(failingFeature.getNumberOfSkipped(), is(3));
     }
 
     @Test
     public void shouldGetNumberOfPendingSteps() {
-        assertThat(feature.getNumberOfPending(), is(0));
-
+        assertThat(passingFeature.getNumberOfPending(), is(0));
     }
 
     @Test
     public void shouldGetNumberOfMissingSteps() {
-        assertThat(feature.getNumberOfMissing(), is(0));
-
+        assertThat(passingFeature.getNumberOfMissing(), is(0));
     }
 
     @Test
     public void shouldGetDurationOfSteps() {
-        assertThat(feature.getDurationOfSteps(), is("113 ms"));
-
+        assertThat(passingFeature.getDurationOfSteps(), is("113 ms"));
     }
 
 //    @Test
@@ -122,6 +128,15 @@ public class FeatureTest {
 //        assertThat(feature.getNumberOfScenarios(), is(4));
 //
 //    }
+
+    @Test
+    public void shouldProcessFeatureWhenNoScenarios() throws IOException {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add("src/test/resources/net/masterthought/cucumber/noscenario.json");
+        ReportParser reportParser = new ReportParser(jsonReports);
+        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        feature.processSteps();
+    }
 
 
 }

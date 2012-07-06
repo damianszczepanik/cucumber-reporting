@@ -20,6 +20,14 @@ public class ReportInformation {
     private List<Step> totalUndefinedSteps = new ArrayList<Step>();
     private List<Step> totalMissingSteps = new ArrayList<Step>();
     private Long totalDuration = 0l;
+    List<TagObject> tagMap = new ArrayList<TagObject>();
+    private int totalTagScenarios = 0;
+    private int totalTagSteps = 0;
+    private int totalTagPasses = 0;
+    private int totalTagFails = 0;
+    private int totalTagSkipped = 0;
+    private int totalTagPending = 0;
+    private long totalTagDuration = 0l;
 
     public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
         this.projectFeatureMap = projectFeatureMap;
@@ -38,11 +46,15 @@ public class ReportInformation {
         return allFeatures;
     }
 
-    public List<Feature> getFeatures(){
+    public List<Feature> getFeatures() {
         return this.features;
     }
 
-    public Map<String, List<Feature>> getProjectFeatureMap(){
+    public List<TagObject> getTags() {
+        return this.tagMap;
+    }
+
+    public Map<String, List<Feature>> getProjectFeatureMap() {
         return this.projectFeatureMap;
     }
 
@@ -91,27 +103,149 @@ public class ReportInformation {
     }
 
     public String getReportStatusColour(Feature feature) {
-         return feature.getStatus() == Util.Status.PASSED ? "#C5D88A" : "#D88A8A";
-     }
+        return feature.getStatus() == Util.Status.PASSED ? "#C5D88A" : "#D88A8A";
+    }
 
-    private void processFeatures() {
-        for (Feature feature : features) {
-            Element[] scenarios = feature.getElements();
-            numberOfScenarios = numberOfScenarios + scenarios.length;
-            for (Element scenario : scenarios) {
-                Step[] steps = scenario.getSteps();
-                numberOfSteps = numberOfSteps + steps.length;
-                for (Step step : steps) {
-                    Util.Status stepStatus = step.getStatus();
-                    totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
-                    totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
-                    totalSkippedSteps = Util.setStepStatus(totalSkippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                    totalUndefinedSteps = Util.setStepStatus(totalUndefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
-                    totalMissingSteps = Util.setStepStatus(totalMissingSteps, step, stepStatus, Util.Status.MISSING);
-                    totalDuration = totalDuration + step.getDuration();
+    public String getTagReportStatusColour(TagObject tag) {
+        return tag.getStatus() == Util.Status.PASSED ? "#C5D88A" : "#D88A8A";
+    }
+
+    public int getTotalTags() {
+        return tagMap.size();
+    }
+
+    public int getTotalTagScenarios() {
+        return totalTagScenarios;
+    }
+
+    public int getTotalTagSteps() {
+        return totalTagSteps;
+    }
+
+    public int getTotalTagPasses() {
+        return totalTagPasses;
+    }
+
+    public int getTotalTagFails() {
+        return totalTagFails;
+    }
+
+    public int getTotalTagSkipped() {
+        return totalTagSkipped;
+    }
+
+    public int getTotalTagPending() {
+        return totalTagPending;
+    }
+
+    public String getTotalTagDuration() {
+        return Util.formatDuration(totalTagDuration);
+    }
+
+
+    private void processTags() {
+        for (TagObject tag : tagMap) {
+            totalTagScenarios = totalTagScenarios + tag.getScenarios().size();
+            totalTagPasses += tag.getNumberOfPasses();
+            totalTagFails += tag.getNumberOfFailures();
+            totalTagSkipped += tag.getNumberOfSkipped();
+            totalTagPending += tag.getNumberOfPending();
+
+
+            for (ScenarioTag scenarioTag : tag.getScenarios()) {
+                if (Util.hasSteps(scenarioTag)) {
+                    Step[] steps = scenarioTag.getScenario().getSteps();
+                    for (Step step : steps) {
+                        totalTagSteps += steps.length;
+                        totalTagDuration = totalTagDuration + step.getDuration();
+                    }
                 }
             }
         }
+    }
+
+
+    private void processFeatures() {
+        for (Feature feature : features) {
+            List<ScenarioTag> scenarioList = new ArrayList<ScenarioTag>();
+            Element[] scenarios = feature.getElements();
+            if (Util.itemExists(scenarios)) {
+                numberOfScenarios = numberOfScenarios + scenarios.length;
+                for (Element scenario : scenarios) {
+
+                    //process tags
+                    if (feature.hasTags()) {
+                        scenarioList.add(new ScenarioTag(scenario, feature.getFileName()));
+                        tagMap = createOrAppendToTagMap(tagMap, feature.getTagList(), scenarioList);
+                    }
+
+                    if (Util.hasScenarios(feature)) {
+                        if (scenario.hasTags()) {
+                            scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
+                        }
+                        tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
+                    }
+
+                    if (Util.hasSteps(scenario)) {
+                        Step[] steps = scenario.getSteps();
+                        numberOfSteps = numberOfSteps + steps.length;
+                        for (Step step : steps) {
+                            Util.Status stepStatus = step.getStatus();
+                            totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
+                            totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
+                            totalSkippedSteps = Util.setStepStatus(totalSkippedSteps, step, stepStatus, Util.Status.SKIPPED);
+                            totalUndefinedSteps = Util.setStepStatus(totalUndefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
+                            totalMissingSteps = Util.setStepStatus(totalMissingSteps, step, stepStatus, Util.Status.MISSING);
+                            totalDuration = totalDuration + step.getDuration();
+                        }
+                    }
+                }
+            }
+        }
+        processTags();
+    }
+
+    private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
+        boolean exists = false;
+        for (ScenarioTag scenario : scenarioList) {
+            if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
+                    && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            scenarioList.add(scenarioTag);
+        }
+        return scenarioList;
+    }
+
+    private List<TagObject> createOrAppendToTagMap(List<TagObject> tagMap, List<String> tagList, List<ScenarioTag> scenarioList) {
+        for (String tag : tagList) {
+            boolean exists = false;
+            TagObject tagObj = null;
+            for (TagObject tagObject : tagMap) {
+                if (tagObject.getTagName().equalsIgnoreCase(tag)) {
+                    exists = true;
+                    tagObj = tagObject;
+                    break;
+                }
+            }
+            if (exists) {
+                List<ScenarioTag> existingTagList = tagObj.getScenarios();
+                for (ScenarioTag scenarioTag : scenarioList) {
+                    existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
+                }
+                tagMap.remove(tagObj);
+                tagObj.setScenarios(existingTagList);
+                tagMap.add(tagObj);
+            } else {
+                tagObj = new TagObject(tag, scenarioList);
+                tagMap.add(tagObj);
+            }
+        }
+        return tagMap;
     }
 
 

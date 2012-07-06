@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="294f1755-96d4-4222-a27d-b2f5a53d615a" name="Default" comment="" />
+    <list default="true" id="294f1755-96d4-4222-a27d-b2f5a53d615a" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Cell.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cucumber-reporting.iml" afterPath="$PROJECT_DIR$/cucumber-reporting.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/charts/FlashChartBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/charts/FlashChartBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/util/Util.java" afterPath="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/util/Util.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java" afterPath="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportParserTest.java" afterPath="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportParserTest.java" />
+    </list>
     <ignored path="cucumber-reporting.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,81 +73,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="ReportInformationTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportInformationTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="31" selection-start="411" selection-end="411" vertical-scroll-proportion="0.4733728">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReportInformation.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="104" column="18" selection-start="3080" selection-end="3080" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ReportBuilder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="75" selection-start="3839" selection-end="4060" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="featureOverview.vm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/featureOverview.vm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="41" selection-start="5278" selection-end="5296" vertical-scroll-proportion="-16.0">
+            <state line="47" column="30" selection-start="1799" selection-end="1799" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="featureReport.vm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/featureReport.vm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="56" selection-start="847" selection-end="847" vertical-scroll-proportion="-8.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReportParserTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportParserTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="58" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1303#1312#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeatureTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="22" selection-start="177" selection-end="177" vertical-scroll-proportion="0.10373444">
-              <folding>
-                <element signature="e#1489#1497#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tagOverview.vm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="221" column="52" selection-start="7353" selection-end="7381" vertical-scroll-proportion="-10.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Feature.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="113" column="31" selection-start="3615" selection-end="3631" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1855#1872#0" expanded="true" />
-                <element signature="e#4339#4345#0" expanded="true" />
-                <element signature="e#4395#4401#0" expanded="true" />
-                <element signature="e#4451#4457#0" expanded="true" />
-                <element signature="e#4508#4514#0" expanded="true" />
-                <element signature="e#4565#4571#0" expanded="true" />
-                <element signature="e#4622#4628#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -140,10 +105,26 @@
       <file leaf-file-name="Runner.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="33" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="2" column="7" selection-start="37" selection-end="37" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tagOverview.vm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="164" column="25" selection-start="4865" selection-end="4865" vertical-scroll-proportion="-90.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FeatureTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="89" selection-start="533" selection-end="761" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -155,41 +136,43 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Closure.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Element.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/StringClosure.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Tag.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Result.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Row.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Step.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/util/Util.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/featureOverview.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/CellTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/RowTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/featureReport.vm" />
-        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportParserTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ElementTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/StepTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ResultTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ScenarioTag.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/charts/FlashChartBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/TagObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/util/Util.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java" />
+        <option value="$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportInformationTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm" />
       </list>
     </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
         <option name="keepSourceFolders" value="false" />
       </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="132" />
-    <option name="y" value="71" />
-    <option name="width" value="2095" />
-    <option name="height" value="1239" />
+    <option name="x" value="8" />
+    <option name="y" value="-951" />
+    <option name="width" value="1260" />
+    <option name="height" value="939" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -217,8 +200,29 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
-        <subPane subId="Project Files" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -238,13 +242,137 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber-reporting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cucumber" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/net/masterthought/cucumber" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -256,12 +384,18 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.masterthought.cucumber" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/net/masterthought/cucumber" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="net.masterthought.cucumber" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FeatureTest">
-    <configuration default="false" name="ReportParserTest" type="JUnit" factoryName="JUnit" temporary="true">
+  <component name="RunManager" selected="Application.Runner">
+    <configuration default="false" name="RowTest" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
           <option name="PATTERN" value="net.masterthought.cucumber.*" />
@@ -272,7 +406,35 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="net.masterthought.cucumber" />
-      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.ReportParserTest" />
+      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.RowTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ElementTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="net.masterthought.cucumber.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="cucumber-reporting" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="net.masterthought.cucumber" />
+      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.ElementTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -292,6 +454,68 @@
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="StepTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="net.masterthought.cucumber.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="cucumber-reporting" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="net.masterthought.cucumber" />
+      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.StepTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ReportInformationTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="net.masterthought.cucumber.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="cucumber-reporting" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="net.masterthought.cucumber" />
+      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.ReportInformationTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -320,34 +544,6 @@
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FeatureTest" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="net.masterthought.cucumber.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="cucumber-reporting" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="net.masterthought.cucumber" />
-      <option name="MAIN_CLASS_NAME" value="net.masterthought.cucumber.FeatureTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -427,10 +623,12 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.ReportParserTest" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Runner" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.FeatureTest" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.RowTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ElementTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.StepTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ReportInformationTest" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Runner" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -440,38 +638,39 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="294f1755-96d4-4222-a27d-b2f5a53d615a" name="Default" comment="" />
       <created>1341481306331</created>
       <updated>1341481306331</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="132" y="71" width="2095" height="1239" extended-state="0" />
-    <editor active="false" />
+    <frame x="8" y="-951" width="1260" height="939" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3998211" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291592" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39853302" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32762837" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24987799" sideWeight="0.6708408" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291592" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36386138" sideWeight="0.695599" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30440098" sideWeight="0.9958746" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905984" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -533,149 +732,94 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Row.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ElementTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="49" column="51" selection-start="1687" selection-end="1687" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/StepTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="0" selection-start="3028" selection-end="3028" vertical-scroll-proportion="2.1434977" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Step.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="5" selection-start="3925" selection-end="3925" vertical-scroll-proportion="2.3450704">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="31" column="24" selection-start="615" selection-end="615" vertical-scroll-proportion="0.64102566" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="55" selection-end="55" vertical-scroll-proportion="0.06535948" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Tag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="55" selection-end="55" vertical-scroll-proportion="0.062370062" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="45" selection-start="4446" selection-end="4475" vertical-scroll-proportion="0.42948717" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/util/Util.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="17" selection-start="4667" selection-end="4667" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#665#681#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="171" column="4" selection-start="5407" selection-end="5407" vertical-scroll-proportion="0.84615386" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportParser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/TagObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="382" selection-end="382" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="68" column="2" selection-start="1894" selection-end="1894" vertical-scroll-proportion="0.36382535" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/charts/FlashChartBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="30" selection-start="127" selection-end="144" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ScenarioTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="5" selection-start="488" selection-end="488" vertical-scroll-proportion="0.6237006" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="89" selection-start="533" selection-end="761" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportInformation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="36" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#530#536#0" expanded="true" />
-            <element signature="e#596#602#0" expanded="true" />
-            <element signature="e#662#668#0" expanded="true" />
-            <element signature="e#730#736#0" expanded="true" />
-            <element signature="e#796#802#0" expanded="true" />
-            <element signature="e#1145#1154#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="52" selection-start="7353" selection-end="7381" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/featureOverview.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="41" selection-start="5278" selection-end="5296" vertical-scroll-proportion="-16.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="33" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/featureReport.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="56" selection-start="847" selection-end="847" vertical-scroll-proportion="-8.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="43" selection-start="1293" selection-end="1293" vertical-scroll-proportion="0.16547789">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/net/masterthought/cucumber/project2.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/net/masterthought/cucumber/project1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="104" column="18" selection-start="3080" selection-end="3080" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/ReportBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="75" selection-start="3839" selection-end="4060" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="47" column="30" selection-start="1799" selection-end="1799" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportParserTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/Runner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="58" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1303#1312#0" expanded="true" />
-          </folding>
+        <state line="2" column="7" selection-start="37" selection-end="37" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/masterthought/cucumber/json/Feature.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tagOverview.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="31" selection-start="3615" selection-end="3631" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1855#1872#0" expanded="true" />
-            <element signature="e#4339#4345#0" expanded="true" />
-            <element signature="e#4395#4401#0" expanded="true" />
-            <element signature="e#4451#4457#0" expanded="true" />
-            <element signature="e#4508#4514#0" expanded="true" />
-            <element signature="e#4565#4571#0" expanded="true" />
-            <element signature="e#4622#4628#0" expanded="true" />
-          </folding>
+        <state line="164" column="25" selection-start="4865" selection-end="4865" vertical-scroll-proportion="-90.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/FeatureTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/net/masterthought/cucumber/ReportInformationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="177" selection-end="177" vertical-scroll-proportion="0.10373444">
+        <state line="16" column="31" selection-start="411" selection-end="411" vertical-scroll-proportion="0.4733728">
           <folding>
-            <element signature="e#1489#1497#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

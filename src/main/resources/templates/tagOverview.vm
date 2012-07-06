@@ -3,7 +3,7 @@
 <head>
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
-    <script src="${jenkins_base}plugin/cucumber-reports/charts/AC_RunActiveContent.js" language="javascript"></script>
+    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
     <script language="JavaScript" type="text/javascript">
         <!--
         var requiredMajorVersion = 10;
@@ -13,17 +13,17 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Cucumber-JVM Html Reports - Tag Overview</title>
-    <link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/style.css" type="text/css"
+    <link rel="stylesheet" href="blue/css/style.css" type="text/css"
           media="screen"/>
-    <link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/skin/style.css" type="text/css"
+    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css"
           media="screen"/>
-    <link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/960.css" type="text/css"
+    <link rel="stylesheet" href="blue/css/960.css" type="text/css"
           media="screen"/>
-    <link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/reset.css" type="text/css"
+    <link rel="stylesheet" href="blue/css/reset.css" type="text/css"
           media="screen"/>
-    <link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/text.css" type="text/css"
+    <link rel="stylesheet" href="blue/css/text.css" type="text/css"
           media="screen"/>
-    <link rel="shortcut icon" href="${jenkins_base}plugin/cucumber-reports/blue/favicon.ico"/>
+    <link rel="shortcut icon" href="blue/favicon.ico"/>
     <style>
         .feature-keyword {
             font-weight: bold;
@@ -167,9 +167,9 @@
                             'salign', 'TL',
                             'bgcolor', '#777788',
                             'wmode', 'opaque',
-                            'movie', '${jenkins_base}plugin/cucumber-reports/charts/charts',
-                            'src', '${jenkins_base}plugin/cucumber-reports/charts/charts',
-                            'FlashVars', "library_path=${jenkins_base}plugin/cucumber-reports/charts/charts_library&xml_data=$chart_data",
+                            'movie', 'charts/charts',
+                            'src', 'charts/charts',
+                            'FlashVars', "library_path=charts/charts_library&xml_data=$chart_data",
                             'id', 'my_chart',
                             'name', 'my_chart',
                             'menu', 'true',

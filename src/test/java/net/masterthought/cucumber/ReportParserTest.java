@@ -52,6 +52,18 @@ public class ReportParserTest {
         assertThat(reportParser.getFeatures().entrySet().size(), is(1));
     }
 
+    @Test
+    public void shouldProcessCucumberReportsWithNoSteps() throws IOException {
+        ReportParser reportParser = new ReportParser(withNoStepsInJsonReport());
+        assertThat(reportParser.getFeatures().entrySet().size(), is(2));
+    }
+
+    @Test
+    public void shouldProcessCucumberReportsWithNoScenarios() throws IOException {
+        ReportParser reportParser = new ReportParser(withNoScenariosInJsonReport());
+        assertThat(reportParser.getFeatures().entrySet().size(), is(2));
+    }
+
     private List<String> validJsonReports() {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
@@ -72,5 +84,20 @@ public class ReportParserTest {
         jsonReports.add("src/test/resources/net/masterthought/cucumber/somethingelse.json");
         return jsonReports;
     }
+
+    private List<String> withNoStepsInJsonReport() {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
+        jsonReports.add("src/test/resources/net/masterthought/cucumber/nosteps.json");
+        return jsonReports;
+    }
+
+    private List<String> withNoScenariosInJsonReport() {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
+        jsonReports.add("src/test/resources/net/masterthought/cucumber/noscenario.json");
+        return jsonReports;
+    }
+
 
 }

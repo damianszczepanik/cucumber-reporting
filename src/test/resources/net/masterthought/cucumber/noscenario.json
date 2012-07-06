@@ -1,0 +1,24 @@
+[
+    {
+        "id":"account-holder-withdraws-cash",
+        "tags":[
+            {
+                "name":"@super",
+                "line":1
+            }
+        ],
+        "description":"As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed",
+        "name":"Account Holder withdraws cash",
+        "keyword":"Feature",
+        "line":2,
+        "uri":"net/masterthought/example/ATM.feature"
+    },
+    {
+        "id":"account-holder-withdraws-more-cash",
+        "description":"As an Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed",
+        "name":"Account Holder withdraws More Cash",
+        "keyword":"Feature",
+        "line":1,
+        "uri":"net/masterthought/example/ATMK.feature"
+    }
+]

@@ -40,50 +40,13 @@ public class ReportBuilder {
     }
 
     public void generateReports() throws Exception {
-//        copyResource("themes", "blue.zip");
-//        copyResource("charts", "flash_charts.zip");
-        copyThemeResource();
-        copyChartsResource();
+        copyResource("themes", "blue.zip");
+        copyResource("charts", "flash_charts.zip");
         generateFeatureOverview();
         generateFeatureReports();
-
+        generateTagReports();
+        generateTagOverview();
     }
-
-    private void copyThemeResource() throws IOException, URISyntaxException {
-          final File tmpResourcesArchive = new File(FileUtils.getTempDirectory(), "theme.zip");
-
-          InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("themes/blue.zip");
-          if (resourceArchiveInputStream == null) {
-             resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("/themes/blue.zip");
-          }
-          OutputStream resourceArchiveOutputStream = new FileOutputStream(tmpResourcesArchive);
-          try {
-            IOUtils.copy(resourceArchiveInputStream, resourceArchiveOutputStream);
-         } finally {
-            IOUtils.closeQuietly(resourceArchiveInputStream);
-            IOUtils.closeQuietly(resourceArchiveOutputStream);
-         }
-          UnzipUtils.unzipToFile(tmpResourcesArchive, reportDirectory);
-          FileUtils.deleteQuietly(tmpResourcesArchive);
-      }
-
-    private void copyChartsResource() throws IOException, URISyntaxException {
-              final File tmpResourcesArchive = new File(FileUtils.getTempDirectory(), "charts.zip");
-
-              InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("charts/flash_charts.zip");
-              if (resourceArchiveInputStream == null) {
-                 resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("/charts/flash_charts.zip");
-              }
-              OutputStream resourceArchiveOutputStream = new FileOutputStream(tmpResourcesArchive);
-              try {
-                IOUtils.copy(resourceArchiveInputStream, resourceArchiveOutputStream);
-             } finally {
-                IOUtils.closeQuietly(resourceArchiveInputStream);
-                IOUtils.closeQuietly(resourceArchiveOutputStream);
-             }
-              UnzipUtils.unzipToFile(tmpResourcesArchive, reportDirectory);
-              FileUtils.deleteQuietly(tmpResourcesArchive);
-          }
 
     public void generateFeatureReports() throws Exception {
         Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
@@ -135,23 +98,63 @@ public class ReportBuilder {
         generateReport("feature-overview.html", featureOverview, context);
     }
 
-//    private void copyResource(String resourceName, String resourceLocation) throws IOException, URISyntaxException {
-//        final File tmpResourcesArchive = new File(FileUtils.getTempDirectory(), resourceName + ".zip");
-//
-//        InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream(resourceLocation + "/" + resourceName);
-//        if (resourceArchiveInputStream == null) {
-//            resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("/" + resourceLocation + "/" + resourceName);
-//        }
-//        OutputStream resourceArchiveOutputStream = new FileOutputStream(tmpResourcesArchive);
-//        try {
-//            IOUtils.copy(resourceArchiveInputStream, resourceArchiveOutputStream);
-//        } finally {
-//            IOUtils.closeQuietly(resourceArchiveInputStream);
-//            IOUtils.closeQuietly(resourceArchiveOutputStream);
-//        }
-//        UnzipUtils.unzipToFile(tmpResourcesArchive, reportDirectory);
-//        FileUtils.deleteQuietly(tmpResourcesArchive);
-//    }
+
+    public void generateTagReports() throws Exception {
+        for (TagObject tagObject : ri.getTags()) {
+            VelocityEngine ve = new VelocityEngine();
+            ve.init(getProperties());
+            Template featureResult = ve.getTemplate("templates/tagReport.vm");
+            VelocityContext context = new VelocityContext();
+            context.put("tag", tagObject);
+            context.put("time_stamp", ri.timeStamp());
+            context.put("jenkins_base", pluginUrlPath);
+            context.put("build_project", buildProject);
+            context.put("build_number", buildNumber);
+            context.put("report_status_colour", ri.getTagReportStatusColour(tagObject));
+            generateReport(tagObject.getTagName().replace("@", "").trim() + ".html", featureResult, context);
+
+        }
+    }
+
+    public void generateTagOverview() throws Exception {
+        VelocityEngine ve = new VelocityEngine();
+        ve.init(getProperties());
+        Template featureOverview = ve.getTemplate("templates/tagOverview.vm");
+        VelocityContext context = new VelocityContext();
+        context.put("build_project", buildProject);
+        context.put("build_number", buildNumber);
+        context.put("tags", ri.getTags());
+        context.put("total_tags", ri.getTotalTags());
+        context.put("total_scenarios", ri.getTotalTagScenarios());
+        context.put("total_steps", ri.getTotalTagSteps());
+        context.put("total_passes", ri.getTotalTagPasses());
+        context.put("total_fails", ri.getTotalTagFails());
+        context.put("total_skipped", ri.getTotalTagSkipped());
+        context.put("total_pending", ri.getTotalTagPending());
+        context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
+        context.put("total_duration", ri.getTotalTagDuration());
+        context.put("time_stamp", ri.timeStamp());
+        context.put("jenkins_base", pluginUrlPath);
+        generateReport("tag-overview.html", featureOverview, context);
+    }
+
+    private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
+        final File tmpResourcesArchive = new File(FileUtils.getTempDirectory(), resourceName + ".zip");
+
+        InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream(resourceLocation + "/" + resourceName);
+        if (resourceArchiveInputStream == null) {
+            resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("/" + resourceLocation + "/" + resourceName);
+        }
+        OutputStream resourceArchiveOutputStream = new FileOutputStream(tmpResourcesArchive);
+        try {
+            IOUtils.copy(resourceArchiveInputStream, resourceArchiveOutputStream);
+        } finally {
+            IOUtils.closeQuietly(resourceArchiveInputStream);
+            IOUtils.closeQuietly(resourceArchiveOutputStream);
+        }
+        UnzipUtils.unzipToFile(tmpResourcesArchive, reportDirectory);
+        FileUtils.deleteQuietly(tmpResourcesArchive);
+    }
 
     private String getPluginUrlPath(String path) {
         return path.isEmpty() ? "/" : path;

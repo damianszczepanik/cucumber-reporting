@@ -101,16 +101,6 @@ public class Feature {
         return elements.length;
     }
 
-    private List<Util.Status> lookUpSteps() {
-        List<Util.Status> stepStatuses = new ArrayList<Util.Status>();
-        for (Element element : elements) {
-            for (Step step : element.getSteps()) {
-                stepStatuses.add(step.getStatus());
-            }
-        }
-        return stepStatuses;
-    }
-
     public int getNumberOfSteps() {
         return stepResults.getNumberOfSteps();
     }
@@ -147,17 +137,21 @@ public class Feature {
         List<Step> pendingSteps = new ArrayList<Step>();
         List<Step> missingSteps = new ArrayList<Step>();
         Long totalDuration = 0l;
-        for (Element element : elements) {
-            Step[] steps = element.getSteps();
-            for (Step step : steps) {
-                allSteps.add(step);
-                Util.Status stepStatus = step.getStatus();
-                passedSteps = Util.setStepStatus(passedSteps, step, stepStatus, Util.Status.PASSED);
-                failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
-                skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.UNDEFINED);
-                missingSteps = Util.setStepStatus(missingSteps, step, stepStatus, Util.Status.MISSING);
-                totalDuration = totalDuration + step.getDuration();
+        if (Util.itemExists(elements)) {
+            for (Element element : elements) {
+                if (Util.hasSteps(element)) {
+                    Step[] steps = element.getSteps();
+                    for (Step step : steps) {
+                        allSteps.add(step);
+                        Util.Status stepStatus = step.getStatus();
+                        passedSteps = Util.setStepStatus(passedSteps, step, stepStatus, Util.Status.PASSED);
+                        failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
+                        skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
+                        pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.UNDEFINED);
+                        missingSteps = Util.setStepStatus(missingSteps, step, stepStatus, Util.Status.MISSING);
+                        totalDuration = totalDuration + step.getDuration();
+                    }
+                }
             }
         }
         stepResults = new StepResults(allSteps, passedSteps, failedSteps, skippedSteps, pendingSteps, missingSteps, totalDuration);

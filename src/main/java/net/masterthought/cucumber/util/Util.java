@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import net.masterthought.cucumber.ScenarioTag;
 import net.masterthought.cucumber.json.*;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
@@ -59,6 +60,14 @@ public class Util {
             }
         }
         return new String(buffer);
+    }
+
+    public static <T> boolean itemExists(T[] tags) {
+        boolean result = false;
+        if (tags != null) {
+            result = tags.length != 0;
+        }
+        return result;
     }
 
     public static boolean itemExists(String item) {
@@ -150,4 +159,40 @@ public class Util {
         }
         return steps;
     }
+
+    public static int findStatusCount(List<Util.Status> statuses, Status statusToFind) {
+        int occurrence = 0;
+        for (Util.Status status : statuses) {
+            if (status == statusToFind) {
+                occurrence++;
+            }
+        }
+        return occurrence;
+    }
+
+    public static boolean hasSteps(Element element) {
+        boolean result = element.getSteps() == null || element.getSteps().length == 0;
+        if(result){
+            System.out.println("[WARNING] scenario has no steps:  " + element.getName());
+        }
+        return !result;
+    }
+
+    public static boolean hasSteps(ScenarioTag scenario) {
+        boolean result = scenario.getScenario().getSteps() == null || scenario.getScenario().getSteps().length == 0;
+        if(result){
+            System.out.println("[WARNING] scenario tag has no steps:  " + scenario.getScenario().getName());
+        }
+        return !result;
+    }
+
+    public static boolean hasScenarios(Feature feature) {
+        boolean result = feature.getElements() == null || feature.getElements().length == 0;
+        if(result){
+            System.out.println("[WARNING] feature has no scenarios:  " + feature.getName());
+        }
+        return !result;
+    }
+
+
 }
