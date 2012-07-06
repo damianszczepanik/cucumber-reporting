@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: maven:velocity:1.5-20060721.044818">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/maven/velocity/1.5-20060721.044818/velocity-1.5-20060721.044818.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/maven/velocity/1.5-20060721.044818/velocity-1.5-20060721.044818-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/maven/velocity/1.5-20060721.044818/velocity-1.5-20060721.044818-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

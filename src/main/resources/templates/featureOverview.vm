@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<script language="javascript">AC_FL_RunContent = 0;</script>
-<script language="javascript"> DetectFlashVer = 0; </script>
-<script src="charts/AC_RunActiveContent.js" language="javascript"></script>
-<script language="JavaScript" type="text/javascript">
-<!--
-var requiredMajorVersion = 10;
-var requiredMinorVersion = 0;
-var requiredRevision = 45;
--->
-</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Cucumber-JVM Html Reports - Feature Overview</title>
 	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
@@ -19,6 +10,22 @@ var requiredRevision = 45;
 	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
 	<link rel="shortcut icon" href="blue/favicon.ico" />
+    #if($flashCharts)
+        <script language="javascript">AC_FL_RunContent = 0;</script>
+        <script language="javascript"> DetectFlashVer = 0; </script>
+        <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+        <script language="JavaScript" type="text/javascript">
+        <!--
+        var requiredMajorVersion = 10;
+        var requiredMinorVersion = 0;
+        var requiredRevision = 45;
+        -->
+        </script>
+    #else
+      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js?2.5.0"></script>
+      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?2.5.0"></script>
+    #end
 <style>
 .feature-keyword{font-weight:bold;}
 .feature-description{padding-left:15px;font-style:italic;background-color:beige;}
@@ -72,7 +79,9 @@ table.stats-table td {
 			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
 			<div class="grid_6" id="nav">
 				<ul>
-				<li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                    #if($fromJenkins)
+                        <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                    #end
 				<li><a href="tag-overview.html">Tag Overview</a></li>
 				</ul>
 			</div>
@@ -82,14 +91,22 @@ table.stats-table td {
 		<div class="container_12">
 			<div class="grid_9 heading">
 				<h2>Feature Overview for Build: $build_number</h2>
-				<span class="subhead">The following graph shows number of steps passing, failing and skipped for this build:</span>
+				<span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="container_12">
 		<div class="grid_12">
-	 <div style="text-align:center;"><script language="JavaScript" type="text/javascript">
+
+
+#if($flashCharts)
+	 <div style="text-align:center;">
+
+         <table>
+             <tr>
+                 <td>
+         <script language="JavaScript" type="text/javascript">
 <!--
 if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 	alert("This page requires AC_RunActiveContent.js.");
@@ -106,7 +123,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 			'wmode', 'opaque',
 			'movie', 'charts/charts',
 			'src', 'charts/charts',
-			'FlashVars', "library_path=charts/charts_library&xml_data=$chart_data",
+			'FlashVars', "library_path=charts/charts_library&xml_data=$step_data",
 			'id', 'my_chart',
 			'name', 'my_chart',
 			'menu', 'true',
@@ -129,7 +146,113 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 <noscript>
 	<P>This content requires JavaScript.</P>
 </noscript>
+ </td>
+ <td width="10">&nbsp;</td>
+                 <td>
+     <script language="JavaScript" type="text/javascript">
+   <!--
+   if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
+   	alert("This page requires AC_RunActiveContent.js.");
+   } else {
+   	var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+   	if(hasRightVersion) {
+   		AC_FL_RunContent(
+   			'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+   			'width', '480',
+   			'height', '300',
+   			'scale', 'noscale',
+   			'salign', 'TL',
+   			'bgcolor', '#bbccff',
+   			'wmode', 'opaque',
+   			'movie', 'charts/charts',
+   			'src', 'charts/charts',
+   			'FlashVars', "library_path=charts/charts_library&xml_data=$scenario_data",
+   			'id', 'my_chart',
+   			'name', 'my_chart',
+   			'menu', 'true',
+   			'allowFullScreen', 'true',
+   			'allowScriptAccess','sameDomain',
+   			'quality', 'high',
+   			'align', 'middle',
+   			'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+   			'play', 'true',
+   			'devicefont', 'false'
+   			);
+   	} else {
+   		var alternateContent = 'This content requires the Adobe Flash Player. '
+   		+ '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+   		document.write(alternateContent);
+   	}
+   }
+   // -->
+   </script>
+   <noscript>
+   	<P>This content requires JavaScript.</P>
+   </noscript>
+
+ </td>
+ </tr>
+ </table>
 </div>
+#else
+    <div style="text-align:center;" id="pieChartContainer"><script language="JavaScript" type="text/javascript">
+  <!--
+
+      var w = 270,                        //width
+      h = 270,                            //height
+      r = Math.min(w, h) / 2,                            //radius
+      color = d3.scale.category20c();     //builtin range of colors
+
+      var statusColors = [
+      '#C5D88A', // PASSED
+      '#D88A8A', // FAILED
+      '#2DEAEC', // SKIPPED
+      '#ebcc81'  // PENDING
+      ];
+
+      data = $chart_data;
+
+      var vis = d3.select("#pieChartContainer")
+          .append("svg:svg")              //create the SVG element inside the <body>
+          .data([data])                   //associate our data with the document
+              .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+              .attr("height", h)
+          .append("svg:g")                //make a group to hold our pie chart
+              .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+
+      var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+          .innerRadius(r - 70).outerRadius(r - 20);
+
+      var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+          .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+
+      var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+          .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+          .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+              .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+                  .attr("class", "slice");    //allow us to style things in the slices (like text)
+
+          arcs.append("svg:path")
+                  .attr("fill", function(d, i) { return statusColors[i]; } ) //set the color for each slice to be chosen from the color function defined above
+                  .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+
+          arcs.append("svg:text")                                     //add a label to each slice
+                  .attr("transform", function(d) {                    //set the label's origin to the center of the arc
+                  //we have to make sure to set these before calling arc.centroid
+                  d.innerRadius = 0;
+                  d.outerRadius = r;
+                  return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+              })
+              .attr("text-anchor", "middle")                          //center the text on it's origin
+              .text(function(d, i) { return data[i].value > 0 ? data[i].label : ""; });        //get the label from our original data array
+
+  // -->
+  </script>
+  <noscript>
+  	<P>This content requires JavaScript.</P>
+  </noscript>
+  </div>
+#end
 	<br/>
 		<div class="grid_12 hr"></div>
 

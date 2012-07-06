@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import net.masterthought.cucumber.charts.FlashChartBuilder;
+import net.masterthought.cucumber.charts.PieChartBuilder;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
 import org.apache.commons.io.FileUtils;
@@ -23,8 +24,11 @@ public class ReportBuilder {
     private String buildNumber;
     private String buildProject;
     private String pluginUrlPath;
+    private boolean flashCharts;
+    private boolean runWithJenkins;
 
-    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails) throws IOException {
+
+    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts,  boolean runWithJenkins) throws IOException {
         ConfigurationOptions.setSkippedFailsBuild(skippedFails);
         ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
         ReportParser reportParser = new ReportParser(jsonReports);
@@ -33,6 +37,8 @@ public class ReportBuilder {
         this.buildNumber = buildNumber;
         this.buildProject = buildProject;
         this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
+        this.flashCharts = flashCharts;
+        this.runWithJenkins = runWithJenkins;
     }
 
     public boolean getBuildStatus() {
@@ -66,6 +72,7 @@ public class ReportBuilder {
                 context.put("scenarios", feature.getElements());
                 context.put("time_stamp", ri.timeStamp());
                 context.put("jenkins_base", pluginUrlPath);
+                context.put("fromJenkins", runWithJenkins);
                 generateReport(feature.getFileName(), featureResult, context);
             }
         }
@@ -91,10 +98,17 @@ public class ReportBuilder {
         context.put("total_fails", numberTotalFailed);
         context.put("total_skipped", numberTotalSkipped);
         context.put("total_pending", numberTotalPending);
-        context.put("chart_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
+        if(flashCharts){
+            context.put("step_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
+            context.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
+        } else {
+            context.put("chart_data", PieChartBuilder.build(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
+        }
         context.put("time_stamp", ri.timeStamp());
         context.put("total_duration", ri.getTotalDurationAsString());
         context.put("jenkins_base", pluginUrlPath);
+        context.put("fromJenkins", runWithJenkins);
+        context.put("flashCharts", flashCharts);
         generateReport("feature-overview.html", featureOverview, context);
     }
 
@@ -110,6 +124,7 @@ public class ReportBuilder {
             context.put("jenkins_base", pluginUrlPath);
             context.put("build_project", buildProject);
             context.put("build_number", buildNumber);
+            context.put("fromJenkins", runWithJenkins);
             context.put("report_status_colour", ri.getTagReportStatusColour(tagObject));
             generateReport(tagObject.getTagName().replace("@", "").trim() + ".html", featureResult, context);
 
@@ -135,6 +150,7 @@ public class ReportBuilder {
         context.put("total_duration", ri.getTotalTagDuration());
         context.put("time_stamp", ri.timeStamp());
         context.put("jenkins_base", pluginUrlPath);
+        context.put("fromJenkins", runWithJenkins);
         generateReport("tag-overview.html", featureOverview, context);
     }
 

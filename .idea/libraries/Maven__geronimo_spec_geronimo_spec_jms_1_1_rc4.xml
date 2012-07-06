@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: geronimo-spec:geronimo-spec-jms:1.1-rc4">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/geronimo-spec/geronimo-spec-jms/1.1-rc4/geronimo-spec-jms-1.1-rc4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/geronimo-spec/geronimo-spec-jms/1.1-rc4/geronimo-spec-jms-1.1-rc4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/geronimo-spec/geronimo-spec-jms/1.1-rc4/geronimo-spec-jms-1.1-rc4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

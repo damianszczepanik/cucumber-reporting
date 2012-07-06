@@ -19,6 +19,8 @@ public class ReportInformation {
     private List<Step> totalSkippedSteps = new ArrayList<Step>();
     private List<Step> totalUndefinedSteps = new ArrayList<Step>();
     private List<Step> totalMissingSteps = new ArrayList<Step>();
+    private List<Element> numberPassingScenarios = new ArrayList<Element>();
+    private List<Element> numberFailingScenarios = new ArrayList<Element>();
     private Long totalDuration = 0l;
     List<TagObject> tagMap = new ArrayList<TagObject>();
     private int totalTagScenarios = 0;
@@ -142,6 +144,13 @@ public class ReportInformation {
         return Util.formatDuration(totalTagDuration);
     }
 
+    public int getTotalScenariosPassed() {
+         return numberPassingScenarios.size();
+     }
+
+    public int getTotalScenariosFailed() {
+         return numberFailingScenarios.size();
+     }
 
     private void processTags() {
         for (TagObject tag : tagMap) {
@@ -164,7 +173,6 @@ public class ReportInformation {
         }
     }
 
-
     private void processFeatures() {
         for (Feature feature : features) {
             List<ScenarioTag> scenarioList = new ArrayList<ScenarioTag>();
@@ -172,6 +180,9 @@ public class ReportInformation {
             if (Util.itemExists(scenarios)) {
                 numberOfScenarios = numberOfScenarios + scenarios.length;
                 for (Element scenario : scenarios) {
+
+                    numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
+                    numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
 
                     //process tags
                     if (feature.hasTags()) {

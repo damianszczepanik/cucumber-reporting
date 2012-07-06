@@ -160,6 +160,13 @@ public class Util {
         return steps;
     }
 
+    public static List<Element> setScenarioStatus(List<Element> scenarios, Element scenario, Util.Status scenarioStatus, Util.Status status) {
+        if (scenarioStatus == status) {
+            scenarios.add(scenario);
+        }
+        return scenarios;
+    }
+
     public static int findStatusCount(List<Util.Status> statuses, Status statusToFind) {
         int occurrence = 0;
         for (Util.Status status : statuses) {
@@ -172,7 +179,7 @@ public class Util {
 
     public static boolean hasSteps(Element element) {
         boolean result = element.getSteps() == null || element.getSteps().length == 0;
-        if(result){
+        if (result) {
             System.out.println("[WARNING] scenario has no steps:  " + element.getName());
         }
         return !result;
@@ -180,7 +187,7 @@ public class Util {
 
     public static boolean hasSteps(ScenarioTag scenario) {
         boolean result = scenario.getScenario().getSteps() == null || scenario.getScenario().getSteps().length == 0;
-        if(result){
+        if (result) {
             System.out.println("[WARNING] scenario tag has no steps:  " + scenario.getScenario().getName());
         }
         return !result;
@@ -188,7 +195,7 @@ public class Util {
 
     public static boolean hasScenarios(Feature feature) {
         boolean result = feature.getElements() == null || feature.getElements().length == 0;
-        if(result){
+        if (result) {
             System.out.println("[WARNING] feature has no scenarios:  " + feature.getName());
         }
         return !result;

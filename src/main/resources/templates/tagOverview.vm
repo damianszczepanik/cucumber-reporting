@@ -129,7 +129,9 @@
 
         <div class="grid_6" id="nav">
             <ul>
-                <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                #if($fromJenkins)
+                  <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                #end
                 <li><a href="feature-overview.html">Feature Overview</a></li>
             </ul>
         </div>
