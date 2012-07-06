@@ -1,12 +1,8 @@
 package net.masterthought.cucumber;
 
 
-import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
 import org.junit.Test;
-import sun.jvm.hotspot.debugger.linux.amd64.LinuxAMD64ThreadContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
