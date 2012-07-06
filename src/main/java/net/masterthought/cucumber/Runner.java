@@ -15,10 +15,11 @@ public class Runner {
     //        list.add("/Users/kings/.jenkins/jobs/aaaaa/builds/15/cucumber-html-reports/ccp_cucumber.json");
     //        list.add("/Users/kings/.jenkins/jobs/aaaaa/builds/15/cucumber-html-reports/ss_cucumber.json");
     //        list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/cukes.json");
-            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project1.json");
-            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project2.json");
+//            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project1.json");
+//            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project2.json");
+            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/c.json");
 
-           ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","15","cucumber-jvm",false,false,true,true);
+           ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","7","cucumber-jvm",false,false,true,true);
            reportBuilder.generateReports();
     //       boolean result = featureReportGenerator.getBuildStatus();
     //       System.out.println("status: " + result);

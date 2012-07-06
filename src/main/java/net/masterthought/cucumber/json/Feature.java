@@ -69,7 +69,10 @@ public class Feature {
                 return step.getStatus();
             }
         };
-        List<Util.Status> results = Util.collectScenarios(elements, scenarioStatus);
+        List<Util.Status> results = new ArrayList<Util.Status>();
+        if (Util.itemExists(elements)) {
+            results = Util.collectScenarios(elements, scenarioStatus);
+        }
         return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
     }
 
@@ -98,7 +101,11 @@ public class Feature {
     }
 
     public int getNumberOfScenarios() {
-        return elements.length;
+        int result = 0;
+        if (Util.itemExists(elements)) {
+          result = elements.length;
+        }
+        return result;
     }
 
     public int getNumberOfSteps() {
