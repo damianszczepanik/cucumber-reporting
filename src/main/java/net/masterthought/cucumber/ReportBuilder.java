@@ -1,12 +1,5 @@
 package net.masterthought.cucumber;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import net.masterthought.cucumber.charts.FlashChartBuilder;
 import net.masterthought.cucumber.charts.PieChartBuilder;
 import net.masterthought.cucumber.json.Feature;
@@ -16,6 +9,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+
+import java.io.*;
+import java.net.URISyntaxException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class ReportBuilder {
 
@@ -155,7 +155,7 @@ public class ReportBuilder {
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
-        final File tmpResourcesArchive = new File(FileUtils.getTempDirectory(), resourceName + ".zip");
+        final File tmpResourcesArchive = File.createTempFile("temp",resourceName + ".zip");
 
         InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream(resourceLocation + "/" + resourceName);
         if (resourceArchiveInputStream == null) {
