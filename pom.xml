@@ -6,7 +6,101 @@
     <packaging>jar</packaging>
     <version>0.0.14</version>
     <name>cucumber-reporting</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/masterthought/cucumber-reporting</url>
+
+    <description>
+        This project provides pretty html reports for Cucumber. It works by generating html from the cucumber json
+        report formatter. So can be used anywhere a json report is generated. Current use is in the cucumber jenkins
+        plugin and a maven mojo to generate the same report from mvn command line when running locally.
+    </description>
+
+    <licenses>
+        <license>
+            <comments>Use this project wherever you like</comments>
+            <name>LGPL 2.1</name>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kingsleyh</id>
+            <name>Kingsley Hendrickse</name>
+            <email>kingsley.hendrickse@gmail.com</email>
+            <timezone>GMT</timezone>
+            <roles>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/masterthought/cucumber-reporting.git</connection>
+        <developerConnection>
+            scm:git:git://github.com/masterthought/cucumber-reporting.git
+        </developerConnection>
+        <url>https://github.com/masterthought/cucumber-reporting</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+    		<profile>
+    			<id>release-sign-artifacts</id>
+
+    			<activation>
+    				<property>
+    					<!--
+    						will be set by the release plugin upon performing mvn
+    						release:perform
+    					-->
+    					<name>performRelease</name>
+    					<value>true</value>
+    				</property>
+    			</activation>
+
+    			<properties>
+    				<gpg.keyname>E91DA67C</gpg.keyname>
+    				<release.username>kingsleyh</release.username>
+    			</properties>
+
+                <!-- remember to put this in .m2/settings.xml
+                <servers>
+                      <server>
+                         <id>nexus-releases</id>
+                         <username>kingsleyh</username>
+                         <password>password</password>
+                      </server>
+                   </servers>
+                -->
+
+    			<build>
+    				<plugins>
+    					<plugin>
+    						<groupId>org.apache.maven.plugins</groupId>
+    						<artifactId>maven-gpg-plugin</artifactId>
+                            <version>1.4</version>
+    						<executions>
+    							<execution>
+    								<id>sign-artifacts</id>
+    								<phase>verify</phase>
+    								<goals>
+    									<goal>sign</goal>
+    								</goals>
+    							</execution>
+    						</executions>
+    					</plugin>
+    				</plugins>
+    			</build>
+
+    		</profile>
+    	</profiles>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -35,14 +129,19 @@
             <version>r09</version>
         </dependency>
         <dependency>
-        	<groupId>org.mockito</groupId>
-        	<artifactId>mockito-all</artifactId>
-        	<version>1.9.0</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
-          <groupId>commons-io</groupId>
-          <artifactId>commons-io</artifactId>
-          <version>2.3</version>
-       </dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-gpg-plugin</artifactId>
+           <version>1.4</version>
+        </dependency>
     </dependencies>
 </project>
