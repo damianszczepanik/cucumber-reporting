@@ -3,10 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>0.0.14</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/masterthought/cucumber-reporting</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/masterthought/cucumber-reporting.git</connection>
+        <developerConnection>scm:git:git@github.com/masterthought/cucumber-reporting.git</developerConnection>
+        <url>git://github.com/masterthought/cucumber-reporting.git</url>
+    </scm>
 
     <description>
         This project provides pretty html reports for Cucumber. It works by generating html from the cucumber json
@@ -33,14 +39,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/masterthought/cucumber-reporting.git</connection>
-        <developerConnection>
-            scm:git:git@github.com/masterthought/cucumber-reporting.git
-        </developerConnection>
-        <url>git://github.com/masterthought/cucumber-reporting.git</url>
-    </scm>
-
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
@@ -50,56 +48,56 @@
     </distributionManagement>
 
     <profiles>
-    		<profile>
-    			<id>release-sign-artifacts</id>
+        <profile>
+            <id>release-sign-artifacts</id>
 
-    			<activation>
-    				<property>
-    					<!--
-    						will be set by the release plugin upon performing mvn
-    						release:perform
-    					-->
-    					<name>performRelease</name>
-    					<value>true</value>
-    				</property>
-    			</activation>
+            <activation>
+                <property>
+                    <!--
+                                 will be set by the release plugin upon performing mvn
+                                 release:perform
+                             -->
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
 
-    			<properties>
-    				<gpg.keyname>E91DA67C</gpg.keyname>
-    				<release.username>kingsleyh</release.username>
-    			</properties>
+            <properties>
+                <gpg.keyname>E91DA67C</gpg.keyname>
+                <release.username>kingsleyh</release.username>
+            </properties>
 
-                <!-- remember to put this in .m2/settings.xml
-                <servers>
-                      <server>
-                         <id>nexus-releases</id>
-                         <username>kingsleyh</username>
-                         <password>password</password>
-                      </server>
-                   </servers>
-                -->
+            <!-- remember to put this in .m2/settings.xml
+            <servers>
+                  <server>
+                     <id>nexus-releases</id>
+                     <username>kingsleyh</username>
+                     <password>password</password>
+                  </server>
+               </servers>
+            -->
 
-    			<build>
-    				<plugins>
-    					<plugin>
-    						<groupId>org.apache.maven.plugins</groupId>
-    						<artifactId>maven-gpg-plugin</artifactId>
-                            <version>1.4</version>
-    						<executions>
-    							<execution>
-    								<id>sign-artifacts</id>
-    								<phase>verify</phase>
-    								<goals>
-    									<goal>sign</goal>
-    								</goals>
-    							</execution>
-    						</executions>
-    					</plugin>
-    				</plugins>
-    			</build>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
 
-    		</profile>
-    	</profiles>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -139,9 +137,9 @@
             <version>2.3</version>
         </dependency>
         <dependency>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-gpg-plugin</artifactId>
-           <version>1.4</version>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
 </project>
