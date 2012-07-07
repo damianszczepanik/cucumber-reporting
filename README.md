@@ -2,7 +2,7 @@
 
 This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server.It publishes pretty html reports showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful.
 
-"!https://secure.travis-ci.org/kingsleyh/cucumber-reporting.png!":http://travis-ci.org/kingsleyh/cucumber-reporting
+[![Build Status](https://secure.travis-ci.org/kingsleyh/cucumber-reporting.png)](http://travis-ci.org/kingsleyh/cucumber-reporting)
 
 ## Background
 
