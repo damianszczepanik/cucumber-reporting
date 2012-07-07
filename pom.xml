@@ -45,29 +45,48 @@
         </developer>
     </developers>
 
-    <properties>
-        <gpg.keyname>E91DA67C</gpg.keyname>
-        <release.username>kingsleyh</release.username>
-    </properties>
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+            <activation>
+                <property>
+                    <!--
+                                 will be set by the release plugin upon performing mvn
+                                 release:perform
+                             -->
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <properties>
+                <gpg.keyname>E91DA67C</gpg.keyname>
+                <release.username>kingsleyh</release.username>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+    </profiles>
+
 
     <dependencies>
         <dependency>
