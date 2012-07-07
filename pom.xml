@@ -36,9 +36,9 @@
     <scm>
         <connection>scm:git:git://github.com/masterthought/cucumber-reporting.git</connection>
         <developerConnection>
-            scm:git:git://github.com/masterthought/cucumber-reporting.git
+            scm:git:git@github.com/masterthought/cucumber-reporting.git
         </developerConnection>
-        <url>https://github.com/masterthought/cucumber-reporting</url>
+        <url>git://github.com/masterthought/cucumber-reporting.git</url>
     </scm>
 
     <distributionManagement>
