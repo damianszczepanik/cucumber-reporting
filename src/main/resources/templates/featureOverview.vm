@@ -22,9 +22,10 @@
         -->
         </script>
     #else
-      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
-      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js?2.5.0"></script>
-      <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?2.5.0"></script>
+        <script src="js/raphael.js"></script>
+        <script src="js/g.raphael-min.js"></script>
+        <script src="js/g.pie-min.js"></script>
+        <script src="js/g.bar-min.js"></script>
     #end
 <style>
 .feature-keyword{font-weight:bold;}
@@ -195,62 +196,30 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
  </table>
 </div>
 #else
-    <div style="text-align:center;" id="pieChartContainer"><script language="JavaScript" type="text/javascript">
-  <!--
+    <script>
+               window.onload = function () {
+                   var steps = Raphael("steps_chart");
+                   steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
+                   steps.piechart(200, 150, 120, [$total_passes, $total_fails, $total_skipped, $total_pending], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
 
-      var w = 270,                        //width
-      h = 270,                            //height
-      r = Math.min(w, h) / 2,                            //radius
-      color = d3.scale.category20c();     //builtin range of colors
+                   var scenarios = Raphael("scenarios_chart");
+                   scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
+                   scenarios.piechart(200, 150, 120, [$scenarios_passed,$scenarios_failed], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
 
-      var statusColors = [
-      '#C5D88A', // PASSED
-      '#D88A8A', // FAILED
-      '#2DEAEC', // SKIPPED
-      '#ebcc81'  // PENDING
-      ];
-
-      data = $chart_data;
-
-      var vis = d3.select("#pieChartContainer")
-          .append("svg:svg")              //create the SVG element inside the <body>
-          .data([data])                   //associate our data with the document
-              .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
-              .attr("height", h)
-          .append("svg:g")                //make a group to hold our pie chart
-              .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
-
-      var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
-          .innerRadius(r - 70).outerRadius(r - 20);
-
-      var pie = d3.layout.pie()           //this will create arc data for us given a list of values
-          .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
-
-      var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
-          .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
-          .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
-              .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                  .attr("class", "slice");    //allow us to style things in the slices (like text)
-
-          arcs.append("svg:path")
-                  .attr("fill", function(d, i) { return statusColors[i]; } ) //set the color for each slice to be chosen from the color function defined above
-                  .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
-
-          arcs.append("svg:text")                                     //add a label to each slice
-                  .attr("transform", function(d) {                    //set the label's origin to the center of the arc
-                  //we have to make sure to set these before calling arc.centroid
-                  d.innerRadius = 0;
-                  d.outerRadius = r;
-                  return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
-              })
-              .attr("text-anchor", "middle")                          //center the text on it's origin
-              .text(function(d, i) { return data[i].value > 0 ? data[i].label : ""; });        //get the label from our original data array
-
-  // -->
-  </script>
+               };
+           </script>
   <noscript>
   	<P>This content requires JavaScript.</P>
   </noscript>
+
+    <table>
+           <tr>
+               <td> <div style="background-color: #E6FCFF;width:480px;height:300px;border: 1px solid gray;" id="steps_chart"></div></td>
+               <td width="10">&nbsp;</td>
+               <td> <div style="background-color: #006699;width:480px;height:300px;border: 1px solid gray;" id="scenarios_chart"></div></td>
+           </tr>
+       </table>
+
   </div>
 #end
 	<br/>

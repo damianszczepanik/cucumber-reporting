@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <script language="javascript">AC_FL_RunContent = 0;</script>
-    <script language="javascript"> DetectFlashVer = 0; </script>
-    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
-    <script language="JavaScript" type="text/javascript">
-        <!--
-        var requiredMajorVersion = 10;
-        var requiredMinorVersion = 0;
-        var requiredRevision = 45;
-        -->
-    </script>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Cucumber-JVM Html Reports - Tag Overview</title>
     <link rel="stylesheet" href="blue/css/style.css" type="text/css"
           media="screen"/>
@@ -24,6 +14,59 @@
     <link rel="stylesheet" href="blue/css/text.css" type="text/css"
           media="screen"/>
     <link rel="shortcut icon" href="blue/favicon.ico"/>
+
+    #if($flashCharts)
+           <script language="javascript">AC_FL_RunContent = 0;</script>
+           <script language="javascript"> DetectFlashVer = 0; </script>
+           <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+           <script language="JavaScript" type="text/javascript">
+           <!--
+           var requiredMajorVersion = 10;
+           var requiredMinorVersion = 0;
+           var requiredRevision = 45;
+           -->
+           </script>
+       #else
+           <script type="text/javascript" src="js/jquery.min.js"></script>
+           <script type="text/javascript" src="js/raphael.js"></script>
+           <script type="text/javascript" src="js/jquery.enumerable.js"></script>
+           <script type="text/javascript" src="js/jquery.tufte-graph.js"></script>
+           <script type="text/javascript" src="js/jquery.rotate.js"></script>
+
+           <script type="text/javascript">
+               $(document).ready(function () {
+
+                   jQuery('#stacked-graph').tufteBar({
+                       data:[
+                           $chart_rows
+                       ],
+                      color:function (index, stackedIndex) {
+                           return ['#88dd11', '#cc1134', '#88aaff', '#FBB917'][stackedIndex]
+                       },
+                       barLabel: function(index){
+                         return ''
+                       },
+                       barWidth: 0.9,
+                       axisLabel:function (index) {
+                           if(this[1].label.length > 10) {
+                           res = this[1].label.substring(0,10)+"..."
+                           } else {
+                            res = this[1].label
+                           }
+                           return res;
+                       },
+                       legend:{
+                           data:["Pending", "Skipped", "Failed", "Passed"],
+                           color:function (index) {
+                                                      return ['#FBB917','#88aaff','#cc1134','#88dd11'][index]
+                                                  }
+                       }
+                   });
+
+               });
+     </script>
+       #end
+
     <style>
         .feature-keyword {
             font-weight: bold;
@@ -119,7 +162,73 @@
             background-color: white;
             -moz-border-radius:;
         }
+
+        .graph {
+          margin-bottom: 50px;
+          margin-top: 30px;
+          clear: both;
+          font-family: georgia, serif;
+          font-size: 14px;
+        }
+
+        .graph-header h3 {
+          margin-bottom: 0px;
+        }
+        .graph-header {
+          text-align: center;
+        }
+        .graph-header p {
+          margin-top: 0px;
+        }
+
+        .graph .legend td, .graph .legend, .graph .legend tr {
+          padding: 0px;
+          margin: 0px;
+          border-collapse:collapse;
+        }
+
+        .graph .legend {
+          margin-left: 10px;
+        }
+        .graph .legend td {
+          padding-right: 5px;
+        }
+
+        .graph .legend .color-box {
+          width: 14px;
+          height: 10px;
+          overflow: hidden;
+        }
     </style>
+
+     <style>
+         .graph .label {
+                  text-align: center;
+                  padding-top: 5px;
+                  padding-bottom: 5px;
+                    display: block;
+                position: absolute;
+                right: -5px;
+                top: 15px;
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                }
+     </style>
+     <!--[if IE]>
+         <style>
+             .graph .label {
+                    text-align: center;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                      display: block;
+                  position: absolute;
+                  right: -5px;
+                  top: 15px;
+         		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+         		right:-15px; top:5px;
+         	}
+         </style>
+         <![endif]-->
 
 </head>
 <body id="top">
@@ -153,7 +262,7 @@
             <div><p>You have no tags in your cucumber features</p></div>
         #else
 
-
+            #if($flashCharts)
         <div style="text-align:center;"><script language="JavaScript" type="text/javascript">
             <!--
             if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
@@ -195,6 +304,14 @@
                 <P>This content requires JavaScript.</P>
             </noscript>
         </div>
+            #else
+                <div>
+                            <div style="background-color: #E6FCFF;width:800px;height:450px;border: 1px solid gray;" >
+                              <div id='stacked-graph' class='graph' style='width:630px; height: 340px;'></div>
+                             </div>
+                    <br/>
+              </div>
+            #end
         <br/>
 
         <div class="grid_12 hr"></div>

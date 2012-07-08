@@ -2,26 +2,88 @@ package net.masterthought.cucumber.charts;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import net.masterthought.cucumber.TagObject;
 
-import java.util.List;
+import java.util.*;
 
 public class PieChartBuilder {
 
-   /**
-    * Create the data for the Pie chart.
-    *
-    * @see https://gist.github.com/1203641 for pie chart example with label
-    * @see http://bl.ocks.org/1346395 for simple pie chart example
-    */
-   public static String build(int total_passed, int total_failed, int total_skipped, int total_pending) {
-      List<ChartItem> chartItems = Lists.newArrayList();
-      chartItems.add(new ChartItem("Passed", total_passed));
-      chartItems.add(new ChartItem("Failed", total_failed));
-      chartItems.add(new ChartItem("Skipped", total_skipped));
-      chartItems.add(new ChartItem("Pending", total_pending));
+    class ValueComparator implements Comparator {
 
-      Gson gson = new Gson();
-      return gson.toJson(chartItems);
-   }
+        Map base;
+
+        public ValueComparator(Map base) {
+            this.base = base;
+        }
+
+        public int compare(Object a, Object b) {
+
+            if ((Integer) base.get(a) < (Integer) base.get(b)) {
+                return 1;
+            } else if ((Integer) base.get(a) == (Integer) base.get(b)) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped, int numberTotalPending) {
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        ValueComparator bvc = new ValueComparator(map);
+        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
+
+        map.put("#88dd11", numberTotalPassed);
+        map.put("#cc1134", numberTotalFailed);
+        map.put("#88aaff", numberTotalSkipped);
+        map.put("#FBB917", numberTotalPending);
+
+        sorted_map.putAll(map);
+        List<String> colours = new ArrayList<String>();
+        for (String colour : sorted_map.keySet()) {
+            colours.add(colour);
+        }
+        return colours;
+    }
+
+    public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        ValueComparator bvc = new ValueComparator(map);
+        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
+
+        map.put("#88dd11", numberTotalPassed);
+        map.put("#cc1134", numberTotalFailed);
+
+        sorted_map.putAll(map);
+        List<String> colours = new ArrayList<String>();
+        for (String colour : sorted_map.keySet()) {
+            colours.add(colour);
+        }
+        return colours;
+    }
+
+    public static String generateTagChartData(List<TagObject> tagObjectList) {
+//        List<Integer> passed = new ArrayList<Integer>();
+//        List<Integer> failed = new ArrayList<Integer>();
+//        List<Integer> skipped = new ArrayList<Integer>();
+//        List<Integer> pending = new ArrayList<Integer>();
+//        for (TagObject tag : tagObjectList) {
+//            passed.add(tag.getNumberOfPasses());
+//            failed.add(tag.getNumberOfFailures());
+//            skipped.add(tag.getNumberOfSkipped());
+//            pending.add(tag.getNumberOfPending());
+//        }
+//        return "[" + passed.toString() + "," + failed.toString() + "," + skipped.toString() + "," + pending.toString() + "]";
+
+        StringBuffer buffer = new StringBuffer();
+        for (TagObject tag : tagObjectList) {
+           buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
+        }
+        return buffer.toString();
+
+
+    }
+
+
 
 }

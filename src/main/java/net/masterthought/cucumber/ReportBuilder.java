@@ -12,10 +12,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 public class ReportBuilder {
 
@@ -48,6 +45,7 @@ public class ReportBuilder {
     public void generateReports() throws Exception {
         copyResource("themes", "blue.zip");
         copyResource("charts", "flash_charts.zip");
+        copyResource("charts", "js.zip");
         generateFeatureOverview();
         generateFeatureReports();
         generateTagReports();
@@ -102,7 +100,13 @@ public class ReportBuilder {
             context.put("step_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
             context.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
         } else {
-            context.put("chart_data", PieChartBuilder.build(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
+            PieChartBuilder pie = new PieChartBuilder();
+            List<String> stepColours = pie.orderStepsByValue(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending);
+            context.put("step_data", stepColours);
+            context.put("scenarios_passed",ri.getTotalScenariosPassed());
+            context.put("scenarios_failed",ri.getTotalScenariosFailed());
+            List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed());
+            context.put("scenario_data", scenarioColours);
         }
         context.put("time_stamp", ri.timeStamp());
         context.put("total_duration", ri.getTotalDurationAsString());
@@ -146,7 +150,11 @@ public class ReportBuilder {
         context.put("total_fails", ri.getTotalTagFails());
         context.put("total_skipped", ri.getTotalTagSkipped());
         context.put("total_pending", ri.getTotalTagPending());
+        if(flashCharts){
         context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
+        } else {
+          context.put("chart_rows", PieChartBuilder.generateTagChartData(ri.tagMap));
+        }
         context.put("total_duration", ri.getTotalTagDuration());
         context.put("time_stamp", ri.timeStamp());
         context.put("jenkins_base", pluginUrlPath);

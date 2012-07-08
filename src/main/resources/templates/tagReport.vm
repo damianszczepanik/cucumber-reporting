@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
-	<link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/skin/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/960.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/reset.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="${jenkins_base}plugin/cucumber-reports/blue/css/text.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="${jenkins_base}plugin/cucumber-reports/blue/favicon.ico" />
+	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="blue/favicon.ico" />
 <style>
 .feature-keyword{font-weight:bold;}
 .feature-description{padding-left:15px;font-style:italic;background-color:beige;}
