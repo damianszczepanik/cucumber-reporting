@@ -1,7 +1,7 @@
 package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.charts.FlashChartBuilder;
-import net.masterthought.cucumber.charts.PieChartBuilder;
+import net.masterthought.cucumber.charts.JsChartUtil;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
 import org.apache.commons.io.FileUtils;
@@ -100,7 +100,7 @@ public class ReportBuilder {
             context.put("step_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
             context.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
         } else {
-            PieChartBuilder pie = new PieChartBuilder();
+            JsChartUtil pie = new JsChartUtil();
             List<String> stepColours = pie.orderStepsByValue(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending);
             context.put("step_data", stepColours);
             context.put("scenarios_passed",ri.getTotalScenariosPassed());
@@ -153,7 +153,7 @@ public class ReportBuilder {
         if(flashCharts){
         context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
         } else {
-          context.put("chart_rows", PieChartBuilder.generateTagChartData(ri.tagMap));
+          context.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
         }
         context.put("total_duration", ri.getTotalTagDuration());
         context.put("time_stamp", ri.timeStamp());

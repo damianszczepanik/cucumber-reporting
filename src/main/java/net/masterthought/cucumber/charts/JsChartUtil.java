@@ -1,12 +1,10 @@
 package net.masterthought.cucumber.charts;
 
-import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import net.masterthought.cucumber.TagObject;
 
 import java.util.*;
 
-public class PieChartBuilder {
+public class JsChartUtil {
 
     class ValueComparator implements Comparator {
 
@@ -63,18 +61,6 @@ public class PieChartBuilder {
     }
 
     public static String generateTagChartData(List<TagObject> tagObjectList) {
-//        List<Integer> passed = new ArrayList<Integer>();
-//        List<Integer> failed = new ArrayList<Integer>();
-//        List<Integer> skipped = new ArrayList<Integer>();
-//        List<Integer> pending = new ArrayList<Integer>();
-//        for (TagObject tag : tagObjectList) {
-//            passed.add(tag.getNumberOfPasses());
-//            failed.add(tag.getNumberOfFailures());
-//            skipped.add(tag.getNumberOfSkipped());
-//            pending.add(tag.getNumberOfPending());
-//        }
-//        return "[" + passed.toString() + "," + failed.toString() + "," + skipped.toString() + "," + pending.toString() + "]";
-
         StringBuffer buffer = new StringBuffer();
         for (TagObject tag : tagObjectList) {
            buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
