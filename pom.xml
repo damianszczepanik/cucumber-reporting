@@ -3,7 +3,7 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.16-SNAPSHOT</version>
+    <version>0.0.16</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/masterthought/cucumber-reporting</url>
 
