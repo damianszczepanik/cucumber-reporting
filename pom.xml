@@ -60,7 +60,7 @@
             </activation>
 
             <properties>
-                <gpg.keyname>E91DA67C</gpg.keyname>
+                <gpg.keyname>AF616308</gpg.keyname>
                 <release.username>kingsleyh</release.username>
             </properties>
 
