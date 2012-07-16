@@ -2,7 +2,6 @@ package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 import org.junit.Before;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,7 +26,7 @@ public class ElementTest {
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
         reportParser = new ReportParser(jsonReports);
         Feature passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
