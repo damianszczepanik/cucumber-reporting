@@ -1,5 +1,7 @@
 package net.masterthought.cucumber;
 
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.Util;
 import org.junit.Before;
@@ -21,8 +23,8 @@ public class FeatureTest {
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project2.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project2.json"));
         reportParser = new ReportParser(jsonReports);
         passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
@@ -132,7 +134,7 @@ public class FeatureTest {
     @Test
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/noscenario.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
         ReportParser reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         feature.processSteps();

@@ -1,12 +1,11 @@
 package net.masterthought.cucumber;
 
-
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import net.masterthought.cucumber.json.Feature;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +25,9 @@ public class ReportParserTest {
     @Test
     public void shouldContainFourFeatures() throws IOException {
         ReportParser reportParser = new ReportParser(validJsonReports());
-        Iterator it = reportParser.getFeatures().entrySet().iterator();
         List<Feature> features = new ArrayList<Feature>();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            List<Feature> featureList = (List<Feature>) pairs.getValue();
+        for (Map.Entry<String, List<Feature>> pairs : reportParser.getFeatures().entrySet()){
+            List<Feature> featureList = pairs.getValue();
             features.addAll(featureList);
         }
         assertThat(features.size(), is(4));
@@ -60,40 +57,41 @@ public class ReportParserTest {
         assertThat(reportParser.getFeatures().entrySet().size(), is(2));
     }
 
+
+    
     private List<String> validJsonReports() {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project2.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project2.json"));
         return jsonReports;
     }
 
     private List<String> withEmptyJsonReport() {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/empty.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/empty.json"));
         return jsonReports;
     }
 
     private List<String> withNonCucumberJson() {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/somethingelse.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/somethingelse.json"));
         return jsonReports;
     }
 
     private List<String> withNoStepsInJsonReport() {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/nosteps.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/nosteps.json"));
         return jsonReports;
     }
 
     private List<String> withNoScenariosInJsonReport() {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/noscenario.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
         return jsonReports;
     }
-
 
 }
