@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,7 +21,7 @@ public class RowTest {
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/cells.json");
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         row = feature.getElements()[0].getSteps()[0].getRows()[0];
