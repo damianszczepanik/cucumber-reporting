@@ -83,6 +83,10 @@ public class Step {
         return content;
     }
 
+    public String getRawName() {
+        return name;
+    }
+
     public String getName() {
         String content = "";
         if (getStatus() == Util.Status.FAILED) {
@@ -109,5 +113,9 @@ public class Step {
             result = errorMessage.replaceAll("\\\\n", "<br/>");
         }
         return result;
+    }
+
+    public void setName(String newName) {
+      this.name = newName;
     }
 }

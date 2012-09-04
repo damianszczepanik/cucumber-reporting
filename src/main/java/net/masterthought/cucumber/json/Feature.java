@@ -2,11 +2,13 @@ package net.masterthought.cucumber.json;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Feature {
 

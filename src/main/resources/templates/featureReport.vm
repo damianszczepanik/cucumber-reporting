@@ -9,7 +9,50 @@
 	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
 	<link rel="shortcut icon" href="blue/favicon.ico" />
+    #if($artifactsEnabled)
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+        <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="stylesheet" />
+        <link rel="stylesheet" href="CodeMirror-2.33/theme/eclipse.css">
+        <link rel="stylesheet" href="CodeMirror-2.33/lib/codemirror.css">
+         <script src="CodeMirror-2.33/lib/codemirror.js"></script>
+         <script src="CodeMirror-2.33/mode/xml/xml.js"></script>
+
+        <script type="text/javascript">
+
+            editorArray = new Array();
+
+                     function getEditor(id){
+                         var editor = CodeMirror.fromTextArea(document.getElementById(id), {
+                           mode: {name: "xml", alignCDATA: true},
+                           lineNumbers: true,
+                           theme: 'eclipse'
+                         });
+                         editorArray[id] = editor;
+                     }
+
+                      function applyArtifact(id,artifactFile){
+                          for (var i in editorArray) {
+                             var el = editorArray[i].getWrapperElement();
+                             $(el).remove();
+                          }
+
+                          $('#' + id).load(artifactFile, function(data) {
+                              getEditor(id);
+                              editorArray[id].setValue(data);
+                          });
+                          $('#' + id).dialog();
+                       }
+
+        </script>
+    #end
 <style>
+    .CodeMirror-scroll {
+      height: auto;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
+
 .feature-keyword{font-weight:bold;}
 .feature-description{padding-left:15px;font-style:italic;background-color:beige;}
 .feature-role{font-weight:bold;}

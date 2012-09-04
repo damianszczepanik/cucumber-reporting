@@ -32,6 +32,10 @@ public class Element {
           return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
       }
 
+      public String getRawName(){
+          return name;
+      }
+
       public String getName() {
           List<String> contentString = new ArrayList<String>();
 

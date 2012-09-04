@@ -1,10 +1,12 @@
 package net.masterthought.cucumber;
 
+import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -145,12 +147,12 @@ public class ReportInformation {
     }
 
     public int getTotalScenariosPassed() {
-         return numberPassingScenarios.size();
-     }
+        return numberPassingScenarios.size();
+    }
 
     public int getTotalScenariosFailed() {
-         return numberFailingScenarios.size();
-     }
+        return numberFailingScenarios.size();
+    }
 
     private void processTags() {
         for (TagObject tag : tagMap) {
@@ -180,6 +182,7 @@ public class ReportInformation {
             if (Util.itemExists(scenarios)) {
                 numberOfScenarios = numberOfScenarios + scenarios.length;
                 for (Element scenario : scenarios) {
+                    String scenarioName = scenario.getRawName();
 
                     numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
                     numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
@@ -201,6 +204,20 @@ public class ReportInformation {
                         Step[] steps = scenario.getSteps();
                         numberOfSteps = numberOfSteps + steps.length;
                         for (Step step : steps) {
+                            String stepName = step.getRawName();
+
+                            //apply artifacts
+                            if (ConfigurationOptions.artifactsEnabled()) {
+                                Map<String, Artifact> map = ConfigurationOptions.artifactConfig();
+                                String mapKey = scenarioName + stepName;
+                                if(map.containsKey(mapKey)){
+                                    Artifact artifact = map.get(mapKey);
+                                    String keyword = artifact.getKeyword();
+                                    String contentType = artifact.getContentType();
+                                    step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey,keyword,artifact.getArtifactFile(),contentType)));
+                                }
+                            }
+
                             Util.Status stepStatus = step.getStatus();
                             totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
                             totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
@@ -214,6 +231,19 @@ public class ReportInformation {
             }
         }
         processTags();
+    }
+
+    private String getArtifactFile(String mapKey, String keyword, String artifactFile, String contentType){
+        mapKey = mapKey.replaceAll(" ","_");
+        String link = "";
+        if(contentType.equals("xml")){
+//          link = "<div style=\"display:none;\"><pre id=\"" + mapKey + "\" class=\"brush: xml;\"></pre></div><script>\\$('#" + mapKey + "').load('" + artifactFile + "')</script><a onclick=\"\\$('#" + mapKey + "').dialog();\" href=\"#\">" + keyword + "</a>";
+//          link = "<div style=\"display:none;\"><pre id=\"" + mapKey + "\" class=\"brush: xml;\"></pre></div><a onclick=\"applyArtifact('#" + mapKey + "','" + artifactFile + "')\" href=\"#\">" + keyword + "</a>";
+          link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('" + mapKey + "','" + artifactFile +"')\" href=\"#\">" + keyword + "</a>";
+        } else {
+            link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\"></textarea></div><script>\\$('#" + mapKey + "').load('" + artifactFile + "')</script><a onclick=\"\\$('#" + mapKey + "').dialog();\" href=\"#\">" + keyword + "</a>";
+        }
+        return link;
     }
 
     private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {

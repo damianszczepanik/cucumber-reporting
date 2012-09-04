@@ -1,5 +1,6 @@
 package net.masterthought.cucumber;
 
+import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Feature;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,6 +27,16 @@ public class ReportInformationTest {
         jsonReports.add("src/test/resources/net/masterthought/cucumber/project2.json");
         reportParser = new ReportParser(jsonReports);
         reportInformation = new ReportInformation(reportParser.getFeatures());
+    }
+
+    @Test
+    public void shouldDisplayArtifacts() throws Exception {
+        ConfigurationOptions.setArtifactsEnabled(true);
+        String configuration = "Account has sufficient funds again~the account balance is 300~account~evidence/account_balance.txt";
+        ArtifactProcessor artifactProcessor = new ArtifactProcessor(configuration);
+        Map<String, Artifact> map = artifactProcessor.process();
+        ConfigurationOptions.setArtifactConfiguration(map);
+
     }
 
     @Test
