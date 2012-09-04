@@ -12,14 +12,15 @@ public class ArtifactProcessorTest {
 
     @Test
     public void validConfigurationShouldReturnMap() throws Exception {
-        String configuration = "Account has sufficient funds again~the account balance is 300~account~evidence/account_balance.txt";
+        String configuration = "Account has sufficient funds again~the account balance is 300~account~account_balance.txt~xml";
         ArtifactProcessor artifactProcessor = new ArtifactProcessor(configuration);
         Map<String,Artifact> map = artifactProcessor.process();
         Artifact artifact = map.get("Account has sufficient funds againthe account balance is 300");
         assertThat(artifact.getScenario(),is("Account has sufficient funds again"));
         assertThat(artifact.getStep(),is("the account balance is 300"));
         assertThat(artifact.getKeyword(),is("account"));
-        assertThat(artifact.getArtifactFile(),is("evidence/account_balance.txt"));
+        assertThat(artifact.getArtifactFile(),is("account_balance.txt"));
+        assertThat(artifact.getContentType(),is("xml"));
     }
 
 }
