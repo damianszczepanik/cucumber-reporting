@@ -6,6 +6,7 @@ import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.Util;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.matchers.StringContains;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,12 +74,12 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash Project 2</div></div>"));
+        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash</div></div>"));
     }
 
     @Test
     public void shouldReturnRawName() {
-        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash Project 2"));
+        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash"));
     }
 
     @Test
@@ -122,7 +123,7 @@ public class FeatureTest {
 
     @Test
     public void shouldGetDurationOfSteps() {
-        assertThat(passingFeature.getDurationOfSteps(), is("113 ms"));
+        assertThat(passingFeature.getDurationOfSteps(), StringContains.containsString("ms"));
     }
 
 //    @Test
