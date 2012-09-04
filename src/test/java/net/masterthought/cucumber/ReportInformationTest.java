@@ -4,8 +4,11 @@ import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Feature;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.matchers.StringContains;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +22,13 @@ public class ReportInformationTest {
     ReportParser reportParser;
 
     @Before
-    public void setUpReportInformation() throws IOException {
+    public void setUpReportInformation() throws IOException, URISyntaxException {
         ConfigurationOptions.setSkippedFailsBuild(false);
         ConfigurationOptions.setUndefinedFailsBuild(false);
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project1.json");
-        jsonReports.add("src/test/resources/net/masterthought/cucumber/project2.json");
+        //will work iff the resources are not jarred up, otherwise use IOUtils to copy to a temp file.
+        jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
+        jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
         reportParser = new ReportParser(jsonReports);
         reportInformation = new ReportInformation(reportParser.getFeatures());
     }
@@ -51,7 +55,8 @@ public class ReportInformationTest {
 
     @Test
     public void shouldListFeaturesInAMap() {
-        assertThat(reportInformation.getProjectFeatureMap().keySet().iterator().next(), is("src/test/resources/net/masterthought/cucumber/project2.json"));
+	//not really needed now -- have type safety with generics in object usage and would have failed had we not found the resource.
+        assertThat(reportInformation.getProjectFeatureMap().keySet().iterator().next(), StringContains.containsString("net"+File.separator+"masterthought"+File.separator+"cucumber"+File.separator+"project2.json"));
         assertThat(reportInformation.getProjectFeatureMap().entrySet().iterator().next().getValue().get(0), is(Feature.class));
     }
 
