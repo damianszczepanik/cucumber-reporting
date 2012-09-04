@@ -237,8 +237,6 @@ public class ReportInformation {
         mapKey = mapKey.replaceAll(" ","_");
         String link = "";
         if(contentType.equals("xml")){
-//          link = "<div style=\"display:none;\"><pre id=\"" + mapKey + "\" class=\"brush: xml;\"></pre></div><script>\\$('#" + mapKey + "').load('" + artifactFile + "')</script><a onclick=\"\\$('#" + mapKey + "').dialog();\" href=\"#\">" + keyword + "</a>";
-//          link = "<div style=\"display:none;\"><pre id=\"" + mapKey + "\" class=\"brush: xml;\"></pre></div><a onclick=\"applyArtifact('#" + mapKey + "','" + artifactFile + "')\" href=\"#\">" + keyword + "</a>";
           link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('" + mapKey + "','" + artifactFile +"')\" href=\"#\">" + keyword + "</a>";
         } else {
             link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\"></textarea></div><script>\\$('#" + mapKey + "').load('" + artifactFile + "')</script><a onclick=\"\\$('#" + mapKey + "').dialog();\" href=\"#\">" + keyword + "</a>";
