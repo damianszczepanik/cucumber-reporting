@@ -36,11 +36,12 @@ public class ReportInformationTest {
     @Test
     public void shouldDisplayArtifacts() throws Exception {
         ConfigurationOptions.setArtifactsEnabled(true);
-        String configuration = "Account has sufficient funds again~the account balance is 300~account~evidence/account_balance.txt";
+        String configuration = "Account has sufficient funds again~the account balance is 300~balance~account_balance.txt~xml";
         ArtifactProcessor artifactProcessor = new ArtifactProcessor(configuration);
         Map<String, Artifact> map = artifactProcessor.process();
         ConfigurationOptions.setArtifactConfiguration(map);
-
+        reportInformation = new ReportInformation(reportParser.getFeatures());
+        assertThat(reportInformation.getFeatures().get(2).getElements()[7].getSteps()[0].getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account <div style=\"display:none;\"><textarea id=\"Account_has_sufficient_funds_againthe_account_balance_is_300\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')\" href=\"#\">balance</a> is 300</span></div>"));
     }
 
     @Test
