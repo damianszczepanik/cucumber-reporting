@@ -25,19 +25,12 @@ public class FeatureTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project2.json"));
         reportParser = new ReportParser(jsonReports);
         passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
     }
-
-//    @Test
-//    public void shouldReturnListOfScenarios() throws IOException {
-//        assertThat(feature.getElements()[0], is(Element.class));
-//        assertThat(feature.getElements().length, is(4));
-//    }
 
     @Test
     public void shouldReturnManagedFileName() {
