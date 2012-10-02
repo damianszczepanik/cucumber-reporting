@@ -118,4 +118,12 @@ public class Step {
     public void setName(String newName) {
       this.name = newName;
     }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
 }

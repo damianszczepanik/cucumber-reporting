@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.json;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+
+import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
@@ -145,6 +144,7 @@ public class Feature {
         List<Step> skippedSteps = new ArrayList<Step>();
         List<Step> pendingSteps = new ArrayList<Step>();
         List<Step> missingSteps = new ArrayList<Step>();
+        List<Step> missingResults = new ArrayList<Step>();
         Long totalDuration = 0l;
         if (Util.itemExists(elements)) {
             for (Element element : elements) {
@@ -153,6 +153,14 @@ public class Feature {
                     for (Step step : steps) {
                         allSteps.add(step);
                         Util.Status stepStatus = step.getStatus();
+                        if (stepStatus == Util.Status.MISSING) {
+                            missingResults.add(step);
+                        } else {
+                            for(Step s : missingResults) {
+                                s.setResult(step.getResult());
+                            }
+                            missingResults = new ArrayList<Step>();
+                        }
                         passedSteps = Util.setStepStatus(passedSteps, step, stepStatus, Util.Status.PASSED);
                         failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
                         skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
