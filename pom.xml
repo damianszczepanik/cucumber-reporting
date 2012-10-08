@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>0.0.19-SNAPSHOT</version>
     <name>cucumber-reporting</name>
-    <url>https://github.com/masterthought/cucumber-reporting</url>
+    <url>https://github.com/meza/cucumber-reporting</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -15,9 +15,9 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@github.com:masterthought/cucumber-reporting.git</connection>
-        <developerConnection>scm:git:git@github.com:masterthought/cucumber-reporting.git</developerConnection>
-        <url>git@github.com:masterthought/cucumber-reporting.git</url>
+        <connection>scm:git:git@github.com:meza/cucumber-reporting.git</connection>
+        <developerConnection>scm:git:git@github.com:meza/cucumber-reporting.git</developerConnection>
+        <url>git@github.com:meza/cucumber-reporting.git</url>
     </scm>
 
     <description>
