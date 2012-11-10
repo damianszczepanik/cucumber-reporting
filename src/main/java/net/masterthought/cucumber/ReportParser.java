@@ -6,7 +6,7 @@ import net.masterthought.cucumber.util.Util;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class ReportParser {
     }
 
     private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException {
-           Map<String, List<Feature>> featureResults = new HashMap<String, List<Feature>>();
+           Map<String, List<Feature>> featureResults = new LinkedHashMap<String, List<Feature>>();
            for (String jsonFile : jsonReportFiles) {
                String fileContent = Util.readFileAsString(jsonFile);
                if(Util.isValidCucumberJsonReport(fileContent)){
