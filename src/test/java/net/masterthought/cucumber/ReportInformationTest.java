@@ -4,7 +4,6 @@ import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Feature;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.matchers.StringContains;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +14,8 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.IsCollectionContaining.*;
+import static org.junit.internal.matchers.StringContains.containsString;
 
 public class ReportInformationTest {
 
@@ -57,7 +58,7 @@ public class ReportInformationTest {
     @Test
     public void shouldListFeaturesInAMap() {
 	//not really needed now -- have type safety with generics in object usage and would have failed had we not found the resource.
-        assertThat(reportInformation.getProjectFeatureMap().keySet().iterator().next(), StringContains.containsString("project1.json"));
+        assertThat(reportInformation.getProjectFeatureMap().keySet(), hasItem(containsString("project1.json")));
         assertThat(reportInformation.getProjectFeatureMap().entrySet().iterator().next().getValue().get(0), is(Feature.class));
     }
 
@@ -163,7 +164,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagDuration() {
-        assertThat(reportInformation.getTotalTagDuration(), StringContains.containsString("ms"));
+        assertThat(reportInformation.getTotalTagDuration(), containsString("ms"));
     }
 
     @Test
