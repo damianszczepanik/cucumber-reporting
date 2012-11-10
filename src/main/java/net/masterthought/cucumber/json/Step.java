@@ -2,12 +2,17 @@ package net.masterthought.cucumber.json;
 
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
+import com.google.gson.internal.StringMap;
+import org.joda.time.DateTime;
+
+import static org.apache.commons.lang.StringUtils.EMPTY;
 
 public class Step {
 
     private String name;
     private String keyword;
     private String line;
+    private Object[] embeddings;
     private Result result;
     private Row[] rows;
 
@@ -97,7 +102,7 @@ public class Step {
             if (getInternalStatus() == Util.Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTag();
         } else if (getStatus() == Util.Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
@@ -117,5 +122,21 @@ public class Step {
 
     public void setName(String newName) {
       this.name = newName;
+    }
+
+    public String getImageTag() {
+        if(noEmbeddedScreenshots()) return EMPTY;
+
+        String imageId = Long.toString(new DateTime().getMillis());
+        return "<a href=\"\" onclick=\"img=document.getElementById('"+imageId+"'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
+                "<img id='"+imageId+"' style='display:none' src='"+ getMimeEncodedEmbeddedImage() +"'>";
+    }
+
+    private boolean noEmbeddedScreenshots() {
+        return embeddings == null;
+    }
+
+    public String getMimeEncodedEmbeddedImage() {
+        return "data:image/png;base64,"+((StringMap)embeddings[0]).get("data");
     }
 }

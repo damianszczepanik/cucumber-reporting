@@ -1,0 +1,45 @@
+[
+    {
+        "id":"account-holder-withdraws-more-cash",
+        "description":"As an alien I want to put marbles in your nose for science",
+        "name":"Account Holder withdraws More Cash",
+        "keyword":"Feature",
+        "line":1,
+        "elements":[
+            {
+                "id":"account-holder-withdraws-more-cash;account-has-sufficient-funds;;2",
+                "description":"",
+                "name":"Account has sufficient funds",
+                "keyword":"Scenario Outline",
+                "line":19,
+                "steps":[
+                    {
+                        "result":{
+                            "duration":1933000,
+                            "status":"failed",
+                            "error_message":"ERROR MESSAGE"
+                        },
+                        "name":"the account balance should be 90",
+                        "keyword":"And ",
+                        "line":12,
+                        "embeddings":[{
+                            "mime_type":"image/png",
+                            "data":"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg=="}],
+                        "match":{
+                            "arguments":[
+                                {
+                                    "val":"90",
+                                    "offset":30
+                                }
+                            ],
+                            "location":"ATMScenario.checkBalance(int)"
+                        },
+                        "matchedColumns":[4]
+                    }
+                ],
+                "type":"scenario"
+            }
+        ],
+        "uri":"net/masterthought/example/ATMK.feature"
+    }
+]
