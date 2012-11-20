@@ -101,6 +101,11 @@ public class Util {
 
     public static <T, R> List<R> collectSteps(Step[] list, Closure<String, Step> clo) {
         List<R> res = new ArrayList<R>();
+
+        if (list == null) {
+            return res;
+        }
+
         for (final Step t : list) {
             res.add((R) clo.call(t));
         }

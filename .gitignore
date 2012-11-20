@@ -1,3 +1,7 @@
 target
 velocity.log
 .idea
+.classpath
+.project
+.settings/
+*.autosave
