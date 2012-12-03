@@ -93,6 +93,10 @@ public class Util {
 
     public static <T, R> List<R> collectScenarios(Element[] list, Closure<String, Element> clo) {
         List<R> res = new ArrayList<R>();
+        if (list == null) {
+          return res;
+        }
+
         for (final Element t : list) {
             res.add((R) clo.call(t));
         }
@@ -101,6 +105,10 @@ public class Util {
 
     public static <T, R> List<R> collectSteps(Step[] list, Closure<String, Step> clo) {
         List<R> res = new ArrayList<R>();
+        if (list == null) {
+          return res;
+        }
+
         for (final Step t : list) {
             res.add((R) clo.call(t));
         }
@@ -109,6 +117,10 @@ public class Util {
 
     public static <T, R> List<R> collectTags(Tag[] list, StringClosure<String, Tag> clo) {
         List<R> res = new ArrayList<R>();
+        if (list == null) {
+          return res;
+        }
+
         for (final Tag t : list) {
             res.add((R) clo.call(t));
         }
@@ -166,6 +178,10 @@ public class Util {
 
     public static int findStatusCount(List<Util.Status> statuses, Status statusToFind) {
         int occurrence = 0;
+        if (statuses == null) {
+          return occurrence;
+        }
+
         for (Util.Status status : statuses) {
             if (status == statusToFind) {
                 occurrence++;
