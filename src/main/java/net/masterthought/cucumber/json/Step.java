@@ -12,9 +12,10 @@ public class Step {
     private String name;
     private String keyword;
     private String line;
-    private Object[] embeddings;
     private Result result;
     private Row[] rows;
+    private Match match;
+    private Object[] embeddings;
 
     public Step() {
 
@@ -22,6 +23,14 @@ public class Step {
 
     public Row[] getRows() {
         return rows;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public Object[] getEmbeddings() {
+        return embeddings;
     }
 
     public boolean hasRows() {
@@ -107,7 +116,7 @@ public class Step {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTag();
         }
         return content;
     }
@@ -133,10 +142,10 @@ public class Step {
     }
 
     private boolean noEmbeddedScreenshots() {
-        return embeddings == null;
+        return getEmbeddings() == null;
     }
 
     public String getMimeEncodedEmbeddedImage() {
-        return "data:image/png;base64,"+((StringMap)embeddings[0]).get("data");
+        return "data:image/png;base64,"+((StringMap)getEmbeddings()[0]).get("data");
     }
 }

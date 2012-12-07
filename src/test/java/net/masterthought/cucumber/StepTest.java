@@ -120,9 +120,9 @@ public class StepTest {
 
     private Step failingStepWithEmbeddedScreenshot() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/failed_with_screenshot.json"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
         Feature failingFeatureWithEmbeddedScreenshot = new ReportParser(jsonReports).getFeatures().entrySet().iterator().next().getValue().get(0);
         failingFeatureWithEmbeddedScreenshot.processSteps();
-        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[0];
+        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
     }
 }
