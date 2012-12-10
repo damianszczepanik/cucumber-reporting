@@ -109,6 +109,8 @@ public class ReportBuilder {
         context.put("total_fails", numberTotalFailed);
         context.put("total_skipped", numberTotalSkipped);
         context.put("total_pending", numberTotalPending);
+        context.put("scenarios_passed", ri.getTotalScenariosPassed());
+        context.put("scenarios_failed", ri.getTotalScenariosFailed());
         if (flashCharts) {
             context.put("step_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
             context.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
@@ -116,8 +118,6 @@ public class ReportBuilder {
             JsChartUtil pie = new JsChartUtil();
             List<String> stepColours = pie.orderStepsByValue(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending);
             context.put("step_data", stepColours);
-            context.put("scenarios_passed", ri.getTotalScenariosPassed());
-            context.put("scenarios_failed", ri.getTotalScenariosFailed());
             List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed());
             context.put("scenario_data", scenarioColours);
         }

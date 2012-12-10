@@ -180,13 +180,14 @@ public class ReportInformation {
             List<ScenarioTag> scenarioList = new ArrayList<ScenarioTag>();
             Element[] scenarios = feature.getElements();
             if (Util.itemExists(scenarios)) {
-                numberOfScenarios = numberOfScenarios + scenarios.length;
+                numberOfScenarios = getNumberOfScenarios(scenarios);
                 for (Element scenario : scenarios) {
                     String scenarioName = scenario.getRawName();
 
-                    numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
-                    numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
-
+                    if (!scenario.getKeyword().equals("Background")) {
+                        numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
+                        numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
+                    }
                     //process tags
                     if (feature.hasTags()) {
                         scenarioList.add(new ScenarioTag(scenario, feature.getFileName()));
@@ -210,11 +211,11 @@ public class ReportInformation {
                             if (ConfigurationOptions.artifactsEnabled()) {
                                 Map<String, Artifact> map = ConfigurationOptions.artifactConfig();
                                 String mapKey = scenarioName + stepName;
-                                if(map.containsKey(mapKey)){
+                                if (map.containsKey(mapKey)) {
                                     Artifact artifact = map.get(mapKey);
                                     String keyword = artifact.getKeyword();
                                     String contentType = artifact.getContentType();
-                                    step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey,keyword,artifact.getArtifactFile(),contentType)));
+                                    step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey, keyword, artifact.getArtifactFile(), contentType)));
                                 }
                             }
 
@@ -233,11 +234,21 @@ public class ReportInformation {
         processTags();
     }
 
-    private String getArtifactFile(String mapKey, String keyword, String artifactFile, String contentType){
-        mapKey = mapKey.replaceAll(" ","_");
+    private int getNumberOfScenarios(Element[] scenarios) {
+        List<Element> scenarioList = new ArrayList<Element>();
+        for (Element scenario : scenarios) {
+            if (!scenario.getKeyword().equals("Background")) {
+                scenarioList.add(scenario);
+            }
+        }
+        return numberOfScenarios + scenarioList.size();
+    }
+
+    private String getArtifactFile(String mapKey, String keyword, String artifactFile, String contentType) {
+        mapKey = mapKey.replaceAll(" ", "_");
         String link = "";
-        if(contentType.equals("xml")){
-          link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('" + mapKey + "','" + artifactFile +"')\" href=\"#\">" + keyword + "</a>";
+        if (contentType.equals("xml")) {
+            link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('" + mapKey + "','" + artifactFile + "')\" href=\"#\">" + keyword + "</a>";
         } else {
             link = "<div style=\"display:none;\"><textarea id=\"" + mapKey + "\"></textarea></div><script>\\$('#" + mapKey + "').load('" + artifactFile + "')</script><a onclick=\"\\$('#" + mapKey + "').dialog();\" href=\"#\">" + keyword + "</a>";
         }

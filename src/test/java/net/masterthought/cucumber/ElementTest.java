@@ -56,6 +56,11 @@ public class ElementTest {
     }
 
     @Test
+    public void shouldReturnKeyword() {
+        assertThat(passingElement.getKeyword(), is("Background"));
+    }
+
+    @Test
     public void shouldReturnTagList(){
         List<String> expectedList = new ArrayList<String>();
         expectedList.add("@fast");

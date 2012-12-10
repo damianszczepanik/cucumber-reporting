@@ -230,9 +230,18 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
   <h2>Feature Statistics</h2>
   <table class="stats-table">
   <tr>
+    <th></th>
+    <th colspan="3">Scenarios</th>
+    <th colspan="5">Steps</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
   <th>Feature</th>
-  <th>Scenarios</th>
-  <th>Steps</th>
+  <th>Total</th>
+  <th>Passed</th>
+  <th>Failed</th>
+  <th>Total</th>
   <th>Passed</th>
   <th>Failed</th>
   <th>Skipped</th>
@@ -254,6 +263,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           <tr>
           <td style="text-align:left;"><a href="$feature.getFileName()">$feature.getRawName()</a></td>
           <td>$feature.getNumberOfScenarios()</td>
+          <td>$feature.getNumberOfScenariosPassed()</td>
+          <td>$feature.getNumberOfScenariosFailed()</td>
           <td>$feature.getNumberOfSteps()</td>
           <td>$feature.getNumberOfPasses()</td>
           <td>$feature.getNumberOfFailures()</td>
@@ -267,6 +278,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 <tr>
 <td style="background-color:lightgray;font-weight:bold;">$total_features</td>
 <td style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
+<td style="background-color:lightgray;font-weight:bold;">$scenarios_passed</td>
+<td style="background-color:lightgray;font-weight:bold;">$scenarios_failed</td>
 <td style="background-color:lightgray;font-weight:bold;">$total_steps</td>
 <td style="background-color:lightgray;font-weight:bold;">$total_passes</td>
 <td style="background-color:lightgray;font-weight:bold;">$total_fails</td>

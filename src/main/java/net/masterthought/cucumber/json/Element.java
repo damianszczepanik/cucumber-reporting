@@ -36,7 +36,11 @@ public class Element {
           return name;
       }
 
-      public String getName() {
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public String getName() {
           List<String> contentString = new ArrayList<String>();
 
           if (Util.itemExists(keyword)) {

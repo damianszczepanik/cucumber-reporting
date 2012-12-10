@@ -19,6 +19,7 @@ public class Feature {
     private Element[] elements;
     private Tag[] tags;
     private StepResults stepResults;
+    private ScenarioResults scenarioResults;
 
 
     public Feature() {
@@ -105,7 +106,13 @@ public class Feature {
     public int getNumberOfScenarios() {
         int result = 0;
         if (Util.itemExists(elements)) {
-          result = elements.length;
+            List<Element> elementList = new ArrayList<Element>();
+            for (Element element : elements) {
+                if (!element.getKeyword().equals("Background")) {
+                    elementList.add(element);
+                }
+            }
+            result = elementList.size();
         }
         return result;
     }
@@ -138,6 +145,14 @@ public class Feature {
         return stepResults.getTotalDurationAsString();
     }
 
+    public int getNumberOfScenariosPassed() {
+        return scenarioResults.getNumberOfScenariosPassed();
+    }
+
+    public int getNumberOfScenariosFailed() {
+        return scenarioResults.getNumberOfScenariosFailed();
+    }
+
     public void processSteps() {
         List<Step> allSteps = new ArrayList<Step>();
         List<Step> passedSteps = new ArrayList<Step>();
@@ -145,9 +160,12 @@ public class Feature {
         List<Step> skippedSteps = new ArrayList<Step>();
         List<Step> pendingSteps = new ArrayList<Step>();
         List<Step> missingSteps = new ArrayList<Step>();
+        List<Element> passedScenarios = new ArrayList<Element>();
+        List<Element> failedScenarios = new ArrayList<Element>();
         Long totalDuration = 0l;
         if (Util.itemExists(elements)) {
             for (Element element : elements) {
+                calculateScenarioStats(passedScenarios, failedScenarios, element);
                 if (Util.hasSteps(element)) {
                     Step[] steps = element.getSteps();
                     for (Step step : steps) {
@@ -163,7 +181,18 @@ public class Feature {
                 }
             }
         }
+        scenarioResults = new ScenarioResults(passedScenarios, failedScenarios);
         stepResults = new StepResults(allSteps, passedSteps, failedSteps, skippedSteps, pendingSteps, missingSteps, totalDuration);
+    }
+
+    private void calculateScenarioStats(List<Element> passedScenarios, List<Element> failedScenarios, Element element) {
+        if (!element.getKeyword().equals("Background")) {
+            if (element.getStatus() == Util.Status.PASSED) {
+                passedScenarios.add(element);
+            } else if (element.getStatus() == Util.Status.FAILED) {
+                failedScenarios.add(element);
+            }
+        }
     }
 
     class StepResults {
@@ -216,6 +245,24 @@ public class Feature {
 
         public String getTotalDurationAsString() {
             return Util.formatDuration(totalDuration);
+        }
+    }
+
+    class ScenarioResults {
+        List<Element> passedScenarios;
+        List<Element> failedScenarios;
+
+        ScenarioResults(List<Element> passedScenarios, List<Element> failedScenarios) {
+            this.passedScenarios = passedScenarios;
+            this.failedScenarios = failedScenarios;
+        }
+
+        public int getNumberOfScenariosPassed() {
+            return passedScenarios.size();
+        }
+
+        public int getNumberOfScenariosFailed() {
+            return failedScenarios.size();
         }
 
     }
