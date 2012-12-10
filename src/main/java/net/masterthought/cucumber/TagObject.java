@@ -42,7 +42,34 @@ public class TagObject {
     }
 
     public Integer getNumberOfScenarios() {
-        return this.scenarios.size();
+        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        for (ScenarioTag scenarioTag : this.scenarios) {
+            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+                scenarioTagList.add(scenarioTag);
+            }
+        }
+        return scenarioTagList.size();
+    }
+
+    public Integer getNumberOfPassingScenarios() {
+        return getNumberOfScenariosForStatus(Util.Status.PASSED);
+    }
+
+    public Integer getNumberOfFailingScenarios() {
+        return getNumberOfScenariosForStatus(Util.Status.FAILED);
+    }
+
+
+    private Integer getNumberOfScenariosForStatus(Util.Status status) {
+        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        for (ScenarioTag scenarioTag : this.scenarios) {
+            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+                if (scenarioTag.getScenario().getStatus().equals(status)) {
+                    scenarioTagList.add(scenarioTag);
+                }
+            }
+        }
+        return scenarioTagList.size();
     }
 
     public String getDurationOfSteps() {

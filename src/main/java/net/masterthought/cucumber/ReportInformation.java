@@ -6,7 +6,6 @@ import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,6 +31,8 @@ public class ReportInformation {
     private int totalTagSkipped = 0;
     private int totalTagPending = 0;
     private long totalTagDuration = 0l;
+    private int totalPassingTagScenarios = 0;
+    private int totalFailingTagScenarios = 0;
 
     public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
         this.projectFeatureMap = projectFeatureMap;
@@ -122,6 +123,14 @@ public class ReportInformation {
         return totalTagScenarios;
     }
 
+    public int getTotalPassingTagScenarios() {
+        return totalPassingTagScenarios;
+    }
+
+    public int getTotalFailingTagScenarios() {
+        return totalFailingTagScenarios;
+    }
+
     public int getTotalTagSteps() {
         return totalTagSteps;
     }
@@ -156,7 +165,9 @@ public class ReportInformation {
 
     private void processTags() {
         for (TagObject tag : tagMap) {
-            totalTagScenarios = totalTagScenarios + tag.getScenarios().size();
+            totalTagScenarios = calculateTotalTagScenarios(tag);
+            totalPassingTagScenarios = calculateTotalTagScenariosForStatus(totalPassingTagScenarios, tag, Util.Status.PASSED);
+            totalFailingTagScenarios = calculateTotalTagScenariosForStatus(totalFailingTagScenarios, tag, Util.Status.FAILED);
             totalTagPasses += tag.getNumberOfPasses();
             totalTagFails += tag.getNumberOfFailures();
             totalTagSkipped += tag.getNumberOfSkipped();
@@ -164,15 +175,40 @@ public class ReportInformation {
 
 
             for (ScenarioTag scenarioTag : tag.getScenarios()) {
+
                 if (Util.hasSteps(scenarioTag)) {
                     Step[] steps = scenarioTag.getScenario().getSteps();
+                    List<Step> stepList = new ArrayList<Step>();
                     for (Step step : steps) {
-                        totalTagSteps += steps.length;
+                        stepList.add(step);
                         totalTagDuration = totalTagDuration + step.getDuration();
                     }
+                    totalTagSteps += stepList.size();
                 }
             }
         }
+    }
+
+    private int calculateTotalTagScenariosForStatus(int totalScenarios,TagObject tag, Util.Status status) {
+        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        for (ScenarioTag scenarioTag : tag.getScenarios()) {
+            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+                if (scenarioTag.getScenario().getStatus().equals(status)) {
+                    scenarioTagList.add(scenarioTag);
+                }
+            }
+        }
+        return totalScenarios + scenarioTagList.size();
+    }
+
+    private int calculateTotalTagScenarios(TagObject tag) {
+        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        for (ScenarioTag scenarioTag : tag.getScenarios()) {
+            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+                scenarioTagList.add(scenarioTag);
+            }
+        }
+        return totalTagScenarios + scenarioTagList.size();
     }
 
     private void processFeatures() {

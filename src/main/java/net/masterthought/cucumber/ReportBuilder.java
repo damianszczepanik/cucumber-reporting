@@ -157,6 +157,8 @@ public class ReportBuilder {
         context.put("tags", ri.getTags());
         context.put("total_tags", ri.getTotalTags());
         context.put("total_scenarios", ri.getTotalTagScenarios());
+        context.put("total_passed_scenarios", ri.getTotalPassingTagScenarios());
+        context.put("total_failed_scenarios", ri.getTotalFailingTagScenarios());
         context.put("total_steps", ri.getTotalTagSteps());
         context.put("total_passes", ri.getTotalTagPasses());
         context.put("total_fails", ri.getTotalTagFails());
