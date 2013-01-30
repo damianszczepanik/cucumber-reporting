@@ -18,7 +18,7 @@ public class Step {
     private Object[] embeddings;
 
     public Step() {
-
+        result = new Result("passed");
     }
 
     public Row[] getRows() {
@@ -123,7 +123,7 @@ public class Step {
 
     private String formatError(String errorMessage) {
         String result = errorMessage;
-        if (errorMessage != null || !errorMessage.isEmpty()) {
+        if (errorMessage != null && !errorMessage.isEmpty()) {
             result = errorMessage.replaceAll("\\\\n", "<br/>");
         }
         return result;
