@@ -9,17 +9,24 @@ import java.util.List;
 public class Element {
 
     private String name;
+    private int thiscount;
     private String description;
     private String keyword;
     private Step[] steps;
     private Tag[] tags;
+    
+    public static int counter=0;
 
     public Element() {
-
+        counter++;
+        thiscount=counter;
     }
 
     public Step[] getSteps() {
-          return steps;
+        for(Step s:steps){
+            s.setNameScen(thiscount+name.trim().toLowerCase().replaceAll(" ", ""));
+        }
+        return steps;
       }
 
       public Util.Status getStatus() {
@@ -51,7 +58,7 @@ public class Element {
               contentString.add("<span class=\"scenario-name\">" + name + "</span>");
           }
 
-          return Util.itemExists(contentString) ? Util.result(getStatus()) + StringUtils.join(contentString.toArray(), " ") + Util.closeDiv() : "";
+          return Util.itemExists(contentString) ? Util.resultScen(getStatus(),thiscount+name) + StringUtils.join(contentString.toArray(), " ") + Util.closeDivScen() : "";
       }
 
       public List<String> getTagList() {
@@ -76,12 +83,16 @@ public class Element {
       }
 
       public String getTags() {
-          String result = "<div class=\"feature-tags\"></div>";
+          String result = "<div class=\"feature-tags\">";
           if (Util.itemExists(tags)) {
               String tagList = StringUtils.join(processTags().toArray(), ",");
-              result = "<div class=\"feature-tags\">" + tagList + "</div>";
+              result = "<div class=\"feature-tags\">" + tagList ;
           }
           return result;
+      }
+      
+      public String closeTag(){
+          return "</div>";
       }
 
 
