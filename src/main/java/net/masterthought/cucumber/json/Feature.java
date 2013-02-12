@@ -80,7 +80,7 @@ public class Feature {
     }
 
     public String getName() {
-        return Util.itemExists(name) ? Util.result(getStatus()) + "<div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> " + name + "</div>" + Util.closeDiv() : "";
+        return Util.itemExists(name) ? Util.result(getStatus(),"") + "<div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> " + name + "<div style=\"float: right;\"><span class=\"expanded\" onclick=\"hideall();\">&nbsp;&nbsp;&nbsp;</span><span class=\"collapsed\" onclick=\"showall();\">&nbsp;&nbsp;&nbsp;</span></div></div>" + Util.closeDiv() : "";
     }
 
     public String getRawName() {
