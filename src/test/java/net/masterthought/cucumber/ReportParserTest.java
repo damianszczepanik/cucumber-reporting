@@ -52,12 +52,20 @@ public class ReportParserTest {
     }
 
     @Test
+    public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
+        ReportParser reportParser = new ReportParser(withNoSteps2InJsonReport());
+        ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures());
+
+        // Should not crash with NPE
+        assertThat(reportInformation.getFeatures().get(0), is(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().size(), is(1));
+    }
+
+    @Test
     public void shouldProcessCucumberReportsWithNoScenarios() throws IOException {
         ReportParser reportParser = new ReportParser(withNoScenariosInJsonReport());
         assertThat(reportParser.getFeatures().entrySet().size(), is(2));
     }
-
-
     
     private List<String> validJsonReports() {
         List<String> jsonReports = new ArrayList<String>();
@@ -84,6 +92,12 @@ public class ReportParserTest {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/nosteps.json"));
+        return jsonReports;
+    }
+
+    private List<String> withNoSteps2InJsonReport() {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/nosteps2.json"));
         return jsonReports;
     }
 

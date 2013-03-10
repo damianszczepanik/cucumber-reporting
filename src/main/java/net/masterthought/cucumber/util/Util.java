@@ -102,11 +102,17 @@ public class Util {
     public static <T, R> List<R> collectSteps(Step[] list, Closure<String, Step> clo) {
         List<R> res = new ArrayList<R>();
         try {
+
+            if (list == null) {
+                return res;
+            }
+
             for (final Step t : list) {
                 res.add((R) clo.call(t));
             }
         } catch (Exception e) {
             System.out.println("Found error while tyring to collect steps: " + e.getMessage());
+
         }
         return res;
     }
