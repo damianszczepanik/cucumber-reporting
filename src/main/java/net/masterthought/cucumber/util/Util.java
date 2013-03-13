@@ -101,8 +101,18 @@ public class Util {
 
     public static <T, R> List<R> collectSteps(Step[] list, Closure<String, Step> clo) {
         List<R> res = new ArrayList<R>();
-        for (final Step t : list) {
-            res.add((R) clo.call(t));
+        try {
+
+            if (list == null) {
+                return res;
+            }
+
+            for (final Step t : list) {
+                res.add((R) clo.call(t));
+            }
+        } catch (Exception e) {
+            System.out.println("Found error while tyring to collect steps: " + e.getMessage());
+
         }
         return res;
     }
@@ -177,7 +187,7 @@ public class Util {
     public static boolean hasSteps(Element element) {
         boolean result = element.getSteps() == null || element.getSteps().length == 0;
         if (result) {
-            System.out.println("[WARNING] scenario has no steps:  " + element.getName());
+            System.out.println("[WARNING] scenario has no steps:  " + element.getRawName());
         }
         return !result;
     }
@@ -185,7 +195,7 @@ public class Util {
     public static boolean hasSteps(ScenarioTag scenario) {
         boolean result = scenario.getScenario().getSteps() == null || scenario.getScenario().getSteps().length == 0;
         if (result) {
-            System.out.println("[WARNING] scenario tag has no steps:  " + scenario.getScenario().getName());
+            System.out.println("[WARNING] scenario tag has no steps:  " + scenario.getScenario().getRawName());
         }
         return !result;
     }
@@ -193,11 +203,10 @@ public class Util {
     public static boolean hasScenarios(Feature feature) {
         boolean result = feature.getElements() == null || feature.getElements().length == 0;
         if (result) {
-            System.out.println("[WARNING] feature has no scenarios:  " + feature.getName());
+            System.out.println("[WARNING] feature has no scenarios:  " + feature.getRawName());
         }
         return !result;
     }
-
 
 
 }

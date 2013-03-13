@@ -210,6 +210,7 @@ public class ReportBuilder {
         Properties props = new Properties();
         props.setProperty("resource.loader", "class");
         props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        props.setProperty("runtime.log", new File(reportDirectory, "velocity.log").getPath());
         return props;
     }
 

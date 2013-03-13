@@ -1,0 +1,78 @@
+[
+    {
+        "keyword": "Feature",
+        "name": "Addition",
+        "line": 1,
+        "description": "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two numbers",
+        "id": "addition",
+        "uri": "cucumber-sample/features/addition.feature",
+        "elements": [
+            {
+                "keyword": "Scenario",
+                "name": "Add two numbers",
+                "line": 6,
+                "description": "",
+                "id": "addition;add-two-numbers",
+                "type": "scenario",
+                "steps": [
+                    {
+                        "keyword": "Given ",
+                        "name": "I have entered 50 into the calculator",
+                        "line": 7,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "offset": 15,
+                                    "val": "50"
+                                }
+                            ],
+                            "location": "cucumber-sample/features/step_definitions/step.rb:1"
+                        },
+                        "result": {
+                            "status": "passed"
+                        }
+                    },
+                    {
+                        "keyword": "And ",
+                        "name": "I have entered 70 into the calculator",
+                        "line": 8,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "offset": 15,
+                                    "val": "70"
+                                }
+                            ],
+                            "location": "cucumber-sample/features/step_definitions/step.rb:1"
+                        },
+                        "result": {
+                            "status": "passed"
+                        }
+                    },
+                    {
+                        "keyword": "When ",
+                        "name": "I press add",
+                        "line": 9,
+                        "match": {
+                            "location": "cucumber-sample/features/addition.feature:9"
+                        },
+                        "result": {
+                            "status": "undefined"
+                        }
+                    },
+                    {
+                        "keyword": "Then ",
+                        "name": "the result should be 120 on the screen",
+                        "line": 10,
+                        "match": {
+                            "location": "cucumber-sample/features/addition.feature:10"
+                        },
+                        "result": {
+                            "status": "undefined"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

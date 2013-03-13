@@ -3,61 +3,46 @@ package net.masterthought.cucumber.charts;
 import net.masterthought.cucumber.TagObject;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class JsChartUtil {
 
-    class ValueComparator implements Comparator {
-
-        Map base;
-
-        public ValueComparator(Map base) {
-            this.base = base;
-        }
-
-        public int compare(Object a, Object b) {
-
-            if ((Integer) base.get(a) < (Integer) base.get(b)) {
-                return 1;
-            } else if ((Integer) base.get(a) == (Integer) base.get(b)) {
-                return 0;
-            } else {
-                return -1;
-            }
-        }
-    }
+    private static Logger logger = Logger.getLogger("net.masterthought.cucumber.charts.jschartutil");
 
     public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped, int numberTotalPending) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
+        Map<String, Integer> map = new HashMap<String, Integer>();
 
         map.put("#88dd11", numberTotalPassed);
         map.put("#cc1134", numberTotalFailed);
         map.put("#88aaff", numberTotalSkipped);
         map.put("#FBB917", numberTotalPending);
 
-        sorted_map.putAll(map);
-        List<String> colours = new ArrayList<String>();
-        for (String colour : sorted_map.keySet()) {
-            colours.add(colour);
-        }
-        return colours;
+        return getKeysSortedByValue(map);
     }
 
     public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
-        ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
-
         map.put("#88dd11", numberTotalPassed);
         map.put("#cc1134", numberTotalFailed);
 
-        sorted_map.putAll(map);
-        List<String> colours = new ArrayList<String>();
-        for (String colour : sorted_map.keySet()) {
-            colours.add(colour);
+        return getKeysSortedByValue(map);
+    }
+
+    private List<String> getKeysSortedByValue(Map<String, Integer> map) {
+        List<Map.Entry<String,Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
+        Collections.sort(list, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o2)).getValue()).compareTo(((Map.Entry) (o1)).getValue());
+            }
+        });
+
+
+        List<String> keys = new ArrayList<String>();
+        for (Map.Entry<String, Integer> entry : list) {
+            keys.add(entry.getKey());
         }
-        return colours;
+        return keys;
     }
 
     public static String generateTagChartData(List<TagObject> tagObjectList) {
