@@ -88,7 +88,7 @@ public class TagObject {
         int totalSteps = 0;
         for (ScenarioTag scenario : scenarios) {
             if (Util.hasSteps(scenario)) {
-                totalSteps += scenario.getScenario().getSteps().length;
+                totalSteps += scenario.getScenario().getSteps().size();
             }
         }
         return totalSteps;

@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import com.googlecode.totallylazy.Sequence;
 import net.masterthought.cucumber.ScenarioTag;
 import net.masterthought.cucumber.json.*;
 import org.joda.time.Period;
@@ -73,6 +74,10 @@ public class Util {
 
     public static boolean itemExists(List<String> listItem) {
         return listItem.size() != 0;
+    }
+
+    public static boolean itemExists(Sequence<Element> sequence) {
+        return sequence.size() != 0;
     }
 
     public static boolean itemExists(Tag[] tags) {
@@ -185,7 +190,7 @@ public class Util {
     }
 
     public static boolean hasSteps(Element element) {
-        boolean result = element.getSteps() == null || element.getSteps().length == 0;
+        boolean result = element.getSteps() == null || element.getSteps().size() == 0;
         if (result) {
             System.out.println("[WARNING] scenario has no steps:  " + element.getRawName());
         }
@@ -193,7 +198,7 @@ public class Util {
     }
 
     public static boolean hasSteps(ScenarioTag scenario) {
-        boolean result = scenario.getScenario().getSteps() == null || scenario.getScenario().getSteps().length == 0;
+        boolean result = scenario.getScenario().getSteps() == null || scenario.getScenario().getSteps().size() == 0;
         if (result) {
             System.out.println("[WARNING] scenario tag has no steps:  " + scenario.getScenario().getRawName());
         }
@@ -201,7 +206,7 @@ public class Util {
     }
 
     public static boolean hasScenarios(Feature feature) {
-        boolean result = feature.getElements() == null || feature.getElements().length == 0;
+        boolean result = feature.getElements() == null || feature.getElements().size() == 0;
         if (result) {
             System.out.println("[WARNING] feature has no scenarios:  " + feature.getRawName());
         }

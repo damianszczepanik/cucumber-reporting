@@ -2,13 +2,14 @@ package net.masterthought.cucumber.json;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-import net.masterthought.cucumber.ConfigurationOptions;
+import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 import net.masterthought.cucumber.util.Util;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Feature {
 
@@ -26,8 +27,8 @@ public class Feature {
 
     }
 
-    public Element[] getElements() {
-        return elements;
+    public Sequence<Element> getElements() {
+        return Sequences.sequence(elements);
     }
 
     public String getFileName() {
@@ -49,33 +50,38 @@ public class Feature {
         return Util.itemExists(tags);
     }
 
-    public List<String> getTagList() {
-        List<String> tagList = new ArrayList<String>();
-        for (Tag tag : tags) {
-            tagList.add(tag.getName());
-        }
-        return tagList;
+    public Sequence<String> getTagList() {
+        return getTags().map(Tag.functions.getName());
     }
 
-    public String getTags() {
+    public Sequence<Tag> getTags(){
+      return Sequences.sequence(tags);
+    }
+
+    public String getTagsList() {
         String result = "<div class=\"feature-tags\"></div>";
         if (Util.itemExists(tags)) {
-            String tagList = StringUtils.join(getTagList().toArray(), ",");
+            String tagList = StringUtils.join(getTagList().toList().toArray(), ",");
             result = "<div class=\"feature-tags\">" + tagList + "</div>";
         }
         return result;
     }
 
-    public Util.Status getStatus() {
-        Closure<String, Element> scenarioStatus = new Closure<String, Element>() {
-            public Util.Status call(Element step) {
-                return step.getStatus();
-            }
-        };
-        List<Util.Status> results = new ArrayList<Util.Status>();
-        if (Util.itemExists(elements)) {
-            results = Util.collectScenarios(elements, scenarioStatus);
-        }
+//    public Util.Status getStatus() {
+//        Closure<String, Element> scenarioStatus = new Closure<String, Element>() {
+//            public Util.Status call(Element step) {
+//                return step.getStatus();
+//            }
+//        };
+//        List<Util.Status> results = new ArrayList<Util.Status>();
+//        if (Util.itemExists(elements)) {
+//            results = Util.collectScenarios(elements, scenarioStatus);
+//        }
+//        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
+//    }
+
+    public Util.Status getStatus(){
+        Sequence<Util.Status> results = getElements().map(Element.functions.status());
         return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
     }
 
@@ -167,7 +173,7 @@ public class Feature {
             for (Element element : elements) {
                 calculateScenarioStats(passedScenarios, failedScenarios, element);
                 if (Util.hasSteps(element)) {
-                    Step[] steps = element.getSteps();
+                    Sequence<Step> steps = element.getSteps();
                     for (Step step : steps) {
                         allSteps.add(step);
                         Util.Status stepStatus = step.getStatus();
@@ -266,6 +272,7 @@ public class Feature {
         }
 
     }
+
 
 
 }

@@ -42,7 +42,7 @@ public class ReportInformationTest {
         Map<String, Artifact> map = artifactProcessor.process();
         ConfigurationOptions.setArtifactConfiguration(map);
         reportInformation = new ReportInformation(reportParser.getFeatures());
-        assertThat(reportInformation.getFeatures().get(2).getElements()[7].getSteps()[0].getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account <div style=\"display:none;\"><textarea id=\"Account_has_sufficient_funds_againthe_account_balance_is_300\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')\" href=\"#\">balance</a> is 300</span></div>"));
+        assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps().get(0).getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account <div style=\"display:none;\"><textarea id=\"Account_has_sufficient_funds_againthe_account_balance_is_300\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')\" href=\"#\">balance</a> is 300</span></div>"));
     }
 
     @Test

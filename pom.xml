@@ -145,5 +145,10 @@
             <artifactId>maven-gpg-plugin</artifactId>
             <version>1.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.totallylazy</groupId>
+            <artifactId>totallylazy</artifactId>
+            <version>991</version>
+        </dependency>
     </dependencies>
 </project>

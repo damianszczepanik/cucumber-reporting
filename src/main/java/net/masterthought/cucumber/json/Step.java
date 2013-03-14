@@ -1,8 +1,9 @@
 package net.masterthought.cucumber.json;
 
+import com.google.gson.internal.StringMap;
+import com.googlecode.totallylazy.Function1;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
-import com.google.gson.internal.StringMap;
 import org.joda.time.DateTime;
 
 import static org.apache.commons.lang.StringUtils.EMPTY;
@@ -130,15 +131,15 @@ public class Step {
     }
 
     public void setName(String newName) {
-      this.name = newName;
+        this.name = newName;
     }
 
     public String getImageTag() {
-        if(noEmbeddedScreenshots()) return EMPTY;
+        if (noEmbeddedScreenshots()) return EMPTY;
 
         String imageId = Long.toString(new DateTime().getMillis());
-        return "<a href=\"\" onclick=\"img=document.getElementById('"+imageId+"'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
-                "<img id='"+imageId+"' style='display:none' src='"+ getMimeEncodedEmbeddedImage() +"'>";
+        return "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
+                "<img id='" + imageId + "' style='display:none' src='" + getMimeEncodedEmbeddedImage() + "'>";
     }
 
     private boolean noEmbeddedScreenshots() {
@@ -146,6 +147,18 @@ public class Step {
     }
 
     public String getMimeEncodedEmbeddedImage() {
-        return "data:image/png;base64,"+((StringMap)getEmbeddings()[0]).get("data");
+        return "data:image/png;base64," + ((StringMap) getEmbeddings()[0]).get("data");
     }
+
+    public static class functions {
+        public static Function1<Step, Util.Status> status() {
+            return new Function1<Step, Util.Status>() {
+                @Override
+                public Util.Status call(Step step) throws Exception {
+                    return step.getStatus();
+                }
+            };
+        }
+    }
+
 }

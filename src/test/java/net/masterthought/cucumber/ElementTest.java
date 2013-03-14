@@ -32,15 +32,15 @@ public class ElementTest {
         Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
-        passingElement = passingFeature.getElements()[0];
-        failingElement = failingFeature.getElements()[0];
-        taggedElement = passingFeature.getElements()[1];
+        passingElement = passingFeature.getElements().get(0);
+        failingElement = failingFeature.getElements().get(0);
+        taggedElement = passingFeature.getElements().get(1);
 
     }
 
     @Test
     public void shouldReturnSteps() {
-        assertThat(passingElement.getSteps()[0], is(Step.class));
+        assertThat(passingElement.getSteps().get(0), is(Step.class));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ElementTest {
         expectedList.add("@fast");
         expectedList.add("@super");
         expectedList.add("@checkout");
-        assertThat(taggedElement.getTagList(), is(expectedList));
+        assertThat(taggedElement.getTagList().toList(), is(expectedList));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ElementTest {
 
     @Test
     public void shouldReturnTagsAsHtml(){
-        assertThat(taggedElement.getTags(), is("<div class=\"feature-tags\">@fast,@super,@checkout</div>"));
+        assertThat(taggedElement.getTagsList(), is("<div class=\"feature-tags\">@fast,@super,@checkout</div>"));
     }
 
 }

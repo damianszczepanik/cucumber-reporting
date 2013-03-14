@@ -33,9 +33,9 @@ public class StepTest {
         Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
-        passingStep = passingFeature.getElements()[0].getSteps()[0];
-        failingStep = failingFeature.getElements()[0].getSteps()[5];
-        skippedStep = failingFeature.getElements()[0].getSteps()[6];
+        passingStep = passingFeature.getElements().get(0).getSteps().get(0);
+        failingStep = failingFeature.getElements().get(0).getSteps().get(5);
+        skippedStep = failingFeature.getElements().get(0).getSteps().get(6);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         ReportParser reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        Step step = feature.getElements()[0].getSteps()[0];
+        Step step = feature.getElements().get(0).getSteps().get(0);
         feature.processSteps();
         assertThat(step.getRows()[0], is(Row.class));
     }
@@ -123,6 +123,6 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
         Feature failingFeatureWithEmbeddedScreenshot = new ReportParser(jsonReports).getFeatures().entrySet().iterator().next().getValue().get(0);
         failingFeatureWithEmbeddedScreenshot.processSteps();
-        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
+        return failingFeatureWithEmbeddedScreenshot.getElements().get(0).getSteps().get(2);
     }
 }

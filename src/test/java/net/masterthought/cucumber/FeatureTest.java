@@ -52,12 +52,12 @@ public class FeatureTest {
     public void shouldListTheTags() {
         List<String> expectedList = new ArrayList<String>();
         expectedList.add("@super");
-        assertThat(passingFeature.getTagList(), is(expectedList));
+        assertThat(passingFeature.getTagList().toList(), is(expectedList));
     }
 
     @Test
     public void shouldListTheTagsAsHtml() {
-        assertThat(passingFeature.getTags(), is("<div class=\"feature-tags\">@super</div>"));
+        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\">@super</div>"));
     }
 
     @Test
