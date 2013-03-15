@@ -193,7 +193,7 @@ table.data-table td {
                         <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
                         <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
                         <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
-                        <td id="stats-number-duration-$sf">$feature.getDurationOfSteps()</td>
+                        <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
                         <td id="stats-status-$sf" style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
 
                 </table>
@@ -202,14 +202,14 @@ table.data-table td {
 
 		<div style="color:black;">
 
-            $feature.getTags()
+            $feature.getTagsList()
             $feature.getName()
             $feature.getDescription()
 
             #foreach($scenario in $scenarios)
-                $scenario.getTags()
+                $scenario.getTagsList()
                 $scenario.getName()
-                #foreach($step in $scenario.getSteps())
+                #foreach($step in $scenario.getSteps().toList())
                   $step.getName()
                     #if($step.hasRows())
                         <div class="data $step.getDataTableClass()">

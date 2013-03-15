@@ -77,11 +77,12 @@ public class ReportBuilder {
                 ve.init(getProperties());
                 Template featureResult = ve.getTemplate("templates/featureReport.vm");
                 VelocityContext context = new VelocityContext();
+                context.put("version", VERSION);
                 context.put("feature", feature);
                 context.put("report_status_colour", ri.getReportStatusColour(feature));
                 context.put("build_project", buildProject);
                 context.put("build_number", buildNumber);
-                context.put("scenarios", feature.getElements());
+                context.put("scenarios", feature.getElements().toList());
                 context.put("time_stamp", ri.timeStamp());
                 context.put("jenkins_base", pluginUrlPath);
                 context.put("fromJenkins", runWithJenkins);
