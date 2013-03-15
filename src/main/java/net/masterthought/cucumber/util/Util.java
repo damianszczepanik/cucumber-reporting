@@ -96,40 +96,6 @@ public class Util {
         return "</div>";
     }
 
-    public static <T, R> List<R> collectScenarios(Element[] list, Closure<String, Element> clo) {
-        List<R> res = new ArrayList<R>();
-        for (final Element t : list) {
-            res.add((R) clo.call(t));
-        }
-        return res;
-    }
-
-    public static <T, R> List<R> collectSteps(Step[] list, Closure<String, Step> clo) {
-        List<R> res = new ArrayList<R>();
-        try {
-
-            if (list == null) {
-                return res;
-            }
-
-            for (final Step t : list) {
-                res.add((R) clo.call(t));
-            }
-        } catch (Exception e) {
-            System.out.println("Found error while tyring to collect steps: " + e.getMessage());
-
-        }
-        return res;
-    }
-
-    public static <T, R> List<R> collectTags(Tag[] list, StringClosure<String, Tag> clo) {
-        List<R> res = new ArrayList<R>();
-        for (final Tag t : list) {
-            res.add((R) clo.call(t));
-        }
-        return res;
-    }
-
     public static String U2U(String s) {
         final Pattern p = Pattern.compile("\\\\u\\s*([0-9(A-F|a-f)]{4})", Pattern.MULTILINE);
         String res = s;

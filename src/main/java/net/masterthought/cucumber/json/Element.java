@@ -22,11 +22,11 @@ public class Element {
     }
 
     public Sequence<Step> getSteps() {
-        return Sequences.sequence(steps);
+        return Sequences.sequence(steps).realise();
     }
 
     public Sequence<Tag> getTags() {
-        return Sequences.sequence(tags);
+        return Sequences.sequence(tags).realise();
     }
 
     public Util.Status getStatus() {

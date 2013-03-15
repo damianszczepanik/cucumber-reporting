@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Closure;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
@@ -35,7 +36,7 @@ public class TagObject {
         this.scenarios = scenarios;
     }
 
-    private void getElements() {
+    private void populateElements() {
         for (ScenarioTag scenarioTag : scenarios) {
             elements.add(scenarioTag.getScenario());
         }
@@ -122,16 +123,13 @@ public class TagObject {
         return statuses;
     }
 
-    public Util.Status getStatus() {
-        getElements();
-        Closure<String, Element> scenarioStatus = new Closure<String, Element>() {
-            public Util.Status call(Element step) {
-                return step.getStatus();
-            }
-        };
+    public Sequence<Element> getElements() {
+        populateElements();
+        return Sequences.sequence(elements);
+    }
 
-        Element[] elementList = new Element[elements.size()];
-        List<Util.Status> results = Util.collectScenarios(elements.toArray(elementList), scenarioStatus);
+    public Util.Status getStatus() {
+        Sequence<Util.Status> results = getElements().map(Element.functions.status());
         return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
     }
 

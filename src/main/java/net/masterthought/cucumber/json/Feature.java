@@ -28,7 +28,7 @@ public class Feature {
     }
 
     public Sequence<Element> getElements() {
-        return Sequences.sequence(elements);
+        return Sequences.sequence(elements).realise();
     }
 
     public String getFileName() {
@@ -55,7 +55,7 @@ public class Feature {
     }
 
     public Sequence<Tag> getTags(){
-      return Sequences.sequence(tags);
+      return Sequences.sequence(tags).realise();
     }
 
     public String getTagsList() {
@@ -66,19 +66,6 @@ public class Feature {
         }
         return result;
     }
-
-//    public Util.Status getStatus() {
-//        Closure<String, Element> scenarioStatus = new Closure<String, Element>() {
-//            public Util.Status call(Element step) {
-//                return step.getStatus();
-//            }
-//        };
-//        List<Util.Status> results = new ArrayList<Util.Status>();
-//        if (Util.itemExists(elements)) {
-//            results = Util.collectScenarios(elements, scenarioStatus);
-//        }
-//        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
-//    }
 
     public Util.Status getStatus(){
         Sequence<Util.Status> results = getElements().map(Element.functions.status());
