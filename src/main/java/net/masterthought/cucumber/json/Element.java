@@ -9,6 +9,8 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.googlecode.totallylazy.Option.option;
+
 public class Element {
 
     private String name;
@@ -22,16 +24,16 @@ public class Element {
     }
 
     public Sequence<Step> getSteps() {
-        return Sequences.sequence(steps).realise();
+        return Sequences.sequence(option(steps).getOrElse(new Step[]{})).realise();
     }
 
     public Sequence<Tag> getTags() {
-        return Sequences.sequence(tags).realise();
+        return Sequences.sequence(option(tags).getOrElse(new Tag[]{})).realise();
     }
 
     public Util.Status getStatus() {
-        Sequence<Util.Status> results = getSteps().map(Step.functions.status());
-        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
+        Sequence<Step> results = getSteps().filter(Step.predicates.hasStatus(Util.Status.FAILED));
+        return results.size() == 0 ? Util.Status.PASSED : Util.Status.FAILED;
     }
 
     public String getRawName() {

@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import com.google.gson.internal.StringMap;
 import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.predicates.LogicalPredicate;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
 import org.joda.time.DateTime;
@@ -151,6 +152,29 @@ public class Step {
     }
 
     public static class functions {
+        public static Function1<Step, Util.Status> status() {
+            return new Function1<Step, Util.Status>() {
+                @Override
+                public Util.Status call(Step step) throws Exception {
+                    return step.getStatus();
+                }
+            };
+        }
+    }
+
+    public static class predicates {
+
+        public static LogicalPredicate<Step> hasStatus(final Util.Status status) {
+            return new LogicalPredicate<Step>() {
+                @Override
+                public boolean matches(Step step) {
+                    return step.getStatus().equals(status);
+                }
+            };
+        }
+
+
+
         public static Function1<Step, Util.Status> status() {
             return new Function1<Step, Util.Status>() {
                 @Override
