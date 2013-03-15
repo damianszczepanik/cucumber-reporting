@@ -142,4 +142,16 @@ public class FeatureTest {
     public void shouldGetNumberOfFailingScenarios() {
         assertThat(failingFeature.getNumberOfScenariosFailed(), is(1));
     }
+
+    @Test
+    public void shouldProcessAFeatureContainingLanguageCharacterCorrectly() throws IOException {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/language_characters.json"));
+        ReportParser reportParser = new ReportParser(jsonReports);
+        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        feature.processSteps();
+        assertThat(feature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Language characters work ö ä ü</div></div>"));
+    }
+
+
 }
