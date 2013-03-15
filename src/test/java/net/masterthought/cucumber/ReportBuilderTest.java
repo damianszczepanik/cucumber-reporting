@@ -59,7 +59,7 @@ public class ReportBuilderTest {
         File input = new File(rd, "masterthought-example-ATM.feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("feature-title", doc).text(), is("Feature Result for Build: 1"));
-//        assertStatsHeader(doc);
+        assertStatsHeader(doc);
 //        assertStatsFirstFeature(doc);
 //        assertNotNull(fromId("flash-charts", doc));
     }

@@ -162,37 +162,39 @@ table.data-table td {
                 <table class="stats-table">
                     <tr>
                         <th></th>
-                        <th colspan="3">Scenarios</th>
-                        <th colspan="5">Steps</th>
+                        <th id="stats-header-scenarios" colspan="3">Scenarios</th>
+                        <th id="stats-header-steps" colspan="5">Steps</th>
                         <th></th>
                         <th></th>
                     </tr>
                     <tr>
-                        <th>Feature</th>
-                        <th>Total</th>
-                        <th>Passed</th>
-                        <th>Failed</th>
-                        <th>Total</th>
-                        <th style="background-color:#C5D88A;">Passed</th>
-                        <th style="background-color:#D88A8A;">Failed</th>
-                        <th style="background-color:#2DEAEC;">Skipped</th>
-                        <th style="background-color:#ebcc81;">Pending</th>
-                        <th>Duration</th>
-                        <th>Status</th>
+                        <th id="stats-header-feature">Feature</th>
+                        <th id="stats-header-scenarios-total">Total</th>
+                        <th id="stats-header-scenarios-passed">Passed</th>
+                        <th id="stats-header-scenarios-failed">Failed</th>
+                        <th id="stats-header-steps-total">Total</th>
+                        <th id="stats-header-steps-passed" style="background-color:#C5D88A;">Passed</th>
+                        <th id="stats-header-steps-failed" style="background-color:#D88A8A;">Failed</th>
+                        <th id="stats-header-steps-skipped" style="background-color:#2DEAEC;">Skipped</th>
+                        <th id="stats-header-steps-pending" style="background-color:#ebcc81;">Pending</th>
+                        <th id="stats-header-duration">Duration</th>
+                        <th id="stats-header-status">Status</th>
                     </tr>
 
+                    #set($sf = $feature.getRawName())
+
                     <tr>
-                        <td><a href="$feature.getFileName()">$feature.getRawName()</a></td>
-                        <td>$feature.getNumberOfScenarios()</td>
-                        <td>$feature.getNumberOfScenariosPassed()</td>
-                        <td>$feature.getNumberOfScenariosFailed()</td>
-                        <td>$feature.getNumberOfSteps()</td>
-                        <td>$feature.getNumberOfPasses()</td>
-                        <td>$feature.getNumberOfFailures()</td>
-                        <td>$feature.getNumberOfSkipped()</td>
-                        <td>$feature.getNumberOfPending()</td>
-                        <td>$feature.getDurationOfSteps()</td>
-                        <td style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
+                        <td><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
+                        <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
+                        <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
+                        <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
+                        <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
+                        <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
+                        <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
+                        <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
+                        <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
+                        <td id="stats-number-duration-$sf">$feature.getDurationOfSteps()</td>
+                        <td id="stats-status-$sf" style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
 
                 </table>
 
