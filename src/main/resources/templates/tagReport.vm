@@ -185,7 +185,7 @@ table.data-table td {
 	<div class="container_12">
 		<div class="grid_12 hr"></div>
 		<div class="grid_12 footer">
-			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - $time_stamp</p>
+            <p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
 		</div>
 	</div>
 	<div class="clear"></div>

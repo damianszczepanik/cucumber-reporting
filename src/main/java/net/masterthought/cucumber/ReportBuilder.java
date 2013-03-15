@@ -25,6 +25,8 @@ public class ReportBuilder {
     private boolean runWithJenkins;
     private boolean artifactsEnabled;
 
+    private final String VERSION="cucumber-reporting-0.0.20";
+
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig) throws Exception {
         ConfigurationOptions.setSkippedFailsBuild(skippedFails);
         ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
@@ -99,6 +101,7 @@ public class ReportBuilder {
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/featureOverview.vm");
         VelocityContext context = new VelocityContext();
+        context.put("version", VERSION);
         context.put("build_project", buildProject);
         context.put("build_number", buildNumber);
         context.put("features", ri.getFeatures());
@@ -136,6 +139,7 @@ public class ReportBuilder {
             ve.init(getProperties());
             Template featureResult = ve.getTemplate("templates/tagReport.vm");
             VelocityContext context = new VelocityContext();
+            context.put("version", VERSION);
             context.put("tag", tagObject);
             context.put("time_stamp", ri.timeStamp());
             context.put("jenkins_base", pluginUrlPath);
@@ -152,6 +156,7 @@ public class ReportBuilder {
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/tagOverview.vm");
         VelocityContext context = new VelocityContext();
+        context.put("version", VERSION);
         context.put("build_project", buildProject);
         context.put("build_number", buildNumber);
         context.put("tags", ri.getTags());

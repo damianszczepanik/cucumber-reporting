@@ -91,7 +91,7 @@ table.stats-table td {
 	<div id="fullwidth_gradient">
 		<div class="container_12">
 			<div class="grid_9 heading">
-				<h2>Feature Overview for Build: $build_number</h2>
+				<h2 id="overview-title">Feature Overview for Build: $build_number</h2>
 				<span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
 			</div>
 		</div>
@@ -102,7 +102,7 @@ table.stats-table td {
 
 
 #if($flashCharts)
-	 <div style="text-align:center;">
+	 <div id="flash-charts" style="text-align:center;">
 
          <table>
              <tr>
@@ -212,7 +212,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
   	<P>This content requires JavaScript.</P>
   </noscript>
 
-    <table>
+    <table id="js-charts">
            <tr>
                <td> <div style="background-color: #E6FCFF;width:480px;height:300px;border: 1px solid gray;" id="steps_chart"></div></td>
                <td width="10">&nbsp;</td>
@@ -227,27 +227,27 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
 	<div>
 	  <br/>
-  <h2>Feature Statistics</h2>
+  <h2 id="feature-statistics-title">Feature Statistics</h2>
   <table class="stats-table">
   <tr>
     <th></th>
-    <th colspan="3">Scenarios</th>
-    <th colspan="5">Steps</th>
+    <th id="stats-header-scenarios" colspan="3">Scenarios</th>
+    <th id="stats-header-steps" colspan="5">Steps</th>
     <th></th>
     <th></th>
   </tr>
   <tr>
-  <th>Feature</th>
-  <th>Total</th>
-  <th>Passed</th>
-  <th>Failed</th>
-  <th>Total</th>
-  <th>Passed</th>
-  <th>Failed</th>
-  <th>Skipped</th>
-  <th>Pending</th>
-  <th>Duration</th>
-  <th>Status</th>
+  <th id="stats-header-feature">Feature</th>
+  <th id="stats-header-scenarios-total">Total</th>
+  <th id="stats-header-scenarios-passed">Passed</th>
+  <th id="stats-header-scenarios-failed">Failed</th>
+  <th id="stats-header-steps-total">Total</th>
+  <th id="stats-header-steps-passed">Passed</th>
+  <th id="stats-header-steps-failed">Failed</th>
+  <th id="stats-header-steps-skipped">Skipped</th>
+  <th id="stats-header-steps-pending">Pending</th>
+  <th id="stats-header-duration">Duration</th>
+  <th id="stats-header-status">Status</th>
   </tr>
 
       #foreach($feature in $features)
@@ -260,33 +260,35 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
           $feature.processSteps()
 
+          #set($sf = $feature.getRawName())
+
           <tr>
-          <td style="text-align:left;"><a href="$feature.getFileName()">$feature.getRawName()</a></td>
-          <td>$feature.getNumberOfScenarios()</td>
-          <td>$feature.getNumberOfScenariosPassed()</td>
-          <td>$feature.getNumberOfScenariosFailed()</td>
-          <td>$feature.getNumberOfSteps()</td>
-          <td>$feature.getNumberOfPasses()</td>
-          <td>$feature.getNumberOfFailures()</td>
-          <td>$feature.getNumberOfSkipped()</td>
-          <td>$feature.getNumberOfPending()</td>
-          <td>$feature.getDurationOfSteps()</td>
-          <td style="background-color: $bgcolour;">$feature.getRawStatus()</td>
+          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
+          <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
+          <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
+          <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
+          <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
+          <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
+          <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
+          <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
+          <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
+          <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
+          <td id="stats-status-$sf" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
           </tr>
       #end
 
 <tr>
-<td style="background-color:lightgray;font-weight:bold;">$total_features</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
-<td style="background-color:lightgray;font-weight:bold;">$scenarios_passed</td>
-<td style="background-color:lightgray;font-weight:bold;">$scenarios_failed</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_steps</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_passes</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_fails</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_skipped</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_pending</td>
-<td style="background-color:lightgray;font-weight:bold;">$total_duration</td>
-<td style="background-color:lightgray;font-weight:bold;">Totals</td>
+<td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">$total_features</td>
+<td id="stats-total-scenarios" style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
+<td id="stats-total-scenarios-passed" style="background-color:lightgray;font-weight:bold;">$scenarios_passed</td>
+<td id="stats-total-scenarios-failed" style="background-color:lightgray;font-weight:bold;">$scenarios_failed</td>
+<td id="stats-total-steps" style="background-color:lightgray;font-weight:bold;">$total_steps</td>
+<td id="stats-total-steps-passed" style="background-color:lightgray;font-weight:bold;">$total_passes</td>
+<td id="stats-total-steps-failed" style="background-color:lightgray;font-weight:bold;">$total_fails</td>
+<td id="stats-total-steps-skipped" style="background-color:lightgray;font-weight:bold;">$total_skipped</td>
+<td id="stats-total-steps-pending" style="background-color:lightgray;font-weight:bold;">$total_pending</td>
+<td id="stats-total-duration" style="background-color:lightgray;font-weight:bold;">$total_duration</td>
+<td id="stats-total-totals" style="background-color:lightgray;font-weight:bold;">Totals</td>
 </tr></table>
 	</div>
 
@@ -297,7 +299,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 	<div class="container_12">
 		<div class="grid_12 hr"></div>
 		<div class="grid_12 footer">
-			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - $time_stamp</p>
+			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
 		</div>
 	</div>
 	<div class="clear"></div>
