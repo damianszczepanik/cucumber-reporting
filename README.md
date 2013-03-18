@@ -14,7 +14,7 @@ This project allows you to publish the results of a cucumber run as pretty html 
 
 1. Add a maven dependency to your pom
 
-2. Or grab the jar file from the downloads page
+2. Or grab the jar file from the [downloads](http://www.masterthought.net/section/cucumber-reporting-downloads) page
 
 Read this if you need further  [detailed install and configuration]
 (https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
@@ -36,7 +36,7 @@ Release notes are [here](https://github.com/masterthought/cucumber-reporting/wik
     Boolean undefinedFails = false;
     Boolean flashCharts = true;
     Boolean runWithJenkins = true;
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles,reportOutputDirectory,pluginUrl,buildNumber,buildProjectName,skippedFails,undefinedFails,flashCharts,runWithJenkins);
+    ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","95","cucumber-jvm",false,false,true,true,false,"");
     reportBuilder.generateReports();
 
 skippedFails means the build will be failed if any steps are in skipped status and undefinedFails means the build will be failed if any steps are in undefined status. This only applies when running with Jenkins.
