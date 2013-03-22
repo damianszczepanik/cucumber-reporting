@@ -197,17 +197,17 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 </div>
 #else
     <script>
-               window.onload = function () {
-                   var steps = Raphael("steps_chart");
-                   steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
-                   steps.piechart(200, 150, 120, [$total_passes, $total_fails, $total_skipped, $total_pending], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
+        window.onload = function () {
+            var steps = Raphael("steps_chart");
+            steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
+            steps.piechart(200, 150, 120, [#if( $total_passes == 0) 0.000001 #{else} $total_passes #end, #if( $total_fails == 0) 0.000001 #{else} $total_fails #end, #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end, #if( $total_pending== 0) 0.000001 #{else} $total_pending #end], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
 
-                   var scenarios = Raphael("scenarios_chart");
-                   scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
-                   scenarios.piechart(200, 150, 120, [$scenarios_passed,$scenarios_failed], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
 
-               };
-           </script>
+            var scenarios = Raphael("scenarios_chart");
+            scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
+            scenarios.piechart(200, 150, 120, [#if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,#if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
+        };
+    </script>
   <noscript>
   	<P>This content requires JavaScript.</P>
   </noscript>
