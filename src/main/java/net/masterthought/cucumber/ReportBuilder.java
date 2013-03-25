@@ -24,10 +24,11 @@ public class ReportBuilder {
     private boolean flashCharts;
     private boolean runWithJenkins;
     private boolean artifactsEnabled;
+    private boolean highCharts;
 
     private final String VERSION="cucumber-reporting-0.0.20";
 
-    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig) throws Exception {
+    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
         ConfigurationOptions.setSkippedFailsBuild(skippedFails);
         ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
         ConfigurationOptions.setArtifactsEnabled(artifactsEnabled);
@@ -44,6 +45,7 @@ public class ReportBuilder {
         this.flashCharts = flashCharts;
         this.runWithJenkins = runWithJenkins;
         this.artifactsEnabled = artifactsEnabled;
+        this.highCharts = highCharts;
     }
 
     public boolean getBuildStatus() {
@@ -130,6 +132,7 @@ public class ReportBuilder {
         context.put("jenkins_base", pluginUrlPath);
         context.put("fromJenkins", runWithJenkins);
         context.put("flashCharts", flashCharts);
+        context.put("highCharts", highCharts);
         generateReport("feature-overview.html", featureOverview, context);
     }
 
@@ -173,13 +176,19 @@ public class ReportBuilder {
         if (flashCharts) {
             context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
         } else {
-            context.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
+            if (highCharts) {
+                context.put("chart_categories", JsChartUtil.getTags(ri.tagMap));
+                context.put("chart_data", JsChartUtil.generateTagChartDataForHighCharts(ri.tagMap));
+            } else {
+                context.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
+            }
         }
         context.put("total_duration", ri.getTotalTagDuration());
         context.put("time_stamp", ri.timeStamp());
         context.put("jenkins_base", pluginUrlPath);
         context.put("fromJenkins", runWithJenkins);
         context.put("flashCharts", flashCharts);
+        context.put("highCharts", highCharts);
         generateReport("tag-overview.html", featureOverview, context);
     }
 
