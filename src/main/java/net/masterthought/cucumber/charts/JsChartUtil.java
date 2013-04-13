@@ -51,8 +51,39 @@ public class JsChartUtil {
            buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
         }
         return buffer.toString();
+    }
 
+    public static String getTags(List<TagObject> tagObjectList) {
+        StringBuffer tags = new StringBuffer();
+        int counter = 0;
+        for (TagObject tag : tagObjectList) {
+            tags.append("'" + tag.getTagName() + "'");
 
+            if (tagObjectList.size() != 1 && tagObjectList.size() <= counter) {
+                tags.append(",");
+            }
+
+            counter++;
+        }
+
+        return "[" + tags.toString() + "]";
+    }
+
+    public static String generateTagChartDataForHighCharts(List<TagObject> tagObjectList) {
+        StringBuffer buffer = new StringBuffer();
+        int counter = 0;
+
+        for (TagObject tag : tagObjectList) {
+            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]");
+
+            if (tagObjectList.size() != 1 && tagObjectList.size() <= counter) {
+                buffer.append(",");
+            }
+
+            counter++;
+        }
+
+        return "[" + buffer.toString() + "]";
     }
 
 

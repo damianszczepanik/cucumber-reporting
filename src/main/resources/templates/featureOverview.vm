@@ -22,10 +22,15 @@
         -->
         </script>
     #else
-        <script src="js/raphael.js"></script>
-        <script src="js/g.raphael-min.js"></script>
-        <script src="js/g.pie-min.js"></script>
-        <script src="js/g.bar-min.js"></script>
+        #if ($highCharts)
+            <script type="text/javascript" src="js/jquery.min.js"></script>
+            <script src="js/highcharts.js"></script>
+        #else
+            <script src="js/raphael.js"></script>
+            <script src="js/g.raphael-min.js"></script>
+            <script src="js/g.pie-min.js"></script>
+            <script src="js/g.bar-min.js"></script>
+        #end
     #end
 <style>
 .feature-keyword{font-weight:bold;}
@@ -196,21 +201,131 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
  </table>
 </div>
 #else
-    <script>
-               window.onload = function () {
-                   var steps = Raphael("steps_chart");
-                   steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
-                   steps.piechart(200, 150, 120, [$total_passes, $total_fails, $total_skipped, $total_pending], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
+    #if ($highCharts)
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('#steps_chart').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Steps'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                        percentageDecimals: 1
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                formatter: function() {
+                                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Steps',
+                        data: [
+                            {
+                                name: 'Passed',
+                                color: "$step_data.get(0)",
+                                y: $total_passes,
+                                sliced: true,
+                                selected: true
+                            },
+                            {
+                                name: 'Failed',
+                                color: "$step_data.get(1)",
+                                y: $total_fails
+                            },
+                            {
+                                name: 'Skipped',
+                                color: "$step_data.get(2)",
+                                y: $total_skipped
+                            },
+                            {
+                                name: 'Pending',
+                                color: "$step_data.get(3)",
+                                y: $total_pending
+                            }
+                        ]
+                    }]
+                });
 
-                   var scenarios = Raphael("scenarios_chart");
-                   scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
-                   scenarios.piechart(200, 150, 120, [$scenarios_passed,$scenarios_failed], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
+                $('#scenarios_chart').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Scenarios'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                        percentageDecimals: 1
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                formatter: function() {
+                                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Scenarios',
+                        data: [
+                            {
+                                name: 'Passed',
+                                y: $scenarios_passed,
+                                color: "$step_data.get(0)",
+                                sliced: true,
+                                selected: true
+                            },
+                            {
+                                name: 'Failed',
+                                y: $scenarios_failed,
+                                color: "$step_data.get(1)"
+                            }
+                        ]
+                    }]
+                });
+            });
+        </script>
+    #else
+        <script>
+            window.onload = function () {
+                var steps = Raphael("steps_chart");
+                steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
+                steps.piechart(200, 150, 120, [#if( $total_passes == 0) 0.000001 #{else} $total_passes #end, #if( $total_fails == 0) 0.000001 #{else} $total_fails #end, #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end, #if( $total_pending == 0) 0.000001 #{else} $total_pending #end], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
 
-               };
-           </script>
-  <noscript>
-  	<P>This content requires JavaScript.</P>
-  </noscript>
+
+                var scenarios = Raphael("scenarios_chart");
+                scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
+                scenarios.piechart(200, 150, 120, [#if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,#if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
+            };
+        </script>
+    #end
+    <noscript>
+        <P>This content requires JavaScript.</P>
+    </noscript>
 
     <table id="js-charts">
            <tr>
