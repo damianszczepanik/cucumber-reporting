@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cucumber-JVM Html Reports - Error Page</title>
+	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="blue/favicon.ico" />
+<style>
+.error-message{
+    color:red;
+    font-weight: bold;
+    padding: 10px;
+    background-color: lightpink;
+}
+</style>
+
+</head>
+<body id="top">
+	<div id="fullwidth_header">
+		<div class="container_12">
+			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+			<div class="grid_6" id="nav">
+				<ul>
+                    #if($fromJenkins)
+                        <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                    #end
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="fullwidth_gradient">
+		<div class="container_12">
+			<div class="grid_9 heading">
+				<h2 id="overview-title">Oops Something went wrong with $build_project build: $build_number</h2>
+				<span class="subhead">The error message (if any) is below:</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="container_12">
+		<div class="grid_12">
+
+	<br/>
+
+	<div class="error-message">$error_message</div>
+     <br/>
+	</div>
+	</div>
+
+
+	<div class="container_12">
+		<div class="grid_12 hr"></div>
+		<div class="grid_12 footer">
+			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+</body>
+</html>

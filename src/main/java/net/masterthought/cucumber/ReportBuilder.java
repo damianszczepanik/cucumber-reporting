@@ -12,6 +12,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ReportBuilder {
@@ -25,27 +26,37 @@ public class ReportBuilder {
     private boolean runWithJenkins;
     private boolean artifactsEnabled;
     private boolean highCharts;
+    private boolean parsingError;
 
-    private final String VERSION="cucumber-reporting-0.0.21";
+    private final String VERSION = "cucumber-reporting-0.0.21";
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
-        ConfigurationOptions.setSkippedFailsBuild(skippedFails);
-        ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
-        ConfigurationOptions.setArtifactsEnabled(artifactsEnabled);
-        if(artifactsEnabled){
-            ArtifactProcessor artifactProcessor = new ArtifactProcessor(artifactConfig);
-            ConfigurationOptions.setArtifactConfiguration(artifactProcessor.process());
+
+        try {
+            this.reportDirectory = reportDirectory;
+            this.buildNumber = buildNumber;
+            this.buildProject = buildProject;
+            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
+            this.flashCharts = flashCharts;
+            this.runWithJenkins = runWithJenkins;
+            this.artifactsEnabled = artifactsEnabled;
+            this.highCharts = highCharts;
+
+            ConfigurationOptions.setSkippedFailsBuild(skippedFails);
+            ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
+            ConfigurationOptions.setArtifactsEnabled(artifactsEnabled);
+            if (artifactsEnabled) {
+                ArtifactProcessor artifactProcessor = new ArtifactProcessor(artifactConfig);
+                ConfigurationOptions.setArtifactConfiguration(artifactProcessor.process());
+            }
+
+            ReportParser reportParser = new ReportParser(jsonReports);
+            this.ri = new ReportInformation(reportParser.getFeatures());
+
+        } catch (Exception exception) {
+            parsingError = true;
+            generateErrorPage(exception);
         }
-        ReportParser reportParser = new ReportParser(jsonReports);
-        this.ri = new ReportInformation(reportParser.getFeatures());
-        this.reportDirectory = reportDirectory;
-        this.buildNumber = buildNumber;
-        this.buildProject = buildProject;
-        this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
-        this.flashCharts = flashCharts;
-        this.runWithJenkins = runWithJenkins;
-        this.artifactsEnabled = artifactsEnabled;
-        this.highCharts = highCharts;
     }
 
     public boolean getBuildStatus() {
@@ -53,19 +64,25 @@ public class ReportBuilder {
     }
 
     public void generateReports() throws Exception {
-        copyResource("themes", "blue.zip");
-        if (flashCharts) {
-            copyResource("charts", "flash_charts.zip");
-        } else {
-            copyResource("charts", "js.zip");
+        try {
+            copyResource("themes", "blue.zip");
+            if (flashCharts) {
+                copyResource("charts", "flash_charts.zip");
+            } else {
+                copyResource("charts", "js.zip");
+            }
+            if (artifactsEnabled) {
+                copyResource("charts", "codemirror.zip");
+            }
+            generateFeatureOverview();
+            generateFeatureReports();
+            generateTagReports();
+            generateTagOverview();
+        } catch (Exception exception) {
+            if (!parsingError) {
+                generateErrorPage(exception);
+            }
         }
-        if(artifactsEnabled){
-            copyResource("charts", "codemirror.zip");
-        }
-        generateFeatureOverview();
-        generateFeatureReports();
-        generateTagReports();
-        generateTagOverview();
     }
 
     public void generateFeatureReports() throws Exception {
@@ -190,6 +207,21 @@ public class ReportBuilder {
         context.put("flashCharts", flashCharts);
         context.put("highCharts", highCharts);
         generateReport("tag-overview.html", featureOverview, context);
+    }
+
+    public void generateErrorPage(Exception exception) throws Exception {
+        VelocityEngine ve = new VelocityEngine();
+        ve.init(getProperties());
+        Template errorPage = ve.getTemplate("templates/errorPage.vm");
+        VelocityContext context = new VelocityContext();
+        context.put("version", VERSION);
+        context.put("build_number", buildNumber);
+        context.put("fromJenkins", runWithJenkins);
+        context.put("jenkins_base", pluginUrlPath);
+        context.put("build_project", buildProject);
+        context.put("error_message", exception);
+        context.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
+        generateReport("feature-overview.html", errorPage, context);
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
