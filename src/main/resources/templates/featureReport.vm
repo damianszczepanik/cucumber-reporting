@@ -129,6 +129,11 @@ table.data-table td {
     padding-bottom: 10px;
     padding-top: 10px;
 }
+
+.output-data {
+    padding-left:50px;
+    background-color: beige;
+}
 </style>
 
 </head>
@@ -224,6 +229,7 @@ table.data-table td {
                       </table>
                         </div>
                     #end
+                  <div class="output-data">$step.getOutput()</div>
                 #end
             #end
 

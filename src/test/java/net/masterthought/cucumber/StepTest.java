@@ -23,6 +23,7 @@ public class StepTest {
     Step passingStep;
     Step failingStep;
     Step skippedStep;
+    Step withOutput;
 
     @Before
     public void setUpJsonReports() throws IOException {
@@ -36,6 +37,7 @@ public class StepTest {
         passingStep = passingFeature.getElements().first().getSteps().first();
         failingStep = failingFeature.getElements().first().getSteps().get(5);
         skippedStep = failingFeature.getElements().first().getSteps().get(6);
+        withOutput = passingFeature.getElements().get(1).getSteps().first();
     }
 
     @Test
@@ -53,6 +55,11 @@ public class StepTest {
     public void shouldKnowIfHasRows() {
         assertThat(passingStep.hasRows(), is(false));
     }
+
+    @Test
+     public void shouldReturnOutput() {
+         assertThat(withOutput.getOutput(), is("<div>some other text</div><div>wooops</div>"));
+     }
 
     @Test
     public void shouldReturnStatus() {

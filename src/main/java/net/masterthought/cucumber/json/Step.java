@@ -1,12 +1,19 @@
 package net.masterthought.cucumber.json;
 
+import com.google.common.base.Joiner;
 import com.google.gson.internal.StringMap;
 import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.googlecode.totallylazy.Option.option;
 import static org.apache.commons.lang.StringUtils.EMPTY;
 
 public class Step {
@@ -18,6 +25,7 @@ public class Step {
     private Row[] rows;
     private Match match;
     private Object[] embeddings;
+    private String[] output;
 
     public Step() {
 
@@ -25,6 +33,11 @@ public class Step {
 
     public Row[] getRows() {
         return rows;
+    }
+
+    public String getOutput() {
+        List<String> outputList = Sequences.sequence(option(output).getOrElse(new String[]{})).realise().toList();
+        return Joiner.on("").skipNulls().join(outputList);
     }
 
     public Match getMatch() {
@@ -172,7 +185,6 @@ public class Step {
                 }
             };
         }
-
 
 
         public static Function1<Step, Util.Status> status() {

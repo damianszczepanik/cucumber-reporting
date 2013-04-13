@@ -108,7 +108,7 @@ public class Util {
     }
 
     public static boolean isValidCucumberJsonReport(String fileContent) {
-        return fileContent.contains("Feature");
+        return fileContent.contains("\"keyword\":");
     }
 
     public static String formatDuration(Long duration) {

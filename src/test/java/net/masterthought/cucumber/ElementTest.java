@@ -35,7 +35,6 @@ public class ElementTest {
         passingElement = passingFeature.getElements().get(0);
         failingElement = failingFeature.getElements().get(0);
         taggedElement = passingFeature.getElements().get(1);
-
     }
 
     @Test

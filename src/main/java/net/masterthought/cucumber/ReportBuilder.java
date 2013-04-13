@@ -26,7 +26,7 @@ public class ReportBuilder {
     private boolean artifactsEnabled;
     private boolean highCharts;
 
-    private final String VERSION="cucumber-reporting-0.0.20";
+    private final String VERSION="cucumber-reporting-0.0.21";
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
         ConfigurationOptions.setSkippedFailsBuild(skippedFails);

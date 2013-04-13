@@ -31,7 +31,7 @@
             <script type="text/javascript" src="js/jquery.min.js"></script>
             <script src="js/highcharts.js"></script>
             <script>
-                $(function () {
+                jQuery(document).ready(function() {
 
                     var chartData = $chart_data,
                         chartCategory = $chart_categories,

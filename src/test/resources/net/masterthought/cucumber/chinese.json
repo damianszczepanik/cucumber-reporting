@@ -1,0 +1,182 @@
+[
+    {
+        "id": "测试中文",
+        "description": "调戏各种搜索网站",
+        "name": "测试中文",
+        "keyword": "功能",
+        "line": 2,
+        "elements": [
+            {
+                "id": "测试中文;360综合搜索",
+                "tags": [
+                    {
+                        "name": "@360so",
+                        "line": 6
+                    }
+                ],
+                "description": "",
+                "name": "360综合搜索",
+                "keyword": "场景大纲",
+                "line": 7,
+                "steps": [
+                    {
+                        "name": "在360综合搜索中搜索\"\u003c搜索词\u003e\"",
+                        "keyword": "当",
+                        "line": 8
+                    },
+                    {
+                        "name": "360搜索结果显示的第一条结果为\"\u003c结果\u003e\"",
+                        "keyword": "那么",
+                        "line": 9
+                    }
+                ],
+                "examples": [
+                    {
+                        "id": "测试中文;360综合搜索;",
+                        "description": "",
+                        "name": "",
+                        "keyword": "例子",
+                        "line": 10,
+                        "rows": [
+                            {
+                                "id": "测试中文;360综合搜索;;1",
+                                "cells": ["搜索词", "结果"],
+                                "line": 11
+                            },
+                            {
+                                "id": "测试中文;360综合搜索;;2",
+                                "cells": ["百度文库", "百度文库"],
+                                "line": 12
+                            },
+                            {
+                                "id": "测试中文;360综合搜索;;3",
+                                "cells": ["Google", "Google"],
+                                "line": 13
+                            }
+                        ]
+                    }
+                ],
+                "type": "scenario_outline"
+            },
+            {
+                "id": "测试中文;360综合搜索;;2",
+                "tags": [
+                    {
+                        "name": "@360so",
+                        "line": 6
+                    }
+                ],
+                "description": "",
+                "name": "360综合搜索",
+                "keyword": "场景大纲",
+                "line": 12,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 7149570066,
+                            "status": "passed"
+                        },
+                        "name": "在360综合搜索中搜索\"百度文库\"",
+                        "keyword": "当",
+                        "line": 8,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "百度文库",
+                                    "offset": 12
+                                }
+                            ],
+                            "location": "360Search_Steps.groovy:24"
+                        },
+                        "output": ["some text display on report!"],
+                        "matchedColumns": [0]
+                    },
+                    {
+                        "result": {
+                            "duration": 359381853,
+                            "status": "passed"
+                        },
+                        "name": "360搜索结果显示的第一条结果为\"百度文库\"",
+                        "keyword": "那么",
+                        "line": 9,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "百度文库",
+                                    "offset": 17
+                                }
+                            ],
+                            "location": "360Search_Steps.groovy:35"
+                        },
+                        "output": ["\u003cdiv\u003esome other text\u003c/div\u003e"],
+                        "matchedColumns": [1]
+                    }
+                ],
+                "type": "scenario"
+            },
+            {
+                "id": "测试中文;360综合搜索;;3",
+                "tags": [
+                    {
+                        "name": "@360so",
+                        "line": 6
+                    }
+                ],
+                "description": "",
+                "name": "360综合搜索",
+                "keyword": "场景大纲",
+                "line": 13,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 5016132499,
+                            "status": "passed"
+                        },
+                        "name": "在360综合搜索中搜索\"Google\"",
+                        "keyword": "当",
+                        "line": 8,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "Google",
+                                    "offset": 12
+                                }
+                            ],
+                            "location": "360Search_Steps.groovy:24"
+                        },
+                        "output": ["some text display on report!"],
+                        "matchedColumns": [0]
+                    },
+                    {
+                        "result": {
+                            "duration": 305000604,
+                            "status": "passed"
+                        },
+                        "name": "360搜索结果显示的第一条结果为\"Google\"",
+                        "keyword": "那么",
+                        "line": 9,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "Google",
+                                    "offset": 17
+                                }
+                            ],
+                            "location": "360Search_Steps.groovy:35"
+                        },
+                        "output": ["\u003cdiv\u003esome other text\u003c/div\u003e"],
+                        "matchedColumns": [1]
+                    }
+                ],
+                "type": "scenario"
+            }
+        ],
+        "uri": "abcd.feature",
+        "comments": [
+            {
+                "value": "# language: zh-CN",
+                "line": 1
+            }
+        ]
+    }
+]
