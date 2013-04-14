@@ -47,7 +47,7 @@
 
 	<br/>
 
-	<div class="error-message">$error_message</div>
+	<div id="error-message" class="error-message">$error_message</div>
      <br/>
 	</div>
 	</div>
