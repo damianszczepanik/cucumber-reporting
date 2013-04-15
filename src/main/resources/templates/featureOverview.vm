@@ -244,17 +244,17 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             },
                             {
                                 name: 'Failed',
-                                color: "$step_data.get(1)",
+                                color: "$step_data.get(2)",
                                 y: $total_fails
                             },
                             {
                                 name: 'Skipped',
-                                color: "$step_data.get(2)",
+                                color: "$step_data.get(3)",
                                 y: $total_skipped
                             },
                             {
                                 name: 'Pending',
-                                color: "$step_data.get(3)",
+                                color: "$step_data.get(1)",
                                 y: $total_pending
                             }
                         ]
@@ -302,7 +302,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             {
                                 name: 'Failed',
                                 y: $scenarios_failed,
-                                color: "$step_data.get(1)"
+                                color: "$step_data.get(2)"
                             }
                         ]
                     }]
