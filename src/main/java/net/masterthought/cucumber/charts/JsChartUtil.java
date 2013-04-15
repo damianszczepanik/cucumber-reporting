@@ -54,34 +54,25 @@ public class JsChartUtil {
     }
 
     public static String getTags(List<TagObject> tagObjectList) {
-        StringBuffer tags = new StringBuffer();
-        int counter = 0;
+        StringBuilder tags = new StringBuilder();
+
         for (TagObject tag : tagObjectList) {
-            tags.append("'" + tag.getTagName() + "'");
-
-            if (tagObjectList.size() != 1 && tagObjectList.size() <= counter) {
-                tags.append(",");
-            }
-
-            counter++;
+            tags.append("'").append(tag.getTagName()).append("',");
         }
+
+        tags.deleteCharAt(tags.length() - 1);
 
         return "[" + tags.toString() + "]";
     }
 
     public static String generateTagChartDataForHighCharts(List<TagObject> tagObjectList) {
         StringBuffer buffer = new StringBuffer();
-        int counter = 0;
 
         for (TagObject tag : tagObjectList) {
-            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]");
-
-            if (tagObjectList.size() != 1 && tagObjectList.size() <= counter) {
-                buffer.append(",");
-            }
-
-            counter++;
+            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]").append(",");
         }
+
+        buffer.deleteCharAt(buffer.length() - 1);
 
         return "[" + buffer.toString() + "]";
     }
