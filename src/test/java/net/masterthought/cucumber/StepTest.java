@@ -102,16 +102,14 @@ public class StepTest {
     public void shouldNotCreateLinkToScreenshotWhenOneDoesNotExist() throws IOException {
         long screenshotTime = new DateTime().getMillis();
         DateTimeUtils.setCurrentMillisFixed(screenshotTime);
-        assertThat(failingStep.getImageTag(), is(EMPTY));
+        assertThat(failingStep.getImageTags(), is(EMPTY));
     }
 
     @Test
     public void shouldCreateLinkToScreenshotWhenOneExists() throws IOException {
-        long screenshotTime = new DateTime().getMillis();
-        DateTimeUtils.setCurrentMillisFixed(screenshotTime);
-        assertThat(failingStepWithEmbeddedScreenshot().getImageTag(), is(
-                "<a href=\"\" onclick=\"img=document.getElementById('"+screenshotTime+"'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
-                "<img id='"+screenshotTime+"' style='display:none' src='data:image/png;base64," +
+                assertThat(failingStepWithEmbeddedScreenshot().getImageTags(), is(
+                "<a href=\"\" onclick=\"img=document.getElementById('16d4eeab-26ab-3bd7-a255-fb857f23474e'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a>" +
+                "<img id='16d4eeab-26ab-3bd7-a255-fb857f23474e' style='display:none' src='data:image/png;base64," +
                 "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI" +
                 "WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVk" +
                 "IHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B" +
@@ -121,7 +119,11 @@ public class StepTest {
                 "vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/" +
                 "8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU4" +
                 "1W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR" +
-                "+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg=='>"));
+                "+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg=='>\n" +
+                "<a href=\"\" onclick=\"img=document.getElementById('9a61099d-b143-3ab7-a652-435041588fda'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a>" +
+                "<img id='9a61099d-b143-3ab7-a652-435041588fda' style='display:none' src='data:image/png;base64," +
+                "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ" +
+                "3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='>\n"));
         DateTimeUtils.setCurrentMillisSystem();
     }
 
