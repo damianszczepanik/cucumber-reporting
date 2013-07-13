@@ -1,7 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import com.google.common.base.Joiner;
-import com.google.gson.internal.StringMap;
+import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
@@ -197,7 +197,7 @@ public class Step {
 
 
     public static String mimeEncodeEmbededImage(Object image){
-        return "data:image/png;base64," + ((StringMap) image).get("data");
+        return "data:image/png;base64," + ((LinkedTreeMap) image).get("data");
 
     }
     public static String uuidForImage(Object image){

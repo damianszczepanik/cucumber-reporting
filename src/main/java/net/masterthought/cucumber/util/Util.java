@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class Util {
 
     public static enum Status {
-        PASSED, FAILED, SKIPPED, UNDEFINED, MISSING
+        PASSED, FAILED, SKIPPED, UNDEFINED, MISSING, PENDING
     }
 
     public static Map<String, Status> resultMap = new HashMap<String, Status>() {{
@@ -26,6 +26,7 @@ public class Util {
         put("failed", Util.Status.FAILED);
         put("skipped", Util.Status.SKIPPED);
         put("undefined", Util.Status.UNDEFINED);
+        put("pending", Util.Status.PENDING);
         put("missing", Util.Status.MISSING);
     }};
 
@@ -41,6 +42,8 @@ public class Util {
             result = "<div class=\"undefined\">";
         } else if (status == Status.MISSING) {
             result = "<div class=\"missing\">";
+        } else if (status == Status.PENDING) {
+            result = "<div class=\"undefined\">";
         }
         return result;
     }

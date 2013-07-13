@@ -21,11 +21,11 @@ public class Runner {
 //            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project2.json");
        // list.add("/Users/kings/dl/integration_cucumber.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
-        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project2.json");
+        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/statuses.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/chinese.json");
 
-        ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","97","cucumber-jvm",false,false,false,true,false,"Account has sufficient funds again~the account balance is 300~account~scenario1_psp_auth_request.xml~xml\nAccount has sufficient funds again~the card is valid~card~scenario1_psp_auth_response.xml~xml",false);
+        ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","97","cucumber-jvm",false,false,true,true,false,"Account has sufficient funds again~the account balance is 300~account~scenario1_psp_auth_request.xml~xml\nAccount has sufficient funds again~the card is valid~card~scenario1_psp_auth_response.xml~xml",false);
         reportBuilder.generateReports();
         //       boolean result = featureReportGenerator.getBuildStatus();
         //       System.out.println("status: " + result);

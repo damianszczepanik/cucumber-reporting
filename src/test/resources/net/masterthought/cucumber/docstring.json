@@ -1,1 +1,51 @@
-[{"id":"tictactoe","description":"In order to have fun\nAs a bored developer\nI want to be able to play tictactoe","name":"TicTacToe","keyword":"Feature","line":1,"elements":[{"id":"tictactoe;diagonal-win","description":"","name":"Diagonal win","keyword":"Scenario","line":6,"steps":[{"result":{"duration":106028588,"status":"passed"},"name":"I have a board looking like :","keyword":"Given ","line":7,"doc_string":{"value":"X _ X\nO X O\n_ O X","line":8,"content_type":""},"match":{"location":"TicTacToeSteps.scala:12"}},{"result":{"duration":79543,"status":"passed"},"name":"crosses win","keyword":"Then ","line":13,"match":{"location":"TicTacToeSteps.scala:15"}}],"type":"scenario"}],"uri":"tictactoe.feature"}]
+[
+    {
+        "id": "tictactoe",
+        "description": "In order to have fun\nAs a bored developer\nI want to be able to play tictactoe",
+        "name": "TicTacToe",
+        "keyword": "Feature",
+        "line": 1,
+        "elements": [
+            {
+                "id": "tictactoe;diagonal-win",
+                "description": "",
+                "name": "Diagonal win",
+                "keyword": "Scenario",
+                "line": 6,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 106028588,
+                            "status": "passed"
+                        },
+                        "name": "I have a board looking like :",
+                        "keyword": "Given ",
+                        "line": 7,
+                        "doc_string": {
+                            "value": "X _ X\nO X O\n_ O X",
+                            "line": 8,
+                            "content_type": ""
+                        },
+                        "match": {
+                            "location": "TicTacToeSteps.scala:12"
+                        }
+                    },
+                    {
+                        "result": {
+                            "duration": 79543,
+                            "status": "passed"
+                        },
+                        "name": "crosses win",
+                        "keyword": "Then ",
+                        "line": 13,
+                        "match": {
+                            "location": "TicTacToeSteps.scala:15"
+                        }
+                    }
+                ],
+                "type": "scenario"
+            }
+        ],
+        "uri": "tictactoe.feature"
+    }
+]
