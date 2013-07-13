@@ -3,15 +3,13 @@ package net.masterthought.cucumber.json;
 import com.google.common.base.Joiner;
 import com.google.gson.internal.StringMap;
 import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
-import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.googlecode.totallylazy.Option.option;
 import static org.apache.commons.lang.StringUtils.EMPTY;
@@ -126,12 +124,12 @@ public class Step {
             if (getInternalStatus() == Util.Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTag();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTags();
         } else if (getStatus() == Util.Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTag();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTags();
         }
         return content;
     }
@@ -148,20 +146,33 @@ public class Step {
         this.name = newName;
     }
 
-    public String getImageTag() {
+    public String getImageTags() {
         if (noEmbeddedScreenshots()) return EMPTY;
 
-        String imageId = Long.toString(new DateTime().getMillis());
-        return "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
-                "<img id='" + imageId + "' style='display:none' src='" + getMimeEncodedEmbeddedImage() + "'>";
+        String links = EMPTY;
+        int index = 1;
+        for (Object image : embeddings) {
+            if (image != null) {
+            String mimeEncodedImage = mimeEncodeEmbededImage(image);
+            String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
+            links = links +   "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot "+ index++ +"</a>" +
+                    "<img id='"+ imageId +"' style='display:none' src='" + mimeEncodedImage + "'>\n";
+            }
+        }
+        return links;
     }
 
     private boolean noEmbeddedScreenshots() {
         return getEmbeddings() == null;
     }
 
-    public String getMimeEncodedEmbeddedImage() {
-        return "data:image/png;base64," + ((StringMap) getEmbeddings()[0]).get("data");
+
+    public static String mimeEncodeEmbededImage(Object image){
+        return "data:image/png;base64," + ((StringMap) image).get("data");
+
+    }
+    public static String uuidForImage(Object image){
+        return UUID.nameUUIDFromBytes(mimeEncodeEmbededImage(image).getBytes()).toString();
     }
 
     public static class functions {
