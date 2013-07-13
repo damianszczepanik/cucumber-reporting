@@ -24,9 +24,14 @@ public class Step {
     private Match match;
     private Object[] embeddings;
     private String[] output;
+    private DocString doc_string;
 
     public Step() {
 
+    }
+
+    public DocString getDocString() {
+        return doc_string;
     }
 
     public Row[] getRows() {
@@ -54,6 +59,13 @@ public class Step {
             }
         }
         return result;
+    }
+
+    /**
+     * @return - Returns true if has a sub doc-string, and that doc-string has a value
+     */
+    public boolean hasDocString() {
+        return doc_string != null && doc_string.hasValue();
     }
 
     private Util.Status getInternalStatus() {
@@ -132,6 +144,23 @@ public class Step {
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTags();
         }
         return content;
+    }
+
+    /**
+     * Returns a formatted doc-string section.
+     * This is formatted w.r.t the parent Step element.
+     * To preserve whitespace in example, line breaks and whitespace are preserved
+     * @return string of html
+     */
+    public String getDocStringOrNothing() {
+        if (!hasDocString()) {
+            return "";
+        }
+        return Util.result(getStatus()) +
+                 "<div class=\"doc-string\">" +
+                    getDocString().getValue().replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;") +
+                 Util.closeDiv() +
+               Util.closeDiv();
     }
 
     private String formatError(String errorMessage) {
