@@ -134,6 +134,17 @@ table.data-table td {
     padding-left:50px;
     background-color: beige;
 }
+
+.doc-string {
+    width:auto;
+    display:inline-block;
+    margin: 10px auto 10px 70px;
+    padding: 10px;
+    background-color:rgba(255,255,255,0.35);
+    border-radius: 10px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 95%;
+}
 </style>
 
 </head>
@@ -144,7 +155,7 @@ table.data-table td {
 			<div class="grid_6" id="nav">
 				<ul>
                     #if($fromJenkins)
-                      <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                          <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
                     #end
 					<li><a href="tag-overview.html">Tag Overview</a></li>
 					<li><a href="feature-overview.html">Feature Overview</a></li>
@@ -216,6 +227,7 @@ table.data-table td {
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps().toList())
                   $step.getName()
+                    $step.getDocStringOrNothing()
                     #if($step.hasRows())
                         <div class="data $step.getDataTableClass()">
                         <table class="data-table">
