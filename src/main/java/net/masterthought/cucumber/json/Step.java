@@ -158,7 +158,7 @@ public class Step {
         }
         return Util.result(getStatus()) +
                  "<div class=\"doc-string\">" +
-                    getDocString().getValue().replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;") +
+                    getDocString().getEscapedValue() +
                  Util.closeDiv() +
                Util.closeDiv();
     }

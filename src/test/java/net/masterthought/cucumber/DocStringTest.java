@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,15 @@ public class DocStringTest {
                                                         "_&nbsp;O&nbsp;X" +
                                                       "</div>" +
                                                     "</div>"));
+    }
+
+    @Test
+    public void shouldEscapeForHtml() throws NoSuchFieldException, IllegalAccessException {
+        DocString ds = new DocString();
+        Field field = DocString.class.getDeclaredField("value");
+        field.setAccessible(true);
+        field.set(ds, "<a><b>cat</b></a>");
+        assertThat("&lt;a&gt;&lt;b&gt;cat&lt;/b&gt;&lt;/a&gt;", is(ds.getEscapedValue()));
     }
 
 }
