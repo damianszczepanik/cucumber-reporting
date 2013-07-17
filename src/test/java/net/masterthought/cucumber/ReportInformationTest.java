@@ -134,12 +134,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenarios(), is(12));
+        assertThat(reportInformation.getTotalTagScenarios(), is(4));
     }
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportInformation.getTotalPassingTagScenarios(), is(12));
+        assertThat(reportInformation.getTotalPassingTagScenarios(), is(4));
     }
 
     @Test
@@ -149,12 +149,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagSteps() {
-        assertThat(reportInformation.getTotalTagSteps(), is(120));
+        assertThat(reportInformation.getTotalTagSteps(), is(28));
     }
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(120));
+        assertThat(reportInformation.getTotalTagPasses(), is(28));
     }
 
     @Test

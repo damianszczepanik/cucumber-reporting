@@ -190,7 +190,7 @@ public class ReportInformation {
         }
     }
 
-    private int calculateTotalTagScenariosForStatus(int totalScenarios,TagObject tag, Util.Status status) {
+    private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Util.Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
             if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
@@ -234,9 +234,11 @@ public class ReportInformation {
                     if (Util.hasScenarios(feature)) {
                         if (scenario.hasTags()) {
                             scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
+                            tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
                         }
-                        tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
+
                     }
+
 
                     if (Util.hasSteps(scenario)) {
                         Sequence<Step> steps = scenario.getSteps();
@@ -322,13 +324,21 @@ public class ReportInformation {
             if (exists) {
                 List<ScenarioTag> existingTagList = tagObj.getScenarios();
                 for (ScenarioTag scenarioTag : scenarioList) {
-                    existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
+                    if (scenarioTag.getScenario().getTagList().contains(tag)) {
+                        existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
+                    }
                 }
                 tagMap.remove(tagObj);
                 tagObj.setScenarios(existingTagList);
                 tagMap.add(tagObj);
             } else {
-                tagObj = new TagObject(tag, scenarioList);
+                List<ScenarioTag> existingTagList = new ArrayList<ScenarioTag>();
+                for (ScenarioTag scenarioTag : scenarioList) {
+                    if (scenarioTag.getScenario().getTagList().contains(tag)) {
+                        existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
+                    }
+                }
+                tagObj = new TagObject(tag, existingTagList);
                 tagMap.add(tagObj);
             }
         }

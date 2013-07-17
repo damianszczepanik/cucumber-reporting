@@ -20,8 +20,9 @@ public class Runner {
 //            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project2.json");
 //            list.add("/Users/kings/.jenkins/jobs/cucumber-jvm/builds/7/cucumber-html-reports/project2.json");
        // list.add("/Users/kings/dl/integration_cucumber.json");
-//        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
-        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/statuses.json");
+        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
+        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project2.json");
+//        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/tags.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/chinese.json");
 
