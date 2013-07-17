@@ -28,7 +28,7 @@ public class ReportBuilder {
     private boolean highCharts;
     private boolean parsingError;
 
-    private final String VERSION = "cucumber-reporting-0.0.21";
+    private final String VERSION = "cucumber-reporting-0.0.22";
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
 
@@ -56,6 +56,7 @@ public class ReportBuilder {
         } catch (Exception exception) {
             parsingError = true;
             generateErrorPage(exception);
+            System.out.println(exception);
         }
     }
 
@@ -81,6 +82,7 @@ public class ReportBuilder {
         } catch (Exception exception) {
             if (!parsingError) {
                 generateErrorPage(exception);
+                System.out.println(exception);
             }
         }
     }
