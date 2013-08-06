@@ -63,6 +63,7 @@
 .scenario-scenario_name{padding-left:15px;}
 .step-keyword{font-weight:bold;padding-left:50px;}
 .step-error-message{background-color:#FFEEEE;padding-left:50px;border: 1px solid #D88A8A;}
+.step-duration{float:right;padding-right:15px;}
 .passed{background-color:#C5D88A;}
 .failed{background-color:#D88A8A;}
 .skipped{background-color:#2DEAEC;}

@@ -1,22 +1,23 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Row;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
-import org.junit.Before;
-import org.junit.Test;
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+import static org.apache.commons.lang.StringUtils.EMPTY;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.apache.commons.lang.StringUtils.EMPTY;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Row;
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.util.Util;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 public class StepTest {
 
@@ -80,14 +81,14 @@ public class StepTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingStep.getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span></div>"
+        assertThat(passingStep.getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107 ms</span></div>"
         ));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         ConfigurationOptions.setSkippedFailsBuild(false);
-        assertThat(skippedStep.getName(), is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span></div>"
+        assertThat(skippedStep.getName(), is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">0 ms</span></div>"
         ));
     }
 
