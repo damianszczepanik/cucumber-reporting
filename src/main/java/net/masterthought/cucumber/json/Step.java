@@ -141,9 +141,19 @@ public class Step {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTags();
+            content = getNameAndDuration();
         }
         return content;
+    }
+    
+    private String getNameAndDuration() {
+      String content = Util.result(getStatus())
+            + "<span class=\"step-keyword\">" + keyword
+            + " </span><span class=\"step-name\">" + name + "</span>"
+            + "<span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span>"
+            + Util.closeDiv() + getImageTags();
+       
+       return content;
     }
 
     /**
