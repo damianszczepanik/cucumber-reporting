@@ -1,9 +1,15 @@
 package net.masterthought.cucumber.charts;
 
-import net.masterthought.cucumber.TagObject;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+
+import net.masterthought.cucumber.TagObject;
 
 public class JsChartUtil {
 
@@ -46,7 +52,7 @@ public class JsChartUtil {
     }
 
     public static String generateTagChartData(List<TagObject> tagObjectList) {
-        StringBuffer buffer = new StringBuffer();
+    	StringBuilder buffer = new StringBuilder();
         for (TagObject tag : tagObjectList) {
            buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
         }
@@ -56,23 +62,26 @@ public class JsChartUtil {
     public static String getTags(List<TagObject> tagObjectList) {
         StringBuilder tags = new StringBuilder();
 
-        for (TagObject tag : tagObjectList) {
-            tags.append("'").append(tag.getTagName()).append("',");
+        if (!tagObjectList.isEmpty()) {
+	        for (TagObject tag : tagObjectList) {
+	            tags.append("'").append(tag.getTagName()).append("',");
+	        }
+	
+	        tags.setLength(tags.length() - 1);
         }
-
-        tags.deleteCharAt(tags.length() - 1);
-
         return "[" + tags.toString() + "]";
     }
 
     public static String generateTagChartDataForHighCharts(List<TagObject> tagObjectList) {
-        StringBuffer buffer = new StringBuffer();
+    	StringBuilder buffer = new StringBuilder();
 
-        for (TagObject tag : tagObjectList) {
-            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]").append(",");
+        if (!tagObjectList.isEmpty()) {
+	        for (TagObject tag : tagObjectList) {
+	            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]").append(",");
+	        }
+	
+	        buffer.setLength(buffer.length() - 1);
         }
-
-        buffer.deleteCharAt(buffer.length() - 1);
 
         return "[" + buffer.toString() + "]";
     }
