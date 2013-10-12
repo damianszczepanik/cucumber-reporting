@@ -44,6 +44,7 @@ public class ReportBuilderTest {
         assertThat(fromId("overview-title", doc).text(), is("Feature Overview for Build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
+        assertStatsThirdFeature(doc);
         assertStatsTotals(doc);
         assertNotNull(fromId("js-charts", doc));
     }
@@ -119,6 +120,20 @@ public class ReportBuilderTest {
         assertNotNull(fromId("stats-duration-Account Holder withdraws cash", doc));
     }
 
+    
+    private void assertStatsThirdFeature(Document doc) {
+        assertThat("stats", fromId("stats-Account Holder withdraws More Cash with undefined steps", doc).text(), is("Account Holder withdraws More Cash with undefined steps"));
+        assertThat("stats-number-scenarios", fromId("stats-number-scenarios-Account Holder withdraws More Cash with undefined steps", doc).text(), is("1"));
+        assertThat("stats-number-scenarios-passed", fromId("stats-number-scenarios-passed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("1"));
+        assertThat("stats-number-scenarios-failed", fromId("stats-number-scenarios-failed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps", fromId("stats-number-steps-Account Holder withdraws More Cash with undefined steps", doc).text(), is("9"));
+        assertThat("stats-number-steps-passed", fromId("stats-number-steps-passed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("5"));
+        assertThat("stats-number-steps-failed", fromId("stats-number-steps-failed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps-skipped", fromId("stats-number-steps-skipped-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps-pending", fromId("stats-number-steps-pending-Account Holder withdraws More Cash with undefined steps", doc).text(), is("4"));
+        assertNotNull(fromId("stats-duration-Account Holder withdraws More Cash with undefined steps", doc));
+    }
+    
     private void assertStatsTotals(Document doc) {
         assertThat("stats-total-features", fromId("stats-total-features", doc).text(), is("4"));
         assertThat("stats-total-scenarios", fromId("stats-total-scenarios", doc).text(), is("7"));
