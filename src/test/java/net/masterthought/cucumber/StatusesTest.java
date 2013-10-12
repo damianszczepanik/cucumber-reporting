@@ -43,7 +43,8 @@ public class StatusesTest {
 
     @Test
     public void shouldGetNumberOfPending() {
-        assertThat(statusesFeature.getNumberOfPending(), is(1));
+    	// since Pending and Undefined are counted as same
+        assertThat(statusesFeature.getNumberOfPending(), is(1 + 1));
     }
 
     @Test
@@ -53,7 +54,8 @@ public class StatusesTest {
 
     @Test
     public void shouldGetNumberOfUndefined() {
-        assertThat(statusesFeature.getNumberOfUndefined(), is(1));
+    	// since Pending and Undefined are counted as same
+        assertThat(statusesFeature.getNumberOfUndefined(), is(1 + 1));
     }
 
 

@@ -19,7 +19,7 @@ public class ReportBuilderTest {
     public void shouldRenderTheFeatureOverviewPageCorrectlyWithFlashCharts() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false, true, true, false, "", false);
         reportBuilder.generateReports();
 
@@ -35,7 +35,7 @@ public class ReportBuilderTest {
     public void shouldRenderTheFeatureOverviewPageCorrectlyWithJSCharts() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false, false, true, false, "", false);
         reportBuilder.generateReports();
 
@@ -44,6 +44,7 @@ public class ReportBuilderTest {
         assertThat(fromId("overview-title", doc).text(), is("Feature Overview for Build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
+        assertStatsThirdFeature(doc);
         assertStatsTotals(doc);
         assertNotNull(fromId("js-charts", doc));
     }
@@ -52,7 +53,7 @@ public class ReportBuilderTest {
     public void shouldRenderTheFeaturePageCorrectly() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false, true, true, false, "", false);
         reportBuilder.generateReports();
 
@@ -119,16 +120,30 @@ public class ReportBuilderTest {
         assertNotNull(fromId("stats-duration-Account Holder withdraws cash", doc));
     }
 
+    
+    private void assertStatsThirdFeature(Document doc) {
+        assertThat("stats", fromId("stats-Account Holder withdraws More Cash with undefined steps", doc).text(), is("Account Holder withdraws More Cash with undefined steps"));
+        assertThat("stats-number-scenarios", fromId("stats-number-scenarios-Account Holder withdraws More Cash with undefined steps", doc).text(), is("1"));
+        assertThat("stats-number-scenarios-passed", fromId("stats-number-scenarios-passed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("1"));
+        assertThat("stats-number-scenarios-failed", fromId("stats-number-scenarios-failed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps", fromId("stats-number-steps-Account Holder withdraws More Cash with undefined steps", doc).text(), is("9"));
+        assertThat("stats-number-steps-passed", fromId("stats-number-steps-passed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("5"));
+        assertThat("stats-number-steps-failed", fromId("stats-number-steps-failed-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps-skipped", fromId("stats-number-steps-skipped-Account Holder withdraws More Cash with undefined steps", doc).text(), is("0"));
+        assertThat("stats-number-steps-pending", fromId("stats-number-steps-pending-Account Holder withdraws More Cash with undefined steps", doc).text(), is("4"));
+        assertNotNull(fromId("stats-duration-Account Holder withdraws More Cash with undefined steps", doc));
+    }
+    
     private void assertStatsTotals(Document doc) {
-        assertThat("stats-total-features", fromId("stats-total-features", doc).text(), is("2"));
-        assertThat("stats-total-scenarios", fromId("stats-total-scenarios", doc).text(), is("5"));
-        assertThat("stats-total-scenarios-passed", fromId("stats-total-scenarios-passed", doc).text(), is("4"));
+        assertThat("stats-total-features", fromId("stats-total-features", doc).text(), is("4"));
+        assertThat("stats-total-scenarios", fromId("stats-total-scenarios", doc).text(), is("7"));
+        assertThat("stats-total-scenarios-passed", fromId("stats-total-scenarios-passed", doc).text(), is("6"));
         assertThat("stats-total-scenarios-failed", fromId("stats-total-scenarios-failed", doc).text(), is("1"));
-        assertThat("stats-total-steps", fromId("stats-total-steps", doc).text(), is("49"));
-        assertThat("stats-total-steps-passed", fromId("stats-total-steps-passed", doc).text(), is("45"));
+        assertThat("stats-total-steps", fromId("stats-total-steps", doc).text(), is("67"));
+        assertThat("stats-total-steps-passed", fromId("stats-total-steps-passed", doc).text(), is("55"));
         assertThat("stats-total-steps-failed", fromId("stats-total-steps-failed", doc).text(), is("1"));
-        assertThat("stats-total-steps-skipped", fromId("stats-total-steps-skipped", doc).text(), is("3"));
-        assertThat("stats-total-steps-pending", fromId("stats-total-steps-pending", doc).text(), is("0"));
+        assertThat("stats-total-steps-skipped", fromId("stats-total-steps-skipped", doc).text(), is("7"));
+        assertThat("stats-total-steps-pending", fromId("stats-total-steps-pending", doc).text(), is("4"));
         assertNotNull(fromId("stats-total-duration", doc));
         assertThat(fromId("stats-total-totals", doc).text(), is("Totals"));
     }

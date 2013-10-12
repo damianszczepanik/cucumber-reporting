@@ -173,7 +173,7 @@ public class Feature {
                         failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
                         skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
                         undefinedSteps = Util.setStepStatus(undefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
-                        pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.PENDING);
+                        pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.UNDEFINED);
                         missingSteps = Util.setStepStatus(missingSteps, step, stepStatus, Util.Status.MISSING);
                         totalDuration = totalDuration + step.getDuration();
                     }
