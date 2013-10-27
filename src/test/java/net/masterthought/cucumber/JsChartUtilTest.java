@@ -160,6 +160,59 @@ public void testGenerateTagChartData() throws Exception {
 //TODO: Test goes here... 
 } 
 
+/**
+* 
+* Method: getTags(List<TagObject> tagObjectList) 
+* 
+*/ 
+@Test
+public void testGetTags() throws Exception { 
+	List<TagObject> tagObjectList = new ArrayList<TagObject>();
+	TagObject tag = new TagObject("TestTagName", new ArrayList());
+	tagObjectList.add(tag);
+	String result = JsChartUtil.getTags(tagObjectList);
+	Assert.assertEquals("['TestTagName']", result);
+}
+
+
+/**
+* 
+* Method: getTags(List<TagObject> tagObjectList) 
+* 
+*/ 
+@Test
+public void testGetTags_withoutTags() throws Exception { 
+	List<TagObject> tagObjectList = new ArrayList<TagObject>();
+	String result = JsChartUtil.getTags(tagObjectList);
+	Assert.assertEquals("[]", result);
+}
+
+/**
+* 
+* Method: generateTagChartDataForHighCharts(List<TagObject> tagObjectList) 
+* 
+*/ 
+@Test
+public void testGenerateTagChartDataForHighCharts() throws Exception { 
+	List<TagObject> tagObjectList = new ArrayList<TagObject>();
+	TagObject tag = new TagObject("TestTagName", new ArrayList());
+	tagObjectList.add(tag);
+	String result = JsChartUtil.generateTagChartDataForHighCharts(tagObjectList);
+	Assert.assertEquals("[[0,0,0,0]]", result);
+} 
+
+/**
+* 
+* Method: generateTagChartDataForHighCharts(List<TagObject> tagObjectList) 
+* 
+*/ 
+@Test
+public void testGenerateTagChartDataForHighCharts_withoutTags() throws Exception { 
+	List<TagObject> tagObjectList = new ArrayList<TagObject>();
+	String result = JsChartUtil.generateTagChartDataForHighCharts(tagObjectList);
+	Assert.assertEquals("[]", result);
+} 
+
 /** 
 * 
 * Method: compare(Object a, Object b) 
