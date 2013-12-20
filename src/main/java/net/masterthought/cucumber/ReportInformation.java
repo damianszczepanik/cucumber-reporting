@@ -218,17 +218,21 @@ public class ReportInformation {
             Sequence<Element> scenarios = feature.getElements();
             if (Util.itemExists(scenarios)) {
                 numberOfScenarios = getNumberOfScenarios(scenarios);
+                //process tags
+                if (feature.hasTags()) {
+                    for (Element e : feature.getElements()) {
+                        scenarioList.add(new ScenarioTag(e, feature.getFileName()));
+                    }
+                    tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
+
+                }
+
                 for (Element scenario : scenarios) {
                     String scenarioName = scenario.getRawName();
 
                     if (!scenario.getKeyword().equals("Background")) {
                         numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
                         numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
-                    }
-                    //process tags
-                    if (feature.hasTags()) {
-                        scenarioList.add(new ScenarioTag(scenario, feature.getFileName()));
-                        tagMap = createOrAppendToTagMap(tagMap, feature.getTagList(), scenarioList);
                     }
 
                     if (Util.hasScenarios(feature)) {
@@ -345,5 +349,34 @@ public class ReportInformation {
         return tagMap;
     }
 
+    public List<TagObject> createOrAppendToTagMapByFeature(List<TagObject> tagMap, Sequence<String> tagList,
+                                                           List<ScenarioTag> scenarioList) {
+        for (String tag : tagList) {
+            boolean exists = false;
+            TagObject tagObj = null;
+            for (TagObject tagObject : tagMap) {
+                if (tagObject.getTagName().equalsIgnoreCase(tag)) {
+                    exists = true;
+                    tagObj = tagObject;
+                    break;
+                }
+            }
+            if (exists) {
+                List<ScenarioTag> existingTagList = tagObj.getScenarios();
+                List<ScenarioTag> all = new ArrayList<ScenarioTag>();
+                all.addAll(existingTagList);
+                all.addAll(scenarioList);
+
+                tagMap.remove(tagObj);
+                tagObj.setScenarios(all);
+                tagMap.add(tagObj);
+            } else {
+                tagObj = new TagObject(tag, scenarioList);
+                tagMap.add(tagObj);
+            }
+        }
+        return tagMap;
+
+    }
 
 }
