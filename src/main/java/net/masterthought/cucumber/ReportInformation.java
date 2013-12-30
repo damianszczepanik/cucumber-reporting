@@ -221,7 +221,9 @@ public class ReportInformation {
                 //process tags
                 if (feature.hasTags()) {
                     for (Element e : feature.getElements()) {
-                        scenarioList.add(new ScenarioTag(e, feature.getFileName()));
+                        if (!e.getKeyword().equals("Background")) {
+                            scenarioList.add(new ScenarioTag(e, feature.getFileName()));
+                        }
                     }
                     tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
 

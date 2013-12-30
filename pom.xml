@@ -3,9 +3,9 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.22-SNAPSHOT</version>
+    <version>0.0.23-SNAPSHOT</version>
     <name>cucumber-reporting</name>
-    <url>https://github.com/masterthought/cucumber-reporting</url>
+    <url>https://github.com/poloche/cucumber-reporting</url>
 
     <repositories>
         <repository>
@@ -28,9 +28,9 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@github.com:masterthought/cucumber-reporting.git</connection>
-        <developerConnection>scm:git:git@github.com:masterthought/cucumber-reporting.git</developerConnection>
-        <url>git@github.com:masterthought/cucumber-reporting.git</url>
+        <connection>scm:git:git@github.com/poloche/cucumber-reporting.git</connection>
+        <developerConnection>scm:git:git@github.com/poloche/cucumber-reporting.git</developerConnection>
+        <url>git@github.com/poloche/cucumber-reporting.git</url>
     </scm>
 
     <description>
@@ -52,6 +52,14 @@
             <id>kingsleyh</id>
             <name>Kingsley Hendrickse</name>
             <email>kingsley.hendrickse@gmail.com</email>
+            <timezone>GMT</timezone>
+            <roles>
+            </roles>
+        </developer>
+        <developer>
+            <id>poloche</id>
+            <name>Paolo lizarazu</name>
+            <email>polochepu@gmail.com</email>
             <timezone>GMT</timezone>
             <roles>
             </roles>
