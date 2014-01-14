@@ -94,13 +94,13 @@ public class FeatureTest {
     @Test
     public void shouldGetNumberOfFailingSteps() {
         assertThat(passingFeature.getNumberOfFailures(), is(0));
-        assertThat(failingFeature.getNumberOfFailures(), is(1));
+        assertThat(failingFeature.getNumberOfFailures(), is(4));
     }
 
     @Test
     public void shouldGetNumberOfSkippedSteps() {
         assertThat(passingFeature.getNumberOfSkipped(), is(0));
-        assertThat(failingFeature.getNumberOfSkipped(), is(3));
+        assertThat(failingFeature.getNumberOfSkipped(), is(0));
     }
 
     @Test
