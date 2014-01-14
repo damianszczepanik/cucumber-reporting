@@ -34,10 +34,12 @@ public class ReportInformation {
     private long totalTagDuration = 0l;
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
+    private Background backgroundInfo;
 
     public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
         this.projectFeatureMap = projectFeatureMap;
         this.features = listAllFeatures();
+        backgroundInfo = new Background();
         processFeatures();
     }
 
@@ -155,6 +157,9 @@ public class ReportInformation {
     public String getTotalTagDuration() {
         return Util.formatDuration(totalTagDuration);
     }
+    public long getLongTotalTagDuration() {
+        return totalTagDuration;
+    }
 
     public int getTotalScenariosPassed() {
         return numberPassingScenarios.size();
@@ -230,11 +235,12 @@ public class ReportInformation {
                 }
 
                 for (Element scenario : scenarios) {
-                    String scenarioName = scenario.getRawName();
 
                     if (!scenario.getKeyword().equals("Background")) {
                         numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
                         numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
+                    } else {
+                        setBackgroundInfo(scenario);
                     }
 
                     if (Util.hasScenarios(feature)) {
@@ -244,39 +250,72 @@ public class ReportInformation {
                         }
 
                     }
-
-
-                    if (Util.hasSteps(scenario)) {
-                        Sequence<Step> steps = scenario.getSteps();
-                        numberOfSteps = numberOfSteps + steps.size();
-                        for (Step step : steps) {
-                            String stepName = step.getRawName();
-
-                            //apply artifacts
-                            if (ConfigurationOptions.artifactsEnabled()) {
-                                Map<String, Artifact> map = ConfigurationOptions.artifactConfig();
-                                String mapKey = scenarioName + stepName;
-                                if (map.containsKey(mapKey)) {
-                                    Artifact artifact = map.get(mapKey);
-                                    String keyword = artifact.getKeyword();
-                                    String contentType = artifact.getContentType();
-                                    step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey, keyword, artifact.getArtifactFile(), contentType)));
-                                }
-                            }
-
-                            Util.Status stepStatus = step.getStatus();
-                            totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
-                            totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
-                            totalSkippedSteps = Util.setStepStatus(totalSkippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                            totalUndefinedSteps = Util.setStepStatus(totalUndefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
-                            totalMissingSteps = Util.setStepStatus(totalMissingSteps, step, stepStatus, Util.Status.MISSING);
-                            totalDuration = totalDuration + step.getDuration();
-                        }
-                    }
+                    adjustStepsForScenario(scenario);
                 }
             }
         }
         processTags();
+    }
+
+    private void setBackgroundInfo(Element e) {
+        backgroundInfo.addTotalScenarios(1);
+        if (e.getStatus() == Util.Status.PASSED) {
+            backgroundInfo.addTotalScenariosPassed(1);
+        } else {
+            backgroundInfo.addTotalScenariosFailed(1);
+        }
+        backgroundInfo.addTotalSteps(e.getSteps().size());
+        for (Step step : e.getSteps().toList()) {
+            backgroundInfo.addTotalDuration(step.getDuration());
+            switch (step.getStatus()) {
+                case PASSED:
+                    backgroundInfo.addTotalStepsPassed(1);
+                    break;
+                case FAILED:
+                    backgroundInfo.addTotalStepsFailed(1);
+                    break;
+                case SKIPPED:
+                    backgroundInfo.addTotalStepsSkipped(1);
+                    break;
+                case PENDING:
+                    backgroundInfo.addTotalStepsPending(1);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    private void adjustStepsForScenario(Element element) {
+        String scenarioName = element.getRawName();
+        if (Util.hasSteps(element)) {
+            Sequence<Step> steps = element.getSteps();
+            numberOfSteps = numberOfSteps + steps.size();
+            for (Step step : steps) {
+                String stepName = step.getRawName();
+
+                //apply artifacts
+                if (ConfigurationOptions.artifactsEnabled()) {
+                    Map<String, Artifact> map = ConfigurationOptions.artifactConfig();
+                    String mapKey = scenarioName + stepName;
+                    if (map.containsKey(mapKey)) {
+                        Artifact artifact = map.get(mapKey);
+                        String keyword = artifact.getKeyword();
+                        String contentType = artifact.getContentType();
+                        step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey, keyword, artifact.getArtifactFile(), contentType)));
+                    }
+                }
+
+                Util.Status stepStatus = step.getStatus();
+                totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
+                totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
+                totalSkippedSteps = Util.setStepStatus(totalSkippedSteps, step, stepStatus, Util.Status.SKIPPED);
+                totalUndefinedSteps = Util.setStepStatus(totalUndefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
+                totalMissingSteps = Util.setStepStatus(totalMissingSteps, step, stepStatus, Util.Status.MISSING);
+                totalDuration = totalDuration + step.getDuration();
+            }
+        }
     }
 
     private int getNumberOfScenarios(Sequence<Element> scenarios) {
@@ -381,4 +420,7 @@ public class ReportInformation {
 
     }
 
+    public Background getBackgroundInfo() {
+        return backgroundInfo;
+    }
 }

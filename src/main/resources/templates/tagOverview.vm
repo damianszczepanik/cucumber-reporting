@@ -448,7 +448,12 @@
                     #end
 
                     <tr>
-                        <td style="text-align:left;"><a href="$tag.getFileName()">$tag.getTagName()</a></td>
+                        <td style="text-align:left;">
+                            <a href="$tag.getFileName()">$tag.getTagName()</a>
+
+                              <br/><span> $customHeaders.get($tag.getTagName())</span>
+
+                        </td>
                         <td>$tag.getNumberOfScenarios()</td>
                         <td>$tag.getNumberOfPassingScenarios()</td>
                         <td>$tag.getNumberOfFailingScenarios()</td>
@@ -462,6 +467,26 @@
                     </tr>
                 #end
 
+                <!--  add row to adjust num of steps -->
+                <tr>
+                    <td style="background-color:lightgray;font-weight:bold;">background steps </td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalScenarios()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalScenariosPassed()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalScenariosFailed()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalSteps()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsPassed()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsFailed()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsSkipped()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsPending()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalFormattedDuration()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">Totals</td>
+                </tr>
+                <!--  Summarize all steps and time executions -->
+                #set($total_steps = $total_steps + $backgrounds.getTotalSteps())
+                #set($total_passes = $total_passes + $backgrounds.getTotalStepsPassed())
+                #set($total_fails  = $total_fails + $backgrounds.getTotalStepsFailed())
+                #set($total_skipped = $total_skipped + $backgrounds.getTotalStepsSkipped())
+                #set($total_pending = $total_pending + $backgrounds.getTotalStepsPending())
                 <tr>
                     <td style="background-color:lightgray;font-weight:bold;">$total_tags</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>

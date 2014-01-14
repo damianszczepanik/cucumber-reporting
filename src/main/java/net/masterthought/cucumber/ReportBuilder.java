@@ -4,6 +4,7 @@ import net.masterthought.cucumber.charts.FlashChartBuilder;
 import net.masterthought.cucumber.charts.JsChartUtil;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
+import net.masterthought.cucumber.util.Util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
@@ -27,6 +28,16 @@ public class ReportBuilder {
     private boolean artifactsEnabled;
     private boolean highCharts;
     private boolean parsingError;
+
+    public Map<String, String> getCustomHeader() {
+        return customHeader;
+    }
+
+    public void setCustomHeader(Map<String, String> customHeader) {
+        this.customHeader = customHeader;
+    }
+
+    private Map<String, String> customHeader;
 
     private final String VERSION = "cucumber-reporting-0.0.22";
 
@@ -83,6 +94,7 @@ public class ReportBuilder {
             if (!parsingError) {
                 generateErrorPage(exception);
                 System.out.println(exception);
+                exception.printStackTrace();
             }
         }
     }
@@ -162,6 +174,11 @@ public class ReportBuilder {
             ve.init(getProperties());
             Template featureResult = ve.getTemplate("templates/tagReport.vm");
             VelocityContext context = new VelocityContext();
+            context.put("hasCustomHeader", false);
+            if (customHeader != null && customHeader.get(tagObject.getTagName()) != null) {
+                context.put("hasCustomHeader", true);
+                context.put("customHeader", customHeader.get(tagObject.getTagName()));
+            }
             context.put("version", VERSION);
             context.put("tag", tagObject);
             context.put("time_stamp", ri.timeStamp());
@@ -179,6 +196,11 @@ public class ReportBuilder {
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/tagOverview.vm");
         VelocityContext context = new VelocityContext();
+        context.put("hasCustomHeaders", false);
+        if (customHeader != null) {
+            context.put("hasCustomHeaders", true);
+            context.put("customHeaders", customHeader);
+        }
         context.put("version", VERSION);
         context.put("build_project", buildProject);
         context.put("build_number", buildNumber);
@@ -192,6 +214,7 @@ public class ReportBuilder {
         context.put("total_fails", ri.getTotalTagFails());
         context.put("total_skipped", ri.getTotalTagSkipped());
         context.put("total_pending", ri.getTotalTagPending());
+        context.put("backgrounds", ri.getBackgroundInfo());
         if (flashCharts) {
             context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
         } else {
@@ -202,7 +225,9 @@ public class ReportBuilder {
                 context.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
             }
         }
-        context.put("total_duration", ri.getTotalTagDuration());
+        long durationl = ri.getBackgroundInfo().getTotalDuration() + ri.getLongTotalTagDuration();
+        String duration = Util.formatDuration(durationl);
+        context.put("total_duration", duration);
         context.put("time_stamp", ri.timeStamp());
         context.put("jenkins_base", pluginUrlPath);
         context.put("fromJenkins", runWithJenkins);

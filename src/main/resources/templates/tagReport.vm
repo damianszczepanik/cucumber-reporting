@@ -113,6 +113,9 @@ table.data-table td {
 		<div class="container_12">
 			<div class="grid_9 heading">
 				<h2>Result for <span style="color:#66CCEE;">$tag.getTagName()</span> in Build: $build_number</h2>
+				#if ($hasCustomHeader)
+				  <h3>$customHeader</h3>
+				#end
 			</div>
 		</div>
 	</div>

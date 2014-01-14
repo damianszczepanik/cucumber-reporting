@@ -3,7 +3,7 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.23-SNAPSHOT</version>
+    <version>0.0.24-7-SNAPSHOT</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/poloche/cucumber-reporting</url>
 
@@ -26,6 +26,12 @@
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://172.21.3.39:8181/archiva/repository/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <scm>
         <connection>scm:git:git@github.com/poloche/cucumber-reporting.git</connection>
@@ -141,6 +147,7 @@
             <groupId>maven</groupId>
             <artifactId>velocity</artifactId>
             <version>1.5-20060721.044818</version>
+            <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
