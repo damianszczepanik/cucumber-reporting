@@ -167,6 +167,7 @@ table.data-table td {
                 $scenario.getScenario().getName()
                 #foreach($step in $scenario.getScenario().getSteps().toList())
                   $step.getName()
+                    $step.getDocStringOrNothing()
                     #if($step.hasRows())
                         <div class="data $step.getDataTableClass()">
                         <table class="data-table">
