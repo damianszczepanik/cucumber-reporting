@@ -97,62 +97,49 @@ public class ReportBuilder {
                 VelocityEngine ve = new VelocityEngine();
                 ve.init(getProperties());
                 Template featureResult = ve.getTemplate("templates/featureReport.vm");
-                VelocityContext context = new VelocityContext();
-                context.put("version", VERSION);
-                context.put("feature", feature);
-                context.put("report_status_colour", ri.getReportStatusColour(feature));
-                context.put("build_project", buildProject);
-                context.put("build_number", buildNumber);
-                context.put("scenarios", feature.getElements().toList());
-                context.put("time_stamp", ri.timeStamp());
-                context.put("jenkins_base", pluginUrlPath);
-                context.put("fromJenkins", runWithJenkins);
-                context.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
-                generateReport(feature.getFileName(), featureResult, context);
+                VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+                contextMap.putAll(getGeneralParameters());
+                contextMap.put("feature", feature);
+                contextMap.put("report_status_colour", ri.getReportStatusColour(feature));
+                contextMap.put("scenarios", feature.getElements().toList());
+                contextMap.put("time_stamp", ri.timeStamp());
+                contextMap.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
+                generateReport(feature.getFileName(), featureResult, contextMap.getVelocityContext());
             }
         }
     }
 
     private void generateFeatureOverview() throws Exception {
-        int numberTotalPassed = ri.getTotalNumberPassingSteps();
-        int numberTotalFailed = ri.getTotalNumberFailingSteps();
-        int numberTotalSkipped = ri.getTotalNumberSkippedSteps();
-        int numberTotalPending = ri.getTotalNumberPendingSteps();
-
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/featureOverview.vm");
-        VelocityContext context = new VelocityContext();
-        context.put("version", VERSION);
-        context.put("build_project", buildProject);
-        context.put("build_number", buildNumber);
-        context.put("features", ri.getFeatures());
-        context.put("total_features", ri.getTotalNumberOfFeatures());
-        context.put("total_scenarios", ri.getTotalNumberOfScenarios());
-        context.put("total_steps", ri.getTotalNumberOfSteps());
-        context.put("total_passes", numberTotalPassed);
-        context.put("total_fails", numberTotalFailed);
-        context.put("total_skipped", numberTotalSkipped);
-        context.put("total_pending", numberTotalPending);
-        context.put("scenarios_passed", ri.getTotalScenariosPassed());
-        context.put("scenarios_failed", ri.getTotalScenariosFailed());
+        VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+        contextMap.putAll(getGeneralParameters());
+        contextMap.put("features", ri.getFeatures());
+        contextMap.put("total_features", ri.getTotalNumberOfFeatures());
+        contextMap.put("total_scenarios", ri.getTotalNumberOfScenarios());
+        contextMap.put("total_steps", ri.getTotalNumberOfSteps());
+        contextMap.put("total_passes", ri.getTotalNumberPassingSteps());
+        contextMap.put("total_fails", ri.getTotalNumberFailingSteps());
+        contextMap.put("total_skipped", ri.getTotalNumberSkippedSteps());
+        contextMap.put("total_pending", ri.getTotalNumberPendingSteps());
+        contextMap.put("scenarios_passed", ri.getTotalScenariosPassed());
+        contextMap.put("scenarios_failed", ri.getTotalScenariosFailed());
         if (flashCharts) {
-            context.put("step_data", FlashChartBuilder.donutChart(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending));
-            context.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
+            contextMap.put("step_data", FlashChartBuilder.donutChart(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps()));
+            contextMap.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
         } else {
             JsChartUtil pie = new JsChartUtil();
-            List<String> stepColours = pie.orderStepsByValue(numberTotalPassed, numberTotalFailed, numberTotalSkipped, numberTotalPending);
-            context.put("step_data", stepColours);
+            List<String> stepColours = pie.orderStepsByValue(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps());
+            contextMap.put("step_data", stepColours);
             List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed());
-            context.put("scenario_data", scenarioColours);
+            contextMap.put("scenario_data", scenarioColours);
         }
-        context.put("time_stamp", ri.timeStamp());
-        context.put("total_duration", ri.getTotalDurationAsString());
-        context.put("jenkins_base", pluginUrlPath);
-        context.put("fromJenkins", runWithJenkins);
-        context.put("flashCharts", flashCharts);
-        context.put("highCharts", highCharts);
-        generateReport("feature-overview.html", featureOverview, context);
+        contextMap.put("time_stamp", ri.timeStamp());
+        contextMap.put("total_duration", ri.getTotalDurationAsString());
+        contextMap.put("flashCharts", flashCharts);
+        contextMap.put("highCharts", highCharts);
+        generateReport("feature-overview.html", featureOverview, contextMap.getVelocityContext());
     }
 
 
@@ -161,16 +148,12 @@ public class ReportBuilder {
             VelocityEngine ve = new VelocityEngine();
             ve.init(getProperties());
             Template featureResult = ve.getTemplate("templates/tagReport.vm");
-            VelocityContext context = new VelocityContext();
-            context.put("version", VERSION);
-            context.put("tag", tagObject);
-            context.put("time_stamp", ri.timeStamp());
-            context.put("jenkins_base", pluginUrlPath);
-            context.put("build_project", buildProject);
-            context.put("build_number", buildNumber);
-            context.put("fromJenkins", runWithJenkins);
-            context.put("report_status_colour", ri.getTagReportStatusColour(tagObject));
-            generateReport(tagObject.getTagName().replace("@", "").trim() + ".html", featureResult, context);
+            VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+            contextMap.putAll(getGeneralParameters());
+            contextMap.put("tag", tagObject);
+            contextMap.put("time_stamp", ri.timeStamp());
+            contextMap.put("report_status_colour", ri.getTagReportStatusColour(tagObject));
+            generateReport(tagObject.getTagName().replace("@", "").trim() + ".html", featureResult, contextMap.getVelocityContext());
         }
     }
 
@@ -178,52 +161,44 @@ public class ReportBuilder {
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/tagOverview.vm");
-        VelocityContext context = new VelocityContext();
-        context.put("version", VERSION);
-        context.put("build_project", buildProject);
-        context.put("build_number", buildNumber);
-        context.put("tags", ri.getTags());
-        context.put("total_tags", ri.getTotalTags());
-        context.put("total_scenarios", ri.getTotalTagScenarios());
-        context.put("total_passed_scenarios", ri.getTotalPassingTagScenarios());
-        context.put("total_failed_scenarios", ri.getTotalFailingTagScenarios());
-        context.put("total_steps", ri.getTotalTagSteps());
-        context.put("total_passes", ri.getTotalTagPasses());
-        context.put("total_fails", ri.getTotalTagFails());
-        context.put("total_skipped", ri.getTotalTagSkipped());
-        context.put("total_pending", ri.getTotalTagPending());
+        VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+        contextMap.putAll(getGeneralParameters());
+        contextMap.put("tags", ri.getTags());
+        contextMap.put("total_tags", ri.getTotalTags());
+        contextMap.put("total_scenarios", ri.getTotalTagScenarios());
+        contextMap.put("total_passed_scenarios", ri.getTotalPassingTagScenarios());
+        contextMap.put("total_failed_scenarios", ri.getTotalFailingTagScenarios());
+        contextMap.put("total_steps", ri.getTotalTagSteps());
+        contextMap.put("total_passes", ri.getTotalTagPasses());
+        contextMap.put("total_fails", ri.getTotalTagFails());
+        contextMap.put("total_skipped", ri.getTotalTagSkipped());
+        contextMap.put("total_pending", ri.getTotalTagPending());
         if (flashCharts) {
-            context.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
+            contextMap.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
         } else {
             if (highCharts) {
-                context.put("chart_categories", JsChartUtil.getTags(ri.tagMap));
-                context.put("chart_data", JsChartUtil.generateTagChartDataForHighCharts(ri.tagMap));
+                contextMap.put("chart_categories", JsChartUtil.getTags(ri.tagMap));
+                contextMap.put("chart_data", JsChartUtil.generateTagChartDataForHighCharts(ri.tagMap));
             } else {
-                context.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
+                contextMap.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
             }
         }
-        context.put("total_duration", ri.getTotalTagDuration());
-        context.put("time_stamp", ri.timeStamp());
-        context.put("jenkins_base", pluginUrlPath);
-        context.put("fromJenkins", runWithJenkins);
-        context.put("flashCharts", flashCharts);
-        context.put("highCharts", highCharts);
-        generateReport("tag-overview.html", featureOverview, context);
+        contextMap.put("total_duration", ri.getTotalTagDuration());
+        contextMap.put("time_stamp", ri.timeStamp());
+        contextMap.put("flashCharts", flashCharts);
+        contextMap.put("highCharts", highCharts);
+        generateReport("tag-overview.html", featureOverview, contextMap.getVelocityContext());
     }
 
     public void generateErrorPage(Exception exception) throws Exception {
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template errorPage = ve.getTemplate("templates/errorPage.vm");
-        VelocityContext context = new VelocityContext();
-        context.put("version", VERSION);
-        context.put("build_number", buildNumber);
-        context.put("fromJenkins", runWithJenkins);
-        context.put("jenkins_base", pluginUrlPath);
-        context.put("build_project", buildProject);
-        context.put("error_message", exception);
-        context.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
-        generateReport("feature-overview.html", errorPage, context);
+        VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+        contextMap.putAll(getGeneralParameters());
+        contextMap.put("error_message", exception);
+        contextMap.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
+        generateReport("feature-overview.html", errorPage, contextMap.getVelocityContext());
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
@@ -264,5 +239,13 @@ public class ReportBuilder {
         return props;
     }
 
-
+    private HashMap<String,Object> getGeneralParameters() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        result.put("version", VERSION);
+        result.put("fromJenkins", runWithJenkins);
+        result.put("jenkins_base", pluginUrlPath);
+        result.put("build_project", buildProject);
+        result.put("build_number", buildNumber);
+        return result;
+    }
 }
