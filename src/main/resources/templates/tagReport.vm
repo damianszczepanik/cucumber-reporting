@@ -154,6 +154,7 @@ table.data-table td {
             #foreach($scenario in $tag.getScenarios())
                 <div style="margin-bottom:20px;padding:15px;">
                     <div><a href="$scenario.getParentFeatureUri()">View Feature File</a></div>
+                $scenario.getScenario().getTagsList()
                 $scenario.getScenario().getName()
                 #foreach($step in $scenario.getScenario().getSteps().toList())
                   $step.getName()

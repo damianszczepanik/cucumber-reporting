@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
@@ -294,21 +295,54 @@ public class ReportInformation {
         return link;
     }
 
+
+
+//    private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
+//        boolean exists = false;
+//        for (ScenarioTag scenario : scenarioList) {
+//            if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
+//                    && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
+//                exists = true;
+//                break;
+//            }
+//        }
+//
+//        if (!exists) {
+//            scenarioList.add(scenarioTag);
+//        }
+//        return scenarioList;
+//    }
+
     private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
-        boolean exists = false;
-        for (ScenarioTag scenario : scenarioList) {
-            if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
-                    && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
-                exists = true;
-                break;
-            }
+
+        Sequence<ScenarioTag> listOfScenarios = Sequences.sequence(scenarioList).realise();
+        Sequence<ScenarioTag> results = listOfScenarios.filter(ScenarioTag.predicates.scenarioExists(scenarioTag.getParentFeatureUri(),scenarioTag.getScenario().getName()));
+        List<ScenarioTag> scenarioTags = results.toList();
+        for(ScenarioTag scenario : scenarioTags){
+           scenarioList.add(scenario);
         }
 
-        if (!exists) {
-            scenarioList.add(scenarioTag);
+//        scenarioList.add(scenarioTag);
+
+//        List<ScenarioTag> scenariosForList = new ArrayList<ScenarioTag>();
+//            for (ScenarioTag scenario : scenarioList) {
+//
+//                if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
+//                        && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
+//                    if(scenarioTag.getScenario().getKeyword().equalsIgnoreCase("Scenario Outline")){
+//                      scenariosForList.add(scenarioTag);
+//                    }
+//                } else {
+//                    scenariosForList.add(scenarioTag);
+//                }
+//            }
+//
+////            if(!scenariosForList.isEmpty()){
+//                scenarioList.addAll(scenariosForList);
+////            }
+
+            return scenarioList;
         }
-        return scenarioList;
-    }
 
     private List<TagObject> createOrAppendToTagMap(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
         for (String tag : tagList) {
