@@ -5,3 +5,4 @@ velocity.log
 .project
 .settings/
 *.autosave
+.DS_Store
