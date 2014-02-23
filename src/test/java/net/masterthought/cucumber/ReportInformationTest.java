@@ -1,9 +1,9 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Artifact;
-import net.masterthought.cucumber.json.Feature;
-import org.junit.Before;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
+import static org.junit.internal.matchers.StringContains.containsString;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.internal.matchers.IsCollectionContaining.*;
-import static org.junit.internal.matchers.StringContains.containsString;
+import net.masterthought.cucumber.json.Artifact;
+import net.masterthought.cucumber.json.Feature;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class ReportInformationTest {
 

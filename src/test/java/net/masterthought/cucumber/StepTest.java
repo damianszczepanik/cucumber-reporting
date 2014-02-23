@@ -1,22 +1,23 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Row;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
-import org.junit.Before;
-import org.junit.Test;
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+import static org.apache.commons.lang.StringUtils.EMPTY;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.apache.commons.lang.StringUtils.EMPTY;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Row;
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.util.Util;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 public class StepTest {
 

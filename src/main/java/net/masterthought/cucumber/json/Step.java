@@ -119,8 +119,18 @@ public class Step {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span>" + Util.closeDiv() + getImageTags();
+            content = getNameAndDuration();
         }
+        return content;
+    }
+
+    private String getNameAndDuration() {
+        String content = Util.result(getStatus())
+                + "<span class=\"step-keyword\">" + keyword
+                + " </span><span class=\"step-name\">" + name + "</span>"
+                + "<span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span>"
+                + Util.closeDiv() + getImageTags();
+
         return content;
     }
 
@@ -128,6 +138,7 @@ public class Step {
      * Returns a formatted doc-string section.
      * This is formatted w.r.t the parent Step element.
      * To preserve whitespace in example, line breaks and whitespace are preserved
+     *
      * @return string of html
      */
     public String getDocStringOrNothing() {
@@ -135,10 +146,10 @@ public class Step {
             return "";
         }
         return Util.result(getStatus()) +
-                 "<div class=\"doc-string\">" +
-                    getDocString().getEscapedValue() +
-                 Util.closeDiv() +
-               Util.closeDiv();
+                "<div class=\"doc-string\">" +
+                getDocString().getEscapedValue() +
+                Util.closeDiv() +
+                Util.closeDiv();
     }
 
     private String formatError(String errorMessage) {
@@ -160,10 +171,10 @@ public class Step {
         int index = 1;
         for (Object image : embeddings) {
             if (image != null) {
-            String mimeEncodedImage = mimeEncodeEmbededImage(image);
-            String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
-            links = links +   "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot "+ index++ +"</a>" +
-                    "<img id='"+ imageId +"' style='display:none' src='" + mimeEncodedImage + "'>\n";
+                String mimeEncodedImage = mimeEncodeEmbededImage(image);
+                String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
+                links = links + "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot " + index++ + "</a>" +
+                        "<img id='" + imageId + "' style='display:none' src='" + mimeEncodedImage + "'>\n";
             }
         }
         return links;
@@ -174,11 +185,12 @@ public class Step {
     }
 
 
-    public static String mimeEncodeEmbededImage(Object image){
+    public static String mimeEncodeEmbededImage(Object image) {
         return "data:image/png;base64," + ((LinkedTreeMap) image).get("data");
 
     }
-    public static String uuidForImage(Object image){
+
+    public static String uuidForImage(Object image) {
         return UUID.nameUUIDFromBytes(mimeEncodeEmbededImage(image).getBytes()).toString();
     }
 
