@@ -4,6 +4,7 @@ import net.masterthought.cucumber.charts.FlashChartBuilder;
 import net.masterthought.cucumber.charts.JsChartUtil;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
+import net.masterthought.cucumber.util.Util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
@@ -28,6 +29,16 @@ public class ReportBuilder {
     private boolean artifactsEnabled;
     private boolean highCharts;
     private boolean parsingError;
+
+    public Map<String, String> getCustomHeader() {
+        return customHeader;
+    }
+
+    public void setCustomHeader(Map<String, String> customHeader) {
+        this.customHeader = customHeader;
+    }
+
+    private Map<String, String> customHeader;
 
     private final String VERSION = "cucumber-reporting-0.0.22";
 
@@ -84,6 +95,7 @@ public class ReportBuilder {
             if (!parsingError) {
                 generateErrorPage(exception);
                 System.out.println(exception);
+                exception.printStackTrace();
             }
         }
     }
@@ -156,6 +168,11 @@ public class ReportBuilder {
             contextMap.put("time_stamp", ri.timeStamp());
             contextMap.put("report_status_colour", ri.getTagReportStatusColour(tagObject));
             generateReport(tagObject.getTagName().replace("@", "").trim() + ".html", featureResult, contextMap.getVelocityContext());
+            contextMap.put("hasCustomHeader", false);
+            if (customHeader != null && customHeader.get(tagObject.getTagName()) != null) {
+                contextMap.put("hasCustomHeader", true);
+                contextMap.put("customHeader", customHeader.get(tagObject.getTagName()));
+            }
         }
     }
 
@@ -175,6 +192,12 @@ public class ReportBuilder {
         contextMap.put("total_fails", ri.getTotalTagFails());
         contextMap.put("total_skipped", ri.getTotalTagSkipped());
         contextMap.put("total_pending", ri.getTotalTagPending());
+        contextMap.put("hasCustomHeaders", false);
+        if (customHeader != null) {
+            contextMap.put("hasCustomHeaders", true);
+            contextMap.put("customHeaders", customHeader);
+        }
+        contextMap.put("backgrounds", ri.getBackgroundInfo());
         if (flashCharts) {
             contextMap.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
         } else {
@@ -189,6 +212,9 @@ public class ReportBuilder {
         contextMap.put("time_stamp", ri.timeStamp());
         contextMap.put("flashCharts", flashCharts);
         contextMap.put("highCharts", highCharts);
+        long durationl = ri.getBackgroundInfo().getTotalDuration() + ri.getLongTotalTagDuration();
+        String duration = Util.formatDuration(durationl);
+        contextMap.put("total_duration", duration);
         generateReport("tag-overview.html", featureOverview, contextMap.getVelocityContext());
     }
 
