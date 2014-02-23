@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.generic.EscapeTool;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -104,6 +105,7 @@ public class ReportBuilder {
                 contextMap.put("scenarios", feature.getElements().toList());
                 contextMap.put("time_stamp", ri.timeStamp());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
+                contextMap.put("esc", new EscapeTool());
                 generateReport(feature.getFileName(), featureResult, contextMap.getVelocityContext());
             }
         }
@@ -239,7 +241,7 @@ public class ReportBuilder {
         return props;
     }
 
-    private HashMap<String,Object> getGeneralParameters() {
+    private HashMap<String, Object> getGeneralParameters() {
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("version", VERSION);
         result.put("fromJenkins", runWithJenkins);

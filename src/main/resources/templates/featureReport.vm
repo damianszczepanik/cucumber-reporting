@@ -214,7 +214,7 @@ table.data-table td {
                       #foreach($row in $step.getRows())
                        <tr>
                            #foreach($cell in $row.getCells())
-                           <td>$cell</td>
+                           <td>$esc.html($cell)</td>
                            #end
                        </tr>
                       #end
