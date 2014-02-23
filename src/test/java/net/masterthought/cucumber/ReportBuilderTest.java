@@ -3,15 +3,17 @@ package net.masterthought.cucumber;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 public class ReportBuilderTest {
 
@@ -91,6 +93,31 @@ public class ReportBuilderTest {
         assertThat(fromId("error-message", doc).text(), is("java.lang.NullPointerException"));
     }
 
+    @Test
+    public void shouldRenderDocStringInTagReport() throws Exception {
+        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/docstring.json").toURI()).getAbsolutePath());
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting", false, false, true, true, false, "", false);
+        reportBuilder.generateReports();
+
+        File input = new File(rd, "tag1.html");
+        Document doc = Jsoup.parse(input, "UTF-8", "");
+        assertThat(fromClass("doc-string",doc).get(0).text(),is("X _ X O X O _ O X"));
+        Elements tableCells = doc.getElementsByClass("stats-table").get(0).getElementsByTag("tr").get(2).getElementsByTag("td");
+        assertEquals("@tag1",tableCells.get(0).text());
+        assertEquals("1",tableCells.get(1).text());
+        assertEquals("1",tableCells.get(2).text());
+        assertEquals("0",tableCells.get(3).text());
+        assertEquals("2",tableCells.get(4).text());
+        assertEquals("2",tableCells.get(5).text());
+        assertEquals("0",tableCells.get(6).text());
+        assertEquals("0",tableCells.get(7).text());
+        assertEquals("0",tableCells.get(8).text());
+        assertEquals("106 ms",tableCells.get(9).text());
+        assertEquals("passed",tableCells.get(10).text());
+    }
+
     private void assertStatsHeader(Document doc) {
         assertThat("stats-header", fromId("stats-header-scenarios", doc).text(), is("Scenarios"));
         assertThat("stats-header-feature", fromId("stats-header-feature", doc).text(), is("Feature"));
@@ -133,9 +160,15 @@ public class ReportBuilderTest {
         assertThat(fromId("stats-total-totals", doc).text(), is("Totals"));
     }
 
-    private Element fromId(String id, Document doc) {
+    private Element fromId(String id, Element doc) {
         return doc.getElementById(id);
     }
 
+    private Elements fromClass(String clazz, Element doc) {
+        return doc.getElementsByClass(clazz);
+    }
 
+    private Elements fromTag(String tag, Element element) {
+        return element.getElementsByTag(tag);
+    }
 }

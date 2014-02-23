@@ -1,3 +1,4 @@
+#* @vtlvariable name="tags" type="java.util.List<net.masterthought.cucumber.TagObject>" *#
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -416,27 +417,7 @@
             <br/>
             <h2>Tag Statistics</h2>
             <table class="stats-table">
-                <tr>
-                    <th></th>
-                    <th colspan="3">Scenarios</th>
-                    <th colspan="5">Steps</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>Tag</th>
-                    <th>Total</th>
-                    <th>Passed</th>
-                    <th>Failed</th>
-                    <th>Total</th>
-                    <th>Passed</th>
-                    <th>Failed</th>
-                    <th>Skipped</th>
-                    <th>Pending</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                </tr>
-
+                #include("/templates/tableHeader.vm")
 
 
                 #foreach($tag in $tags)
@@ -463,7 +444,7 @@
                 #end
 
                 <tr>
-                    <td style="background-color:lightgray;font-weight:bold;">$total_tags</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$tags.size()</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_passed_scenarios</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_failed_scenarios</td>

@@ -344,26 +344,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 	  <br/>
   <h2 id="feature-statistics-title">Feature Statistics</h2>
   <table class="stats-table">
-  <tr>
-    <th></th>
-    <th id="stats-header-scenarios" colspan="3">Scenarios</th>
-    <th id="stats-header-steps" colspan="5">Steps</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
-  <th id="stats-header-feature">Feature</th>
-  <th id="stats-header-scenarios-total">Total</th>
-  <th id="stats-header-scenarios-passed">Passed</th>
-  <th id="stats-header-scenarios-failed">Failed</th>
-  <th id="stats-header-steps-total">Total</th>
-  <th id="stats-header-steps-passed">Passed</th>
-  <th id="stats-header-steps-failed">Failed</th>
-  <th id="stats-header-steps-skipped">Skipped</th>
-  <th id="stats-header-steps-pending">Pending</th>
-  <th id="stats-header-duration">Duration</th>
-  <th id="stats-header-status">Status</th>
-  </tr>
+      #include("/templates/tableHeader.vm")
 
       #foreach($feature in $features)
 

@@ -91,6 +91,16 @@ table.data-table td {
     padding-left:50px;
     background-color: beige;
 }
+.doc-string {
+    width:auto;
+    display:inline-block;
+    margin: 10px auto 10px 70px;
+    padding: 10px;
+    background-color:rgba(255,255,255,0.35);
+    border-radius: 10px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 95%;
+}
 </style>
 
 </head>
@@ -122,27 +132,7 @@ table.data-table td {
 
             <div>
                 <table class="stats-table">
-                    <tr>
-                        <th></th>
-                        <th colspan="3">Scenarios</th>
-                        <th colspan="5">Steps</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>Tag</th>
-                        <th>Total</th>
-                        <th>Passed</th>
-                        <th>Failed</th>
-                        <th>Total</th>
-                        <th style="background-color:#C5D88A;">Passed</th>
-                        <th style="background-color:#D88A8A;">Failed</th>
-                        <th style="background-color:#2DEAEC;">Skipped</th>
-                        <th style="background-color:#ebcc81;">Pending</th>
-                        <th>Duration</th>
-                        <th>Status</th>
-                    </tr>
-
+                    #include("/templates/tableHeader.vm")
                     <tr>
                         <td><a href="$tag.getFileName()">$tag.getTagName()</a></td>
                         <td>$tag.getNumberOfScenarios()</td>
@@ -167,6 +157,7 @@ table.data-table td {
                 $scenario.getScenario().getName()
                 #foreach($step in $scenario.getScenario().getSteps().toList())
                   $step.getName()
+                    $step.getDocStringOrNothing()
                     #if($step.hasRows())
                         <div class="data $step.getDataTableClass()">
                         <table class="data-table">

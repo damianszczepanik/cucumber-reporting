@@ -9,6 +9,12 @@
             {
                 "id": "tictactoe;diagonal-win",
                 "description": "",
+                "tags": [
+                    {
+                        "name": "@tag1",
+                        "line": 3
+                    }
+                ],
                 "name": "Diagonal win",
                 "keyword": "Scenario",
                 "line": 6,
