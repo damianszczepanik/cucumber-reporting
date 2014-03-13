@@ -432,7 +432,9 @@
                         <td style="text-align:left;">
                             <a href="$tag.getFileName()">$tag.getTagName()</a>
 
-                              <br/><span> $customHeaders.get($tag.getTagName())</span>
+                            #if ($hasCustomHeader)
+                                <br/><span> $customHeaders.get($tag.getTagName())</span>
+                            #end
 
                         </td>
                         <td>$tag.getNumberOfScenarios()</td>
