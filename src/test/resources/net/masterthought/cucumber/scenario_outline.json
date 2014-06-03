@@ -1,0 +1,339 @@
+ [
+  {
+  "id": "scenario outline test",
+  "tags": [
+           {
+           "name": "@tagA",
+           "line": 1
+           },
+           {
+           "name": "@tagB",
+           "line": 1
+           }
+           ],
+  "description": "Description",
+  "name": "name",
+  "keyword": "Feature",
+  "line": 2,
+  "elements": [
+               {
+               "description": "",
+               "name": "nameA",
+               "keyword": "Scenario Outline",
+               "line": 9,
+               "steps": [
+                         {
+                         "name": "I am an \u003caccount\u003e user",
+                         "keyword": "Given ",
+                         "line": 11
+                         },
+                         {
+                         "name": "I am on the page",
+                         "keyword": "When ",
+                         "line": 12
+                         },
+                         {
+                         "name": "the values \u003ccollections\u003e and \u003ctab\u003e appears",
+                         "keyword": "Then ",
+                         "line": 13
+                         }
+                         ],
+               "examples": [
+                            {
+                            "description": "",
+                            "name": "",
+                            "keyword": "Examples",
+                            "line": 14,
+                            "rows": [
+                                     {
+                                     "cells": [
+                                               "account",
+                                               "collections",
+                                               "access",
+                                               "tab"
+                                               ],
+                                     "line": 15
+                                     },
+                                     {
+                                     "cells": [
+                                               "Account-1",
+                                               "Collection-1",
+                                               "should",
+                                               "Previous"
+                                               ],
+                                     "line": 16
+                                     },
+                                     {
+                                     "cells": [
+                                               "Account-1",
+                                               "Collection-2",
+                                               "should",
+                                               "Previous"
+                                               ],
+                                     "line": 17
+                                     },
+                                     {
+                                     "cells": [
+                                               "Account-1",
+                                               "Collection-3",
+                                               "should",
+                                               "Current"
+                                               ],
+                                     "line": 18
+                                     }
+                                     ]
+                            }
+                            ],
+               "type": "scenario_outline"
+               },
+               {
+               "id": "scenarioA",
+               "tags": [
+                        {
+                        "name": "@tagA",
+                        "line": 1
+                        },
+                        {
+                        "name": "@tagB",
+                        "line": 1
+                        }
+                        ],
+               "description": "",
+               "name": "User of different accounts on age",
+               "keyword": "Scenario Outline",
+               "line": 16,
+               "steps": [
+                         {
+                         "result": {
+                         "duration": 21756889000,
+                         "status": "passed"
+                         },
+                         "name": "I am an Account-1 user",
+                         "keyword": "Given ",
+                         "line": 11,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Account-1",
+                                       "offset": 30
+                                       }
+                                       ],
+                         "location": "StepDefinitions.I_am_an_account_user(String)"
+                         },
+                         "matchedColumns": [
+                                            0
+                                            ]
+                         },
+                         {
+                         "result": {
+                         "duration": 5379114000,
+                         "status": "passed"
+                         },
+                         "name": "I am on the page",
+                         "keyword": "When ",
+                         "line": 12,
+                         "match": {
+                         "location": "StepDefinitions.I_am_on_the_page()"
+                         }
+                         },
+                         {
+                         "result": {
+                         "duration": 151426000,
+                         "status": "passed"
+                         },
+                         "name": "the values Collection-1 and Previous appears",
+                         "keyword": "Then ",
+                         "line": 13,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Collection-1",
+                                       "offset": 44
+                                       },
+                                       {
+                                       "val": "Previous",
+                                       "offset": 59
+                                       }
+                                       ],
+                         "location": "StepDefinitions.access_appear_for_collections(String,String,String)"
+                         },
+                         "matchedColumns": [
+                                            1,
+                                            2,
+                                            3
+                                            ]
+                         }
+                         ],
+               "type": "scenario"
+               },
+               {
+               "id": "scenarioB",
+               "tags": [
+                        {
+                        "name": "@tagA",
+                        "line": 1
+                        },
+                        {
+                        "name": "@tagB",
+                        "line": 1
+                        }
+                        ],
+               "description": "",
+               "name": "scenarioB",
+               "keyword": "Scenario Outline",
+               "line": 17,
+               "steps": [
+                         {
+                         "result": {
+                         "duration": 2097621000,
+                         "status": "passed"
+                         },
+                         "name": "I am an Account-1 user",
+                         "keyword": "Given ",
+                         "line": 11,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Account-1",
+                                       "offset": 30
+                                       }
+                                       ],
+                         "location": "StepDefinitions.I_am_an_account_user(String)"
+                         },
+                         "matchedColumns": [
+                                            0
+                                            ]
+                         },
+                         {
+                         "result": {
+                         "duration": 755414000,
+                         "status": "passed"
+                         },
+                         "name": "I am on the page",
+                         "keyword": "When ",
+                         "line": 12,
+                         "match": {
+                         "location": "StepDefinitions.I_am_on_the_page()"
+                         }
+                         },
+                         {
+                         "result": {
+                         "duration": 105646000,
+                         "status": "passed"
+                         },
+                         "name": "the values Collection-2 and Previous appears",
+                         "keyword": "Then ",
+                         "line": 13,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Collection-2",
+                                       "offset": 44
+                                       },
+                                       {
+                                       "val": "Previous",
+                                       "offset": 58
+                                       }
+                                       ],
+                         "location": "StepDefinitions.access_appear_for_collections(String,String,String)"
+                         },
+                         "matchedColumns": [
+                                            1,
+                                            2,
+                                            3
+                                            ]
+                         }
+                         ],
+               "type": "scenario"
+               },
+               {
+               "id": "scenarioC",
+               "tags": [
+                        {
+                        "name": "@tagA",
+                        "line": 1
+                        },
+                        {
+                        "name": "@tagB",
+                        "line": 1
+                        }
+                        ],
+               "description": "",
+               "name": "scenarioC",
+               "keyword": "Scenario Outline",
+               "line": 18,
+               "steps": [
+                         {
+                         "result": {
+                         "duration": 2088016000,
+                         "status": "passed"
+                         },
+                         "name": "I am an Account-1 user",
+                         "keyword": "Given ",
+                         "line": 11,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Account-1",
+                                       "offset": 30
+                                       }
+                                       ],
+                         "location": "StepDefinitions.I_am_an_account_user(String)"
+                         },
+                         "matchedColumns": [
+                                            0
+                                            ]
+                         },
+                         {
+                         "result": {
+                         "duration": 1252268000,
+                         "status": "passed"
+                         },
+                         "name": "I am on the download page",
+                         "keyword": "When ",
+                         "line": 12,
+                         "match": {
+                         "location": "StepDefinitions.I_am_on_the_page()"
+                         }
+                         },
+                         {
+                         "result": {
+                         "duration": 100292000,
+                         "status": "failed",
+                         "error_message": "java.lang.AssertionError: expected:\u003ctrue\u003e but was:\u003cfalse\u003e\n"
+                         },
+                         "embeddings": [
+                                        {
+                                        "mime_type": "image/png",
+                                        "data": ""
+                                        }
+                                        ],
+                         "name": "the values Collection-3 and Current appears",
+                         "keyword": "Then ",
+                         "line": 13,
+                         "match": {
+                         "arguments": [
+                                       {
+                                       "val": "Collection-3",
+                                       "offset": 44
+                                       },
+                                       {
+                                       "val": "Current",
+                                       "offset": 59
+                                       }
+                                       ],
+                         "location": "StepDefinitions.access_appear_for_collections(String,String,String)"
+                         },
+                         "matchedColumns": [
+                                            1,
+                                            2,
+                                            3
+                                            ]
+                         }
+                         ],
+               "type": "scenario"
+               }
+               ],
+  "uri": "Accounts.feature"
+  }
+  ]
