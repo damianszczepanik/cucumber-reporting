@@ -30,6 +30,9 @@ public class ReportBuilder {
     private boolean highCharts;
     private boolean parsingError;
 
+    //Added to control parallel reports
+    private boolean parallel = true;
+
     public Map<String, String> getCustomHeader() {
         return customHeader;
     }
@@ -87,6 +90,7 @@ public class ReportBuilder {
             if (artifactsEnabled) {
                 copyResource("charts", "codemirror.zip");
             }
+            setJsonFilesInFeatures();
             generateFeatureOverview();
             generateFeatureReports();
             generateTagReports();
@@ -99,6 +103,20 @@ public class ReportBuilder {
             }
         }
     }
+
+    private void setJsonFilesInFeatures() throws Exception {
+        Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry) it.next();
+            List<Feature> featureList = (List<Feature>) pairs.getValue();
+
+            for (Feature feature : featureList) {
+                String jsonFile = ((String) pairs.getKey()).split("/")[((String) pairs.getKey()).split("/").length-1];
+                feature.setJsonFile(jsonFile);               
+            }
+        }
+    }
+
 
     public void generateFeatureReports() throws Exception {
         Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
@@ -118,7 +136,20 @@ public class ReportBuilder {
                 contextMap.put("time_stamp", ri.timeStamp());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
                 contextMap.put("esc", new EscapeTool());
-                generateReport(feature.getFileName(), featureResult, contextMap.getVelocityContext());
+                String featureName = feature.getFileName();
+                System.out.println("FILENAME: "+featureName);
+                //System.out.println("LENGTH: "+feature.getUri().split("_").length); 
+                System.out.println("JSON: "+pairs.getKey()); 
+                //If parallel execution
+                //if(parallel){
+                    //If we are using reports with our naming
+                  //  String jsonFile = ((String) pairs.getKey()).split("/")[((String) pairs.getKey()).split("/").length-1];
+                    //System.out.println("JSONFILE: "+jsonFile);
+                     //if(jsonFile.split("_").length >1)
+                      //  featureName = featureName.substring(0,featureName.length()-5) +"-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length()) + ".html";
+                     //System.out.println("FNAME: "+featureName);
+                //}                
+                generateReport(featureName, featureResult, contextMap.getVelocityContext());
             }
         }
     }

@@ -174,7 +174,7 @@ public class Step {
                 String mimeEncodedImage = mimeEncodeEmbededImage(image);
                 String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
                 links = links + "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot " + index++ + "</a>" +
-                        "<img id='" + imageId + "' style='display:none' src='" + mimeEncodedImage + "'>\n";
+                        "<img id='" + imageId + "' style='display:none;max-width: 250px;' src='" + mimeEncodedImage + "'>\n";
             }
         }
         return links;
