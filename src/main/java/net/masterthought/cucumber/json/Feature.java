@@ -49,7 +49,8 @@ public class Feature {
         matches = (sublist.size() == 0) ? matches : sublist;
         String fileName = Joiner.on("-").join(matches); 
         if(parallel && jsonFile!=""){
-            fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+            if(jsonFile.split("_").length >1)
+                fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
         }
         fileName = fileName + ".html";
         return fileName;
