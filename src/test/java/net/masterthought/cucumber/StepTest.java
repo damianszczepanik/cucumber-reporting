@@ -125,7 +125,7 @@ public class StepTest {
     public void shouldCreateLinkToScreenshotWhenOneExists() throws IOException {
         assertThat(failingStepWithEmbeddedScreenshot().getImageTags(), is(
                 "<a href=\"\" onclick=\"img=document.getElementById('16d4eeab-26ab-3bd7-a255-fb857f23474e'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a>" +
-                        "<img id='16d4eeab-26ab-3bd7-a255-fb857f23474e' style='display:none' src='data:image/png;base64," +
+                        "<img id='16d4eeab-26ab-3bd7-a255-fb857f23474e' style='display:none;max-width: 250px;' src='data:image/png;base64," +
                         "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI" +
                         "WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVk" +
                         "IHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B" +
@@ -137,7 +137,7 @@ public class StepTest {
                         "1W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR" +
                         "+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg=='>\n" +
                         "<a href=\"\" onclick=\"img=document.getElementById('9a61099d-b143-3ab7-a652-435041588fda'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a>" +
-                        "<img id='9a61099d-b143-3ab7-a652-435041588fda' style='display:none' src='data:image/png;base64," +
+                        "<img id='9a61099d-b143-3ab7-a652-435041588fda' style='display:none;max-width: 250px;' src='data:image/png;base64," +
                         "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ" +
                         "3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='>\n"));
         DateTimeUtils.setCurrentMillisSystem();

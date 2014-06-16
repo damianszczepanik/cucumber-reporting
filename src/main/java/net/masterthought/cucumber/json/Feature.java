@@ -21,10 +21,15 @@ public class Feature {
     private Tag[] tags;
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
-
+    private String jsonFile = "";
+    private boolean parallel = true;
 
     public Feature() {
 
+    }
+
+    public void setJsonFile(String json){
+        this.jsonFile = json;
     }
 
     public Sequence<Element> getElements() {
@@ -42,8 +47,16 @@ public class Feature {
         List<String> sublist = matches.subList(1, matches.size());
 
         matches = (sublist.size() == 0) ? matches : sublist;
-        String fileName = Joiner.on("-").join(matches) + ".html";
+        String fileName = Joiner.on("-").join(matches); 
+        if(parallel && jsonFile!=""){
+            fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+        }
+        fileName = fileName + ".html";
         return fileName;
+    }
+
+    public String getUri(){
+        return this.uri;
     }
 
     public boolean hasTags() {
