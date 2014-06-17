@@ -28,6 +28,10 @@ public class Feature {
 
     }
 
+    public String getDeviceName(){
+        return (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+    }
+
     public void setJsonFile(String json){
         this.jsonFile = json;
     }

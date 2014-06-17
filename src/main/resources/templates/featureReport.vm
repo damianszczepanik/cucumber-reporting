@@ -182,6 +182,7 @@ table.data-table td {
 
                     <tr>
                         <td><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
+                        <td id="device">$feature.getDeviceName()</td>
                         <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
                         <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
                         <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
