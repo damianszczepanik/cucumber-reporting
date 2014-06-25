@@ -31,7 +31,15 @@ public class ReportBuilder {
     private boolean parsingError;
 
     //Added to control parallel reports
-    private boolean parallel = true;
+    private static boolean parallel = false;
+
+    public static boolean isParallel(){
+        return parallel;
+    }
+
+    public static void setParallel(boolean p){
+       parallel = p;
+    }
 
     public Map<String, String> getCustomHeader() {
         return customHeader;
@@ -56,6 +64,37 @@ public class ReportBuilder {
             this.runWithJenkins = runWithJenkins;
             this.artifactsEnabled = artifactsEnabled;
             this.highCharts = highCharts;
+            this.parallel = false;
+
+            ConfigurationOptions.setSkippedFailsBuild(skippedFails);
+            ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
+            ConfigurationOptions.setArtifactsEnabled(artifactsEnabled);
+            if (artifactsEnabled) {
+                ArtifactProcessor artifactProcessor = new ArtifactProcessor(artifactConfig);
+                ConfigurationOptions.setArtifactConfiguration(artifactProcessor.process());
+            }
+
+            ReportParser reportParser = new ReportParser(jsonReports);
+            this.ri = new ReportInformation(reportParser.getFeatures());
+        } catch (Exception exception) {
+            parsingError = true;
+            generateErrorPage(exception);
+            System.out.println(exception);
+        }
+    }
+
+    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts, boolean parallelTesting) throws Exception {
+
+        try {
+            this.reportDirectory = reportDirectory;
+            this.buildNumber = buildNumber;
+            this.buildProject = buildProject;
+            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
+            this.flashCharts = flashCharts;
+            this.runWithJenkins = runWithJenkins;
+            this.artifactsEnabled = artifactsEnabled;
+            this.highCharts = highCharts;
+            this.parallel = parallelTesting;
 
             ConfigurationOptions.setSkippedFailsBuild(skippedFails);
             ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
@@ -90,7 +129,10 @@ public class ReportBuilder {
             if (artifactsEnabled) {
                 copyResource("charts", "codemirror.zip");
             }
+
+            //Added to correlate feature with each report
             setJsonFilesInFeatures();
+
             generateFeatureOverview();
             generateFeatureReports();
             generateTagReports();
@@ -130,26 +172,14 @@ public class ReportBuilder {
                 Template featureResult = ve.getTemplate("templates/featureReport.vm");
                 VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
                 contextMap.putAll(getGeneralParameters());
+                contextMap.put("parallel", ReportBuilder.isParallel());
                 contextMap.put("feature", feature);
                 contextMap.put("report_status_colour", ri.getReportStatusColour(feature));
                 contextMap.put("scenarios", feature.getElements().toList());
                 contextMap.put("time_stamp", ri.timeStamp());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
-                contextMap.put("esc", new EscapeTool());
-                String featureName = feature.getFileName();
-                System.out.println("FILENAME: "+featureName);
-                //System.out.println("LENGTH: "+feature.getUri().split("_").length); 
-                System.out.println("JSON: "+pairs.getKey()); 
-                //If parallel execution
-                //if(parallel){
-                    //If we are using reports with our naming
-                  //  String jsonFile = ((String) pairs.getKey()).split("/")[((String) pairs.getKey()).split("/").length-1];
-                    //System.out.println("JSONFILE: "+jsonFile);
-                     //if(jsonFile.split("_").length >1)
-                      //  featureName = featureName.substring(0,featureName.length()-5) +"-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length()) + ".html";
-                     //System.out.println("FNAME: "+featureName);
-                //}                
-                generateReport(featureName, featureResult, contextMap.getVelocityContext());
+                contextMap.put("esc", new EscapeTool());                        
+                generateReport(feature.getFileName(), featureResult, contextMap.getVelocityContext());
             }
         }
     }
@@ -161,6 +191,7 @@ public class ReportBuilder {
         VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
         contextMap.putAll(getGeneralParameters());
         contextMap.put("features", ri.getFeatures());
+        contextMap.put("parallel", ReportBuilder.isParallel());
         contextMap.put("total_features", ri.getTotalNumberOfFeatures());
         contextMap.put("total_scenarios", ri.getTotalNumberOfScenarios());
         contextMap.put("total_steps", ri.getTotalNumberOfSteps());

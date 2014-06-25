@@ -343,8 +343,12 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 	<div>
 	  <br/>
   <h2 id="feature-statistics-title">Feature Statistics</h2>
-  <table class="stats-table">
-      #include("/templates/tableHeader.vm")
+  <table class="stats-table">     
+      #if($parallel)
+          #include("/templates/tableHeaderParallel.vm")                        
+        #else
+          #include("/templates/tableHeader.vm")                        
+      #end
 
       #foreach($feature in $features)
 
@@ -360,7 +364,9 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
           <tr>
           <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
-          <td id="device">$feature.getDeviceName()</td>
+          #if($parallel)
+              <td id="device">$feature.getDeviceName()</td>
+          #end
           <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
           <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
           <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
@@ -376,7 +382,9 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
 <tr>
 <td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">$total_features</td>
-<td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">-</td>
+#if($parallel)
+  <td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">-</td>
+#end
 <td id="stats-total-scenarios" style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
 <td id="stats-total-scenarios-passed" style="background-color:lightgray;font-weight:bold;">$scenarios_passed</td>
 <td id="stats-total-scenarios-failed" style="background-color:lightgray;font-weight:bold;">$scenarios_failed</td>
