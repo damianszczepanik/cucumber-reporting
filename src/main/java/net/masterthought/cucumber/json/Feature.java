@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import net.masterthought.cucumber.ReportBuilder;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.googlecode.totallylazy.Function1;
@@ -22,14 +23,16 @@ public class Feature {
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
     private String jsonFile = "";
-    private boolean parallel = true;
 
     public Feature() {
 
     }
 
     public String getDeviceName(){
-        return (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+        String name = "";
+        if(jsonFile.split("_").length>1)
+          name = (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+      return name;
     }
 
     public void setJsonFile(String json){
@@ -52,7 +55,9 @@ public class Feature {
 
         matches = (sublist.size() == 0) ? matches : sublist;
         String fileName = Joiner.on("-").join(matches); 
-        if(parallel && jsonFile!=""){
+
+        //If we spect to have parallel executions, we add 
+        if(ReportBuilder.isParallel() && jsonFile!=""){
             if(jsonFile.split("_").length >1)
                 fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
         }
