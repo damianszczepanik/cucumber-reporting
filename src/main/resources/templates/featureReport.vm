@@ -177,11 +177,19 @@ table.data-table td {
 
             <div>
                 <table class="stats-table">
-                    #include("/templates/tableHeader.vm")
+                    #if($parallel)
+                        #include("/templates/tableHeaderParallel.vm")                        
+                    #else
+                        #include("/templates/tableHeader.vm")                        
+                    #end
+                    
                     #set($sf = $feature.getRawName())
 
                     <tr>
                         <td><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
+                        #if($parallel)
+                          <td id="device">$feature.getDeviceName()</td>
+                        #end
                         <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
                         <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
                         <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
