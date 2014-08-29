@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import net.masterthought.cucumber.ReportBuilder;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.googlecode.totallylazy.Function1;
@@ -21,10 +22,21 @@ public class Feature {
     private Tag[] tags;
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
-
+    private String jsonFile = "";
 
     public Feature() {
 
+    }
+
+    public String getDeviceName(){
+        String name = "";
+        if(jsonFile.split("_").length>1)
+          name = (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+      return name;
+    }
+
+    public void setJsonFile(String json){
+        this.jsonFile = json;
     }
 
     public Sequence<Element> getElements() {
@@ -42,8 +54,19 @@ public class Feature {
         List<String> sublist = matches.subList(1, matches.size());
 
         matches = (sublist.size() == 0) ? matches : sublist;
-        String fileName = Joiner.on("-").join(matches) + ".html";
+        String fileName = Joiner.on("-").join(matches); 
+
+        //If we spect to have parallel executions, we add 
+        if(ReportBuilder.isParallel() && jsonFile!=""){
+            if(jsonFile.split("_").length >1)
+                fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+        }
+        fileName = fileName + ".html";
         return fileName;
+    }
+
+    public String getUri(){
+        return this.uri;
     }
 
     public boolean hasTags() {
