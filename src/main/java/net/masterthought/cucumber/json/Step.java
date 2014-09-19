@@ -8,6 +8,7 @@ import com.googlecode.totallylazy.predicates.LogicalPredicate;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -167,14 +168,34 @@ public class Step {
     public String getImageTags() {
         if (noEmbeddedScreenshots()) return EMPTY;
 
+        String mimeImage = "image/png";
+        String mimeHtml = "text/html";
+        String mimeText = "text/plain";
+        String mimeJS = "application/javascript";
+
         String links = EMPTY;
         int index = 1;
         for (Object image : embeddings) {
             if (image != null) {
-                String mimeEncodedImage = mimeEncodeEmbededImage(image);
-                String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
-                links = links + "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot " + index++ + "</a>" +
-                        "<img id='" + imageId + "' style='display:none;max-width: 250px;' src='" + mimeEncodedImage + "'>\n";
+                if(mimeImage.equals(((LinkedTreeMap) image).get("mime_type"))){
+                    String mimeEncodedImage = mimeEncodeEmbededImage(image);
+                    //String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
+                    String imageId = getTimeStampMS();
+                    links = links + "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot " + index++ + "</a>" +
+                            "<img id='" + imageId + "' style='display:none;max-width: 300px;' src='" + mimeEncodedImage + "'>\n";
+                } else if (mimeHtml.equals(((LinkedTreeMap) image).get("mime_type"))){
+                    String mimeEncodedHtml = mimeEncodeEmbededHtml(image);
+
+                    links = links + "<object type=\"text/html\" id=\"htmlFrame\" style=\"border: none;\"  width=\"100%\" data=\"" + mimeEncodedHtml + "\"></object>" + "\n";
+                } else if (mimeText.equals(((LinkedTreeMap) image).get("mime_type"))){
+                    String mimeEncodedText = mimeEncodeEmbededText(image);
+                    links = links + "<p>" + mimeEncodedText + "</p>\n";
+                } else if (mimeJS.equals(((LinkedTreeMap) image).get("mime_type"))){
+                    String mimeEcodedJS = mimeEncodeEmbededJavaScript(image);
+                    links = links + "<script type=\"text/javascript\">" + mimeEcodedJS + "</script>\n";
+                }
+
+
             }
         }
         return links;
@@ -184,10 +205,26 @@ public class Step {
         return getEmbeddings() == null;
     }
 
+    private String getTimeStampMS(){
+        long lDateTime = new Date().getTime();
+        String timeStamp = String.valueOf(lDateTime);
+        return timeStamp;
+    }
 
     public static String mimeEncodeEmbededImage(Object image) {
         return "data:image/png;base64," + ((LinkedTreeMap) image).get("data");
+    }
 
+    public static String mimeEncodeEmbededHtml(Object html) {
+        return "data:text/html;base64," + ((LinkedTreeMap) html).get("data");
+    }
+
+    public static String mimeEncodeEmbededText(Object text) {
+        return "data:text/plain;base64," + ((LinkedTreeMap) text).get("data");
+    }
+
+    public static String mimeEncodeEmbededJavaScript(Object js) {
+        return "data:application/javascript;base64," + ((LinkedTreeMap) js).get("data");
     }
 
     public static String uuidForImage(Object image) {
