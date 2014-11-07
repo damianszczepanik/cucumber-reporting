@@ -13,7 +13,13 @@ This project allows you to publish the results of a cucumber run as pretty html 
 ## Install
 
 1. Add a maven dependency to your pom
-
+```xml
+<dependency>
+    <groupId>net.masterthought</groupId>
+    <artifactId>cucumber-reporting</artifactId>
+    <version>0.0.23</version>
+</dependency>
+```
 2. Or grab the jar file from the [downloads](http://www.masterthought.net/section/cucumber-reporting) page
 
 Read this if you need further  [detailed install and configuration]
