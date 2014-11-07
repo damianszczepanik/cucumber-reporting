@@ -7,7 +7,7 @@
                 "line":1
             }
         ],
-        "description":"As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed",
+        "description":"As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed or far away",
         "name":"Account Holder withdraws cash",
         "keyword":"Feature",
         "line":2,

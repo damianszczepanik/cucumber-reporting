@@ -55,12 +55,12 @@ public class StepTest {
     @Test
     public void shouldReturnRowsWhenNoResultsForStep() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-            jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
-            ReportParser reportParser = new ReportParser(jsonReports);
-            Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-            Step step = feature.getElements().get(0).getSteps().get(0);
-            feature.processSteps();
-            assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a \"Big\" customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
+        ReportParser reportParser = new ReportParser(jsonReports);
+        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        Step step = feature.getElements().get(0).getSteps().get(0);
+        feature.processSteps();
+        assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a \"Big\" customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
     }
 
     @Test

@@ -22,6 +22,7 @@
     <orderEntry type="library" name="Maven: oro:oro:2.0.8" level="project" />
     <orderEntry type="library" name="Maven: werken-xpath:werken-xpath:0.9.4" level="project" />
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.5" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.totallylazy:totallylazy:1077" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
@@ -45,7 +46,7 @@
     <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-provider-api:1.0-beta-2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-registry:2.0.6" level="project" />
-    <orderEntry type="library" name="Maven: com.googlecode.totallylazy:totallylazy:1077" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.totallylazy:totallylazy:1.20" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.7.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4:1.5.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4-common:1.5.4" level="project" />
