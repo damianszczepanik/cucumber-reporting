@@ -106,6 +106,7 @@ public class Util {
         while (m.find()) {
             res = res.replaceAll("\\" + m.group(0),
                     Character.toString((char) Integer.parseInt(m.group(1), 16)));
+            m = p.matcher(res);
         }
         return res;
     }
