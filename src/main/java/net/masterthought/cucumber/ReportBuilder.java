@@ -315,7 +315,7 @@ public class ReportBuilder {
 
     private void generateReport(String fileName, Template featureResult, VelocityContext context) throws Exception {
         FileOutputStream fileStream = new FileOutputStream(new File(reportDirectory, fileName));
-        OutputStreamWriter writer = new OutputStreamWriter(fileStream, "UTF-8");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF-8"));
         featureResult.merge(context, writer);
         writer.flush();
         writer.close();
