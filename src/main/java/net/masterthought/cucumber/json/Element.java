@@ -86,8 +86,14 @@ public class Element {
     public String getTagsList() {
         String result = "<div class=\"feature-tags\"></div>";
         if (Util.itemExists(tags)) {
-            String tagList = StringUtils.join(processTags().toList().toArray(), ",");
-            result = "<div class=\"feature-tags\">" + tagList + "</div>";
+            List<String> str = getTagList().toList();
+            List<String> tagList = new ArrayList<String>();
+            for(String s : str) {
+                String link = s.replace("@", "").trim() + ".html";
+                String ref = "<a href=\"" + link + "\">" + s + "</a>";
+                tagList.add(ref);
+            }
+            result = "<div class=\"feature-tags\">" +   StringUtils.join(tagList.toArray(), ",")+ "</div>";
         }
         return result;
     }

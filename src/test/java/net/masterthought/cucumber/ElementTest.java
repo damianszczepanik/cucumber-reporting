@@ -119,7 +119,7 @@ public class ElementTest {
 
     @Test
     public void shouldReturnTagsAsHtml(){
-        assertThat(taggedElement.getTagsList(), is("<div class=\"feature-tags\">@fast,@super,@checkout</div>"));
+        assertThat(taggedElement.getTagsList(), is("<div class=\"feature-tags\"><a href=\"fast.html\">@fast</a>,<a href=\"super.html\">@super</a>,<a href=\"checkout.html\">@checkout</a></div>"));
     }
     
 }
