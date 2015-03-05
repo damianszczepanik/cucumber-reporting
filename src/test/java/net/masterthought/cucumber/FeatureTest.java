@@ -56,7 +56,7 @@ public class FeatureTest {
 
     @Test
     public void shouldListTheTagsAsHtml() {
-        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\">@super</div>"));
+        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\"><a href=\"super.html\">@super</a></div>"));
     }
 
     @Test
