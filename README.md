@@ -17,7 +17,7 @@ This project allows you to publish the results of a cucumber run as pretty html 
 <dependency>
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
-    <version>0.0.23</version>
+    <version>0.0.24</version>
 </dependency>
 ```
 2. Or grab the jar file from the [downloads](http://www.masterthought.net/section/cucumber-reporting) page
