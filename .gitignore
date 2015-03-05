@@ -6,3 +6,4 @@ velocity.log
 .settings/
 *.autosave
 .DS_Store
+*.iml
