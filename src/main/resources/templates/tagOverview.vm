@@ -340,6 +340,9 @@
     <div class="container_12">
         <div class="grid_9 heading">
             <h2>Tag Overview for Build: $build_number</h2>
+            #if($fromJenkins)
+			<h2 id="overview-project">Project Name: $build_project</h2>
+			#end
             <span class="subhead">The following graph shows number of steps passing, failing and skipped for this build:</span>
         </div>
     </div>
