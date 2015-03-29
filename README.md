@@ -1,6 +1,6 @@
 # Publish pretty [cucumber](http://cukes.info/) reports
 
-This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server.It publishes pretty html reports showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful.
+This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server. It publishes pretty html reports showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful.
 
 [![Build Status](https://secure.travis-ci.org/masterthought/cucumber-reporting.png)](http://travis-ci.org/masterthought/cucumber-reporting)
 
@@ -29,24 +29,31 @@ Read this if you need further  [detailed install and configuration]
 
 Release notes are [here](https://github.com/masterthought/cucumber-reporting/wiki/Release-Notes)
 
-## Use
+## Usage
 
-    File reportOutputDirectory = new File("/path/to/report/output/directory/e.g./cucumber-html-reports");
-    List<String> jsonReportFiles = new ArrayList<String>();
-    list.add("/path/to/a/cucumber/json/report/e.g./cucumber_1.json");
-    list.add("/path/to/another/cucumber/json/report/e.g./cucumber_2.json");
+    File reportOutputDirectory = new File("target");
+    List<String> list = new ArrayList<String>();
+    list.add("cucumber-report1.json");
+    list.add("cucumber-report2.json");
 
+    String pluginUrlPath = "";
     String buildNumber = "1";
-    String buildProjectName = "super_project";
-    Boolean skippedFails = false;
-    Boolean undefinedFails = false;
-    Boolean flashCharts = true;
-    Boolean runWithJenkins = true;
-    ReportBuilder reportBuilder = new ReportBuilder(list,rd,"","95","cucumber-jvm",false,false,true,true,false,"");
+    String buildProject = "cucumber-jvm";
+    boolean skippedFails = false;
+    boolean undefinedFails = false;
+    boolean flashCharts = true;
+    boolean runWithJenkins = false;
+    boolean artifactsEnabled = false;
+    String artifactConfig = "";
+    boolean highCharts = false;
+
+    ReportBuilder reportBuilder = new ReportBuilder(list, reportOutputDirectory, pluginUrlPath, buildNumber,
+        buildProject, skippedFails, undefinedFails, flashCharts, runWithJenkins, artifactsEnabled,
+        artifactConfig, highCharts);
     reportBuilder.generateReports();
 
 skippedFails means the build will be failed if any steps are in skipped status and undefinedFails means the build will be failed if any steps are in undefined status. This only applies when running with Jenkins.
-flashCharts means either use the default flashcharts or use the D3 javascript charts. runWithJenkins means put in the links back to jenkins in the report.
+flashCharts means either use the default flashcharts or use the D3 javascript charts. runWithJenkins means put in the links back to Jenkins in the report.
 
 There is a feature overview page:
 
