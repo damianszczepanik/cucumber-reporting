@@ -1,55 +1,51 @@
 package net.masterthought.cucumber;
 
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.googlecode.totallylazy.Sequence;
 
 public class ReportInformation {
 
-    private Map<String, List<Feature>> projectFeatureMap;
+    private final Map<String, List<Feature>> projectFeatureMap;
     private List<Feature> features;
     private int numberOfScenarios;
     private int numberOfSteps;
-    private List<Step> totalPassingSteps = new ArrayList<Step>();
-    private List<Step> totalFailingSteps = new ArrayList<Step>();
-    private List<Step> totalSkippedSteps = new ArrayList<Step>();
-    private List<Step> totalUndefinedSteps = new ArrayList<Step>();
-    private List<Step> totalMissingSteps = new ArrayList<Step>();
-    private List<Element> numberPassingScenarios = new ArrayList<Element>();
-    private List<Element> numberFailingScenarios = new ArrayList<Element>();
+    private final StatusCounter totalSteps = new StatusCounter();
+    private final StatusCounter totalBackgroundSteps = new StatusCounter();
+
     private Long totalDuration = 0l;
-    List<TagObject> tagMap = new ArrayList<TagObject>();
+    List<TagObject> tagMap = new ArrayList<>();
     private int totalTagScenarios = 0;
     private int totalTagSteps = 0;
-    private int totalTagPasses = 0;
-    private int totalTagFails = 0;
-    private int totalTagSkipped = 0;
-    private int totalTagPending = 0;
+    private final StatusCounter totalTags = new StatusCounter();
+    
     private long totalTagDuration = 0l;
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
-    private Background backgroundInfo;
+    private Background backgroundInfo = new Background();
 
     public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
         this.projectFeatureMap = projectFeatureMap;
         this.features = listAllFeatures();
-        backgroundInfo = new Background();
         processFeatures();
     }
 
     private List<Feature> listAllFeatures() {
         List<Feature> allFeatures = new ArrayList<Feature>();
-        Iterator it = projectFeatureMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            List<Feature> featureList = (List<Feature>) pairs.getValue();
+        for (Map.Entry<String, List<Feature>> pairs : projectFeatureMap.entrySet()) {
+            List<Feature> featureList = pairs.getValue();
             allFeatures.addAll(featureList);
         }
         return allFeatures;
@@ -80,23 +76,27 @@ public class ReportInformation {
     }
 
     public int getTotalNumberPassingSteps() {
-        return totalPassingSteps.size();
+        return totalSteps.getValueFor(Status.PASSED);
     }
 
     public int getTotalNumberFailingSteps() {
-        return totalFailingSteps.size();
+        return totalSteps.getValueFor(Status.FAILED);
     }
 
     public int getTotalNumberSkippedSteps() {
-        return totalSkippedSteps.size();
+        return totalSteps.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalNumberPendingSteps() {
-        return totalUndefinedSteps.size();
+        return totalSteps.getValueFor(Status.PENDING);
     }
 
     public int getTotalNumberMissingSteps() {
-        return totalMissingSteps.size();
+        return totalSteps.getValueFor(Status.MISSING);
+    }
+
+    public int getTotalNumberUndefinedSteps() {
+        return totalSteps.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDurationAsString() {
@@ -112,11 +112,11 @@ public class ReportInformation {
     }
 
     public String getReportStatusColour(Feature feature) {
-        return feature.getStatus() == Util.Status.PASSED ? "#C5D88A" : "#D88A8A";
+        return feature.getStatus() == Status.PASSED ? Status.PASSED.color : Status.FAILED.color;
     }
 
     public String getTagReportStatusColour(TagObject tag) {
-        return tag.getStatus() == Util.Status.PASSED ? "#C5D88A" : "#D88A8A";
+        return tag.getStatus() == Status.PASSED ? Status.PASSED.color : Status.FAILED.color;
     }
 
     public int getTotalTags() {
@@ -140,50 +140,56 @@ public class ReportInformation {
     }
 
     public int getTotalTagPasses() {
-        return totalTagPasses;
+        return totalTags.getValueFor(Status.PASSED);
     }
 
     public int getTotalTagFails() {
-        return totalTagFails;
+        return totalTags.getValueFor(Status.FAILED);
     }
 
     public int getTotalTagSkipped() {
-        return totalTagSkipped;
+        return totalTags.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalTagPending() {
-        return totalTagPending;
+        return totalTags.getValueFor(Status.PENDING);
+    }
+
+    public int getTotalTagUndefined() {
+        return totalTags.getValueFor(Status.UNDEFINED);
+    }
+
+    public int getTotalTagMissing() {
+        return totalTags.getValueFor(Status.MISSING);
     }
 
     public String getTotalTagDuration() {
         return Util.formatDuration(totalTagDuration);
     }
+
     public long getLongTotalTagDuration() {
         return totalTagDuration;
     }
 
     public int getTotalScenariosPassed() {
-        return numberPassingScenarios.size();
+        return this.totalBackgroundSteps.getValueFor(Status.PASSED);
     }
 
     public int getTotalScenariosFailed() {
-        return numberFailingScenarios.size();
+        return this.totalBackgroundSteps.getValueFor(Status.FAILED);
     }
 
     private void processTags() {
         for (TagObject tag : tagMap) {
             totalTagScenarios = calculateTotalTagScenarios(tag);
-            totalPassingTagScenarios = calculateTotalTagScenariosForStatus(totalPassingTagScenarios, tag, Util.Status.PASSED);
-            totalFailingTagScenarios = calculateTotalTagScenariosForStatus(totalFailingTagScenarios, tag, Util.Status.FAILED);
-            totalTagPasses += tag.getNumberOfPasses();
-            totalTagFails += tag.getNumberOfFailures();
-            totalTagSkipped += tag.getNumberOfSkipped();
-            totalTagPending += tag.getNumberOfPending();
-
+            totalPassingTagScenarios = calculateTotalTagScenariosForStatus(totalPassingTagScenarios, tag, Status.PASSED);
+            totalFailingTagScenarios = calculateTotalTagScenariosForStatus(totalFailingTagScenarios, tag, Status.FAILED);
+            for (Status status : Status.values()) {
+                this.totalTags.incrementFor(status, tag.getNumberOfStatus(status));
+            }
 
             for (ScenarioTag scenarioTag : tag.getScenarios()) {
-
-                if (Util.hasSteps(scenarioTag)) {
+                if (scenarioTag.hasSteps()) {
                     Sequence<Step> steps = scenarioTag.getScenario().getSteps();
                     List<Step> stepList = new ArrayList<Step>();
                     for (Step step : steps) {
@@ -196,7 +202,7 @@ public class ReportInformation {
         }
     }
 
-    private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Util.Status status) {
+    private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
             if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
@@ -238,13 +244,12 @@ public class ReportInformation {
                 for (Element scenario : scenarios) {
 
                     if (!scenario.getKeyword().equals("Background")) {
-                        numberPassingScenarios = Util.setScenarioStatus(numberPassingScenarios, scenario, scenario.getStatus(), Util.Status.PASSED);
-                        numberFailingScenarios = Util.setScenarioStatus(numberFailingScenarios, scenario, scenario.getStatus(), Util.Status.FAILED);
+                        totalBackgroundSteps.incrementFor(scenario.getStatus());
                     } else {
                         setBackgroundInfo(scenario);
                     }
 
-                    if (Util.hasScenarios(feature)) {
+                    if (feature.hasScenarios()) {
                         if (scenario.hasTags()) {
                             scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
                             tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
@@ -260,37 +265,22 @@ public class ReportInformation {
 
     private void setBackgroundInfo(Element e) {
         backgroundInfo.addTotalScenarios(1);
-        if (e.getStatus() == Util.Status.PASSED) {
+        if (e.getStatus() == Status.PASSED) {
             backgroundInfo.addTotalScenariosPassed(1);
         } else {
             backgroundInfo.addTotalScenariosFailed(1);
         }
         backgroundInfo.addTotalSteps(e.getSteps().size());
         for (Step step : e.getSteps().toList()) {
-            backgroundInfo.addTotalDuration(step.getDuration());
-            switch (step.getStatus()) {
-                case PASSED:
-                    backgroundInfo.addTotalStepsPassed(1);
-                    break;
-                case FAILED:
-                    backgroundInfo.addTotalStepsFailed(1);
-                    break;
-                case SKIPPED:
-                    backgroundInfo.addTotalStepsSkipped(1);
-                    break;
-                case PENDING:
-                    backgroundInfo.addTotalStepsPending(1);
-                    break;
-                default:
-                    break;
-            }
+            backgroundInfo.incrTotalDurationBy(step.getDuration());
+            backgroundInfo.incrStepCounterForStatus(step.getStatus());
         }
 
     }
 
     private void adjustStepsForScenario(Element element) {
         String scenarioName = element.getRawName();
-        if (Util.hasSteps(element)) {
+        if (element.hasSteps()) {
             Sequence<Step> steps = element.getSteps();
             numberOfSteps = numberOfSteps + steps.size();
             for (Step step : steps) {
@@ -308,12 +298,7 @@ public class ReportInformation {
                     }
                 }
 
-                Util.Status stepStatus = step.getStatus();
-                totalPassingSteps = Util.setStepStatus(totalPassingSteps, step, stepStatus, Util.Status.PASSED);
-                totalFailingSteps = Util.setStepStatus(totalFailingSteps, step, stepStatus, Util.Status.FAILED);
-                totalSkippedSteps = Util.setStepStatus(totalSkippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                totalUndefinedSteps = Util.setStepStatus(totalUndefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
-                totalMissingSteps = Util.setStepStatus(totalMissingSteps, step, stepStatus, Util.Status.MISSING);
+                this.totalSteps.incrementFor(step.getStatus());
                 totalDuration = totalDuration + step.getDuration();
             }
         }

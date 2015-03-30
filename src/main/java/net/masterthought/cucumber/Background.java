@@ -1,31 +1,27 @@
 package net.masterthought.cucumber;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
 
 /**
  * Created by JALASOFT\paolo^lizarazu on 09-01-14.
  */
 public class Background {
+    private final Map<Status, Integer> stepsCounter = new HashMap<>();
+
     private int totalScenarios;
     private int totalScenariosPassed;
     private int totalScenariosFailed;
     private int totalSteps;
-    private int totalStepsPassed;
-    private int totalStepsFailed;
-    private int totalStepsSkipped;
-    private int totalStepsPending;
     private long totalDuration;
 
     public Background() {
-        totalScenarios = 0;
-        totalScenariosPassed = 0;
-        totalScenariosFailed = 0;
-        totalSteps = 0;
-        totalStepsPassed = 0;
-        totalStepsFailed = 0;
-        totalStepsSkipped = 0;
-        totalStepsPending = 0;
-        totalDuration = 0;
+        for (Status status : Status.values()) {
+            stepsCounter.put(status, 0);
+        }
     }
 
     public int getTotalScenarios() {
@@ -60,45 +56,48 @@ public class Background {
     }
 
     public int getTotalStepsPassed() {
-        return totalStepsPassed;
-    }
-
-    public void addTotalStepsPassed(int totalStepsPassed) {
-        this.totalStepsPassed += totalStepsPassed;
+        return getTotalStepsForStatus(Status.PASSED);
     }
 
     public int getTotalStepsFailed() {
-        return totalStepsFailed;
-    }
-
-    public void addTotalStepsFailed(int totalStepsFailed) {
-        this.totalStepsFailed += totalStepsFailed;
+        return getTotalStepsForStatus(Status.FAILED);
     }
 
     public int getTotalStepsSkipped() {
-        return totalStepsSkipped;
+        return getTotalStepsForStatus(Status.SKIPPED);
     }
 
-    public void addTotalStepsSkipped(int totalStepsSkipped) {
-        this.totalStepsSkipped += totalStepsSkipped;
+    public int getTotalStepsUndefined() {
+        return getTotalStepsForStatus(Status.UNDEFINED);
+    }
+
+    public int getTotalStepsMissing() {
+        return getTotalStepsForStatus(Status.MISSING);
     }
 
     public int getTotalStepsPending() {
-        return totalStepsPending;
+        return getTotalStepsForStatus(Status.PENDING);
     }
 
-    public void addTotalStepsPending(int totalStepsPending) {
-        this.totalStepsPending += totalStepsPending;
+    public void incrStepCounterForStatus(Status status) {
+        Integer counter = this.stepsCounter.get(status);
+        counter++;
+        this.stepsCounter.put(status, counter);
+    }
+
+    public int getTotalStepsForStatus(Status status) {
+        return stepsCounter.get(status);
     }
 
     public String getTotalFormattedDuration() {
         return Util.formatDuration(totalDuration);
     }
+
     public long getTotalDuration() {
         return totalDuration;
     }
 
-    public void addTotalDuration(Long totalDuration) {
+    public void incrTotalDurationBy(Long totalDuration) {
         this.totalDuration += totalDuration;
     }
 }

@@ -1,9 +1,8 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Artifact;
-
-import java.io.File;
 import java.util.Map;
+
+import net.masterthought.cucumber.json.Artifact;
 
 public class ConfigurationOptions {
 

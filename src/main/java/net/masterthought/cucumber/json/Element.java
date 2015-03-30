@@ -1,20 +1,24 @@
 package net.masterthought.cucumber.json;
 
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-
-import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Util;
-
-import org.apache.commons.lang.StringUtils;
+import static com.googlecode.totallylazy.Option.option;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.googlecode.totallylazy.Option.option;
+import net.masterthought.cucumber.ConfigurationOptions;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.Util;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 
 public class Element {
+
+    /** Refers to background step. Is defined in json file. */
+    private final static String BACKGROUND_KEYWORD = "Background";
 
     private String name;
     private String description;
@@ -23,7 +27,6 @@ public class Element {
     private Tag[] tags;
 
     public Element() {
-
     }
 
     public Sequence<Step> getSteps() {
@@ -34,19 +37,19 @@ public class Element {
         return Sequences.sequence(option(tags).getOrElse(new Tag[]{})).realise();
     }
 
-    public Util.Status getStatus() {
+    public Status getStatus() {
     	// can be optimized to retrieve only the count of elements and not the all list
-        int results = getSteps().filter(Step.predicates.hasStatus(Util.Status.FAILED)).size();
+        int results = getSteps().filter(Step.predicates.hasStatus(Status.FAILED)).size();
         
         if (results == 0 && ConfigurationOptions.skippedFailsBuild()) {
-        	results = getSteps().filter(Step.predicates.hasStatus(Util.Status.SKIPPED)).size();
+        	results = getSteps().filter(Step.predicates.hasStatus(Status.SKIPPED)).size();
         }
 
         if (results == 0 && ConfigurationOptions.undefinedFailsBuild()) {
-        	results = getSteps().filter(Step.predicates.hasStatus(Util.Status.UNDEFINED)).size();
+        	results = getSteps().filter(Step.predicates.hasStatus(Status.UNDEFINED)).size();
         }
         
-        return results == 0 ? Util.Status.PASSED : Util.Status.FAILED;
+        return results == 0 ? Status.PASSED : Status.FAILED;
     }
 
     public String getRawName() {
@@ -68,7 +71,8 @@ public class Element {
             contentString.add("<span class=\"scenario-name\">" + name + "</span>");
         }
 
-        return Util.itemExists(contentString) ? Util.result(getStatus()) + StringUtils.join(contentString.toArray(), " ") + Util.closeDiv() : "";
+        return Util.itemExists(contentString) ? getStatus().toHtmlClass()
+                + StringUtils.join(contentString.toArray(), " ") + Util.closeDiv() : "";
     }
 
     public Sequence<String> getTagList() {
@@ -79,8 +83,16 @@ public class Element {
         return Util.itemExists(tags);
     }
 
+    public boolean hasSteps() {
+        return !getSteps().isEmpty();
+    }
+
     private Sequence<String> processTags() {
         return getTags().map(Tag.functions.getName());
+    }
+
+    public boolean isBackground() {
+        return keyword.equals(BACKGROUND_KEYWORD);
     }
 
     public String getTagsList() {
@@ -93,16 +105,16 @@ public class Element {
                 String ref = "<a href=\"" + link + "\">" + s + "</a>";
                 tagList.add(ref);
             }
-            result = "<div class=\"feature-tags\">" +   StringUtils.join(tagList.toArray(), ",")+ "</div>";
+            result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ",") + "</div>";
         }
         return result;
     }
 
-    public static class functions {
-        public static Function1<Element, Util.Status> status() {
-            return new Function1<Element, Util.Status>() {
+    public static class Functions {
+        public static Function1<Element, Status> status() {
+            return new Function1<Element, Status>() {
                 @Override
-                public Util.Status call(Element element) throws Exception {
+                public Status call(Element element) throws Exception {
                     return element.getStatus();
                 }
             };
