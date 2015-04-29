@@ -174,10 +174,10 @@ public class Step {
             if (image != null) {
                 String mimeEncodedImage = mimeEncodeEmbededImage(image);
                 String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
-                links = links + String.format("<a onclick=\"img=document.getElementById('%s'); "
-                    + "img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">"
-                    + "Screenshot %s</a><a href=\"%s\" data-lightbox=\"image-1\" data-title=\"%s\">"
-                    + "<img id=\"%s\"src=\"%s\" style='max-width: 250px;display:none;' alt=\"This is the title\"/></a></br>",
+                links = links + String.format("<a onclick=\"img=document.getElementById('%s'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot %s</a>"
+                    + "<a href=\"%s\" data-lightbox=\"image-1\" data-title=\"%s\">"
+                    + "<img id=\"%s\"src=\"%s\" style='max-width: 250px;display:none;' alt=\"This is the title\"/>"
+                    + "</a></br>",
                     imageId,index++,mimeEncodedImage,StringEscapeUtils.escapeHtml(name),imageId, mimeEncodedImage);
             }
         }
