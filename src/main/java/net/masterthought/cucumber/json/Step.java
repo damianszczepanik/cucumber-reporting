@@ -173,7 +173,6 @@ public class Step {
         for (Object image : embeddings) {
             if (image != null) {
                 String mimeEncodedImage = mimeEncodeEmbededImage(image);
-                String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
                 links = links + String.format("<a href=\"%s\" data-lightbox=\"image-1\" data-title=\"%s\">"
                     + "<img src=\"%s\" style='max-width: 250px;' alt=\"This is the title\"/>Screenshot %s</a></br>",
                     mimeEncodedImage,StringEscapeUtils.escapeHtml(name), mimeEncodedImage, index++);
