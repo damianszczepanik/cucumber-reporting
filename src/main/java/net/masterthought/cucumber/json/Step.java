@@ -5,11 +5,12 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
-import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Util;
 
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.commons.lang.StringEscapeUtils;
 
 import static com.googlecode.totallylazy.Option.option;
 import static org.apache.commons.lang.StringUtils.EMPTY;
@@ -173,8 +174,9 @@ public class Step {
             if (image != null) {
                 String mimeEncodedImage = mimeEncodeEmbededImage(image);
                 String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
-                links = links + "<a href=\"\" onclick=\"img=document.getElementById('" + imageId + "'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot " + index++ + "</a>" +
-                        "<img id='" + imageId + "' style='display:none;max-width: 250px;' src='" + mimeEncodedImage + "'>\n";
+                links = links + String.format("<a href=\"%s\" data-lightbox=\"image-1\" data-title=\"%s\">"
+                    + "<img src=\"%s\" style='max-width: 250px;' alt=\"This is the title\"/>Screenshot %s</a></br>",
+                    mimeEncodedImage,StringEscapeUtils.escapeHtml(name), mimeEncodedImage, index++);
             }
         }
         return links;
