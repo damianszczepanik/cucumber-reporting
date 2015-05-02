@@ -124,22 +124,32 @@ public class StepTest {
     @Test
     public void shouldCreateLinkToScreenshotWhenOneExists() throws IOException {
         assertThat(failingStepWithEmbeddedScreenshot().getImageTags(), is(
-                "<a href=\"\" onclick=\"img=document.getElementById('16d4eeab-26ab-3bd7-a255-fb857f23474e'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a>" +
-                        "<img id='16d4eeab-26ab-3bd7-a255-fb857f23474e' style='display:none;max-width: 250px;' src='data:image/png;base64," +
-                        "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI" +
-                        "WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVk" +
-                        "IHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B" +
-                        "5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3Z" +
-                        "XfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpj" +
-                        "u2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7" +
-                        "vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/" +
-                        "8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU4" +
-                        "1W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR" +
-                        "+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg=='>\n" +
-                        "<a href=\"\" onclick=\"img=document.getElementById('9a61099d-b143-3ab7-a652-435041588fda'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a>" +
-                        "<img id='9a61099d-b143-3ab7-a652-435041588fda' style='display:none;max-width: 250px;' src='data:image/png;base64," +
-                        "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ" +
-                        "3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='>\n"));
+            "<a onclick=\"img=document.getElementById('16d4eeab-26ab-3bd7-a255-fb857f23474e'); img.style.display = "
+            + "(img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a><a href=\"data:image/png"
+            + ";base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwY"
+            + "AAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCG"
+            + "n5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3Z"
+            + "XfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/"
+            + "+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwf"
+            + "GpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM6"
+            + "9i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJg"
+            + "gg==\" data-lightbox=\"image-1\" data-title=\"the card should be activated\"><img id=\"16d4eeab-26ab-3bd"
+            + "7-a255-fb857f23474e\"src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0Q"
+            + "A/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGg"
+            + "gVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriS"
+            + "n0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF"
+            + "/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjm"
+            + "NWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgG"
+            + "ws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/"
+            + "kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg==\" style='max-width: 250px;display:none;' alt=\"This is the"
+            + " title\"/></a></br><a onclick=\"img=document.getElementById('9a61099d-b143-3ab7-a652-435041588fda'); img"
+            + ".style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a><a href"
+            + "=\"data:image/png;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3Ym"
+            + "mKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\" data-lightbox=\"image-1\" data-title"
+            + "=\"the card should be activated\"><img id=\"9a61099d-b143-3ab7-a652-435041588fda\"src=\"data:image/png;b"
+            + "ase64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H0"
+            + "9wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\" style='max-width: 250px;display:none;'"
+            + " alt=\"This is the title\"/></a></br>"));
         DateTimeUtils.setCurrentMillisSystem();
     }
 
