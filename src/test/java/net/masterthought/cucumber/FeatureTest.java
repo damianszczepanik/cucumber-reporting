@@ -1,7 +1,8 @@
 package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.Util;
+import net.masterthought.cucumber.util.Status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.matchers.StringContains;
@@ -61,7 +62,7 @@ public class FeatureTest {
 
     @Test
     public void shouldGetStatus() {
-        assertThat(passingFeature.getStatus(), is(Util.Status.PASSED));
+        assertThat(passingFeature.getStatus(), is(Status.PASSED));
     }
 
     @Test

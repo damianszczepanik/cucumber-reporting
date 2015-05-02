@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
-	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="blue/favicon.ico" />
+    <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
+    <link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="blue/favicon.ico" />
 <style>
 .feature-keyword{font-weight:bold;}
 .feature-description{padding-left:15px;font-style:italic;background-color:beige;}
@@ -23,8 +23,10 @@
 .step-duration{float:right;padding-right:15px;}
 .passed{background-color:#C5D88A;}
 .failed{background-color:#D88A8A;}
-.skipped{background-color:#2DEAEC;}
-.undefined{background-color: #ebcc81;}
+.skipped{background-color:#88AAFF;}
+.pending{background-color: #FBB907;}
+.undefined{background-color: #FBB987;}
+.missing{background-color: #FBB9D7;}
 
 table.stats-table {
 color:black;
@@ -83,7 +85,7 @@ table.data-table td {
 }
 
 .data {
-   padding-left:50px;
+    padding-left:50px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -106,33 +108,33 @@ table.data-table td {
 
 </head>
 <body id="top">
-	<div id="fullwidth_header">
-		<div class="container_12">
-			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-			<div class="grid_6" id="nav">
-				<ul>
+    <div id="fullwidth_header">
+        <div class="container_12">
+            <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+            <div class="grid_6" id="nav">
+                <ul>
                     #if($fromJenkins)
                       <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
                     #end
-					<li><a href="feature-overview.html">Feature Overview</a></li>
-					<li><a href="tag-overview.html">Tag Overview</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="fullwidth_gradient">
-		<div class="container_12">
-			<div class="grid_9 heading">
-				<h2>Result for <span style="color:#66CCEE;">$tag.getTagName()</span> in Build: $build_number</h2>
-				#if ($hasCustomHeader)
-				  <h3>$customHeader</h3>
-				#end
-			</div>
-		</div>
-	</div>
+                    <li><a href="feature-overview.html">Feature Overview</a></li>
+                    <li><a href="tag-overview.html">Tag Overview</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="fullwidth_gradient">
+        <div class="container_12">
+            <div class="grid_9 heading">
+                <h2>Result for <span style="color:#66CCEE;">$tag.getTagName()</span> in Build: $build_number</h2>
+                #if ($hasCustomHeader)
+                  <h3>$customHeader</h3>
+                #end
+            </div>
+        </div>
+    </div>
 
-	<div class="container_12">
-		<div class="grid_12">
+    <div class="container_12">
+        <div class="grid_12">
 
             <div>
                 <table class="stats-table">
@@ -147,6 +149,8 @@ table.data-table td {
                         <td>$tag.getNumberOfFailures()</td>
                         <td>$tag.getNumberOfSkipped()</td>
                         <td>$tag.getNumberOfPending()</td>
+                        <td>$tag.getNumberOfUndefined()</td>
+                        <td>$tag.getNumberOfMissing()</td>
                         <td>$tag.getDurationOfSteps()</td>
                         <td style="background-color: $report_status_colour;">$tag.getRawStatus()</td></tr>
 
@@ -154,7 +158,7 @@ table.data-table td {
 
             </div>
 
-		<div style="color:black;">
+        <div style="color:black;">
             #foreach($scenario in $tag.getScenarios())
                 <div style="margin-bottom:20px;padding:15px;">
                     <div><a href="$scenario.getParentFeatureUri()">View Feature File</a></div>
@@ -180,15 +184,15 @@ table.data-table td {
                 #end
                 </div>
             #end
-	</div>
-	</div>
+    </div>
+    </div>
 
 
-	<div class="container_12">
-		<div class="grid_12 hr"></div>
-		<div class="grid_12 footer">
-            <p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
-		</div>
-	</div>
-	<div class="clear"></div>
+    <div class="container_12">
+        <div class="grid_12 hr"></div>
+        <div class="grid_12 footer">
+            <p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
+        </div>
+    </div>
+    <div class="clear"></div>
 </body>

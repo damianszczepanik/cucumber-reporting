@@ -69,8 +69,10 @@
 .step-duration{float:right;padding-right:15px;}
 .passed{background-color:#C5D88A;}
 .failed{background-color:#D88A8A;}
-.skipped{background-color:#2DEAEC;}
-.undefined{background-color: #ebcc81;}
+.skipped{background-color:#88AAFF;}
+.pending{background-color:#FBB907;}
+.undefined{background-color: #FBB957;}
+.missing{background-color:#FBB9A7;}
 
 table.stats-table {
 color:black;
@@ -129,7 +131,7 @@ table.data-table td {
 }
 
 .data {
-   padding-left:50px;
+    padding-left:50px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -201,6 +203,8 @@ table.data-table td {
                         <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
                         <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
                         <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
+                        <td id="stats-number-steps-undefined-$sf">$feature.getNumberOfUndefined()</td>
+                        <td id="stats-number-steps-missing-$sf">$feature.getNumberOfMissing()</td>
                         <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
                         <td id="stats-status-$sf" style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
 
@@ -244,7 +248,7 @@ table.data-table td {
 	<div class="container_12">
 		<div class="grid_12 hr"></div>
 		<div class="grid_12 footer">
-            <p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
+            <p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
 		</div>
 	</div>
 	<div class="clear"></div>

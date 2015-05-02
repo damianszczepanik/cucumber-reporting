@@ -1,21 +1,35 @@
 package net.masterthought.cucumber;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import net.masterthought.cucumber.charts.FlashChartBuilder;
 import net.masterthought.cucumber.charts.JsChartUtil;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
 import net.masterthought.cucumber.util.Util;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.tools.generic.EscapeTool;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.google.common.base.Charsets;
 
 public class ReportBuilder {
 
@@ -54,37 +68,11 @@ public class ReportBuilder {
     private final String VERSION = "cucumber-reporting-0.0.24";
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
-
-        try {
-            this.reportDirectory = reportDirectory;
-            this.buildNumber = buildNumber;
-            this.buildProject = buildProject;
-            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
-            this.flashCharts = flashCharts;
-            this.runWithJenkins = runWithJenkins;
-            this.artifactsEnabled = artifactsEnabled;
-            this.highCharts = highCharts;
-            this.parallel = false;
-
-            ConfigurationOptions.setSkippedFailsBuild(skippedFails);
-            ConfigurationOptions.setUndefinedFailsBuild(undefinedFails);
-            ConfigurationOptions.setArtifactsEnabled(artifactsEnabled);
-            if (artifactsEnabled) {
-                ArtifactProcessor artifactProcessor = new ArtifactProcessor(artifactConfig);
-                ConfigurationOptions.setArtifactConfiguration(artifactProcessor.process());
-            }
-
-            ReportParser reportParser = new ReportParser(jsonReports);
-            this.ri = new ReportInformation(reportParser.getFeatures());
-        } catch (Exception exception) {
-            parsingError = true;
-            generateErrorPage(exception);
-            System.out.println(exception);
-        }
+        this(jsonReports, reportDirectory, pluginUrlPath, buildNumber, buildProject, skippedFails, undefinedFails,
+                flashCharts, runWithJenkins, artifactsEnabled, artifactConfig, highCharts, false);
     }
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts, boolean parallelTesting) throws Exception {
-
         try {
             this.reportDirectory = reportDirectory;
             this.buildNumber = buildNumber;
@@ -118,7 +106,7 @@ public class ReportBuilder {
         return !(ri.getTotalNumberFailingSteps() > 0);
     }
 
-    public void generateReports() throws Exception {
+    public void generateReports() throws IOException, VelocityException {
         try {
             copyResource("themes", "blue.zip");
             if (flashCharts) {
@@ -147,10 +135,8 @@ public class ReportBuilder {
     }
 
     private void setJsonFilesInFeatures() throws Exception {
-        Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            List<Feature> featureList = (List<Feature>) pairs.getValue();
+        for (Map.Entry<String, List<Feature>> pairs : ri.getProjectFeatureMap().entrySet()) {
+            List<Feature> featureList = pairs.getValue();
 
             for (Feature feature : featureList) {
                 String jsonFile = ((String) pairs.getKey()).split("/")[((String) pairs.getKey()).split("/").length-1];
@@ -160,11 +146,9 @@ public class ReportBuilder {
     }
 
 
-    public void generateFeatureReports() throws Exception {
-        Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            List<Feature> featureList = (List<Feature>) pairs.getValue();
+    public void generateFeatureReports() throws IOException, VelocityException {
+        for (Map.Entry<String, List<Feature>> pairs : ri.getProjectFeatureMap().entrySet()) {
+            List<Feature> featureList = pairs.getValue();
 
             for (Feature feature : featureList) {
                 VelocityEngine ve = new VelocityEngine();
@@ -184,7 +168,7 @@ public class ReportBuilder {
         }
     }
 
-    private void generateFeatureOverview() throws Exception {
+    private void generateFeatureOverview() throws IOException, VelocityException {
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/featureOverview.vm");
@@ -193,22 +177,35 @@ public class ReportBuilder {
         contextMap.put("features", ri.getFeatures());
         contextMap.put("parallel", ReportBuilder.isParallel());
         contextMap.put("total_features", ri.getTotalNumberOfFeatures());
-        contextMap.put("total_scenarios", ri.getTotalNumberOfScenarios());
+        
         contextMap.put("total_steps", ri.getTotalNumberOfSteps());
         contextMap.put("total_passes", ri.getTotalNumberPassingSteps());
         contextMap.put("total_fails", ri.getTotalNumberFailingSteps());
         contextMap.put("total_skipped", ri.getTotalNumberSkippedSteps());
         contextMap.put("total_pending", ri.getTotalNumberPendingSteps());
+        contextMap.put("total_undefined", ri.getTotalNumberUndefinedSteps());
+        contextMap.put("total_missing", ri.getTotalNumberMissingSteps());
+
         contextMap.put("scenarios_passed", ri.getTotalScenariosPassed());
         contextMap.put("scenarios_failed", ri.getTotalScenariosFailed());
+        contextMap.put("total_scenarios", ri.getTotalNumberOfScenarios());
         if (flashCharts) {
-            contextMap.put("step_data", FlashChartBuilder.donutChart(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps()));
-            contextMap.put("scenario_data", FlashChartBuilder.pieChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
+            contextMap.put(
+                    "step_data",
+                    FlashChartBuilder.getStepsChart(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(),
+                            ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps(),
+                            ri.getTotalNumberUndefinedSteps(), ri.getTotalNumberMissingSteps()));
+            contextMap.put(
+                    "scenario_data",
+                    FlashChartBuilder.pieScenariosChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
         } else {
             JsChartUtil pie = new JsChartUtil();
-            List<String> stepColours = pie.orderStepsByValue(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps());
+            List<String> stepColours = pie.orderStepsByValue(ri.getTotalNumberPassingSteps(),
+                    ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps(),
+                    ri.getTotalNumberUndefinedSteps(), ri.getTotalNumberMissingSteps());
             contextMap.put("step_data", stepColours);
-            List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed());
+            List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(),
+                    ri.getTotalScenariosFailed());
             contextMap.put("scenario_data", scenarioColours);
         }
         contextMap.put("time_stamp", ri.timeStamp());
@@ -219,7 +216,7 @@ public class ReportBuilder {
     }
 
 
-    public void generateTagReports() throws Exception {
+    public void generateTagReports() throws IOException, VelocityException {
         for (TagObject tagObject : ri.getTags()) {
             VelocityEngine ve = new VelocityEngine();
             ve.init(getProperties());
@@ -238,7 +235,7 @@ public class ReportBuilder {
         }
     }
 
-    public void generateTagOverview() throws Exception {
+    public void generateTagOverview() throws IOException, VelocityException {
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template featureOverview = ve.getTemplate("templates/tagOverview.vm");
@@ -254,6 +251,8 @@ public class ReportBuilder {
         contextMap.put("total_fails", ri.getTotalTagFails());
         contextMap.put("total_skipped", ri.getTotalTagSkipped());
         contextMap.put("total_pending", ri.getTotalTagPending());
+        contextMap.put("total_undefined", ri.getTotalTagUndefined());
+        contextMap.put("total_missing", ri.getTotalTagMissing());
         contextMap.put("hasCustomHeaders", false);
         if (customHeader != null) {
             contextMap.put("hasCustomHeaders", true);
@@ -280,7 +279,7 @@ public class ReportBuilder {
         generateReport("tag-overview.html", featureOverview, contextMap.getVelocityContext());
     }
 
-    public void generateErrorPage(Exception exception) throws Exception {
+    public void generateErrorPage(Exception exception) throws IOException, VelocityException {
         VelocityEngine ve = new VelocityEngine();
         ve.init(getProperties());
         Template errorPage = ve.getTemplate("templates/errorPage.vm");
@@ -313,12 +312,12 @@ public class ReportBuilder {
         return path.isEmpty() ? "/" : path;
     }
 
-    private void generateReport(String fileName, Template featureResult, VelocityContext context) throws Exception {
-        FileOutputStream fileStream = new FileOutputStream(new File(reportDirectory, fileName));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF-8"));
-        featureResult.merge(context, writer);
-        writer.flush();
-        writer.close();
+    private void generateReport(String fileName, Template featureResult, VelocityContext context) throws IOException {
+        try (FileOutputStream fileStream = new FileOutputStream(new File(reportDirectory, fileName))) {
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, Charsets.UTF_8))) {
+                featureResult.merge(context, writer);
+            }
+        }
     }
 
     private Properties getProperties() {

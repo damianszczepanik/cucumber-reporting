@@ -39,22 +39,32 @@
                         formattedData = [
                             {
                                 name: "Passed",
-                                color: '#88dd11',
+                                color: '#C5D88A',
                                 data: []
                             },
                             {
                                 name: "Failed",
-                                color: '#cc1134',
+                                color: '#D88A8A',
                                 data: []
                             },
                             {
                                 name: "Skipped",
-                                color: '#88aaff',
+                                color: '#FBB917',
                                 data: []
                             },
                             {
                                 name: "Pending",
-                                color: '#FBB917',
+                                color: '#FBB927',
+                                data: []
+                            },
+                            {
+                                name: "Undefined",
+                                color: '#FBB937',
+                                data: []
+                            },
+                            {
+                                name: "Missing",
+                                color: '#FBB907',
                                 data: []
                             }
                         ];
@@ -64,6 +74,8 @@
                         formattedData[1].data.push(chartData[i][1]);
                         formattedData[2].data.push(chartData[i][2]);
                         formattedData[3].data.push(chartData[i][3]);
+                        formattedData[4].data.push(chartData[i][4]);
+                        formattedData[5].data.push(chartData[i][5]);
                     });
 
                     jQuery('#stacked-graph').highcharts({
@@ -130,7 +142,7 @@
                             $chart_rows
                         ],
                         color:function (index, stackedIndex) {
-                            return ['#88dd11', '#cc1134', '#88aaff', '#FBB917'][stackedIndex]
+                            return ['#C5D88A', '#D88A8A', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
                         },
                         barLabel: function(index){
                             return ''
@@ -145,9 +157,9 @@
                             return res;
                         },
                         legend:{
-                            data:["Pending", "Skipped", "Failed", "Passed"],
+                            data:["Failed", "Passed", "Pending", "Skipped", "Undefined", "Missing"],
                             color:function (index) {
-                                return ['#FBB917','#88aaff','#cc1134','#88dd11'][index]
+                                return ['#D88A8A','#C5D88A','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
                             }
                         }
                     });
@@ -296,12 +308,12 @@
                   text-align: center;
                   padding-top: 5px;
                   padding-bottom: 5px;
-                    display: block;
-                position: absolute;
-                right: -5px;
-                top: 15px;
-                -webkit-transform: rotate(45deg);
-                -moz-transform: rotate(45deg);
+                  display: block;
+                  position: absolute;
+                  right: -5px;
+                  top: 15px;
+                  -webkit-transform: rotate(45deg);
+                  -moz-transform: rotate(45deg);
                 }
      </style>
      <!--[if IE]>
@@ -310,13 +322,13 @@
                     text-align: center;
                     padding-top: 5px;
                     padding-bottom: 5px;
-                      display: block;
-                  position: absolute;
-                  right: -5px;
-                  top: 15px;
-         		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-         		right:-15px; top:5px;
-         	}
+                    display: block;
+                    position: absolute;
+                    right: -5px;
+                    top: 15px;
+                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+                    right:-15px; top:5px;
+                 }
          </style>
          <![endif]-->
 
@@ -416,6 +428,7 @@
 
         <div class="grid_12 hr"></div>
 
+
         <div>
             <br/>
             <h2>Tag Statistics</h2>
@@ -438,7 +451,6 @@
                             #if ($hasCustomHeader)
                                 <br/><span> $customHeaders.get($tag.getTagName())</span>
                             #end
-
                         </td>
                         <td>$tag.getNumberOfScenarios()</td>
                         <td>$tag.getNumberOfPassingScenarios()</td>
@@ -448,6 +460,8 @@
                         <td>$tag.getNumberOfFailures()</td>
                         <td>$tag.getNumberOfSkipped()</td>
                         <td>$tag.getNumberOfPending()</td>
+                        <td>$tag.getNumberOfUndefined()</td>
+                        <td>$tag.getNumberOfMissing()</td>
                         <td>$tag.getDurationOfSteps()</td>
                         <td style="background-color: $bgcolour;">$tag.getRawStatus()</td>
                     </tr>
@@ -464,15 +478,19 @@
                     <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsFailed()</td>
                     <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsSkipped()</td>
                     <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsPending()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsUndefined()</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalStepsMissing()</td>
                     <td style="background-color:lightgray;font-weight:bold;">$backgrounds.getTotalFormattedDuration()</td>
                     <td style="background-color:lightgray;font-weight:bold;">Totals</td>
                 </tr>
                 <!--  Summarize all steps and time executions -->
-                #set($total_steps = $total_steps + $backgrounds.getTotalSteps())
-                #set($total_passes = $total_passes + $backgrounds.getTotalStepsPassed())
-                #set($total_fails  = $total_fails + $backgrounds.getTotalStepsFailed())
-                #set($total_skipped = $total_skipped + $backgrounds.getTotalStepsSkipped())
-                #set($total_pending = $total_pending + $backgrounds.getTotalStepsPending())
+                #set($total_steps     = $total_steps     + $backgrounds.getTotalSteps())
+                #set($total_passes    = $total_passes    + $backgrounds.getTotalStepsPassed())
+                #set($total_fails     = $total_fails     + $backgrounds.getTotalStepsFailed())
+                #set($total_skipped   = $total_skipped   + $backgrounds.getTotalStepsSkipped())
+                #set($total_pending   = $total_pending   + $backgrounds.getTotalStepsPending())
+                #set($total_undefined = $total_undefined + $backgrounds.getTotalStepsUndefined())
+                #set($total_missing   = $total_missing   + $backgrounds.getTotalStepsMissing())
                 <tr>
                     <td style="background-color:lightgray;font-weight:bold;">$tags.size()</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
@@ -483,6 +501,8 @@
                     <td style="background-color:lightgray;font-weight:bold;">$total_fails</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_skipped</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_pending</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$total_undefined</td>
+                    <td style="background-color:lightgray;font-weight:bold;">$total_missing</td>
                     <td style="background-color:lightgray;font-weight:bold;">$total_duration</td>
                     <td style="background-color:lightgray;font-weight:bold;">Totals</td>
                 </tr>
@@ -497,7 +517,7 @@
 <div class="container_12">
     <div class="grid_12 hr"></div>
     <div class="grid_12 footer">
-        <p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
+        <p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
     </div>
 </div>
 <div class="clear"></div>

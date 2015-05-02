@@ -12,7 +12,7 @@ import java.util.List;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
+import net.masterthought.cucumber.util.Status;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
@@ -75,8 +75,8 @@ public class StepTest {
 
     @Test
     public void shouldReturnStatus() {
-        assertThat(passingStep.getStatus(), is(Util.Status.PASSED));
-        assertThat(failingStep.getStatus(), is(Util.Status.FAILED));
+        assertThat(passingStep.getStatus(), is(Status.PASSED));
+        assertThat(failingStep.getStatus(), is(Status.FAILED));
     }
 
     @Test

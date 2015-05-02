@@ -1,19 +1,21 @@
 package net.masterthought.cucumber.json;
 
-import com.google.common.base.Joiner;
-import com.google.gson.internal.LinkedTreeMap;
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequences;
-import com.googlecode.totallylazy.predicates.LogicalPredicate;
-import net.masterthought.cucumber.util.Util;
+import static com.googlecode.totallylazy.Option.option;
+import static org.apache.commons.lang.StringUtils.EMPTY;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.Util;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import static com.googlecode.totallylazy.Option.option;
-import static org.apache.commons.lang.StringUtils.EMPTY;
+import com.google.common.base.Joiner;
+import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Sequences;
+import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
 public class Step {
 
@@ -69,12 +71,12 @@ public class Step {
         return doc_string != null && doc_string.hasValue();
     }
 
-    public Util.Status getStatus() {
+    public Status getStatus() {
         if (result == null) {
             System.out.println("[WARNING] Line " + line + " : " + "Step is missing Result: " + keyword + " : " + name);
-            return Util.Status.MISSING;
+            return Status.MISSING;
         } else {
-            return Util.resultMap.get(result.getStatus());
+            return Status.valueOf(result.getStatus().toUpperCase());
         }
     }
 
@@ -88,14 +90,11 @@ public class Step {
 
     public String getDataTableClass() {
         String content = "";
-        Util.Status status = getStatus();
-        if (status == Util.Status.FAILED) {
-            content = "failed";
-        } else if (status == Util.Status.PASSED) {
-            content = "passed";
-        } else if (status == Util.Status.SKIPPED) {
-            content = "skipped";
+        Status status = getStatus();
+        if (status == Status.FAILED || status == Status.PASSED || status == Status.SKIPPED) {
+            content = status.getName();
         } else {
+            // TODO: why this goes different
             content = "";
         }
         return content;
@@ -107,18 +106,18 @@ public class Step {
 
     public String getName() {
         String content = "";
-        if (getStatus() == Util.Status.FAILED) {
+        if (getStatus() == Status.FAILED) {
             String errorMessage = result.getErrorMessage();
-            if (getStatus() == Util.Status.SKIPPED) {
+            if (getStatus() == Status.SKIPPED) {
                 errorMessage = "Mode: Skipped causes Failure<br/><span class=\"skipped\">This step was skipped</span>";
             }
-            if (getStatus() == Util.Status.UNDEFINED) {
+            if (getStatus() == Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTags();
-        } else if (getStatus() == Util.Status.MISSING) {
+            content = getStatus().toHtmlClass() + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTags();
+        } else if (getStatus() == Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
+            content = getStatus().toHtmlClass() + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
             content = getNameAndDuration();
         }
@@ -126,7 +125,7 @@ public class Step {
     }
 
     private String getNameAndDuration() {
-        String content = Util.result(getStatus())
+        String content = getStatus().toHtmlClass()
                 + "<span class=\"step-keyword\">" + keyword
                 + " </span><span class=\"step-name\">" + name + "</span>"
                 + "<span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span>"
@@ -146,7 +145,7 @@ public class Step {
         if (!hasDocString()) {
             return "";
         }
-        return Util.result(getStatus()) +
+        return getStatus().toHtmlClass() +
                 "<div class=\"doc-string\">" +
                 getDocString().getEscapedValue() +
                 Util.closeDiv() +
@@ -190,7 +189,7 @@ public class Step {
 
 
     public static String mimeEncodeEmbededImage(Object image) {
-        return "data:image/png;base64," + ((LinkedTreeMap) image).get("data");
+        return "data:image/png;base64," + ((Map) image).get("data");
 
     }
 
@@ -199,10 +198,10 @@ public class Step {
     }
 
     public static class functions {
-        public static Function1<Step, Util.Status> status() {
-            return new Function1<Step, Util.Status>() {
+        public static Function1<Step, Status> status() {
+            return new Function1<Step, Status>() {
                 @Override
-                public Util.Status call(Step step) throws Exception {
+                public Status call(Step step) throws Exception {
                     return step.getStatus();
                 }
             };
@@ -211,7 +210,7 @@ public class Step {
 
     public static class predicates {
 
-        public static LogicalPredicate<Step> hasStatus(final Util.Status status) {
+        public static LogicalPredicate<Step> hasStatus(final Status status) {
             return new LogicalPredicate<Step>() {
                 @Override
                 public boolean matches(Step step) {
@@ -221,10 +220,10 @@ public class Step {
         }
 
 
-        public static Function1<Step, Util.Status> status() {
-            return new Function1<Step, Util.Status>() {
+        public static Function1<Step, Status> status() {
+            return new Function1<Step, Status>() {
                 @Override
-                public Util.Status call(Step step) throws Exception {
+                public Status call(Step step) throws Exception {
                     return step.getStatus();
                 }
             };

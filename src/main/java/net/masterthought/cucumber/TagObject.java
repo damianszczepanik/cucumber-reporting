@@ -1,13 +1,15 @@
 package net.masterthought.cucumber;
 
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.Util;
+
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 
 public class TagObject {
 
@@ -53,15 +55,15 @@ public class TagObject {
     }
 
     public Integer getNumberOfPassingScenarios() {
-        return getNumberOfScenariosForStatus(Util.Status.PASSED);
+        return getNumberOfScenariosForStatus(Status.PASSED);
     }
 
     public Integer getNumberOfFailingScenarios() {
-        return getNumberOfScenariosForStatus(Util.Status.FAILED);
+        return getNumberOfScenariosForStatus(Status.FAILED);
     }
 
 
-    private Integer getNumberOfScenariosForStatus(Util.Status status) {
+    private Integer getNumberOfScenariosForStatus(Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : this.scenarios) {
             if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
@@ -76,7 +78,7 @@ public class TagObject {
     public String getDurationOfSteps() {
         Long duration = 0L;
         for (ScenarioTag scenarioTag : scenarios) {
-            if (Util.hasSteps(scenarioTag)) {
+            if (scenarioTag.hasSteps()) {
                 for (Step step : scenarioTag.getScenario().getSteps()) {
                     duration = duration + step.getDuration();
                 }
@@ -88,33 +90,51 @@ public class TagObject {
     public int getNumberOfSteps() {
         int totalSteps = 0;
         for (ScenarioTag scenario : scenarios) {
-            if (Util.hasSteps(scenario)) {
+            if (scenario.hasSteps()) {
                 totalSteps += scenario.getScenario().getSteps().size();
             }
         }
         return totalSteps;
     }
 
+    public int getNumberOfStatus(Status status) {
+        return Util.findStatusCount(getStatuses(), status);
+    }
+
+    /** No-parameters method required for velocity template. */
     public int getNumberOfPasses() {
-        return Util.findStatusCount(getStatuses(), Util.Status.PASSED);
+        return getNumberOfStatus(Status.PASSED);
     }
 
+    /** No-parameters method required for velocity template. */
     public int getNumberOfFailures() {
-        return Util.findStatusCount(getStatuses(), Util.Status.FAILED);
+        return getNumberOfStatus(Status.FAILED);
     }
 
+    /** No-parameters method required for velocity template. */
     public int getNumberOfSkipped() {
-        return Util.findStatusCount(getStatuses(), Util.Status.SKIPPED);
+        return getNumberOfStatus(Status.SKIPPED);
     }
 
+    /** No-parameters method required for velocity template. */
+    public int getNumberOfUndefined() {
+        return getNumberOfStatus(Status.UNDEFINED);
+    }
+
+    /** No-parameters method required for velocity template. */
+    public int getNumberOfMissing() {
+        return getNumberOfStatus(Status.MISSING);
+    }
+
+    /** No-parameters method required for velocity template. */
     public int getNumberOfPending() {
-        return Util.findStatusCount(getStatuses(), Util.Status.UNDEFINED);
+        return getNumberOfStatus(Status.UNDEFINED);
     }
 
-    private List<Util.Status> getStatuses() {
-        List<Util.Status> statuses = new ArrayList<Util.Status>();
+    private List<Status> getStatuses() {
+        List<Status> statuses = new ArrayList<Status>();
         for (ScenarioTag scenarioTag : scenarios) {
-            if (Util.hasSteps(scenarioTag)) {
+            if (scenarioTag.hasSteps()) {
                 for (Step step : scenarioTag.getScenario().getSteps()) {
                     statuses.add(step.getStatus());
                 }
@@ -128,9 +148,9 @@ public class TagObject {
         return Sequences.sequence(elements);
     }
 
-    public Util.Status getStatus() {
-        Sequence<Util.Status> results = getElements().map(Element.functions.status());
-        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
+    public Status getStatus() {
+        Sequence<Status> results = getElements().map(Element.Functions.status());
+        return results.contains(Status.FAILED) ? Status.FAILED : Status.PASSED;
     }
 
     public String getRawStatus() {

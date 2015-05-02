@@ -1,16 +1,19 @@
 package net.masterthought.cucumber.json;
 
-import net.masterthought.cucumber.ReportBuilder;
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.StatusCounter;
+import net.masterthought.cucumber.util.Util;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
 
 public class Feature {
 
@@ -73,6 +76,10 @@ public class Feature {
         return Util.itemExists(tags);
     }
 
+    public boolean hasScenarios() {
+        return !getElements().isEmpty();
+    }
+
     public Sequence<String> getTagList() {
         return getTags().map(Tag.functions.getName());
     }
@@ -96,13 +103,15 @@ public class Feature {
         return result;
     }
 
-    public Util.Status getStatus() {
-        Sequence<Util.Status> results = getElements().map(Element.functions.status());
-        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
+    public Status getStatus() {
+        Sequence<Status> results = getElements().map(Element.Functions.status());
+        return results.contains(Status.FAILED) ? Status.FAILED : Status.PASSED;
     }
 
     public String getName() {
-        return Util.itemExists(name) ? Util.result(getStatus()) + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name + "</div>" + Util.closeDiv() : "";
+        return Util.itemExists(name) ? getStatus().toHtmlClass()
+                + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
+                + "</div>" + Util.closeDiv() : "";
     }
 
     public String getRawName() {
@@ -127,10 +136,10 @@ public class Feature {
 
     public int getNumberOfScenarios() {
         int result = 0;
-        if (Util.itemExists(elements)) {
+        if (elements != null) {
             List<Element> elementList = new ArrayList<Element>();
             for (Element element : elements) {
-                if (!element.getKeyword().equals("Background")) {
+                if (!element.isBackground()) {
                     elementList.add(element);
                 }
             }
@@ -181,67 +190,46 @@ public class Feature {
 
     public void processSteps() {
         List<Step> allSteps = new ArrayList<Step>();
-        List<Step> passedSteps = new ArrayList<Step>();
-        List<Step> failedSteps = new ArrayList<Step>();
-        List<Step> skippedSteps = new ArrayList<Step>();
-        List<Step> undefinedSteps = new ArrayList<Step>();
-        List<Step> pendingSteps = new ArrayList<Step>();
-        List<Step> missingSteps = new ArrayList<Step>();
+        StatusCounter stepsCounter = new StatusCounter();
         List<Element> passedScenarios = new ArrayList<Element>();
         List<Element> failedScenarios = new ArrayList<Element>();
-        Long totalDuration = 0l;
-        if (Util.itemExists(elements)) {
+        long totalDuration = 0L;
+
+        if (elements != null) {
             for (Element element : elements) {
                 calculateScenarioStats(passedScenarios, failedScenarios, element);
-                if (Util.hasSteps(element)) {
+                if (element.hasSteps()) {
                     Sequence<Step> steps = element.getSteps();
                     for (Step step : steps) {
                         allSteps.add(step);
-                        Util.Status stepStatus = step.getStatus();
-                        passedSteps = Util.setStepStatus(passedSteps, step, stepStatus, Util.Status.PASSED);
-                        failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
-                        skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                        undefinedSteps = Util.setStepStatus(undefinedSteps, step, stepStatus, Util.Status.UNDEFINED);
-                        pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.PENDING);
-                        missingSteps = Util.setStepStatus(missingSteps, step, stepStatus, Util.Status.MISSING);
-                        totalDuration = totalDuration + step.getDuration();
+                        stepsCounter.incrementFor(step.getStatus());
+                        totalDuration += step.getDuration();
                     }
                 }
             }
         }
         scenarioResults = new ScenarioResults(passedScenarios, failedScenarios);
-        stepResults = new StepResults(allSteps, passedSteps, failedSteps, skippedSteps, pendingSteps, missingSteps, undefinedSteps, totalDuration);
+        stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
 
     private void calculateScenarioStats(List<Element> passedScenarios, List<Element> failedScenarios, Element element) {
-        if (!element.getKeyword().equals("Background")) {
-            if (element.getStatus() == Util.Status.PASSED) {
+        if (!element.isBackground()) {
+            if (element.getStatus() == Status.PASSED) {
                 passedScenarios.add(element);
-            } else if (element.getStatus() == Util.Status.FAILED) {
+            } else if (element.getStatus() == Status.FAILED) {
                 failedScenarios.add(element);
             }
         }
     }
 
     class StepResults {
-
         List<Step> allSteps;
-        List<Step> passedSteps;
-        List<Step> failedSteps;
-        List<Step> skippedSteps;
-        List<Step> undefinedSteps;
-        List<Step> pendingSteps;
-        List<Step> missingSteps;
-        Long totalDuration;
+        private StatusCounter statusCounter;
+        long totalDuration;
 
-        public StepResults(List<Step> allSteps, List<Step> passedSteps, List<Step> failedSteps, List<Step> skippedSteps, List<Step> pendingSteps, List<Step> missingSteps, List<Step> undefinedSteps, Long totalDuration) {
+        public StepResults(List<Step> allSteps, StatusCounter statusCounter, long totalDuration) {
             this.allSteps = allSteps;
-            this.passedSteps = passedSteps;
-            this.failedSteps = failedSteps;
-            this.skippedSteps = skippedSteps;
-            this.undefinedSteps = undefinedSteps;
-            this.pendingSteps = pendingSteps;
-            this.missingSteps = missingSteps;
+            this.statusCounter = statusCounter;
             this.totalDuration = totalDuration;
         }
 
@@ -250,27 +238,27 @@ public class Feature {
         }
 
         public int getNumberOfPasses() {
-            return passedSteps.size();
+            return statusCounter.getValueFor(Status.PASSED);
         }
 
         public int getNumberOfFailures() {
-            return failedSteps.size();
+            return statusCounter.getValueFor(Status.FAILED);
         }
 
         public int getNumberOfUndefined() {
-            return undefinedSteps.size();
+            return statusCounter.getValueFor(Status.UNDEFINED);
         }
 
         public int getNumberOfPending() {
-            return pendingSteps.size();
+            return statusCounter.getValueFor(Status.PENDING);
         }
 
         public int getNumberOfSkipped() {
-            return skippedSteps.size();
+            return statusCounter.getValueFor(Status.SKIPPED);
         }
 
         public int getNumberOfMissing() {
-            return missingSteps.size();
+            return statusCounter.getValueFor(Status.MISSING);
         }
 
         public long getTotalDuration() {

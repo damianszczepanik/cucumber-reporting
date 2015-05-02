@@ -1,9 +1,8 @@
 package net.masterthought.cucumber;
 
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.predicates.LogicalPredicate;
 import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.util.Util;
+
+import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
 public class ScenarioTag {
 
@@ -23,7 +22,11 @@ public class ScenarioTag {
         return parentFeatureUri;
     }
 
-    public static class predicates {
+    public boolean hasSteps() {
+        return !scenario.getSteps().isEmpty();
+    }
+    
+    public static class Predicates {
 
             public static LogicalPredicate<ScenarioTag> scenarioExists(final String fileUri, final String name) {
                 return new LogicalPredicate<ScenarioTag>() {
@@ -33,16 +36,5 @@ public class ScenarioTag {
                     }
                 };
             }
-
-
-//            public static Function1<ScenarioTag, Util.Status> status() {
-//                return new Function1<ScenarioTag, Util.Status>() {
-//                    @Override
-//                    public Util.Status call(ScenarioTag scenarioTag) throws Exception {
-//                        return step.getStatus();
-//                    }
-//                };
-//            }
         }
-
 }

@@ -45,8 +45,10 @@
 .step-error-message{background-color:#FFEEEE;padding-left:50px;border: 1px solid #D88A8A;}
 .passed{background-color:#C5D88A;}
 .failed{background-color:#D88A8A;}
-.skipped{background-color:#2DEAEC;}
-.undefined{background-color: #ebcc81;}
+.skipped{background-color:#88AAFF;}
+.pending{background-color: #FBB907;}
+.undefined{background-color: #FBB957;}
+.missing{background-color: #FBB9A7;}
 
 table.stats-table {
 	color:black;
@@ -247,18 +249,28 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             },
                             {
                                 name: 'Failed',
-                                color: "$step_data.get(2)",
+                                color: "$step_data.get(1)",
                                 y: $total_fails
                             },
                             {
                                 name: 'Skipped',
-                                color: "$step_data.get(3)",
+                                color: "$step_data.get(2)",
                                 y: $total_skipped
                             },
                             {
                                 name: 'Pending',
-                                color: "$step_data.get(1)",
+                                color: "$step_data.get(3)",
                                 y: $total_pending
+                            },
+                            {
+                                name: 'Undefined',
+                                color: "$step_data.get(4)",
+                                y: $total_undefined
+                            },
+                            {
+                                name: 'Missing',
+                                color: "$step_data.get(5)",
+                                y: $total_missing
                             }
                         ]
                     }]
@@ -305,7 +317,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             {
                                 name: 'Failed',
                                 y: $scenarios_failed,
-                                color: "$step_data.get(2)"
+                                color: "$step_data.get(1)"
                             }
                         ]
                     }]
@@ -317,12 +329,61 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
             window.onload = function () {
                 var steps = Raphael("steps_chart");
                 steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
-                steps.piechart(200, 150, 120, [#if( $total_passes == 0) 0.000001 #{else} $total_passes #end, #if( $total_fails == 0) 0.000001 #{else} $total_fails #end, #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end, #if( $total_pending == 0) 0.000001 #{else} $total_pending #end], { legend: ["%%.%% - Passed", "%%.%% - Failed", "%%.%% - Skipped", "%%.%% - Pending"], legendpos: "east", colors: ["$step_data.get(0)","$step_data.get(1)","$step_data.get(2)","$step_data.get(3)"]});
+                steps.piechart(200, 150, 120,
+                [
+                    #if( $total_passes == 0) 0.000001 #{else} $total_passes #end,
+                    #if( $total_fails == 0) 0.000001 #{else} $total_fails #end,
+                    #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end,
+                    #if( $total_pending == 0) 0.000001 #{else} $total_pending #end,
+                    #if( $total_undefined == 0) 0.000001 #{else} $total_undefined #end,
+                    #if( $total_missing == 0) 0.000001 #{else} $total_missing #end
+                ],
+                {
+                    legend:
+                    [
+                        "%%.%% - Passed",
+                        "%%.%% - Failed",
+                        "%%.%% - Skipped",
+                        "%%.%% - Pending",
+                        "%%.%% - Undefined",
+                        "%%.%% - Missing"
+                    ],
+                    legendpos: "east",
+                    colors:
+                    [
+                        "$step_data.get(0)",
+                        "$step_data.get(1)",
+                        "$step_data.get(2)",
+                        "$step_data.get(3)",
+                        "$step_data.get(4)",
+                        "$step_data.get(5)"
+                    ]
+                }
+                );
 
 
                 var scenarios = Raphael("scenarios_chart");
                 scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
-                scenarios.piechart(200, 150, 120, [#if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,#if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end], { legend: ["%%.%% - Passed", "%%.%% - Failed"], legendpos: "east", colors: ["$scenario_data.get(0)","$scenario_data.get(1)"], legendcolor: "white"});
+                scenarios.piechart(200, 150, 120,
+                [
+                    #if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,
+                    #if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end
+                    ],
+                    {
+                        legend:
+                        [
+                            "%%.%% - Passed",
+                            "%%.%% - Failed"
+                        ],
+                        legendpos: "east",
+                        colors:
+                        [
+                            "$scenario_data.get(0)",
+                            "$scenario_data.get(1)"
+                        ], 
+                        legendcolor: "white"
+                    }
+                );
             };
         </script>
     #end
@@ -378,6 +439,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
           <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
           <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
+          <td id="stats-number-steps-pending-$sf">$feature.getNumberOfUndefined()</td>
+          <td id="stats-number-steps-pending-$sf">$feature.getNumberOfMissing()</td>
           <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
           <td id="stats-status-$sf" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
           </tr>
@@ -396,6 +459,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 <td id="stats-total-steps-failed" style="background-color:lightgray;font-weight:bold;">$total_fails</td>
 <td id="stats-total-steps-skipped" style="background-color:lightgray;font-weight:bold;">$total_skipped</td>
 <td id="stats-total-steps-pending" style="background-color:lightgray;font-weight:bold;">$total_pending</td>
+<td id="stats-total-steps-undefined" style="background-color:lightgray;font-weight:bold;">$total_undefined</td>
+<td id="stats-total-steps-missing" style="background-color:lightgray;font-weight:bold;">$total_missing</td>
 <td id="stats-total-duration" style="background-color:lightgray;font-weight:bold;">$total_duration</td>
 <td id="stats-total-totals" style="background-color:lightgray;font-weight:bold;">Totals</td>
 </tr></table>
@@ -408,7 +473,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 	<div class="container_12">
 		<div class="grid_12 hr"></div>
 		<div class="grid_12 footer">
-			<p style="text-align:center;">Cucumber-JVM Jenkins Report Plugin - version: $version - $time_stamp</p>
+			<p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
 		</div>
 	</div>
 	<div class="clear"></div>

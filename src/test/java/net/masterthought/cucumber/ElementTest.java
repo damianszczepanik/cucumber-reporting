@@ -3,7 +3,7 @@ package net.masterthought.cucumber;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Util;
+import net.masterthought.cucumber.util.Status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,20 +57,20 @@ public class ElementTest {
 
     @Test
     public void shouldReturnStatus() {
-        assertThat(passingElement.getStatus(), is(Util.Status.PASSED));
-        assertThat(failingElement.getStatus(), is(Util.Status.FAILED));
-        assertThat(undefinedElement.getStatus(), is(Util.Status.PASSED));
-        assertThat(skippedElement.getStatus(), is(Util.Status.PASSED));
+        assertThat(passingElement.getStatus(), is(Status.PASSED));
+        assertThat(failingElement.getStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getStatus(), is(Status.PASSED));
+        assertThat(skippedElement.getStatus(), is(Status.PASSED));
     }
 
     @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
     	ConfigurationOptions.setSkippedFailsBuild(true);
     	try {
-    		assertThat(passingElement.getStatus(), is(Util.Status.PASSED));
-            assertThat(failingElement.getStatus(), is(Util.Status.FAILED));
-            assertThat(undefinedElement.getStatus(), is(Util.Status.PASSED));
-            assertThat(skippedElement.getStatus(), is(Util.Status.FAILED));
+            assertThat(passingElement.getStatus(), is(Status.PASSED));
+            assertThat(failingElement.getStatus(), is(Status.FAILED));
+            assertThat(undefinedElement.getStatus(), is(Status.PASSED));
+            assertThat(skippedElement.getStatus(), is(Status.FAILED));
     	} finally {
     		// restore the initial state for next tests
     		ConfigurationOptions.setSkippedFailsBuild(false);
@@ -81,10 +81,10 @@ public class ElementTest {
     public void shouldReturnNameWhenConfiUndefinedTurnedOn() {
     	ConfigurationOptions.setUndefinedFailsBuild(true);
     	try {
-    		assertThat(passingElement.getStatus(), is(Util.Status.PASSED));
-            assertThat(failingElement.getStatus(), is(Util.Status.FAILED));
-            assertThat(undefinedElement.getStatus(), is(Util.Status.FAILED));
-            assertThat(skippedElement.getStatus(), is(Util.Status.PASSED));
+            assertThat(passingElement.getStatus(), is(Status.PASSED));
+            assertThat(failingElement.getStatus(), is(Status.FAILED));
+            assertThat(undefinedElement.getStatus(), is(Status.FAILED));
+            assertThat(skippedElement.getStatus(), is(Status.PASSED));
     	} finally {
     		// restore the initial state for next tests
     		ConfigurationOptions.setUndefinedFailsBuild(false);

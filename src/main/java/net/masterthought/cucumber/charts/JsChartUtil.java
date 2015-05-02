@@ -4,49 +4,63 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import net.masterthought.cucumber.TagObject;
+import net.masterthought.cucumber.util.Status;
 
 public class JsChartUtil {
 
     private static Logger logger = Logger.getLogger("net.masterthought.cucumber.charts.jschartutil");
 
-    public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped, int numberTotalPending) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+    public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped,
+            int numberTotalPending, int numberTotalUndefined, int numberTotalMissing) {
 
-        map.put("#88dd11", numberTotalPassed);
-        map.put("#cc1134", numberTotalFailed);
-        map.put("#88aaff", numberTotalSkipped);
-        map.put("#FBB917", numberTotalPending);
+        Map<Status, Integer> map = new HashMap<>();
+
+        map.put(Status.PASSED, numberTotalPassed);
+        map.put(Status.FAILED, numberTotalFailed);
+        map.put(Status.SKIPPED, numberTotalSkipped);
+        map.put(Status.PENDING, numberTotalPending);
+        map.put(Status.UNDEFINED, numberTotalUndefined);
+        map.put(Status.MISSING, numberTotalMissing);
 
         return getKeysSortedByValue(map);
     }
 
     public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("#88dd11", numberTotalPassed);
-        map.put("#cc1134", numberTotalFailed);
+
+        Map<Status, Integer> map = new HashMap<>();
+
+        map.put(Status.PASSED, numberTotalPassed);
+        map.put(Status.FAILED, numberTotalFailed);
 
         return getKeysSortedByValue(map);
     }
 
-    private List<String> getKeysSortedByValue(Map<String, Integer> map) {
-        List<Map.Entry<String,Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
-        Collections.sort(list, new Comparator() {
+    private List<String> getKeysSortedByValue(Map<Status, Integer> map) {
+        List<Map.Entry<Status, Integer>> list = new ArrayList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Status, Integer>>() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((Comparable) ((Map.Entry) (o2)).getValue()).compareTo(((Map.Entry) (o1)).getValue());
+            public int compare(Map.Entry<Status, Integer> o1, Map.Entry<Status, Integer> o2) {
+                int valueOrder = o2.getValue().compareTo(o1.getValue());
+                if (valueOrder != 0) {
+                    return valueOrder;
+                }
+                else {
+                    // if values are the same keep the same order as implemented in Status
+                    int colorOrder = o1.getKey().compareTo(o2.getKey());
+                    return colorOrder;
+                }
             }
         });
 
 
         List<String> keys = new ArrayList<String>();
-        for (Map.Entry<String, Integer> entry : list) {
-            keys.add(entry.getKey());
+        for (Map.Entry<Status, Integer> entry : list) {
+            keys.add(entry.getKey().color);
         }
         return keys;
     }
@@ -54,7 +68,16 @@ public class JsChartUtil {
     public static String generateTagChartData(List<TagObject> tagObjectList) {
     	StringBuilder buffer = new StringBuilder();
         for (TagObject tag : tagObjectList) {
-           buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
+            buffer.append("[[");
+            buffer.append(tag.getNumberOfPasses());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfFailures());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfSkipped());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfPending());
+            buffer.append("],");
+            buffer.append("{label:'").append(tag.getTagName()).append("'}],");
         }
         return buffer.toString();
     }
@@ -63,11 +86,11 @@ public class JsChartUtil {
         StringBuilder tags = new StringBuilder();
 
         if (!tagObjectList.isEmpty()) {
-	        for (TagObject tag : tagObjectList) {
-	            tags.append("'").append(tag.getTagName()).append("',");
-	        }
-	
-	        tags.setLength(tags.length() - 1);
+            for (TagObject tag : tagObjectList) {
+                tags.append("'").append(tag.getTagName()).append("',");
+            }
+
+            tags.setLength(tags.length() - 1);
         }
         return "[" + tags.toString() + "]";
     }
@@ -76,11 +99,21 @@ public class JsChartUtil {
     	StringBuilder buffer = new StringBuilder();
 
         if (!tagObjectList.isEmpty()) {
-	        for (TagObject tag : tagObjectList) {
-	            buffer.append("[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "]").append(",");
-	        }
-	
-	        buffer.setLength(buffer.length() - 1);
+            for (TagObject tag : tagObjectList) {
+                // TODO: could be merged with generateTagChartData
+                buffer.append("[");
+                buffer.append(tag.getNumberOfPasses());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfFailures());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfSkipped());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfPending());
+                buffer.append("]");
+                buffer.append(",");
+            }
+
+            buffer.setLength(buffer.length() - 1);
         }
 
         return "[" + buffer.toString() + "]";

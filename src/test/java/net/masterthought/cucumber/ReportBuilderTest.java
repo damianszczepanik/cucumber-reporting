@@ -105,7 +105,7 @@ public class ReportBuilderTest {
 
         File input = new File(rd, "tag1.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromClass("doc-string",doc).get(0).text(),is("X _ X O X O _ O X"));
+        assertThat(fromClass("doc-string", doc).get(0).text(), is("X _ X O X O _ O X"));
         Elements tableCells = doc.getElementsByClass("stats-table").get(0).getElementsByTag("tr").get(2).getElementsByTag("td");
         assertEquals("@tag1",tableCells.get(0).text());
         assertEquals("1",tableCells.get(1).text());
@@ -116,8 +116,10 @@ public class ReportBuilderTest {
         assertEquals("0",tableCells.get(6).text());
         assertEquals("0",tableCells.get(7).text());
         assertEquals("0",tableCells.get(8).text());
-        assertEquals("106 ms",tableCells.get(9).text());
-        assertEquals("passed",tableCells.get(10).text());
+        assertEquals("0", tableCells.get(9).text());
+        assertEquals("0", tableCells.get(10).text());
+        assertEquals("106 ms", tableCells.get(11).text());
+        assertEquals("passed", tableCells.get(12).text());
     }
 
     private void assertStatsHeader(Document doc) {
@@ -225,7 +227,7 @@ public class ReportBuilderTest {
         assertThat("stats-total-steps-passed", fromId("stats-total-steps-passed", doc).text(), is("55"));
         assertThat("stats-total-steps-failed", fromId("stats-total-steps-failed", doc).text(), is("1"));
         assertThat("stats-total-steps-skipped", fromId("stats-total-steps-skipped", doc).text(), is("7"));
-        assertThat("stats-total-steps-pending", fromId("stats-total-steps-pending", doc).text(), is("4"));
+        assertThat("stats-total-steps-pending", fromId("stats-total-steps-pending", doc).text(), is("0"));
         assertNotNull(fromId("stats-total-duration", doc));
         assertThat(fromId("stats-total-totals", doc).text(), is("Totals"));
     }
