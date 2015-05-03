@@ -103,7 +103,7 @@ public class ReportBuilder {
     }
 
     public boolean getBuildStatus() {
-        return !(ri.getTotalNumberFailingSteps() > 0);
+        return !(ri.getTotalStepsFailed() > 0);
     }
 
     public void generateReports() throws IOException, VelocityException {
@@ -162,7 +162,7 @@ public class ReportBuilder {
                 contextMap.put("scenarios", feature.getElements().toList());
                 contextMap.put("time_stamp", ri.timeStamp());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.artifactsEnabled());
-                contextMap.put("esc", new EscapeTool());                        
+                contextMap.put("esc", new EscapeTool());
                 generateReport(feature.getFileName(), featureResult, contextMap.getVelocityContext());
             }
         }
@@ -176,33 +176,33 @@ public class ReportBuilder {
         contextMap.putAll(getGeneralParameters());
         contextMap.put("features", ri.getFeatures());
         contextMap.put("parallel", ReportBuilder.isParallel());
-        contextMap.put("total_features", ri.getTotalNumberOfFeatures());
+        contextMap.put("total_features", ri.getTotalFeatures());
         
-        contextMap.put("total_steps", ri.getTotalNumberOfSteps());
-        contextMap.put("total_passes", ri.getTotalNumberPassingSteps());
-        contextMap.put("total_fails", ri.getTotalNumberFailingSteps());
-        contextMap.put("total_skipped", ri.getTotalNumberSkippedSteps());
-        contextMap.put("total_pending", ri.getTotalNumberPendingSteps());
-        contextMap.put("total_undefined", ri.getTotalNumberUndefinedSteps());
-        contextMap.put("total_missing", ri.getTotalNumberMissingSteps());
+        contextMap.put("total_steps", ri.getTotalSteps());
+        contextMap.put("total_passes", ri.getTotalStepsPassed());
+        contextMap.put("total_fails", ri.getTotalStepsFailed());
+        contextMap.put("total_skipped", ri.getTotalStepsSkipped());
+        contextMap.put("total_pending", ri.getTotalStepsPending());
+        contextMap.put("total_undefined", ri.getTotalStepsUndefined());
+        contextMap.put("total_missing", ri.getTotalStepsMissing());
 
         contextMap.put("scenarios_passed", ri.getTotalScenariosPassed());
         contextMap.put("scenarios_failed", ri.getTotalScenariosFailed());
-        contextMap.put("total_scenarios", ri.getTotalNumberOfScenarios());
+        contextMap.put("total_scenarios", ri.getTotalScenarios());
         if (flashCharts) {
             contextMap.put(
                     "step_data",
-                    FlashChartBuilder.getStepsChart(ri.getTotalNumberPassingSteps(), ri.getTotalNumberFailingSteps(),
-                            ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps(),
-                            ri.getTotalNumberUndefinedSteps(), ri.getTotalNumberMissingSteps()));
+                    FlashChartBuilder.getStepsChart(ri.getTotalStepsPassed(), ri.getTotalStepsFailed(),
+                            ri.getTotalStepsSkipped(), ri.getTotalStepsPending(),
+                            ri.getTotalStepsUndefined(), ri.getTotalStepsMissing()));
             contextMap.put(
                     "scenario_data",
                     FlashChartBuilder.pieScenariosChart(ri.getTotalScenariosPassed(), ri.getTotalScenariosFailed()));
         } else {
             JsChartUtil pie = new JsChartUtil();
-            List<String> stepColours = pie.orderStepsByValue(ri.getTotalNumberPassingSteps(),
-                    ri.getTotalNumberFailingSteps(), ri.getTotalNumberSkippedSteps(), ri.getTotalNumberPendingSteps(),
-                    ri.getTotalNumberUndefinedSteps(), ri.getTotalNumberMissingSteps());
+            List<String> stepColours = pie.orderStepsByValue(ri.getTotalStepsPassed(),
+                    ri.getTotalStepsFailed(), ri.getTotalStepsSkipped(), ri.getTotalStepsPending(),
+                    ri.getTotalStepsUndefined(), ri.getTotalStepsMissing());
             contextMap.put("step_data", stepColours);
             List<String> scenarioColours = pie.orderScenariosByValue(ri.getTotalScenariosPassed(),
                     ri.getTotalScenariosFailed());
@@ -244,8 +244,8 @@ public class ReportBuilder {
         contextMap.put("tags", ri.getTags());
         contextMap.put("total_tags", ri.getTotalTags());
         contextMap.put("total_scenarios", ri.getTotalTagScenarios());
-        contextMap.put("total_passed_scenarios", ri.getTotalPassingTagScenarios());
-        contextMap.put("total_failed_scenarios", ri.getTotalFailingTagScenarios());
+        contextMap.put("total_passed_scenarios", ri.getTotalTagScenariosPassed());
+        contextMap.put("total_failed_scenarios", ri.getTotalTagScenariosFailed());
         contextMap.put("total_steps", ri.getTotalTagSteps());
         contextMap.put("total_passes", ri.getTotalTagPasses());
         contextMap.put("total_fails", ri.getTotalTagFails());

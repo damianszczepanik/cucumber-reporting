@@ -55,7 +55,7 @@
                         <td>$tag.getNumberOfFailingScenarios()</td>
                         <td>$tag.getNumberOfSteps()</td>
                         <td>$tag.getNumberOfPasses()</td>
-                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:#D88A8A;" #end>$tag.getNumberOfFailures()</td>
+                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$tag.getNumberOfFailures()</td>
                         <td #if($tag.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$tag.getNumberOfSkipped()</td>
                         <td #if($tag.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$tag.getNumberOfPending()</td>
                         <td #if($tag.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$tag.getNumberOfUndefined()</td>

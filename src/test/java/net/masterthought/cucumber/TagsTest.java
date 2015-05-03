@@ -61,13 +61,13 @@ public class TagsTest {
     }
 
     @Test
-    public void shouldGetTotalPassingTagScenarios() {
-        assertThat(reportInformation.getTotalPassingTagScenarios(), is(2));
+    public void shouldgetTotalTagScenariosPassed() {
+        assertThat(reportInformation.getTotalTagScenariosPassed(), is(2));
     }
 
     @Test
-    public void shouldGetTotalFailingTagScenarios() {
-        assertThat(reportInformation.getTotalFailingTagScenarios(), is(2));
+    public void shouldgetTotalTagScenariosFailed() {
+        assertThat(reportInformation.getTotalTagScenariosFailed(), is(2));
     }
 
     @Test

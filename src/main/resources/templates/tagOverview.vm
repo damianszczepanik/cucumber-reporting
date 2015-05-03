@@ -39,12 +39,12 @@
                         formattedData = [
                             {
                                 name: "Passed",
-                                color: '#C5D88A',
+                                color: '#00CE00',
                                 data: []
                             },
                             {
                                 name: "Failed",
-                                color: '#D88A8A',
+                                color: '#CC1134',
                                 data: []
                             },
                             {
@@ -142,7 +142,7 @@
                             $chart_rows
                         ],
                         color:function (index, stackedIndex) {
-                            return ['#C5D88A', '#D88A8A', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
+                            return ['#00CE00', '#CC1134', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
                         },
                         barLabel: function(index){
                             return ''
@@ -159,7 +159,7 @@
                         legend:{
                             data:["Failed", "Passed", "Pending", "Skipped", "Undefined", "Missing"],
                             color:function (index) {
-                                return ['#D88A8A','#C5D88A','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
+                                return ['#CC1134','#00CE00','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
                             }
                         }
                     });
@@ -211,10 +211,7 @@
         <div class="grid_9 heading">
             <h2>Tag Overview for Build: $build_number</h2>
             #if($fromJenkins)
-            <h2 id="overview-project">Project Name: $build_project</h2>
-                #if($previous_build_number != -1)
-                    <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/feature-overview.html">Previous Build</a></li>
-                #end
+            <h2 id="overview-project">Project Name: <i>$build_project</i></h2>
             #end
             <span class="subhead">The following graph shows number of steps passing, failing and skipped for this build:</span>
         </div>
@@ -300,9 +297,9 @@
                 #foreach($tag in $tags)
 
                     #if($tag.getStatus().toString() == "PASSED")
-                        #set($bgcolour = "#C5D88A")
+                        #set($bgcolour = "#00CE00")
                     #else
-                        #set($bgcolour = "#D88A8A")
+                        #set($bgcolour = "#FF0000")
                     #end
 
                     <tr>
@@ -318,7 +315,7 @@
                         <td>$tag.getNumberOfFailingScenarios()</td>
                         <td>$tag.getNumberOfSteps()</td>
                         <td>$tag.getNumberOfPasses()</td>
-                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:#D88A8A;" #end>$tag.getNumberOfFailures()</td>
+                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$tag.getNumberOfFailures()</td>
                         <td #if($tag.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$tag.getNumberOfSkipped()</td>
                         <td #if($tag.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$tag.getNumberOfPending()</td>
                         <td #if($tag.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$tag.getNumberOfUndefined()</td>

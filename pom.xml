@@ -57,6 +57,11 @@
             <roles>
             </roles>
         </developer>
+        <developer>
+            <id>damianszczepanik</id>
+            <name>Damian Szczepanik</name>
+            <email>damianszczepanik@github</email>
+        </developer>
     </developers>
 
     <profiles>

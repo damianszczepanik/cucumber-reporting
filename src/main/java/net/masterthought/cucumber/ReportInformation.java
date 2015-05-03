@@ -63,39 +63,39 @@ public class ReportInformation {
         return this.projectFeatureMap;
     }
 
-    public int getTotalNumberOfScenarios() {
+    public int getTotalScenarios() {
         return numberOfScenarios;
     }
 
-    public int getTotalNumberOfFeatures() {
+    public int getTotalFeatures() {
         return features.size();
     }
 
-    public int getTotalNumberOfSteps() {
+    public int getTotalSteps() {
         return numberOfSteps;
     }
 
-    public int getTotalNumberPassingSteps() {
+    public int getTotalStepsPassed() {
         return totalSteps.getValueFor(Status.PASSED);
     }
 
-    public int getTotalNumberFailingSteps() {
+    public int getTotalStepsFailed() {
         return totalSteps.getValueFor(Status.FAILED);
     }
 
-    public int getTotalNumberSkippedSteps() {
+    public int getTotalStepsSkipped() {
         return totalSteps.getValueFor(Status.SKIPPED);
     }
 
-    public int getTotalNumberPendingSteps() {
+    public int getTotalStepsPending() {
         return totalSteps.getValueFor(Status.PENDING);
     }
 
-    public int getTotalNumberMissingSteps() {
+    public int getTotalStepsMissing() {
         return totalSteps.getValueFor(Status.MISSING);
     }
 
-    public int getTotalNumberUndefinedSteps() {
+    public int getTotalStepsUndefined() {
         return totalSteps.getValueFor(Status.UNDEFINED);
     }
 
@@ -127,11 +127,11 @@ public class ReportInformation {
         return totalTagScenarios;
     }
 
-    public int getTotalPassingTagScenarios() {
+    public int getTotalTagScenariosPassed() {
         return totalPassingTagScenarios;
     }
 
-    public int getTotalFailingTagScenarios() {
+    public int getTotalTagScenariosFailed() {
         return totalFailingTagScenarios;
     }
 

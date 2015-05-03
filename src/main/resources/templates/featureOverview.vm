@@ -3,13 +3,13 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cucumber-JVM Html Reports - Feature Overview</title>
-	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="blue/favicon.ico" />
+    <title>Cucumber-JVM Html Reports - Feature Overview</title>
+    <link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="blue/favicon.ico" />
     #if($flashCharts)
         <script language="javascript">AC_FL_RunContent = 0;</script>
         <script language="javascript"> DetectFlashVer = 0; </script>
@@ -37,40 +37,40 @@
 
 </head>
 <body id="top">
-	<div id="fullwidth_header">
-		<div class="container_12">
-			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-			<div class="grid_6" id="nav">
-				<ul>
+    <div id="fullwidth_header">
+        <div class="container_12">
+            <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+            <div class="grid_6" id="nav">
+                <ul>
                     #if($fromJenkins)
                         <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
                         #if($previous_build_number != -1)
                             <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/feature-overview.html">Previous Build</a></li>
                         #end
                     #end
-				<li><a href="tag-overview.html">Tag Overview</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="fullwidth_gradient">
-		<div class="container_12">
-			<div class="grid_9 heading">
-				<h2 id="overview-title">Feature Overview for Build: $build_number</h2>
-				 #if($fromJenkins)
-				<h2 id="overview-project">Project Name: $build_project</h2>
-				#end
-				<span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
-			</div>
-		</div>
-	</div>
+                <li><a href="tag-overview.html">Tag Overview</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="fullwidth_gradient">
+        <div class="container_12">
+            <div class="grid_9 heading">
+                <h2 id="overview-title">Feature Overview for Build: $build_number</h2>
+                #if($fromJenkins)
+                    <h2 id="overview-project">Project Name: <i>$build_project</i></h2>
+                #end
+                <span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
+            </div>
+        </div>
+    </div>
 
-	<div class="container_12">
-		<div class="grid_12">
+    <div class="container_12">
+        <div class="grid_12">
 
 
 #if($flashCharts)
-	 <div id="flash-charts" style="text-align:center;">
+     <div id="flash-charts" style="text-align:center;">
 
          <table>
              <tr>
@@ -78,42 +78,42 @@
          <script language="JavaScript" type="text/javascript">
 <!--
 if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
-	alert("This page requires AC_RunActiveContent.js.");
+    alert("This page requires AC_RunActiveContent.js.");
 } else {
-	var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-	if(hasRightVersion) {
-		AC_FL_RunContent(
-			'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
-			'width', '480',
-			'height', '300',
-			'scale', 'noscale',
-			'salign', 'TL',
-			'bgcolor', '#bbccff',
-			'wmode', 'opaque',
-			'movie', 'charts/charts',
-			'src', 'charts/charts',
-			'FlashVars', "library_path=charts/charts_library&xml_data=$step_data",
-			'id', 'my_chart',
-			'name', 'my_chart',
-			'menu', 'true',
-			'allowFullScreen', 'true',
-			'allowScriptAccess','sameDomain',
-			'quality', 'high',
-			'align', 'middle',
-			'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-			'play', 'true',
-			'devicefont', 'false'
-			);
-	} else {
-		var alternateContent = 'This content requires the Adobe Flash Player. '
-		+ '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
-		document.write(alternateContent);
-	}
+    var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+    if(hasRightVersion) {
+        AC_FL_RunContent(
+            'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+            'width', '480',
+            'height', '300',
+            'scale', 'noscale',
+            'salign', 'TL',
+            'bgcolor', '#bbccff',
+            'wmode', 'opaque',
+            'movie', 'charts/charts',
+            'src', 'charts/charts',
+            'FlashVars', "library_path=charts/charts_library&xml_data=$step_data",
+            'id', 'my_chart',
+            'name', 'my_chart',
+            'menu', 'true',
+            'allowFullScreen', 'true',
+            'allowScriptAccess','sameDomain',
+            'quality', 'high',
+            'align', 'middle',
+            'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+            'play', 'true',
+            'devicefont', 'false'
+            );
+    } else {
+        var alternateContent = 'This content requires the Adobe Flash Player. '
+        + '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+        document.write(alternateContent);
+    }
 }
 // -->
 </script>
 <noscript>
-	<P>This content requires JavaScript.</P>
+    <P>This content requires JavaScript.</P>
 </noscript>
  </td>
  <td width="10">&nbsp;</td>
@@ -121,42 +121,42 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
      <script language="JavaScript" type="text/javascript">
    <!--
    if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
-   	alert("This page requires AC_RunActiveContent.js.");
+       alert("This page requires AC_RunActiveContent.js.");
    } else {
-   	var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-   	if(hasRightVersion) {
-   		AC_FL_RunContent(
-   			'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
-   			'width', '480',
-   			'height', '300',
-   			'scale', 'noscale',
-   			'salign', 'TL',
-   			'bgcolor', '#bbccff',
-   			'wmode', 'opaque',
-   			'movie', 'charts/charts',
-   			'src', 'charts/charts',
-   			'FlashVars', "library_path=charts/charts_library&xml_data=$scenario_data",
-   			'id', 'my_chart',
-   			'name', 'my_chart',
-   			'menu', 'true',
-   			'allowFullScreen', 'true',
-   			'allowScriptAccess','sameDomain',
-   			'quality', 'high',
-   			'align', 'middle',
-   			'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-   			'play', 'true',
-   			'devicefont', 'false'
-   			);
-   	} else {
-   		var alternateContent = 'This content requires the Adobe Flash Player. '
-   		+ '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
-   		document.write(alternateContent);
-   	}
+       var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+       if(hasRightVersion) {
+           AC_FL_RunContent(
+               'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+               'width', '480',
+               'height', '300',
+               'scale', 'noscale',
+               'salign', 'TL',
+               'bgcolor', '#bbccff',
+               'wmode', 'opaque',
+               'movie', 'charts/charts',
+               'src', 'charts/charts',
+               'FlashVars', "library_path=charts/charts_library&xml_data=$scenario_data",
+               'id', 'my_chart',
+               'name', 'my_chart',
+               'menu', 'true',
+               'allowFullScreen', 'true',
+               'allowScriptAccess','sameDomain',
+               'quality', 'high',
+               'align', 'middle',
+               'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+               'play', 'true',
+               'devicefont', 'false'
+               );
+       } else {
+           var alternateContent = 'This content requires the Adobe Flash Player. '
+           + '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+           document.write(alternateContent);
+       }
    }
    // -->
    </script>
    <noscript>
-   	<P>This content requires JavaScript.</P>
+       <P>This content requires JavaScript.</P>
    </noscript>
 
  </td>
@@ -207,7 +207,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             },
                             {
                                 name: 'Failed',
-                                color: "$step_data.get(1)",
+                                color: "#CC1134",
                                 y: $total_fails
                             },
                             {
@@ -275,7 +275,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             {
                                 name: 'Failed',
                                 y: $scenarios_failed,
-                                color: "$step_data.get(1)"
+                                color: "#CC1134"
                             }
                         ]
                     }]
@@ -310,7 +310,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                     colors:
                     [
                         "$step_data.get(0)",
-                        "$step_data.get(1)",
+                        "#CC1134",
                         "$step_data.get(2)",
                         "$step_data.get(3)",
                         "$step_data.get(4)",
@@ -337,7 +337,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                         colors:
                         [
                             "$scenario_data.get(0)",
-                            "$scenario_data.get(1)"
+                            "#CC1134"
                         ], 
                         legendcolor: "white"
                     }
@@ -349,6 +349,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
         <P>This content requires JavaScript.</P>
     </noscript>
 
+    <div style="text-align:center;">
     <table id="js-charts">
            <tr>
                <td> <div style="background-color: #E6FCFF;width:480px;height:300px;border: 1px solid gray;" id="steps_chart"></div></td>
@@ -359,11 +360,11 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
   </div>
 #end
-	<br/>
-		<div class="grid_12 hr"></div>
+    <br/>
+        <div class="grid_12 hr"></div>
 
-	<div>
-	  <br/>
+    <div>
+      <br/>
   <h2 id="feature-statistics-title">Feature Statistics</h2>
   <table class="stats-table">     
       #if($parallel)
@@ -375,9 +376,9 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #foreach($feature in $features)
 
           #if($feature.getStatus().toString() == "PASSED")
-          #set($bgcolour = "#C5D88A")
+          #set($bgcolour = "#00CE00")
           #else
-          #set($bgcolour = "#D88A8A")
+          #set($bgcolour = "#FF0000")
           #end
 
           $feature.processSteps()
@@ -394,7 +395,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
           <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
           <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
-          <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  style="background-color:#D88A8A;" #end>$feature.getNumberOfFailures()</td>
+          <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$feature.getNumberOfFailures()</td>
           <td id="stats-number-steps-skipped-$sf"   #if($feature.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$feature.getNumberOfSkipped()</td>
           <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$feature.getNumberOfPending()</td>
           <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$feature.getNumberOfUndefined()</td>
@@ -422,18 +423,18 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 <td id="stats-total-duration" style="background-color:lightgray;font-weight:bold;">$total_duration</td>
 <td id="stats-total-totals" style="background-color:lightgray;font-weight:bold;">Totals</td>
 </tr></table>
-	</div>
+    </div>
 
-	</div>
-	</div>
+    </div>
+    </div>
 
 
-	<div class="container_12">
-		<div class="grid_12 hr"></div>
-		<div class="grid_12 footer">
-			<p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
-		</div>
-	</div>
-	<div class="clear"></div>
+    <div class="container_12">
+        <div class="grid_12 hr"></div>
+        <div class="grid_12 footer">
+            <p style="text-align:center;"><a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java">Cucumber-JVM Jenkins Report Plugin</a> - version: $version - $time_stamp</p>
+        </div>
+    </div>
+    <div class="clear"></div>
 </body>
 </html>
