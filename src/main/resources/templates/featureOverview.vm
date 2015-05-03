@@ -32,53 +32,8 @@
             <script src="js/g.bar-min.js"></script>
         #end
     #end
-<style>
-.feature-keyword{font-weight:bold;}
-.feature-description{padding-left:15px;font-style:italic;background-color:beige;}
-.feature-role{font-weight:bold;}
-.feature-action{font-weight:bold;}
-.feature-value{font-weight:bold;}
-.feature-tags{padding-top:10px;padding-left:15px;color:darkblue;}
-.scenario-keyword{font-weight:bold;padding-left:15px;}
-.scenario-scenario_name{padding-left:15px;}
-.step-keyword{font-weight:bold;padding-left:50px;}
-.step-error-message{background-color:#FFEEEE;padding-left:50px;border: 1px solid #D88A8A;}
-.passed{background-color:#C5D88A;}
-.failed{background-color:#D88A8A;}
-.skipped{background-color:#88AAFF;}
-.pending{background-color: #FBB907;}
-.undefined{background-color: #FBB957;}
-.missing{background-color: #FBB9A7;}
 
-table.stats-table {
-	color:black;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
-	background-color: white;
-}
-table.stats-table th {
-	color:black;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-	background-color: #66CCEE;
-	-moz-border-radius: ;
-}
-table.stats-table td {
-  color:black;
-  text-align: center;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-	background-color: white;
-	-moz-border-radius: ;
-}
-</style>
+#include("/styles/reporting.css")                        
 
 </head>
 <body id="top">
