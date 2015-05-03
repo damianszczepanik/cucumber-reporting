@@ -118,7 +118,7 @@ public class ReportBuilderTest {
         assertEquals("0",tableCells.get(8).text());
         assertEquals("0", tableCells.get(9).text());
         assertEquals("0", tableCells.get(10).text());
-        assertEquals("106 ms", tableCells.get(11).text());
+        assertEquals("106ms", tableCells.get(11).text());
         assertEquals("passed", tableCells.get(12).text());
     }
 
@@ -147,7 +147,7 @@ public class ReportBuilderTest {
         assertThat("stats-number-steps-failed", fromId("stats-number-steps-failed-Account Holder withdraws cash", doc).text(), is("0"));
         assertThat("stats-number-steps-skipped", fromId("stats-number-steps-skipped-Account Holder withdraws cash", doc).text(), is("0"));
         assertThat("stats-number-steps-pending", fromId("stats-number-steps-pending-Account Holder withdraws cash", doc).text(), is("0"));
-        assertThat("stats-duration", fromId("stats-duration-Account Holder withdraws cash", doc).text(), is("112 ms"));
+        assertThat("stats-duration", fromId("stats-duration-Account Holder withdraws cash", doc).text(), is("112ms"));
         assertNotNull(fromId("stats-duration-Account Holder withdraws cash", doc));
     }
 
@@ -215,7 +215,7 @@ public class ReportBuilderTest {
             if (index >= 10) break;
         }
         assertThat("Step durations must be same", stepDurations,
-                is(Arrays.asList(new String [] {"107 ms", "0 ms", "0 ms", "0 ms", "0 ms", "0 ms", "0 ms", "3 ms", "0 ms", "0 ms", "0 ms"})));
+                is(Arrays.asList(new String [] {"107ms", "0ms", "0ms", "0ms", "0ms", "0ms", "0ms", "3ms", "0ms", "0ms", "0ms"})));
     }
 
     private void assertStatsTotals(Document doc) {

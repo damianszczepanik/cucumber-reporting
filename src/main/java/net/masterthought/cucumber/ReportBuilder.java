@@ -65,7 +65,7 @@ public class ReportBuilder {
 
     private Map<String, String> customHeader;
 
-    private final String VERSION = "cucumber-reporting-0.0.24";
+    private final String VERSION = "cucumber-reporting-0.0.25";
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber, String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts) throws Exception {
         this(jsonReports, reportDirectory, pluginUrlPath, buildNumber, buildProject, skippedFails, undefinedFails,

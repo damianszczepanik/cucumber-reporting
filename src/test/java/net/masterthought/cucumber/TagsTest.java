@@ -52,7 +52,7 @@ public class TagsTest {
 
     @Test
     public void shouldGetTotalTagDuration() {
-        assertThat(reportInformation.getTotalTagDuration(), is("1 ms"));
+        assertThat(reportInformation.getTotalTagDuration(), is("1ms"));
     }
 
     @Test

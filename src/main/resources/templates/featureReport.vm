@@ -49,108 +49,15 @@
 
         </script>
     #end
+
+#include("/styles/reporting.css")                        
+
 <style>
     .CodeMirror-scroll {
       height: auto;
       overflow-y: hidden;
       overflow-x: auto;
     }
-
-.feature-keyword{font-weight:bold;}
-.feature-description{padding-left:15px;font-style:italic;background-color:beige;}
-.feature-role{font-weight:bold;}
-.feature-action{font-weight:bold;}
-.feature-value{font-weight:bold;}
-.feature-tags{padding-top:10px;padding-left:15px;color:darkblue;}
-.scenario-keyword{font-weight:bold;padding-left:15px;}
-.scenario-scenario_name{padding-left:15px;}
-.step-keyword{font-weight:bold;padding-left:50px;}
-.step-error-message{background-color:#FFEEEE;padding-left:50px;border: 1px solid #D88A8A;}
-.step-duration{float:right;padding-right:15px;}
-.passed{background-color:#C5D88A;}
-.failed{background-color:#D88A8A;}
-.skipped{background-color:#88AAFF;}
-.pending{background-color:#FBB907;}
-.undefined{background-color: #FBB957;}
-.missing{background-color:#FBB9A7;}
-
-table.stats-table {
-color:black;
-border-width: 1px;
-border-spacing: 2px;
-border-style: outset;
-border-color: gray;
-border-collapse: collapse;
-background-color: white;
-}
-table.stats-table th {
-color:black;
-border-width: 1px;
-padding: 5px;
-border-style: inset;
-border-color: gray;
-background-color: #66CCEE;
--moz-border-radius: ;
-}
-table.stats-table td {
-color:black;
-text-align: center;
-border-width: 1px;
-padding: 5px;
-border-style: inset;
-border-color: gray;
-background-color: white;
--moz-border-radius: ;
-}
-
-table.data-table {
-    color: black;
-    border-width: 1px;
-    border-spacing: 2px;
-    border-style: outset;
-    border-color: #d6d6d6;
-    border-collapse: collapse;
-    background-color: beige;
-}
-table.data-table th {
-    color:black;
-    border-width: 1px;
-    padding: 5px;
-    border-style: inset;
-    border-color: #d6d6d6;
-    background-color: #66CCEE;
-}
-table.data-table td {
-    color:black;
-    text-align: center;
-    border-width: 1px;
-    padding: 5px;
-    border-style: inset;
-    border-color: #d6d6d6;
-    background-color: beige;
-}
-
-.data {
-    padding-left:50px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-.output-data {
-    padding-left:50px;
-    background-color: beige;
-}
-
-.doc-string {
-    width:auto;
-    display:inline-block;
-    margin: 10px auto 10px 70px;
-    padding: 10px;
-    background-color:rgba(255,255,255,0.35);
-    border-radius: 10px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 95%;
-}
 </style>
 
 </head>

@@ -21,19 +21,19 @@ import com.googlecode.totallylazy.Sequence;
 public class Util {
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
             .appendDays()
-            .appendSuffix("day", "days")
-            .appendSeparator(", ")
+            .appendSuffix("d")
+            .appendSeparator(" ")
             .appendHours()
-            .appendSuffix(" hour", " hours")
-            .appendSeparator(", ")
+            .appendSuffix("h")
+            .appendSeparator(" ")
             .appendMinutes()
-            .appendSuffix(" min", " mins")
-            .appendSeparator(", ")
+            .appendSuffix("m")
+            .appendSeparator(" ")
             .appendSeconds()
-            .appendSuffix(" sec", " secs")
-            .appendSeparator(", ")
+            .appendSuffix("s")
+            .appendSeparator(" ")
             .appendMillis()
-            .appendSuffix(" ms", " ms")
+            .appendSuffix("ms")
             .toFormatter();
 
     public static String readFileAsString(String filePath) throws IOException {
