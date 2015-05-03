@@ -65,42 +65,42 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportInformation.getTotalNumberOfScenarios(), is(10));
+        assertThat(reportInformation.getTotalScenarios(), is(10));
     }
 
     @Test
     public void shouldReturnTotalNumberOfFeatures() {
-        assertThat(reportInformation.getTotalNumberOfFeatures(), is(4));
+        assertThat(reportInformation.getTotalFeatures(), is(4));
     }
 
     @Test
     public void shouldReturnTotalNumberOfSteps() {
-        assertThat(reportInformation.getTotalNumberOfSteps(), is(98));
+        assertThat(reportInformation.getTotalSteps(), is(98));
     }
 
     @Test
     public void shouldReturnTotalNumberPassingSteps() {
-        assertThat(reportInformation.getTotalNumberPassingSteps(), is(90));
+        assertThat(reportInformation.getTotalStepsPassed(), is(90));
     }
 
     @Test
     public void shouldReturnTotalNumberFailingSteps() {
-        assertThat(reportInformation.getTotalNumberFailingSteps(), is(2));
+        assertThat(reportInformation.getTotalStepsFailed(), is(2));
     }
 
     @Test
     public void shouldReturnTotalNumberSkippedSteps() {
-        assertThat(reportInformation.getTotalNumberSkippedSteps(), is(6));
+        assertThat(reportInformation.getTotalStepsSkipped(), is(6));
     }
 
     @Test
     public void shouldReturnTotalNumberPendingSteps() {
-        assertThat(reportInformation.getTotalNumberPendingSteps(), is(0));
+        assertThat(reportInformation.getTotalStepsPending(), is(0));
     }
 
     @Test
     public void shouldReturnTotalNumberMissingSteps() {
-        assertThat(reportInformation.getTotalNumberMissingSteps(), is(0));
+        assertThat(reportInformation.getTotalStepsMissing(), is(0));
     }
 
     @Test
@@ -120,12 +120,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnReportStatusColour() {
-        assertThat(reportInformation.getReportStatusColour(reportInformation.getFeatures().get(0)), is("#C5D88A"));
+        assertThat(reportInformation.getReportStatusColour(reportInformation.getFeatures().get(0)), is("#00CE00"));
     }
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportInformation.getTagReportStatusColour(reportInformation.tagMap.get(0)), is("#C5D88A"));
+        assertThat(reportInformation.getTagReportStatusColour(reportInformation.tagMap.get(0)), is("#00CE00"));
     }
 
     @Test
@@ -140,12 +140,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportInformation.getTotalPassingTagScenarios(), is(10));
+        assertThat(reportInformation.getTotalTagScenariosPassed(), is(10));
     }
 
     @Test
     public void shouldReturnTotalFailingTagScenarios() {
-        assertThat(reportInformation.getTotalFailingTagScenarios(), is(0));
+        assertThat(reportInformation.getTotalTagScenariosFailed(), is(0));
     }
 
     @Test

@@ -11,8 +11,8 @@
     <th id="stats-header-scenarios-passed">Passed</th>
     <th id="stats-header-scenarios-failed">Failed</th>
     <th id="stats-header-steps-total">Total</th>
-    <th id="stats-header-steps-passed"    style="background-color:#C5D88A;">Passed</th>
-    <th id="stats-header-steps-failed"    style="background-color:#D88A8A;">Failed</th>
+    <th id="stats-header-steps-passed"    style="background-color:#00CE00;">Passed</th>
+    <th id="stats-header-steps-failed"    style="background-color:#FF0000;">Failed</th>
     <th id="stats-header-steps-skipped"   style="background-color:#88AAFF;">Skipped</th>
     <th id="stats-header-steps-pending"   style="background-color:#FBB907;">Pending</th>
     <th id="stats-header-steps-undefined" style="background-color:#FBB957;">Undefined</th>

@@ -8,8 +8,8 @@ package net.masterthought.cucumber.util;
  */
 public enum Status {
 
-    PASSED("#C5D88A"),
-    FAILED("#D88A8A"),
+    PASSED("#00CE00"),
+    FAILED("#FF0000"),
     SKIPPED("#88AAFF"),
     PENDING("#FBB907"),
     UNDEFINED("#FBB957"),
