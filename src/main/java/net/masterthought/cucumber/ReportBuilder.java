@@ -328,13 +328,22 @@ public class ReportBuilder {
         return props;
     }
 
-    private HashMap<String, Object> getGeneralParameters() {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+    private Map<String, Object> getGeneralParameters() {
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("version", VERSION);
         result.put("fromJenkins", runWithJenkins);
         result.put("jenkins_base", pluginUrlPath);
         result.put("build_project", buildProject);
         result.put("build_number", buildNumber);
+        int previousBuildNumber = -1;
+        try {
+            previousBuildNumber = Integer.parseInt(buildNumber);
+            previousBuildNumber--;
+        } catch (NumberFormatException e) {
+            // could not parse build number, probably not valid int value
+        }
+        result.put("previous_build_number", previousBuildNumber);
+
         return result;
     }
 }
