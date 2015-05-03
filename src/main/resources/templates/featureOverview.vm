@@ -89,6 +89,9 @@ table.stats-table td {
 				<ul>
                     #if($fromJenkins)
                         <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                        #if($previous_build_number != -1)
+                            <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/feature-overview.html">Previous Build</a></li>
+                        #end
                     #end
 				<li><a href="tag-overview.html">Tag Overview</a></li>
 				</ul>

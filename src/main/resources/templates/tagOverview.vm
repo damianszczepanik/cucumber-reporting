@@ -341,7 +341,10 @@
         <div class="grid_6" id="nav">
             <ul>
                 #if($fromJenkins)
-                  <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                    <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                    #if($previous_build_number != -1)
+                        <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/tag-overview.html">Previous Build</a></li>
+                    #end
                 #end
                 <li><a href="feature-overview.html">Feature Overview</a></li>
             </ul>
@@ -353,8 +356,11 @@
         <div class="grid_9 heading">
             <h2>Tag Overview for Build: $build_number</h2>
             #if($fromJenkins)
-			<h2 id="overview-project">Project Name: $build_project</h2>
-			#end
+            <h2 id="overview-project">Project Name: $build_project</h2>
+                #if($previous_build_number != -1)
+                    <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/feature-overview.html">Previous Build</a></li>
+                #end
+            #end
             <span class="subhead">The following graph shows number of steps passing, failing and skipped for this build:</span>
         </div>
     </div>
