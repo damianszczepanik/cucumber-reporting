@@ -9,6 +9,7 @@ import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.googlecode.totallylazy.Function1;
@@ -64,11 +65,11 @@ public class Element {
         List<String> contentString = new ArrayList<String>();
 
         if (Util.itemExists(keyword)) {
-            contentString.add("<span class=\"scenario-keyword\">" + keyword + ": </span>");
+            contentString.add("<span class=\"scenario-keyword\">" + StringEscapeUtils.escapeHtml(keyword) + ": </span>");
         }
 
         if (Util.itemExists(name)) {
-            contentString.add("<span class=\"scenario-name\">" + name + "</span>");
+            contentString.add("<span class=\"scenario-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>");
         }
 
         return Util.itemExists(contentString) ? getStatus().toHtmlClass()

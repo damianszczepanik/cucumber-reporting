@@ -43,7 +43,7 @@ public class ReportInformationTest {
         Map<String, Artifact> map = artifactProcessor.process();
         ConfigurationOptions.setArtifactConfiguration(map);
         reportInformation = new ReportInformation(reportParser.getFeatures());
-        assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps().get(0).getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account <div style=\"display:none;\"><textarea id=\"Account_has_sufficient_funds_againthe_account_balance_is_300\" class=\"brush: xml;\"></textarea></div><a onclick=\"applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')\" href=\"#\">balance</a> is 300</span><span class=\"step-duration\">0ms</span></div>"));
+        assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps().get(0).getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">0ms</span></div>"));
     }
 
     @Test

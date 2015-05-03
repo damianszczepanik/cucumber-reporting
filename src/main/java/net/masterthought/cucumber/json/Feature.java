@@ -8,6 +8,7 @@ import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.base.Joiner;
@@ -115,7 +116,7 @@ public class Feature {
     }
 
     public String getRawName() {
-        return Util.itemExists(name) ? name : "";
+        return Util.itemExists(name) ? StringEscapeUtils.escapeHtml(name) : "";
     }
 
     public String getRawStatus() {
