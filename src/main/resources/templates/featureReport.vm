@@ -110,11 +110,11 @@
                         <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
                         <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
                         <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
-                        <td id="stats-number-steps-failed-$sf">$feature.getNumberOfFailures()</td>
-                        <td id="stats-number-steps-skipped-$sf">$feature.getNumberOfSkipped()</td>
-                        <td id="stats-number-steps-pending-$sf">$feature.getNumberOfPending()</td>
-                        <td id="stats-number-steps-undefined-$sf">$feature.getNumberOfUndefined()</td>
-                        <td id="stats-number-steps-missing-$sf">$feature.getNumberOfMissing()</td>
+                        <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  style="background-color:#D88A8A;" #end>$feature.getNumberOfFailures()</td>
+                        <td id="stats-number-steps-skipped-$sf"   #if($feature.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$feature.getNumberOfSkipped()</td>
+                        <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$feature.getNumberOfPending()</td>
+                        <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$feature.getNumberOfUndefined()</td>
+                        <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$feature.getNumberOfMissing()</td>
                         <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
                         <td id="stats-status-$sf" style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
 
