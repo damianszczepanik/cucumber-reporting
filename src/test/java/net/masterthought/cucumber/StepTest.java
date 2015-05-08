@@ -99,7 +99,9 @@ public class StepTest {
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         ConfigurationOptions.setSkippedFailsBuild(false);
-        assertThat(skippedStep.getName(), is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">0ms</span></div>"
+        assertThat(
+                skippedStep.getName(),
+                is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
         ));
     }
 
@@ -107,7 +109,9 @@ public class StepTest {
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
         ConfigurationOptions.setSkippedFailsBuild(true);
         try {
-            assertThat(skippedStep.getName(), is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">0ms</span></div>"));
+            assertThat(
+                    skippedStep.getName(),
+                    is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
         } finally {
             // restore the initial state for next tests
             ConfigurationOptions.setSkippedFailsBuild(false);

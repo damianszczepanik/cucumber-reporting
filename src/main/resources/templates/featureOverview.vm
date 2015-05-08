@@ -400,28 +400,28 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$feature.getNumberOfPending()</td>
           <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$feature.getNumberOfUndefined()</td>
           <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$feature.getNumberOfMissing()</td>
-          <td id="stats-duration-$sf">$feature.getDurationOfSteps()</td>
+          <td id="stats-duration-$sf" style="text-align:right;white-space:nowrap">$feature.getDurationOfSteps()</td>
           <td id="stats-status-$sf" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
           </tr>
       #end
 
 <tr>
-<td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">$total_features</td>
+<th id="stats-total-features" style="background-color:lightgray">$total_features</th>
 #if($parallel)
-  <td id="stats-total-features" style="background-color:lightgray;font-weight:bold;">-</td>
+  <th id="stats-total-features" style="background-color:lightgray">-</th>
 #end
-<td id="stats-total-scenarios" style="background-color:lightgray;font-weight:bold;">$total_scenarios</td>
-<td id="stats-total-scenarios-passed" style="background-color:lightgray;font-weight:bold;">$scenarios_passed</td>
-<td id="stats-total-scenarios-failed" style="background-color:lightgray;font-weight:bold;">$scenarios_failed</td>
-<td id="stats-total-steps" style="background-color:lightgray;font-weight:bold;">$total_steps</td>
-<td id="stats-total-steps-passed" style="background-color:lightgray;font-weight:bold;">$total_passes</td>
-<td id="stats-total-steps-failed" style="background-color:lightgray;font-weight:bold;">$total_fails</td>
-<td id="stats-total-steps-skipped" style="background-color:lightgray;font-weight:bold;">$total_skipped</td>
-<td id="stats-total-steps-pending" style="background-color:lightgray;font-weight:bold;">$total_pending</td>
-<td id="stats-total-steps-undefined" style="background-color:lightgray;font-weight:bold;">$total_undefined</td>
-<td id="stats-total-steps-missing" style="background-color:lightgray;font-weight:bold;">$total_missing</td>
-<td id="stats-total-duration" style="background-color:lightgray;font-weight:bold;">$total_duration</td>
-<td id="stats-total-totals" style="background-color:lightgray;font-weight:bold;">Totals</td>
+<th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
+<th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
+<th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
+<th id="stats-total-steps" style="background-color:lightgray">$total_steps</th>
+<th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
+<th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
+<th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>
+<th id="stats-total-steps-pending" style="background-color:lightgray">$total_pending</th>
+<th id="stats-total-steps-undefined" style="background-color:lightgray">$total_undefined</th>
+<th id="stats-total-steps-missing" style="background-color:lightgray">$total_missing</th>
+<th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+<th id="stats-total-totals" style="background-color:lightgray">Totals</th>
 </tr></table>
     </div>
 
