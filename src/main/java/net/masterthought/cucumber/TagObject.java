@@ -47,7 +47,7 @@ public class TagObject {
     public Integer getNumberOfScenarios() {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : this.scenarios) {
-            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+            if (!scenarioTag.getScenario().isBackground()) {
                 scenarioTagList.add(scenarioTag);
             }
         }
@@ -66,7 +66,7 @@ public class TagObject {
     private Integer getNumberOfScenariosForStatus(Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : this.scenarios) {
-            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+            if (!scenarioTag.getScenario().isBackground()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
                     scenarioTagList.add(scenarioTag);
                 }

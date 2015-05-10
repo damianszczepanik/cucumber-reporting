@@ -205,7 +205,7 @@ public class ReportInformation {
     private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+            if (!scenarioTag.getScenario().isBackground()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
                     scenarioTagList.add(scenarioTag);
                 }
@@ -217,7 +217,7 @@ public class ReportInformation {
     private int calculateTotalTagScenarios(TagObject tag) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().getKeyword().equals("Background")) {
+            if (!scenarioTag.getScenario().isBackground()) {
                 scenarioTagList.add(scenarioTag);
             }
         }
@@ -233,7 +233,7 @@ public class ReportInformation {
                 //process tags
                 if (feature.hasTags()) {
                     for (Element e : feature.getElements()) {
-                        if (!e.getKeyword().equals("Background")) {
+                        if (!e.isBackground()) {
                             scenarioList.add(new ScenarioTag(e, feature.getFileName()));
                         }
                     }
@@ -243,7 +243,7 @@ public class ReportInformation {
 
                 for (Element scenario : scenarios) {
 
-                    if (!scenario.getKeyword().equals("Background")) {
+                    if (!scenario.isBackground()) {
                         totalBackgroundSteps.incrementFor(scenario.getStatus());
                     } else {
                         setBackgroundInfo(scenario);
@@ -287,8 +287,9 @@ public class ReportInformation {
                 String stepName = step.getRawName();
 
                 //apply artifacts
-                if (ConfigurationOptions.artifactsEnabled()) {
-                    Map<String, Artifact> map = ConfigurationOptions.artifactConfig();
+                ConfigurationOptions configuration = ConfigurationOptions.instance();
+                if (configuration.artifactsEnabled()) {
+                    Map<String, Artifact> map = configuration.artifactConfig();
                     String mapKey = scenarioName + stepName;
                     if (map.containsKey(mapKey)) {
                         Artifact artifact = map.get(mapKey);
@@ -305,9 +306,9 @@ public class ReportInformation {
     }
 
     private int getNumberOfScenarios(Sequence<Element> scenarios) {
-        List<Element> scenarioList = new ArrayList<Element>();
+        List<Element> scenarioList = new ArrayList<>();
         for (Element scenario : scenarios) {
-            if (!scenario.getKeyword().equals("Background")) {
+            if (!scenario.isBackground()) {
                 scenarioList.add(scenario);
             }
         }
