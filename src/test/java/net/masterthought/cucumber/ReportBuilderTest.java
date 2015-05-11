@@ -215,7 +215,7 @@ public class ReportBuilderTest {
             if (index >= 10) break;
         }
         assertThat("Step durations must be same", stepDurations,
-                is(Arrays.asList(new String [] {"107ms", "0ms", "0ms", "0ms", "0ms", "0ms", "0ms", "3ms", "0ms", "0ms", "0ms"})));
+                is(Arrays.asList(new String [] {"107ms", "000ms", "000ms", "000ms", "000ms", "000ms", "000ms", "003ms", "000ms", "000ms", "000ms"})));
     }
 
     private void assertStatsTotals(Document doc) {
