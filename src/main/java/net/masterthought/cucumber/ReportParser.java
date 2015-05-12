@@ -20,7 +20,7 @@ public class ReportParser {
 
 	private final Map<String, List<Feature>> jsonReportFiles;
 
-	public ReportParser(List<String> jsonReportFiles) throws IOException {
+    public ReportParser(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
 		this.jsonReportFiles = parseJsonResults(jsonReportFiles);
 	}
 
@@ -28,7 +28,8 @@ public class ReportParser {
 		return jsonReportFiles;
 	}
 
-	private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException {
+    private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException,
+            JsonSyntaxException {
 		Map<String, List<Feature>> featureResults = new LinkedHashMap<String, List<Feature>>();
 		for (String jsonFile : jsonReportFiles) {
 			if (FileUtils.sizeOf(new File(jsonFile)) > 0) {

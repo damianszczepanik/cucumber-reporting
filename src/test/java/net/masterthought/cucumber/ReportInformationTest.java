@@ -25,8 +25,9 @@ public class ReportInformationTest {
 
     @Before
     public void setUpReportInformation() throws IOException, URISyntaxException {
-        ConfigurationOptions.setSkippedFailsBuild(false);
-        ConfigurationOptions.setUndefinedFailsBuild(false);
+        ConfigurationOptions configuration = ConfigurationOptions.instance();
+        configuration.setSkippedFailsBuild(false);
+        configuration.setUndefinedFailsBuild(false);
         List<String> jsonReports = new ArrayList<String>();
         //will work iff the resources are not jarred up, otherwise use IOUtils to copy to a temp file.
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
@@ -37,11 +38,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldDisplayArtifacts() throws Exception {
-        ConfigurationOptions.setArtifactsEnabled(true);
-        String configuration = "Account has sufficient funds again~the account balance is 300~balance~account_balance.txt~xml";
-        ArtifactProcessor artifactProcessor = new ArtifactProcessor(configuration);
+        ConfigurationOptions configuration = ConfigurationOptions.instance();
+        configuration.setArtifactsEnabled(true);
+        String config = "Account has sufficient funds again~the account balance is 300~balance~account_balance.txt~xml";
+        ArtifactProcessor artifactProcessor = new ArtifactProcessor(config);
         Map<String, Artifact> map = artifactProcessor.process();
-        ConfigurationOptions.setArtifactConfiguration(map);
+        configuration.setArtifactConfiguration(map);
         reportInformation = new ReportInformation(reportParser.getFeatures());
         assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps().get(0).getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">000ms</span></div>"));
     }

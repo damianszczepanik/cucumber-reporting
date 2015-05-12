@@ -39,18 +39,41 @@ public class Element {
     }
 
     public Status getStatus() {
-    	// can be optimized to retrieve only the count of elements and not the all list
-        int results = getSteps().filter(Step.predicates.hasStatus(Status.FAILED)).size();
-        
-        if (results == 0 && ConfigurationOptions.skippedFailsBuild()) {
-        	results = getSteps().filter(Step.predicates.hasStatus(Status.SKIPPED)).size();
+        boolean hasNoFailed = getSteps().filter(Step.predicates.hasStatus(Status.FAILED)).isEmpty();
+        if (!hasNoFailed) {
+            return Status.FAILED;
         }
 
-        if (results == 0 && ConfigurationOptions.undefinedFailsBuild()) {
-        	results = getSteps().filter(Step.predicates.hasStatus(Status.UNDEFINED)).size();
+        ConfigurationOptions configuration = ConfigurationOptions.instance();
+        if (configuration.skippedFailsBuild()) {
+            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.SKIPPED)).isEmpty();
+            if (!hasNoSkipped) {
+                return Status.FAILED;
+            }
+        }
+
+        if (configuration.pendingFailsBuild()) {
+            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.PENDING)).isEmpty();
+            if (!hasNoSkipped) {
+                return Status.FAILED;
+            }
+        }
+
+        if (configuration.undefinedFailsBuild()) {
+            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.UNDEFINED)).isEmpty();
+            if (!hasNoSkipped) {
+                return Status.FAILED;
+            }
+        }
+
+        if (configuration.missingFailsBuild()) {
+            boolean hasNoMissing = getSteps().filter(Step.predicates.hasStatus(Status.MISSING)).isEmpty();
+            if (!hasNoMissing) {
+                return Status.FAILED;
+            }
         }
         
-        return results == 0 ? Status.PASSED : Status.FAILED;
+        return Status.PASSED;
     }
 
     public String getRawName() {

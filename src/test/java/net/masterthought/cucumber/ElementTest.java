@@ -65,7 +65,8 @@ public class ElementTest {
 
     @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
-    	ConfigurationOptions.setSkippedFailsBuild(true);
+        ConfigurationOptions configuration = ConfigurationOptions.instance();
+        configuration.setSkippedFailsBuild(true);
     	try {
             assertThat(passingElement.getStatus(), is(Status.PASSED));
             assertThat(failingElement.getStatus(), is(Status.FAILED));
@@ -73,13 +74,14 @@ public class ElementTest {
             assertThat(skippedElement.getStatus(), is(Status.FAILED));
     	} finally {
     		// restore the initial state for next tests
-    		ConfigurationOptions.setSkippedFailsBuild(false);
+            configuration.setSkippedFailsBuild(false);
     	}
     }
     
     @Test
     public void shouldReturnNameWhenConfiUndefinedTurnedOn() {
-    	ConfigurationOptions.setUndefinedFailsBuild(true);
+        ConfigurationOptions configuration = ConfigurationOptions.instance();
+        configuration.setUndefinedFailsBuild(true);
     	try {
             assertThat(passingElement.getStatus(), is(Status.PASSED));
             assertThat(failingElement.getStatus(), is(Status.FAILED));
@@ -87,7 +89,7 @@ public class ElementTest {
             assertThat(skippedElement.getStatus(), is(Status.PASSED));
     	} finally {
     		// restore the initial state for next tests
-    		ConfigurationOptions.setUndefinedFailsBuild(false);
+            configuration.setUndefinedFailsBuild(false);
     	}
     }
     

@@ -13,8 +13,8 @@ public class ArtifactProcessor {
         this.configuration = configuration;
     }
 
-    public Map<String, Artifact> process() throws Exception {
-        Map<String, Artifact> map = new HashMap<String, Artifact>();
+    public Map<String, Artifact> process() {
+        Map<String, Artifact> map = new HashMap<>();
         String[] lines = configuration.split("\\n");
         for (String line : lines) {
             String[] data = line.split("~");
@@ -24,9 +24,10 @@ public class ArtifactProcessor {
                 String keyword = data[2].trim();
                 String artifactFile = data[3].trim();
                 String contentType = data[4].trim();
-                map.put(scenario+step, new Artifact(scenario, step, keyword, artifactFile, contentType));
+                map.put(scenario + step, new Artifact(scenario, step, keyword, artifactFile, contentType));
             } else {
-                throw new Exception("Error configuration should have 5 parts: Scenario ~ Step ~ Keyword ~ Artifact File ~ ContentType");
+                throw new IllegalArgumentException(
+                        "Error configuration should have 5 parts: Scenario ~ Step ~ Keyword ~ Artifact File ~ ContentType");
             }
         }
         return map;
