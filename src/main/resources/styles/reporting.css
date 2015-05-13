@@ -57,6 +57,10 @@
 	background-color: #C5D88A;
 }
 
+.hidden {
+	visibility: hidden;
+}
+
 .failed {
 	background-color: #D88A8A;
 }

@@ -21,6 +21,7 @@ public class Step {
 
     private String name;
     private String keyword;
+    private boolean hidden;
     private String line;
     private Result result;
     private Row[] rows;
@@ -31,6 +32,10 @@ public class Step {
 
     public Step() {
 
+    }
+    
+    public boolean isHidden() {
+        return hidden;
     }
 
     public DocString getDocString() {
@@ -72,10 +77,12 @@ public class Step {
     }
 
     public Status getStatus() {
-        if (result == null) {
+        if (result == null && !isHidden()) {
             System.out.println("[WARNING] Line " + line + " : " + "Step is missing Result: " + keyword + " : " + name);
             return Status.MISSING;
-        } else {
+        } else if (isHidden()) {
+            return Status.HIDDEN;
+        }else {
             return Status.valueOf(result.getStatus().toUpperCase());
         }
     }
