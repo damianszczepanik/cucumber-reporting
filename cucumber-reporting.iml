@@ -45,5 +45,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-mockito:1.5.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-support:1.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: info.cukes:cucumber-pro:1.0.16" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.websocket:javax.websocket-client-api:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.websocket:javax.websocket-api:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.tyrus:tyrus-client:1.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.tyrus:tyrus-core:1.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.tyrus:tyrus-spi:1.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.tyrus:tyrus-container-grizzly-client:1.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-framework:2.3.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-http-server:2.3.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-http:2.3.13" level="project" />
   </component>
 </module>
