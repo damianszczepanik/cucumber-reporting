@@ -65,27 +65,8 @@ public class ReportBuilder {
 
     private Map<String, String> customHeader;
 
-    private final String VERSION = "cucumber-reporting-0.0.25";
+    private final String VERSION = "cucumber-reporting-0.1.0";
 
-    // keep this constructor for backwards compatibility
-    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber,
-            String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts,
-            boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts)
-            throws IOException, VelocityException {
-
-        this(jsonReports, reportDirectory, pluginUrlPath, buildNumber, buildProject, skippedFails, undefinedFails,
-                flashCharts, runWithJenkins, artifactsEnabled, artifactConfig, highCharts, false);
-    }
-
-    // keep this constructor for backwards compatibility
-    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber,
-            String buildProject, boolean skippedFails, boolean undefinedFails, boolean flashCharts,
-            boolean runWithJenkins, boolean artifactsEnabled, String artifactConfig, boolean highCharts,
-            boolean parallelTesting) throws IOException, VelocityException {
-
-        this(jsonReports, reportDirectory, pluginUrlPath, buildNumber, buildProject, skippedFails, false,
-                undefinedFails, false, flashCharts, runWithJenkins, artifactsEnabled, artifactConfig, highCharts, false);
-    }
 
     /**
      * Configures report that will be used for further generation.

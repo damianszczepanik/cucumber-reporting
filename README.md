@@ -39,8 +39,10 @@ Release notes are [here](https://github.com/masterthought/cucumber-reporting/wik
     String pluginUrlPath = "";
     String buildNumber = "1";
     String buildProject = "cucumber-jvm";
-    boolean skippedFails = false;
-    boolean undefinedFails = false;
+    boolean skippedFails = true;
+    boolean pendingFails = true;
+    boolean undefinedFails = true;
+    boolean missingFails = true;
     boolean flashCharts = true;
     boolean runWithJenkins = false;
     boolean artifactsEnabled = false;
@@ -48,7 +50,7 @@ Release notes are [here](https://github.com/masterthought/cucumber-reporting/wik
     boolean highCharts = false;
 
     ReportBuilder reportBuilder = new ReportBuilder(list, reportOutputDirectory, pluginUrlPath, buildNumber,
-        buildProject, skippedFails, undefinedFails, flashCharts, runWithJenkins, artifactsEnabled,
+        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, flashCharts, runWithJenkins, artifactsEnabled,
         artifactConfig, highCharts);
     reportBuilder.generateReports();
 
