@@ -13,7 +13,8 @@ public enum Status {
     SKIPPED("#88AAFF"),
     PENDING("#FBB907"),
     UNDEFINED("#FBB957"),
-    MISSING("#FBB9A7");
+    MISSING("#FBB9A7"),
+    HIDDEN("");
 
     /** Color representation for given status. */
     public final String color;
