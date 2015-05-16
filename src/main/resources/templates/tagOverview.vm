@@ -206,17 +206,16 @@
         </div>
     </div>
 </div>
-<div id="fullwidth_gradient">
-    <div class="container_12">
-        <div class="grid_9 heading">
-            <h2>Tag Overview for Build: $build_number</h2>
+    <div id="fullwidth_gradient">
+        <div class="heading container_12">
+            <h2><span id="overview-title">Tag Overview for build: $build_number</span>
             #if($fromJenkins)
-            <h2 id="overview-project">Project Name: <i>$build_project</i></h2>
+                <br id="overview-project">Project Name: <i>$build_project</i></br>
             #end
-            <span class="subhead">The following graph shows number of steps passing, failing and skipped for this build:</span>
+            </h2>
+            <span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
         </div>
     </div>
-</div>
 
 <div class="container_12">
     <div class="grid_12">
@@ -282,10 +281,6 @@
                     <br/>
                 </div>
             #end
-        <br/>
-
-        <div class="grid_12 hr"></div>
-
 
         <div>
             <br/>
