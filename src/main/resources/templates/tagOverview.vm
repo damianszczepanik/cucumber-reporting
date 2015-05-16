@@ -296,7 +296,7 @@
 
                 #foreach($tag in $tags)
 
-                    #if($tag.getStatus().toString() == "PASSED")
+                    #if($tag.getStatus().name() == "PASSED")
                         #set($bgcolour = "#00CE00")
                     #else
                         #set($bgcolour = "#FF0000")

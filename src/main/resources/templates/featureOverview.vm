@@ -375,7 +375,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
       #foreach($feature in $features)
 
-          #if($feature.getStatus().toString() == "PASSED")
+          #if($feature.getStatus().name() == "PASSED")
           #set($bgcolour = "#00CE00")
           #else
           #set($bgcolour = "#FF0000")
@@ -386,7 +386,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           #set($sf = $feature.getRawName())
 
           <tr>
-          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$feature.getRawName()</a></td>
+          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$sf</a></td>
           #if($parallel)
               <td id="device">$feature.getDeviceName()</td>
           #end
