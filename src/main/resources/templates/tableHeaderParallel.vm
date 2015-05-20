@@ -2,7 +2,7 @@
     <th></th>
     <th></th>
     <th id="stats-header-scenarios" colspan="3">Scenarios</th>
-    <th id="stats-header-steps" colspan="5">Steps</th>
+    <th id="stats-header-steps" colspan="7">Steps</th>
     <th></th>
     <th></th>
 </tr>
