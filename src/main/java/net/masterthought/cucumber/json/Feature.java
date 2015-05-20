@@ -32,10 +32,11 @@ public class Feature {
 
     }
 
-    public String getDeviceName(){
+    public String getDeviceName() {
         String name = "";
-        if(jsonFile.split("_").length>1)
-          name = (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+        String[] splitedJsonFile = jsonFile.split("_");
+        if (splitedJsonFile.length > 1)
+            name = splitedJsonFile[0].substring(0, splitedJsonFile[0].length() - 1);
       return name;
     }
 
@@ -55,15 +56,16 @@ public class Feature {
             matches.add(modified);
         }
 
-        List<String> sublist = matches.subList(1, matches.size());
+        List<String> lastElement = matches.subList(1, matches.size());
 
-        matches = (sublist.size() == 0) ? matches : sublist;
+        matches = lastElement.isEmpty() ? matches : lastElement;
         String fileName = Joiner.on("-").join(matches); 
 
         //If we spect to have parallel executions, we add 
-        if(ReportBuilder.isParallel() && jsonFile!=""){
-            if(jsonFile.split("_").length >1)
-                fileName = fileName + "-"+ (jsonFile.split("_")[0]).substring(0,jsonFile.split("_")[0].length());
+        if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
+            String[] splitedJsonFile = jsonFile.split("_");
+            if (splitedJsonFile.length > 1)
+                fileName = fileName + "-" + getDeviceName();
         }
         fileName = fileName + ".html";
         return fileName;
