@@ -28,7 +28,7 @@ public class ReportBuilderTest {
 
         File input = new File(rd, "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("overview-title", doc).text(), is("Feature Overview for Build: 1"));
+        assertThat(fromId("overview-title", doc).text(), is("Feature Overview for build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertNotNull(fromId("flash-charts", doc));
@@ -44,7 +44,7 @@ public class ReportBuilderTest {
 
         File input = new File(rd, "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("overview-title", doc).text(), is("Feature Overview for Build: 1"));
+        assertThat(fromId("overview-title", doc).text(), is("Feature Overview for build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertStatsTotals(doc);
