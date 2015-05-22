@@ -7,7 +7,6 @@ public class Result {
     private Long duration;
 
     public Result() {
-
     }
 
     public String getStatus() {

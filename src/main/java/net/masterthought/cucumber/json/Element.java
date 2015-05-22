@@ -96,7 +96,7 @@ public class Element {
         }
 
         return Util.itemExists(contentString) ? getStatus().toHtmlClass()
-                + StringUtils.join(contentString.toArray(), " ") + Util.closeDiv() : "";
+                + StringUtils.join(contentString.toArray(), " ") + "</div>" : "";
     }
 
     public Sequence<String> getTagList() {

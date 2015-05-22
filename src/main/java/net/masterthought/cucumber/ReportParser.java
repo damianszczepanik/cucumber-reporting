@@ -18,34 +18,35 @@ import com.google.gson.stream.MalformedJsonException;
 
 public class ReportParser {
 
-	private final Map<String, List<Feature>> jsonReportFiles;
+    private final Map<String, List<Feature>> jsonReportFiles;
 
     public ReportParser(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
-		this.jsonReportFiles = parseJsonResults(jsonReportFiles);
-	}
+        this.jsonReportFiles = parseJsonResults(jsonReportFiles);
+    }
 
-	public Map<String, List<Feature>> getFeatures() {
-		return jsonReportFiles;
-	}
+    public Map<String, List<Feature>> getFeatures() {
+        return jsonReportFiles;
+    }
 
     private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException,
             JsonSyntaxException {
-		Map<String, List<Feature>> featureResults = new LinkedHashMap<String, List<Feature>>();
-		for (String jsonFile : jsonReportFiles) {
-			if (FileUtils.sizeOf(new File(jsonFile)) > 0) {
-				try {
-					Feature[] features = new Gson().fromJson(new FileReader(jsonFile), Feature[].class);
-					featureResults.put(jsonFile, Arrays.asList(features));
-				} catch (JsonSyntaxException e) {
-					System.out.println("[WARNING] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
-					if (e.getCause() instanceof MalformedJsonException) {
-						// malformed json will be handled otherwise silently skip invalid cucumber json report
-						throw e;
-					}
-				}
-			}
-		}
+        Map<String, List<Feature>> featureResults = new LinkedHashMap<>();
+        Gson gson = new Gson();
+        for (String jsonFile : jsonReportFiles) {
+            if (FileUtils.sizeOf(new File(jsonFile)) > 0) {
+                try {
+                    Feature[] features = gson.fromJson(new FileReader(jsonFile), Feature[].class);
+                    featureResults.put(jsonFile, Arrays.asList(features));
+                } catch (JsonSyntaxException e) {
+                    System.out.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
+                    if (e.getCause() instanceof MalformedJsonException) {
+                        // malformed json will be handled otherwise silently skip invalid cucumber json report
+                        throw e;
+                    }
+                }
+            }
+        }
 
-		return featureResults;
-	}
+        return featureResults;
+    }
 }
