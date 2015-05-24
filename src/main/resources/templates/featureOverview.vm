@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>Cucumber-JVM Html Reports - Feature Overview</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Cucumber-JVM Html Reports - Feature Overview</title>
-    <link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
-    <link rel="shortcut icon" href="blue/favicon.ico" />
-    #if($flashCharts)
-        <script language="javascript">AC_FL_RunContent = 0;</script>
-        <script language="javascript"> DetectFlashVer = 0; </script>
-        <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
-        <script language="JavaScript" type="text/javascript">
-        <!--
-        var requiredMajorVersion = 10;
-        var requiredMinorVersion = 0;
-        var requiredRevision = 45;
-        -->
-        </script>
+#include("/templates/headers.html")
+
+#if($flashCharts)
+    <script language="javascript">AC_FL_RunContent = 0;</script>
+    <script language="javascript"> DetectFlashVer = 0; </script>
+    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+    <script language="JavaScript" type="text/javascript">
+    <!--
+    var requiredMajorVersion = 10;
+    var requiredMinorVersion = 0;
+    var requiredRevision = 45;
+    -->
+    </script>
+#else
+    #if ($highCharts)
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="js/highcharts.js"></script>
     #else
-        #if ($highCharts)
-            <script type="text/javascript" src="js/jquery.min.js"></script>
-            <script src="js/highcharts.js"></script>
-        #else
-            <script src="js/raphael.js"></script>
-            <script src="js/g.raphael-min.js"></script>
-            <script src="js/g.pie-min.js"></script>
-            <script src="js/g.bar-min.js"></script>
-        #end
+        <script src="js/raphael.js"></script>
+        <script src="js/g.raphael-min.js"></script>
+        <script src="js/g.pie-min.js"></script>
+        <script src="js/g.bar-min.js"></script>
     #end
+#end
 
 #include("/styles/reporting.css")                        
 

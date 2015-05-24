@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>Cucumber-JVM Html Reports - Error Page</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cucumber-JVM Html Reports - Error Page</title>
-	<link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="blue/favicon.ico" />
+#include("/templates/headers.html")
+
 <style>
-.error-message{
+.error-message {
     color:red;
     font-weight: bold;
     padding: 10px;
