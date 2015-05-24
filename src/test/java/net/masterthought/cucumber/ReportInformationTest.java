@@ -127,7 +127,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportInformation.getTagReportStatusColour(reportInformation.getTagMap().get(0)), is("#00CE00"));
+        assertThat(reportInformation.getTagReportStatusColour(reportInformation.getTags().get(0)), is("#00CE00"));
     }
 
     @Test

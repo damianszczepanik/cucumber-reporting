@@ -26,7 +26,6 @@ public class Util {
             .appendHours()
             .appendSuffix("h")
             .appendSeparator(" ")
-            .minimumPrintedDigits(2)
             .appendMinutes()
             .appendSuffix("m")
             .appendSeparator(" ")

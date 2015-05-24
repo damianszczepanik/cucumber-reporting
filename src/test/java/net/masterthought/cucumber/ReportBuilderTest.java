@@ -1,20 +1,20 @@
 package net.masterthought.cucumber;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.junit.Test;
 
 public class ReportBuilderTest {
 
@@ -238,9 +238,5 @@ public class ReportBuilderTest {
 
     private Elements fromClass(String clazz, Element doc) {
         return doc.getElementsByClass(clazz);
-    }
-
-    private Elements fromTag(String tag, Element element) {
-        return element.getElementsByTag(tag);
     }
 }
