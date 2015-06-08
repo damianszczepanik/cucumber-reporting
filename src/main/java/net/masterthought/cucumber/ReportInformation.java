@@ -25,13 +25,13 @@ public class ReportInformation {
     private final StatusCounter totalSteps = new StatusCounter();
     private final StatusCounter totalBackgroundSteps = new StatusCounter();
 
-    private Long totalDuration = 0l;
-    List<TagObject> tagMap = new ArrayList<>();
+    private Long totalDuration = 0L;
+    private List<TagObject> tagMap = new ArrayList<>();
     private int totalTagScenarios = 0;
     private int totalTagSteps = 0;
     private final StatusCounter totalTags = new StatusCounter();
     
-    private long totalTagDuration = 0l;
+    private long totalTagDuration = 0L;
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
     private Background backgroundInfo = new Background();
@@ -125,6 +125,10 @@ public class ReportInformation {
 
     public int getTotalTagScenarios() {
         return totalTagScenarios;
+    }
+
+    public List<TagObject> getTagMap() {
+        return tagMap;
     }
 
     public int getTotalTagScenariosPassed() {
@@ -226,7 +230,7 @@ public class ReportInformation {
 
     private void processFeatures() {
         for (Feature feature : features) {
-            List<ScenarioTag> scenarioList = new ArrayList<ScenarioTag>();
+            List<ScenarioTag> scenarioList = new ArrayList<>();
             Sequence<Element> scenarios = feature.getElements();
             if (Util.itemExists(scenarios)) {
                 numberOfScenarios = getNumberOfScenarios(scenarios);
@@ -424,7 +428,7 @@ public class ReportInformation {
             }
             if (exists) {
                 List<ScenarioTag> existingTagList = tagObj.getScenarios();
-                List<ScenarioTag> all = new ArrayList<ScenarioTag>();
+                List<ScenarioTag> all = new ArrayList<>();
                 all.addAll(existingTagList);
                 all.addAll(scenarioList);
 

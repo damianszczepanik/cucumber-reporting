@@ -28,13 +28,13 @@ public class ScenarioTag {
     
     public static class Predicates {
 
-            public static LogicalPredicate<ScenarioTag> scenarioExists(final String fileUri, final String name) {
-                return new LogicalPredicate<ScenarioTag>() {
-                    @Override
-                    public boolean matches(ScenarioTag scenarioTag) {
-                        return scenarioTag.equals(fileUri) && scenarioTag.equals(name);
-                    }
-                };
-            }
+        public static LogicalPredicate<ScenarioTag> scenarioExists(final String fileUri, final String name) {
+            return new LogicalPredicate<ScenarioTag>() {
+                @Override
+                public boolean matches(ScenarioTag scenarioTag) {
+                    return scenarioTag.equals(fileUri) && scenarioTag.equals(name);
+                }
+            };
         }
+    }
 }

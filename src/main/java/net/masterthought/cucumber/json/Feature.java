@@ -29,7 +29,6 @@ public class Feature {
     private String jsonFile = "";
 
     public Feature() {
-
     }
 
     public String getDeviceName() {
@@ -114,7 +113,7 @@ public class Feature {
     public String getName() {
         return Util.itemExists(name) ? getStatus().toHtmlClass()
                 + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
-                + "</div>" + Util.closeDiv() : "";
+                + "</div></div>" : "";
     }
 
     public String getRawName() {

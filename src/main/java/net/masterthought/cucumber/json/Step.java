@@ -30,7 +30,6 @@ public class Step {
     private DocString doc_string;
 
     public Step() {
-
     }
 
     public DocString getDocString() {
@@ -42,7 +41,7 @@ public class Step {
     }
 
     public String getOutput() {
-        List<String> outputList = Sequences.sequence(option(output).getOrElse(new String[]{})).realise().toList();
+        List<String> outputList = Sequences.sequence(option(output).getOrElse(new String[] {})).realise().toList();
         return Joiner.on("").skipNulls().join(outputList);
     }
 
@@ -106,38 +105,50 @@ public class Step {
 
     public String getName() {
         String content = "";
-        if (getStatus() == Status.FAILED) {
+        Status status = getStatus();
+        if (status == Status.FAILED) {
             String errorMessage = result.getErrorMessage();
-            if (getStatus() == Status.SKIPPED) {
+            if (status == Status.SKIPPED) {
                 errorMessage = "Mode: Skipped causes Failure<br/><span class=\"skipped\">This step was skipped</span>";
             }
-            if (getStatus() == Status.UNDEFINED) {
+            if (status == Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = getStatus().toHtmlClass() + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + StringEscapeUtils.escapeHtml(name) + "</span><span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTags();
-        } else if (getStatus() == Status.MISSING) {
+            content =  getStatusDetails(status, errorMessage);
+        } else if (status == Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            content = getStatus().toHtmlClass() + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + StringEscapeUtils.escapeHtml(name) + "</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
+            content = getStatusDetails(status, errorMessage);
         } else {
-            content = getNameAndDuration();
+            content = getStatusDetails(status, null);
         }
         return content;
     }
 
-    private String getNameAndDuration() {
-        String content = getStatus().toHtmlClass()
-                + "<span class=\"step-keyword\">" + keyword
-                + " </span><span class=\"step-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>"
-                + "<span class=\"step-duration\">" + Util.formatDuration(result.getDuration()) + "</span>"
-                + Util.closeDiv() + getImageTags();
+    private String getStatusDetails(Status status, String errorMessage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(status.toHtmlClass());
+        sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
+        sb.append("<span class=\"step-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
 
-        return content;
+        sb.append("<span class=\"step-duration\">");
+        if (status != Status.MISSING) {
+            sb.append(Util.formatDuration(result.getDuration()));
+        }
+        sb.append("</span>");
+
+        if (status == Status.FAILED || status == Status.MISSING) {
+            sb.append("<div class=\"step-error-message\"><pre>").append(formatError(errorMessage)).append("</pre></div>");
+
+        }
+        sb.append("</div>");
+        sb.append(getImageTags());
+
+        return sb.toString();
     }
 
     /**
-     * Returns a formatted doc-string section.
-     * This is formatted w.r.t the parent Step element.
-     * To preserve whitespace in example, line breaks and whitespace are preserved
+     * Returns a formatted doc-string section. This is formatted w.r.t the parent Step element. To preserve whitespace
+     * in example, line breaks and whitespace are preserved
      *
      * @return string of html
      */
@@ -148,8 +159,7 @@ public class Step {
         return getStatus().toHtmlClass() +
                 "<div class=\"doc-string\">" +
                 getDocString().getEscapedValue() +
-                Util.closeDiv() +
-                Util.closeDiv();
+                "</div></div>";
     }
 
     private String formatError(String errorMessage) {
@@ -165,7 +175,9 @@ public class Step {
     }
 
     public String getImageTags() {
-        if (noEmbeddedScreenshots()) return EMPTY;
+        if (noEmbeddedScreenshots()) {
+            return EMPTY;
+        }
 
         String links = EMPTY;
         int index = 1;
@@ -186,7 +198,6 @@ public class Step {
     private boolean noEmbeddedScreenshots() {
         return getEmbeddings() == null;
     }
-
 
     public static String mimeEncodeEmbededImage(Object image) {
         return "data:image/png;base64," + ((Map) image).get("data");
@@ -218,7 +229,6 @@ public class Step {
                 }
             };
         }
-
 
         public static Function1<Step, Status> status() {
             return new Function1<Step, Status>() {

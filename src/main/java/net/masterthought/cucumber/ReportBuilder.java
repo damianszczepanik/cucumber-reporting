@@ -112,7 +112,7 @@ public class ReportBuilder {
             this.runWithJenkins = runWithJenkins;
             this.artifactsEnabled = artifactsEnabled;
             this.highCharts = highCharts;
-            this.parallel = parallelTesting;
+            ReportBuilder.parallel = parallelTesting;
 
             ConfigurationOptions configuration = ConfigurationOptions.instance();
             configuration.setSkippedFailsBuild(skippedFails);
@@ -220,9 +220,10 @@ public class ReportBuilder {
         contextMap.put("total_undefined", ri.getTotalStepsUndefined());
         contextMap.put("total_missing", ri.getTotalStepsMissing());
 
+        contextMap.put("total_scenarios", ri.getTotalScenarios());
         contextMap.put("scenarios_passed", ri.getTotalScenariosPassed());
         contextMap.put("scenarios_failed", ri.getTotalScenariosFailed());
-        contextMap.put("total_scenarios", ri.getTotalScenarios());
+
         if (flashCharts) {
             contextMap.put(
                     "step_data",
@@ -293,14 +294,15 @@ public class ReportBuilder {
             contextMap.put("customHeaders", customHeader);
         }
         contextMap.put("backgrounds", ri.getBackgroundInfo());
+        List<TagObject> tagMapList = ri.getTagMap();
         if (flashCharts) {
-            contextMap.put("chart_data", FlashChartBuilder.StackedColumnChart(ri.tagMap));
+            contextMap.put("chart_data", FlashChartBuilder.StackedColumnChart(tagMapList));
         } else {
             if (highCharts) {
-                contextMap.put("chart_categories", JsChartUtil.getTags(ri.tagMap));
-                contextMap.put("chart_data", JsChartUtil.generateTagChartDataForHighCharts(ri.tagMap));
+                contextMap.put("chart_categories", JsChartUtil.getTags(tagMapList));
+                contextMap.put("chart_data", JsChartUtil.generateTagChartDataForHighCharts(tagMapList));
             } else {
-                contextMap.put("chart_rows", JsChartUtil.generateTagChartData(ri.tagMap));
+                contextMap.put("chart_rows", JsChartUtil.generateTagChartData(tagMapList));
             }
         }
         contextMap.put("total_duration", ri.getTotalTagDuration());

@@ -67,10 +67,6 @@ public class Util {
         return value ? "<div class=\"passed\">" : "</div>";
     }
 
-    public static String closeDiv() {
-        return "</div>";
-    }
-
     public static String U2U(String s) {
         final Pattern p = Pattern.compile("\\\\u\\s*([0-9(A-F|a-f)]{4})", Pattern.MULTILINE);
         String res = s;
