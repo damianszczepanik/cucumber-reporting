@@ -25,7 +25,7 @@ public class ReportInformation {
     private final StatusCounter totalSteps = new StatusCounter();
     private final StatusCounter totalBackgroundSteps = new StatusCounter();
 
-    private Long totalDuration = 0L;
+    private Long totalDuration = 0l;
     private List<TagObject> tagMap = new ArrayList<>();
     private int totalTagScenarios = 0;
     private int totalTagSteps = 0;
