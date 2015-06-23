@@ -1,173 +1,162 @@
-#* @vtlvariable name="tags" type="java.util.List<net.masterthought.cucumber.TagObject>" *#
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Cucumber-JVM Html Reports - Tag Overview</title>
-    <link rel="stylesheet" href="blue/css/style.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="blue/css/960.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="blue/css/reset.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="blue/css/text.css" type="text/css"
-          media="screen"/>
-    <link rel="shortcut icon" href="blue/favicon.ico"/>
+<title>Cucumber-JVM Html Reports - Tag Overview</title>
 
-    #if($flashCharts)
-        <script language="javascript">AC_FL_RunContent = 0;</script>
-        <script language="javascript"> DetectFlashVer = 0; </script>
-        <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
-        <script language="JavaScript" type="text/javascript">
-            <!--
-            var requiredMajorVersion = 10;
-            var requiredMinorVersion = 0;
-            var requiredRevision = 45;
-            -->
-        </script>
-    #else
-        #if ($highCharts)
-            <script type="text/javascript" src="js/jquery.min.js"></script>
-            <script src="js/highcharts.js"></script>
-            <script>
-                jQuery(document).ready(function() {
+#include("/templates/headers.html")
 
-                    var chartData = $chart_data,
-                        chartCategory = $chart_categories,
-                        formattedData = [
-                            {
-                                name: "Passed",
-                                color: '#00CE00',
-                                data: []
-                            },
-                            {
-                                name: "Failed",
-                                color: '#CC1134',
-                                data: []
-                            },
-                            {
-                                name: "Skipped",
-                                color: '#FBB917',
-                                data: []
-                            },
-                            {
-                                name: "Pending",
-                                color: '#FBB927',
-                                data: []
-                            },
-                            {
-                                name: "Undefined",
-                                color: '#FBB937',
-                                data: []
-                            },
-                            {
-                                name: "Missing",
-                                color: '#FBB907',
-                                data: []
-                            }
-                        ];
+#if($flashCharts)
+    <script language="javascript">AC_FL_RunContent = 0;</script>
+    <script language="javascript"> DetectFlashVer = 0; </script>
+    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+    <script language="JavaScript" type="text/javascript">
+        <!--
+        var requiredMajorVersion = 10;
+        var requiredMinorVersion = 0;
+        var requiredRevision = 45;
+        -->
+    </script>
+#else
+    #if ($highCharts)
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="js/highcharts.js"></script>
+        <script>
+            jQuery(document).ready(function() {
 
-                    jQuery.each(chartCategory, function (i, categoryName) {
-                        formattedData[0].data.push(chartData[i][0]);
-                        formattedData[1].data.push(chartData[i][1]);
-                        formattedData[2].data.push(chartData[i][2]);
-                        formattedData[3].data.push(chartData[i][3]);
-                        formattedData[4].data.push(chartData[i][4]);
-                        formattedData[5].data.push(chartData[i][5]);
-                    });
+                var chartData = $chart_data,
+                    chartCategory = $chart_categories,
+                    formattedData = [
+                        {
+                            name: "Passed",
+                            color: '#00CE00',
+                            data: []
+                        },
+                        {
+                            name: "Failed",
+                            color: '#CC1134',
+                            data: []
+                        },
+                        {
+                            name: "Skipped",
+                            color: '#FBB917',
+                            data: []
+                        },
+                        {
+                            name: "Pending",
+                            color: '#FBB927',
+                            data: []
+                        },
+                        {
+                            name: "Undefined",
+                            color: '#FBB937',
+                            data: []
+                        },
+                        {
+                            name: "Missing",
+                            color: '#FBB907',
+                            data: []
+                        }
+                    ];
 
-                    jQuery('#stacked-graph').highcharts({
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Tag Overview'
-                        },
-                        xAxis: {
-                            categories: $chart_categories
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: ''
-                            },
-                            stackLabels: {
-                                enabled: true,
-                                style: {
-                                    fontWeight: 'bold',
-                                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                                }
-                            }
-                        },
-                        legend: {
-                            align: 'right',
-                            x: 0,
-                            verticalAlign: 'top',
-                            y: 0,
-                            floating: true,
-                            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
-                            borderColor: '#CCC',
-                            borderWidth: 1,
-                            shadow: false
-                        },
-                        tooltip: {
-                            formatter: function() {
-                                return '<b>'+ this.x +'</b><br/>'+
-                                        this.series.name +': '+ this.y +'<br/>'+
-                                        'Total: '+ this.point.stackTotal;
-                            }
-                        },
-                        plotOptions: {
-                            column: {
-                                stacking: 'percent'
-                            }
-                        },
-                        series: formattedData
-                    });
+                jQuery.each(chartCategory, function (i, categoryName) {
+                    formattedData[0].data.push(chartData[i][0]);
+                    formattedData[1].data.push(chartData[i][1]);
+                    formattedData[2].data.push(chartData[i][2]);
+                    formattedData[3].data.push(chartData[i][3]);
+                    formattedData[4].data.push(chartData[i][4]);
+                    formattedData[5].data.push(chartData[i][5]);
                 });
-            </script>
-        #else
-            <script type="text/javascript" src="js/jquery.min.js"></script>
-            <script type="text/javascript" src="js/raphael.js"></script>
-            <script type="text/javascript" src="js/jquery.enumerable.js"></script>
-            <script type="text/javascript" src="js/jquery.tufte-graph.js"></script>
-            <script type="text/javascript" src="js/jquery.rotate.js"></script>
 
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    jQuery('#stacked-graph').tufteBar({
-                        data:[
-                            $chart_rows
-                        ],
-                        color:function (index, stackedIndex) {
-                            return ['#00CE00', '#CC1134', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
+                jQuery('#stacked-graph').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Tag Overview'
+                    },
+                    xAxis: {
+                        categories: $chart_categories
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
                         },
-                        barLabel: function(index){
-                            return ''
-                        },
-                        barWidth: 0.9,
-                        axisLabel:function (index) {
-                            if(this[1].label.length > 10) {
-                                res = this[1].label.substring(0,10)+"..."
-                            } else {
-                                res = this[1].label
-                            }
-                            return res;
-                        },
-                        legend:{
-                            data:["Failed", "Passed", "Pending", "Skipped", "Undefined", "Missing"],
-                            color:function (index) {
-                                return ['#CC1134','#00CE00','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
+                        stackLabels: {
+                            enabled: true,
+                            style: {
+                                fontWeight: 'bold',
+                                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                             }
                         }
-                    });
-
+                    },
+                    legend: {
+                        align: 'right',
+                        x: 0,
+                        verticalAlign: 'top',
+                        y: 0,
+                        floating: true,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                        borderColor: '#CCC',
+                        borderWidth: 1,
+                        shadow: false
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>'+ this.x +'</b><br/>'+
+                                    this.series.name +': '+ this.y +'<br/>'+
+                                    'Total: '+ this.point.stackTotal;
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'percent'
+                        }
+                    },
+                    series: formattedData
                 });
-            </script>
-        #end
+            });
+        </script>
+    #else
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/raphael.js"></script>
+        <script type="text/javascript" src="js/jquery.enumerable.js"></script>
+        <script type="text/javascript" src="js/jquery.tufte-graph.js"></script>
+        <script type="text/javascript" src="js/jquery.rotate.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                jQuery('#stacked-graph').tufteBar({
+                    data:[
+                        $chart_rows
+                    ],
+                    color:function (index, stackedIndex) {
+                        return ['#00CE00', '#CC1134', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
+                    },
+                    barLabel: function(index){
+                        return ''
+                    },
+                    barWidth: 0.9,
+                    axisLabel:function (index) {
+                        if(this[1].label.length > 10) {
+                            res = this[1].label.substring(0,10)+"..."
+                        } else {
+                            res = this[1].label
+                        }
+                        return res;
+                    },
+                    legend:{
+                        data:["Failed", "Passed", "Pending", "Skipped", "Undefined", "Missing"],
+                        color:function (index) {
+                            return ['#CC1134','#00CE00','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
+                        }
+                    }
+                });
+
+            });
+        </script>
     #end
+#end
 
 #include("/styles/reporting.css")                        
 

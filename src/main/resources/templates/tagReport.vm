@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
-    <link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/reset.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen" />
-    <link rel="shortcut icon" href="blue/favicon.ico" />
+<title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
+
+#include("/templates/headers.html")
 
 #include("/styles/reporting.css")
 
