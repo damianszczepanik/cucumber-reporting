@@ -14,7 +14,7 @@ import com.googlecode.totallylazy.Sequences;
 public class TagObject {
 
     private String tagName;
-    private List<ScenarioTag> scenarios = new ArrayList<ScenarioTag>();
+    private List<ScenarioTag> scenarios = new ArrayList<>();
     private List<Element> elements = new ArrayList<>();
 
     public String getTagName() {

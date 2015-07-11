@@ -25,7 +25,7 @@ public class TagReportPage extends AbstractPage {
                 contextMap.put("customHeader", header.get(tagObject.getTagName()));
             }
 
-            generateReport(tagObject.getTagName().replace("@", "").trim() + ".html");
+            generateReport(tagObject.getFileName());
         }
     }
 
