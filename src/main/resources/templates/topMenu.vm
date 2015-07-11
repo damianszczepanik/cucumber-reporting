@@ -1,0 +1,18 @@
+ <div id="fullwidth_header">
+     <div class="container_12">
+         <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+
+         <div id="nav">
+             <ul>
+                 #if($fromJenkins)
+                     <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                     #if($previous_build_number != -1)
+                         <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$pageUrl">Previous Build</a></li>
+                     #end
+                 #end
+                 <li><a href="tag-overview.html">Tag Overview</a></li>
+                 <li><a href="feature-overview.html">Feature Overview</a></li>
+             </ul>
+         </div>
+     </div>
+</div>

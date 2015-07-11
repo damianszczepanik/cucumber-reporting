@@ -178,36 +178,14 @@
 
 </head>
 <body id="top">
-<div id="fullwidth_header">
+
+    #parse("/templates/topMenu.vm")
+
+    #set($summaryKey = "Tag")
+    #parse("/templates/summaryOverview.vm")
+
     <div class="container_12">
-        <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-
-        <div class="grid_6" id="nav">
-            <ul>
-                #if($fromJenkins)
-                    <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
-                    #if($previous_build_number != -1)
-                        <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/tag-overview.html">Previous Build</a></li>
-                    #end
-                #end
-                <li><a href="feature-overview.html">Feature Overview</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-    <div id="fullwidth_gradient">
-        <div class="heading container_12">
-            <h2><span id="overview-title">Tag Overview for build: $build_number</span>
-            #if($fromJenkins)
-                <br id="overview-project">Project Name: <i>$build_project</i></br>
-            #end
-            </h2>
-            <span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
-        </div>
-    </div>
-
-<div class="container_12">
-    <div class="grid_12">
+        <div class="grid_12">
 
         #if($tags.isEmpty())
             <div><p>You have no tags in your cucumber features</p></div>

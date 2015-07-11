@@ -49,33 +49,14 @@
 
 </head>
 <body id="top">
-	<div id="fullwidth_header">
-		<div class="container_12">
-			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-			<div class="grid_6" id="nav">
-				<ul>
-                    #if($fromJenkins)
-                        <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
-                        #if($previous_build_number != -1)
-                            <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$feature.getFileName()">Previous Build</a></li>
-                        #end
-                    #end
-					<li><a href="tag-overview.html">Tag Overview</a></li>
-					<li><a href="feature-overview.html">Feature Overview</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="fullwidth_gradient">
-		<div class="container_12">
-			<div class="grid_9 heading">
-				<h2 id="feature-title">Feature Result for Build: $build_number</h2>
-			</div>
-		</div>
-	</div>
 
-	<div class="container_12">
-		<div class="grid_12">
+    #parse("/templates/topMenu.vm")
+
+    #set($summaryKey = $feature.getRawName())
+    #parse("/templates/summaryReport.vm")
+
+    <div class="container_12">
+        <div class="grid_12">
 
             <div>
                 <table class="stats-table">
@@ -109,7 +90,7 @@
 
             </div>
 
-		<div style="color:black;">
+        <div style="color:black;">
 
             $feature.getTagsList()
             $feature.getName()
@@ -138,8 +119,8 @@
                 #end
             #end
 
-	</div>
-	</div>
+    </div>
+    </div>
 
 
 #parse("/templates/footer.vm")                        

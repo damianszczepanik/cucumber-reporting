@@ -8,8 +8,6 @@ import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.Feature;
 
-import org.apache.velocity.tools.generic.EscapeTool;
-
 public class FeatureReportPage extends AbstractPage {
 
     public FeatureReportPage(ReportBuilder reportBuilder) {
@@ -30,7 +28,6 @@ public class FeatureReportPage extends AbstractPage {
                 contextMap.put("report_status_colour", reportInformation.getReportStatusColour(feature));
                 contextMap.put("scenarios", feature.getElements().toList());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.instance().artifactsEnabled());
-                contextMap.put("esc", new EscapeTool());
 
                 generateReport(feature.getFileName());
             }
