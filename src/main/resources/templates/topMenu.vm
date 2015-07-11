@@ -10,8 +10,9 @@
                          <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$pageUrl">Previous Build</a></li>
                      #end
                  #end
-                 <li><a href="tag-overview.html">Tag Overview</a></li>
-                 <li><a href="feature-overview.html">Feature Overview</a></li>
+                 <li><a href="tag-overview.html">Tags</a></li>
+                 <li><a href="feature-overview.html">Feature</a></li>
+                 <li><a href="step-overview.html">Steps</a></li>
              </ul>
          </div>
      </div>

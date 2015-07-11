@@ -22,6 +22,12 @@ import org.apache.velocity.tools.generic.EscapeTool;
 
 import com.google.common.base.Charsets;
 
+/**
+ * Delivers common methods for page generation.
+ * 
+ * @author Damian Szczepanik (damianszczepanik@github)
+ *
+ */
 public abstract class AbstractPage {
 
     protected final VelocityEngine ve = new VelocityEngine();

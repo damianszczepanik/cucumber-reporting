@@ -17,7 +17,7 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
-public class Step {
+public class Step implements ResultsWithMatch {
 
     private String name;
     private String keyword;
@@ -45,8 +45,14 @@ public class Step {
         return Joiner.on("").skipNulls().join(outputList);
     }
 
+    @Override
     public Match getMatch() {
         return match;
+    }
+
+    @Override
+    public Result getResult() {
+        return result;
     }
 
     public Object[] getEmbeddings() {

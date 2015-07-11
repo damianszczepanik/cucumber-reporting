@@ -12,6 +12,7 @@ import java.util.Map;
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FeatureOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
+import net.masterthought.cucumber.generators.StepOverviewPage;
 import net.masterthought.cucumber.generators.TagOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
@@ -202,10 +203,9 @@ public class ReportBuilder {
     public void generateReports() throws IOException, VelocityException {
         try {
             copyResource("themes", "blue.zip");
+            copyResource("charts", "js.zip");
             if (flashCharts) {
                 copyResource("charts", "flash_charts.zip");
-            } else {
-                copyResource("charts", "js.zip");
             }
             if (artifactsEnabled) {
                 copyResource("charts", "codemirror.zip");
@@ -218,6 +218,7 @@ public class ReportBuilder {
             new FeatureReportPage(this).generatePage();
             new TagReportPage(this).generatePage();
             new TagOverviewPage(this).generatePage();
+            new StepOverviewPage(this).generatePage();
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception exception) {
             if (!parsingError) {
@@ -227,7 +228,7 @@ public class ReportBuilder {
     }
 
     private void setJsonFilesInFeatures() {
-        for (Map.Entry<String, List<Feature>> pairs : reportInformation.getProjectFeatureMap().entrySet()) {
+        for (Map.Entry<String, List<Feature>> pairs : reportInformation.getFeatureMap().entrySet()) {
             List<Feature> featureList = pairs.getValue();
 
             for (Feature feature : featureList) {

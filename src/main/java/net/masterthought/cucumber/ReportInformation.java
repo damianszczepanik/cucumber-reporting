@@ -3,12 +3,14 @@ package net.masterthought.cucumber;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.ResultsWithMatch;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
@@ -18,8 +20,10 @@ import com.googlecode.totallylazy.Sequence;
 
 public class ReportInformation {
 
-    private final Map<String, List<Feature>> projectFeatureMap;
+    private final Map<String, List<Feature>> featureMap;
+    private final Map<String, StepObject> stepObjects = new HashMap<>();
     private List<Feature> features;
+
     private int numberOfScenarios;
     private int numberOfSteps;
     private final StatusCounter totalSteps = new StatusCounter();
@@ -36,15 +40,18 @@ public class ReportInformation {
     private int totalFailingTagScenarios = 0;
     private Background backgroundInfo = new Background();
 
-    public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
-        this.projectFeatureMap = projectFeatureMap;
+    public ReportInformation(Map<String, List<Feature>> featureMap) {
+        this.featureMap = featureMap;
         this.features = listAllFeatures();
+
         processFeatures();
+        processTags();
+        processSteps();
     }
 
     private List<Feature> listAllFeatures() {
         List<Feature> allFeatures = new ArrayList<Feature>();
-        for (Map.Entry<String, List<Feature>> pairs : projectFeatureMap.entrySet()) {
+        for (Map.Entry<String, List<Feature>> pairs : featureMap.entrySet()) {
             List<Feature> featureList = pairs.getValue();
             allFeatures.addAll(featureList);
         }
@@ -59,8 +66,12 @@ public class ReportInformation {
         return this.tagMap;
     }
 
-    public Map<String, List<Feature>> getProjectFeatureMap() {
-        return this.projectFeatureMap;
+    public Map<String, List<Feature>> getFeatureMap() {
+        return this.featureMap;
+    }
+
+    public Map<String, StepObject> getStepObject() {
+        return this.stepObjects;
     }
 
     public int getTotalScenarios() {
@@ -207,7 +218,7 @@ public class ReportInformation {
     }
 
     private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Status status) {
-        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        List<ScenarioTag> scenarioTagList = new ArrayList<>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
             if (!scenarioTag.getScenario().isBackground()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
@@ -219,7 +230,7 @@ public class ReportInformation {
     }
 
     private int calculateTotalTagScenarios(TagObject tag) {
-        List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
+        List<ScenarioTag> scenarioTagList = new ArrayList<>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
             if (!scenarioTag.getScenario().isBackground()) {
                 scenarioTagList.add(scenarioTag);
@@ -232,39 +243,71 @@ public class ReportInformation {
         for (Feature feature : features) {
             List<ScenarioTag> scenarioList = new ArrayList<>();
             Sequence<Element> scenarios = feature.getElements();
-            if (Util.itemExists(scenarios)) {
-                numberOfScenarios = getNumberOfScenarios(scenarios);
-                //process tags
-                if (feature.hasTags()) {
-                    for (Element e : feature.getElements()) {
-                        if (!e.isBackground()) {
-                            scenarioList.add(new ScenarioTag(e, feature.getFileName()));
-                        }
+            numberOfScenarios = getNumberOfScenarios(scenarios);
+            // build map with tags
+            if (feature.hasTags()) {
+                for (Element e : feature.getElements()) {
+                    if (!e.isBackground()) {
+                        scenarioList.add(new ScenarioTag(e, feature.getFileName()));
                     }
-                    tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
+                }
+                tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
 
+            }
+
+            for (Element scenario : scenarios) {
+                if (!scenario.isBackground()) {
+                    totalBackgroundSteps.incrementFor(scenario.getStatus());
+                } else {
+                    setBackgroundInfo(scenario);
                 }
 
-                for (Element scenario : scenarios) {
-
-                    if (!scenario.isBackground()) {
-                        totalBackgroundSteps.incrementFor(scenario.getStatus());
-                    } else {
-                        setBackgroundInfo(scenario);
-                    }
-
-                    if (feature.hasScenarios()) {
-                        if (scenario.hasTags()) {
-                            scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
-                            tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
-                        }
-
-                    }
-                    adjustStepsForScenario(scenario);
+                if (scenario.hasTags()) {
+                    scenarioList = addScenarioUnlessExists(scenarioList,
+                            new ScenarioTag(scenario, feature.getFileName()));
+                    tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
                 }
+
+                adjustStepsForScenario(scenario);
             }
         }
-        processTags();
+    }
+
+    private void processSteps() {
+        for (Feature feature : features) {
+            Sequence<Element> scenarios = feature.getElements();
+            for (Element scenario : scenarios) {
+
+                countSteps(scenario.getBefore());
+                countSteps(scenario.getAfter());
+
+                countSteps(scenario.getSteps().toArray(ResultsWithMatch.class));
+            }
+        }
+    }
+
+    private void countSteps(ResultsWithMatch[] steps) {
+        // before and after are not mandatory
+        if (steps != null) {
+            for (ResultsWithMatch step : steps) {
+
+                    String methodName = step.getMatch().getLocation();
+                    StepObject stepObject = this.stepObjects.get(methodName);
+                    // if first occurrence of this location add element to the map
+                    if (stepObject == null) {
+                        stepObject = new StepObject(methodName);
+                    }
+                // happens that report is not valid - does not contain information about result
+                if (step.getResult() != null) {
+                    stepObject.addDuration(step.getResult().getDuration(), step.getResult().getStatus());
+                } else {
+                    // when result is not available it means that something really went wrong (report is incomplete)
+                    // and for this case FAILED status is used to avoid problems during parsing
+                    stepObject.addDuration(0, Status.FAILED.name());
+                }
+                this.stepObjects.put(methodName, stepObject);
+            }
+        }
     }
 
     private void setBackgroundInfo(Element e) {

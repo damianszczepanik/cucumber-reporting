@@ -120,7 +120,7 @@
             #end
 
     </div>
-    </div>
+</div>
 
 
 #parse("/templates/footer.vm")                        
