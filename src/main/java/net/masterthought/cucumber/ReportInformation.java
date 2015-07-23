@@ -1,11 +1,6 @@
 package net.masterthought.cucumber;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.googlecode.totallylazy.Sequence;
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
@@ -14,7 +9,11 @@ import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-import com.googlecode.totallylazy.Sequence;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class ReportInformation {
 
@@ -35,9 +34,11 @@ public class ReportInformation {
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
     private Background backgroundInfo = new Background();
+    private boolean tagsReportingEnabled;
 
-    public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
+    public ReportInformation(Map<String, List<Feature>> projectFeatureMap, boolean tagsReportingEnabled) {
         this.projectFeatureMap = projectFeatureMap;
+        this.tagsReportingEnabled = tagsReportingEnabled;
         this.features = listAllFeatures();
         processFeatures();
     }
@@ -235,7 +236,7 @@ public class ReportInformation {
             if (Util.itemExists(scenarios)) {
                 numberOfScenarios = getNumberOfScenarios(scenarios);
                 //process tags
-                if (feature.hasTags()) {
+                if (tagsReportingEnabled && feature.hasTags()) {
                     for (Element e : feature.getElements()) {
                         if (!e.isBackground()) {
                             scenarioList.add(new ScenarioTag(e, feature.getFileName()));
@@ -253,7 +254,7 @@ public class ReportInformation {
                         setBackgroundInfo(scenario);
                     }
 
-                    if (feature.hasScenarios()) {
+                    if (tagsReportingEnabled && feature.hasScenarios()) {
                         if (scenario.hasTags()) {
                             scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
                             tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
@@ -264,7 +265,9 @@ public class ReportInformation {
                 }
             }
         }
-        processTags();
+        if(tagsReportingEnabled){
+            processTags();
+        }
     }
 
     private void setBackgroundInfo(Element e) {

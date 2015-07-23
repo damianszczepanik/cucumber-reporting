@@ -31,6 +31,7 @@ public class FeatureReportPage extends AbstractPage {
                 contextMap.put("scenarios", feature.getElements().toList());
                 contextMap.put("artifactsEnabled", ConfigurationOptions.instance().artifactsEnabled());
                 contextMap.put("esc", new EscapeTool());
+                contextMap.put("tagsReportingEnabled", reportBuilder.hasTagsReportingEnabled());
 
                 generateReport(feature.getFileName());
             }

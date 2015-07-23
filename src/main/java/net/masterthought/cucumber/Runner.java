@@ -1,10 +1,11 @@
 package net.masterthought.cucumber;
 
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static net.masterthought.cucumber.ReportBuilder.newReportBuilder;
 
 public class Runner {
 
@@ -27,8 +28,16 @@ public class Runner {
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/project1.json");
 //        list.add("/Users/kings/development/projects/cucumber-reporting/src/test/resources/net/masterthought/cucumber/chinese.json");
 
-        ReportBuilder reportBuilder = new ReportBuilder(list, rd, "", "97", "cucumber-jvm", false, false, false, false, true, true, false,
-                "Account has sufficient funds again~the account balance is 300~account~scenario1_psp_auth_request.xml~xml\nAccount has sufficient funds again~the card is valid~card~scenario1_psp_auth_response.xml~xml", false, false);
+        ReportBuilder reportBuilder = newReportBuilder().withJsonReports(list)
+                .withReportOutputDirectory(rd)
+                .withPluginUrlPath("")
+                .withBuildNumber("97")
+                .withBuildProject("cucumber-jvm")
+                .withArtifactConfig("Account has sufficient funds again~the account balance is 300~account~scenario1_psp_auth_request.xml~xml\n"
+                        + "Account has sufficient funds again~the card is valid~card~scenario1_psp_auth_response.xml~xml")
+                .withFlashCharts(true)
+                .withJenkins(true).build();
+
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("@TC-V2-1491", "Verify that a visit for none suggestion account is created successfully");
         headers.put("@TC-V2-1275", "Verify that agenda items can be deleted successfully");

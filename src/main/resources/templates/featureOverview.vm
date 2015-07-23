@@ -43,7 +43,9 @@
                             <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/feature-overview.html">Previous Build</a></li>
                         #end
                     #end
-                <li><a href="tag-overview.html">Tag Overview</a></li>
+                    #if($tagsReportingEnabled)
+                        <li><a href="tag-overview.html">Tag Overview</a></li>
+                    #end
                 </ul>
             </div>
         </div>

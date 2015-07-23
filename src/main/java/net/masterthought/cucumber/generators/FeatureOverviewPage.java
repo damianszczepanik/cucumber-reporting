@@ -55,6 +55,7 @@ public class FeatureOverviewPage extends AbstractPage {
         contextMap.put("total_duration", reportInformation.getTotalDurationAsString());
         contextMap.put("flashCharts", reportBuilder.isFlashCharts());
         contextMap.put("highCharts", reportBuilder.isHighCharts());
+        contextMap.put("tagsReportingEnabled", reportBuilder.hasTagsReportingEnabled());
 
         super.generateReport("feature-overview.html");
     }

@@ -54,7 +54,7 @@ public class ReportParserTest {
     @Test
     public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
         ReportParser reportParser = new ReportParser(withNoSteps2InJsonReport());
-        ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures());
+        ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures(), true);
 
         // Should not crash with NPE
         assertThat(reportInformation.getFeatures().get(0), is(Feature.class));
