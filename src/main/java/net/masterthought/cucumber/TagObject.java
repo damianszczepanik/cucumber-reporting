@@ -90,51 +90,67 @@ public class TagObject {
     public int getNumberOfSteps() {
         int totalSteps = 0;
         for (ScenarioTag scenario : scenarios) {
-            if (scenario.hasSteps()) {
+            if (!scenario.getScenario().isBackground() && scenario.hasSteps()) {
                 totalSteps += scenario.getScenario().getSteps().size();
             }
         }
         return totalSteps;
     }
 
-    public int getNumberOfStatus(Status status) {
+    private int getNumberOfStatusExcludingBackGround(Status status) {
+        return Util.findStatusCount(getStatusesByExcludingBackGround(), status);
+    }
+
+    public int getNumberOfStatusIncludingBackGround(Status status) {
         return Util.findStatusCount(getStatuses(), status);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfPasses() {
-        return getNumberOfStatus(Status.PASSED);
+        return getNumberOfStatusExcludingBackGround(Status.PASSED);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfFailures() {
-        return getNumberOfStatus(Status.FAILED);
+        return getNumberOfStatusExcludingBackGround(Status.FAILED);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfSkipped() {
-        return getNumberOfStatus(Status.SKIPPED);
+        return getNumberOfStatusExcludingBackGround(Status.SKIPPED);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfUndefined() {
-        return getNumberOfStatus(Status.UNDEFINED);
+        return getNumberOfStatusExcludingBackGround(Status.UNDEFINED);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfMissing() {
-        return getNumberOfStatus(Status.MISSING);
+        return getNumberOfStatusExcludingBackGround(Status.MISSING);
     }
 
     /** No-parameters method required for velocity template. */
     public int getNumberOfPending() {
-        return getNumberOfStatus(Status.UNDEFINED);
+        return getNumberOfStatusExcludingBackGround(Status.UNDEFINED);
     }
 
     private List<Status> getStatuses() {
         List<Status> statuses = new ArrayList<Status>();
         for (ScenarioTag scenarioTag : scenarios) {
             if (scenarioTag.hasSteps()) {
+                for (Step step : scenarioTag.getScenario().getSteps()) {
+                    statuses.add(step.getStatus());
+                }
+            }
+        }
+        return statuses;
+    }
+
+    private List<Status> getStatusesByExcludingBackGround() {
+        List<Status> statuses = new ArrayList<Status>();
+        for (ScenarioTag scenarioTag : scenarios) {
+            if (!scenarioTag.getScenario().isBackground() && scenarioTag.hasSteps()) {
                 for (Step step : scenarioTag.getScenario().getSteps()) {
                     statuses.add(step.getStatus());
                 }

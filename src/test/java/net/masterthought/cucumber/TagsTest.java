@@ -10,6 +10,7 @@ import java.util.List;
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class TagsTest {
 
@@ -72,19 +73,34 @@ public class TagsTest {
 
     @Test
     public void shouldGetTagInfoForTag1() {
-        TagObject tagObject = reportInformation.getTags().get(0);
-        assertThat(tagObject.getTagName(), is("@tag1"));
+        List<String> tagNames = new ArrayList<>();
+        for(TagObject tagObject : reportInformation.getTags()){
+            tagNames.add(tagObject.getTagName());
+        }
+
+        assertTrue(tagNames.contains("@tag1"));
     }
 
     @Test
     public void shouldGetTagInfoForTag2() {
-        TagObject tagObject = reportInformation.getTags().get(1);
-        assertThat(tagObject.getTagName(), is("@tag2"));
+        List<String> tagNames = new ArrayList<>();
+        for(TagObject tagObject : reportInformation.getTags()){
+            tagNames.add(tagObject.getTagName());
+        }
+
+        assertTrue(tagNames.contains("@tag2"));
     }
 
     @Test
     public void shouldGetTagScenariosForTag1() {
-        List<ScenarioTag> scenarios = reportInformation.getTags().get(0).getScenarios();
+        TagObject tagObject = null;
+        for(TagObject temp : reportInformation.getTags()){
+            if(temp.getTagName().equals("@tag1")){
+                tagObject = temp;
+            }
+        }
+
+        List<ScenarioTag> scenarios = tagObject.getScenarios();
         assertThat(scenarios.size(), is(2));
         ScenarioTag firstScenario = scenarios.get(0);
         ScenarioTag secondScenario = scenarios.get(1);
@@ -94,7 +110,14 @@ public class TagsTest {
 
     @Test
     public void shouldGetTagScenariosForTag2() {
-        List<ScenarioTag> scenarios = reportInformation.getTags().get(1).getScenarios();
+        TagObject tagObject = null;
+        for(TagObject temp : reportInformation.getTags()){
+            if(temp.getTagName().equals("@tag2")){
+                tagObject = temp;
+            }
+        }
+
+        List<ScenarioTag> scenarios = tagObject.getScenarios();
         assertThat(scenarios.size(), is(2));
         ScenarioTag firstScenario = scenarios.get(0);
         ScenarioTag secondScenario = scenarios.get(1);

@@ -1,5 +1,7 @@
 package net.masterthought.cucumber;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 import com.googlecode.totallylazy.Sequence;
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
@@ -10,10 +12,7 @@ import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ReportInformation {
 
@@ -128,10 +127,6 @@ public class ReportInformation {
         return totalTagScenarios;
     }
 
-    public List<TagObject> getTagMap() {
-        return tagMap;
-    }
-
     public int getTotalTagScenariosPassed() {
         return totalPassingTagScenarios;
     }
@@ -190,7 +185,7 @@ public class ReportInformation {
             totalPassingTagScenarios = calculateTotalTagScenariosForStatus(totalPassingTagScenarios, tag, Status.PASSED);
             totalFailingTagScenarios = calculateTotalTagScenariosForStatus(totalFailingTagScenarios, tag, Status.FAILED);
             for (Status status : Status.values()) {
-                this.totalTags.incrementFor(status, tag.getNumberOfStatus(status));
+                this.totalTags.incrementFor(status, tag.getNumberOfStatusIncludingBackGround(status));
             }
 
             for (ScenarioTag scenarioTag : tag.getScenarios()) {
@@ -210,11 +205,11 @@ public class ReportInformation {
     private int calculateTotalTagScenariosForStatus(int totalScenarios, TagObject tag, Status status) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().isBackground()) {
+            //if (!scenarioTag.getScenario().isBackground()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
                     scenarioTagList.add(scenarioTag);
                 }
-            }
+            //}
         }
         return totalScenarios + scenarioTagList.size();
     }
@@ -222,52 +217,61 @@ public class ReportInformation {
     private int calculateTotalTagScenarios(TagObject tag) {
         List<ScenarioTag> scenarioTagList = new ArrayList<ScenarioTag>();
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().isBackground()) {
+            //if (!scenarioTag.getScenario().isBackground()) {
                 scenarioTagList.add(scenarioTag);
-            }
+            //}
         }
         return totalTagScenarios + scenarioTagList.size();
     }
 
     private void processFeatures() {
+        ListMultimap<String, ScenarioTag> scenariosByTagName = ArrayListMultimap.create();
+
         for (Feature feature : features) {
-            List<ScenarioTag> scenarioList = new ArrayList<>();
             Sequence<Element> scenarios = feature.getElements();
-            if (Util.itemExists(scenarios)) {
-                numberOfScenarios = getNumberOfScenarios(scenarios);
-                //process tags
-                if (tagsReportingEnabled && feature.hasTags()) {
-                    for (Element e : feature.getElements()) {
-                        if (!e.isBackground()) {
-                            scenarioList.add(new ScenarioTag(e, feature.getFileName()));
-                        }
-                    }
-                    tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
+            numberOfScenarios = getNumberOfScenarios(scenarios);
 
+            Sequence<String> featureLevelTags = feature.getTagList();
+
+            for(Element scenario : scenarios) {
+                //old code retained - start (added this comment for just code review, will be removed in next commit)
+                if (!scenario.isBackground()) {
+                    totalBackgroundSteps.incrementFor(scenario.getStatus());
+                } else {
+                    setBackgroundInfo(scenario);
                 }
 
-                for (Element scenario : scenarios) {
+                adjustStepsForScenario(scenario);
+                //old code retained - end (added this comment for just code review, will be removed in next commit)
 
-                    if (!scenario.isBackground()) {
-                        totalBackgroundSteps.incrementFor(scenario.getStatus());
-                    } else {
-                        setBackgroundInfo(scenario);
-                    }
-
-                    if (tagsReportingEnabled && feature.hasScenarios()) {
-                        if (scenario.hasTags()) {
-                            scenarioList = addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
-                            tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
-                        }
-
-                    }
-                    adjustStepsForScenario(scenario);
+                Set<String> applicableTagsForScenario = findApplicableTagsForScenario(featureLevelTags, scenario);
+                for(String tagName : applicableTagsForScenario){
+                    scenariosByTagName.put(tagName, new ScenarioTag(scenario, feature.getFileName()));
                 }
+
             }
         }
-        if(tagsReportingEnabled){
-            processTags();
+
+        populateGlobalTagMap(scenariosByTagName);
+
+        processTags();
+    }
+
+    private void populateGlobalTagMap(ListMultimap<String, ScenarioTag> scenariosByTagName) {
+
+        for(Map.Entry<String, Collection<ScenarioTag>> tagNameScenariosEntry : scenariosByTagName.asMap().entrySet()){
+            String tagName = tagNameScenariosEntry.getKey();
+            Collection<ScenarioTag> scenarios = tagNameScenariosEntry.getValue();
+            tagMap.add(new TagObject(tagName, new ArrayList<>(scenarios)));
         }
+    }
+
+    private Set<String> findApplicableTagsForScenario(Sequence<String> featureLevelTags, Element scenario) {
+
+        Sequence<String> scenarioLevelTags = scenario.getTagList();
+        Set<String> applicableTagsForScenario = new HashSet<>(featureLevelTags);
+        applicableTagsForScenario.addAll(scenarioLevelTags);
+        return applicableTagsForScenario;
     }
 
     private void setBackgroundInfo(Element e) {
