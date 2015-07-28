@@ -137,7 +137,7 @@ public class Step {
         sb.append("</span>");
 
         if (status == Status.FAILED || status == Status.MISSING) {
-            sb.append("<div class=\"step-error-message\"><pre>").append(formatError(errorMessage)).append("</pre></div>");
+            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">").append(formatError(errorMessage)).append("</pre></div>");
 
         }
         sb.append("</div>");

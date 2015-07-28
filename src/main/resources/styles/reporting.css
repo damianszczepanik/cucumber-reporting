@@ -48,6 +48,14 @@
 	border: 1px solid #D88A8A;
 }
 
+.step-error-message-content {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+
 .step-duration {
 	float: right;
 	padding-right: 15px;
