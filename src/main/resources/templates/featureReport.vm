@@ -60,9 +60,7 @@
                             <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$feature.getFileName()">Previous Build</a></li>
                         #end
                     #end
-                    #if($tagsReportingEnabled)
-					    <li><a href="tag-overview.html">Tag Overview</a></li>
-					#end
+					<li><a href="tag-overview.html">Tag Overview</a></li>
 					<li><a href="feature-overview.html">Feature Overview</a></li>
 				</ul>
 			</div>
@@ -113,16 +111,12 @@
 
 		<div style="color:black;">
 
-            #if($tagsReportingEnabled)
-                $feature.getTagsList()
-            #end
+            $feature.getTagsList()
             $feature.getName()
             $feature.getDescription()
 
             #foreach($scenario in $scenarios)
-                #if($tagsReportingEnabled)
-                    $scenario.getTagsList()
-                #end
+                $scenario.getTagsList()
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps().toList())
                   $step.getName()

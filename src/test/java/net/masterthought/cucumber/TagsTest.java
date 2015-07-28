@@ -22,7 +22,7 @@ public class TagsTest {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/tags.json"));
         reportParser = new ReportParser(jsonReports);
-        reportInformation = new ReportInformation(reportParser.getFeatures(), true);
+        reportInformation = new ReportInformation(reportParser.getFeatures());
 
     }
 

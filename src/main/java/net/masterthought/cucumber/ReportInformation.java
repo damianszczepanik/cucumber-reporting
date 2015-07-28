@@ -33,11 +33,9 @@ public class ReportInformation {
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
     private Background backgroundInfo = new Background();
-    private boolean tagsReportingEnabled;
 
-    public ReportInformation(Map<String, List<Feature>> projectFeatureMap, boolean tagsReportingEnabled) {
+    public ReportInformation(Map<String, List<Feature>> projectFeatureMap) {
         this.projectFeatureMap = projectFeatureMap;
-        this.tagsReportingEnabled = tagsReportingEnabled;
         this.features = listAllFeatures();
         processFeatures();
     }
