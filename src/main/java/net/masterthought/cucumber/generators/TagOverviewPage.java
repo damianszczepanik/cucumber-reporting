@@ -42,7 +42,7 @@ public class TagOverviewPage extends AbstractPage {
         }
         contextMap.put("backgrounds", reportInformation.getBackgroundInfo());
         if (flashCharts) {
-            contextMap.put("chart_data", FlashChartBuilder.StackedColumnChart(tags));
+            contextMap.put("chart_data", FlashChartBuilder.generateStackedColumnChart(tags));
         } else {
             if (highCharts) {
                 contextMap.put("chart_categories", JsChartUtil.getTags(tags));

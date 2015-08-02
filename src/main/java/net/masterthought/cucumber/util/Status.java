@@ -8,6 +8,7 @@ package net.masterthought.cucumber.util;
  */
 public enum Status {
 
+    // use RGB color instead of predefined such as blue, yellow!
     PASSED("#00CE00"),
     FAILED("#FF0000"),
     SKIPPED("#88AAFF"),
