@@ -18,6 +18,7 @@ import net.masterthought.cucumber.VelocityContextMap;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.generic.EscapeTool;
 
 import com.google.common.base.Charsets;
 
@@ -40,8 +41,9 @@ public abstract class AbstractPage {
 
     public void generatePage() throws IOException {
         ve.init(getProperties());
-        template = ve.getTemplate("templates/" + fileName);
+        template = ve.getTemplate("templates/pages/" + fileName);
         contextMap.putAll(getGeneralParameters());
+        contextMap.put("esc", new EscapeTool());
 
         if (this instanceof ErrorPage) {
             contextMap.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
@@ -52,6 +54,7 @@ public abstract class AbstractPage {
 
     protected void generateReport(String fileName) throws IOException {
         VelocityContext context = contextMap.getVelocityContext();
+        context.put("pageUrl", fileName);
         File dir = new File(this.reportBuilder.getReportDirectory(), fileName);
         try (FileOutputStream fileStream = new FileOutputStream(dir)) {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, Charsets.UTF_8))) {

@@ -61,7 +61,7 @@ public class ReportBuilderTest {
 
         File input = new File(rd, "masterthought-example-ATM.feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("feature-title", doc).text(), is("Feature Result for Build: 1"));
+        assertThat(fromId("feature-title", doc).text(), is("Result for Account Holder withdraws cash in build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertFeatureContent(doc);

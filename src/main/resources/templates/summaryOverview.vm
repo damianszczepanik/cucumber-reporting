@@ -1,0 +1,10 @@
+<div id="fullwidth_gradient">
+    <div class="heading container_12">
+        <h2><span id="overview-title">$summaryKey Overview for build: $build_number</span>
+        #if($fromJenkins)
+            <br id="overview-project">Project Name: <i>$build_project</i></br>
+        #end
+        </h2>
+        <span class="subhead">The following graph shows passing and failing statistics for features in this build:</span>
+    </div>
+</div>

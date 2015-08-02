@@ -9,33 +9,11 @@
 
 </head>
 <body id="top">
-    <div id="fullwidth_header">
-        <div class="container_12">
-            <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-            <div class="grid_6" id="nav">
-                <ul>
-                    #if($fromJenkins)
-                        <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
-                        #if($previous_build_number != -1)
-                            <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$tag.getFileName()">Previous Build</a></li>
-                        #end
-                    #end
-                    <li><a href="feature-overview.html">Feature Overview</a></li>
-                    <li><a href="tag-overview.html">Tag Overview</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div id="fullwidth_gradient">
-        <div class="container_12">
-            <div class="grid_9 heading">
-                <h2>Result for <span style="color:#66CCEE;">$tag.getTagName()</span> in Build: $build_number</h2>
-                #if ($hasCustomHeader)
-                  <h3>$customHeader</h3>
-                #end
-            </div>
-        </div>
-    </div>
+
+    #parse("/templates/topMenu.vm")
+
+    #set($summaryKey = "$tag.getTagName()")
+    #parse("/templates/summaryReport.vm")
 
     <div class="container_12">
         <div class="grid_12">
@@ -88,7 +66,7 @@
                 #end
                 </div>
             #end
-    </div>
+        </div>
     </div>
 
 
