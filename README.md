@@ -1,6 +1,8 @@
 [![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?style=flat)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
 [![Coverage Status](https://img.shields.io/coveralls/damianszczepanik/cucumber-reporting.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
+[![Maven Dependencies](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed/badge.svg)](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed?child=summary)
+
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 

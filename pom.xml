@@ -5,7 +5,7 @@
     <packaging>jar</packaging>
     <version>0.1.1-SNAPSHOT</version>
     <name>cucumber-reporting</name>
-    <url>https://github.com/masterthought/cucumber-reporting</url>
+    <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
     <repositories>
         <repository>
@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
-        <powermock.version>1.5.4</powermock.version>
+        <powermock.version>1.6.2</powermock.version>
     </properties>
 
     <parent>
@@ -29,9 +29,9 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@github.com:masterthought/cucumber-reporting.git</connection>
-        <developerConnection>scm:git:git@github.com:masterthought/cucumber-reporting.git</developerConnection>
-        <url>git@github.com:masterthought/cucumber-reporting.git</url>
+        <connection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</connection>
+        <developerConnection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</developerConnection>
+        <url>git@github.damianszczepanik/cucumber-reporting.git</url>
     </scm>
 
     <description>
@@ -163,7 +163,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.3</version>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
