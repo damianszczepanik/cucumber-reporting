@@ -1,2 +1,13 @@
-language: java
+jdk:
+  - oraclejdk7 
+  - oraclejdk8
+  - openjdk7
+
+
 sudo: false
+
+before_install:
+  pip install codecov
+
+after_success:
+  codecov

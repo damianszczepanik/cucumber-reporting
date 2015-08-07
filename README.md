@@ -1,11 +1,10 @@
 [![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?style=flat)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Coverage Status](https://img.shields.io/coveralls/damianszczepanik/cucumber-reporting.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 
 This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server. It publishes pretty html reports showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful.
-
-[![Build Status](https://secure.travis-ci.org/masterthought/cucumber-reporting.png)](http://travis-ci.org/masterthought/cucumber-reporting)
 
 ## Background
 
