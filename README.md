@@ -1,4 +1,5 @@
 [![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?style=flat)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 
