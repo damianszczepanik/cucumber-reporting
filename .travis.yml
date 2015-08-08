@@ -5,9 +5,5 @@ jdk:
   - oraclejdk8
   - openjdk7
 
-
-before_install:
-  sudo pip install codecov
-
 after_success:
-  codecov
+  bash <(curl -s https://codecov.io/bash)
