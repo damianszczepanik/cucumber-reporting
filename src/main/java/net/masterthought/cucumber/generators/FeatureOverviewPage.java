@@ -32,7 +32,7 @@ public class FeatureOverviewPage extends AbstractPage {
         contextMap.put("scenarios_passed", reportInformation.getTotalScenariosPassed());
         contextMap.put("scenarios_failed", reportInformation.getTotalScenariosFailed());
         contextMap.put("total_scenarios", reportInformation.getTotalScenarios());
-        if (reportBuilder.isHighCharts()) {
+        if (reportBuilder.isFlashCharts()) {
             contextMap.put("step_data", FlashChartBuilder.getStepsChart(reportInformation.getTotalStepsPassed(),
                     reportInformation.getTotalStepsFailed(), reportInformation.getTotalStepsSkipped(),
                     reportInformation.getTotalStepsPending(), reportInformation.getTotalStepsUndefined(),
