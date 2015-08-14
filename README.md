@@ -27,11 +27,7 @@ This project allows you to publish the results of a cucumber run as pretty html 
 2. Or grab the jar file from the [downloads](http://www.masterthought.net/section/cucumber-reporting) page
 
 Read this if you need further  [detailed install and configuration]
-(https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
-
-## Release Notes
-
-Release notes are [here](https://github.com/masterthought/cucumber-reporting/wiki/Release-Notes)
+(https://github.com/damianszczepanik/jenkins-cucumber-jvm-reports-plugin-java/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 
@@ -64,29 +60,29 @@ flashCharts means either use the default flashcharts or use the D3 javascript ch
 There is a feature overview page:
 
 ![feature overview page]
-(https://github.com/masterthought/cucumber-reporting/raw/master/.README/feature-overview.png)
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-overview.png)
 
 And there are also feature specific results pages:
 
 ![feature specific page passing]
-(https://github.com/masterthought/cucumber-reporting/raw/master/.README/feature-passed.png)
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-passed.png)
 
 And useful information for failures:
 
 ![feature specific page passing]
-(https://github.com/masterthought/cucumber-reporting/raw/master/.README/feature-failed.png)
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-failed.png)
 
 If you have tags in your cucumber features you can see a tag overview:
 
 ![Tag overview]
-(https://github.com/masterthought/cucumber-reporting/raw/master/.README/tag-overview.png)
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-overview.png)
 
 And you can drill down into tag specific reports:
 
 ![Tag report]
-(https://github.com/masterthought/cucumber-reporting/raw/master/.README/tag-report.png)
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
 
 ## Develop
 
 Interested in contributing to the cucumber-reporting?  Great!  Start [here]
-(https://github.com/masterthought/cucumber-reporting).
+(https://github.com/damianszczepanik/cucumber-reporting).
