@@ -1,9 +1,9 @@
 package net.masterthought.cucumber;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
-import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
-import static org.junit.internal.matchers.StringContains.containsString;
 
 import java.io.File;
 import java.io.IOException;
