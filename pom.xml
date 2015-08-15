@@ -1,13 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.2.1</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
     <repositories>
+        <!-- used for com.googlecode.totallylazy -->
         <repository>
             <id>repo.bodar.com</id>
             <url>http://repo.bodar.com</url>
@@ -28,6 +30,17 @@
         <version>7</version>
     </parent>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <scm>
         <connection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</connection>
         <developerConnection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</developerConnection>
@@ -42,7 +55,6 @@
 
     <licenses>
         <license>
-            <comments>Use this project wherever you like</comments>
             <name>LGPL 2.1</name>
             <url>http://www.gnu.org/licenses/lgpl-2.1.html</url>
         </license>
@@ -53,9 +65,6 @@
             <id>kingsleyh</id>
             <name>Kingsley Hendrickse</name>
             <email>kingsley.hendrickse@gmail.com</email>
-            <timezone>GMT</timezone>
-            <roles>
-            </roles>
         </developer>
         <developer>
             <id>damianszczepanik</id>
@@ -70,18 +79,16 @@
 
             <activation>
                 <property>
-                    <!--
-                                 will be set by the release plugin upon performing mvn
-                                 release:perform
-                             -->
+                    <!-- will be set by the release plugin upon performing 
+                        mvn clean deploy -Prelease-sign-artifacts -->
                     <name>performRelease</name>
                     <value>true</value>
                 </property>
             </activation>
 
             <properties>
-                <gpg.keyname>E91DA67C</gpg.keyname>
-                <release.username>kingsleyh</release.username>
+                <gpg.keyname>0738FA8F</gpg.keyname>
+                <release.username>Damian Szczepanik</release.username>
             </properties>
 
             <build>
@@ -121,23 +128,50 @@
                 </configuration>
             </plugin>
             <plugin>
-              <groupId>org.jacoco</groupId>
-              <artifactId>jacoco-maven-plugin</artifactId>
-              <version>0.7.5.201505241946</version>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>prepare-agent</goal>
-                  </goals>
-                </execution>
-                <execution>
-                  <id>report</id>
-                  <phase>test</phase>
-                  <goals>
-                    <goal>report</goal>
-                  </goals>
-                </execution>
-              </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.5.201505241946</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -199,24 +233,24 @@
             <artifactId>jsoup</artifactId>
             <version>1.7.2</version>
         </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-junit4</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-            <dependency>
-                <groupId>info.cukes</groupId>
-                <artifactId>cucumber-pro</artifactId>
-                <version>1.0.16</version>
-                <scope>test</scope>
-            </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-pro</artifactId>
+            <version>1.0.16</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
