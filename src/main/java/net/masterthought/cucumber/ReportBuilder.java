@@ -36,7 +36,7 @@ public class ReportBuilder {
 
     private Map<String, String> customHeader;
 
-    public static final String VERSION = "cucumber-reporting-0.2.1";
+    public static final String VERSION = "cucumber-reporting-0.2.2";
 
     //Added to control parallel reports
     private static boolean parallel = false;
