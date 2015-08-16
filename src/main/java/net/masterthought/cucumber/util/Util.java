@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,11 +41,7 @@ public class Util {
             .toFormatter();
 
     public static String readFileAsString(String filePath) throws IOException {
-        StringWriter writer = new StringWriter();
-        try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(filePath))) {
-            IOUtils.copy(stream, writer);
-        }
-        return writer.toString();
+    	return new String(Files.readAllBytes(Paths.get(filePath)));
     }
 
     public static boolean itemExists(String item) {
@@ -64,22 +62,6 @@ public class Util {
 
     public static String passed(boolean value) {
         return value ? "<div class=\"passed\">" : "</div>";
-    }
-
-    public static String U2U(String s) {
-        final Pattern p = Pattern.compile("\\\\u\\s*([0-9(A-F|a-f)]{4})", Pattern.MULTILINE);
-        String res = s;
-        Matcher m = p.matcher(res);
-        while (m.find()) {
-            res = res.replaceAll("\\" + m.group(0),
-                    Character.toString((char) Integer.parseInt(m.group(1), 16)));
-            m = p.matcher(res);
-        }
-        return res;
-    }
-
-    public static boolean isValidCucumberJsonReport(String fileContent) {
-        return fileContent.contains("\"keyword\":");
     }
 
     public static String formatDuration(Long duration) {
