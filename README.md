@@ -27,6 +27,9 @@ Add a maven dependency to your pom
 Read this if you need further [detailed install and configuration]
 (https://github.com/damianszczepanik/jenkins-cucumber-reporting-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
+Read this if you need further  [detailed install and configuration]
+(https://github.com/damianszczepanik/cucumber-reporting-jenkins/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+
 ## Usage
 
     File reportOutputDirectory = new File("target");

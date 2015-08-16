@@ -42,9 +42,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</connection>
-        <developerConnection>scm:git:git@github.damianszczepanik/cucumber-reporting.git</developerConnection>
-        <url>git@github.damianszczepanik/cucumber-reporting.git</url>
+        <connection>scm:git:git@github.com:damianszczepanik/cucumber-reporting.git</connection>
+        <developerConnection>scm:git:git@github.com:damianszczepanik/cucumber-reporting.git</developerConnection>
+        <url>git@github.com:damianszczepanik/cucumber-reporting.git</url>
     </scm>
 
     <description>
@@ -92,12 +92,11 @@
             </properties>
 
             <build>
-
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -109,7 +108,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-
             </build>
 
         </profile>
@@ -120,7 +118,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -221,7 +219,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.4</version>
+            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.totallylazy</groupId>
