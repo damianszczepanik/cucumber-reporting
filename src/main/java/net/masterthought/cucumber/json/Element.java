@@ -39,36 +39,31 @@ public class Element {
     }
 
     public Status getStatus() {
-        boolean hasNoFailed = getSteps().filter(Step.predicates.hasStatus(Status.FAILED)).isEmpty();
-        if (!hasNoFailed) {
+        if (!existFilteredOutBy(Status.FAILED)) {
             return Status.FAILED;
         }
 
         ConfigurationOptions configuration = ConfigurationOptions.instance();
         if (configuration.skippedFailsBuild()) {
-            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.SKIPPED)).isEmpty();
-            if (!hasNoSkipped) {
+            if (!existFilteredOutBy(Status.SKIPPED)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.pendingFailsBuild()) {
-            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.PENDING)).isEmpty();
-            if (!hasNoSkipped) {
+            if (!existFilteredOutBy(Status.PENDING)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.undefinedFailsBuild()) {
-            boolean hasNoSkipped = getSteps().filter(Step.predicates.hasStatus(Status.UNDEFINED)).isEmpty();
-            if (!hasNoSkipped) {
+            if (!existFilteredOutBy(Status.UNDEFINED)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.missingFailsBuild()) {
-            boolean hasNoMissing = getSteps().filter(Step.predicates.hasStatus(Status.MISSING)).isEmpty();
-            if (!hasNoMissing) {
+            if (!existFilteredOutBy(Status.MISSING)) {
                 return Status.FAILED;
             }
         }
@@ -76,6 +71,15 @@ public class Element {
         return Status.PASSED;
     }
 
+    /**
+     * Checks if there is any step with passed status.
+     * @param status status that should be filtered out
+     * @return true if there is status with passed status, false otherwise
+     */
+    private boolean existFilteredOutBy(Status status) {
+    	return getSteps().filter(Step.predicates.hasStatus(status)).isEmpty();
+    }
+    
     public String getRawName() {
         return name;
     }

@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?style=flat)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![Maven Dependencies](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed/badge.svg)](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed?child=summary)
@@ -16,7 +16,7 @@ This project allows you to publish the results of a cucumber run as pretty html 
 
 ## Install
 
-1. Add a maven dependency to your pom
+Add a maven dependency to your pom
 ```xml
 <dependency>
     <groupId>net.masterthought</groupId>
@@ -24,10 +24,8 @@ This project allows you to publish the results of a cucumber run as pretty html 
     <version>0.1.0</version>
 </dependency>
 ```
-2. Or grab the jar file from the [downloads](http://www.masterthought.net/section/cucumber-reporting) page
-
-Read this if you need further  [detailed install and configuration]
-(https://github.com/damianszczepanik/jenkins-cucumber-jvm-reports-plugin-java/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+Read this if you need further [detailed install and configuration]
+(https://github.com/damianszczepanik/jenkins-cucumber-reporting-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 
