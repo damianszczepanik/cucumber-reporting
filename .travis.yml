@@ -25,4 +25,5 @@ addons:
     # The command that will be added as an argument to "cov-build" to compile your project for analysis,
     build_command:   "mvn -DskipTests=true compile"
     # Pattern to match selecting branches that will run analysis.
-    branch_pattern: coverity_scan
+    # There is no many activity on master so launch from this branch once changes are pushed/merged
+    branch_pattern: master
