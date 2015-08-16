@@ -135,7 +135,7 @@ public final class FlashChartBuilder {
             buffer.append("<row>");
             buffer.append("<string>").append(status.getLabel()).append("</string>");
             for (TagObject tag : tagObjectList) {
-                int statusCounter = tag.getNumberOfStatus(status);
+                int statusCounter = tag.getNumberOfStatusIncludingBackGround(status);
                 buffer.append("<number tooltip='");
                 buffer.append(statusCounter).append("'>").append(statusCounter);
                 buffer.append("</number>");

@@ -23,6 +23,46 @@ public class ReportInformationTest {
     ReportInformation reportInformation;
     ReportParser reportParser;
 
+    /*
+    project1.json and project2.json contains same entries. So, multiplying by 2 to get the count
+
+    Scenarios:
+    @fast:
+    3 *2 = 6
+    @checkout:
+    3 *2 = 6
+    @super:
+    3 + 1 (feature level tag) = 4 *2 = 8
+
+    Total: 20
+
+    json file contains 7 steps per scenario
+    Steps:
+    @fast:
+    6 * 7 = 42
+    @checkout:
+    6 * 7 = 42
+    @super:
+    8 * 7 = 56
+
+    Total: 140
+
+
+    Background Scenario:
+    Activate Credit Card - appears 4 times in each json file, steps : 3
+
+    Scenarios:
+    4 *2 = 8
+
+    Steps:
+    8 * 3 (steps per scenario) = 24
+
+
+    Total Scenarios (background + tagged) : 20 + 8 = 28
+    Total Steps (background + tagged) : 140 + 24 = 164
+
+     */
+
     @Before
     public void setUpReportInformation() throws IOException, URISyntaxException {
         ConfigurationOptions configuration = ConfigurationOptions.instance();
@@ -137,12 +177,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenarios(), is(10));
+        assertThat(reportInformation.getTotalTagScenarios(), is(28));
     }
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenariosPassed(), is(10));
+        assertThat(reportInformation.getTotalTagScenariosPassed(), is(28));
     }
 
     @Test
@@ -152,12 +192,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagSteps() {
-        assertThat(reportInformation.getTotalTagSteps(), is(70));
+        assertThat(reportInformation.getTotalTagSteps(), is(164));
     }
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(70));
+        assertThat(reportInformation.getTotalTagPasses(), is(164));
     }
 
     @Test
