@@ -1,9 +1,5 @@
 target
-velocity.log
 .idea
 .classpath
 .project
 .settings/
-*.autosave
-.DS_Store
-*.iml
