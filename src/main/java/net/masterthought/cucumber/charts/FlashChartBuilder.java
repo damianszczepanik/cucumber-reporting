@@ -84,7 +84,7 @@ public final class FlashChartBuilder {
     }
 
     private static String wrapNumber(int number) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("<number shadow='high' bevel='data' line_color='FFFFFF' line_thickness='3' line_alpha='75'>");
         sb.append(number);
         sb.append("</number>");
@@ -121,29 +121,29 @@ public final class FlashChartBuilder {
     }
 
     private static String generateRowsForColumnChart(List<TagObject> tagObjectList) {
-        StringBuilder buffer = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (TagObject tag : tagObjectList) {
-            buffer.append("<string>" + tag.getTagName() + "</string>");
+            sb.append("<string>" + tag.getTagName() + "</string>");
         }
-        return buffer.toString();
+        return sb.toString();
     }
 
     private static String generateColumnsForColumnChart(List<TagObject> tagObjectList) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (Status status : Status.getOrderedStatuses()) {
-            buffer.append("<row>");
-            buffer.append("<string>").append(status.getLabel()).append("</string>");
+            sb.append("<row>");
+            sb.append("<string>").append(status.getLabel()).append("</string>");
             for (TagObject tag : tagObjectList) {
                 int statusCounter = tag.getNumberOfStatus(status);
-                buffer.append("<number tooltip='");
-                buffer.append(statusCounter).append("'>").append(statusCounter);
-                buffer.append("</number>");
+                sb.append("<number tooltip='");
+                sb.append(statusCounter).append("'>").append(statusCounter);
+                sb.append("</number>");
             }
-            buffer.append("</row>");
+            sb.append("</row>");
         }
 
-        return buffer.toString();
+        return sb.toString();
     }
 
     private static void generateSeriesColor(StringBuilder sb) {
