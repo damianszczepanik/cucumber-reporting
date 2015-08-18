@@ -165,15 +165,15 @@ public class ReportBuilder {
             boolean missingFails, boolean flashCharts, boolean runWithJenkins, boolean artifactsEnabled,
             String artifactConfig, boolean highCharts, boolean parallelTesting) throws IOException, VelocityException {
         try {
-            this.reportDirectory = reportDirectory;
-            this.buildNumber = buildNumber;
-            this.buildProject = buildProject;
-            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
-            this.flashCharts = flashCharts;
-            this.runWithJenkins = runWithJenkins;
+            setReportDirectory(reportDirectory);
+            setBuildNumber(buildNumber);
+            setBuildProject(buildProject);
+            setPluginUrlPath(getPluginUrlPath(pluginUrlPath));
+            setFlashCharts(flashCharts);
+            setHighCharts(highCharts);
+            setRunWithJenkins(runWithJenkins);
+            setParallel(parallelTesting);
             this.artifactsEnabled = artifactsEnabled;
-            this.highCharts = highCharts;
-            ReportBuilder.parallel = parallelTesting;
 
             ConfigurationOptions configuration = ConfigurationOptions.instance();
             configuration.setSkippedFailsBuild(skippedFails);
@@ -187,10 +187,10 @@ public class ReportBuilder {
             }
 
             ReportParser reportParser = new ReportParser(jsonReports);
-            this.reportInformation = new ReportInformation(reportParser.getFeatures());
+            setRi(new ReportInformation(reportParser.getFeatures()));
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception exception) {
-            parsingError = true;
+            setParsingError(true);
             generateErrorPage(exception);
         }
     }
@@ -220,7 +220,7 @@ public class ReportBuilder {
             new TagOverviewPage(this).generatePage();
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception exception) {
-            if (!parsingError) {
+            if (!isParsingError()) {
                 generateErrorPage(exception);
             }
         }
