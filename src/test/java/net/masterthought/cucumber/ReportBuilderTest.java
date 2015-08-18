@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -31,7 +32,14 @@ public class ReportBuilderTest {
         assertThat(fromId("overview-title", doc).text(), is("Feature Overview for build: 1"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
-        assertNotNull(fromId("flash-charts", doc));
+        Element flashchart = fromId("flash-charts", doc);
+        assertNotNull(flashchart);
+        String chart1 = flashchart.getElementsByTag("script").get(0).data();
+        String chart2 = flashchart.getElementsByTag("script").get(1).data();
+        assertThat(chart1, containsString("library_path=charts/charts_library&xml_data=<chart><chart_data><row><null/><string>Passed</string><string>Failed</string><string>Skipped</string>" +
+                "<string>Pending</string><string>Undefined</string><string>Missing</string></row>"));
+        assertThat(chart2, containsString("library_path=charts/charts_library&xml_data=<chart><chart_data><row><null/><string>Passed</string><string>Failed</string></row>"));
+
     }
 
     @Test
