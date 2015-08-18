@@ -5,10 +5,11 @@
          <div id="nav">
              <ul>
                  #if($fromJenkins)
-                     <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
+                     <li><a href="${jenkins_base}job/$build_project/$build_number">Jenkins</a></li>
                      #if($previous_build_number != -1)
-                         <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$pageUrl">Previous Build</a></li>
+                         <li><a href="${jenkins_base}job/$build_project/$previous_build_number/cucumber-html-reports/$pageUrl">Previous build</a></li>
                      #end
+                     <li><a href="${jenkins_base}job/$build_project/cucumber-html-reports/$pageUrl">Last build</a></li>
                  #end
                  <li><a href="tag-overview.html">Tags</a></li>
                  <li><a href="feature-overview.html">Feature</a></li>
