@@ -220,4 +220,8 @@ table.data-table td {
 	-moz-transform: rotate(45deg);
 }
 
+table#tablesorter thead tr th {
+	cursor: pointer;
+}
+
 </style>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cucumber-JVM Html Reports - Step Overview</title>
+
+#include("/templates/headers.html")
+
+#include("/styles/reporting.css")
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() {
+        $("#tablesorter").tablesorter(); 
+    }
+);
+</script>
+</head>
+<body id="top">
+
+    #parse("/templates/topMenu.vm")
+
+    #set($summaryKey = "Steps")
+    #parse("/templates/summaryOverview.vm")
+
+<div class="container_12">
+    <div class="grid_12">
+
+        <div>
+            <br/>
+            <h2>Step Statistics</h2>
+            <table id="tablesorter" class="stats-table">
+
+            <thead><tr>
+                <th id="stats-header-feature">Implementation</th>
+                <th id="stats-header-scenarios-total">Total</th>
+                <th id="stats-header-duration">Duration (ms)</th>
+                <th id="stats-header-duration">Duration</th>
+                <th id="stats-header-status">Status</th>
+            </tr></thead>
+
+            <tbody>
+            #foreach($step in $steps)
+                <tr>
+                    #if($step.getPercentageResult() == 100.0)
+                        #set($bgcolour = "#00CE00")
+                    #else
+                        #set($bgcolour = "#FF0000")
+                    #end
+
+                    <td style="text-align:left;">$step.getLocation()</td>
+                    <td>$step.getTotalOccurrences()</td>
+                    <td style="text-align:right;white-space:nowrap">$step.getTotalDuration()</td>
+                    <td style="text-align:right;white-space:nowrap">$step.getTotalFormattedDuration()</td>
+                    <td style="background-color: $bgcolour;">$step.getPercentageResult()%</td>
+                </tr>
+            #end
+            </tbody>
+
+                <!--  add row to adjust num of steps -->
+                <tr>
+                    <th style="background-color:lightgray">all steps</th>
+                    <th style="background-color:lightgray;">$all_occurrences</th>
+                    <th style="background-color:lightgray;">$all_durations</th>
+                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_formatted_durations</th>
+                    <th style="background-color:lightgray;">Totals</th>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+#parse("/templates/footer.vm")                        
+
+</body>
+</html>

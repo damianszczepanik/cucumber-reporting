@@ -75,7 +75,7 @@ public class Feature {
     }
 
     public boolean hasTags() {
-        return Util.itemExists(tags);
+        return Util.arrayNotEmpty(tags);
     }
 
     public boolean hasScenarios() {
@@ -92,7 +92,7 @@ public class Feature {
 
     public String getTagsList() {
         String result = "<div class=\"feature-tags\"></div>";
-        if (Util.itemExists(tags)) {
+        if (Util.arrayNotEmpty(tags)) {
             List<String> str = getTagList().toList();
             List<String> tagList = new ArrayList<String>();
             for(String s : str) {

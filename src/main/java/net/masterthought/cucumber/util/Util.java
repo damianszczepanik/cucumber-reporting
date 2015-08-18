@@ -10,15 +10,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Tag;
 
 import org.apache.commons.io.IOUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
-
-import com.googlecode.totallylazy.Sequence;
 
 public class Util {
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
@@ -48,15 +45,7 @@ public class Util {
         return item != null && !item.isEmpty();
     }
 
-    public static boolean itemExists(List<String> listItem) {
-        return !listItem.isEmpty();
-    }
-
-    public static boolean itemExists(Sequence<Element> sequence) {
-        return !sequence.isEmpty();
-    }
-
-    public static boolean itemExists(Tag[] tags) {
+    public static boolean arrayNotEmpty(Tag[] tags) {
         return tags != null && tags.length != 0;
     }
 

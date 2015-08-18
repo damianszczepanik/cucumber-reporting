@@ -16,7 +16,7 @@ public class FeatureReportPage extends AbstractPage {
 
     @Override
     public void generatePage() throws IOException {
-        for (Map.Entry<String, List<Feature>> pairs : reportInformation.getProjectFeatureMap().entrySet()) {
+        for (Map.Entry<String, List<Feature>> pairs : reportInformation.getFeatureMap().entrySet()) {
             List<Feature> featureList = pairs.getValue();
 
             for (Feature feature : featureList) {
