@@ -375,13 +375,12 @@ public class ReportInformation {
     private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
         for (ScenarioTag scenario : scenarioList) {
             if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
-                    && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
+                    && scenario.getScenario().equals(scenarioTag.getScenario())) {
                 return;
             }
         }
         scenarioList.add(scenarioTag);
     }
-
 
     private List<TagObject> addToTagMap(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
 

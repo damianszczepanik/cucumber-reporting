@@ -21,6 +21,7 @@ public class Element {
     /** Refers to background step. Is defined in json file. */
     private final static String BACKGROUND_KEYWORD = "Background";
 
+    private String id;
     private String name;
     private String description;
     private String keyword;
@@ -28,7 +29,6 @@ public class Element {
     private Hook[] before;
     private Hook[] after;
     private Tag[] tags;
-
 
     public Sequence<Step> getSteps() {
         return Sequences.sequence(option(steps).getOrElse(new Step[]{})).realise();
@@ -144,6 +144,27 @@ public class Element {
             result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ",") + "</div>";
         }
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Element other = (Element) obj;
+
+        return id.equals(other.id);
     }
 
     public static class Functions {
