@@ -18,6 +18,7 @@ public class ErrorPage extends AbstractPage {
         super.generatePage();
 
         contextMap.put("error_message", exception);
+        contextMap.put("json_files", reportBuilder.getJsonFiles());
 
         super.generateReport("feature-overview.html");
     }

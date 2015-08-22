@@ -18,14 +18,14 @@ import com.google.gson.stream.MalformedJsonException;
 
 public class ReportParser {
 
-    private final Map<String, List<Feature>> jsonReportFiles;
+    private final Map<String, List<Feature>> featureFiles;
 
     public ReportParser(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
-        this.jsonReportFiles = parseJsonResults(jsonReportFiles);
+        this.featureFiles = parseJsonResults(jsonReportFiles);
     }
 
     public Map<String, List<Feature>> getFeatures() {
-        return jsonReportFiles;
+        return featureFiles;
     }
 
     private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException,

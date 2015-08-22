@@ -3,11 +3,6 @@ package net.masterthought.cucumber.json;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.StatusCounter;
-import net.masterthought.cucumber.util.Util;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -15,6 +10,11 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
+
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.StatusCounter;
+import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
