@@ -20,7 +20,8 @@ $(document).ready(function() {
 
     #parse("/templates/topMenu.vm")
 
-    #set($summaryKey = "Steps")
+    #set($summary_key = "Steps")
+    #set($summary_description = "The following graph shows this statistics in this build. This chart may present background steps that may not be counted in other charts.")
     #parse("/templates/summaryOverview.vm")
 
 <div class="container_12">

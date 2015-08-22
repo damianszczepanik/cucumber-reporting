@@ -52,7 +52,7 @@
 
     #parse("/templates/topMenu.vm")
 
-    #set($summaryKey = $feature.getRawName())
+    #set($summary_key = $feature.getRawName())
     #parse("/templates/summaryReport.vm")
 
     <div class="container_12">

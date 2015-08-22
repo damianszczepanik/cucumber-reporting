@@ -12,7 +12,7 @@
 
     #parse("/templates/topMenu.vm")
 
-    #set($summaryKey = "$tag.getTagName()")
+    #set($summary_key = "$tag.getTagName()")
     #parse("/templates/summaryReport.vm")
 
     <div class="container_12">
