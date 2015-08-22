@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.googlecode.totallylazy.Sequence;
+
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
@@ -15,8 +17,6 @@ import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-
-import com.googlecode.totallylazy.Sequence;
 
 public class ReportInformation {
 
@@ -34,7 +34,7 @@ public class ReportInformation {
     private int totalTagScenarios = 0;
     private int totalTagSteps = 0;
     private final StatusCounter totalTags = new StatusCounter();
-    
+
     private long totalTagDuration = 0L;
     private int totalPassingTagScenarios = 0;
     private int totalFailingTagScenarios = 0;
@@ -251,7 +251,7 @@ public class ReportInformation {
                         scenarioList.add(new ScenarioTag(e, feature.getFileName()));
                     }
                 }
-                tagMap = createOrAppendToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
+                tagMap = addToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
 
             }
 
@@ -263,9 +263,8 @@ public class ReportInformation {
                 }
 
                 if (scenario.hasTags()) {
-                    scenarioList = addScenarioUnlessExists(scenarioList,
-                            new ScenarioTag(scenario, feature.getFileName()));
-                    tagMap = createOrAppendToTagMap(tagMap, scenario.getTagList(), scenarioList);
+                    addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
+                    tagMap = addToTagMap(tagMap, scenario.getTagList(), scenarioList);
                 }
 
                 adjustStepsForScenario(scenario);
@@ -373,118 +372,70 @@ public class ReportInformation {
         return link;
     }
 
-
-
-    private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
-        boolean exists = false;
+    private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
         for (ScenarioTag scenario : scenarioList) {
             if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
                     && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
-                exists = true;
-                break;
+                return;
             }
         }
-
-        if (!exists) {
-            scenarioList.add(scenarioTag);
-        }
-        return scenarioList;
+        scenarioList.add(scenarioTag);
     }
 
-//    private List<ScenarioTag> addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
-//
-//        Sequence<ScenarioTag> listOfScenarios = Sequences.sequence(scenarioList).realise();
-//        Sequence<ScenarioTag> results = listOfScenarios.filter(ScenarioTag.predicates.scenarioExists(scenarioTag.getParentFeatureUri(),scenarioTag.getScenario().getName()));
-//        List<ScenarioTag> scenarioTags = results.toList();
-//        for(ScenarioTag scenario : scenarioTags){
-//           scenarioList.add(scenario);
-//        }
-//
-//        scenarioList.add(scenarioTag);
-//
-//        List<ScenarioTag> scenariosForList = new ArrayList<ScenarioTag>();
-//            for (ScenarioTag scenario : scenarioList) {
-//
-//                if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
-//                        && scenario.getScenario().getName().equalsIgnoreCase(scenarioTag.getScenario().getName())) {
-//                    if(scenarioTag.getScenario().getKeyword().equalsIgnoreCase("Scenario Outline")){
-//                      scenariosForList.add(scenarioTag);
-//                    }
-//                } else {
-//                    scenariosForList.add(scenarioTag);
-//                }
-//            }
-//
-////            if(!scenariosForList.isEmpty()){
-//                scenarioList.addAll(scenariosForList);
-////            }
-//
-//            return scenarioList;
-//        }
 
-    private List<TagObject> createOrAppendToTagMap(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
-        for (String tag : tagList) {
-            boolean exists = false;
-            TagObject tagObj = null;
-            for (TagObject tagObject : tagMap) {
-                if (tagObject.getTagName().equalsIgnoreCase(tag)) {
-                    exists = true;
-                    tagObj = tagObject;
-                    break;
-                }
-            }
-            if (exists) {
-                List<ScenarioTag> existingTagList = tagObj.getScenarios();
-                for (ScenarioTag scenarioTag : scenarioList) {
-                    if (scenarioTag.getScenario().getTagList().contains(tag)) {
-                        existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
-                    }
-                }
-                tagMap.remove(tagObj);
+    private List<TagObject> addToTagMap(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
+
+        for (String tagName : tagList) {
+            TagObject tagObj = findTagObjectByNameInList(tagName, tagMap);
+
+            List<ScenarioTag> existingTagList = new ArrayList<>();
+            if (tagObj == null) {
+                tagObj = new TagObject(tagName, existingTagList);
+            } else {
+                existingTagList.addAll(tagObj.getScenarios());
                 tagObj.setScenarios(existingTagList);
-                tagMap.add(tagObj);
-            } else {
-                List<ScenarioTag> existingTagList = new ArrayList<ScenarioTag>();
-                for (ScenarioTag scenarioTag : scenarioList) {
-                    if (scenarioTag.getScenario().getTagList().contains(tag)) {
-                        existingTagList = addScenarioUnlessExists(existingTagList, scenarioTag);
-                    }
-                }
-                tagObj = new TagObject(tag, existingTagList);
-                tagMap.add(tagObj);
+                tagMap.remove(tagObj);
             }
+
+            for (ScenarioTag scenarioTag : scenarioList) {
+                if (scenarioTag.getScenario().getTagList().contains(tagName)) {
+                    addScenarioUnlessExists(existingTagList, scenarioTag);
+                }
+            }
+
+            tagMap.add(tagObj);
         }
         return tagMap;
     }
 
-    public List<TagObject> createOrAppendToTagMapByFeature(List<TagObject> tagMap, Sequence<String> tagList,
-                                                           List<ScenarioTag> scenarioList) {
-        for (String tag : tagList) {
-            boolean exists = false;
-            TagObject tagObj = null;
-            for (TagObject tagObject : tagMap) {
-                if (tagObject.getTagName().equalsIgnoreCase(tag)) {
-                    exists = true;
-                    tagObj = tagObject;
-                    break;
-                }
-            }
-            if (exists) {
-                List<ScenarioTag> existingTagList = tagObj.getScenarios();
-                List<ScenarioTag> all = new ArrayList<>();
-                all.addAll(existingTagList);
-                all.addAll(scenarioList);
+    public List<TagObject> addToTagMapByFeature(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
+
+        for (String tagName : tagList) {
+            TagObject tagObj = findTagObjectByNameInList(tagName, tagMap);
+
+            if (tagObj != null) {
+                List<ScenarioTag> allScenarios = new ArrayList<>();
+                allScenarios.addAll(tagObj.getScenarios());
+                allScenarios.addAll(scenarioList);
 
                 tagMap.remove(tagObj);
-                tagObj.setScenarios(all);
-                tagMap.add(tagObj);
+                tagObj.setScenarios(allScenarios);
             } else {
-                tagObj = new TagObject(tag, scenarioList);
-                tagMap.add(tagObj);
+                tagObj = new TagObject(tagName, scenarioList);
             }
+            tagMap.add(tagObj);
         }
         return tagMap;
 
+    }
+
+    private TagObject findTagObjectByNameInList(String name, List<TagObject> list) {
+        for (TagObject tagObject : list) {
+            if (tagObject.getTagName().equalsIgnoreCase(name)) {
+                return tagObject;
+            }
+        }
+        return null;
     }
 
     public Background getBackgroundInfo() {
