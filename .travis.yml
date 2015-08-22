@@ -1,7 +1,7 @@
 env:
   global:
     # COVERITY_SCAN_TOKEN
-    - secure: "DUEDJq7FNTomeYYm45CdUg"
+    - secure: "KJ9vumhi1xM-O_u2C_c03A"
     
 language: java
 
@@ -16,7 +16,7 @@ after_success:
 addons:
   coverity_scan:
     project:
-      name: "damianszczepanik/cucumber-reporting"
+      name: "cucumber-reporting"
       description: "Build submitted via Travis CI"
     # Where email notification of build analysis results will be sent
     notification_email: damian.publicemail@gmail.com
