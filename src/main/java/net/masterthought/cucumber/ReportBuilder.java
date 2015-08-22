@@ -9,6 +9,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.exception.VelocityException;
+
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FeatureOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -18,13 +22,10 @@ import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.UnzipUtils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.exception.VelocityException;
-
 public class ReportBuilder {
 
     private ReportInformation reportInformation;
+    private List<String> jsonFiles;
     private File reportDirectory;
     private String buildNumber;
     private String buildProject;
@@ -130,6 +131,10 @@ public class ReportBuilder {
         this.highCharts = highCharts;
     }
 
+    public List<String> getJsonFiles() {
+        return this.jsonFiles;
+    }
+
     /**
      * Configures report that will be used for further generation.
      * 
@@ -175,6 +180,7 @@ public class ReportBuilder {
             this.artifactsEnabled = artifactsEnabled;
             this.highCharts = highCharts;
             ReportBuilder.parallel = parallelTesting;
+            this.jsonFiles = jsonReports;
 
             ConfigurationOptions configuration = ConfigurationOptions.instance();
             configuration.setSkippedFailsBuild(skippedFails);
@@ -264,5 +270,5 @@ public class ReportBuilder {
         ErrorPage errorPage = new ErrorPage(this, exception);
         errorPage.generatePage();
         System.out.println(exception);
-            }
-        }
+    }
+}
