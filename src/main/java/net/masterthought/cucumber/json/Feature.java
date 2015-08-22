@@ -18,6 +18,7 @@ import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
+    private String id;
     private String name;
     private String uri;
     private String description;
@@ -27,9 +28,6 @@ public class Feature {
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
     private String jsonFile = "";
-
-    public Feature() {
-    }
 
     public String getDeviceName() {
         String name = "";
@@ -224,10 +222,11 @@ public class Feature {
         }
     }
 
-    class StepResults {
-        List<Step> allSteps;
-        private StatusCounter statusCounter;
-        long totalDuration;
+
+    private class StepResults {
+        private final List<Step> allSteps;
+        private final StatusCounter statusCounter;
+        private final long totalDuration;
 
         public StepResults(List<Step> allSteps, StatusCounter statusCounter, long totalDuration) {
             this.allSteps = allSteps;
@@ -272,9 +271,9 @@ public class Feature {
         }
     }
 
-    class ScenarioResults {
-        List<Element> passedScenarios;
-        List<Element> failedScenarios;
+    private class ScenarioResults {
+        private List<Element> passedScenarios;
+        private List<Element> failedScenarios;
 
         ScenarioResults(List<Element> passedScenarios, List<Element> failedScenarios) {
             this.passedScenarios = passedScenarios;
@@ -290,6 +289,4 @@ public class Feature {
         }
 
     }
-
-
 }

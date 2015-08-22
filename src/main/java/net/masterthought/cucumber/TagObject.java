@@ -156,4 +156,5 @@ public class TagObject {
     public String getRawStatus() {
         return getStatus().toString().toLowerCase();
     }
+
 }

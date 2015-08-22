@@ -31,13 +31,13 @@ public class TagOverviewPage extends AbstractPage {
         contextMap.put("total_pending", reportInformation.getTotalTagPending());
         contextMap.put("total_undefined", reportInformation.getTotalTagUndefined());
         contextMap.put("total_missing", reportInformation.getTotalTagMissing());
-        contextMap.put("hasCustomHeaders", false);
+        contextMap.put("hasCustomHeader", false);
 
         boolean flashCharts = this.reportBuilder.isFlashCharts();
         boolean highCharts = this.reportBuilder.isHighCharts();
         List<TagObject> tags = this.reportInformation.getTags();
         if (reportBuilder.getCustomHeader() != null) {
-            contextMap.put("hasCustomHeaders", true);
+            contextMap.put("hasCustomHeader", true);
             contextMap.put("customHeaders", reportBuilder.getCustomHeader());
         }
         contextMap.put("backgrounds", reportInformation.getBackgroundInfo());
