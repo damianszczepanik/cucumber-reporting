@@ -1,7 +1,7 @@
 package net.masterthought.cucumber;
 
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -170,14 +170,13 @@ public class ReportBuilderTest {
         assertThat("scenario-background-name", doc.select("div.passed span.scenario-name").first().text(), is("Activate Credit Card"));
 
         elements = doc.select("div.passed span.step-keyword");
-        List<String> backgroundStepKeywords = new ArrayList<String>();
-        List<String> firstScenarioStepKeywords = new ArrayList<String>();
-        for (Element element : elements) {
-            int index = elements.indexOf(element);
-            if (index < 3) {
-                backgroundStepKeywords.add(element.text());
-            } else if (index >= 3 && index < 10) {
-                firstScenarioStepKeywords.add(element.text());
+        List<String> backgroundStepKeywords = new ArrayList<>();
+        List<String> firstScenarioStepKeywords = new ArrayList<>();
+        for (int i = 0; i< elements.size(); i++) {
+            if (i < 3) {
+                backgroundStepKeywords.add(elements.get(i).text());
+            } else if (i < 10) {
+                firstScenarioStepKeywords.add(elements.get(i).text());
             } else {
                 break;
             }
@@ -187,14 +186,13 @@ public class ReportBuilderTest {
                 is(Arrays.asList(new String[] {"Given", "And", "And", "When", "Then", "And", "And"})));
 
         elements = doc.select("div.passed span.step-name");
-        List<String> backgroundStepNames = new ArrayList<String>();
-        List<String> firstScenarioStepNames = new ArrayList<String>();
-        for (Element element : elements) {
-            int index = elements.indexOf(element);
-            if (index < 3) {
-                backgroundStepNames.add(element.text());
-            } else if (index >= 3 && index < 10) {
-                firstScenarioStepNames.add(element.text());
+        List<String> backgroundStepNames = new ArrayList<>();
+        List<String> firstScenarioStepNames = new ArrayList<>();
+        for (int i = 0; i < elements.size(); i++) {
+            if (i < 3) {
+                backgroundStepNames.add(elements.get(i).text());
+            } else if (i < 10) {
+                firstScenarioStepNames.add(elements.get(i).text());
             } else {
                 break;
             }
@@ -217,10 +215,12 @@ public class ReportBuilderTest {
         elements = doc.select("div.passed span.step-duration");
 //        assertFalse("step durations must not be empty", elements.isEmpty());
         List<String> stepDurations = new ArrayList<String>();
-        for (Element element : elements) {
-            stepDurations.add(element.text());
-            int index = elements.indexOf(element);
-            if (index >= 10) break;
+        for (int i = 0; i < elements.size(); i++) {
+            if (i <= 10) {
+                stepDurations.add(elements.get(i).text());
+            } else {
+                break;
+            }
         }
         assertThat("Step durations must be same", stepDurations,
                 is(Arrays.asList(new String [] {"107ms", "000ms", "000ms", "000ms", "000ms", "000ms", "000ms", "003ms", "000ms", "000ms", "000ms"})));
