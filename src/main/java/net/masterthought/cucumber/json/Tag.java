@@ -4,11 +4,7 @@ import com.googlecode.totallylazy.Function1;
 
 public class Tag {
 
-    private String name;
-
-    public String getName() {
-        return name;
-    }
+    public final String name = null;
 
     public static class functions {
 
@@ -16,7 +12,7 @@ public class Tag {
             return new Function1<Tag, String>() {
                 @Override
                 public String call(Tag tag) throws Exception {
-                    return tag.getName();
+                    return tag.name;
                 }
             };
         }

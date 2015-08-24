@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Feature;
 
 import org.junit.Before;

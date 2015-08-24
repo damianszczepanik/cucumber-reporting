@@ -1,7 +1,5 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Artifact;
-
 import java.util.HashMap;
 import java.util.Map;
 

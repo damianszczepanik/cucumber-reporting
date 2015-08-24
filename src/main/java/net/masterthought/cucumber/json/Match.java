@@ -2,11 +2,7 @@ package net.masterthought.cucumber.json;
 
 public class Match {
 
-    private String location;
-
-    public Match(){
-
-    }
+    private final String location = null;
 
     public String getLocation() {
         return location;

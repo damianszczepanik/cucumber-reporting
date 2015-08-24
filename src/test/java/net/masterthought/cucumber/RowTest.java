@@ -1,17 +1,18 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Row;
-import org.junit.Before;
-import org.junit.Test;
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Row;
 
 public class RowTest {
 
@@ -35,8 +36,8 @@ public class RowTest {
 
     @Test
     public void shouldReturnCells() {
-        assertThat(row.getCells()[0], is("title"));
-        assertThat(row.getCells()[1], is("lord"));
+        assertThat(row.cells[0], is("title"));
+        assertThat(row.cells[1], is("lord"));
     }
 
 }
