@@ -2,8 +2,6 @@ package net.masterthought.cucumber;
 
 import java.util.Map;
 
-import net.masterthought.cucumber.json.Artifact;
-
 public final class ConfigurationOptions {
 
     public boolean skippedFailsBuildValue;

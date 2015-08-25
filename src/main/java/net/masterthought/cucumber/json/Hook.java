@@ -1,9 +1,11 @@
 package net.masterthought.cucumber.json;
 
+import net.masterthought.cucumber.json.support.ResultsWithMatch;
+
 public class Hook implements ResultsWithMatch {
 
-    private Result result;
-    private Match match;
+    private final Result result = null;
+    private final Match match = null;
 
     @Override
     public Result getResult() {

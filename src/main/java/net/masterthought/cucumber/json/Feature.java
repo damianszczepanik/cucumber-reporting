@@ -12,21 +12,25 @@ import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.json.support.ScenarioResults;
+import net.masterthought.cucumber.json.support.StepResults;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
-    private String id;
-    private String name;
-    private String uri;
-    private String description;
-    private String keyword;
-    private Element[] elements;
-    private Tag[] tags;
+    private final String id = null;
+    private final String name = null;
+    private final String uri = null;
+    private final String description = null;
+    private final String keyword = null;
+    private final Element[] elements = new Element[0];
+    private final Tag[] tags = new Tag[0];
+
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
+
     private String jsonFile = "";
 
     public String getDeviceName() {
@@ -191,8 +195,8 @@ public class Feature {
     public void processSteps() {
         List<Step> allSteps = new ArrayList<Step>();
         StatusCounter stepsCounter = new StatusCounter();
-        List<Element> passedScenarios = new ArrayList<Element>();
-        List<Element> failedScenarios = new ArrayList<Element>();
+        List<Element> passedScenarios = new ArrayList<>();
+        List<Element> failedScenarios = new ArrayList<>();
         long totalDuration = 0L;
 
         if (elements != null) {
@@ -223,70 +227,4 @@ public class Feature {
     }
 
 
-    private class StepResults {
-        private final List<Step> allSteps;
-        private final StatusCounter statusCounter;
-        private final long totalDuration;
-
-        public StepResults(List<Step> allSteps, StatusCounter statusCounter, long totalDuration) {
-            this.allSteps = allSteps;
-            this.statusCounter = statusCounter;
-            this.totalDuration = totalDuration;
-        }
-
-        public int getNumberOfSteps() {
-            return allSteps.size();
-        }
-
-        public int getNumberOfPasses() {
-            return statusCounter.getValueFor(Status.PASSED);
-        }
-
-        public int getNumberOfFailures() {
-            return statusCounter.getValueFor(Status.FAILED);
-        }
-
-        public int getNumberOfUndefined() {
-            return statusCounter.getValueFor(Status.UNDEFINED);
-        }
-
-        public int getNumberOfPending() {
-            return statusCounter.getValueFor(Status.PENDING);
-        }
-
-        public int getNumberOfSkipped() {
-            return statusCounter.getValueFor(Status.SKIPPED);
-        }
-
-        public int getNumberOfMissing() {
-            return statusCounter.getValueFor(Status.MISSING);
-        }
-
-        public long getTotalDuration() {
-            return totalDuration;
-        }
-
-        public String getTotalDurationAsString() {
-            return Util.formatDuration(totalDuration);
-        }
-    }
-
-    private class ScenarioResults {
-        private List<Element> passedScenarios;
-        private List<Element> failedScenarios;
-
-        ScenarioResults(List<Element> passedScenarios, List<Element> failedScenarios) {
-            this.passedScenarios = passedScenarios;
-            this.failedScenarios = failedScenarios;
-        }
-
-        public int getNumberOfScenariosPassed() {
-            return passedScenarios.size();
-        }
-
-        public int getNumberOfScenariosFailed() {
-            return failedScenarios.size();
-        }
-
-    }
 }

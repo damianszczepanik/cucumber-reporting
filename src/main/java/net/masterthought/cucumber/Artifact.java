@@ -1,12 +1,12 @@
-package net.masterthought.cucumber.json;
+package net.masterthought.cucumber;
 
 public class Artifact {
 
-    private String scenario;
-    private String step;
-    private String keyword;
-    private String artifactFile;
-    private String contentType;
+    private final String scenario;
+    private final String step;
+    private final String keyword;
+    private final String artifactFile;
+    private final String contentType;
 
     public Artifact(String scenario, String step, String keyword, String artifactFile, String contentType) {
         this.scenario = scenario;

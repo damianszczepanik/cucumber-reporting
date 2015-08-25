@@ -2,14 +2,6 @@ package net.masterthought.cucumber.json;
 
 public class Row {
 
-    private String[] cells;
+    public final String[] cells = new String[0];
 
-    public Row() {
-
-    }
-
-    public String[] getCells() {
-        return cells;
-    }
 }
-

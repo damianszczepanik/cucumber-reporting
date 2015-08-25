@@ -9,11 +9,10 @@ import java.util.Map;
 
 import com.googlecode.totallylazy.Sequence;
 
-import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.ResultsWithMatch;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;

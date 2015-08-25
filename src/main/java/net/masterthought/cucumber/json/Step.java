@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.Util;
-
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.google.common.base.Joiner;
@@ -17,20 +14,21 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
+import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.Util;
+
 public class Step implements ResultsWithMatch {
 
-    private String name;
-    private String keyword;
-    private String line;
-    private Result result;
-    private Row[] rows;
-    private Match match;
-    private Object[] embeddings;
-    private String[] output;
-    private DocString doc_string;
-
-    public Step() {
-    }
+    private String name = null;
+    private final String keyword = null;
+    private final String line = null;
+    private final Result result = null;
+    private final Row[] rows = new Row[0];
+    private final Match match = null;
+    private final Object[] embeddings = new String[0];
+    private final String[] output = new String[0];
+    private final DocString doc_string = null;
 
     public DocString getDocString() {
         return doc_string;
@@ -85,9 +83,9 @@ public class Step implements ResultsWithMatch {
         }
     }
 
-    public Long getDuration() {
+    public long getDuration() {
         if (result == null) {
-            return 1L;
+            return 0L;
         } else {
             return result.getDuration();
         }

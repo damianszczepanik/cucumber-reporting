@@ -1,6 +1,5 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Artifact;
 import org.junit.Test;
 
 import java.util.Map;
