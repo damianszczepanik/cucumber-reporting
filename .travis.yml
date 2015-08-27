@@ -1,8 +1,9 @@
 env:
   global:
-    # COVERITY_SCAN_TOKEN
-    - secure: "DUEDJq7FNTomeYYm45CdUg"
-    
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Y+YxuiIsDDP8OqxnB7wQ0o/f8036p/n0hM9zD+tqfXw30ajtQPw45vVFVnBOMrsVZUHeToX+isoAoJQaI8791UqS9Tttl5tb8WjpYDeE1LGsTeUeBh7EmZvVD2xvhGjcrSayBwoQeTf2mxgJKzzfJwrAfq50hkgHIsUijadOmao="
+
 language: java
 
 jdk:
@@ -25,4 +26,4 @@ addons:
     # The command that will be added as an argument to "cov-build" to compile your project for analysis,
     build_command:   "mvn -DskipTests=true compile"
     # Pattern to match selecting branches that will run analysis.
-    branch_pattern: coverity_scan
+    branch_pattern: master
