@@ -1,11 +1,8 @@
 package net.masterthought.cucumber.json;
 
 import static com.googlecode.totallylazy.Option.option;
-import static org.apache.commons.lang.StringUtils.EMPTY;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -26,7 +23,7 @@ public class Step implements ResultsWithMatch {
     private final Result result = null;
     private final Row[] rows = new Row[0];
     private final Match match = null;
-    private final Object[] embeddings = new String[0];
+    private final Embedded[] embeddings = new Embedded[0];
     private final String[] output = new String[0];
     private final DocString doc_string = null;
 
@@ -145,7 +142,7 @@ public class Step implements ResultsWithMatch {
 
         }
         sb.append("</div>");
-        sb.append(getImageTags());
+        sb.append(getAttachments());
 
         return sb.toString();
     }
@@ -178,38 +175,14 @@ public class Step implements ResultsWithMatch {
         this.name = newName;
     }
 
-    public String getImageTags() {
-        if (noEmbeddedScreenshots()) {
-            return EMPTY;
-        }
-
-        String links = EMPTY;
-        int index = 1;
-        for (Object image : embeddings) {
-            if (image != null) {
-                String mimeEncodedImage = mimeEncodeEmbededImage(image);
-                String imageId = UUID.nameUUIDFromBytes(mimeEncodedImage.getBytes()).toString();
-                links = links + String.format("<a onclick=\"img=document.getElementById('%s'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot %s</a>"
-                    + "<a href=\"%s\" data-lightbox=\"image-1\" data-title=\"%s\">"
-                    + "<img id=\"%s\"src=\"%s\" style='max-width: 250px;display:none;' alt=\"This is the title\"/>"
-                    + "</a></br>",
-                    imageId,index++,mimeEncodedImage,StringEscapeUtils.escapeHtml(name),imageId, mimeEncodedImage);
+    public String getAttachments() {
+        StringBuilder sb = new StringBuilder();
+        if (embeddings != null) {
+            for (int i = 0; i < embeddings.length; i++) {
+                sb.append(embeddings[i].render(i + 1));
             }
         }
-        return links;
-    }
-
-    private boolean noEmbeddedScreenshots() {
-        return getEmbeddings() == null;
-    }
-
-    public static String mimeEncodeEmbededImage(Object image) {
-        return "data:image/png;base64," + ((Map) image).get("data");
-
-    }
-
-    public static String uuidForImage(Object image) {
-        return UUID.nameUUIDFromBytes(mimeEncodeEmbededImage(image).getBytes()).toString();
+        return sb.toString();
     }
 
     public static class functions {

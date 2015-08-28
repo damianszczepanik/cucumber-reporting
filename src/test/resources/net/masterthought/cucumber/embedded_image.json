@@ -63,6 +63,18 @@
                                 "mime_type":"image/png",
                                 "data":"R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=="
                             },
+                            {
+                                "mime_type": "text/plain",
+                                "data": "amF2YS5sYW5nLlRocm93YWJsZQ=="
+                            },
+                            {
+                                "mime_type": "text/html",
+                                "data": "PGk+SGVsbG88L2k+IDxiPldvcmxkITxiPg=="
+                            },
+                            {
+                                "mime_type": "unknown",
+                                "data": "VW56dXBwb3J0ZWRGaWxl"
+                            }
                         ]
                     }
                 ],
