@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
@@ -51,7 +49,7 @@ public class Feature {
 
     public String getFileName() {
         List<String> matches = new ArrayList<String>();
-        for (String line : Splitter.onPattern("/|\\\\").split(uri)) {
+        for (String line : StringUtils.split(uri, "/|\\\\")) {
             String modified = line.replaceAll("\\)|\\(", "");
             modified = StringUtils.deleteWhitespace(modified).trim();
             matches.add(modified);
@@ -60,7 +58,7 @@ public class Feature {
         List<String> lastElement = matches.subList(1, matches.size());
 
         matches = lastElement.isEmpty() ? matches : lastElement;
-        String fileName = Joiner.on("-").join(matches); 
+        String fileName = StringUtils.join(matches, "-");
 
         //If we spect to have parallel executions, we add 
         if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {

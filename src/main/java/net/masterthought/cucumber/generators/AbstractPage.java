@@ -11,16 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportInformation;
-import net.masterthought.cucumber.VelocityContextMap;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.EscapeTool;
 
-import com.google.common.base.Charsets;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportInformation;
+import net.masterthought.cucumber.VelocityContextMap;
 
 /**
  * Delivers common methods for page generation.
@@ -63,7 +61,7 @@ public abstract class AbstractPage {
         context.put("pageUrl", fileName);
         File dir = new File(this.reportBuilder.getReportDirectory(), fileName);
         try (FileOutputStream fileStream = new FileOutputStream(dir)) {
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, Charsets.UTF_8))) {
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF8"))) {
                 template.merge(context, writer);
             }
         }
