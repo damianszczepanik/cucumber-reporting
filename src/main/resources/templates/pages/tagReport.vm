@@ -46,7 +46,7 @@
                     <div><a href="$scenario.getParentFeatureUri()">View Feature File</a></div>
                 $scenario.getScenario().getTagsList()
                 $scenario.getScenario().getName()
-                #foreach($step in $scenario.getScenario().getSteps().toList())
+                #foreach($step in $scenario.getScenario().getSteps())
                   $step.getName()
                     $step.getDocStringOrNothing()
                     #if($step.hasRows())

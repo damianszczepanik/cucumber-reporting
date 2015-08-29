@@ -1,8 +1,8 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Element;
-
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
+
+import net.masterthought.cucumber.json.Element;
 
 public class ScenarioTag {
 
@@ -23,7 +23,7 @@ public class ScenarioTag {
     }
 
     public boolean hasSteps() {
-        return !scenario.getSteps().isEmpty();
+        return scenario.getSteps().length > 0;
     }
     
     public static class Predicates {

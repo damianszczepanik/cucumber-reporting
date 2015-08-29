@@ -204,13 +204,11 @@ public class ReportInformation {
 
             for (ScenarioTag scenarioTag : tag.getScenarios()) {
                 if (scenarioTag.hasSteps()) {
-                    Sequence<Step> steps = scenarioTag.getScenario().getSteps();
-                    List<Step> stepList = new ArrayList<Step>();
+                    Step[] steps = scenarioTag.getScenario().getSteps();
                     for (Step step : steps) {
-                        stepList.add(step);
-                        totalTagDuration = totalTagDuration + step.getDuration();
+                        totalTagDuration += step.getDuration();
                     }
-                    totalTagSteps += stepList.size();
+                    totalTagSteps += steps.length;
                 }
             }
         }
@@ -279,7 +277,7 @@ public class ReportInformation {
                 countSteps(scenario.getBefore());
                 countSteps(scenario.getAfter());
 
-                countSteps(scenario.getSteps().toArray(ResultsWithMatch.class));
+                countSteps(scenario.getSteps());
             }
         }
     }
@@ -315,8 +313,8 @@ public class ReportInformation {
         } else {
             backgroundInfo.addTotalScenariosFailed(1);
         }
-        backgroundInfo.addTotalSteps(e.getSteps().size());
-        for (Step step : e.getSteps().toList()) {
+        backgroundInfo.addTotalSteps(e.getSteps().length);
+        for (Step step : e.getSteps()) {
             backgroundInfo.incrTotalDurationBy(step.getDuration());
             backgroundInfo.incrStepCounterForStatus(step.getStatus());
         }
@@ -326,8 +324,8 @@ public class ReportInformation {
     private void adjustStepsForScenario(Element element) {
         String scenarioName = element.getRawName();
         if (element.hasSteps()) {
-            Sequence<Step> steps = element.getSteps();
-            numberOfSteps = numberOfSteps + steps.size();
+            Step[] steps = element.getSteps();
+            numberOfSteps = numberOfSteps + steps.length;
             for (Step step : steps) {
                 String stepName = step.getRawName();
 

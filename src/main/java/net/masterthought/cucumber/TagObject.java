@@ -3,13 +3,13 @@ package net.masterthought.cucumber;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Sequences;
+
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
-
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
 
 public class TagObject {
 
@@ -91,7 +91,7 @@ public class TagObject {
         int totalSteps = 0;
         for (ScenarioTag scenario : scenarios) {
             if (scenario.hasSteps()) {
-                totalSteps += scenario.getScenario().getSteps().size();
+                totalSteps += scenario.getScenario().getSteps().length;
             }
         }
         return totalSteps;
