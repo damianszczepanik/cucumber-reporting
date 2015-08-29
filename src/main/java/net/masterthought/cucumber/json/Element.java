@@ -116,20 +116,12 @@ public class Element {
                 + StringUtils.join(contentString.toArray(), " ") + "</div>" : "";
     }
 
-    public Sequence<String> getTagList() {
-        return processTags();
-    }
-
     public boolean hasTags() {
-        return Util.arrayNotEmpty(tags);
+        return tags.length > 0;
     }
 
     public boolean hasSteps() {
         return steps.length > 0;
-    }
-
-    private Sequence<String> processTags() {
-        return getTags().map(Tag.functions.getName());
     }
 
     public boolean isBackground() {
@@ -137,18 +129,7 @@ public class Element {
     }
 
     public String getTagsList() {
-        String result = "<div class=\"feature-tags\"></div>";
-        if (Util.arrayNotEmpty(tags)) {
-            List<String> str = getTagList().toList();
-            List<String> tagList = new ArrayList<String>();
-            for(String s : str) {
-                String link = s.replace("@", "").trim() + ".html";
-                String ref = "<a href=\"" + link + "\">" + s + "</a>";
-                tagList.add(ref);
-            }
-            result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ",") + "</div>";
-        }
-        return result;
+        return Util.tagsToHtml(tags);
     }
 
     @Override
