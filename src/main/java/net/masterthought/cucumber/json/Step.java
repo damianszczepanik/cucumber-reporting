@@ -1,14 +1,8 @@
 package net.masterthought.cucumber.json;
 
-import static com.googlecode.totallylazy.Option.option;
-
-import java.util.List;
-
 import org.apache.commons.lang.StringEscapeUtils;
 
-import com.google.common.base.Joiner;
 import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
@@ -35,9 +29,8 @@ public class Step implements ResultsWithMatch {
         return rows;
     }
 
-    public String getOutput() {
-        List<String> outputList = Sequences.sequence(option(output).getOrElse(new String[] {})).realise().toList();
-        return Joiner.on("").skipNulls().join(outputList);
+    public String[] getOutput() {
+        return output;
     }
 
     @Override

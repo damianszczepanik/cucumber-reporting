@@ -38,7 +38,7 @@ public class ReportParser {
                     Feature[] features = gson.fromJson(new FileReader(jsonFile), Feature[].class);
                     featureResults.put(jsonFile, Arrays.asList(features));
                 } catch (JsonSyntaxException e) {
-                    System.out.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
+                    System.err.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
                     if (e.getCause() instanceof MalformedJsonException) {
                         // malformed json will be handled otherwise silently skip invalid cucumber json report
                         throw e;

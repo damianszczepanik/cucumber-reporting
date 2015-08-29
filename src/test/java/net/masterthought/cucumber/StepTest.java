@@ -70,7 +70,7 @@ public class StepTest {
 
     @Test
     public void shouldReturnOutput() {
-        assertThat(withOutput.getOutput(), is("<div>some other text</div><div>wooops</div>"));
+        assertThat(withOutput.getOutput(), is(new String[] { "some other text", "wooops" }));
     }
 
     @Test
