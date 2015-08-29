@@ -115,7 +115,11 @@
                       </table>
                         </div>
                     #end
-                  <div class="output-data">$step.getOutput()</div>
+                    <div class="output-data">
+                    #foreach($output in $step.getOutput())
+                        <div>$output</div>
+                    #end
+                    </div>
                 #end
             #end
 
