@@ -107,11 +107,10 @@ public class ElementTest {
 
     @Test
     public void shouldReturnTagList(){
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add("@fast");
-        expectedList.add("@super");
-        expectedList.add("@checkout");
-        assertThat(taggedElement.getTagList().toList(), is(expectedList));
+        String[] expectedList = { "@fast", "@super", "@checkout" };
+        for (int i = 0; i < taggedElement.getTags().size(); i++) {
+            assertThat(taggedElement.getTags().get(i).getName(), is(expectedList[i]));
+        }
     }
 
     @Test

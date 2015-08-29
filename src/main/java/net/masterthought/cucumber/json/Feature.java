@@ -84,27 +84,12 @@ public class Feature {
         return !getElements().isEmpty();
     }
 
-    public Sequence<String> getTagList() {
-        return getTags().map(Tag.functions.getName());
-    }
-
     public Sequence<Tag> getTags() {
         return Sequences.sequence(tags).realise();
     }
 
     public String getTagsList() {
-        String result = "<div class=\"feature-tags\"></div>";
-        if (Util.arrayNotEmpty(tags)) {
-            List<String> str = getTagList().toList();
-            List<String> tagList = new ArrayList<String>();
-            for(String s : str) {
-                String link = s.replace("@", "").trim() + ".html";
-                String ref = "<a href=\"" + link + "\">" + s + "</a>";
-                tagList.add(ref);
-            }
-            result = "<div class=\"feature-tags\">" +   StringUtils.join(tagList.toArray(), ",")+ "</div>";
-        }
-        return result;
+        return Util.tagsToHtml(tags);
     }
 
     public Status getStatus() {

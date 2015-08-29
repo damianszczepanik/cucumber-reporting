@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.Status;
-
 import org.hamcrest.core.StringContains;
 import org.junit.Before;
 import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.util.Status;
 
 public class FeatureTest {
 
@@ -50,9 +50,8 @@ public class FeatureTest {
 
     @Test
     public void shouldListTheTags() {
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add("@super");
-        assertThat(passingFeature.getTagList().toList(), is(expectedList));
+        String name = "@super";
+        assertThat(passingFeature.getTags().get(0).getName(), is(name));
     }
 
     @Test

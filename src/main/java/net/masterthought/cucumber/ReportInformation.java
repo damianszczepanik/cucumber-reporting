@@ -12,6 +12,7 @@ import com.googlecode.totallylazy.Sequence;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.StatusCounter;
@@ -248,8 +249,7 @@ public class ReportInformation {
                         scenarioList.add(new ScenarioTag(e, feature.getFileName()));
                     }
                 }
-                tagMap = addToTagMapByFeature(tagMap, feature.getTagList(), scenarioList);
-
+                addToTagMapByFeature(feature.getTags(), scenarioList);
             }
 
             for (Element scenario : scenarios) {
@@ -261,7 +261,7 @@ public class ReportInformation {
 
                 if (scenario.hasTags()) {
                     addScenarioUnlessExists(scenarioList, new ScenarioTag(scenario, feature.getFileName()));
-                    tagMap = addToTagMap(tagMap, scenario.getTagList(), scenarioList);
+                    addToTagMap(scenario.getTags(), scenarioList);
                 }
 
                 adjustStepsForScenario(scenario);
@@ -379,14 +379,14 @@ public class ReportInformation {
         scenarioList.add(scenarioTag);
     }
 
-    private List<TagObject> addToTagMap(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
+    private void addToTagMap(Sequence<Tag> tagList, List<ScenarioTag> scenarioList) {
 
-        for (String tagName : tagList) {
-            TagObject tagObj = findTagObjectByNameInList(tagName, tagMap);
+        for (Tag tag : tagList) {
+            TagObject tagObj = findTagObjectByNameInList(tag.getName(), tagMap);
 
             List<ScenarioTag> existingTagList = new ArrayList<>();
             if (tagObj == null) {
-                tagObj = new TagObject(tagName, existingTagList);
+                tagObj = new TagObject(tag.getName(), existingTagList);
             } else {
                 existingTagList.addAll(tagObj.getScenarios());
                 tagObj.setScenarios(existingTagList);
@@ -394,20 +394,19 @@ public class ReportInformation {
             }
 
             for (ScenarioTag scenarioTag : scenarioList) {
-                if (scenarioTag.getScenario().getTagList().contains(tagName)) {
+                if (scenarioTag.getScenario().getTags().contains(tag)) {
                     addScenarioUnlessExists(existingTagList, scenarioTag);
                 }
             }
 
             tagMap.add(tagObj);
         }
-        return tagMap;
     }
 
-    public List<TagObject> addToTagMapByFeature(List<TagObject> tagMap, Sequence<String> tagList, List<ScenarioTag> scenarioList) {
+    public void addToTagMapByFeature(Sequence<Tag> tagList, List<ScenarioTag> scenarioList) {
 
-        for (String tagName : tagList) {
-            TagObject tagObj = findTagObjectByNameInList(tagName, tagMap);
+        for (Tag tag : tagList) {
+            TagObject tagObj = findTagObjectByNameInList(tag.getName(), tagMap);
 
             if (tagObj != null) {
                 List<ScenarioTag> allScenarios = new ArrayList<>();
@@ -417,12 +416,10 @@ public class ReportInformation {
                 tagMap.remove(tagObj);
                 tagObj.setScenarios(allScenarios);
             } else {
-                tagObj = new TagObject(tagName, scenarioList);
+                tagObj = new TagObject(tag.getName(), scenarioList);
             }
             tagMap.add(tagObj);
         }
-        return tagMap;
-
     }
 
     private TagObject findTagObjectByNameInList(String name, List<TagObject> list) {
