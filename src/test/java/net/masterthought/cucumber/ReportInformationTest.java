@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.masterthought.cucumber.json.Feature;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
 
 public class ReportInformationTest {
 
@@ -44,7 +44,8 @@ public class ReportInformationTest {
         Map<String, Artifact> map = artifactProcessor.process();
         configuration.setArtifactConfiguration(map);
         reportInformation = new ReportInformation(reportParser.getFeatures());
-        assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps()[0].getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">000ms</span></div>"));
+        assertThat(reportInformation.getFeatures().get(2).getElements()[7].getSteps()[0].getName(), is(
+                "<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">000ms</span></div>"));
     }
 
     @Test

@@ -6,9 +6,6 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.ScenarioResults;
 import net.masterthought.cucumber.json.support.StepResults;
@@ -43,8 +40,8 @@ public class Feature {
         this.jsonFile = json;
     }
 
-    public Sequence<Element> getElements() {
-        return Sequences.sequence(elements).realise();
+    public Element[] getElements() {
+        return elements;
     }
 
     public String getFileName() {
@@ -79,11 +76,11 @@ public class Feature {
     }
 
     public boolean hasScenarios() {
-        return !getElements().isEmpty();
+        return elements.length > 0;
     }
 
-    public Sequence<Tag> getTags() {
-        return Sequences.sequence(tags).realise();
+    public Tag[] getTags() {
+        return tags;
     }
 
     public String getTagsList() {
@@ -91,8 +88,12 @@ public class Feature {
     }
 
     public Status getStatus() {
-        Sequence<Status> results = getElements().map(Element.Functions.status());
-        return results.contains(Status.FAILED) ? Status.FAILED : Status.PASSED;
+        for (Element element : elements) {
+            if (element.getStatus() != Status.PASSED) {
+                return Status.FAILED;
+            }
+        }
+        return Status.PASSED;
     }
 
     public String getName() {

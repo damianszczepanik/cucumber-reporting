@@ -2,8 +2,6 @@ package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import com.googlecode.totallylazy.Function1;
-
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
@@ -177,14 +175,4 @@ public class Step implements ResultsWithMatch {
         return sb.toString();
     }
 
-    public static class functions {
-        public static Function1<Step, Status> status() {
-            return new Function1<Step, Status>() {
-                @Override
-                public Status call(Step step) throws Exception {
-                    return step.getStatus();
-                }
-            };
-        }
-    }
 }

@@ -42,12 +42,12 @@ public class ElementTest {
         undefinedFeature.processSteps();
         skippedFeature.processSteps();
         
-        passingElement = passingFeature.getElements().get(0);
-        failingElement = failingFeature.getElements().get(0);
-        undefinedElement = undefinedFeature.getElements().get(0);
-        skippedElement = skippedFeature.getElements().get(0);
+        passingElement = passingFeature.getElements()[0];
+        failingElement = failingFeature.getElements()[0];
+        undefinedElement = undefinedFeature.getElements()[0];
+        skippedElement = skippedFeature.getElements()[0];
         
-        taggedElement = passingFeature.getElements().get(1);
+        taggedElement = passingFeature.getElements()[1];
     }
 
     @Test
@@ -108,8 +108,8 @@ public class ElementTest {
     @Test
     public void shouldReturnTagList(){
         String[] expectedList = { "@fast", "@super", "@checkout" };
-        for (int i = 0; i < taggedElement.getTags().size(); i++) {
-            assertThat(taggedElement.getTags().get(i).getName(), is(expectedList[i]));
+        for (int i = 0; i < taggedElement.getTags().length; i++) {
+            assertThat(taggedElement.getTags()[i].getName(), is(expectedList[i]));
         }
     }
 

@@ -51,7 +51,7 @@ public class FeatureTest {
     @Test
     public void shouldListTheTags() {
         String name = "@super";
-        assertThat(passingFeature.getTags().get(0).getName(), is(name));
+        assertThat(passingFeature.getTags()[0].getName(), is(name));
     }
 
     @Test

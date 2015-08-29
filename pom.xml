@@ -4,19 +4,11 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>0.3.1</version>
+    <version>0.4.0</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
-    <repositories>
-        <!-- used for com.googlecode.totallylazy -->
-        <repository>
-            <id>repo.bodar.com</id>
-            <url>http://repo.bodar.com</url>
-        </repository>
-    </repositories>
-
-    <properties>
+     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -215,11 +207,6 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
             <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.totallylazy</groupId>
-            <artifactId>totallylazy</artifactId>
-            <version>1.20</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
