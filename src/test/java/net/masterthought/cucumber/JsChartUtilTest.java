@@ -1,17 +1,23 @@
 package net.masterthought.cucumber;
 
+import static net.masterthought.cucumber.util.Status.FAILED;
+import static net.masterthought.cucumber.util.Status.MISSING;
+import static net.masterthought.cucumber.util.Status.PASSED;
+import static net.masterthought.cucumber.util.Status.PENDING;
+import static net.masterthought.cucumber.util.Status.SKIPPED;
+import static net.masterthought.cucumber.util.Status.UNDEFINED;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.masterthought.cucumber.charts.JsChartUtil;
-import static net.masterthought.cucumber.util.Status.*;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import com.googlecode.totallylazy.Lists;
+
+import net.masterthought.cucumber.charts.JsChartUtil;
 
 /**
  * JsChartUtil Tester.
@@ -47,9 +53,9 @@ public class JsChartUtilTest {
 
         Object[] result = util.orderStepsByValue(totalPassed, totalFailed, totalSkipped, totalPending, totalUndefined,
                 totalMissing).toArray();
-        Assert.assertArrayEquals(
-                "lists not ordered correctly",
-                Lists.newArrayList(PENDING.color, SKIPPED.color, FAILED.color, PASSED.color, UNDEFINED.color, MISSING.color).toArray(), result);
+        Assert.assertArrayEquals("lists not ordered correctly",
+                new String[] { PENDING.color, SKIPPED.color, FAILED.color, PASSED.color, UNDEFINED.color, MISSING.color },
+                result);
     }
 
     @Test
@@ -66,7 +72,8 @@ public class JsChartUtilTest {
                 totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PASSED.color, SKIPPED.color, FAILED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PASSED.color, SKIPPED.color, FAILED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -83,7 +90,8 @@ public class JsChartUtilTest {
                 totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -100,7 +108,8 @@ public class JsChartUtilTest {
                 totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(FAILED.color, SKIPPED.color, PASSED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {FAILED.color, SKIPPED.color, PASSED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -117,7 +126,8 @@ public class JsChartUtilTest {
                 totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PENDING.color, PASSED.color, FAILED.color, SKIPPED.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PENDING.color, PASSED.color, FAILED.color, SKIPPED.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -134,7 +144,8 @@ public class JsChartUtilTest {
                 totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PENDING.color, PASSED.color, FAILED.color, SKIPPED.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PENDING.color, PASSED.color, FAILED.color, SKIPPED.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -151,7 +162,8 @@ public class JsChartUtilTest {
                 totalUndefined, totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -167,7 +179,8 @@ public class JsChartUtilTest {
         Object[] result = util.orderStepsByValue(totalPassed, totalFailed, totalSkipped, totalPending,
                 totalUndefined, totalMissing).toArray();
         Assert.assertArrayEquals("lists not ordered correctly",
-                Lists.newArrayList(FAILED.color, PASSED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {FAILED.color, PASSED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     @Test
@@ -184,7 +197,8 @@ public class JsChartUtilTest {
                 totalUndefined, totalMissing).toArray();
         Assert.assertArrayEquals(
                 "lists not ordered correctly",
-                Lists.newArrayList(PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color).toArray(), result);
+                new String[] {PASSED.color, FAILED.color, SKIPPED.color, PENDING.color, UNDEFINED.color, MISSING.color},
+                result);
     }
 
     /**
