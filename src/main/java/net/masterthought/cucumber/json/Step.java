@@ -3,7 +3,6 @@ package net.masterthought.cucumber.json;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.util.Status;
@@ -188,26 +187,4 @@ public class Step implements ResultsWithMatch {
             };
         }
     }
-
-    public static class predicates {
-
-        public static LogicalPredicate<Step> hasStatus(final Status status) {
-            return new LogicalPredicate<Step>() {
-                @Override
-                public boolean matches(Step step) {
-                    return step.getStatus().equals(status);
-                }
-            };
-        }
-
-        public static Function1<Step, Status> status() {
-            return new Function1<Step, Status>() {
-                @Override
-                public Status call(Step step) throws Exception {
-                    return step.getStatus();
-                }
-            };
-        }
-    }
-
 }

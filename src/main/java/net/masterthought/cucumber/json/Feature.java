@@ -203,8 +203,7 @@ public class Feature {
             for (Element element : elements) {
                 calculateScenarioStats(passedScenarios, failedScenarios, element);
                 if (element.hasSteps()) {
-                    Sequence<Step> steps = element.getSteps();
-                    for (Step step : steps) {
+                    for (Step step : element.getSteps()) {
                         allSteps.add(step);
                         stepsCounter.incrementFor(step.getStatus());
                         totalDuration += step.getDuration();

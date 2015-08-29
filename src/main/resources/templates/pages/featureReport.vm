@@ -99,7 +99,7 @@
             #foreach($scenario in $scenarios)
                 $scenario.getTagsList()
                 $scenario.getName()
-                #foreach($step in $scenario.getSteps().toList())
+                #foreach($step in $scenario.getSteps())
                   $step.getName()
                     $step.getDocStringOrNothing()
                     #if($step.hasRows())

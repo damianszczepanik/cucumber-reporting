@@ -1,19 +1,20 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.DocString;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Step;
-import org.junit.Before;
-import org.junit.Test;
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.DocString;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Step;
 
 
 public class DocStringTest {
@@ -28,7 +29,7 @@ public class DocStringTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/docstring.json"));
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        step = feature.getElements().get(0).getSteps().get(0);
+        step = feature.getElements().get(0).getSteps()[0];
         docstring = step.getDocString();
     }
 

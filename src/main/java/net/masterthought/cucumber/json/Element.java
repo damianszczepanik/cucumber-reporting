@@ -5,10 +5,6 @@ import static com.googlecode.totallylazy.Option.option;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.Util;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,22 +12,26 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
+import net.masterthought.cucumber.ConfigurationOptions;
+import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.util.Util;
+
 public class Element {
 
     /** Refers to background step. Is defined in json file. */
     private final static String BACKGROUND_KEYWORD = "Background";
 
-    private String id;
-    private String name;
-    private String description;
-    private String keyword;
-    private Step[] steps;
-    private Hook[] before;
-    private Hook[] after;
-    private Tag[] tags;
+    private final String id = null;
+    private final String name = null;
+    private final String description = null;
+    private final String keyword = null;
+    private final Step[] steps = new Step[0];
+    private final Hook[] before = new Hook[0];
+    private final Hook[] after = new Hook[0];
+    private final Tag[] tags = new Tag[0];
 
-    public Sequence<Step> getSteps() {
-        return Sequences.sequence(option(steps).getOrElse(new Step[]{})).realise();
+    public Step[] getSteps() {
+        return steps;
     }
 
     public Hook[] getBefore() {
@@ -47,31 +47,31 @@ public class Element {
     }
 
     public Status getStatus() {
-        if (!existFilteredOutBy(Status.FAILED)) {
+        if (containsStepWithStatus(Status.FAILED)) {
             return Status.FAILED;
         }
 
         ConfigurationOptions configuration = ConfigurationOptions.instance();
         if (configuration.skippedFailsBuild()) {
-            if (!existFilteredOutBy(Status.SKIPPED)) {
+            if (containsStepWithStatus(Status.SKIPPED)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.pendingFailsBuild()) {
-            if (!existFilteredOutBy(Status.PENDING)) {
+            if (containsStepWithStatus(Status.PENDING)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.undefinedFailsBuild()) {
-            if (!existFilteredOutBy(Status.UNDEFINED)) {
+            if (containsStepWithStatus(Status.UNDEFINED)) {
                 return Status.FAILED;
             }
         }
 
         if (configuration.missingFailsBuild()) {
-            if (!existFilteredOutBy(Status.MISSING)) {
+            if (containsStepWithStatus(Status.MISSING)) {
                 return Status.FAILED;
             }
         }
@@ -84,8 +84,13 @@ public class Element {
      * @param status status that should be filtered out
      * @return true if there is status with passed status, false otherwise
      */
-    private boolean existFilteredOutBy(Status status) {
-    	return getSteps().filter(Step.predicates.hasStatus(status)).isEmpty();
+    private boolean containsStepWithStatus(Status status) {
+        for (Step step : steps) {
+            if (step.getStatus() == status) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public String getRawName() {
@@ -120,7 +125,7 @@ public class Element {
     }
 
     public boolean hasSteps() {
-        return !getSteps().isEmpty();
+        return steps.length > 0;
     }
 
     private Sequence<String> processTags() {
