@@ -3,9 +3,6 @@ package net.masterthought.cucumber;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Status;
@@ -143,14 +140,18 @@ public class TagObject {
         return statuses;
     }
 
-    public Sequence<Element> getElements() {
+    public List<Element> getElements() {
         populateElements();
-        return Sequences.sequence(elements);
+        return elements;
     }
 
     public Status getStatus() {
-        Sequence<Status> results = getElements().map(Element.Functions.status());
-        return results.contains(Status.FAILED) ? Status.FAILED : Status.PASSED;
+        for (Element element : elements) {
+            if (element.getStatus() != Status.PASSED) {
+                return Status.FAILED;
+            }
+        }
+        return Status.PASSED;
     }
 
     public String getRawStatus() {

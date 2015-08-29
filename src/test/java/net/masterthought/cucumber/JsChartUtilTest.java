@@ -15,8 +15,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.googlecode.totallylazy.Lists;
-
 import net.masterthought.cucumber.charts.JsChartUtil;
 
 /**
