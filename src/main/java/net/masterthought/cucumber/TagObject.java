@@ -12,14 +12,15 @@ public class TagObject {
 
     private String tagName;
     private List<ScenarioTag> scenarios = new ArrayList<>();
-    private List<Element> elements = new ArrayList<>();
+    private final List<Element> elements = new ArrayList<>();
 
     public String getTagName() {
         return tagName;
     }
 
     public String getFileName() {
-        return tagName.replace("@", "").trim() + ".html";
+        // eliminate characters that might be invalid as a file name
+        return tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
     }
 
     public List<ScenarioTag> getScenarios() {
