@@ -11,7 +11,7 @@
                 "description": "",
                 "tags": [
                     {
-                        "name": "@tag1",
+                        "name": "@tag:1",
                         "line": 3
                     }
                 ],
