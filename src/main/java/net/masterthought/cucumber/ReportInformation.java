@@ -21,6 +21,7 @@ public class ReportInformation {
     private final Map<String, List<Feature>> featureMap;
     private final Map<String, StepObject> stepObjects = new HashMap<>();
     private List<Feature> features;
+    private final Map<String, Integer> featureNamesCount= new HashMap<>();
 
     private int numberOfScenarios;
     private int numberOfSteps;
@@ -240,6 +241,16 @@ public class ReportInformation {
             List<ScenarioTag> scenarioList = new ArrayList<>();
             Element[] scenarios = feature.getElements();
             numberOfScenarios = getNumberOfScenarios(scenarios);
+
+            // set filenames for features
+            int count = 1;
+            if (featureNamesCount.containsKey(feature.getFileName())) {
+                count = featureNamesCount.get(feature.getFileName());
+                count++;
+            }
+            featureNamesCount.put(feature.getFileName(),count);
+            feature.setFileName(count);
+
             // build map with tags
             if (feature.hasTags()) {
                 for (Element e : feature.getElements()) {

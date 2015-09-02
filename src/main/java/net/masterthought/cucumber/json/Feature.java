@@ -27,6 +27,7 @@ public class Feature {
     private ScenarioResults scenarioResults;
 
     private String jsonFile = "";
+    private String fileName = null;
 
     public String getDeviceName() {
         String name = "";
@@ -45,6 +46,11 @@ public class Feature {
     }
 
     public String getFileName() {
+        if (fileName==null) setFileName(1);
+        return fileName;
+    }
+
+    public void setFileName(Integer count) {
         List<String> matches = new ArrayList<String>();
         for (String line : StringUtils.split(uri, "/|\\\\")) {
             String modified = line.replaceAll("\\)|\\(", "");
@@ -63,8 +69,13 @@ public class Feature {
             if (splitedJsonFile.length > 1)
                 fileName = fileName + "-" + getDeviceName();
         }
-        fileName = fileName + ".html";
-        return fileName;
+        if (count>1) {
+            this.fileName = fileName + "_" + count.toString() + ".html";
+        }
+        else {
+            this.fileName = fileName + ".html";
+        }
+
     }
 
     public String getUri(){
