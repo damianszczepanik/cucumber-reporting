@@ -221,4 +221,7 @@ public class Feature {
     }
 
 
+    public String getId() {
+        return id;
+    }
 }
