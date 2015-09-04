@@ -72,7 +72,7 @@ public class Feature {
                 fileName = fileName + "-" + getDeviceName();
         }
         if (count>1) {
-            this.fileName = fileName + "_" + count.toString() + ".html";
+            this.fileName = fileName + "-" + count.toString() + ".html";
         }
         else {
             this.fileName = fileName + ".html";
