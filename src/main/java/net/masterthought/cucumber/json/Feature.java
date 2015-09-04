@@ -46,7 +46,9 @@ public class Feature {
     }
 
     public String getFileName() {
-        if (fileName==null) setFileName(1);
+        if (fileName==null) {
+            setFileName(1);
+        }
         return fileName;
     }
 
