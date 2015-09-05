@@ -63,7 +63,6 @@ public class Step implements ResultsWithMatch {
 
     public Status getStatus() {
         if (result == null) {
-            System.out.println("[WARNING] Line " + line + " : " + "Step is missing Result: " + keyword + " : " + name);
             return Status.MISSING;
         } else {
             return Status.valueOf(result.getStatus().toUpperCase());

@@ -269,6 +269,6 @@ public class ReportBuilder {
     private void generateErrorPage(Exception exception) throws IOException {
         ErrorPage errorPage = new ErrorPage(this, exception);
         errorPage.generatePage();
-        System.out.println(exception);
+        System.err.println(exception);
     }
 }
