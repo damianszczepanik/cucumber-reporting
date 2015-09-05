@@ -5,6 +5,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,7 +87,8 @@ public class ReportBuilderTest {
         File input = new File(rd, "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(), is("Oops Something went wrong with cucumber-reporting build: 1"));
-        assertThat(fromId("error-message", doc).text(), is("com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 19 column 18 path $[0].elements[0].keyword"));
+        assertTrue(fromId("error-message", doc).text().contains(
+                "com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 19 column 18 path $[0].elements[0].keyword"));
     }
 
     @Test
@@ -100,7 +102,7 @@ public class ReportBuilderTest {
         File input = new File(rd, "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(), is("Oops Something went wrong with cucumber-reporting build: 1"));
-        assertThat(fromId("error-message", doc).text(), is("java.lang.NullPointerException"));
+        assertTrue(fromId("error-message", doc).text().contains("java.lang.NullPointerException"));
     }
 
     @Test
