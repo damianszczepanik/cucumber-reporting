@@ -199,6 +199,7 @@ public class ReportBuilder {
         } catch (Exception exception) {
             parsingError = true;
             generateErrorPage(exception);
+            exception.printStackTrace();
         }
     }
 
