@@ -9,6 +9,7 @@ import java.util.Map;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
@@ -284,12 +285,17 @@ public class ReportInformation {
         if (steps != null) {
             for (ResultsWithMatch step : steps) {
 
-                    String methodName = step.getMatch().getLocation();
-                    StepObject stepObject = this.stepObjects.get(methodName);
-                    // if first occurrence of this location add element to the map
-                    if (stepObject == null) {
-                        stepObject = new StepObject(methodName);
-                    }
+                String methodName = null;
+                Match match = step.getMatch();
+                // no match = could not find method that was matched to this step -> status is missing
+                if (match != null) {
+                    methodName = match.getLocation();
+                }
+                StepObject stepObject = this.stepObjects.get(methodName);
+                // if first occurrence of this location add element to the map
+                if (stepObject == null) {
+                    stepObject = new StepObject(methodName);
+                }
                 // happens that report is not valid - does not contain information about result
                 if (step.getResult() != null) {
                     stepObject.addDuration(step.getResult().getDuration(), step.getResult().getStatus());
