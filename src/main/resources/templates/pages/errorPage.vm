@@ -42,7 +42,7 @@
 
 	<br/>
 
-	<div id="error-message" class="error-message">$error_message</div>
+	<div id="error-message" class="error-message"><pre>$error_message</pre></div>
         <br/>
         <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
             #foreach($file in $json_files)
