@@ -34,7 +34,7 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnManagedFileName() {
-        assertThat(passingFeature.getFileName(), is("masterthought-example-ATM.feature.html"));
+        assertThat(passingFeature.getFileName(), is("net-masterthought-example-s--ATM-local.feature.html"));
     }
 
     @Test

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.ScenarioResults;
@@ -23,6 +22,7 @@ public class Feature {
     private final Element[] elements = new Element[0];
     private final Tag[] tags = new Tag[0];
 
+    private String fileName;
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
 
@@ -45,25 +45,19 @@ public class Feature {
     }
 
     public String getFileName() {
-        List<String> matches = new ArrayList<String>();
-        for (String line : StringUtils.split(uri, "/|\\\\")) {
-            String modified = line.replaceAll("\\)|\\(", "");
-            modified = StringUtils.deleteWhitespace(modified).trim();
-            matches.add(modified);
+        if (fileName == null) {
+            // remove all characters that might not be valid file name
+            fileName = uri.replaceAll("[/\\()?:*\"<>]", "-");
+
+            // If we expect to have parallel executions, we add
+            if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
+                String[] splitedJsonFile = jsonFile.split("_");
+                if (splitedJsonFile.length > 1) {
+                    fileName = fileName + "-" + getDeviceName();
+                }
+            }
+            fileName = fileName + ".html";
         }
-
-        List<String> lastElement = matches.subList(1, matches.size());
-
-        matches = lastElement.isEmpty() ? matches : lastElement;
-        String fileName = StringUtils.join(matches, "-");
-
-        //If we spect to have parallel executions, we add 
-        if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
-            String[] splitedJsonFile = jsonFile.split("_");
-            if (splitedJsonFile.length > 1)
-                fileName = fileName + "-" + getDeviceName();
-        }
-        fileName = fileName + ".html";
         return fileName;
     }
 

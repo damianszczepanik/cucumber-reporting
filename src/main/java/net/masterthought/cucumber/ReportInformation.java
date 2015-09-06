@@ -371,14 +371,14 @@ public class ReportInformation {
         return link;
     }
 
-    private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioTag) {
+    private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioToAdd) {
         for (ScenarioTag scenario : scenarioList) {
-            if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioTag.getParentFeatureUri())
-                    && scenario.getScenario().equals(scenarioTag.getScenario())) {
+            if (scenario.getParentFeatureUri().equalsIgnoreCase(scenarioToAdd.getParentFeatureUri())
+                    && scenario.getScenario().equals(scenarioToAdd.getScenario())) {
                 return;
             }
         }
-        scenarioList.add(scenarioTag);
+        scenarioList.add(scenarioToAdd);
     }
 
     private void addToTagMap(Tag[] tagList, List<ScenarioTag> scenarioList) {
