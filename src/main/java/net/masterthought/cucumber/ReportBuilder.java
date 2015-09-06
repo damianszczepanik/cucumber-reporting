@@ -151,9 +151,9 @@ public class ReportBuilder {
      *            mark steps with skipped status as failure
      * @param pendingFails
      *            mark steps with pending status as failure
-     * @param undefinedFailsmark
+     * @param undefinedFails
      *            steps with undefined status as failure
-     * @param missingFailsmark
+     * @param missingFails
      *            steps with missing status as failure
      * @param flashCharts
      *            set to true when expect to have generated report in Flash technology, false for JavaScript
