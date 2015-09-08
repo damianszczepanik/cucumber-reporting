@@ -31,8 +31,9 @@ public class Feature {
     public String getDeviceName() {
         String name = "";
         String[] splitedJsonFile = jsonFile.split("_");
-        if (splitedJsonFile.length > 1)
-            name = splitedJsonFile[0].substring(0, splitedJsonFile[0].length() - 1);
+        if (splitedJsonFile.length > 1){
+            name = splitedJsonFile[0].substring(0, splitedJsonFile[0].length());
+        }
       return name;
     }
 
