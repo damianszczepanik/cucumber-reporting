@@ -121,7 +121,7 @@ public class Element {
     }
 
     public boolean isBackground() {
-        return keyword.equals(BACKGROUND_KEYWORD);
+        return BACKGROUND_KEYWORD.equals(keyword);
     }
 
     public String getTagsList() {
