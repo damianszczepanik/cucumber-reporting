@@ -254,7 +254,8 @@
             <br/>
             <h2>Tag Statistics</h2>
             <table class="stats-table">
-                #include("/templates/tableHeader.vm")
+                #set($table_key = "Tag")
+                #parse("/templates/tableHeader.vm")
 
 
                 #foreach($tag in $tags)

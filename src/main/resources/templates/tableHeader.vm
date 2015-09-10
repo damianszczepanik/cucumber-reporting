@@ -1,4 +1,7 @@
 <tr>
+    #if($parallel)
+        <th></th>
+    #end
     <th></th>
     <th id="stats-header-scenarios" colspan="3">Scenarios</th>
     <th id="stats-header-steps" colspan="7">Steps</th>
@@ -6,7 +9,10 @@
     <th></th>
 </tr>
 <tr>
-    <th id="stats-header-feature">Feature</th>
+    <th id="stats-header-key">$table_key</th>
+    #if($parallel)
+        <th id="stats-header-device">Device</th>
+    #end
     <th id="stats-header-scenarios-total">Total</th>
     <th id="stats-header-scenarios-passed">Passed</th>
     <th id="stats-header-scenarios-failed">Failed</th>

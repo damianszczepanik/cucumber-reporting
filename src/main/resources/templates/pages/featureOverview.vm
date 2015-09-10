@@ -338,11 +338,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
     <div>
   <h2 id="feature-statistics-title">Feature Statistics</h2>
   <table class="stats-table">     
-      #if($parallel)
-          #include("/templates/tableHeaderParallel.vm")                        
-        #else
-          #include("/templates/tableHeader.vm")                        
-      #end
+      #set($table_key = "Feature")
+      #parse("/templates/tableHeader.vm")
 
       #foreach($feature in $features)
 
