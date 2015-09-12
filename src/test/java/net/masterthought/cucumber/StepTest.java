@@ -70,7 +70,7 @@ public class StepTest {
 
     @Test
     public void shouldReturnOutput() {
-        assertThat(withOutput.getOutput(), is(new String[] { "some other text", "wooops" }));
+        assertThat(withOutput.getOutputAsArray(), is(new String[] { "some other text", "wooops", "matchedColumns" }));
     }
 
     @Test

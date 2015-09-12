@@ -95,8 +95,11 @@
                             ],
                             "location":"ATMScenario.createAccount(int)"
                         },
-                        "output": ["some other text","wooops"],
-                        "matchedColumns":[0]
+                        "output": [
+                            ["some other text","wooops"],
+                            ["matchedColumns"],
+                            []
+                        ]
                     },
                     {
                         "result":{

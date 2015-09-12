@@ -155,6 +155,7 @@ table.data-table td {
 .output-data {
 	padding-left: 50px;
 	background-color: beige;
+	text-indent: 50px;
 }
 
 .doc-string {

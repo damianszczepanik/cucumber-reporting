@@ -1,7 +1,11 @@
 package net.masterthought.cucumber.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
@@ -15,7 +19,7 @@ public class Step implements ResultsWithMatch {
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedded[] embeddings = new Embedded[0];
-    private final String[] output = new String[0];
+    private final String[][] output = new String[0][0];
     private final DocString doc_string = null;
 
     public DocString getDocString() {
@@ -26,8 +30,12 @@ public class Step implements ResultsWithMatch {
         return rows;
     }
 
-    public String[] getOutput() {
-        return output;
+    public String[] getOutputAsArray() {
+        List<String> list = new ArrayList<>();
+        for (String[] array : output) {
+            list.addAll(Arrays.asList(array));
+        }
+        return list.toArray(new String[list.size()]);
     }
 
     @Override
