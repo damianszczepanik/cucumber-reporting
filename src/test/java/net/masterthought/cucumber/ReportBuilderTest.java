@@ -92,20 +92,6 @@ public class ReportBuilderTest {
     }
 
     @Test
-    public void shouldRenderErrorPageOnReportGenerationError() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/missing_elements.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false, false, false, true, true, false, "", false, false);
-        reportBuilder.generateReports();
-
-        File input = new File(rd, "feature-overview.html");
-        Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("overview-title", doc).text(), is("Oops Something went wrong with cucumber-reporting build: 1"));
-        assertTrue(fromId("error-message", doc).text().contains("java.lang.NullPointerException"));
-    }
-
-    @Test
     public void shouldRenderDocStringInTagReport() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();

@@ -116,7 +116,7 @@
                         </div>
                     #end
                     <div class="output-data">
-                    #foreach($output in $step.getOutput())
+                    #foreach($output in $step.getOutputAsArray())
                         <div>$output</div>
                     #end
                     </div>
