@@ -29,11 +29,13 @@ public class Feature {
     private String jsonFile = "";
 
     public String getDeviceName() {
-        String name = "";
         String[] splitedJsonFile = jsonFile.split("_");
-        if (splitedJsonFile.length > 1)
-            name = splitedJsonFile[0].substring(0, splitedJsonFile[0].length() - 1);
-      return name;
+        if (splitedJsonFile.length > 1){
+            return splitedJsonFile[0];
+        }
+        else {
+            return jsonFile.substring(0,jsonFile.lastIndexOf(".json"));
+        }
     }
 
     public void setJsonFile(String json){
