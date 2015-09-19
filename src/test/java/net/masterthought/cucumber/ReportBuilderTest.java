@@ -70,7 +70,7 @@ public class ReportBuilderTest {
                 false, false, true, true, false, false);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "net-masterthought-example-ATM.feature.html");
+        File input = new File(rd, "net-masterthought-example-ATM-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("feature-title", doc).text(), is("Result for Account Holder withdraws cash in build: 1"));
         assertStatsHeader(doc);

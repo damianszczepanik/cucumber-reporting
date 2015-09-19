@@ -23,17 +23,24 @@ public class Feature {
     private final Tag[] tags = new Tag[0];
 
     private String fileName;
+    private String deviceName;
     private StepResults stepResults;
     private ScenarioResults scenarioResults;
 
     private String jsonFile = "";
 
     public String getDeviceName() {
-        String name = "";
-        String[] splitedJsonFile = jsonFile.split("_");
-        if (splitedJsonFile.length > 1)
-            name = splitedJsonFile[0].substring(0, splitedJsonFile[0].length() - 1);
-      return name;
+        if (deviceName == null) {
+            String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
+            if (splitedJsonFile.length > 1) {
+                // file name without path and extension (usually *.json)
+                deviceName = splitedJsonFile[splitedJsonFile.length - 2];
+            } else {
+                // path name without special characters
+                deviceName = splitedJsonFile[0];
+            }
+        }
+        return deviceName;
     }
 
     public void setJsonFile(String json){
@@ -47,9 +54,9 @@ public class Feature {
     public String getFileName() {
         if (fileName == null) {
             // remove all characters that might not be valid file name
-            fileName = uri.replaceAll("[/\\()?:*\"<>]", "-");
+            fileName = uri.replaceAll("[^\\d\\w]", "-");
 
-            // If we expect to have parallel executions, we add
+            // If we expect to have parallel executions, we add postfix to file name
             if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
                 String[] splitedJsonFile = jsonFile.split("_");
                 if (splitedJsonFile.length > 1) {
