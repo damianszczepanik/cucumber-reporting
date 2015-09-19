@@ -1,7 +1,5 @@
 package net.masterthought.cucumber;
 
-import java.util.Map;
-
 public final class ConfigurationOptions {
 
     public boolean skippedFailsBuildValue;
@@ -9,7 +7,6 @@ public final class ConfigurationOptions {
     public boolean undefinedFailsBuildValue;
     public boolean missingFailsBuildValue;
     public boolean artifactsEnabledValue;
-    public Map<String, Artifact> artifactConfiguration;
 
     private static final ConfigurationOptions configuration = new ConfigurationOptions();
 
@@ -36,14 +33,6 @@ public final class ConfigurationOptions {
         missingFailsBuildValue = missngFailsBuild;
     }
 
-    public void setArtifactsEnabled(boolean artifactsEnabled) {
-        artifactsEnabledValue = artifactsEnabled;
-    }
-
-    public void setArtifactConfiguration(Map<String, Artifact> configuration) {
-        artifactConfiguration = configuration;
-    }
-
     public boolean skippedFailsBuild() {
         return skippedFailsBuildValue;
     }
@@ -63,9 +52,4 @@ public final class ConfigurationOptions {
     public boolean artifactsEnabled() {
         return artifactsEnabledValue;
     }
-
-    public Map<String, Artifact> artifactConfig() {
-        return artifactConfiguration;
-    }
-
 }

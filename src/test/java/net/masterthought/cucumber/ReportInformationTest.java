@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,19 +32,6 @@ public class ReportInformationTest {
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
         reportParser = new ReportParser(jsonReports);
         reportInformation = new ReportInformation(reportParser.getFeatures());
-    }
-
-    @Test
-    public void shouldDisplayArtifacts() throws Exception {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setArtifactsEnabled(true);
-        String config = "Account has sufficient funds again~the account balance is 300~balance~account_balance.txt~xml";
-        ArtifactProcessor artifactProcessor = new ArtifactProcessor(config);
-        Map<String, Artifact> map = artifactProcessor.process();
-        configuration.setArtifactConfiguration(map);
-        reportInformation = new ReportInformation(reportParser.getFeatures());
-        assertThat(reportInformation.getFeatures().get(2).getElements()[7].getSteps()[0].getName(), is(
-                "<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">000ms</span></div>"));
     }
 
     @Test
