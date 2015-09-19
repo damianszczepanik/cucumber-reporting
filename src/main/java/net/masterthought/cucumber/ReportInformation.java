@@ -330,21 +330,6 @@ public class ReportInformation {
             Step[] steps = element.getSteps();
             numberOfSteps = numberOfSteps + steps.length;
             for (Step step : steps) {
-                String stepName = step.getRawName();
-
-                //apply artifacts
-                ConfigurationOptions configuration = ConfigurationOptions.instance();
-                if (configuration.artifactsEnabled()) {
-                    Map<String, Artifact> map = configuration.artifactConfig();
-                    String mapKey = scenarioName + stepName;
-                    if (map.containsKey(mapKey)) {
-                        Artifact artifact = map.get(mapKey);
-                        String keyword = artifact.getKeyword();
-                        String contentType = artifact.getContentType();
-                        step.setName(stepName.replaceFirst(keyword, getArtifactFile(mapKey, keyword, artifact.getArtifactFile(), contentType)));
-                    }
-                }
-
                 this.totalSteps.incrementFor(step.getStatus());
                 totalDuration = totalDuration + step.getDuration();
             }
