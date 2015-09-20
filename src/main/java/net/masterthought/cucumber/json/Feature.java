@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.json.support.ScenarioResults;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepResults;
@@ -27,7 +26,8 @@ public class Feature {
     private String fileName;
     private String deviceName;
     private StepResults stepResults;
-    private ScenarioResults scenarioResults;
+    private List<Element> passedScenarios;
+    private List<Element> failedScenarios;
 
     private String jsonFile = "";
 
@@ -172,11 +172,11 @@ public class Feature {
     }
 
     public int getNumberOfScenariosPassed() {
-        return scenarioResults.getNumberOfScenariosPassed();
+        return passedScenarios.size();
     }
 
     public int getNumberOfScenariosFailed() {
-        return scenarioResults.getNumberOfScenariosFailed();
+        return failedScenarios.size();
     }
 
     public void processSteps() {
@@ -198,7 +198,8 @@ public class Feature {
                 }
             }
         }
-        scenarioResults = new ScenarioResults(passedScenarios, failedScenarios);
+        this.passedScenarios = passedScenarios;
+        this.failedScenarios = failedScenarios;
         stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
 
