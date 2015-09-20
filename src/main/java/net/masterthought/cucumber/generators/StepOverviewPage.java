@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.StepObject;
+import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.util.Util;
 
 /**

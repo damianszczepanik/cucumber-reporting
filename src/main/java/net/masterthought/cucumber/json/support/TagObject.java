@@ -1,11 +1,10 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json.support;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject {

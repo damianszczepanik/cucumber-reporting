@@ -1,4 +1,4 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json.support;
 
 import net.masterthought.cucumber.json.Element;
 

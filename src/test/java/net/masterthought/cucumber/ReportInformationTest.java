@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
 

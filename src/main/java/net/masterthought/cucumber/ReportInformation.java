@@ -13,8 +13,11 @@ import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.StatusCounter;
+import net.masterthought.cucumber.json.support.ScenarioTag;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
 
 public class ReportInformation {

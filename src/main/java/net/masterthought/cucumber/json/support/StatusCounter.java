@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.util;
+package net.masterthought.cucumber.json.support;
 
 import java.util.HashMap;
 import java.util.Map;

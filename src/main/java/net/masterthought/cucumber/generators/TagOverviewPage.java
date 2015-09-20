@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.TagObject;
 import net.masterthought.cucumber.charts.FlashChartBuilder;
 import net.masterthought.cucumber.charts.JsChartUtil;
+import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
 
 public class TagOverviewPage extends AbstractPage {

@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 

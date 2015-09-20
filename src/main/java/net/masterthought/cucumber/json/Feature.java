@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.ScenarioResults;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepResults;
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature {
@@ -73,7 +75,7 @@ public class Feature {
     }
 
     public boolean hasTags() {
-        return Util.arrayNotEmpty(tags);
+        return !ArrayUtils.isEmpty(tags);
     }
 
     public boolean hasScenarios() {
@@ -98,13 +100,13 @@ public class Feature {
     }
 
     public String getName() {
-        return Util.itemExists(name) ? getStatus().toHtmlClass()
+        return StringUtils.isNotEmpty(name) ? getStatus().toHtmlClass()
                 + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
                 + "</div></div>" : "";
     }
 
     public String getRawName() {
-        return Util.itemExists(name) ? StringEscapeUtils.escapeHtml(name) : "";
+        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : "";
     }
 
     public String getRawStatus() {
@@ -113,7 +115,7 @@ public class Feature {
 
     public String getDescription() {
         String result = "";
-        if (Util.itemExists(description)) {
+        if (StringUtils.isNotEmpty(description)) {
             String content = description.replaceFirst("As an", "<span class=\"feature-role\">As an</span>");
             content = content.replaceFirst("I want to", "<span class=\"feature-action\">I want to</span>");
             content = content.replaceFirst("So that", "<span class=\"feature-value\">So that</span>");

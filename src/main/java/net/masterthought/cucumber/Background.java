@@ -3,7 +3,7 @@ package net.masterthought.cucumber;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
 /**
