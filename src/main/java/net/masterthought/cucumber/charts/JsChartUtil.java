@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import net.masterthought.cucumber.TagObject;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class JsChartUtil {
 

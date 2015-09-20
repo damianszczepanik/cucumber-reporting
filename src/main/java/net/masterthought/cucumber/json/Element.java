@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class Element {
@@ -100,11 +100,11 @@ public class Element {
     public String getName() {
         List<String> contentString = new ArrayList<String>();
 
-        if (Util.itemExists(keyword)) {
+        if (StringUtils.isNotEmpty(keyword)) {
             contentString.add("<span class=\"scenario-keyword\">" + StringEscapeUtils.escapeHtml(keyword) + ": </span>");
         }
 
-        if (Util.itemExists(name)) {
+        if (StringUtils.isNotEmpty(name)) {
             contentString.add("<span class=\"scenario-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>");
         }
 

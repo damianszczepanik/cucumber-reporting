@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.TagObject;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagReportPage extends AbstractPage {
 

@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.util;
+package net.masterthought.cucumber.json.support;
 
 /**
  * Defines all possible status provided by Cucumber.

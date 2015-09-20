@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class Step implements ResultsWithMatch {

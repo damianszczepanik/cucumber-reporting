@@ -2,8 +2,8 @@ package net.masterthought.cucumber.charts;
 
 import java.util.List;
 
-import net.masterthought.cucumber.TagObject;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public final class FlashChartBuilder {
 

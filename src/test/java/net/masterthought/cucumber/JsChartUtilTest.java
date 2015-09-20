@@ -1,11 +1,11 @@
 package net.masterthought.cucumber;
 
-import static net.masterthought.cucumber.util.Status.FAILED;
-import static net.masterthought.cucumber.util.Status.MISSING;
-import static net.masterthought.cucumber.util.Status.PASSED;
-import static net.masterthought.cucumber.util.Status.PENDING;
-import static net.masterthought.cucumber.util.Status.SKIPPED;
-import static net.masterthought.cucumber.util.Status.UNDEFINED;
+import static net.masterthought.cucumber.json.support.Status.FAILED;
+import static net.masterthought.cucumber.json.support.Status.MISSING;
+import static net.masterthought.cucumber.json.support.Status.PASSED;
+import static net.masterthought.cucumber.json.support.Status.PENDING;
+import static net.masterthought.cucumber.json.support.Status.SKIPPED;
+import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.charts.JsChartUtil;
+import net.masterthought.cucumber.json.support.ScenarioTag;
+import net.masterthought.cucumber.json.support.TagObject;
 
 /**
  * JsChartUtil Tester.

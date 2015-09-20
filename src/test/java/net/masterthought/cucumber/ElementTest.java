@@ -14,7 +14,7 @@ import org.junit.Test;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 
 public class ElementTest {
 

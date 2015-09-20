@@ -1,7 +1,5 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json.support;
 
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 /**

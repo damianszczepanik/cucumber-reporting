@@ -3,6 +3,9 @@ package net.masterthought.cucumber;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.masterthought.cucumber.json.support.ScenarioTag;
+import net.masterthought.cucumber.json.support.TagObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
