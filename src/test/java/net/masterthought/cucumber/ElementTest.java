@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
@@ -19,11 +19,11 @@ import net.masterthought.cucumber.json.support.Status;
 public class ElementTest {
 
     ReportParser reportParser;
-    Element passingElement;
-    Element failingElement;
-    Element undefinedElement;
-    Element skippedElement;
-    Element taggedElement;
+    Scenario passingElement;
+    Scenario failingElement;
+    Scenario undefinedElement;
+    Scenario skippedElement;
+    Scenario taggedElement;
 
 
     @Before
@@ -42,12 +42,12 @@ public class ElementTest {
         undefinedFeature.processSteps();
         skippedFeature.processSteps();
         
-        passingElement = passingFeature.getElements()[0];
-        failingElement = failingFeature.getElements()[0];
-        undefinedElement = undefinedFeature.getElements()[0];
-        skippedElement = skippedFeature.getElements()[0];
+        passingElement = passingFeature.getScenarios()[0];
+        failingElement = failingFeature.getScenarios()[0];
+        undefinedElement = undefinedFeature.getScenarios()[0];
+        skippedElement = skippedFeature.getScenarios()[0];
         
-        taggedElement = passingFeature.getElements()[1];
+        taggedElement = passingFeature.getScenarios()[1];
     }
 
     @Test

@@ -2,24 +2,24 @@ package net.masterthought.cucumber.json.support;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Scenario;
 
 public class ScenarioTag {
 
-    private final Element scenario;
-    private final String parentFeatureUri;
+    private final Scenario scenario;
+    private final String featureId;
 
-    public ScenarioTag(Element scenario, String parentFeatureUri) {
+    public ScenarioTag(Scenario scenario, String featureId) {
         this.scenario = scenario;
-        this.parentFeatureUri = parentFeatureUri;
+        this.featureId = featureId;
     }
 
-    public Element getScenario() {
+    public Scenario getScenario() {
         return scenario;
     }
 
-    public String getParentFeatureUri() {
-        return parentFeatureUri;
+    public String getFeatureId() {
+        return featureId;
     }
 
     public boolean hasSteps() {
