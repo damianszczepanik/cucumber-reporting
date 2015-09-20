@@ -1,16 +1,11 @@
 package net.masterthought.cucumber;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.velocity.exception.VelocityException;
 
 import net.masterthought.cucumber.generators.ErrorPage;
@@ -20,7 +15,7 @@ import net.masterthought.cucumber.generators.StepOverviewPage;
 import net.masterthought.cucumber.generators.TagOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.UnzipUtils;
+import net.masterthought.cucumber.util.Util;
 
 public class ReportBuilder {
 
@@ -195,21 +190,8 @@ public class ReportBuilder {
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
-        final File tmpResourcesArchive = File.createTempFile("temp", resourceName + ".zip");
-
-        InputStream resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream(resourceLocation + "/" + resourceName);
-        if (resourceArchiveInputStream == null) {
-            resourceArchiveInputStream = ReportBuilder.class.getResourceAsStream("/" + resourceLocation + "/" + resourceName);
-        }
-        OutputStream resourceArchiveOutputStream = new FileOutputStream(tmpResourcesArchive);
-        try {
-            IOUtils.copy(resourceArchiveInputStream, resourceArchiveOutputStream);
-        } finally {
-            IOUtils.closeQuietly(resourceArchiveInputStream);
-            IOUtils.closeQuietly(resourceArchiveOutputStream);
-        }
-        UnzipUtils.unzipToFile(tmpResourcesArchive, reportDirectory);
-        FileUtils.deleteQuietly(tmpResourcesArchive);
+        File source = new File(ReportBuilder.class.getResource("/" + resourceLocation + "/" + resourceName).toURI());
+        Util.unzipToFile(source, reportDirectory.getAbsolutePath());
     }
 
     private String getPluginUrlPath(String path) {

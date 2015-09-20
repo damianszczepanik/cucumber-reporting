@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +12,8 @@ import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import net.masterthought.cucumber.json.Tag;
 
 public class Util {
@@ -77,4 +80,12 @@ public class Util {
         return result;
     }
 
+    public static void unzipToFile(File srcZipFile, String destDirectory) {
+        try {
+            ZipFile zipFile = new ZipFile(srcZipFile);
+            zipFile.extractAll(destDirectory);
+        } catch (ZipException e) {
+            e.printStackTrace();
+        }
+    }
 }
