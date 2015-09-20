@@ -35,10 +35,10 @@ public class StepTest {
         Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
-        passingStep = passingFeature.getElements()[0].getSteps()[0];
-        failingStep = failingFeature.getElements()[0].getSteps()[5];
-        skippedStep = failingFeature.getElements()[0].getSteps()[6];
-        withOutput = passingFeature.getElements()[1].getSteps()[0];
+        passingStep = passingFeature.getScenarios()[0].getSteps()[0];
+        failingStep = failingFeature.getScenarios()[0].getSteps()[5];
+        skippedStep = failingFeature.getScenarios()[0].getSteps()[6];
+        withOutput = passingFeature.getScenarios()[1].getSteps()[0];
     }
 
     @Test
@@ -47,7 +47,7 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         ReportParser reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        Step step = feature.getElements()[0].getSteps()[0];
+        Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
         assertThat(step.getRows()[0], is(Row.class));
     }
@@ -58,7 +58,7 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
         ReportParser reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        Step step = feature.getElements()[0].getSteps()[0];
+        Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
         assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
     }
@@ -141,6 +141,6 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
         Feature failingFeatureWithEmbeddedScreenshot = new ReportParser(jsonReports).getFeatures().entrySet().iterator().next().getValue().get(0);
         failingFeatureWithEmbeddedScreenshot.processSteps();
-        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
+        return failingFeatureWithEmbeddedScreenshot.getScenarios()[0].getSteps()[2];
     }
 }

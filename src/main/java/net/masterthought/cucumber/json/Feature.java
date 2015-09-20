@@ -20,14 +20,14 @@ public class Feature {
     private final String uri = null;
     private final String description = null;
     private final String keyword = null;
-    private final Element[] elements = new Element[0];
+    private final Scenario[] elements = new Scenario[0];
     private final Tag[] tags = new Tag[0];
 
     private String fileName;
     private String deviceName;
     private StepResults stepResults;
-    private List<Element> passedScenarios;
-    private List<Element> failedScenarios;
+    private List<Scenario> passedScenarios;
+    private List<Scenario> failedScenarios;
 
     private String jsonFile = "";
 
@@ -45,11 +45,15 @@ public class Feature {
         return deviceName;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setJsonFile(String json){
         this.jsonFile = json;
     }
 
-    public Element[] getElements() {
+    public Scenario[] getScenarios() {
         return elements;
     }
 
@@ -91,7 +95,7 @@ public class Feature {
     }
 
     public Status getStatus() {
-        for (Element element : elements) {
+        for (Scenario element : elements) {
             if (element.getStatus() != Status.PASSED) {
                 return Status.FAILED;
             }
@@ -128,8 +132,8 @@ public class Feature {
     public int getNumberOfScenarios() {
         int result = 0;
         if (elements != null) {
-            List<Element> elementList = new ArrayList<Element>();
-            for (Element element : elements) {
+            List<Scenario> elementList = new ArrayList<Scenario>();
+            for (Scenario element : elements) {
                 if (!element.isBackground()) {
                     elementList.add(element);
                 }
@@ -182,12 +186,12 @@ public class Feature {
     public void processSteps() {
         List<Step> allSteps = new ArrayList<Step>();
         StatusCounter stepsCounter = new StatusCounter();
-        List<Element> passedScenarios = new ArrayList<>();
-        List<Element> failedScenarios = new ArrayList<>();
+        List<Scenario> passedScenarios = new ArrayList<>();
+        List<Scenario> failedScenarios = new ArrayList<>();
         long totalDuration = 0L;
 
         if (elements != null) {
-            for (Element element : elements) {
+            for (Scenario element : elements) {
                 calculateScenarioStats(passedScenarios, failedScenarios, element);
                 if (element.hasSteps()) {
                     for (Step step : element.getSteps()) {
@@ -203,7 +207,7 @@ public class Feature {
         stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
 
-    private void calculateScenarioStats(List<Element> passedScenarios, List<Element> failedScenarios, Element element) {
+    private void calculateScenarioStats(List<Scenario> passedScenarios, List<Scenario> failedScenarios, Scenario element) {
         if (!element.isBackground()) {
             if (element.getStatus() == Status.PASSED) {
                 passedScenarios.add(element);

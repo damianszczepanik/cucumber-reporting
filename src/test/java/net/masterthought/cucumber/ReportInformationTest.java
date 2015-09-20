@@ -119,7 +119,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTags() {
-        assertThat(reportInformation.getTotalTags(), is(3));
+        assertThat(reportInformation.getTags().size(), is(3));
     }
 
     @Test

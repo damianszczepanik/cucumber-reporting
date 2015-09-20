@@ -266,13 +266,7 @@
                     #end
 
                     <tr>
-                        <td style="text-align:left;">
-                            <a href="$tag.getFileName()">$tag.getTagName()</a>
-
-                            #if ($hasCustomHeader)
-                                <br/><span> $customHeaders.get($tag.getTagName())</span>
-                            #end
-                        </td>
+                        <td style="text-align:left;"><a href="$tag.getFileName()">$tag.getTagName()</a></td>
                         <td>$tag.getNumberOfScenarios()</td>
                         <td>$tag.getNumberOfPassingScenarios()</td>
                         <td>$tag.getNumberOfFailingScenarios()</td>

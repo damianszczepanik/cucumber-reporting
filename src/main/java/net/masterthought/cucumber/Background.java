@@ -35,16 +35,16 @@ public class Background {
         return totalScenariosPassed;
     }
 
-    public void addTotalScenariosPassed(int totalScenariosPassed) {
-        this.totalScenariosPassed += totalScenariosPassed;
+    public void incPassedScenarios() {
+        this.totalScenariosPassed++;
     }
 
     public int getTotalScenariosFailed() {
         return totalScenariosFailed;
     }
 
-    public void addTotalScenariosFailed(int totalScenariosFailed) {
-        this.totalScenariosFailed += totalScenariosFailed;
+    public void incFailedScenarios() {
+        this.totalScenariosFailed++;
     }
 
     public int getTotalSteps() {

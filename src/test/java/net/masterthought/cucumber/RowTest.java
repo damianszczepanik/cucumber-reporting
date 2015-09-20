@@ -25,7 +25,7 @@ public class RowTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        row = feature.getElements()[0].getSteps()[0].getRows()[0];
+        row = feature.getScenarios()[0].getSteps()[0].getRows()[0];
         feature.processSteps();
     }
 

@@ -29,8 +29,6 @@ public class ReportBuilder {
     private boolean runWithJenkins;
     private boolean highCharts;
 
-    private Map<String, String> customHeader;
-
     public static final String VERSION = "cucumber-reporting-0.4.0";
 
     //Added to control parallel reports
@@ -90,14 +88,6 @@ public class ReportBuilder {
 
     public void setRunWithJenkins(boolean runWithJenkins) {
         this.runWithJenkins = runWithJenkins;
-    }
-
-    public Map<String, String> getCustomHeader() {
-        return customHeader;
-    }
-
-    public void setCustomHeader(Map<String, String> customHeader) {
-        this.customHeader = customHeader;
     }
 
     public boolean isFlashCharts() {

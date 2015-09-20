@@ -10,7 +10,7 @@ import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
-public class Element {
+public class Scenario {
 
     /** Refers to background step. Is defined in json file. */
     private final static String BACKGROUND_KEYWORD = "Background";
@@ -144,7 +144,7 @@ public class Element {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Element other = (Element) obj;
+        Scenario other = (Scenario) obj;
 
         return id.equals(other.id);
     }
