@@ -19,7 +19,7 @@ public class StepObject {
     /** How many times this step was executed. */
     private int totalOccurrences;
 
-    private StatusCounter statusCounter = new StatusCounter();
+    private final StatusCounter statusCounter = new StatusCounter();
 
     public StepObject(String location) {
         this.location = location;

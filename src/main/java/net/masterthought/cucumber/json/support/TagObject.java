@@ -30,9 +30,8 @@ public class TagObject {
         this.scenarios = scenarioTagList;
     }
 
-    public TagObject(String tagName, List<ScenarioTag> scenarios) {
+    public TagObject(String tagName) {
         this.tagName = tagName;
-        this.scenarios = scenarios;
     }
 
     private void populateElements() {

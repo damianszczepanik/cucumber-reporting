@@ -1,11 +1,13 @@
 package net.masterthought.cucumber.json.support;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.masterthought.cucumber.json.Element;
 
 public class ScenarioTag {
 
-    private Element scenario;
-    private String parentFeatureUri;
+    private final Element scenario;
+    private final String parentFeatureUri;
 
     public ScenarioTag(Element scenario, String parentFeatureUri) {
         this.scenario = scenario;
@@ -21,7 +23,7 @@ public class ScenarioTag {
     }
 
     public boolean hasSteps() {
-        return scenario.getSteps().length > 0;
+        return ArrayUtils.isNotEmpty(scenario.getSteps());
     }
     
 }

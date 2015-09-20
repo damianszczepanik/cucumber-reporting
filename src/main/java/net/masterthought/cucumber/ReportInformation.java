@@ -374,19 +374,13 @@ public class ReportInformation {
         for (Tag tag : tagList) {
             TagObject tagObj = findTagObjectByNameInList(tag.getName(), allTags);
 
-            List<ScenarioTag> existingTagList = new ArrayList<>();
-            if (tagObj == null) {
-                tagObj = new TagObject(tag.getName(), existingTagList);
-            } else {
-                existingTagList.addAll(tagObj.getScenarios());
-                tagObj.setScenarios(existingTagList);
-                allTags.remove(tagObj);
-            }
+            tagObj.setScenarios(tagObj.getScenarios());
+            allTags.remove(tagObj);
 
             for (ScenarioTag scenarioTag : scenarioList) {
                 for (Tag tag2 : scenarioTag.getScenario().getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
-                        addScenarioUnlessExists(existingTagList, scenarioTag);
+                        addScenarioUnlessExists(tagObj.getScenarios(), scenarioTag);
                         break;
                     }
                 }
@@ -402,16 +396,12 @@ public class ReportInformation {
         for (Tag tag : tagList) {
             TagObject tagObj = findTagObjectByNameInList(tag.getName(), allTags);
 
-            if (tagObj != null) {
-                List<ScenarioTag> allScenarios = new ArrayList<>();
-                allScenarios.addAll(tagObj.getScenarios());
-                allScenarios.addAll(scenarioList);
+            List<ScenarioTag> allScenarios = new ArrayList<>();
+            allScenarios.addAll(tagObj.getScenarios());
+            allScenarios.addAll(scenarioList);
 
-                allTags.remove(tagObj);
-                tagObj.setScenarios(allScenarios);
-            } else {
-                tagObj = new TagObject(tag.getName(), scenarioList);
-            }
+            allTags.remove(tagObj);
+            tagObj.setScenarios(allScenarios);
             allTags.add(tagObj);
         }
     }
@@ -422,7 +412,7 @@ public class ReportInformation {
                 return tagObject;
             }
         }
-        return null;
+        return new TagObject(name);
     }
 
     public Background getBackgroundInfo() {

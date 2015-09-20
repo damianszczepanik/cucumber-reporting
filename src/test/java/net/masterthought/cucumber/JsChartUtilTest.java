@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.charts.JsChartUtil;
-import net.masterthought.cucumber.json.support.ScenarioTag;
 import net.masterthought.cucumber.json.support.TagObject;
 
 /**
@@ -215,7 +214,7 @@ public class JsChartUtilTest {
     @Test
     public void testGetTags() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<TagObject>();
-        TagObject tag = new TagObject("TestTagName", new ArrayList<ScenarioTag>());
+        TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = JsChartUtil.getTags(tagObjectList);
         Assert.assertEquals("['TestTagName']", result);
@@ -237,7 +236,7 @@ public class JsChartUtilTest {
     @Test
     public void testGenerateTagChartDataForHighCharts() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<TagObject>();
-        TagObject tag = new TagObject("TestTagName", new ArrayList<ScenarioTag>());
+        TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = JsChartUtil.generateTagChartDataForHighCharts(tagObjectList);
         Assert.assertEquals("[[0,0,0,0]]", result);
