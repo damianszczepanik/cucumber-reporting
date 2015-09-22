@@ -124,7 +124,7 @@ public class ReportBuilderTest {
 
     private void assertStatsHeader(Document doc) {
         assertThat("stats-header", fromId("stats-header-scenarios", doc).text(), is("Scenarios"));
-        assertThat("stats-header-feature", fromId("stats-header-feature", doc).text(), is("Feature"));
+        assertThat("stats-header-key", fromId("stats-header-key", doc).text(), is("Feature"));
         assertThat("stats-header-scenarios-total", fromId("stats-header-scenarios-total", doc).text(), is("Total"));
         assertThat("stats-header-scenarios-passed", fromId("stats-header-scenarios-passed", doc).text(), is("Passed"));
         assertThat("stats-header-scenarios-failed", fromId("stats-header-scenarios-failed", doc).text(), is("Failed"));

@@ -24,11 +24,8 @@
 
             <div>
                 <table class="stats-table">
-                    #if($parallel)
-                        #include("/templates/tableHeaderParallel.vm")                        
-                    #else
-                        #include("/templates/tableHeader.vm")                        
-                    #end
+                    #set($table_key = "Feature")
+                    #parse("/templates/tableHeader.vm")
                     
                     #set($sf = $feature.getRawName())
 
