@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class RowTest {
 
     @Test
     public void shouldReturnRows() {
-        assertThat(row, is(Row.class));
+        assertThat(row, isA(Row.class));
     }
 
     @Test

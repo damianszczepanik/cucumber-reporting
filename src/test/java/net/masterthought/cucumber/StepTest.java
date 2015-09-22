@@ -3,6 +3,7 @@ package net.masterthought.cucumber;
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class StepTest {
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
-        assertThat(step.getRows()[0], is(Row.class));
+        assertThat(step.getRows()[0], isA(Row.class));
     }
 
     @Test
