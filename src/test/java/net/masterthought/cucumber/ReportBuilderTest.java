@@ -79,6 +79,44 @@ public class ReportBuilderTest {
     }
 
     @Test
+    public void shouldRenderFeaturePageWithTableInStepsCorrectly() throws Exception {
+        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/tableErrorExample.json").toURI()).getAbsolutePath());
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
+                                                        false, false, true, true, false, false);
+        reportBuilder.generateReports();
+
+        File input = new File(rd, "com-cme-falcon-acceptancetests-FrameworkTests-FIX_Inbound_Outbound-NewOrderOverrides-feature.html");
+        Document doc = Jsoup.parse(input, "UTF-8", "");
+
+        Elements rows = fromClass("data-table",doc).get(2).getElementsByTag("tr");
+        Elements firstRow = rows.get(0).getElementsByTag("td");
+        Elements secondRow = rows.get(1).getElementsByTag("td");
+
+        assertThat(rows.size(),is(2));
+        assertThat(firstRow.size(),is(6));
+        assertThat(secondRow.size(),is(6));
+
+        assertThat(firstRow.get(0).text(),is("ordType"));
+        assertThat(firstRow.get(1).text(),is("securityDescription"));
+        assertThat(firstRow.get(2).text(),is("price"));
+        assertThat(firstRow.get(3).text(),is("side"));
+        assertThat(firstRow.get(4).text(),is("orderQty"));
+        assertThat(firstRow.get(5).text(),is("timeInForce"));
+
+        assertThat(secondRow.get(0).text(),is("limit"));
+        assertThat(secondRow.get(1).text(),is("GEZ0"));
+        assertThat(secondRow.get(2).text(),is("175.0"));
+        assertThat(secondRow.get(3).text(),is("bid"));
+        assertThat(secondRow.get(4).text(),is("1"));
+        assertThat(secondRow.get(5).text(),is("session"));
+
+        assertThat(fromId("feature-title", doc).text(), is("Result for New Inbound Order Overrides in build: 1"));
+        assertStatsHeader(doc);
+    }
+
+    @Test
     public void shouldRenderErrorPageOnParsingError() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
