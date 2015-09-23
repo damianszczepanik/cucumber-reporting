@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class DocStringTest {
 
     @Test
     public void shouldReturnDocString() {
-        assertThat(docstring, is(DocString.class));
+        assertThat(docstring, isA(DocString.class));
     }
 
     @Test

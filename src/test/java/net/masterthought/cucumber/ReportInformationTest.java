@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
@@ -37,19 +38,19 @@ public class ReportInformationTest {
 
     @Test
     public void shouldListAllFeatures() throws IOException {
-        assertThat(reportInformation.getFeatures().get(0), is(Feature.class));
+        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
     }
 
     @Test
     public void shouldListAllTags() {
-        assertThat(reportInformation.getTags().get(0), is(TagObject.class));
+        assertThat(reportInformation.getTags().get(0), isA(TagObject.class));
     }
 
     @Test
     public void shouldListFeaturesInAMap() {
 	//not really needed now -- have type safety with generics in object usage and would have failed had we not found the resource.
         assertThat(reportInformation.getFeatureMap().keySet(), hasItem(containsString("project1.json")));
-        assertThat(reportInformation.getFeatureMap().entrySet().iterator().next().getValue().get(0), is(Feature.class));
+        assertThat(reportInformation.getFeatureMap().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
     }
 
     @Test
@@ -104,7 +105,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTimeStamp() {
-        assertThat(reportInformation.timeStamp(), is(String.class));
+        assertThat(reportInformation.timeStamp(), isA(String.class));
     }
 
     @Test
