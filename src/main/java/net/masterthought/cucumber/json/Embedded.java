@@ -17,7 +17,10 @@ public class Embedded {
 
         switch (mime_type) {
         case "image/png":
-            sb.append(publishAsImg(contentId, index));
+            sb.append(publishImg("png", contentId, index));
+            break;
+        case "image/bmp":
+            sb.append(publishImg("bmp", contentId, index));
             break;
         case "text/plain":
             sb.append(publishPlainType(contentId, index));
@@ -37,8 +40,8 @@ public class Embedded {
     }
 
 
-    private String publishAsImg(int imageId, int index) {
-        String mimeEncodedImage = "data:image/png;base64," + data;
+    private String publishImg(String imgType, int imageId, int index) {
+        String mimeEncodedImage = "data:image/" + imgType + ";base64," + data;
 
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(imageId, "Screenshot", index));
