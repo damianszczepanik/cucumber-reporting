@@ -71,7 +71,7 @@ public class StepTest {
 
     @Test
     public void shouldReturnOutput() {
-        assertThat(withOutput.getOutputAsArray(), is(new String[] { "some other text", "wooops", "matchedColumns" }));
+        assertThat(withOutput.getOutput(), is(new String[] { "[&quot;some other text&quot;,&quot;wooops&quot;]", "[&quot;matchedColumns&quot;]", "[]" }));
     }
 
     @Test
