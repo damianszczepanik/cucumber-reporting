@@ -1,0 +1,6 @@
+<link rel="stylesheet" href="blue/css/jquery.dataTables.min.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js" ></script>
+<script type="text/javascript" src="js/datatables.js" ></script>
+

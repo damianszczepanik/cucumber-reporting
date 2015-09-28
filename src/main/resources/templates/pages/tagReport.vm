@@ -22,6 +22,7 @@
                 <table class="stats-table">
                     #set($table_key = "Tag")
                     #parse("/templates/tableHeader.vm")
+                    <tbody>
                     <tr>
                         <td><a href="$tag.getFileName()">$tag.getTagName()</a></td>
                         <td>$tag.getNumberOfScenarios()</td>
@@ -36,7 +37,7 @@
                         <td #if($tag.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$tag.getNumberOfMissing()</td>
                         <td style="text-align:right;white-space:nowrap">$tag.getDurationOfSteps()</td>
                         <td style="background-color: $report_status_colour;">$tag.getRawStatus()</td></tr>
-
+                    </tbody>
                 </table>
 
             </div>
