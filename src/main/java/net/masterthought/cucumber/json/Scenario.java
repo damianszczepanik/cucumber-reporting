@@ -130,7 +130,7 @@ public class Scenario {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
@@ -146,7 +146,7 @@ public class Scenario {
         }
         Scenario other = (Scenario) obj;
 
-        return id.equals(other.id);
+        return id != null ? id.equals(other.id) : (other.id == null);
     }
 
 }
