@@ -77,7 +77,7 @@
                         </div>
                     #end
                     <div class="output-data">
-                    #foreach($output in $step.getOutputAsArray())
+                    #foreach($output in $step.getOutput())
                         <div>$output</div>
                     #end
                     </div>

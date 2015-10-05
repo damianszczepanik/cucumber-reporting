@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
+
+import com.google.gson.JsonElement;
 
 public class Step implements ResultsWithMatch {
 
@@ -19,7 +20,7 @@ public class Step implements ResultsWithMatch {
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedded[] embeddings = new Embedded[0];
-    private final String[][] output = new String[0][0];
+    private final JsonElement[] output = new JsonElement[0];
     private final DocString doc_string = null;
 
     public DocString getDocString() {
@@ -30,10 +31,17 @@ public class Step implements ResultsWithMatch {
         return rows;
     }
 
-    public String[] getOutputAsArray() {
+    public String[] getOutput() {
         List<String> list = new ArrayList<>();
-        for (String[] array : output) {
-            list.addAll(Arrays.asList(array));
+        for (JsonElement element : this.output){
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                String elementString = element.getAsString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+            else {
+                String elementString = element.toString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
         }
         return list.toArray(new String[list.size()]);
     }
