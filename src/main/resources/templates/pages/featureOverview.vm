@@ -5,13 +5,7 @@
 
 #include("/templates/headers.html")
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" >
-    $(document).ready(function() {
-        $("#tablesorter").tablesorter();
-    });
-</script>
+#include("/templates/tableSorter.vm")
 #if($flashCharts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>

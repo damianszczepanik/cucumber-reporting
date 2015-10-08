@@ -7,14 +7,9 @@
 
 #include("/styles/reporting.css")
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" >
-$(document).ready(function() {
-        $("#tablesorter").tablesorter(); 
-    }
-);
-</script>
+
+#include("/templates/tableSorter.vm")
+
 </head>
 <body id="top">
 
