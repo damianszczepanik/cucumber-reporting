@@ -5,6 +5,7 @@
 
 #include("/templates/headers.html")
 
+#include("/templates/tableSorter.vm")
 #if($flashCharts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
@@ -18,7 +19,6 @@
     </script>
 #else
     #if ($highCharts)
-        <script type="text/javascript" src="js/jquery.min.js"></script>
         <script src="js/highcharts.js"></script>
         <script>
             jQuery(document).ready(function() {
@@ -253,11 +253,11 @@
         <div>
             <br/>
             <h2>Tag Statistics</h2>
-            <table class="stats-table">
+            <table id="tablesorter" class="stats-table">
                 #set($table_key = "Tag")
                 #parse("/templates/tableHeader.vm")
 
-
+                <tbody>
                 #foreach($tag in $tags)
 
                     #if($tag.getStatus().name() == "PASSED")
@@ -282,6 +282,7 @@
                         <td style="background-color: $bgcolour;">$tag.getRawStatus()</td>
                     </tr>
                 #end
+                </tbody>
 
                 <!--  add row to adjust num of steps -->
                 <tr>

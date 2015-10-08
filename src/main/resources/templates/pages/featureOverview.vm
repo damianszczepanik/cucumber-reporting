@@ -5,6 +5,7 @@
 
 #include("/templates/headers.html")
 
+#include("/templates/tableSorter.vm")
 #if($flashCharts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
@@ -18,7 +19,6 @@
     </script>
 #else
     #if ($highCharts)
-        <script type="text/javascript" src="js/jquery.min.js"></script>
         <script src="js/highcharts.js"></script>
     #else
         <script src="js/raphael.js"></script>
@@ -337,10 +337,11 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 
     <div>
   <h2 id="feature-statistics-title">Feature Statistics</h2>
-  <table class="stats-table">     
+  <table id="tablesorter" class="stats-table">
       #set($table_key = "Feature")
       #parse("/templates/tableHeader.vm")
 
+      <tbody>
       #foreach($feature in $features)
 
           #if($feature.getStatus().name() == "PASSED")
@@ -372,7 +373,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           <td id="stats-status-$sf" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
           </tr>
       #end
-
+      </tbody>
 <tr>
 <th id="stats-total-features" style="background-color:lightgray">$total_features</th>
 #if($parallel)
