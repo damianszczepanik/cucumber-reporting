@@ -61,7 +61,8 @@ public class StepTest {
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
-        assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
+        String uuid = feature.getScenarios()[0].uuid;
+        assertThat(step.getName(), is("<div class=\"missing\" cuc=\""+uuid+"\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
     }
 
     @Test
@@ -93,27 +94,30 @@ public class StepTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingStep.getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
+        String uuid = passingStep.getParent();
+        assertThat(passingStep.getName(), is("<div class=\"passed\" cuc=\""+uuid+"\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
         ));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         ConfigurationOptions.instance().setSkippedFailsBuild(false);
+        String uuid = skippedStep.getParent();
         assertThat(
                 skippedStep.getName(),
-                is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
-        ));
+                is("<div class=\"skipped\" cuc=\""+uuid+"\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
+                ));
     }
 
     @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
         ConfigurationOptions configuration = ConfigurationOptions.instance();
         configuration.setSkippedFailsBuild(true);
+        String uuid = skippedStep.getParent();
         try {
             assertThat(
                     skippedStep.getName(),
-                    is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
+                    is("<div class=\"skipped\" cuc=\""+uuid+"\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
         } finally {
             // restore the initial state for next tests
             configuration.setSkippedFailsBuild(false);

@@ -104,9 +104,9 @@ public class Feature {
     }
 
     public String getName() {
-        return StringUtils.isNotEmpty(name) ? getStatus().toHtmlClass()
-                + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
-                + "</div></div>" : "";
+        return StringUtils.isNotEmpty(name) ? getStatus().toHtmlClass("")
+                + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name +
+        "<div style=\"float: right;\"><span class=\"expanded\" onclick=\"hideall();\">&nbsp;&nbsp;&nbsp;</span><span class=\"collapsed\" onclick=\"showall();\">&nbsp;&nbsp;&nbsp;</span></div></div>"+"</div>" : "";
     }
 
     public String getRawName() {
@@ -198,6 +198,7 @@ public class Feature {
                         allSteps.add(step);
                         stepsCounter.incrementFor(step.getStatus());
                         totalDuration += step.getDuration();
+                        step.setParent(element.uuid);
                     }
                 }
             }

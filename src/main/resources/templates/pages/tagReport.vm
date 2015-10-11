@@ -4,8 +4,43 @@
 <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
 
 #include("/templates/headers.html")
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script type="text/javascript">
 
-#include("/styles/reporting.css")
+
+        function showall(){
+            $('[cucid="expander"]').each(function(){
+                $('[cuc="'+this.id+'"]').each(function(){
+                    $(this).show();
+                });
+                $('#' + this.id).attr("class","expanded");
+            });
+        }
+
+        function hideall(){
+            $('[cucid="expander"]').each(function(){
+                $('[cuc="'+this.id+'"]').each(function(){
+                    $(this).hide();
+                });
+                $('#' + this.id).attr("class","collapsed");
+            });
+        }
+
+        function showhide(id){
+            var isCollapsed=($('#' + id).attr("class").toString() == 'collapsed');
+            $('[cuc="'+id+'"]').each(function(){
+                if(isCollapsed) $(this).show();
+                else $(this).hide();
+            });
+            if(isCollapsed) $('#' + id).attr("class","expanded");
+            else $('#' + id).attr("class","collapsed");
+        }
+    </script>
+
+
+    #include("/styles/reporting.css")
 
 </head>
 <body id="top">

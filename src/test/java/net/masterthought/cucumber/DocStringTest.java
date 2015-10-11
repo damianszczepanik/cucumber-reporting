@@ -31,6 +31,7 @@ public class DocStringTest {
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         step = feature.getScenarios()[0].getSteps()[0];
+        step.setParent(feature.getScenarios()[0].uuid);
         docstring = step.getDocString();
     }
 
@@ -48,7 +49,8 @@ public class DocStringTest {
 
     @Test
     public void shouldFormatDocString() {
-        assertThat(step.getDocStringOrNothing(), is("<div class=\"passed\">" +
+        String uuid=step.getParent();
+        assertThat(step.getDocStringOrNothing(), is("<div class=\"passed\" cuc=\""+uuid+"\">" +
                                                       "<div class=\"doc-string\">" +
                                                         "X&nbsp;_&nbsp;X<br/>" +
                                                         "O&nbsp;X&nbsp;O<br/>" +

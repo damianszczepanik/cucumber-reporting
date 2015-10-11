@@ -97,7 +97,8 @@ public class ElementTest {
     
     @Test
     public void shouldReturnName() {
-        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"scenario-keyword\">Background: </span> <span class=\"scenario-name\">Activate Credit Card</span></div>"
+        String uuid = passingElement.uuid;
+        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"expanded\" cucid=\"expander\" id=\""+uuid+"\" onclick=\"showhide('"+uuid+"');\">&nbsp;&nbsp;&nbsp;</span><span class=\"scenario-keyword\">Background: </span> <span class=\"scenario-name\">Activate Credit Card</span></div>"
         ));
     }
 
