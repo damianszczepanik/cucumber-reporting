@@ -1,0 +1,150 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "cuke report test",
+    "line": 1,
+    "description": "",
+    "id": "cuke-report-test",
+    "uri": "features/cukereport_test.feature",
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "name": "scenario1 for tag1",
+        "line": 4,
+        "description": "",
+        "tags": [
+          {
+            "name": "@tag1",
+            "line": 3
+          }
+        ],
+        "id": "cuke-report-test;scenario1-for-tag1",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "shoop expect pass",
+            "line": 5,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 13,
+                  "val": "pass"
+                }
+              ],
+              "location": "features/step_definitions/computeCPP_steps.rb:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 679650
+            }
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "name": "scenario1 for tag2",
+        "line": 8,
+        "description": "",
+        "tags": [
+          {
+            "name": "@tag2",
+            "line": 7
+          }
+        ],
+        "id": "cuke-report-test;scenario1-for-tag2",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "shoop expect pass",
+            "line": 9,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 13,
+                  "val": "pass"
+                }
+              ],
+              "location": "features/step_definitions/computeCPP_steps.rb:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 191278
+            }
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "name": "scenario2 for tag1",
+        "line": 12,
+        "description": "",
+        "tags": [
+          {
+            "name": "@tag1",
+            "line": 11
+          }
+        ],
+        "id": "cuke-report-test;scenario2-for-tag1",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "shoop expect fail",
+            "line": 13,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 13,
+                  "val": "fail"
+                }
+              ],
+              "location": "features/step_definitions/computeCPP_steps.rb:5"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "\nexpected: 2\n     got: 1\n\n(compared using ==)\n (RSpec::Expectations::ExpectationNotMetError)\n./features/step_definitions/computeCPP_steps.rb:9:in `/^shoop expect (.*)$/'\nfeatures/cukereport_test.feature:13:in `Then shoop expect fail'",
+              "duration": 426627
+            }
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "name": "scenario2 for tag2",
+        "line": 16,
+        "description": "",
+        "tags": [
+          {
+            "name": "@tag2",
+            "line": 15
+          }
+        ],
+        "id": "cuke-report-test;scenario2-for-tag2",
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "shoop expect fail",
+            "line": 17,
+            "match": {
+              "arguments": [
+                {
+                  "offset": 13,
+                  "val": "fail"
+                }
+              ],
+              "location": "features/step_definitions/computeCPP_steps.rb:5"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "\nexpected: 2\n     got: 1\n\n(compared using ==)\n (RSpec::Expectations::ExpectationNotMetError)\n./features/step_definitions/computeCPP_steps.rb:9:in `/^shoop expect (.*)$/'\nfeatures/cukereport_test.feature:17:in `Then shoop expect fail'",
+              "duration": 398624
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

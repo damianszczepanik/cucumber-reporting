@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cucumber-JVM Html Reports - Feature Overview</title>
+
+#include("/templates/headers.html")
+
+#include("/templates/tableSorter.vm")
+#if($flashCharts)
+    <script language="javascript">AC_FL_RunContent = 0;</script>
+    <script language="javascript"> DetectFlashVer = 0; </script>
+    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+    <script language="JavaScript" type="text/javascript">
+    <!--
+    var requiredMajorVersion = 10;
+    var requiredMinorVersion = 0;
+    var requiredRevision = 45;
+    -->
+    </script>
+#else
+    #if ($highCharts)
+        <script src="js/highcharts.js"></script>
+    #else
+        <script src="js/raphael.js"></script>
+        <script src="js/g.raphael-min.js"></script>
+        <script src="js/g.pie-min.js"></script>
+        <script src="js/g.bar-min.js"></script>
+    #end
+#end
+
+#include("/styles/reporting.css")                        
+
+</head>
+<body id="top">
+
+    #parse("/templates/topMenu.vm")
+
+    #set($summary_key = "Feature")
+    #set($summary_description = "The following graph shows passing and failing statistics for features in this build.")
+    #parse("/templates/summaryOverview.vm")
+
+    <div class="container_12">
+        <div class="grid_12">
+
+
+#if($flashCharts)
+     <div id="flash-charts" style="text-align:center;">
+
+         <table>
+             <tr>
+                 <td>
+         <script language="JavaScript" type="text/javascript">
+<!--
+if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
+    alert("This page requires AC_RunActiveContent.js.");
+} else {
+    var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+    if(hasRightVersion) {
+        AC_FL_RunContent(
+            'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+            'width', '480',
+            'height', '300',
+            'scale', 'noscale',
+            'salign', 'TL',
+            'bgcolor', '#bbccff',
+            'wmode', 'opaque',
+            'movie', 'charts/charts',
+            'src', 'charts/charts',
+            'FlashVars', "library_path=charts/charts_library&xml_data=$step_data",
+            'id', 'my_chart',
+            'name', 'my_chart',
+            'menu', 'true',
+            'allowFullScreen', 'true',
+            'allowScriptAccess','sameDomain',
+            'quality', 'high',
+            'align', 'middle',
+            'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+            'play', 'true',
+            'devicefont', 'false'
+            );
+    } else {
+        var alternateContent = 'This content requires the Adobe Flash Player. '
+        + '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+        document.write(alternateContent);
+    }
+}
+// -->
+</script>
+<noscript>
+    <P>This content requires JavaScript.</P>
+</noscript>
+ </td>
+ <td width="10">&nbsp;</td>
+                 <td>
+     <script language="JavaScript" type="text/javascript">
+   <!--
+   if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
+       alert("This page requires AC_RunActiveContent.js.");
+   } else {
+       var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+       if(hasRightVersion) {
+           AC_FL_RunContent(
+               'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+               'width', '480',
+               'height', '300',
+               'scale', 'noscale',
+               'salign', 'TL',
+               'bgcolor', '#bbccff',
+               'wmode', 'opaque',
+               'movie', 'charts/charts',
+               'src', 'charts/charts',
+               'FlashVars', "library_path=charts/charts_library&xml_data=$scenario_data",
+               'id', 'my_chart',
+               'name', 'my_chart',
+               'menu', 'true',
+               'allowFullScreen', 'true',
+               'allowScriptAccess','sameDomain',
+               'quality', 'high',
+               'align', 'middle',
+               'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+               'play', 'true',
+               'devicefont', 'false'
+               );
+       } else {
+           var alternateContent = 'This content requires the Adobe Flash Player. '
+           + '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+           document.write(alternateContent);
+       }
+   }
+   // -->
+   </script>
+   <noscript>
+       <P>This content requires JavaScript.</P>
+   </noscript>
+
+ </td>
+ </tr>
+ </table>
+</div>
+#else
+    #if ($highCharts)
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('#steps_chart').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Steps'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                        percentageDecimals: 1
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                formatter: function() {
+                                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Steps',
+                        data: [
+                            {
+                                name: 'Passed',
+                                color: "$step_data.get(0)",
+                                y: $total_passes,
+                                sliced: true,
+                                selected: true
+                            },
+                            {
+                                name: 'Failed',
+                                color: "#CC1134",
+                                y: $total_fails
+                            },
+                            {
+                                name: 'Skipped',
+                                color: "$step_data.get(2)",
+                                y: $total_skipped
+                            },
+                            {
+                                name: 'Pending',
+                                color: "$step_data.get(3)",
+                                y: $total_pending
+                            },
+                            {
+                                name: 'Undefined',
+                                color: "$step_data.get(4)",
+                                y: $total_undefined
+                            },
+                            {
+                                name: 'Missing',
+                                color: "$step_data.get(5)",
+                                y: $total_missing
+                            }
+                        ]
+                    }]
+                });
+
+                $('#scenarios_chart').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Scenarios'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                        percentageDecimals: 1
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                formatter: function() {
+                                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Scenarios',
+                        data: [
+                            {
+                                name: 'Passed',
+                                y: $scenarios_passed,
+                                color: "$step_data.get(0)",
+                                sliced: true,
+                                selected: true
+                            },
+                            {
+                                name: 'Failed',
+                                y: $scenarios_failed,
+                                color: "#CC1134"
+                            }
+                        ]
+                    }]
+                });
+            });
+        </script>
+    #else
+        <script>
+            window.onload = function () {
+                var steps = Raphael("steps_chart");
+                steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
+                steps.piechart(200, 150, 120,
+                [
+                    #if( $total_passes == 0) 0.000001 #{else} $total_passes #end,
+                    #if( $total_fails == 0) 0.000001 #{else} $total_fails #end,
+                    #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end,
+                    #if( $total_pending == 0) 0.000001 #{else} $total_pending #end,
+                    #if( $total_undefined == 0) 0.000001 #{else} $total_undefined #end,
+                    #if( $total_missing == 0) 0.000001 #{else} $total_missing #end
+                ],
+                {
+                    legend:
+                    [
+                        "%%.%% - Passed",
+                        "%%.%% - Failed",
+                        "%%.%% - Skipped",
+                        "%%.%% - Pending",
+                        "%%.%% - Undefined",
+                        "%%.%% - Missing"
+                    ],
+                    legendpos: "east",
+                    colors:
+                    [
+                        "$step_data.get(0)",
+                        "#CC1134",
+                        "$step_data.get(2)",
+                        "$step_data.get(3)",
+                        "$step_data.get(4)",
+                        "$step_data.get(5)"
+                    ]
+                }
+                );
+
+
+                var scenarios = Raphael("scenarios_chart");
+                scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
+                scenarios.piechart(200, 150, 120,
+                [
+                    #if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,
+                    #if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end
+                    ],
+                    {
+                        legend:
+                        [
+                            "%%.%% - Passed",
+                            "%%.%% - Failed"
+                        ],
+                        legendpos: "east",
+                        colors:
+                        [
+                            "$scenario_data.get(0)",
+                            "#CC1134"
+                        ], 
+                        legendcolor: "white"
+                    }
+                );
+            };
+        </script>
+    #end
+    <noscript>
+        <P>This content requires JavaScript.</P>
+    </noscript>
+
+    <div style="text-align:center;">
+    <table id="js-charts">
+           <tr>
+               <td> <div style="background-color: #E6FCFF;width:480px;height:300px;border: 1px solid gray;" id="steps_chart"></div></td>
+               <td width="10">&nbsp;</td>
+               <td> <div style="background-color: #006699;width:480px;height:300px;border: 1px solid gray;" id="scenarios_chart"></div></td>
+           </tr>
+       </table>
+
+  </div>
+#end
+
+    <div>
+  <h2 id="feature-statistics-title">Feature Statistics</h2>
+  <table id="tablesorter" class="stats-table">
+      #set($table_key = "Feature")
+      #parse("/templates/tableHeader.vm")
+
+      <tbody>
+      #foreach($feature in $features)
+
+          #if($feature.getStatus().name() == "PASSED")
+          #set($bgcolour = "#00CE00")
+          #else
+          #set($bgcolour = "#FF0000")
+          #end
+
+          $feature.processSteps()
+
+          #set($sf = $feature.getRawName())
+
+          <tr>
+          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$sf</a></td>
+          #if($parallel)
+              <td id="device">$feature.getDeviceName()</td>
+          #end
+          <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
+          <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
+          <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
+          <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
+          <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
+          <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$feature.getNumberOfFailures()</td>
+          <td id="stats-number-steps-skipped-$sf"   #if($feature.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$feature.getNumberOfSkipped()</td>
+          <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$feature.getNumberOfPending()</td>
+          <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$feature.getNumberOfUndefined()</td>
+          <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$feature.getNumberOfMissing()</td>
+          <td id="stats-duration-$sf" style="text-align:right;white-space:nowrap">$feature.getDurationOfSteps()</td>
+          <td id="stats-status-$sf" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
+          </tr>
+      #end
+      </tbody>
+<tr>
+<th id="stats-total-features" style="background-color:lightgray">$total_features</th>
+#if($parallel)
+  <th id="stats-total-features" style="background-color:lightgray">-</th>
+#end
+<th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
+<th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
+<th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
+<th id="stats-total-steps" style="background-color:lightgray">$total_steps</th>
+<th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
+<th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
+<th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>
+<th id="stats-total-steps-pending" style="background-color:lightgray">$total_pending</th>
+<th id="stats-total-steps-undefined" style="background-color:lightgray">$total_undefined</th>
+<th id="stats-total-steps-missing" style="background-color:lightgray">$total_missing</th>
+<th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+<th id="stats-total-totals" style="background-color:lightgray">Totals</th>
+</tr></table>
+    </div>
+
+    </div>
+    </div>
+
+
+#parse("/templates/footer.vm")                        
+
+</body>
+</html>

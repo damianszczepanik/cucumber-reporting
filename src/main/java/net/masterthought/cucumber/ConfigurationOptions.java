@@ -1,51 +1,55 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Artifact;
+public final class ConfigurationOptions {
 
-import java.io.File;
-import java.util.Map;
+    public boolean skippedFailsBuildValue;
+    public boolean pendingFailsBuildValue;
+    public boolean undefinedFailsBuildValue;
+    public boolean missingFailsBuildValue;
+    public boolean artifactsEnabledValue;
 
-public class ConfigurationOptions {
+    private static final ConfigurationOptions configuration = new ConfigurationOptions();
 
-    public static boolean skippedFailsBuildValue;
-    public static boolean undefinedFailsBuildValue;
-    public static boolean artifactsEnabledValue;
-    public static Map<String, Artifact> artifactConfiguration;
-
-    private ConfigurationOptions() {
-        throw new AssertionError();
+    public static ConfigurationOptions instance() {
+        return configuration;
     }
 
-    public static void setSkippedFailsBuild(boolean skippedFailsBuild) {
+    private ConfigurationOptions() {
+    }
+
+    public void setSkippedFailsBuild(boolean skippedFailsBuild) {
         skippedFailsBuildValue = skippedFailsBuild;
     }
 
-    public static void setUndefinedFailsBuild(boolean undefinedFailsBuild) {
+    public void setPendingFailsBuild(boolean pendingFailsBuild) {
+        pendingFailsBuildValue = pendingFailsBuild;
+    }
+
+    public void setUndefinedFailsBuild(boolean undefinedFailsBuild) {
         undefinedFailsBuildValue = undefinedFailsBuild;
     }
 
-    public static void setArtifactsEnabled(boolean artifactsEnabled) {
-        artifactsEnabledValue = artifactsEnabled;
+    public void setMissingFailsBuild(boolean missngFailsBuild) {
+        missingFailsBuildValue = missngFailsBuild;
     }
 
-    public static void setArtifactConfiguration(Map<String, Artifact> configuration) {
-        artifactConfiguration = configuration;
-    }
-
-    public static boolean skippedFailsBuild() {
+    public boolean skippedFailsBuild() {
         return skippedFailsBuildValue;
     }
 
-    public static boolean undefinedFailsBuild() {
+    public boolean pendingFailsBuild() {
+        return pendingFailsBuildValue;
+    }
+
+    public boolean undefinedFailsBuild() {
         return undefinedFailsBuildValue;
     }
 
-    public static boolean artifactsEnabled() {
+    public boolean missingFailsBuild() {
+        return missingFailsBuildValue;
+    }
+
+    public boolean artifactsEnabled() {
         return artifactsEnabledValue;
     }
-
-    public static Map<String, Artifact> artifactConfig() {
-        return artifactConfiguration;
-    }
-
 }

@@ -1,73 +1,122 @@
 package net.masterthought.cucumber.charts;
 
-import net.masterthought.cucumber.TagObject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
-import java.util.*;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class JsChartUtil {
 
-    class ValueComparator implements Comparator {
+    private static Logger logger = Logger.getLogger("net.masterthought.cucumber.charts.jschartutil");
 
-        Map base;
+    public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped,
+            int numberTotalPending, int numberTotalUndefined, int numberTotalMissing) {
 
-        public ValueComparator(Map base) {
-            this.base = base;
-        }
+        Map<Status, Integer> map = new HashMap<>();
 
-        public int compare(Object a, Object b) {
+        map.put(Status.PASSED, numberTotalPassed);
+        map.put(Status.FAILED, numberTotalFailed);
+        map.put(Status.SKIPPED, numberTotalSkipped);
+        map.put(Status.PENDING, numberTotalPending);
+        map.put(Status.UNDEFINED, numberTotalUndefined);
+        map.put(Status.MISSING, numberTotalMissing);
 
-            if ((Integer) base.get(a) < (Integer) base.get(b)) {
-                return 1;
-            } else if ((Integer) base.get(a) == (Integer) base.get(b)) {
-                return 0;
-            } else {
-                return -1;
-            }
-        }
-    }
-
-    public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped, int numberTotalPending) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
-
-        map.put("#88dd11", numberTotalPassed);
-        map.put("#cc1134", numberTotalFailed);
-        map.put("#88aaff", numberTotalSkipped);
-        map.put("#FBB917", numberTotalPending);
-
-        sorted_map.putAll(map);
-        List<String> colours = new ArrayList<String>();
-        for (String colour : sorted_map.keySet()) {
-            colours.add(colour);
-        }
-        return colours;
+        return getKeysSortedByValue(map);
     }
 
     public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
 
-        map.put("#88dd11", numberTotalPassed);
-        map.put("#cc1134", numberTotalFailed);
+        Map<Status, Integer> map = new HashMap<>();
 
-        sorted_map.putAll(map);
-        List<String> colours = new ArrayList<String>();
-        for (String colour : sorted_map.keySet()) {
-            colours.add(colour);
+        map.put(Status.PASSED, numberTotalPassed);
+        map.put(Status.FAILED, numberTotalFailed);
+
+        return getKeysSortedByValue(map);
+    }
+
+    private List<String> getKeysSortedByValue(Map<Status, Integer> map) {
+        List<Map.Entry<Status, Integer>> list = new ArrayList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Status, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Status, Integer> o1, Map.Entry<Status, Integer> o2) {
+                int valueOrder = o2.getValue().compareTo(o1.getValue());
+                if (valueOrder != 0) {
+                    return valueOrder;
+                }
+                else {
+                    // if values are the same keep the same order as implemented in Status
+                    int colorOrder = o1.getKey().compareTo(o2.getKey());
+                    return colorOrder;
+                }
+            }
+        });
+
+
+        List<String> keys = new ArrayList<String>();
+        for (Map.Entry<Status, Integer> entry : list) {
+            keys.add(entry.getKey().color);
         }
-        return colours;
+        return keys;
     }
 
     public static String generateTagChartData(List<TagObject> tagObjectList) {
-        StringBuffer buffer = new StringBuffer();
+    	StringBuilder buffer = new StringBuilder();
         for (TagObject tag : tagObjectList) {
-           buffer.append("[[" + tag.getNumberOfPasses() + "," + tag.getNumberOfFailures() + "," + tag.getNumberOfSkipped() + "," + tag.getNumberOfPending() + "],{label:'" + tag.getTagName() + "'}],");
+            buffer.append("[[");
+            buffer.append(tag.getNumberOfPasses());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfFailures());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfSkipped());
+            buffer.append(",");
+            buffer.append(tag.getNumberOfPending());
+            buffer.append("],");
+            buffer.append("{label:'").append(tag.getTagName()).append("'}],");
         }
         return buffer.toString();
+    }
 
+    public static String getTags(List<TagObject> tagObjectList) {
+        StringBuilder tags = new StringBuilder();
 
+        if (!tagObjectList.isEmpty()) {
+            for (TagObject tag : tagObjectList) {
+                tags.append("'").append(tag.getTagName()).append("',");
+            }
+
+            tags.setLength(tags.length() - 1);
+        }
+        return "[" + tags.toString() + "]";
+    }
+
+    public static String generateTagChartDataForHighCharts(List<TagObject> tagObjectList) {
+    	StringBuilder buffer = new StringBuilder();
+
+        if (!tagObjectList.isEmpty()) {
+            for (TagObject tag : tagObjectList) {
+                // TODO: could be merged with generateTagChartData
+                buffer.append("[");
+                buffer.append(tag.getNumberOfPasses());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfFailures());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfSkipped());
+                buffer.append(",");
+                buffer.append(tag.getNumberOfPending());
+                buffer.append("]");
+                buffer.append(",");
+            }
+
+            buffer.setLength(buffer.length() - 1);
+        }
+
+        return "[" + buffer.toString() + "]";
     }
 
 

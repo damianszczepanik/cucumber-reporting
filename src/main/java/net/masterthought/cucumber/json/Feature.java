@@ -1,90 +1,116 @@
 package net.masterthought.cucumber.json;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.json.support.StepResults;
+import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
-    private String name;
-    private String uri;
-    private String description;
-    private String keyword;
-    private Element[] elements;
-    private Tag[] tags;
+    private final String id = null;
+    private final String name = null;
+    private final String uri = null;
+    private final String description = null;
+    private final String keyword = null;
+    private final Scenario[] elements = new Scenario[0];
+    private final Tag[] tags = new Tag[0];
+
+    private String fileName;
+    private String deviceName;
     private StepResults stepResults;
-    private ScenarioResults scenarioResults;
+    private List<Scenario> passedScenarios;
+    private List<Scenario> failedScenarios;
 
+    private String jsonFile = "";
 
-    public Feature() {
-
+    public String getDeviceName() {
+        if (deviceName == null) {
+            String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
+            if (splitedJsonFile.length > 1) {
+                // file name without path and extension (usually *.json)
+                deviceName = splitedJsonFile[splitedJsonFile.length - 2];
+            } else {
+                // path name without special characters
+                deviceName = splitedJsonFile[0];
+            }
+        }
+        return deviceName;
     }
 
-    public Element[] getElements() {
+    public String getId() {
+        return id;
+    }
+
+    public void setJsonFile(String json){
+        this.jsonFile = json;
+    }
+
+    public Scenario[] getScenarios() {
         return elements;
     }
 
     public String getFileName() {
-        List<String> matches = new ArrayList<String>();
-        for (String line : Splitter.onPattern("/|\\\\").split(uri)) {
-            String modified = line.replaceAll("\\)|\\(", "");
-            modified = StringUtils.deleteWhitespace(modified).trim();
-            matches.add(modified);
+        if (fileName == null) {
+            // remove all characters that might not be valid file name
+            fileName = uri.replaceAll("[^\\d\\w]", "-");
+
+            // If we expect to have parallel executions, we add postfix to file name
+            if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
+                String[] splitedJsonFile = jsonFile.split("_");
+                if (splitedJsonFile.length > 1) {
+                    fileName = fileName + "-" + getDeviceName();
+                }
+            }
+            fileName = fileName + ".html";
         }
-
-        List<String> sublist = matches.subList(1, matches.size());
-
-        matches = (sublist.size() == 0) ? matches : sublist;
-        String fileName = Joiner.on("-").join(matches) + ".html";
         return fileName;
     }
 
+    public String getUri(){
+        return this.uri;
+    }
+
     public boolean hasTags() {
-        return Util.itemExists(tags);
+        return !ArrayUtils.isEmpty(tags);
     }
 
-    public List<String> getTagList() {
-        List<String> tagList = new ArrayList<String>();
-        for (Tag tag : tags) {
-            tagList.add(tag.getName());
-        }
-        return tagList;
+    public boolean hasScenarios() {
+        return elements.length > 0;
     }
 
-    public String getTags() {
-        String result = "<div class=\"feature-tags\"></div>";
-        if (Util.itemExists(tags)) {
-            String tagList = StringUtils.join(getTagList().toArray(), ",");
-            result = "<div class=\"feature-tags\">" + tagList + "</div>";
-        }
-        return result;
+    public Tag[] getTags() {
+        return tags;
     }
 
-    public Util.Status getStatus() {
-        Closure<String, Element> scenarioStatus = new Closure<String, Element>() {
-            public Util.Status call(Element step) {
-                return step.getStatus();
+    public String getTagsList() {
+        return Util.tagsToHtml(tags);
+    }
+
+    public Status getStatus() {
+        for (Scenario element : elements) {
+            if (element.getStatus() != Status.PASSED) {
+                return Status.FAILED;
             }
-        };
-        List<Util.Status> results = new ArrayList<Util.Status>();
-        if (Util.itemExists(elements)) {
-            results = Util.collectScenarios(elements, scenarioStatus);
         }
-        return results.contains(Util.Status.FAILED) ? Util.Status.FAILED : Util.Status.PASSED;
+        return Status.PASSED;
     }
 
     public String getName() {
-        return Util.itemExists(name) ? Util.result(getStatus()) + "<div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> " + name + "</div>" + Util.closeDiv() : "";
+        return StringUtils.isNotEmpty(name) ? getStatus().toHtmlClass()
+                + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
+                + "</div></div>" : "";
     }
 
     public String getRawName() {
-        return Util.itemExists(name) ? name : "";
+        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : "";
     }
 
     public String getRawStatus() {
@@ -93,7 +119,7 @@ public class Feature {
 
     public String getDescription() {
         String result = "";
-        if (Util.itemExists(description)) {
+        if (StringUtils.isNotEmpty(description)) {
             String content = description.replaceFirst("As an", "<span class=\"feature-role\">As an</span>");
             content = content.replaceFirst("I want to", "<span class=\"feature-action\">I want to</span>");
             content = content.replaceFirst("So that", "<span class=\"feature-value\">So that</span>");
@@ -105,10 +131,10 @@ public class Feature {
 
     public int getNumberOfScenarios() {
         int result = 0;
-        if (Util.itemExists(elements)) {
-            List<Element> elementList = new ArrayList<Element>();
-            for (Element element : elements) {
-                if (!element.getKeyword().equals("Background")) {
+        if (elements != null) {
+            List<Scenario> elementList = new ArrayList<Scenario>();
+            for (Scenario element : elements) {
+                if (!element.isBackground()) {
                     elementList.add(element);
                 }
             }
@@ -141,130 +167,54 @@ public class Feature {
         return stepResults.getNumberOfMissing();
     }
 
+    public int getNumberOfUndefined() {
+        return stepResults.getNumberOfUndefined();
+    }
+
     public String getDurationOfSteps() {
         return stepResults.getTotalDurationAsString();
     }
 
     public int getNumberOfScenariosPassed() {
-        return scenarioResults.getNumberOfScenariosPassed();
+        return passedScenarios.size();
     }
 
     public int getNumberOfScenariosFailed() {
-        return scenarioResults.getNumberOfScenariosFailed();
+        return failedScenarios.size();
     }
 
     public void processSteps() {
         List<Step> allSteps = new ArrayList<Step>();
-        List<Step> passedSteps = new ArrayList<Step>();
-        List<Step> failedSteps = new ArrayList<Step>();
-        List<Step> skippedSteps = new ArrayList<Step>();
-        List<Step> pendingSteps = new ArrayList<Step>();
-        List<Step> missingSteps = new ArrayList<Step>();
-        List<Element> passedScenarios = new ArrayList<Element>();
-        List<Element> failedScenarios = new ArrayList<Element>();
-        Long totalDuration = 0l;
-        if (Util.itemExists(elements)) {
-            for (Element element : elements) {
+        StatusCounter stepsCounter = new StatusCounter();
+        List<Scenario> passedScenarios = new ArrayList<>();
+        List<Scenario> failedScenarios = new ArrayList<>();
+        long totalDuration = 0L;
+
+        if (elements != null) {
+            for (Scenario element : elements) {
                 calculateScenarioStats(passedScenarios, failedScenarios, element);
-                if (Util.hasSteps(element)) {
-                    Step[] steps = element.getSteps();
-                    for (Step step : steps) {
+                if (element.hasSteps()) {
+                    for (Step step : element.getSteps()) {
                         allSteps.add(step);
-                        Util.Status stepStatus = step.getStatus();
-                        passedSteps = Util.setStepStatus(passedSteps, step, stepStatus, Util.Status.PASSED);
-                        failedSteps = Util.setStepStatus(failedSteps, step, stepStatus, Util.Status.FAILED);
-                        skippedSteps = Util.setStepStatus(skippedSteps, step, stepStatus, Util.Status.SKIPPED);
-                        pendingSteps = Util.setStepStatus(pendingSteps, step, stepStatus, Util.Status.UNDEFINED);
-                        missingSteps = Util.setStepStatus(missingSteps, step, stepStatus, Util.Status.MISSING);
-                        totalDuration = totalDuration + step.getDuration();
+                        stepsCounter.incrementFor(step.getStatus());
+                        totalDuration += step.getDuration();
                     }
                 }
             }
         }
-        scenarioResults = new ScenarioResults(passedScenarios, failedScenarios);
-        stepResults = new StepResults(allSteps, passedSteps, failedSteps, skippedSteps, pendingSteps, missingSteps, totalDuration);
+        this.passedScenarios = passedScenarios;
+        this.failedScenarios = failedScenarios;
+        stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
 
-    private void calculateScenarioStats(List<Element> passedScenarios, List<Element> failedScenarios, Element element) {
-        if (!element.getKeyword().equals("Background")) {
-            if (element.getStatus() == Util.Status.PASSED) {
+    private void calculateScenarioStats(List<Scenario> passedScenarios, List<Scenario> failedScenarios, Scenario element) {
+        if (!element.isBackground()) {
+            if (element.getStatus() == Status.PASSED) {
                 passedScenarios.add(element);
-            } else if (element.getStatus() == Util.Status.FAILED) {
+            } else if (element.getStatus() == Status.FAILED) {
                 failedScenarios.add(element);
             }
         }
-    }
-
-    class StepResults {
-
-        List<Step> allSteps;
-        List<Step> passedSteps;
-        List<Step> failedSteps;
-        List<Step> skippedSteps;
-        List<Step> pendingSteps;
-        List<Step> missingSteps;
-        Long totalDuration;
-
-        public StepResults(List<Step> allSteps, List<Step> passedSteps, List<Step> failedSteps, List<Step> skippedSteps, List<Step> pendingSteps, List<Step> missingSteps, Long totalDuration) {
-            this.allSteps = allSteps;
-            this.passedSteps = passedSteps;
-            this.failedSteps = failedSteps;
-            this.skippedSteps = skippedSteps;
-            this.pendingSteps = pendingSteps;
-            this.missingSteps = missingSteps;
-            this.totalDuration = totalDuration;
-        }
-
-        public int getNumberOfSteps() {
-            return allSteps.size();
-        }
-
-        public int getNumberOfPasses() {
-            return passedSteps.size();
-        }
-
-        public int getNumberOfFailures() {
-            return failedSteps.size();
-        }
-
-        public int getNumberOfPending() {
-            return pendingSteps.size();
-        }
-
-        public int getNumberOfSkipped() {
-            return skippedSteps.size();
-        }
-
-        public int getNumberOfMissing() {
-            return missingSteps.size();
-        }
-
-        public long getTotalDuration() {
-            return totalDuration;
-        }
-
-        public String getTotalDurationAsString() {
-            return Util.formatDuration(totalDuration);
-        }
-    }
-
-    class ScenarioResults {
-        List<Element> passedScenarios;
-        List<Element> failedScenarios;
-
-        ScenarioResults(List<Element> passedScenarios, List<Element> failedScenarios) {
-            this.passedScenarios = passedScenarios;
-            this.failedScenarios = failedScenarios;
-        }
-
-        public int getNumberOfScenariosPassed() {
-            return passedScenarios.size();
-        }
-
-        public int getNumberOfScenariosFailed() {
-            return failedScenarios.size();
-        }
-
     }
 
 

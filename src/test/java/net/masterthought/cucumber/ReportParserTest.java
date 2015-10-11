@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 public class ReportParserTest {
@@ -18,8 +19,8 @@ public class ReportParserTest {
     public void shouldReturnAListOfFeaturesFromAJsonReport() throws IOException {
         ReportParser reportParser = new ReportParser(validJsonReports());
         assertThat(reportParser.getFeatures().entrySet().size(), is(2));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(0), is(Feature.class));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(1), is(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(1), isA(Feature.class));
     }
 
     @Test
@@ -52,12 +53,20 @@ public class ReportParserTest {
     }
 
     @Test
+    public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
+        ReportParser reportParser = new ReportParser(withNoSteps2InJsonReport());
+        ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures());
+
+        // Should not crash with NPE
+        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().size(), is(1));
+    }
+
+    @Test
     public void shouldProcessCucumberReportsWithNoScenarios() throws IOException {
         ReportParser reportParser = new ReportParser(withNoScenariosInJsonReport());
         assertThat(reportParser.getFeatures().entrySet().size(), is(2));
     }
-
-
     
     private List<String> validJsonReports() {
         List<String> jsonReports = new ArrayList<String>();
@@ -84,6 +93,12 @@ public class ReportParserTest {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/nosteps.json"));
+        return jsonReports;
+    }
+
+    private List<String> withNoSteps2InJsonReport() {
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/nosteps2.json"));
         return jsonReports;
     }
 

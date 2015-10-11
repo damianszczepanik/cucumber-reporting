@@ -1,3 +1,6 @@
 target
-velocity.log
 .idea
+.classpath
+.project
+.settings/
+cucumber-reporting.iml

@@ -1,19 +1,19 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.Util;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.internal.matchers.StringContains;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import org.hamcrest.core.StringContains;
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 
@@ -34,7 +34,7 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnManagedFileName() {
-        assertThat(passingFeature.getFileName(), is("masterthought-example-ATM.feature.html"));
+        assertThat(passingFeature.getFileName(), is("net-masterthought-example-s--ATM-local-feature.html"));
     }
 
     @Test
@@ -50,19 +50,18 @@ public class FeatureTest {
 
     @Test
     public void shouldListTheTags() {
-        List<String> expectedList = new ArrayList<String>();
-        expectedList.add("@super");
-        assertThat(passingFeature.getTagList(), is(expectedList));
+        String name = "@super";
+        assertThat(passingFeature.getTags()[0].getName(), is(name));
     }
 
     @Test
     public void shouldListTheTagsAsHtml() {
-        assertThat(passingFeature.getTags(), is("<div class=\"feature-tags\">@super</div>"));
+        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\"><a href=\"super.html\">@super</a></div>"));
     }
 
     @Test
     public void shouldGetStatus() {
-        assertThat(passingFeature.getStatus(), is(Util.Status.PASSED));
+        assertThat(passingFeature.getStatus(), is(Status.PASSED));
     }
 
     @Test
@@ -142,4 +141,5 @@ public class FeatureTest {
     public void shouldGetNumberOfFailingScenarios() {
         assertThat(failingFeature.getNumberOfScenariosFailed(), is(1));
     }
+
 }

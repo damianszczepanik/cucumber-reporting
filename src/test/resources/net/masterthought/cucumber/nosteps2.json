@@ -1,0 +1,20 @@
+[
+  {
+    "id": "some-unimplemented-feature",
+    "description": "Test for Steps which throw a PendingException",
+    "name": "some name",
+    "keyword": "Feature",
+    "line": 1,
+    "elements": [
+      {
+        "id": "some-feature;xyz",
+        "description": "      some description",
+        "name": "some name",
+        "keyword": "Scenario",
+        "line": 7,
+        "type": "scenario"
+      }
+    ],
+    "uri": "com/what/ever/some.feature"
+  }
+]

@@ -1,32 +1,59 @@
 package net.masterthought.cucumber.json;
 
-import net.masterthought.cucumber.ConfigurationOptions;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
+import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
-import com.google.gson.internal.StringMap;
-import org.joda.time.DateTime;
 
-import static org.apache.commons.lang.StringUtils.EMPTY;
+import com.google.gson.JsonElement;
 
-public class Step {
+public class Step implements ResultsWithMatch {
 
-    private String name;
-    private String keyword;
-    private String line;
-    private Result result;
-    private Row[] rows;
-    private Match match;
-    private Object[] embeddings;
+    private String name = null;
+    private final String keyword = null;
+    private final String line = null;
+    private final Result result = null;
+    private final Row[] rows = new Row[0];
+    private final Match match = null;
+    private final Embedded[] embeddings = new Embedded[0];
+    private final JsonElement[] output = new JsonElement[0];
+    private final DocString doc_string = null;
 
-    public Step() {
-
+    public DocString getDocString() {
+        return doc_string;
     }
 
     public Row[] getRows() {
         return rows;
     }
 
+    public String[] getOutput() {
+        List<String> list = new ArrayList<>();
+        for (JsonElement element : this.output){
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                String elementString = element.getAsString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+            else {
+                String elementString = element.toString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+        }
+        return list.toArray(new String[list.size()]);
+    }
+
+    @Override
     public Match getMatch() {
         return match;
+    }
+
+    @Override
+    public Result getResult() {
+        return result;
     }
 
     public Object[] getEmbeddings() {
@@ -43,40 +70,24 @@ public class Step {
         return result;
     }
 
-    private Util.Status getInternalStatus() {
+    /**
+     * @return - Returns true if has a sub doc-string, and that doc-string has a value
+     */
+    public boolean hasDocString() {
+        return doc_string != null && doc_string.hasValue();
+    }
+
+    public Status getStatus() {
         if (result == null) {
-            System.out.println("[WARNING] Line " + line + " : " + "Step is missing Result: " + keyword + " : " + name);
-            return Util.Status.MISSING;
+            return Status.MISSING;
         } else {
-            return Util.resultMap.get(result.getStatus());
+            return Status.valueOf(result.getStatus().toUpperCase());
         }
     }
 
-    public Util.Status getStatus() {
-        Util.Status status = getInternalStatus();
-        Util.Status result = status;
-
-        if (ConfigurationOptions.skippedFailsBuild()) {
-            if (status == Util.Status.SKIPPED || status == Util.Status.FAILED) {
-                result = Util.Status.FAILED;
-            }
-        }
-
-        if (ConfigurationOptions.undefinedFailsBuild()) {
-            if (status == Util.Status.UNDEFINED || status == Util.Status.FAILED) {
-                result = Util.Status.FAILED;
-            }
-        }
-
-        if (status == Util.Status.FAILED) {
-            result = Util.Status.FAILED;
-        }
-        return result;
-    }
-
-    public Long getDuration() {
+    public long getDuration() {
         if (result == null) {
-            return 1L;
+            return 0L;
         } else {
             return result.getDuration();
         }
@@ -84,14 +95,11 @@ public class Step {
 
     public String getDataTableClass() {
         String content = "";
-        Util.Status status = getStatus();
-        if (status == Util.Status.FAILED) {
-            content = "failed";
-        } else if (status == Util.Status.PASSED) {
-            content = "passed";
-        } else if (status == Util.Status.SKIPPED) {
-            content = "skipped";
+        Status status = getStatus();
+        if (status == Status.FAILED || status == Status.PASSED || status == Status.SKIPPED) {
+            content = status.getName();
         } else {
+            // TODO: why this goes different
             content = "";
         }
         return content;
@@ -103,49 +111,83 @@ public class Step {
 
     public String getName() {
         String content = "";
-        if (getStatus() == Util.Status.FAILED) {
+        Status status = getStatus();
+        if (status == Status.FAILED) {
             String errorMessage = result.getErrorMessage();
-            if (getInternalStatus() == Util.Status.SKIPPED) {
+            if (status == Status.SKIPPED) {
                 errorMessage = "Mode: Skipped causes Failure<br/><span class=\"skipped\">This step was skipped</span>";
             }
-            if (getInternalStatus() == Util.Status.UNDEFINED) {
+            if (status == Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTag();
-        } else if (getStatus() == Util.Status.MISSING) {
+            content =  getStatusDetails(status, errorMessage);
+        } else if (status == Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
+            content = getStatusDetails(status, errorMessage);
         } else {
-            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTag();
+            content = getStatusDetails(status, null);
         }
         return content;
     }
 
+    private String getStatusDetails(Status status, String errorMessage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(status.toHtmlClass());
+        sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
+        sb.append("<span class=\"step-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
+
+        sb.append("<span class=\"step-duration\">");
+        if (status != Status.MISSING) {
+            sb.append(Util.formatDuration(result.getDuration()));
+        }
+        sb.append("</span>");
+
+        if (status == Status.FAILED || status == Status.MISSING) {
+            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">").append(formatError(errorMessage)).append("</pre></div>");
+
+        }
+        sb.append("</div>");
+        sb.append(getAttachments());
+
+        return sb.toString();
+    }
+
+    /**
+     * Returns a formatted doc-string section. This is formatted w.r.t the parent Step element. To preserve whitespace
+     * in example, line breaks and whitespace are preserved
+     *
+     * @return string of html
+     */
+    public String getDocStringOrNothing() {
+        if (!hasDocString()) {
+            return "";
+        }
+        return getStatus().toHtmlClass() +
+                "<div class=\"doc-string\">" +
+                getDocString().getEscapedValue() +
+                "</div></div>";
+    }
+
     private String formatError(String errorMessage) {
         String result = errorMessage;
-        if (errorMessage != null || !errorMessage.isEmpty()) {
+        if (errorMessage != null && !errorMessage.isEmpty()) {
             result = errorMessage.replaceAll("\\\\n", "<br/>");
         }
         return result;
     }
 
     public void setName(String newName) {
-      this.name = newName;
+        this.name = newName;
     }
 
-    public String getImageTag() {
-        if(noEmbeddedScreenshots()) return EMPTY;
-
-        String imageId = Long.toString(new DateTime().getMillis());
-        return "<a href=\"\" onclick=\"img=document.getElementById('"+imageId+"'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false\">Screenshot</a>" +
-                "<img id='"+imageId+"' style='display:none' src='"+ getMimeEncodedEmbeddedImage() +"'>";
+    public String getAttachments() {
+        StringBuilder sb = new StringBuilder();
+        if (embeddings != null) {
+            for (int i = 0; i < embeddings.length; i++) {
+                sb.append(embeddings[i].render(i + 1));
+            }
+        }
+        return sb.toString();
     }
 
-    private boolean noEmbeddedScreenshots() {
-        return getEmbeddings() == null;
-    }
-
-    public String getMimeEncodedEmbeddedImage() {
-        return "data:image/png;base64,"+((StringMap)getEmbeddings()[0]).get("data");
-    }
 }

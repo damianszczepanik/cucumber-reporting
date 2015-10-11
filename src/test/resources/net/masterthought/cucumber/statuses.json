@@ -1,0 +1,97 @@
+[
+    {
+        "id": "account-holder-withdraws-more-cash",
+        "description": "As an alien I want to put marbles in your nose for science",
+        "name": "Account Holder withdraws More Cash",
+        "keyword": "Feature",
+        "line": 1,
+        "elements": [
+            {
+                "id": "account-holder-withdraws-more-cash;account-has-sufficient-funds;;2",
+                "description": "",
+                "name": "Account has sufficient funds",
+                "keyword": "Scenario Outline",
+                "line": 19,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 1933000,
+                            "status": "failed",
+                            "error_message": "ERROR MESSAGE"
+                        },
+                        "name": "the account balance should be 90",
+                        "keyword": "And ",
+                        "line": 12,
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "90",
+                                    "offset": 30
+                                }
+                            ],
+                            "location": "ATMScenario.checkBalance(int)"
+                        },
+                        "matchedColumns": [4]
+                    },
+                    {
+                        "result": {
+                            "status": "skipped"
+                        },
+                        "name": "its not implemented",
+                        "keyword": "And ",
+                        "line": 14,
+                        "match": {
+                            "location": "ATMScenario.its_not_implemented()"
+                        }
+                    },
+                    {
+                        "result": {
+                            "status": "undefined"
+                        },
+                        "name": "its undefined",
+                        "keyword": "And ",
+                        "line": 14,
+                        "match": {
+                            "location": "ATMScenario.its_not_implemented()"
+                        }
+                    },
+                    {
+                        "result": {
+                            "status": "passed"
+                        },
+                        "name": "its passed",
+                        "keyword": "And ",
+                        "line": 14,
+                        "match": {
+                            "location": "ATMScenario.its_not_implemented()"
+                        }
+                    },
+                    {
+                        "result": {
+                            "status": "missing"
+                        },
+                        "name": "its missing",
+                        "keyword": "And ",
+                        "line": 14,
+                        "match": {
+                            "location": "ATMScenario.its_not_implemented()"
+                        }
+                    },
+                    {
+                        "result": {
+                            "status": "pending"
+                        },
+                        "name": "its pending",
+                        "keyword": "And ",
+                        "line": 14,
+                        "match": {
+                            "location": "ATMScenario.its_not_implemented()"
+                        }
+                    }
+                ],
+                "type": "scenario"
+            }
+        ],
+        "uri": "net/masterthought/example/ATMK.feature"
+    }
+]

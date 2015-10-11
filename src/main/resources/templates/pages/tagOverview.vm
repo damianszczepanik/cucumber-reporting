@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cucumber-JVM Html Reports - Tag Overview</title>
+
+#include("/templates/headers.html")
+
+#include("/templates/tableSorter.vm")
+#if($flashCharts)
+    <script language="javascript">AC_FL_RunContent = 0;</script>
+    <script language="javascript"> DetectFlashVer = 0; </script>
+    <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
+    <script language="JavaScript" type="text/javascript">
+        <!--
+        var requiredMajorVersion = 10;
+        var requiredMinorVersion = 0;
+        var requiredRevision = 45;
+        -->
+    </script>
+#else
+    #if ($highCharts)
+        <script src="js/highcharts.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+
+                var chartData = $chart_data,
+                    chartCategory = $chart_categories,
+                    formattedData = [
+                        {
+                            name: "Passed",
+                            color: '#00CE00',
+                            data: []
+                        },
+                        {
+                            name: "Failed",
+                            color: '#CC1134',
+                            data: []
+                        },
+                        {
+                            name: "Skipped",
+                            color: '#FBB917',
+                            data: []
+                        },
+                        {
+                            name: "Pending",
+                            color: '#FBB927',
+                            data: []
+                        },
+                        {
+                            name: "Undefined",
+                            color: '#FBB937',
+                            data: []
+                        },
+                        {
+                            name: "Missing",
+                            color: '#FBB907',
+                            data: []
+                        }
+                    ];
+
+                jQuery.each(chartCategory, function (i, categoryName) {
+                    formattedData[0].data.push(chartData[i][0]);
+                    formattedData[1].data.push(chartData[i][1]);
+                    formattedData[2].data.push(chartData[i][2]);
+                    formattedData[3].data.push(chartData[i][3]);
+                    formattedData[4].data.push(chartData[i][4]);
+                    formattedData[5].data.push(chartData[i][5]);
+                });
+
+                jQuery('#stacked-graph').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Tag Overview'
+                    },
+                    xAxis: {
+                        categories: $chart_categories
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        },
+                        stackLabels: {
+                            enabled: true,
+                            style: {
+                                fontWeight: 'bold',
+                                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'right',
+                        x: 0,
+                        verticalAlign: 'top',
+                        y: 0,
+                        floating: true,
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                        borderColor: '#CCC',
+                        borderWidth: 1,
+                        shadow: false
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>'+ this.x +'</b><br/>'+
+                                    this.series.name +': '+ this.y +'<br/>'+
+                                    'Total: '+ this.point.stackTotal;
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'percent'
+                        }
+                    },
+                    series: formattedData
+                });
+            });
+        </script>
+    #else
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/raphael.js"></script>
+        <script type="text/javascript" src="js/jquery.enumerable.js"></script>
+        <script type="text/javascript" src="js/jquery.tufte-graph.js"></script>
+        <script type="text/javascript" src="js/jquery.rotate.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                jQuery('#stacked-graph').tufteBar({
+                    data:[
+                        $chart_rows
+                    ],
+                    color:function (index, stackedIndex) {
+                        return ['#00CE00', '#CC1134', '#88aaff', '#FBB917', '#FBB957', '#FBB9A7'][stackedIndex]
+                    },
+                    barLabel: function(index){
+                        return ''
+                    },
+                    barWidth: 0.9,
+                    axisLabel:function (index) {
+                        if(this[1].label.length > 10) {
+                            res = this[1].label.substring(0,10)+"..."
+                        } else {
+                            res = this[1].label
+                        }
+                        return res;
+                    },
+                    legend:{
+                        data:["Failed", "Passed", "Pending", "Skipped", "Undefined", "Missing"],
+                        color:function (index) {
+                            return ['#CC1134','#00CE00','#FBB917','#88aaff','#FBB957','#FBB9A7'][index]
+                        }
+                    }
+                });
+
+            });
+        </script>
+    #end
+#end
+
+#include("/styles/reporting.css")                        
+
+     <!--[if IE]>
+         <style>
+             .graph .label {
+                    text-align: center;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    display: block;
+                    position: absolute;
+                    right: -5px;
+                    top: 15px;
+                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+                    right:-15px; top:5px;
+                 }
+         </style>
+         <![endif]-->
+
+</head>
+<body id="top">
+
+    #parse("/templates/topMenu.vm")
+
+    #set($summary_key = "Tag")
+    #set($summary_description = "The following graph shows passing and failing statistics for tags in this build.")
+    #parse("/templates/summaryOverview.vm")
+
+    <div class="container_12">
+        <div class="grid_12">
+
+        #if($tags.isEmpty())
+            <div><p>You have no tags in your cucumber features</p></div>
+        #else
+
+            #if($flashCharts)
+        <div style="text-align:center;"><script language="JavaScript" type="text/javascript">
+            <!--
+            if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
+                alert("This page requires AC_RunActiveContent.js.");
+            } else {
+                var hasRightVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+                if(hasRightVersion) {
+                    AC_FL_RunContent(
+                            'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,45,2',
+                            'width', '600',
+                            'height', '350',
+                            'scale', 'noscale',
+                            'salign', 'TL',
+                            'bgcolor', '#777788',
+                            'wmode', 'opaque',
+                            'movie', 'charts/charts',
+                            'src', 'charts/charts',
+                            'FlashVars', "library_path=charts/charts_library&xml_data=$chart_data",
+                            'id', 'my_chart',
+                            'name', 'my_chart',
+                            'menu', 'true',
+                            'allowFullScreen', 'true',
+                            'allowScriptAccess','sameDomain',
+                            'quality', 'high',
+                            'align', 'middle',
+                            'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+                            'play', 'true',
+                            'devicefont', 'false'
+                    );
+                } else {
+                    var alternateContent = 'This content requires the Adobe Flash Player. '
+                            + '<u><a href=http://www.macromedia.com/go/getflash/>Get Flash</a></u>.';
+                    document.write(alternateContent);
+                }
+            }
+            // -->
+        </script>
+            <noscript>
+                <P>This content requires JavaScript.</P>
+            </noscript>
+        </div>
+            #else
+                <div>
+                    #if ($highCharts)
+                    <div style="background-color: #E6FCFF;width:800px;height:450px;border: 1px solid gray;" >
+                        <div id='stacked-graph' class='graph' style='width:800px; height: 400px; margin-left: auto; margin-right: auto;'></div>
+                    </div>
+                    #else
+                    <div style="background-color: #E6FCFF;width:800px;height:450px;border: 1px solid gray;" >
+                      <div id='stacked-graph' class='graph' style='width:630px; height: 340px;'></div>
+                    </div>
+                    #end
+
+                    <br/>
+                </div>
+            #end
+
+        <div>
+            <br/>
+            <h2>Tag Statistics</h2>
+            <table id="tablesorter" class="stats-table">
+                #set($table_key = "Tag")
+                #parse("/templates/tableHeader.vm")
+
+                <tbody>
+                #foreach($tag in $tags)
+
+                    #if($tag.getStatus().name() == "PASSED")
+                        #set($bgcolour = "#00CE00")
+                    #else
+                        #set($bgcolour = "#FF0000")
+                    #end
+
+                    <tr>
+                        <td style="text-align:left;"><a href="$tag.getFileName()">$tag.getTagName()</a></td>
+                        <td>$tag.getNumberOfScenarios()</td>
+                        <td>$tag.getNumberOfPassingScenarios()</td>
+                        <td>$tag.getNumberOfFailingScenarios()</td>
+                        <td>$tag.getNumberOfSteps()</td>
+                        <td>$tag.getNumberOfPasses()</td>
+                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$tag.getNumberOfFailures()</td>
+                        <td #if($tag.getNumberOfSkipped() > 0)   style="background-color:#88AAFF;" #end>$tag.getNumberOfSkipped()</td>
+                        <td #if($tag.getNumberOfPending() > 0)   style="background-color:#FBB907;" #end>$tag.getNumberOfPending()</td>
+                        <td #if($tag.getNumberOfUndefined() > 0) style="background-color:#FBB957;" #end>$tag.getNumberOfUndefined()</td>
+                        <td #if($tag.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$tag.getNumberOfMissing()</td>
+                        <td style="text-align:right;white-space:nowrap">$tag.getDurationOfSteps()</td>
+                        <td style="background-color: $bgcolour;">$tag.getRawStatus()</td>
+                    </tr>
+                #end
+                </tbody>
+
+                <!--  add row to adjust num of steps -->
+                <tr>
+                    <th style="background-color:lightgray">background steps </th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalScenarios()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalScenariosPassed()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalScenariosFailed()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalSteps()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsPassed()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsFailed()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsSkipped()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsPending()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsUndefined()</th>
+                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsMissing()</th>
+                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$backgrounds.getTotalFormattedDuration()</th>
+                    <th style="background-color:lightgray;">Totals</th>
+                </tr>
+                <!--  Summarize all steps and time executions -->
+                #set($total_steps     = $total_steps     + $backgrounds.getTotalSteps())
+                #set($total_passes    = $total_passes    + $backgrounds.getTotalStepsPassed())
+                #set($total_fails     = $total_fails     + $backgrounds.getTotalStepsFailed())
+                #set($total_skipped   = $total_skipped   + $backgrounds.getTotalStepsSkipped())
+                #set($total_pending   = $total_pending   + $backgrounds.getTotalStepsPending())
+                #set($total_undefined = $total_undefined + $backgrounds.getTotalStepsUndefined())
+                #set($total_missing   = $total_missing   + $backgrounds.getTotalStepsMissing())
+                <tr>
+                    <th style="background-color:lightgray;">$tags.size()</th>
+                    <th style="background-color:lightgray;">$total_scenarios</th>
+                    <th style="background-color:lightgray;">$total_passed_scenarios</th>
+                    <th style="background-color:lightgray;">$total_failed_scenarios</th>
+                    <th style="background-color:lightgray;">$total_steps</th>
+                    <th style="background-color:lightgray;">$total_passes</th>
+                    <th style="background-color:lightgray;">$total_fails</th>
+                    <th style="background-color:lightgray;">$total_skipped</th>
+                    <th style="background-color:lightgray;">$total_pending</th>
+                    <th style="background-color:lightgray;">$total_undefined</th>
+                    <th style="background-color:lightgray;">$total_missing</th>
+                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+                    <th style="background-color:lightgray;">Totals</th>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+        #end
+
+#parse("/templates/footer.vm")                        
+
+</body>
+</html>
