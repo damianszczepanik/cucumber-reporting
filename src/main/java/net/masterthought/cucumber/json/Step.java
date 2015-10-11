@@ -10,7 +10,6 @@ import static org.apache.commons.lang.StringUtils.EMPTY;
 public class Step {
 
     private String name;
-    private String nameScen;
     private String keyword;
     private String line;
     private Result result;
@@ -21,12 +20,6 @@ public class Step {
     public Step() {
 
     }
-
-    public void setNameScen(String nameScen) {
-        this.nameScen = nameScen;
-    }
-    
-    
 
     public Row[] getRows() {
         return rows;
@@ -118,12 +111,12 @@ public class Step {
             if (getInternalStatus() == Util.Status.UNDEFINED) {
                 errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
             }
-            content = Util.result(getStatus(),nameScen) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTag();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv() + getImageTag();
         } else if (getStatus() == Util.Status.MISSING) {
             String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            content = Util.result(getStatus(),nameScen) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + "<div class=\"step-error-message\"><pre>" + formatError(errorMessage) + "</pre></div>" + Util.closeDiv();
         } else {
-            content = Util.result(getStatus(),nameScen) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTag();
+            content = Util.result(getStatus()) + "<span class=\"step-keyword\">" + keyword + " </span><span class=\"step-name\">" + name + "</span>" + Util.closeDiv() + getImageTag();
         }
         return content;
     }

@@ -28,36 +28,18 @@ public class Util {
         put("missing", Util.Status.MISSING);
     }};
 
-    public static String result(Status status, String name) {
-        String uniqueIdentifier = name.trim().toLowerCase().replaceAll(" ", "");
+    public static String result(Status status) {
         String result = "<div>";
         if (status == Status.PASSED) {
-            result = "<div class=\"passed\" cuc=\""+uniqueIdentifier+"\">";
+            result = "<div class=\"passed\">";
         } else if (status == Status.FAILED) {
-            result = "<div class=\"failed\" cuc=\""+uniqueIdentifier+"\">";
+            result = "<div class=\"failed\">";
         } else if (status == Status.SKIPPED) {
-            result = "<div class=\"skipped\" cuc=\""+uniqueIdentifier+"\">";
+            result = "<div class=\"skipped\">";
         } else if (status == Status.UNDEFINED) {
-            result = "<div class=\"undefined\" cuc=\""+uniqueIdentifier+"\">";
+            result = "<div class=\"undefined\">";
         } else if (status == Status.MISSING) {
-            result = "<div class=\"missing\" cuc=\""+uniqueIdentifier+"\">";
-        }
-        return result;
-    }
-    
-    public static String resultScen(Status status, String name) {
-        String uniqueIdentifier = name.trim().toLowerCase().replaceAll(" ", "");
-        String result = "<div>";
-        if (status == Status.PASSED) {
-            result = "<div class=\"passed\"><span class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
-        } else if (status == Status.FAILED) {
-            result = "<div class=\"failed\"><span class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
-        } else if (status == Status.SKIPPED) {
-            result = "<div class=\"skipped\"><span class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
-        } else if (status == Status.UNDEFINED) {
-            result = "<div class=\"undefined\"> class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
-        } else if (status == Status.MISSING) {
-            result = "<div class=\"missing\"> class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
+            result = "<div class=\"missing\">";
         }
         return result;
     }
@@ -106,10 +88,6 @@ public class Util {
     }
 
     public static String closeDiv() {
-        return "</div>";
-    }
-    
-    public static String closeDivScen() {
         return "</div>";
     }
 
