@@ -11,8 +11,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
@@ -103,6 +103,11 @@ public class ElementTest {
     @Test
     public void shouldReturnKeyword() {
         assertThat(passingElement.getKeyword(), is("Background"));
+    }
+
+    @Test
+    public void shouldReturnType() {
+        assertThat(passingElement.getType(), is("background"));
     }
 
     @Test
