@@ -13,10 +13,11 @@ import net.masterthought.cucumber.util.Util;
 public class Scenario {
 
     /** Refers to background step. Is defined in json file. */
-    private final static String BACKGROUND_KEYWORD = "Background";
+    private final static String BACKGROUND_TYPE = "background";
 
     private final String id = null;
     private final String name = null;
+    private final String type = null;
     private final String description = null;
     private final String keyword = null;
     private final Step[] steps = new Step[0];
@@ -97,6 +98,10 @@ public class Scenario {
         return keyword;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public String getName() {
         List<String> contentString = new ArrayList<String>();
 
@@ -121,7 +126,7 @@ public class Scenario {
     }
 
     public boolean isBackground() {
-        return BACKGROUND_KEYWORD.equals(keyword);
+        return BACKGROUND_TYPE.equals(type);
     }
 
     public String getTagsList() {
