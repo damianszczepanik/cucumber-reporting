@@ -154,11 +154,34 @@ public class Step implements ResultsWithMatch {
                 getDocString().getEscapedValue() +
                 "</div></div>";
     }
+    
+    private static int labelCnt = 0;
 
     private String formatError(String errorMessage) {
         String result = errorMessage;
         if (errorMessage != null && !errorMessage.isEmpty()) {
-            result = errorMessage.replaceAll("\\\\n", "<br/>");
+            if (errorMessage.startsWith( "<" )) {
+                result = errorMessage.replaceAll( "\\\\n", "<br/>" );
+            } else {
+                StringBuilder sb = new StringBuilder();
+                int id = ++labelCnt;
+                String[] s = errorMessage.split( "\\n" );
+                sb.append( "<input class=\"collapse\" id=\"_"+ id +"\" type=\"checkbox\"><label for=\"_" + id + "\">" );
+                //sb.append( StringEscapeUtils.escapeHtml( s[0] ) );
+                sb.append( s[0] );
+                sb.append( "</label><div>" );
+                
+                for ( int i = 1; i < s.length; i++) {
+                    if ( i > 1 ) {
+                        sb.append( "<br/>" );
+                    }
+                    sb.append( s[i] );
+                }
+                
+                sb.append( "</div>" );
+                
+                result = sb.toString();
+            }
         }
         return result;
     }

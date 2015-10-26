@@ -1,5 +1,9 @@
 <style>
 
+h2 {
+	font-size: 24px !important;
+}
+
 .feature-keyword {
 	font-weight: bold;
 }
@@ -49,11 +53,54 @@
 }
 
 .step-error-message-content {
-	white-space: pre-wrap;
-	white-space: -moz-pre-wrap;
-	white-space: -pre-wrap;
-	white-space: -o-pre-wrap;
-	word-wrap: break-word;
+	//white-space: pre-wrap;
+	//white-space: -moz-pre-wrap;
+	//white-space: -pre-wrap;
+	//white-space: -o-pre-wrap;
+	//word-wrap: break-word;
+	margin-bottom: 5px;
+	overflow: auto;
+}
+
+.collapse {
+	display:none;
+}
+
+.collapse + label {
+	font-size: 12px;
+	font-weight: bold;
+	display:block;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.collapse + label + * {
+	display:none;
+}
+
+.collapse:checked + label + * {
+	display:block;
+}
+
+.collapse + label:before {
+	background-color: #4F5150;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	color: #FFFFFF;
+	content: "+";
+	display: block;
+	float: left;
+	font-weight: bold;
+	height: 20px;
+	line-height: 20px;
+	margin-right: 5px;
+	text-align: center;
+	width: 20px;
+}
+
+.collapse:checked + label:before {
+	content: "\2212";
 }
 
 .step-duration {
