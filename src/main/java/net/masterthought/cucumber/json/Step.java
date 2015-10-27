@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.googlecode.totallylazy.Function1;
 
@@ -155,7 +156,7 @@ public class Step implements ResultsWithMatch {
                 "</div></div>";
     }
     
-    private static int labelCnt = 0;
+    private static int labelCount = 0;
 
     private String formatError(String errorMessage) {
         String result = errorMessage;
@@ -163,24 +164,9 @@ public class Step implements ResultsWithMatch {
             if (errorMessage.startsWith( "<" )) {
                 result = errorMessage.replaceAll( "\\\\n", "<br/>" );
             } else {
-                StringBuilder sb = new StringBuilder();
-                int id = ++labelCnt;
-                String[] s = errorMessage.split( "\\n" );
-                sb.append( "<input class=\"collapse\" id=\"_"+ id +"\" type=\"checkbox\"><label for=\"_" + id + "\">" );
-                //sb.append( StringEscapeUtils.escapeHtml( s[0] ) );
-                sb.append( s[0] );
-                sb.append( "</label><div>" );
-                
-                for ( int i = 1; i < s.length; i++) {
-                    if ( i > 1 ) {
-                        sb.append( "<br/>" );
-                    }
-                    sb.append( s[i] );
-                }
-                
-                sb.append( "</div>" );
-                
-                result = sb.toString();
+                int id = ++labelCount;
+                String[] headLineAndTrace = StringUtils.split( errorMessage , "\n", 2 );
+                result = String.format( "<input class=\"collapse\" id=\"_%d\" type=\"checkbox\"><label for=\"_%d\">%s</label><div>%s</div>", id, id, headLineAndTrace[0], headLineAndTrace[1].replaceAll( "\n", "<br/>" ) );
             }
         }
         return result;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hamcrest.core.StringContains;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -129,6 +130,21 @@ public class ReportBuilderTest {
         assertEquals("106ms", tableCells.get(11).text());
         assertEquals("passed", tableCells.get(12).text());
     }
+    
+    @Test
+    public void shouldRenderExceptionInFeatureReport() throws Exception {
+        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
+        List<String> jsonReports = new ArrayList<String>();
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting", false, false, false, false, true, true, false, "", false, false);
+        reportBuilder.generateReports();
+
+        File input = new File(rd, "masterthought-example-ATMKexception.feature.html");
+        Document doc = Jsoup.parse(input, "UTF-8", "");
+        
+        assertThat(fromClass("step-error-message-content", doc).text(), containsString("java.lang.AssertionError:"));
+    }
+    
 
     private void assertStatsHeader(Document doc) {
         assertThat("stats-header", fromId("stats-header-scenarios", doc).text(), is("Scenarios"));

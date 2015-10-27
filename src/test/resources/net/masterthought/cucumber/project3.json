@@ -914,7 +914,7 @@
                 "type":"scenario"
             }
         ],
-        "uri":"net/masterthought/example/ATMK.feature"
+        "uri":"net/masterthought/example/ATMKexception.feature"
     },
     {
         "id":"account-holder-withdraws-more-cash-with-undefined-steps",
