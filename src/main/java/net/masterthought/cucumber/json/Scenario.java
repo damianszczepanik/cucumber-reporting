@@ -1,28 +1,23 @@
 package net.masterthought.cucumber.json;
 
-import static com.googlecode.totallylazy.Option.option;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-
 import net.masterthought.cucumber.ConfigurationOptions;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
-public class Element {
+public class Scenario {
 
     /** Refers to background step. Is defined in json file. */
-    private final static String BACKGROUND_KEYWORD = "Background";
+    private final static String BACKGROUND_TYPE = "background";
 
     private final String id = null;
     private final String name = null;
+    private final String type = null;
     private final String description = null;
     private final String keyword = null;
     private final Step[] steps = new Step[0];
@@ -42,8 +37,8 @@ public class Element {
         return after;
     }
 
-    public Sequence<Tag> getTags() {
-        return Sequences.sequence(option(tags).getOrElse(new Tag[]{})).realise();
+    public Tag[] getTags() {
+        return tags;
     }
 
     public Status getStatus() {
@@ -81,7 +76,9 @@ public class Element {
 
     /**
      * Checks if there is any step with passed status.
-     * @param status status that should be filtered out
+     * 
+     * @param status
+     *            status that should be filtered out
      * @return true if there is status with passed status, false otherwise
      */
     private boolean containsStepWithStatus(Status status) {
@@ -92,7 +89,7 @@ public class Element {
         }
         return false;
     }
-    
+
     public String getRawName() {
         return name;
     }
@@ -101,14 +98,18 @@ public class Element {
         return keyword;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public String getName() {
         List<String> contentString = new ArrayList<String>();
 
-        if (Util.itemExists(keyword)) {
+        if (StringUtils.isNotEmpty(keyword)) {
             contentString.add("<span class=\"scenario-keyword\">" + StringEscapeUtils.escapeHtml(keyword) + ": </span>");
         }
 
-        if (Util.itemExists(name)) {
+        if (StringUtils.isNotEmpty(name)) {
             contentString.add("<span class=\"scenario-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>");
         }
 
@@ -125,7 +126,7 @@ public class Element {
     }
 
     public boolean isBackground() {
-        return keyword.equals(BACKGROUND_KEYWORD);
+        return BACKGROUND_TYPE.equals(type);
     }
 
     public String getTagsList() {
@@ -134,7 +135,7 @@ public class Element {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
@@ -148,20 +149,9 @@ public class Element {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Element other = (Element) obj;
+        Scenario other = (Scenario) obj;
 
-        return id.equals(other.id);
-    }
-
-    public static class Functions {
-        public static Function1<Element, Status> status() {
-            return new Function1<Element, Status>() {
-                @Override
-                public Status call(Element element) throws Exception {
-                    return element.getStatus();
-                }
-            };
-        }
+        return id != null ? id.equals(other.id) : (other.id == null);
     }
 
 }

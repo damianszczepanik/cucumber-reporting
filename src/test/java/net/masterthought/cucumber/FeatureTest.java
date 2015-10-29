@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 
@@ -34,7 +34,7 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnManagedFileName() {
-        assertThat(passingFeature.getFileName(), is("masterthought-example-ATM.feature.html"));
+        assertThat(passingFeature.getFileName(), is("net-masterthought-example-s--ATM-local-feature.html"));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class FeatureTest {
     @Test
     public void shouldListTheTags() {
         String name = "@super";
-        assertThat(passingFeature.getTags().get(0).getName(), is(name));
+        assertThat(passingFeature.getTags()[0].getName(), is(name));
     }
 
     @Test

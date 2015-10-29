@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -11,19 +12,19 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 
 public class ElementTest {
 
     ReportParser reportParser;
-    Element passingElement;
-    Element failingElement;
-    Element undefinedElement;
-    Element skippedElement;
-    Element taggedElement;
+    Scenario passingElement;
+    Scenario failingElement;
+    Scenario undefinedElement;
+    Scenario skippedElement;
+    Scenario taggedElement;
 
 
     @Before
@@ -42,17 +43,17 @@ public class ElementTest {
         undefinedFeature.processSteps();
         skippedFeature.processSteps();
         
-        passingElement = passingFeature.getElements().get(0);
-        failingElement = failingFeature.getElements().get(0);
-        undefinedElement = undefinedFeature.getElements().get(0);
-        skippedElement = skippedFeature.getElements().get(0);
+        passingElement = passingFeature.getScenarios()[0];
+        failingElement = failingFeature.getScenarios()[0];
+        undefinedElement = undefinedFeature.getScenarios()[0];
+        skippedElement = skippedFeature.getScenarios()[0];
         
-        taggedElement = passingFeature.getElements().get(1);
+        taggedElement = passingFeature.getScenarios()[1];
     }
 
     @Test
     public void shouldReturnSteps() {
-        assertThat(passingElement.getSteps()[0], is(Step.class));
+        assertThat(passingElement.getSteps()[0], isA(Step.class));
     }
 
     @Test
@@ -106,10 +107,15 @@ public class ElementTest {
     }
 
     @Test
+    public void shouldReturnType() {
+        assertThat(passingElement.getType(), is("background"));
+    }
+
+    @Test
     public void shouldReturnTagList(){
         String[] expectedList = { "@fast", "@super", "@checkout" };
-        for (int i = 0; i < taggedElement.getTags().size(); i++) {
-            assertThat(taggedElement.getTags().get(i).getName(), is(expectedList[i]));
+        for (int i = 0; i < taggedElement.getTags().length; i++) {
+            assertThat(taggedElement.getTags()[i].getName(), is(expectedList[i]));
         }
     }
 

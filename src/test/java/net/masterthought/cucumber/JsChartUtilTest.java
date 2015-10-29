@@ -1,11 +1,11 @@
 package net.masterthought.cucumber;
 
-import static net.masterthought.cucumber.util.Status.FAILED;
-import static net.masterthought.cucumber.util.Status.MISSING;
-import static net.masterthought.cucumber.util.Status.PASSED;
-import static net.masterthought.cucumber.util.Status.PENDING;
-import static net.masterthought.cucumber.util.Status.SKIPPED;
-import static net.masterthought.cucumber.util.Status.UNDEFINED;
+import static net.masterthought.cucumber.json.support.Status.FAILED;
+import static net.masterthought.cucumber.json.support.Status.MISSING;
+import static net.masterthought.cucumber.json.support.Status.PASSED;
+import static net.masterthought.cucumber.json.support.Status.PENDING;
+import static net.masterthought.cucumber.json.support.Status.SKIPPED;
+import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.googlecode.totallylazy.Lists;
-
 import net.masterthought.cucumber.charts.JsChartUtil;
+import net.masterthought.cucumber.json.support.TagObject;
 
 /**
  * JsChartUtil Tester.
@@ -215,7 +214,7 @@ public class JsChartUtilTest {
     @Test
     public void testGetTags() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<TagObject>();
-        TagObject tag = new TagObject("TestTagName", new ArrayList<ScenarioTag>());
+        TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = JsChartUtil.getTags(tagObjectList);
         Assert.assertEquals("['TestTagName']", result);
@@ -237,7 +236,7 @@ public class JsChartUtilTest {
     @Test
     public void testGenerateTagChartDataForHighCharts() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<TagObject>();
-        TagObject tag = new TagObject("TestTagName", new ArrayList<ScenarioTag>());
+        TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = JsChartUtil.generateTagChartDataForHighCharts(tagObjectList);
         Assert.assertEquals("[[0,0,0,0]]", result);

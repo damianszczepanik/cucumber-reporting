@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -25,13 +26,13 @@ public class RowTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        row = feature.getElements().get(0).getSteps()[0].getRows()[0];
+        row = feature.getScenarios()[0].getSteps()[0].getRows()[0];
         feature.processSteps();
     }
 
     @Test
     public void shouldReturnRows() {
-        assertThat(row, is(Row.class));
+        assertThat(row, isA(Row.class));
     }
 
     @Test

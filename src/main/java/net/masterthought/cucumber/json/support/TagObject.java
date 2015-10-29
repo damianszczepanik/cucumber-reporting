@@ -1,57 +1,51 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json.support;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Sequences;
-
-import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.util.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject {
 
-    private String tagName;
-    private List<ScenarioTag> scenarios = new ArrayList<>();
-    private List<Element> elements = new ArrayList<>();
+    private final String tagName;
+    private final List<ScenarioTag> scenarios = new ArrayList<>();
+    private final List<Scenario> elements = new ArrayList<>();
+
+    private final String fileName;
 
     public String getTagName() {
         return tagName;
     }
 
     public String getFileName() {
-        return tagName.replace("@", "").trim() + ".html";
+        return fileName;
     }
 
     public List<ScenarioTag> getScenarios() {
         return scenarios;
     }
 
-    public void setScenarios(List<ScenarioTag> scenarioTagList) {
-        this.scenarios = scenarioTagList;
+    public void addScenarios(List<ScenarioTag> scenarioTagList) {
+        this.scenarios.addAll(scenarioTagList);
     }
 
-    public TagObject(String tagName, List<ScenarioTag> scenarios) {
+    public TagObject(String tagName) {
         this.tagName = tagName;
-        this.scenarios = scenarios;
-    }
 
-    private void populateElements() {
-        for (ScenarioTag scenarioTag : scenarios) {
-            elements.add(scenarioTag.getScenario());
-        }
+        // eliminate characters that might be invalid as a file name
+        fileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
     }
 
     public Integer getNumberOfScenarios() {
-        List<ScenarioTag> scenarioTagList = new ArrayList<>();
+        int scenarioCounter = 0;
         for (ScenarioTag scenarioTag : this.scenarios) {
             if (!scenarioTag.getScenario().isBackground()) {
-                scenarioTagList.add(scenarioTag);
+                scenarioCounter++;
             }
         }
-        return scenarioTagList.size();
+        return scenarioCounter;
     }
 
     public Integer getNumberOfPassingScenarios() {
@@ -64,23 +58,23 @@ public class TagObject {
 
 
     private Integer getNumberOfScenariosForStatus(Status status) {
-        List<ScenarioTag> scenarioTagList = new ArrayList<>();
+        int scenarioCounter = 0;
         for (ScenarioTag scenarioTag : this.scenarios) {
             if (!scenarioTag.getScenario().isBackground()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
-                    scenarioTagList.add(scenarioTag);
+                    scenarioCounter++;
                 }
             }
         }
-        return scenarioTagList.size();
+        return scenarioCounter;
     }
 
     public String getDurationOfSteps() {
-        Long duration = 0L;
+        long duration = 0;
         for (ScenarioTag scenarioTag : scenarios) {
             if (scenarioTag.hasSteps()) {
                 for (Step step : scenarioTag.getScenario().getSteps()) {
-                    duration = duration + step.getDuration();
+                    duration += step.getDuration();
                 }
             }
         }
@@ -143,14 +137,20 @@ public class TagObject {
         return statuses;
     }
 
-    public Sequence<Element> getElements() {
-        populateElements();
-        return Sequences.sequence(elements);
+    public List<Scenario> getElements() {
+        for (ScenarioTag scenarioTag : scenarios) {
+            elements.add(scenarioTag.getScenario());
+        }
+        return elements;
     }
 
     public Status getStatus() {
-        Sequence<Status> results = getElements().map(Element.Functions.status());
-        return results.contains(Status.FAILED) ? Status.FAILED : Status.PASSED;
+        for (Scenario element : elements) {
+            if (element.getStatus() != Status.PASSED) {
+                return Status.FAILED;
+            }
+        }
+        return Status.PASSED;
     }
 
     public String getRawStatus() {

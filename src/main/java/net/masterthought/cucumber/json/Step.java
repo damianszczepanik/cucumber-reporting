@@ -1,13 +1,16 @@
 package net.masterthought.cucumber.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.googlecode.totallylazy.Function1;
-
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
-import net.masterthought.cucumber.util.Status;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
+
+import com.google.gson.JsonElement;
 
 public class Step implements ResultsWithMatch {
 
@@ -18,7 +21,7 @@ public class Step implements ResultsWithMatch {
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedded[] embeddings = new Embedded[0];
-    private final String[] output = new String[0];
+    private final JsonElement[] output = new JsonElement[0];
     private final DocString doc_string = null;
 
     public DocString getDocString() {
@@ -30,7 +33,18 @@ public class Step implements ResultsWithMatch {
     }
 
     public String[] getOutput() {
-        return output;
+        List<String> list = new ArrayList<>();
+        for (JsonElement element : this.output){
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                String elementString = element.getAsString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+            else {
+                String elementString = element.toString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+        }
+        return list.toArray(new String[list.size()]);
     }
 
     @Override
@@ -66,7 +80,6 @@ public class Step implements ResultsWithMatch {
 
     public Status getStatus() {
         if (result == null) {
-            System.out.println("[WARNING] Line " + line + " : " + "Step is missing Result: " + keyword + " : " + name);
             return Status.MISSING;
         } else {
             return Status.valueOf(result.getStatus().toUpperCase());
@@ -186,14 +199,4 @@ public class Step implements ResultsWithMatch {
         return sb.toString();
     }
 
-    public static class functions {
-        public static Function1<Step, Status> status() {
-            return new Function1<Step, Status>() {
-                @Override
-                public Status call(Step step) throws Exception {
-                    return step.getStatus();
-                }
-            };
-        }
-    }
 }

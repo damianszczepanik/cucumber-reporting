@@ -874,7 +874,10 @@
                             ],
                             "location":"ATMScenario.checkBalance(int)"
                         },
-                        "output": ["\u003cdiv\u003ethis one failed\u003c/div\u003e","<div>expected to fail</div>"],
+                        "output": [
+                            ["\u003cdiv\u003ethis one failed\u003c/div\u003e"],
+                            ["<div>expected to fail</div>"]
+                        ],
                         "matchedColumns":[4]
                     },
                     {
@@ -887,7 +890,10 @@
                         "match":{
                             "location":"ATMScenario.cardShouldBeReturned()"
                         },
-                        "output": ["\u003cdiv\u003ethis one skipped\u003c/div\u003e","<div>expected to skip</div>"]
+                        "output": [
+                            ["\u003cdiv\u003ethis one skipped\u003c/div\u003e"],
+                            ["<div>expected to skip</div>"]
+                        ]
                     },
                     {
                         "result":{

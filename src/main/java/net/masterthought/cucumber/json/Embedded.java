@@ -9,15 +9,19 @@ public class Embedded {
 
     private final String mime_type = null;
     private final String data = null;
+    private static int counter = 0;
 
     public String render(int index) {
         StringBuilder sb = new StringBuilder();
 
-        int contentId = data.hashCode();
+        String contentId = generateId();
 
         switch (mime_type) {
         case "image/png":
-            sb.append(publishAsImg(contentId, index));
+            sb.append(publishImg("png", contentId, index));
+            break;
+        case "image/bmp":
+            sb.append(publishImg("bmp", contentId, index));
             break;
         case "text/plain":
             sb.append(publishPlainType(contentId, index));
@@ -31,14 +35,14 @@ public class Embedded {
         return sb.toString();
     }
 
-    private static String getImg(int imageId, String mimeEncodedImage) {
+    private static String getImg(String imageId, String mimeEncodedImage) {
         return String.format("<img id=\"%s\" src=\"%s\" style=\"max-width:250px; display:none;\"/>", imageId,
                 mimeEncodedImage);
     }
 
 
-    private String publishAsImg(int imageId, int index) {
-        String mimeEncodedImage = "data:image/png;base64," + data;
+    private String publishImg(String imgType, String imageId, int index) {
+        String mimeEncodedImage = "data:image/" + imgType + ";base64," + data;
 
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(imageId, "Screenshot", index));
@@ -49,7 +53,7 @@ public class Embedded {
         return sb.toString();
     }
 
-    private String publishPlainType(int contentId, int index) {
+    private String publishPlainType(String contentId, int index) {
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(contentId, "Plain text", index));
         sb.append(String.format("<pre id=\"%s\" style=\"max-width:250px; display:none;\">%s</pre><br>", contentId,
@@ -57,7 +61,7 @@ public class Embedded {
         return sb.toString();
     }
 
-    private String publishHTMLType(int contentId, int index) {
+    private String publishHTMLType(String contentId, int index) {
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(contentId, "HTML text", index));
         sb.append(String.format("<span id=\"%s\" style=\"max-width:250px; display:none;\">%s</span><br>", contentId,
@@ -71,7 +75,7 @@ public class Embedded {
                 index, mimeType);
     }
 
-    private static String getExpandAnchor(int contentId, String label, int index) {
+    private static String getExpandAnchor(String contentId, String label, int index) {
         return String.format(
                 "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">%s %s</a>",
                 contentId, label, index);
@@ -79,5 +83,10 @@ public class Embedded {
 
     private String decodeDataFromBase() {
         return new String(Base64.decodeBase64(data.getBytes()));
+    }
+
+    private String generateId(){
+        counter++;
+        return "embedding-"+counter;
     }
 }

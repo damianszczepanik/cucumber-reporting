@@ -2,6 +2,8 @@ package net.masterthought.cucumber.generators;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import net.masterthought.cucumber.ReportBuilder;
 
 public class ErrorPage extends AbstractPage {
@@ -17,7 +19,7 @@ public class ErrorPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        contextMap.put("error_message", exception);
+        contextMap.put("error_message", ExceptionUtils.getStackTrace(exception));
         contextMap.put("json_files", reportBuilder.getJsonFiles());
 
         super.generateReport("feature-overview.html");

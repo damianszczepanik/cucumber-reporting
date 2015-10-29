@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.util;
+package net.masterthought.cucumber.json.support;
 
 /**
  * Defines all possible status provided by Cucumber.
@@ -19,7 +19,7 @@ public enum Status {
     /** Color representation for given status. */
     public final String color;
     
-    Status(String color) {
+    private Status(String color) {
         this.color = color;
     }
     
@@ -33,7 +33,7 @@ public enum Status {
         return name().toLowerCase();
     }
 
-    /** Returns name of the status starting from upper case character. */
+    /** Returns name of the status changing first letter to upper case character. */
     public String getLabel() {
         return String.valueOf(name().charAt(0)).toUpperCase() + name().substring(1).toLowerCase();
     }

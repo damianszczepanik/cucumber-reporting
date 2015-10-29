@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
@@ -10,12 +11,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import net.masterthought.cucumber.json.Feature;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
 
@@ -36,32 +37,20 @@ public class ReportInformationTest {
     }
 
     @Test
-    public void shouldDisplayArtifacts() throws Exception {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setArtifactsEnabled(true);
-        String config = "Account has sufficient funds again~the account balance is 300~balance~account_balance.txt~xml";
-        ArtifactProcessor artifactProcessor = new ArtifactProcessor(config);
-        Map<String, Artifact> map = artifactProcessor.process();
-        configuration.setArtifactConfiguration(map);
-        reportInformation = new ReportInformation(reportParser.getFeatures());
-        assertThat(reportInformation.getFeatures().get(2).getElements().get(7).getSteps()[0].getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">the account &lt;div style=&quot;display:none;&quot;&gt;&lt;textarea id=&quot;Account_has_sufficient_funds_againthe_account_balance_is_300&quot; class=&quot;brush: xml;&quot;&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;a onclick=&quot;applyArtifact('Account_has_sufficient_funds_againthe_account_balance_is_300','account_balance.txt')&quot; href=&quot;#&quot;&gt;balance&lt;/a&gt; is 300</span><span class=\"step-duration\">000ms</span></div>"));
-    }
-
-    @Test
     public void shouldListAllFeatures() throws IOException {
-        assertThat(reportInformation.getFeatures().get(0), is(Feature.class));
+        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
     }
 
     @Test
     public void shouldListAllTags() {
-        assertThat(reportInformation.getTags().get(0), is(TagObject.class));
+        assertThat(reportInformation.getTags().get(0), isA(TagObject.class));
     }
 
     @Test
     public void shouldListFeaturesInAMap() {
 	//not really needed now -- have type safety with generics in object usage and would have failed had we not found the resource.
         assertThat(reportInformation.getFeatureMap().keySet(), hasItem(containsString("project1.json")));
-        assertThat(reportInformation.getFeatureMap().entrySet().iterator().next().getValue().get(0), is(Feature.class));
+        assertThat(reportInformation.getFeatureMap().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
     }
 
     @Test
@@ -116,7 +105,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTimeStamp() {
-        assertThat(reportInformation.timeStamp(), is(String.class));
+        assertThat(reportInformation.timeStamp(), isA(String.class));
     }
 
     @Test
@@ -131,7 +120,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTags() {
-        assertThat(reportInformation.getTotalTags(), is(3));
+        assertThat(reportInformation.getTags().size(), is(3));
     }
 
     @Test

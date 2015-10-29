@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -29,13 +30,13 @@ public class DocStringTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/docstring.json"));
         reportParser = new ReportParser(jsonReports);
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        step = feature.getElements().get(0).getSteps()[0];
+        step = feature.getScenarios()[0].getSteps()[0];
         docstring = step.getDocString();
     }
 
     @Test
     public void shouldReturnDocString() {
-        assertThat(docstring, is(DocString.class));
+        assertThat(docstring, isA(DocString.class));
     }
 
     @Test

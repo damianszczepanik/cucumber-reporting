@@ -95,7 +95,10 @@
                             ],
                             "location":"ATMScenario.createAccount(int)"
                         },
-                        "output": ["\u003cdiv\u003esome other text\u003c/div\u003e","<div>wooops</div>"],
+                        "output": [
+                            ["\u003cdiv\u003esome other text\u003c/div\u003e"],
+                            ["<div>wooops</div>"]
+                        ],
                         "matchedColumns":[0]
                     },
                     {

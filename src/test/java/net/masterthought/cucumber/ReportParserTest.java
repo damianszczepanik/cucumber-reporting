@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 public class ReportParserTest {
@@ -18,8 +19,8 @@ public class ReportParserTest {
     public void shouldReturnAListOfFeaturesFromAJsonReport() throws IOException {
         ReportParser reportParser = new ReportParser(validJsonReports());
         assertThat(reportParser.getFeatures().entrySet().size(), is(2));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(0), is(Feature.class));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(1), is(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
+        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(1), isA(Feature.class));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class ReportParserTest {
         ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures());
 
         // Should not crash with NPE
-        assertThat(reportInformation.getFeatures().get(0), is(Feature.class));
+        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
         assertThat(reportParser.getFeatures().entrySet().size(), is(1));
     }
 

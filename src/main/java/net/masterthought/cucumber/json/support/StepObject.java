@@ -1,7 +1,5 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json.support;
 
-import net.masterthought.cucumber.util.Status;
-import net.masterthought.cucumber.util.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 /**
@@ -21,7 +19,7 @@ public class StepObject {
     /** How many times this step was executed. */
     private int totalOccurrences;
 
-    private StatusCounter statusCounter = new StatusCounter();
+    private final StatusCounter statusCounter = new StatusCounter();
 
     public StepObject(String location) {
         this.location = location;
@@ -55,6 +53,10 @@ public class StepObject {
         for (Status status : Status.values()) {
             total += this.statusCounter.getValueFor(status);
         }
-        return 100 * this.statusCounter.getValueFor(Status.PASSED) / total;
+        if (total == 0) {
+            return 0;
+        } else {
+            return 100 * this.statusCounter.getValueFor(Status.PASSED) / total;
+        }
     }
 }

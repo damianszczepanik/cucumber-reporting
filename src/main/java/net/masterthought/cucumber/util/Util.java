@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,11 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import net.masterthought.cucumber.json.Tag;
+import net.masterthought.cucumber.json.support.Status;
 
 public class Util {
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
@@ -37,14 +42,6 @@ public class Util {
     	return new String(Files.readAllBytes(Paths.get(filePath)));
     }
 
-    public static boolean itemExists(String item) {
-        return item != null && !item.isEmpty();
-    }
-
-    public static boolean arrayNotEmpty(Tag[] tags) {
-        return tags != null && tags.length != 0;
-    }
-
     public static String passed(boolean value) {
         return value ? "<div class=\"passed\">" : "</div>";
     }
@@ -65,7 +62,7 @@ public class Util {
 
     public static String tagsToHtml(Tag[] tags) {
         String result = "<div class=\"feature-tags\"></div>";
-        if (Util.arrayNotEmpty(tags)) {
+        if (!ArrayUtils.isEmpty(tags)) {
             List<String> tagList = new ArrayList<>();
             for (Tag tag : tags) {
                 String link = tag.getName().replace("@", "").trim() + ".html";
@@ -77,4 +74,12 @@ public class Util {
         return result;
     }
 
+    public static void unzipToFile(File srcZipFile, String destDirectory) {
+        try {
+            ZipFile zipFile = new ZipFile(srcZipFile);
+            zipFile.extractAll(destDirectory);
+        } catch (ZipException e) {
+            e.printStackTrace();
+        }
+    }
 }
