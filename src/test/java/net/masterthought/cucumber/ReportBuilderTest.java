@@ -167,10 +167,10 @@ public class ReportBuilderTest {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
         ReportBuilder reportBuilder =
-            new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false, false, false, true, true, false, false);
+            new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting", false, false, false, false, true, true, false, false);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "masterthought-example-ATMKexception.feature.html");
+        File input = new File(rd, "net-masterthought-example-ATMKexception-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         
         assertThat(fromClass("step-error-message-content", doc).text(), containsString("java.lang.AssertionError:"));
