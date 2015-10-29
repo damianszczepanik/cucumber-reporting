@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.json.support.Status;
@@ -167,11 +168,19 @@ public class Step implements ResultsWithMatch {
                 getDocString().getEscapedValue() +
                 "</div></div>";
     }
+    
+    private static int labelCount = 0;
 
     private String formatError(String errorMessage) {
         String result = errorMessage;
         if (errorMessage != null && !errorMessage.isEmpty()) {
-            result = errorMessage.replaceAll("\\\\n", "<br/>");
+            if (errorMessage.startsWith( "<" )) {
+                result = errorMessage.replaceAll( "\\\\n", "<br/>" );
+            } else {
+                int id = ++labelCount;
+                String[] headLineAndTrace = StringUtils.split( errorMessage , "\n", 2 );
+                result = String.format( "<input class=\"collapse\" id=\"_%d\" type=\"checkbox\"><label for=\"_%d\">%s</label><div>%s</div>", id, id, headLineAndTrace[0], headLineAndTrace[1].replaceAll( "\n", "<br/>" ) );
+            }
         }
         return result;
     }

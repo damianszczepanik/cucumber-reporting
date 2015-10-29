@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+#if($fromJenkins)
+	<base href="${jenkins_base}job/$build_project/$build_number/cucumber-html-reports/">
+#end
 <title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
 
 #include("/templates/headers.html")
