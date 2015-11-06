@@ -3,7 +3,7 @@ package net.masterthought.cucumber.json;
 import org.codehaus.plexus.util.Base64;
 
 /**
- * @author Damian Szczepanik <damianszczepanik@github>
+ * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class Embedded {
 
