@@ -27,8 +27,9 @@ public class Background {
     public int getTotalScenarios() {
         return totalScenarios;
     }
-    public int addTotalScenarios(int add) {
-        return totalScenarios+=add;
+
+    public int incrTotalScenarios() {
+        return totalScenarios++;
     }
 
     public int getTotalScenariosPassed() {

@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
@@ -110,12 +111,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnReportStatusColour() {
-        assertThat(reportInformation.getReportStatusColour(reportInformation.getFeatures().get(0)), is("#00CE00"));
+        assertThat(reportInformation.getFeatures().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportInformation.getTagReportStatusColour(reportInformation.getTags().get(0)), is("#00CE00"));
+        assertThat(reportInformation.getTags().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test

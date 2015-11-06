@@ -17,7 +17,7 @@ public class TagReportPage extends AbstractPage {
             super.generatePage();
 
             contextMap.put("tag", tagObject);
-            contextMap.put("report_status_colour", reportInformation.getTagReportStatusColour(tagObject));
+            contextMap.put("report_status_colour", tagObject.getStatus().color);
 
             generateReport(tagObject.getFileName());
         }
