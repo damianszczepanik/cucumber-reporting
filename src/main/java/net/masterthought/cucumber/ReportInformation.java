@@ -326,20 +326,20 @@ public class ReportInformation {
     }
 
     private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioToAdd) {
-        for (ScenarioTag scenario : scenarioList) {
-            if (scenario.getFeatureId().equals(scenarioToAdd.getFeatureId())
-                    && scenario.getScenario().equals(scenarioToAdd.getScenario())) {
+        for (ScenarioTag scenarioTag : scenarioList) {
+            if (scenarioTag.getFeatureId().equals(scenarioToAdd.getFeatureId())
+                    && scenarioTag.getScenario().equals(scenarioToAdd.getScenario())) {
                 return;
             }
         }
         scenarioList.add(scenarioToAdd);
     }
 
-    private void addScenarioTagsToTagMap(Tag[] tagList, List<ScenarioTag> scenarioList) {
-        for (Tag tag : tagList) {
+    private void addScenarioTagsToTagMap(Tag[] scenarioTags_allScenario, List<ScenarioTag> scenarioList_noBackground) {
+        for (Tag tag : scenarioTags_allScenario) {
             TagObject tagObject = findTagObjectByName(tag.getName());
 
-            for (ScenarioTag scenarioTag : scenarioList) {
+            for (ScenarioTag scenarioTag : scenarioList_noBackground) {
                 for (Tag tag2 : scenarioTag.getScenario().getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
                         addScenarioUnlessExists(tagObject.getScenarios(), scenarioTag);
