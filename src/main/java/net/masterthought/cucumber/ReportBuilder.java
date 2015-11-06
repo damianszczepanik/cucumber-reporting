@@ -29,8 +29,6 @@ public class ReportBuilder {
     private boolean runWithJenkins;
     private boolean highCharts;
 
-    public static final String VERSION = "cucumber-reporting-0.4.0";
-
     //Added to control parallel reports
     private static boolean parallel = false;
 

@@ -78,7 +78,6 @@ public abstract class AbstractPage {
 
     protected Map<String, Object> getGeneralParameters() {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("version", ReportBuilder.VERSION);
         result.put("fromJenkins", this.reportBuilder.isRunWithJenkins());
         result.put("jenkins_base", this.reportBuilder.getPluginUrlPath());
         result.put("build_project", this.reportBuilder.getBuildProject());
