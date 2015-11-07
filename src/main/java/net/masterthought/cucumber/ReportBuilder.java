@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.velocity.exception.VelocityException;
 
 import net.masterthought.cucumber.generators.ErrorPage;
@@ -178,10 +179,19 @@ public class ReportBuilder {
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
-        File source = new File(ReportBuilder.class.getResource("/" + resourceLocation + "/" + resourceName).toURI());
-        Util.unzipToFile(source, reportDirectory.getAbsolutePath());
+    	File tempFile = copyToTempFile(resourceLocation, resourceName);
+        Util.unzipToFile(tempFile, reportDirectory.getAbsolutePath());
+        tempFile.delete();
     }
 
+    private File copyToTempFile(String resourceLocation, String resourceName) throws IOException {
+    	File tempFile = new File(reportDirectory.getAbsoluteFile(), resourceName);
+    	FileUtils.copyInputStreamToFile(
+    			this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resourceName),
+    			tempFile);
+    	return tempFile;
+    }
+    
     private String getPluginUrlPath(String path) {
         return path.isEmpty() ? "/" : path;
     }
