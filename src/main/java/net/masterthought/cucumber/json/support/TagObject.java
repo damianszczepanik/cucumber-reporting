@@ -15,6 +15,16 @@ public class TagObject {
 
     private final String fileName;
 
+    /** Status for current tag: {@link Status#PASSED} if all scenarios pass {@link Status#FAILED} otherwise. */
+    private Status status = Status.PASSED;
+
+    public TagObject(String tagName) {
+        this.tagName = tagName;
+
+        // eliminate characters that might be invalid as a file name
+        this.fileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
+    }
+
     public String getTagName() {
         return tagName;
     }
@@ -27,21 +37,28 @@ public class TagObject {
         return scenarios;
     }
 
-    public void addScenarios(List<ScenarioTag> scenarioTagList) {
-        this.scenarios.addAll(scenarioTagList);
+    public void addScenarios(List<ScenarioTag> scenarioTags) {
+        this.scenarios.addAll(scenarioTags);
+
+        for (ScenarioTag scenarioTag : scenarioTags) {
+            elements.add(scenarioTag.getScenario());
+        }
+        updateStatus(scenarioTags);
     }
 
-    public TagObject(String tagName) {
-        this.tagName = tagName;
-
-        // eliminate characters that might be invalid as a file name
-        fileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
+    private void updateStatus(List<ScenarioTag> scenarioTags) {
+        for (ScenarioTag scenarioTag : scenarioTags) {
+            // once status is marked as FAILED it will never be changed
+            if (status == Status.FAILED) {
+                break;
+            }
+            status = scenarioTag.getScenario().getStatus();
+        }
     }
-
     public Integer getNumberOfScenarios() {
         int scenarioCounter = 0;
         for (ScenarioTag scenarioTag : this.scenarios) {
-            if (!scenarioTag.getScenario().isBackground()) {
+            if (scenarioTag.getScenario().isScenario()) {
                 scenarioCounter++;
             }
         }
@@ -60,7 +77,7 @@ public class TagObject {
     private Integer getNumberOfScenariosForStatus(Status status) {
         int scenarioCounter = 0;
         for (ScenarioTag scenarioTag : this.scenarios) {
-            if (!scenarioTag.getScenario().isBackground()) {
+            if (scenarioTag.getScenario().isScenario()) {
                 if (scenarioTag.getScenario().getStatus().equals(status)) {
                     scenarioCounter++;
                 }
@@ -138,23 +155,15 @@ public class TagObject {
     }
 
     public List<Scenario> getElements() {
-        for (ScenarioTag scenarioTag : scenarios) {
-            elements.add(scenarioTag.getScenario());
-        }
         return elements;
     }
 
     public Status getStatus() {
-        for (Scenario element : elements) {
-            if (element.getStatus() != Status.PASSED) {
-                return Status.FAILED;
-            }
-        }
-        return Status.PASSED;
+        return status;
     }
 
     public String getRawStatus() {
-        return getStatus().toString().toLowerCase();
+        return status.name().toLowerCase();
     }
 
 }

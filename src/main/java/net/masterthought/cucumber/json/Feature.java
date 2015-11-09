@@ -134,7 +134,7 @@ public class Feature {
         if (elements != null) {
             List<Scenario> elementList = new ArrayList<Scenario>();
             for (Scenario element : elements) {
-                if (!element.isBackground()) {
+                if (element.isScenario()) {
                     elementList.add(element);
                 }
             }
@@ -208,7 +208,7 @@ public class Feature {
     }
 
     private void calculateScenarioStats(List<Scenario> passedScenarios, List<Scenario> failedScenarios, Scenario element) {
-        if (!element.isBackground()) {
+        if (element.isScenario()) {
             if (element.getStatus() == Status.PASSED) {
                 passedScenarios.add(element);
             } else if (element.getStatus() == Status.FAILED) {

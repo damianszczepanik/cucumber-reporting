@@ -29,7 +29,7 @@ public class ReportInformation {
 
     private int numberOfScenarios;
     private int numberOfSteps;
-    private final StatusCounter totalSteps = new StatusCounter();
+    private final StatusCounter allStatuses = new StatusCounter();
     private final StatusCounter totalBackgroundSteps = new StatusCounter();
 
     private long totalDuration;
@@ -90,27 +90,27 @@ public class ReportInformation {
     }
 
     public int getTotalStepsPassed() {
-        return totalSteps.getValueFor(Status.PASSED);
+        return allStatuses.getValueFor(Status.PASSED);
     }
 
     public int getTotalStepsFailed() {
-        return totalSteps.getValueFor(Status.FAILED);
+        return allStatuses.getValueFor(Status.FAILED);
     }
 
     public int getTotalStepsSkipped() {
-        return totalSteps.getValueFor(Status.SKIPPED);
+        return allStatuses.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalStepsPending() {
-        return totalSteps.getValueFor(Status.PENDING);
+        return allStatuses.getValueFor(Status.PENDING);
     }
 
     public int getTotalStepsMissing() {
-        return totalSteps.getValueFor(Status.MISSING);
+        return allStatuses.getValueFor(Status.MISSING);
     }
 
     public int getTotalStepsUndefined() {
-        return totalSteps.getValueFor(Status.UNDEFINED);
+        return allStatuses.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDurationAsString() {
@@ -123,14 +123,6 @@ public class ReportInformation {
 
     public String timeStamp() {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
-    }
-
-    public String getReportStatusColour(Feature feature) {
-        return feature.getStatus() == Status.PASSED ? Status.PASSED.color : Status.FAILED.color;
-    }
-
-    public String getTagReportStatusColour(TagObject tag) {
-        return tag.getStatus() == Status.PASSED ? Status.PASSED.color : Status.FAILED.color;
     }
 
     public int getTotalTagScenarios() {
@@ -191,9 +183,8 @@ public class ReportInformation {
 
     private void processTags() {
         for (TagObject tag : allTags.values()) {
-            incTagScenarios(tag);
-            totalPassingTagScenarios += countTagScenariosForStatus(tag, Status.PASSED);
-            totalFailingTagScenarios += countTagScenariosForStatus(tag, Status.FAILED);
+            countTagScenarios(tag);
+
             for (Status status : Status.values()) {
                 this.tagStatusCounter.incrementFor(status, tag.getNumberOfStatus(status));
             }
@@ -210,22 +201,15 @@ public class ReportInformation {
         }
     }
 
-    private int countTagScenariosForStatus(TagObject tag, Status status) {
-        int totalScenarios = 0;
+    private void countTagScenarios(TagObject tag) {
         for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().isBackground()) {
-                if (scenarioTag.getScenario().getStatus() == status) {
-                    totalScenarios++;
+            if (scenarioTag.getScenario().isScenario()) {
+                this.totalTagScenarios++;
+                if (scenarioTag.getScenario().getStatus() == Status.PASSED) {
+                    this.totalPassingTagScenarios++;
+                } else if (scenarioTag.getScenario().getStatus() == Status.FAILED) {
+                    this.totalFailingTagScenarios++;
                 }
-            }
-        }
-        return totalScenarios;
-    }
-
-    private void incTagScenarios(TagObject tag) {
-        for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (!scenarioTag.getScenario().isBackground()) {
-                totalTagScenarios++;
             }
         }
     }
@@ -234,23 +218,25 @@ public class ReportInformation {
         for (Feature feature : features) {
             List<ScenarioTag> scenarioTagList = new ArrayList<>();
             Scenario[] allFeatureScenarios = feature.getScenarios();
-            incScenarioCounter(allFeatureScenarios);
+            this.numberOfScenarios += countNoBackgroundScenarios(allFeatureScenarios);
+
+            addScenariosToTagObjects(scenarioTagList, feature.getTags());
+
             for (Scenario scenario : allFeatureScenarios) {
-                if (!scenario.isBackground()) {
+                if (scenario.isScenario()) {
                     scenarioTagList.add(new ScenarioTag(scenario, feature.getId()));
                 }
             }
-            addFeatureTagsToScenarioTags(feature.getTags(), scenarioTagList);
 
             for (Scenario scenario : allFeatureScenarios) {
-                if (!scenario.isBackground()) {
+                if (scenario.isScenario()) {
                     totalBackgroundSteps.incrementFor(scenario.getStatus());
                 } else {
-                    updadteBackgroundInfo(scenario);
+                    updateBackgroundInfo(scenario);
                 }
                 addScenarioTagsToTagMap(scenario.getTags(), scenarioTagList);
 
-                adjustStepsForScenario(scenario);
+                updateStepsForScenario(scenario);
             }
         }
     }
@@ -293,8 +279,8 @@ public class ReportInformation {
         }
     }
 
-    private void updadteBackgroundInfo(Scenario scenario) {
-        backgroundInfo.addTotalScenarios(1);
+    private void updateBackgroundInfo(Scenario scenario) {
+        backgroundInfo.incrTotalScenarios();
         if (scenario.getStatus() == Status.PASSED) {
             backgroundInfo.incPassedScenarios();
         } else {
@@ -308,21 +294,23 @@ public class ReportInformation {
 
     }
 
-    private void adjustStepsForScenario(Scenario scenario) {
+    private void updateStepsForScenario(Scenario scenario) {
         Step[] steps = scenario.getSteps();
         numberOfSteps += steps.length;
         for (Step step : steps) {
-            totalSteps.incrementFor(step.getStatus());
+            allStatuses.incrementFor(step.getStatus());
             totalDuration += step.getDuration();
         }
     }
 
-    private void incScenarioCounter(Scenario[] scenarios) {
+    private int countNoBackgroundScenarios(Scenario[] scenarios) {
+        int counter = 0;
         for (Scenario scenario : scenarios) {
-            if (!scenario.isBackground()) {
-                numberOfScenarios++;
+            if (scenario.isScenario()) {
+                counter++;
             }
         }
+        return counter;
     }
 
     private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioToAdd) {
@@ -335,11 +323,11 @@ public class ReportInformation {
         scenarioList.add(scenarioToAdd);
     }
 
-    private void addScenarioTagsToTagMap(Tag[] scenarioTags_allScenario, List<ScenarioTag> scenarioList_noBackground) {
-        for (Tag tag : scenarioTags_allScenario) {
-            TagObject tagObject = findTagObjectByName(tag.getName());
+    private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<ScenarioTag> scenariosWithoutBackground) {
+        for (Tag tag : scenarioTagsAllScenarios) {
+            TagObject tagObject = addTagObject(tag.getName());
 
-            for (ScenarioTag scenarioTag : scenarioList_noBackground) {
+            for (ScenarioTag scenarioTag : scenariosWithoutBackground) {
                 for (Tag tag2 : scenarioTag.getScenario().getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
                         addScenarioUnlessExists(tagObject.getScenarios(), scenarioTag);
@@ -351,7 +339,7 @@ public class ReportInformation {
         }
     }
 
-    public void addFeatureTagsToScenarioTags(Tag[] featureTags, List<ScenarioTag> scenarioList) {
+    public void addScenariosToTagObjects(List<ScenarioTag> scenarioList, Tag[] featureTags) {
         for (Tag tag : featureTags) {
             TagObject tagObject = allTags.get(tag.getName());
             if (tagObject != null) {
@@ -360,7 +348,7 @@ public class ReportInformation {
         }
     }
 
-    private TagObject findTagObjectByName(String name) {
+    private TagObject addTagObject(String name) {
         TagObject tagObject = allTags.get(name);
         if (tagObject == null) {
             tagObject = new TagObject(name);

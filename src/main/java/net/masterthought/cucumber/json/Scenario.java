@@ -12,8 +12,8 @@ import net.masterthought.cucumber.util.Util;
 
 public class Scenario {
 
-    /** Refers to background step. Is defined in json file. */
-    private final static String BACKGROUND_TYPE = "background";
+    /** Refers to scenario (not background) step. Is defined in json file. */
+    private final static String SCENARIO_TYPE = "scenario";
 
     private final String id = null;
     private final String name = null;
@@ -125,8 +125,8 @@ public class Scenario {
         return steps.length > 0;
     }
 
-    public boolean isBackground() {
-        return BACKGROUND_TYPE.equals(type);
+    public boolean isScenario() {
+        return SCENARIO_TYPE.equals(type);
     }
 
     public String getTagsList() {
