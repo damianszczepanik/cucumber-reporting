@@ -90,6 +90,10 @@ public class Scenario {
         return false;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getRawName() {
         return name;
     }

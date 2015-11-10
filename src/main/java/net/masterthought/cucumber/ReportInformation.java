@@ -220,8 +220,6 @@ public class ReportInformation {
             Scenario[] allFeatureScenarios = feature.getScenarios();
             this.numberOfScenarios += countNoBackgroundScenarios(allFeatureScenarios);
 
-            addScenariosToTagObjects(scenarioTagList, feature.getTags());
-
             for (Scenario scenario : allFeatureScenarios) {
                 if (scenario.isScenario()) {
                     scenarioTagList.add(new ScenarioTag(scenario, feature.getId()));
@@ -315,7 +313,7 @@ public class ReportInformation {
 
     private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioToAdd) {
         for (ScenarioTag scenarioTag : scenarioList) {
-            if (scenarioTag.getFeatureId().equals(scenarioToAdd.getFeatureId())
+            if (scenarioTag.getScenario().getId().equals(scenarioToAdd.getScenario().getId())
                     && scenarioTag.getScenario().equals(scenarioToAdd.getScenario())) {
                 return;
             }
@@ -336,15 +334,6 @@ public class ReportInformation {
                 }
             }
 
-        }
-    }
-
-    public void addScenariosToTagObjects(List<ScenarioTag> scenarioList, Tag[] featureTags) {
-        for (Tag tag : featureTags) {
-            TagObject tagObject = allTags.get(tag.getName());
-            if (tagObject != null) {
-                tagObject.addScenarios(scenarioList);
-            }
         }
     }
 
