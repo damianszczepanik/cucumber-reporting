@@ -3,7 +3,6 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
@@ -11,7 +10,6 @@ public class TagObject {
 
     private final String tagName;
     private final List<ScenarioTag> scenarios = new ArrayList<>();
-    private final List<Scenario> elements = new ArrayList<>();
 
     private final String fileName;
 
@@ -37,24 +35,6 @@ public class TagObject {
         return scenarios;
     }
 
-    public void addScenarios(List<ScenarioTag> scenarioTags) {
-        this.scenarios.addAll(scenarioTags);
-
-        for (ScenarioTag scenarioTag : scenarioTags) {
-            elements.add(scenarioTag.getScenario());
-        }
-        updateStatus(scenarioTags);
-    }
-
-    private void updateStatus(List<ScenarioTag> scenarioTags) {
-        for (ScenarioTag scenarioTag : scenarioTags) {
-            // once status is marked as FAILED it will never be changed
-            if (status == Status.FAILED) {
-                break;
-            }
-            status = scenarioTag.getScenario().getStatus();
-        }
-    }
     public Integer getNumberOfScenarios() {
         int scenarioCounter = 0;
         for (ScenarioTag scenarioTag : this.scenarios) {
@@ -154,10 +134,6 @@ public class TagObject {
         return statuses;
     }
 
-    public List<Scenario> getElements() {
-        return elements;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -165,5 +141,4 @@ public class TagObject {
     public String getRawStatus() {
         return status.name().toLowerCase();
     }
-
 }
