@@ -47,14 +47,12 @@ Read this if you need further  [detailed install and configuration]
     boolean missingFails = true;
     boolean flashCharts = true;
     boolean runWithJenkins = false;
-    boolean artifactsEnabled = false;
-    String artifactConfig = "";
     boolean highCharts = false;
     boolean parallelTesting = false;
 
     ReportBuilder reportBuilder = new ReportBuilder(list, reportOutputDirectory, pluginUrlPath, buildNumber,
-        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, flashCharts, runWithJenkins, artifactsEnabled,
-        artifactConfig, highCharts, parallelTesting);
+        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, flashCharts, runWithJenkins,
+        highCharts, parallelTesting);
     reportBuilder.generateReports();
 
 skippedFails means the build will be failed if any steps are in skipped status and undefinedFails means the build will be failed if any steps are in undefined status. This only applies when running with Jenkins.

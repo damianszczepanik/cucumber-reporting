@@ -7,19 +7,19 @@ import net.masterthought.cucumber.json.Scenario;
 public class ScenarioTag {
 
     private final Scenario scenario;
-    private final String fetureFileName;
+    private final String featureFileName;
 
-    public ScenarioTag(Scenario scenario, String fetureFileName) {
+    public ScenarioTag(Scenario scenario, String featureFileName) {
         this.scenario = scenario;
-        this.fetureFileName = fetureFileName;
+        this.featureFileName = featureFileName;
     }
 
     public Scenario getScenario() {
         return scenario;
     }
 
-    public String getFetureFileName() {
-        return fetureFileName;
+    public String getFeatureFileName() {
+        return featureFileName;
     }
 
     public boolean hasSteps() {
