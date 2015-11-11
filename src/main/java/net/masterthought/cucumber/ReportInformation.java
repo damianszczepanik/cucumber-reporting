@@ -222,7 +222,7 @@ public class ReportInformation {
 
             for (Scenario scenario : allFeatureScenarios) {
                 if (scenario.isScenario()) {
-                    scenarioTagList.add(new ScenarioTag(scenario, feature.getId()));
+                    scenarioTagList.add(new ScenarioTag(scenario, feature.getFileName()));
                 }
             }
 
