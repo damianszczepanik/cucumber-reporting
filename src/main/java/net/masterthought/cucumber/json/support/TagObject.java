@@ -12,6 +12,11 @@ public class TagObject {
     private final List<ScenarioTag> scenarios = new ArrayList<>();
 
     private final String fileName;
+    private int scenarioCounter;
+    private StatusCounter scenariosStatusCounter = new StatusCounter();
+    private StatusCounter stepsStatusCounter = new StatusCounter();
+    private long totalDuration;
+    private int totalSteps;
 
     /** Status for current tag: {@link Status#PASSED} if all scenarios pass {@link Status#FAILED} otherwise. */
     private Status status = Status.PASSED;
@@ -35,61 +40,47 @@ public class TagObject {
         return scenarios;
     }
 
-    public Integer getNumberOfScenarios() {
-        int scenarioCounter = 0;
-        for (ScenarioTag scenarioTag : this.scenarios) {
-            if (scenarioTag.getScenario().isScenario()) {
-                scenarioCounter++;
-            }
+    public void addScenarios(ScenarioTag scenarioTag) {
+        scenarios.add(scenarioTag);
+
+        if (status != Status.FAILED && scenarioTag.getScenario().getStatus() != Status.PASSED) {
+            status = Status.FAILED;
         }
+
+        if (scenarioTag.getScenario().isScenario()) {
+            scenarioCounter++;
+            scenariosStatusCounter.incrementFor(scenarioTag.getScenario().getStatus());
+        }
+
+        for (Step step : scenarioTag.getScenario().getSteps()) {
+            stepsStatusCounter.incrementFor(step.getStatus());
+            totalDuration += step.getDuration();
+            totalSteps++;
+        }
+    }
+
+    public int getNumberOfScenarios() {
         return scenarioCounter;
     }
 
     public Integer getNumberOfPassingScenarios() {
-        return getNumberOfScenariosForStatus(Status.PASSED);
+        return scenariosStatusCounter.getValueFor(Status.PASSED);
     }
 
     public Integer getNumberOfFailingScenarios() {
-        return getNumberOfScenariosForStatus(Status.FAILED);
+        return scenariosStatusCounter.getValueFor(Status.FAILED);
     }
 
-
-    private Integer getNumberOfScenariosForStatus(Status status) {
-        int scenarioCounter = 0;
-        for (ScenarioTag scenarioTag : this.scenarios) {
-            if (scenarioTag.getScenario().isScenario()) {
-                if (scenarioTag.getScenario().getStatus().equals(status)) {
-                    scenarioCounter++;
-                }
-            }
-        }
-        return scenarioCounter;
-    }
-
-    public String getDurationOfSteps() {
-        long duration = 0;
-        for (ScenarioTag scenarioTag : scenarios) {
-            if (scenarioTag.hasSteps()) {
-                for (Step step : scenarioTag.getScenario().getSteps()) {
-                    duration += step.getDuration();
-                }
-            }
-        }
-        return Util.formatDuration(duration);
+    public String getTotalDuration() {
+        return Util.formatDuration(totalDuration);
     }
 
     public int getNumberOfSteps() {
-        int totalSteps = 0;
-        for (ScenarioTag scenario : scenarios) {
-            if (scenario.hasSteps()) {
-                totalSteps += scenario.getScenario().getSteps().length;
-            }
-        }
         return totalSteps;
     }
 
     public int getNumberOfStatus(Status status) {
-        return Util.findStatusCount(getStatuses(), status);
+        return stepsStatusCounter.getValueFor(status);
     }
 
     /** No-parameters method required for velocity template. */
@@ -120,18 +111,6 @@ public class TagObject {
     /** No-parameters method required for velocity template. */
     public int getNumberOfPending() {
         return getNumberOfStatus(Status.UNDEFINED);
-    }
-
-    private List<Status> getStatuses() {
-        List<Status> statuses = new ArrayList<Status>();
-        for (ScenarioTag scenarioTag : scenarios) {
-            if (scenarioTag.hasSteps()) {
-                for (Step step : scenarioTag.getScenario().getSteps()) {
-                    statuses.add(step.getStatus());
-                }
-            }
-        }
-        return statuses;
     }
 
     public Status getStatus() {
