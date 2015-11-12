@@ -179,18 +179,13 @@ public class ReportBuilder {
     }
 
     private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
-    	File tempFile = copyToTempFile(resourceLocation, resourceName);
+        File tempFile = new File(reportDirectory.getAbsoluteFile(), resourceName);
+        FileUtils.copyInputStreamToFile(
+                this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resourceName), tempFile);
         Util.unzipToFile(tempFile, reportDirectory.getAbsolutePath());
         tempFile.delete();
     }
 
-    private File copyToTempFile(String resourceLocation, String resourceName) throws IOException {
-    	File tempFile = new File(reportDirectory.getAbsoluteFile(), resourceName);
-    	FileUtils.copyInputStreamToFile(
-    			this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resourceName),
-    			tempFile);
-    	return tempFile;
-    }
     
     private String getPluginUrlPath(String path) {
         return path.isEmpty() ? "/" : path;
