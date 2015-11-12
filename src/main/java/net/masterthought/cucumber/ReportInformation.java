@@ -311,14 +311,14 @@ public class ReportInformation {
         return counter;
     }
 
-    private void addScenarioUnlessExists(List<ScenarioTag> scenarioList, ScenarioTag scenarioToAdd) {
-        for (ScenarioTag scenarioTag : scenarioList) {
+    private void addScenarioUnlessExists(TagObject tagObject, ScenarioTag scenarioToAdd) {
+        for (ScenarioTag scenarioTag : tagObject.getScenarios()) {
             if (scenarioTag.getScenario().getId().equals(scenarioToAdd.getScenario().getId())
                     && scenarioTag.getScenario().equals(scenarioToAdd.getScenario())) {
                 return;
             }
         }
-        scenarioList.add(scenarioToAdd);
+        tagObject.addScenarios(scenarioToAdd);
     }
 
     private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<ScenarioTag> scenariosWithoutBackground) {
@@ -328,7 +328,7 @@ public class ReportInformation {
             for (ScenarioTag scenarioTag : scenariosWithoutBackground) {
                 for (Tag tag2 : scenarioTag.getScenario().getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
-                        addScenarioUnlessExists(tagObject.getScenarios(), scenarioTag);
+                        addScenarioUnlessExists(tagObject, scenarioTag);
                         break;
                     }
                 }

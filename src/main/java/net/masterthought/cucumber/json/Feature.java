@@ -171,7 +171,7 @@ public class Feature {
         return stepResults.getNumberOfUndefined();
     }
 
-    public String getDurationOfSteps() {
+    public String getTotalDuration() {
         return stepResults.getTotalDurationAsString();
     }
 

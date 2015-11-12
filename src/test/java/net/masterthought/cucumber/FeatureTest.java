@@ -114,8 +114,8 @@ public class FeatureTest {
     }
 
     @Test
-    public void shouldGetDurationOfSteps() {
-        assertThat(passingFeature.getDurationOfSteps(), StringContains.containsString("ms"));
+    public void shouldgetTotalDuration() {
+        assertThat(passingFeature.getTotalDuration(), StringContains.containsString("ms"));
     }
 
     @Test
