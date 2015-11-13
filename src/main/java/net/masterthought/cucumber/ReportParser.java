@@ -8,13 +8,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.masterthought.cucumber.json.Feature;
-
 import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
+
+import net.masterthought.cucumber.json.Feature;
 
 public class ReportParser {
 
@@ -35,8 +35,10 @@ public class ReportParser {
         for (String jsonFile : jsonReportFiles) {
             if (FileUtils.sizeOf(new File(jsonFile)) > 0) {
                 try {
-                    Feature[] features = gson.fromJson(new FileReader(jsonFile), Feature[].class);
-                    featureResults.put(jsonFile, Arrays.asList(features));
+                    try (FileReader reader = new FileReader(jsonFile)) {
+                        Feature[] features = gson.fromJson(reader, Feature[].class);
+                        featureResults.put(jsonFile, Arrays.asList(features));
+                    }
                 } catch (JsonSyntaxException e) {
                     System.err.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
                     if (e.getCause() instanceof MalformedJsonException) {
