@@ -66,7 +66,7 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash</div></div>"));
+        assertThat(passingFeature.getName(), is("<div class=\"passed\" cuc=\"\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash<div style=\"float: right;\"><span class=\"expanded\" onclick=\"hideall();\">&nbsp;&nbsp;&nbsp;</span><span class=\"collapsed\" onclick=\"showall();\">&nbsp;&nbsp;&nbsp;</span></div></div></div>"));
     }
 
     @Test

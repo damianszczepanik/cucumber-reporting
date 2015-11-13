@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -24,7 +25,11 @@ public class Scenario {
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
     private final Tag[] tags = new Tag[0];
+    public String uuid;
 
+    public Scenario(){
+        uuid = UUID.randomUUID().toString();
+    }
     public Step[] getSteps() {
         return steps;
     }
@@ -117,7 +122,7 @@ public class Scenario {
             contentString.add("<span class=\"scenario-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>");
         }
 
-        return !contentString.isEmpty() ? getStatus().toHtmlClass()
+        return !contentString.isEmpty() ? getStatus().toHtmlClassScen(uuid)
                 + StringUtils.join(contentString.toArray(), " ") + "</div>" : "";
     }
 

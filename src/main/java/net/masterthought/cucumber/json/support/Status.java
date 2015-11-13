@@ -38,8 +38,15 @@ public enum Status {
         return String.valueOf(name().charAt(0)).toUpperCase() + name().substring(1).toLowerCase();
     }
 
-    public String toHtmlClass() {
+    public String toHtmlClass(String name) {
         // TODO: should be moved out of this class
-        return "<div class=\"" + this.getName().toLowerCase() + "\">";
+        String uniqueIdentifier = name.trim().toLowerCase().replaceAll(" ", "");
+        return "<div class=\"" + this.getName().toLowerCase() + "\" cuc=\""+uniqueIdentifier+"\">";
+    }
+
+    public String toHtmlClassScen(String name) {
+        // TODO: should be moved out of this class
+        String uniqueIdentifier = name.trim().toLowerCase().replaceAll(" ", "");
+        return "<div class=\"" + this.getName().toLowerCase() + "\"><span class=\"expanded\" cucid=\"expander\" id=\""+uniqueIdentifier+"\" onclick=\"showhide('"+uniqueIdentifier+"');\">&nbsp;&nbsp;&nbsp;</span>";
     }
 }
