@@ -23,7 +23,6 @@ import net.masterthought.cucumber.util.Util;
 
 public class ReportInformation {
 
-    private final Map<String, List<Feature>> featureMap;
     private final Map<String, StepObject> stepObjects = new HashMap<>();
     private List<Feature> features;
 
@@ -44,15 +43,14 @@ public class ReportInformation {
     private Background backgroundInfo = new Background();
 
     public ReportInformation(Map<String, List<Feature>> featureMap) {
-        this.featureMap = featureMap;
-        this.features = listAllFeatures();
+        this.features = listAllFeatures(featureMap);
 
         processFeatures();
         processTags();
         processSteps();
     }
 
-    private List<Feature> listAllFeatures() {
+    private List<Feature> listAllFeatures(Map<String, List<Feature>> featureMap) {
         List<Feature> allFeatures = new ArrayList<Feature>();
         for (Map.Entry<String, List<Feature>> pairs : featureMap.entrySet()) {
             List<Feature> featureList = pairs.getValue();
@@ -67,10 +65,6 @@ public class ReportInformation {
 
     public List<TagObject> getTags() {
         return new ArrayList<TagObject>(this.allTags.values());
-    }
-
-    public Map<String, List<Feature>> getFeatureMap() {
-        return this.featureMap;
     }
 
     public Map<String, StepObject> getStepObject() {

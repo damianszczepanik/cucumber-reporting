@@ -1,71 +1,72 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import net.masterthought.cucumber.json.Feature;
-import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
 
 public class ReportParserTest {
 
     @Test
     public void shouldReturnAListOfFeaturesFromAJsonReport() throws IOException {
-        ReportParser reportParser = new ReportParser(validJsonReports());
-        assertThat(reportParser.getFeatures().entrySet().size(), is(2));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
-        assertThat(reportParser.getFeatures().entrySet().iterator().next().getValue().get(1), isA(Feature.class));
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(validJsonReports());
+        assertThat(features.entrySet().size(), is(2));
+        assertThat(features.entrySet().iterator().next().getValue().get(0), isA(Feature.class));
+        assertThat(features.entrySet().iterator().next().getValue().get(1), isA(Feature.class));
     }
 
     @Test
     public void shouldContainFourFeatures() throws IOException {
-        ReportParser reportParser = new ReportParser(validJsonReports());
-        List<Feature> features = new ArrayList<Feature>();
-        for (Map.Entry<String, List<Feature>> pairs : reportParser.getFeatures().entrySet()){
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(validJsonReports());
+        List<Feature> updatedFeatures = new ArrayList<Feature>();
+        for (Map.Entry<String, List<Feature>> pairs : features.entrySet()) {
             List<Feature> featureList = pairs.getValue();
-            features.addAll(featureList);
+            updatedFeatures.addAll(featureList);
         }
-        assertThat(features.size(), is(4));
+        assertThat(updatedFeatures.size(), is(4));
     }
 
     @Test
     public void shouldIgnoreEmptyJsonFiles() throws IOException {
-        ReportParser reportParser = new ReportParser(withEmptyJsonReport());
-        assertThat(reportParser.getFeatures().entrySet().size(), is(1));
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(withEmptyJsonReport());
+        assertThat(features.entrySet().size(), is(1));
     }
 
     @Test
     public void shouldIgnoreJsonFilesThatAreNotCucumberReports() throws IOException {
-        ReportParser reportParser = new ReportParser(withNonCucumberJson());
-        assertThat(reportParser.getFeatures().entrySet().size(), is(1));
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(withNonCucumberJson());
+        assertThat(features.entrySet().size(), is(1));
     }
 
     @Test
     public void shouldProcessCucumberReportsWithNoSteps() throws IOException {
-        ReportParser reportParser = new ReportParser(withNoStepsInJsonReport());
-        assertThat(reportParser.getFeatures().entrySet().size(), is(2));
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(withNoStepsInJsonReport());
+        assertThat(features.entrySet().size(), is(2));
     }
 
     @Test
     public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
-        ReportParser reportParser = new ReportParser(withNoSteps2InJsonReport());
-        ReportInformation reportInformation = new ReportInformation(reportParser.getFeatures());
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(withNoSteps2InJsonReport());
+        ReportInformation reportInformation = new ReportInformation(features);
 
         // Should not crash with NPE
         assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
-        assertThat(reportParser.getFeatures().entrySet().size(), is(1));
+        assertThat(features.entrySet().size(), is(1));
     }
 
     @Test
     public void shouldProcessCucumberReportsWithNoScenarios() throws IOException {
-        ReportParser reportParser = new ReportParser(withNoScenariosInJsonReport());
-        assertThat(reportParser.getFeatures().entrySet().size(), is(2));
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(withNoScenariosInJsonReport());
+        assertThat(features.entrySet().size(), is(2));
     }
     
     private List<String> validJsonReports() {

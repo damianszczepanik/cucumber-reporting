@@ -18,18 +18,8 @@ import net.masterthought.cucumber.json.Feature;
 
 public class ReportParser {
 
-    private final Map<String, List<Feature>> featureFiles;
-
-    public ReportParser(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
-        this.featureFiles = parseJsonResults(jsonReportFiles);
-    }
-
-    public Map<String, List<Feature>> getFeatures() {
-        return featureFiles;
-    }
-
-    private Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles) throws IOException,
-            JsonSyntaxException {
+    public Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles)
+            throws IOException, JsonSyntaxException {
         Map<String, List<Feature>> featureResults = new LinkedHashMap<>();
         Gson gson = new Gson();
         for (String jsonFile : jsonReportFiles) {

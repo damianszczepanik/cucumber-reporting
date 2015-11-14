@@ -2,7 +2,6 @@ package net.masterthought.cucumber;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.isA;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +21,7 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
 
-    ReportInformation reportInformation;
-    ReportParser reportParser;
+    private ReportInformation reportInformation;
 
     @Before
     public void setUpReportInformation() throws IOException, URISyntaxException {
@@ -33,8 +32,8 @@ public class ReportInformationTest {
         //will work iff the resources are not jarred up, otherwise use IOUtils to copy to a temp file.
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
-        reportParser = new ReportParser(jsonReports);
-        reportInformation = new ReportInformation(reportParser.getFeatures());
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        reportInformation = new ReportInformation(features);
     }
 
     @Test
@@ -45,13 +44,6 @@ public class ReportInformationTest {
     @Test
     public void shouldListAllTags() {
         assertThat(reportInformation.getTags().get(0), isA(TagObject.class));
-    }
-
-    @Test
-    public void shouldListFeaturesInAMap() {
-	//not really needed now -- have type safety with generics in object usage and would have failed had we not found the resource.
-        assertThat(reportInformation.getFeatureMap().keySet(), hasItem(containsString("project1.json")));
-        assertThat(reportInformation.getFeatureMap().entrySet().iterator().next().getValue().get(0), isA(Feature.class));
     }
 
     @Test
