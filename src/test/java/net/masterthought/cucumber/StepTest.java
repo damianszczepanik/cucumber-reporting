@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
@@ -22,18 +23,18 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class StepTest {
 
-    Step passingStep;
-    Step failingStep;
-    Step skippedStep;
-    Step withOutput;
+    private Step passingStep;
+    private Step failingStep;
+    private Step skippedStep;
+    private Step withOutput;
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        ReportParser reportParser = new ReportParser(jsonReports);
-        Feature passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature passingFeature = features.entrySet().iterator().next().getValue().get(0);
+        Feature failingFeature = features.entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
         passingStep = passingFeature.getScenarios()[0].getSteps()[0];
@@ -46,8 +47,8 @@ public class StepTest {
     public void shouldReturnRows() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
-        ReportParser reportParser = new ReportParser(jsonReports);
-        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.entrySet().iterator().next().getValue().get(0);
         Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
         assertThat(step.getRows()[0], isA(Row.class));
@@ -57,8 +58,8 @@ public class StepTest {
     public void shouldReturnRowsWhenNoResultsForStep() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
-        ReportParser reportParser = new ReportParser(jsonReports);
-        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.entrySet().iterator().next().getValue().get(0);
         Step step = feature.getScenarios()[0].getSteps()[0];
         feature.processSteps();
         assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
@@ -140,7 +141,8 @@ public class StepTest {
     private Step failingStepWithEmbeddedScreenshot() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
-        Feature failingFeatureWithEmbeddedScreenshot = new ReportParser(jsonReports).getFeatures().entrySet().iterator().next().getValue().get(0);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature failingFeatureWithEmbeddedScreenshot = features.entrySet().iterator().next().getValue().get(0);
         failingFeatureWithEmbeddedScreenshot.processSteps();
         return failingFeatureWithEmbeddedScreenshot.getScenarios()[0].getSteps()[2];
     }

@@ -1,30 +1,31 @@
 package net.masterthought.cucumber;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import net.masterthought.cucumber.json.support.ScenarioTag;
-import net.masterthought.cucumber.json.support.TagObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.ScenarioTag;
+import net.masterthought.cucumber.json.support.TagObject;
+
 public class TagsTest {
 
-    ReportParser reportParser;
-    ReportInformation reportInformation;
+    private ReportInformation reportInformation;
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/tags.json"));
-        reportParser = new ReportParser(jsonReports);
-        reportInformation = new ReportInformation(reportParser.getFeatures());
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        reportInformation = new ReportInformation(features);
 
     }
 

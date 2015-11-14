@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,24 +20,23 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class ElementTest {
 
-    ReportParser reportParser;
-    Scenario passingElement;
-    Scenario failingElement;
-    Scenario undefinedElement;
-    Scenario skippedElement;
-    Scenario taggedElement;
+    private Scenario passingElement;
+    private Scenario failingElement;
+    private Scenario undefinedElement;
+    private Scenario skippedElement;
+    private Scenario taggedElement;
 
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project3.json"));
-        reportParser = new ReportParser(jsonReports);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
         
-        Feature passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        Feature failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
-        Feature undefinedFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(2);
-        Feature skippedFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(3);
+        Feature passingFeature = features.entrySet().iterator().next().getValue().get(0);
+        Feature failingFeature = features.entrySet().iterator().next().getValue().get(1);
+        Feature undefinedFeature = features.entrySet().iterator().next().getValue().get(2);
+        Feature skippedFeature = features.entrySet().iterator().next().getValue().get(3);
 
         passingFeature.processSteps();
         failingFeature.processSteps();

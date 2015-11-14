@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hamcrest.core.StringContains;
 import org.junit.Before;
@@ -17,17 +18,16 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 
-    ReportParser reportParser;
-    Feature passingFeature;
-    Feature failingFeature;
+    private Feature passingFeature;
+    private Feature failingFeature;
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        reportParser = new ReportParser(jsonReports);
-        passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        passingFeature = features.entrySet().iterator().next().getValue().get(0);
+        failingFeature = features.entrySet().iterator().next().getValue().get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
     }
@@ -127,8 +127,8 @@ public class FeatureTest {
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
-        ReportParser reportParser = new ReportParser(jsonReports);
-        Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
+        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.entrySet().iterator().next().getValue().get(0);
         feature.processSteps();
     }
 

@@ -144,8 +144,9 @@ public class ReportBuilder {
 
     public void generateReports() throws IOException, VelocityException {
         try {
-            ReportParser reportParser = new ReportParser(jsonFiles);
-            this.reportInformation = new ReportInformation(reportParser.getFeatures());
+            ReportParser reportParser = new ReportParser();
+            Map<String, List<Feature>> features = reportParser.parseJsonResults(jsonFiles);
+            this.reportInformation = new ReportInformation(features);
 
             copyResource("themes", "blue.zip");
             copyResource("charts", "js.zip");
@@ -154,7 +155,7 @@ public class ReportBuilder {
             }
 
             //Added to correlate feature with each report
-            setJsonFilesInFeatures();
+            setJsonFilesInFeatures(features);
 
             new FeatureOverviewPage(this).generatePage();
             new FeatureReportPage(this).generatePage();
@@ -167,8 +168,8 @@ public class ReportBuilder {
         }
     }
 
-    private void setJsonFilesInFeatures() {
-        for (Map.Entry<String, List<Feature>> pairs : reportInformation.getFeatureMap().entrySet()) {
+    private void setJsonFilesInFeatures(Map<String, List<Feature>> features) {
+        for (Map.Entry<String, List<Feature>> pairs : features.entrySet()) {
             List<Feature> featureList = pairs.getValue();
 
             for (Feature feature : featureList) {
