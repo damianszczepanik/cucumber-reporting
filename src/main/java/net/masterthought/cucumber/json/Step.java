@@ -5,15 +5,17 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.google.gson.JsonElement;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
-import com.google.gson.JsonElement;
-
 public class Step implements ResultsWithMatch {
 
+    // Start: attributes from JSON file report
     private String name = null;
     private final String keyword = null;
     private final String line = null;
@@ -23,6 +25,9 @@ public class Step implements ResultsWithMatch {
     private final Embedded[] embeddings = new Embedded[0];
     private final JsonElement[] output = new JsonElement[0];
     private final DocString doc_string = null;
+    // End: attributes from JSON file report
+
+    private static int labelCount = 0;
 
     public DocString getDocString() {
         return doc_string;
@@ -62,13 +67,7 @@ public class Step implements ResultsWithMatch {
     }
 
     public boolean hasRows() {
-        boolean result = false;
-        if (rows != null) {
-            if (rows.length > 0) {
-                result = true;
-            }
-        }
-        return result;
+        return ArrayUtils.isNotEmpty(rows);
     }
 
     /**
@@ -169,8 +168,6 @@ public class Step implements ResultsWithMatch {
                 "</div></div>";
     }
     
-    private static int labelCount = 0;
-
     private String formatError(String errorMessage) {
         String result = errorMessage;
         if (errorMessage != null && !errorMessage.isEmpty()) {
@@ -193,7 +190,7 @@ public class Step implements ResultsWithMatch {
         StringBuilder sb = new StringBuilder();
         if (embeddings != null) {
             for (int i = 0; i < embeddings.length; i++) {
-                sb.append(embeddings[i].render(i + 1));
+                sb.append(embeddings[i].render(i));
             }
         }
         return sb.toString();

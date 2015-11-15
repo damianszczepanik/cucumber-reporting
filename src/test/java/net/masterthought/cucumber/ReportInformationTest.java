@@ -32,7 +32,7 @@ public class ReportInformationTest {
         //will work iff the resources are not jarred up, otherwise use IOUtils to copy to a temp file.
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         reportInformation = new ReportInformation(features);
     }
 

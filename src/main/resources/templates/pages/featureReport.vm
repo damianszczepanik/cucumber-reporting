@@ -30,7 +30,7 @@
                     #set($sf = $feature.getRawName())
 
                     <tr>
-                        <td><a id="stats-$sf" href="$feature.getFileName()">$sf</a></td>
+                        <td><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
                         #if($parallel)
                           <td id="device">$feature.getDeviceName()</td>
                         #end
@@ -55,7 +55,7 @@
 
             $feature.getTagsList()
             $feature.getName()
-            $feature.getDescription()
+            <i>$feature.getDescription()</i>
 
             #foreach($scenario in $scenarios)
                 $scenario.getTagsList()

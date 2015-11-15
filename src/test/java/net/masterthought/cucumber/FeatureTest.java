@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.hamcrest.core.StringContains;
 import org.junit.Before;
@@ -23,24 +22,22 @@ public class FeatureTest {
 
     @Before
     public void setUpJsonReports() throws IOException {
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
-        passingFeature = features.entrySet().iterator().next().getValue().get(0);
-        failingFeature = features.entrySet().iterator().next().getValue().get(1);
-        passingFeature.processSteps();
-        failingFeature.processSteps();
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        passingFeature = features.get(0);
+        failingFeature = features.get(1);
     }
 
     @Test
     public void shouldReturnManagedFileName() {
-        assertThat(passingFeature.getFileName(), is("net-masterthought-example-s--ATM-local-feature.html"));
+        assertThat(passingFeature.getReportFileName(), is("net-masterthought-example-s--ATM-local-feature.html"));
     }
 
     @Test
     public void shouldGetDescription() {
-        assertThat(passingFeature.getDescription(), is("<div class=\"feature-description\">As a Account Holder<br/><span class=\"feature-action\">I want to</span> withdraw cash from an ATM<br/><span class=\"feature-value\">So that</span> I can get money when the bank is closed</div>"
-        ));
+        assertThat(passingFeature.getDescription(), is(
+                "As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed"));
     }
 
     @Test
@@ -127,9 +124,8 @@ public class FeatureTest {
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
-        Feature feature = features.entrySet().iterator().next().getValue().get(0);
-        feature.processSteps();
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.get(0);
     }
 
     @Test

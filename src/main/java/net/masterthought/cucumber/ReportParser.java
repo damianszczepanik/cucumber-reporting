@@ -3,10 +3,9 @@ package net.masterthought.cucumber;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
@@ -18,16 +17,18 @@ import net.masterthought.cucumber.json.Feature;
 
 public class ReportParser {
 
-    public Map<String, List<Feature>> parseJsonResults(List<String> jsonReportFiles)
+    public List<Feature> parseJsonResults(List<String> jsonReportFiles)
             throws IOException, JsonSyntaxException {
-        Map<String, List<Feature>> featureResults = new LinkedHashMap<>();
+        List<Feature> featureResults = new ArrayList<>();
         Gson gson = new Gson();
         for (String jsonFile : jsonReportFiles) {
             if (FileUtils.sizeOf(new File(jsonFile)) > 0) {
                 try {
                     try (FileReader reader = new FileReader(jsonFile)) {
                         Feature[] features = gson.fromJson(reader, Feature[].class);
-                        featureResults.put(jsonFile, Arrays.asList(features));
+                        setMetadata(features, jsonFile);
+
+                        featureResults.addAll(Arrays.asList(features));
                     }
                 } catch (JsonSyntaxException e) {
                     System.err.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
@@ -40,5 +41,12 @@ public class ReportParser {
         }
 
         return featureResults;
+    }
+
+    /** Sets additional information and calculates values which should be calculated during object creation. */
+    private void setMetadata(Feature[] features, String jsonFile) {
+        for (Feature feature : features) {
+            feature.setMetaData(jsonFile);
+        }
     }
 }

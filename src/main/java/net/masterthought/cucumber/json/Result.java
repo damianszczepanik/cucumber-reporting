@@ -2,10 +2,11 @@ package net.masterthought.cucumber.json;
 
 public class Result {
 
+    // Start: attributes from JSON file report
     private final String status = null;
     private final String error_message = null;
-
     private final Long duration = 0L;
+    // End: attributes from JSON file report
 
     public String getStatus() {
         return status;

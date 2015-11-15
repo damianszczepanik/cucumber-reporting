@@ -210,8 +210,6 @@ public class ReportBuilderTest {
 
         assertThat("feature-keyword", elements.select("div.feature-line span.feature-keyword").first().text(), is("Feature:"));
         assertThat("feature-text", elements.select("div.feature-line").first().text(), is("Feature: Account Holder withdraws cash"));
-        assertThat("feature-description", doc.select("div.feature-description").first().text(),
-                is("As a Account Holder I want to withdraw cash from an ATM So that I can get money when the bank is closed"));
         assertThat("scenario-background-keyword", doc.select("div.passed span.scenario-keyword").first().text(), is("Background:"));
         assertThat("scenario-background-name", doc.select("div.passed span.scenario-name").first().text(), is("Activate Credit Card"));
 
