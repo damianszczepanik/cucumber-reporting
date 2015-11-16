@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
 public class Scenario {
@@ -24,6 +25,8 @@ public class Scenario {
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
     private final Tag[] tags = new Tag[0];
+
+    private StatusCounter statusCounter;
 
     public Step[] getSteps() {
         return steps;
@@ -42,52 +45,39 @@ public class Scenario {
     }
 
     public Status getStatus() {
-        if (containsStepWithStatus(Status.FAILED)) {
+        if (statusCounter == null) {
+            calculateStatus();
+        }
+
+        if (statusCounter.getValueFor(Status.FAILED) > 0) {
             return Status.FAILED;
         }
 
         ConfigurationOptions configuration = ConfigurationOptions.instance();
-        if (configuration.skippedFailsBuild()) {
-            if (containsStepWithStatus(Status.SKIPPED)) {
-                return Status.FAILED;
-            }
+        if (configuration.skippedFailsBuild() && statusCounter.getValueFor(Status.SKIPPED) > 0) {
+            return Status.FAILED;
         }
 
-        if (configuration.pendingFailsBuild()) {
-            if (containsStepWithStatus(Status.PENDING)) {
-                return Status.FAILED;
-            }
+        if (configuration.pendingFailsBuild() && statusCounter.getValueFor(Status.PENDING) > 0) {
+            return Status.FAILED;
         }
 
-        if (configuration.undefinedFailsBuild()) {
-            if (containsStepWithStatus(Status.UNDEFINED)) {
-                return Status.FAILED;
-            }
+        if (configuration.undefinedFailsBuild() && statusCounter.getValueFor(Status.UNDEFINED) > 0) {
+            return Status.FAILED;
         }
 
-        if (configuration.missingFailsBuild()) {
-            if (containsStepWithStatus(Status.MISSING)) {
-                return Status.FAILED;
-            }
+        if (configuration.missingFailsBuild() && statusCounter.getValueFor(Status.MISSING) > 0) {
+            return Status.FAILED;
         }
-        
+
         return Status.PASSED;
     }
 
-    /**
-     * Checks if there is any step with passed status.
-     * 
-     * @param status
-     *            status that should be filtered out
-     * @return true if there is status with passed status, false otherwise
-     */
-    private boolean containsStepWithStatus(Status status) {
+    private void calculateStatus() {
+        statusCounter = new StatusCounter();
         for (Step step : steps) {
-            if (step.getStatus() == status) {
-                return true;
-            }
+            statusCounter.incrementFor(step.getStatus());
         }
-        return false;
     }
 
     public String getId() {
