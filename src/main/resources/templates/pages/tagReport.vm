@@ -44,10 +44,10 @@
         <div style="color:black;">
             #foreach($scenario in $tag.getScenarios())
                 <div style="margin-bottom:20px;width:100%">
-                    <div><a href="$scenario.getFeatureFileName()">View Feature File</a></div>
-                $scenario.getScenario().getTagsList()
-                $scenario.getScenario().getName()
-                #foreach($step in $scenario.getScenario().getSteps())
+                    <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
+                $scenario.getTagsList()
+                $scenario.getName()
+                #foreach($step in $scenario.getSteps())
                   $step.getName()
                     $step.getDocStringOrNothing()
                     #if($step.hasRows())

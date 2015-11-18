@@ -3,13 +3,14 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject {
 
     private final String tagName;
-    private final List<ScenarioTag> scenarios = new ArrayList<>();
+    private final List<Scenario> scenarios = new ArrayList<>();
 
     private final String reportFileName;
     private int scenarioCounter;
@@ -36,23 +37,23 @@ public class TagObject {
         return reportFileName;
     }
 
-    public List<ScenarioTag> getScenarios() {
+    public List<Scenario> getScenarios() {
         return scenarios;
     }
 
-    public void addScenarios(ScenarioTag scenarioTag) {
-        scenarios.add(scenarioTag);
+    public void addScenarios(Scenario scenario) {
+        scenarios.add(scenario);
 
-        if (status != Status.FAILED && scenarioTag.getScenario().getStatus() != Status.PASSED) {
+        if (status != Status.FAILED && scenario.getStatus() != Status.PASSED) {
             status = Status.FAILED;
         }
 
-        if (scenarioTag.getScenario().isScenario()) {
+        if (scenario.isScenario()) {
             scenarioCounter++;
-            scenariosStatusCounter.incrementFor(scenarioTag.getScenario().getStatus());
+            scenariosStatusCounter.incrementFor(scenario.getStatus());
         }
 
-        for (Step step : scenarioTag.getScenario().getSteps()) {
+        for (Step step : scenario.getSteps()) {
             stepsStatusCounter.incrementFor(step.getStatus());
             totalDuration += step.getDuration();
             totalSteps++;

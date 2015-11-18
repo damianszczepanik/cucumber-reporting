@@ -14,7 +14,6 @@ import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
-import net.masterthought.cucumber.json.support.ScenarioTag;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -55,7 +54,7 @@ public class ReportInformation {
     }
 
     public List<TagObject> getTags() {
-        return new ArrayList<TagObject>(this.allTags.values());
+        return new ArrayList<>(this.allTags.values());
     }
 
     public Map<String, StepObject> getStepObject() {
@@ -174,9 +173,9 @@ public class ReportInformation {
                 this.tagStatusCounter.incrementFor(status, tag.getNumberOfStatus(status));
             }
 
-            for (ScenarioTag scenarioTag : tag.getScenarios()) {
-                if (scenarioTag.hasSteps()) {
-                    Step[] steps = scenarioTag.getScenario().getSteps();
+            for (Scenario scenario : tag.getScenarios()) {
+                if (scenario.hasSteps()) {
+                    Step[] steps = scenario.getSteps();
                     for (Step step : steps) {
                         totalTagDuration += step.getDuration();
                     }
@@ -187,12 +186,12 @@ public class ReportInformation {
     }
 
     private void countTagScenarios(TagObject tag) {
-        for (ScenarioTag scenarioTag : tag.getScenarios()) {
-            if (scenarioTag.getScenario().isScenario()) {
+        for (Scenario scenario : tag.getScenarios()) {
+            if (scenario.isScenario()) {
                 this.totalTagScenarios++;
-                if (scenarioTag.getScenario().getStatus() == Status.PASSED) {
+                if (scenario.getStatus() == Status.PASSED) {
                     this.totalPassingTagScenarios++;
-                } else if (scenarioTag.getScenario().getStatus() == Status.FAILED) {
+                } else if (scenario.getStatus() == Status.FAILED) {
                     this.totalFailingTagScenarios++;
                 }
             }
@@ -201,13 +200,13 @@ public class ReportInformation {
 
     private void processFeatures() {
         for (Feature feature : features) {
-            List<ScenarioTag> scenarioTagList = new ArrayList<>();
+            List<Scenario> scenarioList = new ArrayList<>();
             Scenario[] allFeatureScenarios = feature.getScenarios();
             this.numberOfScenarios += countNoBackgroundScenarios(allFeatureScenarios);
 
             for (Scenario scenario : allFeatureScenarios) {
                 if (scenario.isScenario()) {
-                    scenarioTagList.add(new ScenarioTag(scenario, feature.getReportFileName()));
+                    scenarioList.add(scenario);
                 }
             }
 
@@ -217,7 +216,7 @@ public class ReportInformation {
                 } else {
                     updateBackgroundInfo(scenario);
                 }
-                addScenarioTagsToTagMap(scenario.getTags(), scenarioTagList);
+                addScenarioTagsToTagMap(scenario.getTags(), scenarioList);
 
                 updateStepsForScenario(scenario);
             }
@@ -296,24 +295,23 @@ public class ReportInformation {
         return counter;
     }
 
-    private void addScenarioUnlessExists(TagObject tagObject, ScenarioTag scenarioToAdd) {
-        for (ScenarioTag scenarioTag : tagObject.getScenarios()) {
-            if (scenarioTag.getScenario().getId().equals(scenarioToAdd.getScenario().getId())
-                    && scenarioTag.getScenario().equals(scenarioToAdd.getScenario())) {
+    private void addScenarioUnlessExists(TagObject tagObject, Scenario scenarioToAdd) {
+        for (Scenario scenarioTag : tagObject.getScenarios()) {
+            if (scenarioTag.getId().equals(scenarioToAdd.getId()) && scenarioTag.equals(scenarioToAdd)) {
                 return;
             }
         }
         tagObject.addScenarios(scenarioToAdd);
     }
 
-    private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<ScenarioTag> scenariosWithoutBackground) {
+    private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<Scenario> scenariosWithoutBackground) {
         for (Tag tag : scenarioTagsAllScenarios) {
             TagObject tagObject = addTagObject(tag.getName());
 
-            for (ScenarioTag scenarioTag : scenariosWithoutBackground) {
-                for (Tag tag2 : scenarioTag.getScenario().getTags()) {
+            for (Scenario scenario : scenariosWithoutBackground) {
+                for (Tag tag2 : scenario.getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
-                        addScenarioUnlessExists(tagObject, scenarioTag);
+                        addScenarioUnlessExists(tagObject, scenario);
                         break;
                     }
                 }

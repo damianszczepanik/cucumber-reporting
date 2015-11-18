@@ -29,6 +29,7 @@ public class Scenario {
     private final static String SCENARIO_TYPE = "scenario";
 
     private StatusCounter statusCounter;
+    private Feature feature;
 
     public Step[] getSteps() {
         return steps;
@@ -129,6 +130,10 @@ public class Scenario {
         return Util.tagsToHtml(tags);
     }
 
+    public Feature getFeature() {
+        return feature;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
@@ -148,6 +153,10 @@ public class Scenario {
         Scenario other = (Scenario) obj;
 
         return id != null ? id.equals(other.id) : (other.id == null);
+    }
+
+    public void setMedaData(Feature feature) {
+        this.feature = feature;
     }
 
 }

@@ -135,6 +135,11 @@ public class Feature {
     /** Sets additional information and calculates values which should be calculated during object creation. */
     public void setMetaData(String jsonFile) {
         this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
+
+        for (Scenario scenario : elements) {
+            scenario.setMedaData(this);
+        }
+
         setDeviceName();
         setReportFileName();
         calculateFeatureStatus();
