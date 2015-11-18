@@ -7,13 +7,12 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.ScenarioTag;
+import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagsTest {
@@ -88,22 +87,22 @@ public class TagsTest {
 
     @Test
     public void shouldGetTagScenariosForTag1() {
-        List<ScenarioTag> scenarios = reportInformation.getTags().get(0).getScenarios();
+        List<Scenario> scenarios = reportInformation.getTags().get(0).getScenarios();
         assertThat(scenarios.size(), is(2));
-        ScenarioTag firstScenario = scenarios.get(0);
-        ScenarioTag secondScenario = scenarios.get(1);
-        assertThat(firstScenario.getScenario().getRawName(), is("scenario1 for tag1"));
-        assertThat(secondScenario.getScenario().getRawName(), is("scenario2 for tag1"));
+        Scenario firstScenario = scenarios.get(0);
+        Scenario secondScenario = scenarios.get(1);
+        assertThat(firstScenario.getRawName(), is("scenario1 for tag1"));
+        assertThat(secondScenario.getRawName(), is("scenario2 for tag1"));
     }
 
     @Test
     public void shouldGetTagScenariosForTag2() {
-        List<ScenarioTag> scenarios = reportInformation.getTags().get(1).getScenarios();
+        List<Scenario> scenarios = reportInformation.getTags().get(1).getScenarios();
         assertThat(scenarios.size(), is(2));
-        ScenarioTag firstScenario = scenarios.get(0);
-        ScenarioTag secondScenario = scenarios.get(1);
-        assertThat(firstScenario.getScenario().getRawName(), is("scenario1 for tag2"));
-        assertThat(secondScenario.getScenario().getRawName(), is("scenario2 for tag2"));
+        Scenario firstScenario = scenarios.get(0);
+        Scenario secondScenario = scenarios.get(1);
+        assertThat(firstScenario.getRawName(), is("scenario1 for tag2"));
+        assertThat(secondScenario.getRawName(), is("scenario2 for tag2"));
     }
 
 
