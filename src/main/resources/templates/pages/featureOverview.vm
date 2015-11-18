@@ -350,12 +350,10 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           #set($bgcolour = "#FF0000")
           #end
 
-          $feature.processSteps()
-
           #set($sf = $feature.getRawName())
 
           <tr>
-          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getFileName()">$sf</a></td>
+          <td style="text-align:left;"><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
           #if($parallel)
               <td id="device">$feature.getDeviceName()</td>
           #end

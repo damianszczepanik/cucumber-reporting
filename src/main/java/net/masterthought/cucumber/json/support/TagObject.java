@@ -11,7 +11,7 @@ public class TagObject {
     private final String tagName;
     private final List<ScenarioTag> scenarios = new ArrayList<>();
 
-    private final String fileName;
+    private final String reportFileName;
     private int scenarioCounter;
     private StatusCounter scenariosStatusCounter = new StatusCounter();
     private StatusCounter stepsStatusCounter = new StatusCounter();
@@ -25,15 +25,15 @@ public class TagObject {
         this.tagName = tagName;
 
         // eliminate characters that might be invalid as a file name
-        this.fileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
+        this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
     }
 
     public String getTagName() {
         return tagName;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getReportFileName() {
+        return reportFileName;
     }
 
     public List<ScenarioTag> getScenarios() {

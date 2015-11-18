@@ -15,6 +15,7 @@ import net.masterthought.cucumber.util.Util;
 
 public class Feature {
 
+    // Start: attributes from JSON file report
     private final String id = null;
     private final String name = null;
     private final String uri = null;
@@ -22,26 +23,18 @@ public class Feature {
     private final String keyword = null;
     private final Scenario[] elements = new Scenario[0];
     private final Tag[] tags = new Tag[0];
+    // End: attributes from JSON file report
 
-    private String fileName;
+    private String jsonFile;
+    private String reportFileName;
     private String deviceName;
     private StepResults stepResults;
-    private List<Scenario> passedScenarios;
-    private List<Scenario> failedScenarios;
-
-    private String jsonFile = "";
+    private final List<Scenario> passedScenarios = new ArrayList<>();
+    private final List<Scenario> failedScenarios = new ArrayList<>();
+    private Status featureStatus;
+    private int scenariosCount;
 
     public String getDeviceName() {
-        if (deviceName == null) {
-            String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
-            if (splitedJsonFile.length > 1) {
-                // file name without path and extension (usually *.json)
-                deviceName = splitedJsonFile[splitedJsonFile.length - 2];
-            } else {
-                // path name without special characters
-                deviceName = splitedJsonFile[0];
-            }
-        }
         return deviceName;
     }
 
@@ -49,41 +42,20 @@ public class Feature {
         return id;
     }
 
-    public void setJsonFile(String json){
-        this.jsonFile = json;
-    }
-
     public Scenario[] getScenarios() {
         return elements;
     }
 
-    public String getFileName() {
-        if (fileName == null) {
-            // remove all characters that might not be valid file name
-            fileName = uri.replaceAll("[^\\d\\w]", "-");
-
-            // If we expect to have parallel executions, we add postfix to file name
-            if (ReportBuilder.isParallel() && !jsonFile.isEmpty()) {
-                String[] splitedJsonFile = jsonFile.split("_");
-                if (splitedJsonFile.length > 1) {
-                    fileName = fileName + "-" + getDeviceName();
-                }
-            }
-            fileName = fileName + ".html";
-        }
-        return fileName;
-    }
-
-    public String getUri(){
-        return this.uri;
+    public String getReportFileName() {
+        return reportFileName;
     }
 
     public boolean hasTags() {
-        return !ArrayUtils.isEmpty(tags);
+        return ArrayUtils.isNotEmpty(tags);
     }
 
     public boolean hasScenarios() {
-        return elements.length > 0;
+        return ArrayUtils.isNotEmpty(elements);
     }
 
     public Tag[] getTags() {
@@ -95,12 +67,7 @@ public class Feature {
     }
 
     public Status getStatus() {
-        for (Scenario element : elements) {
-            if (element.getStatus() != Status.PASSED) {
-                return Status.FAILED;
-            }
-        }
-        return Status.PASSED;
+        return featureStatus;
     }
 
     public String getName() {
@@ -118,29 +85,11 @@ public class Feature {
     }
 
     public String getDescription() {
-        String result = "";
-        if (StringUtils.isNotEmpty(description)) {
-            String content = description.replaceFirst("As an", "<span class=\"feature-role\">As an</span>");
-            content = content.replaceFirst("I want to", "<span class=\"feature-action\">I want to</span>");
-            content = content.replaceFirst("So that", "<span class=\"feature-value\">So that</span>");
-            content = content.replaceAll("\n", "<br/>");
-            result = "<div class=\"feature-description\">" + content + "</div>";
-        }
-        return result;
+        return description;
     }
 
     public int getNumberOfScenarios() {
-        int result = 0;
-        if (elements != null) {
-            List<Scenario> elementList = new ArrayList<Scenario>();
-            for (Scenario element : elements) {
-                if (element.isScenario()) {
-                    elementList.add(element);
-                }
-            }
-            result = elementList.size();
-        }
-        return result;
+        return scenariosCount;
     }
 
     public int getNumberOfSteps() {
@@ -183,39 +132,78 @@ public class Feature {
         return failedScenarios.size();
     }
 
-    public void processSteps() {
-        List<Step> allSteps = new ArrayList<Step>();
+    /** Sets additional information and calculates values which should be calculated during object creation. */
+    public void setMetaData(String jsonFile) {
+        this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
+        setDeviceName();
+        setReportFileName();
+        calculateFeatureStatus();
+        calculateScenarioCount();
+
+        calculateSteps();
+    }
+
+    private void setDeviceName() {
+        String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
+        if (splitedJsonFile.length > 1) {
+            // file name without path and extension (usually path/{jsonfIle}.json)
+            deviceName = splitedJsonFile[splitedJsonFile.length - 2];
+        } else {
+            // path name without special characters
+            deviceName = splitedJsonFile[0];
+        }
+    }
+
+    private void setReportFileName() {
+        // remove all characters that might not be valid file name
+        reportFileName = uri.replaceAll("[^\\d\\w]", "-");
+
+        // If we expect to have parallel executions, we add postfix to file name
+        if (ReportBuilder.isParallel()) {
+            reportFileName = reportFileName + "-" + getDeviceName();
+        }
+        reportFileName = reportFileName + ".html";
+    }
+
+    private void calculateFeatureStatus() {
+        for (Scenario element : elements) {
+            if (element.getStatus() != Status.PASSED) {
+                featureStatus = Status.FAILED;
+                return;
+            }
+        }
+        featureStatus = Status.PASSED;
+    }
+
+    private void calculateScenarioCount() {
+        for (Scenario element : elements) {
+            if (element.isScenario()) {
+                scenariosCount++;
+            }
+        }
+    }
+
+    public void calculateSteps() {
+        List<Step> allSteps = new ArrayList<>();
         StatusCounter stepsCounter = new StatusCounter();
-        List<Scenario> passedScenarios = new ArrayList<>();
-        List<Scenario> failedScenarios = new ArrayList<>();
         long totalDuration = 0L;
 
-        if (elements != null) {
-            for (Scenario element : elements) {
-                calculateScenarioStats(passedScenarios, failedScenarios, element);
-                if (element.hasSteps()) {
-                    for (Step step : element.getSteps()) {
-                        allSteps.add(step);
-                        stepsCounter.incrementFor(step.getStatus());
-                        totalDuration += step.getDuration();
-                    }
+        for (Scenario scenario : elements) {
+            if (scenario.isScenario()) {
+                if (scenario.getStatus() == Status.PASSED) {
+                    passedScenarios.add(scenario);
+                } else if (scenario.getStatus() == Status.FAILED) {
+                    failedScenarios.add(scenario);
                 }
             }
-        }
-        this.passedScenarios = passedScenarios;
-        this.failedScenarios = failedScenarios;
-        stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
-    }
 
-    private void calculateScenarioStats(List<Scenario> passedScenarios, List<Scenario> failedScenarios, Scenario element) {
-        if (element.isScenario()) {
-            if (element.getStatus() == Status.PASSED) {
-                passedScenarios.add(element);
-            } else if (element.getStatus() == Status.FAILED) {
-                failedScenarios.add(element);
+            for (Step step : scenario.getSteps()) {
+                allSteps.add(step);
+                stepsCounter.incrementFor(step.getStatus());
+                totalDuration += step.getDuration();
             }
         }
+
+        stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
-
-
 }

@@ -7,47 +7,55 @@ import org.codehaus.plexus.util.Base64;
  */
 public class Embedded {
 
+    // Start: attributes from JSON file report
     private final String mime_type = null;
     private final String data = null;
+    // End: attributes from JSON file report
+
+    /**
+     * Unique number of the attachment on the HTML page. This must be unique to fully support expand/collapse option
+     * when the same step is added to the report more than once.
+     */
     private static int counter = 0;
 
+    /**
+     * Generates HTML code with attachment.
+     * 
+     * @param index
+     *            number of the attachment for given step
+     * @return generated HTML page
+     */
     public String render(int index) {
-        StringBuilder sb = new StringBuilder();
 
-        String contentId = generateId();
+        final String uniqueContentId = generateNextUniqueId();
 
         switch (mime_type) {
         case "image/png":
-            sb.append(publishImg("png", contentId, index));
-            break;
+            return publishImg("png", uniqueContentId, index);
         case "image/bmp":
-            sb.append(publishImg("bmp", contentId, index));
-            break;
+            return publishImg("bmp", uniqueContentId, index);
         case "text/plain":
-            sb.append(publishPlainType(contentId, index));
-            break;
+            return publishPlainType(uniqueContentId, index);
         case "text/html":
-            sb.append(publishHTMLType(contentId, index));
-            break;
+            return publishHTMLType(uniqueContentId, index);
         default:
-            sb.append(publishUnknownType(mime_type, index));
+            return publishUnknownType(mime_type, index);
         }
-        return sb.toString();
     }
 
-    private static String getImg(String imageId, String mimeEncodedImage) {
+    private static String getImg(String imageId, String encodedImageContent) {
         return String.format("<img id=\"%s\" src=\"%s\" style=\"max-width:250px; display:none;\"/>", imageId,
-                mimeEncodedImage);
+                encodedImageContent);
     }
 
 
     private String publishImg(String imgType, String imageId, int index) {
-        String mimeEncodedImage = "data:image/" + imgType + ";base64," + data;
+        String encodedImageContent = "data:image/" + imgType + ";base64," + data;
 
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(imageId, "Screenshot", index));
-        sb.append(String.format("<a href=\"%s\">", mimeEncodedImage));
-        sb.append(getImg(imageId, mimeEncodedImage));
+        sb.append(String.format("<a href=\"%s\">", encodedImageContent));
+        sb.append(getImg(imageId, encodedImageContent));
         sb.append("</a></br>");
 
         return sb.toString();
@@ -77,16 +85,16 @@ public class Embedded {
 
     private static String getExpandAnchor(String contentId, String label, int index) {
         return String.format(
-                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">%s %s</a>",
-                contentId, label, index);
+                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">%s %d</a>",
+                contentId, label, index + 1);
     }
 
     private String decodeDataFromBase() {
         return new String(Base64.decodeBase64(data.getBytes()));
     }
 
-    private String generateId(){
+    private String generateNextUniqueId() {
         counter++;
-        return "embedding-"+counter;
+        return "embedding-" + counter;
     }
 }

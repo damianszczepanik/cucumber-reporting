@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +27,8 @@ public class DocStringTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/docstring.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
-        Feature feature = features.entrySet().iterator().next().getValue().get(0);
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.get(0);
         step = feature.getScenarios()[0].getSteps()[0];
         docstring = step.getDocString();
     }

@@ -24,7 +24,7 @@ public class TagsTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/tags.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         reportInformation = new ReportInformation(features);
 
     }

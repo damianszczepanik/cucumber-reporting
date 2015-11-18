@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.exception.VelocityException;
@@ -145,7 +144,7 @@ public class ReportBuilder {
     public void generateReports() throws IOException, VelocityException {
         try {
             ReportParser reportParser = new ReportParser();
-            Map<String, List<Feature>> features = reportParser.parseJsonResults(jsonFiles);
+            List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             this.reportInformation = new ReportInformation(features);
 
             copyResource("themes", "blue.zip");
@@ -153,9 +152,6 @@ public class ReportBuilder {
             if (flashCharts) {
                 copyResource("charts", "flash_charts.zip");
             }
-
-            //Added to correlate feature with each report
-            setJsonFilesInFeatures(features);
 
             new FeatureOverviewPage(this).generatePage();
             new FeatureReportPage(this).generatePage();
@@ -165,17 +161,6 @@ public class ReportBuilder {
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception exception) {
             generateErrorPage(exception);
-        }
-    }
-
-    private void setJsonFilesInFeatures(Map<String, List<Feature>> features) {
-        for (Map.Entry<String, List<Feature>> pairs : features.entrySet()) {
-            List<Feature> featureList = pairs.getValue();
-
-            for (Feature feature : featureList) {
-                String jsonFile = pairs.getKey().split("/")[pairs.getKey().split("/").length - 1];
-                feature.setJsonFile(jsonFile);               
-            }
         }
     }
 

@@ -11,17 +11,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class DocString {
 
-    /**
-     * The contents of the docstring
-     */
+    // Start: attributes from JSON file report
     private final String value = null;
-
     private final String content_type = null;
-
-    /**
-     * Line on which docstring occurs
-     */
-    private final Integer line = 0;
+    private final Integer line = null;
+    // End: attributes from JSON file report
 
     public String getValue() {
         return value;

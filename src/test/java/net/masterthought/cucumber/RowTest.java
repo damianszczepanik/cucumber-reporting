@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +23,9 @@ public class RowTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
-        Feature feature = features.entrySet().iterator().next().getValue().get(0);
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        Feature feature = features.get(0);
         row = feature.getScenarios()[0].getSteps()[0].getRows()[0];
-        feature.processSteps();
     }
 
     @Test

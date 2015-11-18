@@ -24,7 +24,7 @@ public class FeatureReportPage extends AbstractPage {
             contextMap.put("scenarios", feature.getScenarios());
             contextMap.put("artifactsEnabled", ConfigurationOptions.instance().artifactsEnabled());
 
-            generateReport(feature.getFileName());
+            generateReport(feature.getReportFileName());
         }
     }
 

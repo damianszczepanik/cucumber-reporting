@@ -8,7 +8,6 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,17 +30,12 @@ public class ElementTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project3.json"));
-        Map<String, List<Feature>> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         
-        Feature passingFeature = features.entrySet().iterator().next().getValue().get(0);
-        Feature failingFeature = features.entrySet().iterator().next().getValue().get(1);
-        Feature undefinedFeature = features.entrySet().iterator().next().getValue().get(2);
-        Feature skippedFeature = features.entrySet().iterator().next().getValue().get(3);
-
-        passingFeature.processSteps();
-        failingFeature.processSteps();
-        undefinedFeature.processSteps();
-        skippedFeature.processSteps();
+        Feature passingFeature = features.get(0);
+        Feature failingFeature = features.get(1);
+        Feature undefinedFeature = features.get(2);
+        Feature skippedFeature = features.get(3);
         
         passingElement = passingFeature.getScenarios()[0];
         failingElement = failingFeature.getScenarios()[0];

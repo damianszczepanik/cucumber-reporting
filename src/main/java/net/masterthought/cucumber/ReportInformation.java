@@ -42,21 +42,12 @@ public class ReportInformation {
     private int totalFailingTagScenarios;
     private Background backgroundInfo = new Background();
 
-    public ReportInformation(Map<String, List<Feature>> featureMap) {
-        this.features = listAllFeatures(featureMap);
+    public ReportInformation(List<Feature> features) {
+        this.features = features;
 
         processFeatures();
         processTags();
         processSteps();
-    }
-
-    private List<Feature> listAllFeatures(Map<String, List<Feature>> featureMap) {
-        List<Feature> allFeatures = new ArrayList<Feature>();
-        for (Map.Entry<String, List<Feature>> pairs : featureMap.entrySet()) {
-            List<Feature> featureList = pairs.getValue();
-            allFeatures.addAll(featureList);
-        }
-        return allFeatures;
     }
 
     public List<Feature> getFeatures() {
@@ -216,7 +207,7 @@ public class ReportInformation {
 
             for (Scenario scenario : allFeatureScenarios) {
                 if (scenario.isScenario()) {
-                    scenarioTagList.add(new ScenarioTag(scenario, feature.getFileName()));
+                    scenarioTagList.add(new ScenarioTag(scenario, feature.getReportFileName()));
                 }
             }
 
