@@ -41,6 +41,16 @@ public class FeatureTest {
     }
 
     @Test
+    public void shouldGetId() {
+        assertThat(passingFeature.getId(), is("account-holder-withdraws-cash"));
+    }
+
+    @Test
+    public void shouldHasScenario() {
+        assertThat(passingFeature.hasScenarios(), is(true));
+    }
+
+    @Test
     public void shouldKnowIfTagsExists() {
         assertThat(passingFeature.hasTags(), is(true));
     }
@@ -63,12 +73,12 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash</div></div>"));
+        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash & <MyPlace></div></div>"));
     }
 
     @Test
     public void shouldReturnRawName() {
-        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash"));
+        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash &amp; &lt;MyPlace&gt;"));
     }
 
     @Test

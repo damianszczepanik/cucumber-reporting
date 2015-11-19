@@ -26,7 +26,7 @@ public class DocString {
     }
 
     public int getLine() {
-        return line;
+        return line == null ? 0 : line;
     }
 
     /**
