@@ -7,6 +7,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.gson.annotations.SerializedName;
+
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
@@ -21,7 +23,9 @@ public class Feature {
     private final String uri = null;
     private final String description = null;
     private final String keyword = null;
-    private final Scenario[] elements = new Scenario[0];
+
+    @SerializedName("elements")
+    private final Scenario[] scenarios = new Scenario[0];
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
@@ -43,7 +47,7 @@ public class Feature {
     }
 
     public Scenario[] getScenarios() {
-        return elements;
+        return scenarios;
     }
 
     public String getReportFileName() {
@@ -55,7 +59,7 @@ public class Feature {
     }
 
     public boolean hasScenarios() {
-        return ArrayUtils.isNotEmpty(elements);
+        return ArrayUtils.isNotEmpty(scenarios);
     }
 
     public Tag[] getTags() {
@@ -71,7 +75,7 @@ public class Feature {
     }
 
     public String getName() {
-        return StringUtils.isNotEmpty(name) ? getStatus().toHtmlClass()
+        return StringUtils.isNotEmpty(name) ? "<div class=\"" + getStatus().getName().toLowerCase() + "\">"
                 + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
                 + "</div></div>" : "";
     }
@@ -136,7 +140,7 @@ public class Feature {
     public void setMetaData(String jsonFile) {
         this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
 
-        for (Scenario scenario : elements) {
+        for (Scenario scenario : scenarios) {
             scenario.setMedaData(this);
         }
 
@@ -171,7 +175,7 @@ public class Feature {
     }
 
     private void calculateFeatureStatus() {
-        for (Scenario element : elements) {
+        for (Scenario element : scenarios) {
             if (element.getStatus() != Status.PASSED) {
                 featureStatus = Status.FAILED;
                 return;
@@ -181,7 +185,7 @@ public class Feature {
     }
 
     private void calculateScenarioCount() {
-        for (Scenario element : elements) {
+        for (Scenario element : scenarios) {
             if (element.isScenario()) {
                 scenariosCount++;
             }
@@ -193,7 +197,7 @@ public class Feature {
         StatusCounter stepsCounter = new StatusCounter();
         long totalDuration = 0L;
 
-        for (Scenario scenario : elements) {
+        for (Scenario scenario : scenarios) {
             if (scenario.isScenario()) {
                 if (scenario.getStatus() == Status.PASSED) {
                     passedScenarios.add(scenario);

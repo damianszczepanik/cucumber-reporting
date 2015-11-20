@@ -1,8 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -48,10 +45,6 @@ public class Scenario {
     }
 
     public Status getStatus() {
-        if (statusCounter == null) {
-            calculateStatus();
-        }
-
         if (statusCounter.getValueFor(Status.FAILED) > 0) {
             return Status.FAILED;
         }
@@ -100,18 +93,20 @@ public class Scenario {
     }
 
     public String getName() {
-        List<String> contentString = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div class=\"").append(getStatus().getName().toLowerCase()).append("\">");
 
         if (StringUtils.isNotEmpty(keyword)) {
-            contentString.add("<span class=\"scenario-keyword\">" + StringEscapeUtils.escapeHtml(keyword) + ": </span>");
+            sb.append("<span class=\"scenario-keyword\">").append(StringEscapeUtils.escapeHtml(keyword))
+                    .append(": </span>");
         }
 
         if (StringUtils.isNotEmpty(name)) {
-            contentString.add("<span class=\"scenario-name\">" + StringEscapeUtils.escapeHtml(name) + "</span>");
+            sb.append("<span class=\"scenario-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
         }
+        sb.append("</div>");
 
-        return !contentString.isEmpty() ? getStatus().toHtmlClass()
-                + StringUtils.join(contentString.toArray(), " ") + "</div>" : "";
+        return sb.toString();
     }
 
     public boolean hasTags() {
@@ -157,6 +152,7 @@ public class Scenario {
 
     public void setMedaData(Feature feature) {
         this.feature = feature;
+        calculateStatus();
     }
 
 }

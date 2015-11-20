@@ -17,7 +17,7 @@ import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
-public class ElementTest {
+public class ScenarioTest {
 
     private Scenario passingElement;
     private Scenario failingElement;
@@ -91,7 +91,7 @@ public class ElementTest {
     
     @Test
     public void shouldReturnName() {
-        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"scenario-keyword\">Background: </span> <span class=\"scenario-name\">Activate Credit Card</span></div>"
+        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"scenario-keyword\">Background: </span><span class=\"scenario-name\">Activate Credit Card</span></div>"
         ));
     }
 
