@@ -28,6 +28,8 @@ public class Step implements ResultsWithMatch {
     // End: attributes from JSON file report
 
     private static int labelCount = 0;
+    private String attachments;
+    private String[] outputs;
 
     public DocString getDocString() {
         return doc_string;
@@ -38,18 +40,7 @@ public class Step implements ResultsWithMatch {
     }
 
     public String[] getOutput() {
-        List<String> list = new ArrayList<>();
-        for (JsonElement element : this.output){
-            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
-                String elementString = element.getAsString();
-                list.add(StringEscapeUtils.escapeHtml(elementString));
-            }
-            else {
-                String elementString = element.toString();
-                list.add(StringEscapeUtils.escapeHtml(elementString));
-            }
-        }
-        return list.toArray(new String[list.size()]);
+        return outputs;
     }
 
     @Override
@@ -68,13 +59,6 @@ public class Step implements ResultsWithMatch {
 
     public boolean hasRows() {
         return ArrayUtils.isNotEmpty(rows);
-    }
-
-    /**
-     * @return - Returns true if has a sub doc-string, and that doc-string has a value
-     */
-    public boolean hasDocString() {
-        return doc_string != null && doc_string.hasValue();
     }
 
     public Status getStatus() {
@@ -98,9 +82,6 @@ public class Step implements ResultsWithMatch {
         Status status = getStatus();
         if (status == Status.FAILED || status == Status.PASSED || status == Status.SKIPPED) {
             content = status.getName();
-        } else {
-            // TODO: why this goes different
-            content = "";
         }
         return content;
     }
@@ -159,9 +140,10 @@ public class Step implements ResultsWithMatch {
      * @return string of html
      */
     public String getDocStringOrNothing() {
-        if (!hasDocString()) {
+        if (doc_string == null || !doc_string.hasValue()) {
             return "";
         }
+        
         return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" +
                 "<div class=\"doc-string\">" +
                 getDocString().getEscapedValue() +
@@ -187,13 +169,35 @@ public class Step implements ResultsWithMatch {
     }
 
     public String getAttachments() {
+        return attachments;
+    }
+
+    public void setMedaData(Scenario scenario) {
+        calculateAttachments();
+        calculateOutputs();
+    }
+
+    private void calculateAttachments() {
         StringBuilder sb = new StringBuilder();
         if (embeddings != null) {
             for (int i = 0; i < embeddings.length; i++) {
                 sb.append(embeddings[i].render(i));
             }
         }
-        return sb.toString();
+        attachments = sb.toString();
     }
 
+    private void calculateOutputs() {
+        List<String> list = new ArrayList<>();
+        for (JsonElement element : this.output) {
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                String elementString = element.getAsString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            } else {
+                String elementString = element.toString();
+                list.add(StringEscapeUtils.escapeHtml(elementString));
+            }
+        }
+        outputs = list.toArray(new String[list.size()]);
+    }
 }

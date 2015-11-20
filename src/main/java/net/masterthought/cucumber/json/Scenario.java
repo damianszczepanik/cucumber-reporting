@@ -153,6 +153,9 @@ public class Scenario {
     public void setMedaData(Feature feature) {
         this.feature = feature;
         calculateStatus();
+        for (Step step : steps) {
+            step.setMedaData(this);
+        }
     }
 
 }

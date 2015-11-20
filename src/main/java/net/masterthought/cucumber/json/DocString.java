@@ -41,6 +41,6 @@ public class DocString {
      * @return Returns true if value has content
      */
     public boolean hasValue() {
-        return !StringUtils.isBlank(value);
+        return StringUtils.isNotBlank(value);
     }
 }
