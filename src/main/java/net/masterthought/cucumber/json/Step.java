@@ -132,7 +132,7 @@ public class Step implements ResultsWithMatch {
 
     private String getStatusDetails(Status status, String errorMessage) {
         StringBuilder sb = new StringBuilder();
-        sb.append(status.toHtmlClass());
+        sb.append("<div class=\"").append(status.getName().toLowerCase()).append("\">");
         sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
         sb.append("<span class=\"step-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
 
@@ -162,7 +162,7 @@ public class Step implements ResultsWithMatch {
         if (!hasDocString()) {
             return "";
         }
-        return getStatus().toHtmlClass() +
+        return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" +
                 "<div class=\"doc-string\">" +
                 getDocString().getEscapedValue() +
                 "</div></div>";

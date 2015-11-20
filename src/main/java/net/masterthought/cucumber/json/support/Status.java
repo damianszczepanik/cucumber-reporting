@@ -38,8 +38,4 @@ public enum Status {
         return String.valueOf(name().charAt(0)).toUpperCase() + name().substring(1).toLowerCase();
     }
 
-    public String toHtmlClass() {
-        // TODO: should be moved out of this class
-        return "<div class=\"" + this.getName().toLowerCase() + "\">";
-    }
 }
