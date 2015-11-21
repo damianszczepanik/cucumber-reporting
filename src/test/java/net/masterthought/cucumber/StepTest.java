@@ -85,12 +85,6 @@ public class StepTest {
     }
 
     @Test
-    public void shouldReturnDataTableClass() {
-        assertThat(passingStep.getDataTableClass(), is("passed"));
-        assertThat(failingStep.getDataTableClass(), is("failed"));
-    }
-
-    @Test
     public void shouldReturnName() {
         assertThat(passingStep.getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
         ));

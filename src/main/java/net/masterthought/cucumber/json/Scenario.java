@@ -69,13 +69,6 @@ public class Scenario {
         return Status.PASSED;
     }
 
-    private void calculateStatus() {
-        statusCounter = new StatusCounter();
-        for (Step step : steps) {
-            statusCounter.incrementFor(step.getStatus());
-        }
-    }
-
     public String getId() {
         return id;
     }
@@ -152,10 +145,16 @@ public class Scenario {
 
     public void setMedaData(Feature feature) {
         this.feature = feature;
-        calculateStatus();
         for (Step step : steps) {
             step.setMedaData(this);
         }
+        calculateStatus();
     }
 
+    private void calculateStatus() {
+        statusCounter = new StatusCounter();
+        for (Step step : steps) {
+            statusCounter.incrementFor(step.getStatus());
+        }
+    }
 }
