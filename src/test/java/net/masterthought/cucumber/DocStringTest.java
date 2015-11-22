@@ -2,7 +2,6 @@ package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ import net.masterthought.cucumber.json.Step;
 public class DocStringTest {
 
     private Step step;
-    private DocString docstring;
 
     @Before
     public void setUpJsonReports() throws IOException {
@@ -30,24 +28,11 @@ public class DocStringTest {
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         Feature feature = features.get(0);
         step = feature.getScenarios()[0].getSteps()[0];
-        docstring = step.getDocString();
-    }
-
-    @Test
-    public void shouldReturnDocString() {
-        assertThat(docstring, isA(DocString.class));
-    }
-
-    @Test
-    public void shouldReturnFields() {
-        assertThat(docstring.getValue(), is("X _ X\nO X O\n_ O X"));
-        assertThat(docstring.getLine(), is(8));
-        assertThat(docstring.getContentType(), is(""));
     }
 
     @Test
     public void shouldFormatDocString() {
-        assertThat(step.getDocStringOrNothing(), is("<div class=\"passed\">" +
+        assertThat(step.getDocString(), is("<div class=\"passed\">" +
                                                       "<div class=\"doc-string\">" +
                                                         "X&nbsp;_&nbsp;X<br/>" +
                                                         "O&nbsp;X&nbsp;O<br/>" +

@@ -49,9 +49,9 @@
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps())
                   $step.getName()
-                    $step.getDocStringOrNothing()
+                    $step.getDocString()
                     #if($step.hasRows())
-                        <div class="data $step.getDataTableClass()">
+                        <div class="data $step.$step.getStatus().getName()">
                         <table class="data-table">
                       #foreach($row in $step.getRows())
                        <tr>

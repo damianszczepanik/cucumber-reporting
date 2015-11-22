@@ -30,10 +30,7 @@ public class Step implements ResultsWithMatch {
     private static int labelCount = 0;
     private String attachments;
     private String[] outputs;
-
-    public DocString getDocString() {
-        return doc_string;
-    }
+    private Status status;
 
     public Row[] getRows() {
         return rows;
@@ -62,11 +59,7 @@ public class Step implements ResultsWithMatch {
     }
 
     public Status getStatus() {
-        if (result == null) {
-            return Status.MISSING;
-        } else {
-            return Status.valueOf(result.getStatus().toUpperCase());
-        }
+        return status;
     }
 
     public long getDuration() {
@@ -77,38 +70,23 @@ public class Step implements ResultsWithMatch {
         }
     }
 
-    public String getDataTableClass() {
-        String content = "";
-        Status status = getStatus();
-        if (status == Status.FAILED || status == Status.PASSED || status == Status.SKIPPED) {
-            content = status.getName();
-        }
-        return content;
-    }
-
     public String getRawName() {
         return name;
     }
 
     public String getName() {
-        String content = "";
         Status status = getStatus();
-        if (status == Status.FAILED) {
-            String errorMessage = result.getErrorMessage();
-            if (status == Status.SKIPPED) {
-                errorMessage = "Mode: Skipped causes Failure<br/><span class=\"skipped\">This step was skipped</span>";
-            }
-            if (status == Status.UNDEFINED) {
-                errorMessage = "Mode: Not Implemented causes Failure<br/><span class=\"undefined\">This step is not yet implemented</span>";
-            }
-            content =  getStatusDetails(status, errorMessage);
-        } else if (status == Status.MISSING) {
-            String errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            content = getStatusDetails(status, errorMessage);
-        } else {
-            content = getStatusDetails(status, null);
+        String errorMessage = null;
+        switch (status) {
+        case FAILED:
+            errorMessage = result.getErrorMessage();
+            return getStatusDetails(status, errorMessage);
+        case MISSING:
+            errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
+            return getStatusDetails(status, errorMessage);
+        default:
+            return getStatusDetails(status, errorMessage);
         }
-        return content;
     }
 
     private String getStatusDetails(Status status, String errorMessage) {
@@ -139,17 +117,15 @@ public class Step implements ResultsWithMatch {
      *
      * @return string of html
      */
-    public String getDocStringOrNothing() {
+    public String getDocString() {
         if (doc_string == null || !doc_string.hasValue()) {
             return "";
         }
         
-        return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" +
-                "<div class=\"doc-string\">" +
-                getDocString().getEscapedValue() +
-                "</div></div>";
+        return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" + "<div class=\"doc-string\">"
+                + doc_string.getEscapedValue() + "</div></div>";
     }
-    
+
     private String formatError(String errorMessage) {
         String result = errorMessage;
         if (errorMessage != null && !errorMessage.isEmpty()) {
@@ -164,10 +140,6 @@ public class Step implements ResultsWithMatch {
         return result;
     }
 
-    public void setName(String newName) {
-        this.name = newName;
-    }
-
     public String getAttachments() {
         return attachments;
     }
@@ -175,6 +147,7 @@ public class Step implements ResultsWithMatch {
     public void setMedaData(Scenario scenario) {
         calculateAttachments();
         calculateOutputs();
+        calculateStatus();
     }
 
     private void calculateAttachments() {
@@ -199,5 +172,13 @@ public class Step implements ResultsWithMatch {
             }
         }
         outputs = list.toArray(new String[list.size()]);
+    }
+
+    private void calculateStatus() {
+        if (result == null) {
+            status = Status.MISSING;
+        } else {
+            status = Status.valueOf(result.getStatus().toUpperCase());
+        }
     }
 }

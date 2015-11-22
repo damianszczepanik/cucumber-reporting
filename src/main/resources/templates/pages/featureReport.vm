@@ -61,19 +61,19 @@
                 $scenario.getTagsList()
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps())
-                  $step.getName()
-                    $step.getDocStringOrNothing()
+                    $step.getName()
+                    $step.getDocString()
                     #if($step.hasRows())
-                        <div class="data $step.getDataTableClass()">
+                        <div class="data $step.getStatus().getName()">
                         <table class="data-table">
-                      #foreach($row in $step.getRows())
-                       <tr>
-                           #foreach($cell in $row.getCells())
-                           <td>$esc.html($cell)</td>
-                           #end
-                       </tr>
-                      #end
-                      </table>
+                        #foreach($row in $step.getRows())
+                        <tr>
+                            #foreach($cell in $row.getCells())
+                                <td>$esc.html($cell)</td>
+                            #end
+                        </tr>
+                        #end
+                        </table>
                         </div>
                     #end
                     <div class="output-data">
@@ -83,7 +83,6 @@
                     </div>
                 #end
             #end
-
     </div>
 </div>
 
