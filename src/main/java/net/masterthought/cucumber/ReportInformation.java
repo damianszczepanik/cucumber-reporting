@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Match;
+import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Scenario;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
@@ -54,11 +55,11 @@ public class ReportInformation {
     }
 
     public List<TagObject> getTags() {
-        return new ArrayList<>(this.allTags.values());
+        return new ArrayList<>(allTags.values());
     }
 
     public Map<String, StepObject> getStepObject() {
-        return this.stepObjects;
+        return stepObjects;
     }
 
     public int getTotalScenarios() {
@@ -174,13 +175,11 @@ public class ReportInformation {
             }
 
             for (Scenario scenario : tag.getScenarios()) {
-                if (scenario.hasSteps()) {
-                    Step[] steps = scenario.getSteps();
-                    for (Step step : steps) {
-                        totalTagDuration += step.getDuration();
-                    }
-                    totalTagSteps += steps.length;
+                Step[] steps = scenario.getSteps();
+                for (Step step : steps) {
+                    totalTagDuration += step.getDuration();
                 }
+                totalTagSteps += steps.length;
             }
         }
     }
@@ -200,23 +199,21 @@ public class ReportInformation {
 
     private void processFeatures() {
         for (Feature feature : features) {
-            List<Scenario> scenarioList = new ArrayList<>();
+            List<Scenario> scenarios = new ArrayList<>();
             Scenario[] allFeatureScenarios = feature.getScenarios();
-            this.numberOfScenarios += countNoBackgroundScenarios(allFeatureScenarios);
 
             for (Scenario scenario : allFeatureScenarios) {
                 if (scenario.isScenario()) {
-                    scenarioList.add(scenario);
-                }
-            }
-
-            for (Scenario scenario : allFeatureScenarios) {
-                if (scenario.isScenario()) {
+                    scenarios.add(scenario);
+                    numberOfScenarios++;
                     totalBackgroundSteps.incrementFor(scenario.getStatus());
                 } else {
                     updateBackgroundInfo(scenario);
                 }
-                addScenarioTagsToTagMap(scenario.getTags(), scenarioList);
+            }
+
+            for (Scenario scenario : allFeatureScenarios) {
+                addScenarioTagsToTagMap(scenario.getTags(), scenarios);
 
                 updateStepsForScenario(scenario);
             }
@@ -250,8 +247,9 @@ public class ReportInformation {
                 stepObject = new StepObject(methodName);
             }
             // happens that report is not valid - does not contain information about result
-            if (step.getResult() != null) {
-                stepObject.addDuration(step.getResult().getDuration(), step.getResult().getStatus());
+            Result result = step.getResult();
+            if (result != null) {
+                stepObject.addDuration(result.getDuration(), result.getStatus());
             } else {
                 // when result is not available it means that something really went wrong (report is incomplete)
                 // and for this case FAILED status is used to avoid problems during parsing
@@ -273,7 +271,6 @@ public class ReportInformation {
             backgroundInfo.incrTotalDurationBy(step.getDuration());
             backgroundInfo.incrStepCounterForStatus(step.getStatus());
         }
-
     }
 
     private void updateStepsForScenario(Scenario scenario) {
@@ -285,25 +282,6 @@ public class ReportInformation {
         }
     }
 
-    private int countNoBackgroundScenarios(Scenario[] scenarios) {
-        int counter = 0;
-        for (Scenario scenario : scenarios) {
-            if (scenario.isScenario()) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    private void addScenarioUnlessExists(TagObject tagObject, Scenario scenarioToAdd) {
-        for (Scenario scenarioTag : tagObject.getScenarios()) {
-            if (scenarioTag.getId().equals(scenarioToAdd.getId()) && scenarioTag.equals(scenarioToAdd)) {
-                return;
-            }
-        }
-        tagObject.addScenarios(scenarioToAdd);
-    }
-
     private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<Scenario> scenariosWithoutBackground) {
         for (Tag tag : scenarioTagsAllScenarios) {
             TagObject tagObject = addTagObject(tag.getName());
@@ -311,7 +289,7 @@ public class ReportInformation {
             for (Scenario scenario : scenariosWithoutBackground) {
                 for (Tag tag2 : scenario.getTags()) {
                     if (tag2.getName().equals(tag.getName())) {
-                        addScenarioUnlessExists(tagObject, scenario);
+                        tagObject.addScenarios(scenario);
                         break;
                     }
                 }

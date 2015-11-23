@@ -42,8 +42,12 @@ public class TagObject {
     }
 
     public void addScenarios(Scenario scenario) {
-        scenarios.add(scenario);
+        boolean added = scenarios.contains(scenario);
+        if (added) {
+            return;
+        }
 
+        scenarios.add(scenario);
         if (status != Status.FAILED && scenario.getStatus() != Status.PASSED) {
             status = Status.FAILED;
         }

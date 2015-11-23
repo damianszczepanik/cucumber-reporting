@@ -124,7 +124,7 @@ public class Scenario {
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return id != null ? id.hashCode() : super.hashCode();
     }
 
     @Override
@@ -140,7 +140,7 @@ public class Scenario {
         }
         Scenario other = (Scenario) obj;
 
-        return id != null ? id.equals(other.id) : (other.id == null);
+        return id != null ? id.equals(other.id) : super.equals(obj);
     }
 
     public void setMedaData(Feature feature) {

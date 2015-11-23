@@ -63,11 +63,7 @@ public class Step implements ResultsWithMatch {
     }
 
     public long getDuration() {
-        if (result == null) {
-            return 0L;
-        } else {
-            return result.getDuration();
-        }
+        return result == null ? 0L : result.getDuration();
     }
 
     public String getRawName() {
