@@ -12,7 +12,6 @@ import com.google.gson.annotations.SerializedName;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
-import net.masterthought.cucumber.json.support.StepResults;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature {
@@ -32,11 +31,13 @@ public class Feature {
     private String jsonFile;
     private String reportFileName;
     private String deviceName;
-    private StepResults stepResults;
     private final List<Scenario> passedScenarios = new ArrayList<>();
     private final List<Scenario> failedScenarios = new ArrayList<>();
     private Status featureStatus;
     private int scenariosCount;
+    private StatusCounter statusCounter;
+    private long totalDuration;
+    private int totalSteps;
 
     public String getDeviceName() {
         return deviceName;
@@ -97,35 +98,35 @@ public class Feature {
     }
 
     public int getNumberOfSteps() {
-        return stepResults.getNumberOfSteps();
+        return totalSteps;
     }
 
     public int getNumberOfPasses() {
-        return stepResults.getNumberOfPasses();
+        return statusCounter.getValueFor(Status.PASSED);
     }
 
     public int getNumberOfFailures() {
-        return stepResults.getNumberOfFailures();
+        return statusCounter.getValueFor(Status.FAILED);
     }
 
     public int getNumberOfPending() {
-        return stepResults.getNumberOfPending();
+        return statusCounter.getValueFor(Status.PENDING);
     }
 
     public int getNumberOfSkipped() {
-        return stepResults.getNumberOfSkipped();
+        return statusCounter.getValueFor(Status.SKIPPED);
     }
 
     public int getNumberOfMissing() {
-        return stepResults.getNumberOfMissing();
+        return statusCounter.getValueFor(Status.MISSING);
     }
 
     public int getNumberOfUndefined() {
-        return stepResults.getNumberOfUndefined();
+        return statusCounter.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDuration() {
-        return stepResults.getTotalDurationAsString();
+        return Util.formatDuration(totalDuration);
     }
 
     public int getNumberOfScenariosPassed() {
@@ -192,10 +193,8 @@ public class Feature {
         }
     }
 
-    public void calculateSteps() {
-        List<Step> allSteps = new ArrayList<>();
-        StatusCounter stepsCounter = new StatusCounter();
-        long totalDuration = 0L;
+    private void calculateSteps() {
+        statusCounter = new StatusCounter();
 
         for (Scenario scenario : scenarios) {
             if (scenario.isScenario()) {
@@ -205,14 +204,13 @@ public class Feature {
                     failedScenarios.add(scenario);
                 }
             }
+            totalSteps += scenario.getSteps().length;
 
             for (Step step : scenario.getSteps()) {
-                allSteps.add(step);
-                stepsCounter.incrementFor(step.getStatus());
+                statusCounter.incrementFor(step.getStatus());
                 totalDuration += step.getDuration();
             }
         }
-
-        stepResults = new StepResults(allSteps, stepsCounter, totalDuration);
     }
+
 }
