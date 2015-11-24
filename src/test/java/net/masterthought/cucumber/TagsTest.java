@@ -25,7 +25,6 @@ public class TagsTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/tags.json"));
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         reportInformation = new ReportInformation(features);
-
     }
 
     @Test
@@ -104,8 +103,4 @@ public class TagsTest {
         assertThat(firstScenario.getRawName(), is("scenario1 for tag2"));
         assertThat(secondScenario.getRawName(), is("scenario2 for tag2"));
     }
-
-
 }
-
-
