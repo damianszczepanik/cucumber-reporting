@@ -26,7 +26,7 @@ public class ReportInformation {
     private final Map<String, StepObject> stepObjects = new HashMap<>();
     private List<Feature> features;
 
-    private int numberOfScenarios;
+    private int totalScenarios;
     private int numberOfSteps;
     private final StatusCounter allStatuses = new StatusCounter();
     private final StatusCounter totalBackgroundSteps = new StatusCounter();
@@ -63,7 +63,7 @@ public class ReportInformation {
     }
 
     public int getTotalScenarios() {
-        return numberOfScenarios;
+        return totalScenarios;
     }
 
     public int getTotalFeatures() {
@@ -199,19 +199,20 @@ public class ReportInformation {
 
     private void processFeatures() {
         for (Feature feature : features) {
-            List<Scenario> scenarios = new ArrayList<>();
-            Scenario[] allFeatureScenarios = feature.getScenarios();
 
-            for (Scenario scenario : allFeatureScenarios) {
+            for (Scenario scenario : feature.getScenarios()) {
                 if (scenario.isScenario()) {
-                    scenarios.add(scenario);
-                    numberOfScenarios++;
+                    totalScenarios++;
                     totalBackgroundSteps.incrementFor(scenario.getStatus());
                 } else {
                     updateBackgroundInfo(scenario);
                 }
 
-                addScenarioTagsToTagMap(scenario.getTags(), scenarios);
+                for (Tag tag : scenario.getTags()) {
+                    TagObject tagObject = addTagObject(tag.getName());
+                    tagObject.addScenarios(scenario);
+                }
+
                 updateStepsForScenario(scenario);
             }
         }
@@ -276,21 +277,6 @@ public class ReportInformation {
         for (Step step : steps) {
             allStatuses.incrementFor(step.getStatus());
             totalDuration += step.getDuration();
-        }
-    }
-
-    private void addScenarioTagsToTagMap(Tag[] scenarioTagsAllScenarios, List<Scenario> scenariosWithoutBackground) {
-        for (Tag tag : scenarioTagsAllScenarios) {
-            TagObject tagObject = addTagObject(tag.getName());
-
-            for (Scenario scenario : scenariosWithoutBackground) {
-                for (Tag tag2 : scenario.getTags()) {
-                    if (tag2.equals(tag)) {
-                        tagObject.addScenarios(scenario);
-                        break;
-                    }
-                }
-            }
         }
     }
 
