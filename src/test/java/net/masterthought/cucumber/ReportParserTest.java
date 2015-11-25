@@ -32,18 +32,6 @@ public class ReportParserTest {
     }
 
     @Test
-    public void shouldIgnoreEmptyJsonFiles() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(withEmptyJsonReport());
-        assertThat(features.size(), is(2));
-    }
-
-    @Test
-    public void shouldIgnoreJsonFilesThatAreNotCucumberReports() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(withNonCucumberJson());
-        assertThat(features.size(), is(2));
-    }
-
-    @Test
     public void shouldProcessCucumberReportsWithNoSteps() throws IOException {
         List<Feature> features = new ReportParser().parseJsonResults(withNoStepsInJsonReport());
         assertThat(features.size(), is(4));
@@ -69,20 +57,6 @@ public class ReportParserTest {
         List<String> jsonReports = new ArrayList<>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project2.json"));
-        return jsonReports;
-    }
-
-    private List<String> withEmptyJsonReport() {
-        List<String> jsonReports = new ArrayList<>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/empty.json"));
-        return jsonReports;
-    }
-
-    private List<String> withNonCucumberJson() {
-        List<String> jsonReports = new ArrayList<>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/somethingelse.json"));
         return jsonReports;
     }
 

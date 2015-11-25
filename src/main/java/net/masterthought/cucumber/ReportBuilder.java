@@ -131,9 +131,8 @@ public class ReportBuilder {
             configuration.setMissingFailsBuild(missingFails);
 
             // whatever happens we want to provide at least error page instead of empty report
-        } catch (Exception exception) {
-            generateErrorPage(exception);
-            exception.printStackTrace();
+        } catch (Exception e) {
+            generateErrorPage(e);
         }
     }
 
@@ -159,8 +158,8 @@ public class ReportBuilder {
             new TagOverviewPage(this).generatePage();
             new StepOverviewPage(this).generatePage();
             // whatever happens we want to provide at least error page instead of empty report
-        } catch (Exception exception) {
-            generateErrorPage(exception);
+        } catch (Exception e) {
+            generateErrorPage(e);
         }
     }
 
@@ -178,8 +177,8 @@ public class ReportBuilder {
     }
 
     private void generateErrorPage(Exception exception) throws IOException {
+        exception.printStackTrace();
         ErrorPage errorPage = new ErrorPage(this, exception);
         errorPage.generatePage();
-        System.err.println(exception);
     }
 }
