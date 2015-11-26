@@ -2,11 +2,10 @@ package net.masterthought.cucumber.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.joda.time.Period;
@@ -39,7 +38,7 @@ public class Util {
             .toFormatter();
 
     public static String readFileAsString(String filePath) throws IOException {
-    	return new String(Files.readAllBytes(Paths.get(filePath)));
+        return FileUtils.readFileToString(new File(filePath));
     }
 
     public static String passed(boolean value) {

@@ -1,42 +1,36 @@
 package net.masterthought.cucumber;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.MalformedJsonException;
 
 import net.masterthought.cucumber.json.Feature;
 
 public class ReportParser {
 
-    public List<Feature> parseJsonResults(List<String> jsonReportFiles)
-            throws IOException, JsonSyntaxException {
+    public List<Feature> parseJsonResults(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
         List<Feature> featureResults = new ArrayList<>();
         Gson gson = new Gson();
-        for (String jsonFile : jsonReportFiles) {
-            if (FileUtils.sizeOf(new File(jsonFile)) > 0) {
-                try {
-                    try (FileReader reader = new FileReader(jsonFile)) {
-                        Feature[] features = gson.fromJson(reader, Feature[].class);
-                        setMetadata(features, jsonFile);
 
-                        featureResults.addAll(Arrays.asList(features));
-                    }
-                } catch (JsonSyntaxException e) {
-                    System.err.println("[ERROR] File " + jsonFile + " is not a valid json report:  " + e.getMessage());
-                    if (e.getCause() instanceof MalformedJsonException) {
-                        // malformed json will be handled otherwise silently skip invalid cucumber json report
-                        throw e;
-                    }
+        for (String jsonFile : jsonReportFiles) {
+            try (InputStream in = new FileInputStream(jsonFile);
+                    Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+                Feature[] features = gson.fromJson(reader, Feature[].class);
+                if (features == null) {
+                    throw new IllegalArgumentException(String.format("File '%s' does not contan features!", jsonFile));
                 }
+                setMetadata(features, jsonFile);
+
+                featureResults.addAll(Arrays.asList(features));
             }
         }
 
