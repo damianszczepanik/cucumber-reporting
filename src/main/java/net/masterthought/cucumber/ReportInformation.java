@@ -36,10 +36,9 @@ public class ReportInformation {
     private int totalTagScenarios;
     private int totalTagSteps;
     private final StatusCounter tagStatusCounter = new StatusCounter();
+    private final StatusCounter scenarioStatusCounter = new StatusCounter();
 
     private long totalTagDuration;
-    private int totalPassingTagScenarios;
-    private int totalFailingTagScenarios;
     private Background backgroundInfo = new Background();
 
     public ReportInformation(List<Feature> features) {
@@ -47,7 +46,6 @@ public class ReportInformation {
 
         processFeatures();
         processTags();
-        processSteps();
     }
 
     public List<Feature> getFeatures() {
@@ -115,11 +113,11 @@ public class ReportInformation {
     }
 
     public int getTotalTagScenariosPassed() {
-        return totalPassingTagScenarios;
+        return scenarioStatusCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalTagScenariosFailed() {
-        return totalFailingTagScenarios;
+        return scenarioStatusCounter.getValueFor(Status.FAILED);
     }
 
     public int getTotalTagSteps() {
@@ -168,10 +166,9 @@ public class ReportInformation {
 
     private void processTags() {
         for (TagObject tag : allTags.values()) {
-            countTagScenarios(tag);
 
             for (Status status : Status.values()) {
-                this.tagStatusCounter.incrementFor(status, tag.getNumberOfStatus(status));
+                tagStatusCounter.incrementFor(status, tag.getNumberOfStatus(status));
             }
 
             for (Scenario scenario : tag.getScenarios()) {
@@ -180,18 +177,10 @@ public class ReportInformation {
                     totalTagDuration += step.getDuration();
                 }
                 totalTagSteps += steps.length;
-            }
-        }
-    }
 
-    private void countTagScenarios(TagObject tag) {
-        for (Scenario scenario : tag.getScenarios()) {
-            if (scenario.isScenario()) {
-                this.totalTagScenarios++;
-                if (scenario.getStatus() == Status.PASSED) {
-                    this.totalPassingTagScenarios++;
-                } else if (scenario.getStatus() == Status.FAILED) {
-                    this.totalFailingTagScenarios++;
+                if (scenario.isScenario()) {
+                    totalTagScenarios++;
+                    scenarioStatusCounter.incrementFor(scenario.getStatus());
                 }
             }
         }
@@ -214,14 +203,7 @@ public class ReportInformation {
                 }
 
                 updateStepsForScenario(scenario);
-            }
-        }
-    }
 
-    private void processSteps() {
-        for (Feature feature : features) {
-            Scenario[] scenarios = feature.getScenarios();
-            for (Scenario scenario : scenarios) {
                 countSteps(scenario.getBefore());
                 countSteps(scenario.getAfter());
 
