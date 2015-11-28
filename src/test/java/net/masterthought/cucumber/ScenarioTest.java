@@ -59,6 +59,14 @@ public class ScenarioTest {
     }
 
     @Test
+    public void shouldReturnId() {
+        assertThat(passingElement.getId(), is((String) null));
+        assertThat(failingElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;1"));
+        assertThat(undefinedElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;2"));
+        assertThat(skippedElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;3"));
+    }
+
+    @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
         ConfigurationOptions configuration = ConfigurationOptions.instance();
         configuration.setSkippedFailsBuild(true);
