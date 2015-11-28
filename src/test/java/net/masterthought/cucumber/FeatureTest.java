@@ -127,7 +127,7 @@ public class FeatureTest {
 
     @Test
     public void shouldGetNumberOScenarios() {
-        assertThat(passingFeature.getNumberOfScenarios(), is(4));
+        assertThat(passingFeature.getNumberOfScenarios(), is(8));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class FeatureTest {
 
     @Test
     public void shouldGetNumberOfPassingScenarios() {
-        assertThat(passingFeature.getNumberOfScenariosPassed(), is(4));
+        assertThat(passingFeature.getNumberOfScenariosPassed(), is(8));
     }
 
     @Test

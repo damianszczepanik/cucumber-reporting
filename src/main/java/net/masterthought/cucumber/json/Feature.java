@@ -34,7 +34,6 @@ public class Feature {
     private final List<Scenario> passedScenarios = new ArrayList<>();
     private final List<Scenario> failedScenarios = new ArrayList<>();
     private Status featureStatus;
-    private int scenariosCount;
     private StatusCounter statusCounter;
     private long totalDuration;
     private int totalSteps;
@@ -94,7 +93,7 @@ public class Feature {
     }
 
     public int getNumberOfScenarios() {
-        return scenariosCount;
+        return scenarios.length;
     }
 
     public int getNumberOfSteps() {
@@ -148,7 +147,6 @@ public class Feature {
         setDeviceName();
         setReportFileName();
         calculateFeatureStatus();
-        calculateScenarioCount();
 
         calculateSteps();
     }
@@ -185,25 +183,16 @@ public class Feature {
         featureStatus = Status.PASSED;
     }
 
-    private void calculateScenarioCount() {
-        for (Scenario element : scenarios) {
-            if (element.isScenario()) {
-                scenariosCount++;
-            }
-        }
-    }
-
     private void calculateSteps() {
         statusCounter = new StatusCounter();
 
         for (Scenario scenario : scenarios) {
-            if (scenario.isScenario()) {
-                if (scenario.getStatus() == Status.PASSED) {
-                    passedScenarios.add(scenario);
-                } else if (scenario.getStatus() == Status.FAILED) {
-                    failedScenarios.add(scenario);
-                }
+            if (scenario.getStatus() == Status.PASSED) {
+                passedScenarios.add(scenario);
+            } else if (scenario.getStatus() == Status.FAILED) {
+                failedScenarios.add(scenario);
             }
+
             totalSteps += scenario.getSteps().length;
 
             for (Step step : scenario.getSteps()) {

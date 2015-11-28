@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +47,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportInformation.getTotalScenarios(), is(10));
+        assertThat(reportInformation.getTotalScenarios(), is(18));
     }
 
     @Test
@@ -138,7 +137,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(140));
+        assertThat(reportInformation.getTotalTagPasses(), is(20));
     }
 
     @Test
@@ -163,7 +162,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalScenariosPassed() {
-        assertThat(reportInformation.getTotalScenariosPassed(), is(8));
+        assertThat(reportInformation.getTotalScenariosPassed(), is(16));
     }
 
     @Test
