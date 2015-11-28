@@ -48,10 +48,8 @@ public class TagObject {
             status = Status.FAILED;
         }
 
-        if (scenario.isScenario()) {
-            scenarioCounter++;
-            scenariosStatusCounter.incrementFor(scenario.getStatus());
-        }
+        scenarioCounter++;
+        scenariosStatusCounter.incrementFor(scenario.getStatus());
 
         for (Step step : scenario.getSteps()) {
             stepsStatusCounter.incrementFor(step.getStatus());

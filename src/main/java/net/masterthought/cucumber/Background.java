@@ -10,6 +10,7 @@ import net.masterthought.cucumber.util.Util;
  * Created by JALASOFT\paolo^lizarazu on 09-01-14.
  */
 public class Background {
+
     private final Map<Status, Integer> stepsCounter = new HashMap<>();
 
     private int totalScenarios;
@@ -80,13 +81,13 @@ public class Background {
         return getTotalStepsForStatus(Status.PENDING);
     }
 
-    public void incrStepCounterForStatus(Status status) {
+    public void incrStepCounterFor(Status status) {
         Integer counter = this.stepsCounter.get(status);
         counter++;
         this.stepsCounter.put(status, counter);
     }
 
-    public int getTotalStepsForStatus(Status status) {
+    private int getTotalStepsForStatus(Status status) {
         return stepsCounter.get(status);
     }
 

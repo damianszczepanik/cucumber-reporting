@@ -24,7 +24,7 @@ import net.masterthought.cucumber.util.Util;
 public class ReportInformation {
 
     private final Map<String, StepObject> stepObjects = new HashMap<>();
-    private List<Feature> features;
+    private final List<Feature> features;
 
     private int totalScenarios;
     private int numberOfSteps;
@@ -45,7 +45,6 @@ public class ReportInformation {
         this.features = features;
 
         processFeatures();
-        processTags();
     }
 
     public List<Feature> getFeatures() {
@@ -164,42 +163,35 @@ public class ReportInformation {
         return this.totalBackgroundSteps.getValueFor(Status.FAILED);
     }
 
-    private void processTags() {
-        for (TagObject tag : allTags.values()) {
+    private void processTag(TagObject tag, Scenario scenario) {
+        tag.addScenarios(scenario);
+        tagStatusCounter.incrementFor(tag.getStatus());
 
-            for (Status status : Status.values()) {
-                tagStatusCounter.incrementFor(status, tag.getNumberOfStatus(status));
-            }
-
-            for (Scenario scenario : tag.getScenarios()) {
-                Step[] steps = scenario.getSteps();
-                for (Step step : steps) {
-                    totalTagDuration += step.getDuration();
-                }
-                totalTagSteps += steps.length;
-
-                if (scenario.isScenario()) {
-                    totalTagScenarios++;
-                    scenarioStatusCounter.incrementFor(scenario.getStatus());
-                }
-            }
+        Step[] steps = scenario.getSteps();
+        for (Step step : steps) {
+            totalTagDuration += step.getDuration();
         }
+        totalTagSteps += steps.length;
+
+        totalTagScenarios++;
     }
 
     private void processFeatures() {
         for (Feature feature : features) {
 
             for (Scenario scenario : feature.getScenarios()) {
-                if (scenario.isScenario()) {
-                    totalScenarios++;
-                    totalBackgroundSteps.incrementFor(scenario.getStatus());
-                } else {
+                totalScenarios++;
+                totalBackgroundSteps.incrementFor(scenario.getStatus());
+
+                if (scenario.isBackground()) {
                     updateBackgroundInfo(scenario);
                 }
 
                 for (Tag tag : scenario.getTags()) {
+                    scenarioStatusCounter.incrementFor(scenario.getStatus());
+
                     TagObject tagObject = addTagObject(tag.getName());
-                    tagObject.addScenarios(scenario);
+                    processTag(tagObject, scenario);
                 }
 
                 updateStepsForScenario(scenario);
@@ -235,7 +227,7 @@ public class ReportInformation {
                 // and for this case FAILED status is used to avoid problems during parsing
                 stepObject.addDuration(0, Status.FAILED.name());
             }
-            this.stepObjects.put(methodName, stepObject);
+            stepObjects.put(methodName, stepObject);
         }
     }
 
@@ -246,10 +238,11 @@ public class ReportInformation {
         } else {
             backgroundInfo.incFailedScenarios();
         }
+
         backgroundInfo.addTotalSteps(scenario.getSteps().length);
         for (Step step : scenario.getSteps()) {
             backgroundInfo.incrTotalDurationBy(step.getDuration());
-            backgroundInfo.incrStepCounterForStatus(step.getStatus());
+            backgroundInfo.incrStepCounterFor(step.getStatus());
         }
     }
 

@@ -766,7 +766,7 @@
         "line":1,
         "elements":[
             {
-                "id":"account-holder-withdraws-more-cash;account-has-sufficient-funds;;2",
+                "id":"account-holder-withdraws-more-cash;account-has-sufficient-funds;;1",
                 "description":"",
                 "name":"Account has sufficient funds",
                 "keyword":"Scenario Outline",
@@ -1086,7 +1086,7 @@
         "line":1,
         "elements":[
             {
-                "id":"account-holder-withdraws-more-cash;account-has-sufficient-funds;;2",
+                "id":"account-holder-withdraws-more-cash;account-has-sufficient-funds;;3",
                 "description":"",
                 "name":"Account has sufficient funds",
                 "keyword":"Scenario Outline",
