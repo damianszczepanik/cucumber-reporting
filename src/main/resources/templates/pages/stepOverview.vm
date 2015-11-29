@@ -4,11 +4,8 @@
 <title>Cucumber-JVM Html Reports - Step Overview</title>
 
 #include("/templates/headers.html")
-
+#include("/templates/datatables.vm")
 #include("/styles/reporting.css")
-
-
-#include("/templates/tableSorter.vm")
 
 </head>
 <body id="top">
@@ -52,7 +49,7 @@
                 </tr>
             #end
             </tbody>
-
+            <tfoot>
                 <!--  add row to adjust num of steps -->
                 <tr>
                     <th style="background-color:lightgray">all steps</th>
@@ -61,7 +58,11 @@
                     <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_formatted_durations</th>
                     <th style="background-color:lightgray;">Totals</th>
                 </tr>
+            </tfoot>
             </table>
+            <script type="text/javascript" language="JavaScript">
+                addDataTable($(".stats-table"), location.search)
+            </script>
         </div>
 
     </div>

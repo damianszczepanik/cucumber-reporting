@@ -4,8 +4,8 @@
 <title>Cucumber-JVM Html Reports - Feature Overview</title>
 
 #include("/templates/headers.html")
+#include("/templates/datatables.vm")
 
-#include("/templates/tableSorter.vm")
 #if($flashCharts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
@@ -28,7 +28,7 @@
     #end
 #end
 
-#include("/styles/reporting.css")                        
+#include("/styles/reporting.css")
 
 </head>
 <body id="top">
@@ -372,24 +372,31 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
           </tr>
       #end
       </tbody>
-<tr>
-<th id="stats-total-features" style="background-color:lightgray">$total_features</th>
-#if($parallel)
-  <th id="stats-total-features" style="background-color:lightgray">-</th>
-#end
-<th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
-<th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
-<th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
-<th id="stats-total-steps" style="background-color:lightgray">$total_steps</th>
-<th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
-<th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
-<th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>
-<th id="stats-total-steps-pending" style="background-color:lightgray">$total_pending</th>
-<th id="stats-total-steps-undefined" style="background-color:lightgray">$total_undefined</th>
-<th id="stats-total-steps-missing" style="background-color:lightgray">$total_missing</th>
-<th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
-<th id="stats-total-totals" style="background-color:lightgray">Totals</th>
-</tr></table>
+
+      <tfoot>
+        <tr>
+            <th id="stats-total-features" style="background-color:lightgray">$total_features</th>
+            #if($parallel)
+                <th id="stats-total-features" style="background-color:lightgray">-</th>
+            #end
+            <th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
+            <th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
+            <th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
+            <th id="stats-total-steps" style="background-color:lightgray">$total_steps</th>
+            <th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
+            <th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
+            <th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>
+            <th id="stats-total-steps-pending" style="background-color:lightgray">$total_pending</th>
+            <th id="stats-total-steps-undefined" style="background-color:lightgray">$total_undefined</th>
+            <th id="stats-total-steps-missing" style="background-color:lightgray">$total_missing</th>
+            <th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+            <th id="stats-total-totals" style="background-color:lightgray">Totals</th>
+        </tr>
+      </tfoot>
+  </table>
+        <script type="text/javascript" language="JavaScript">
+            addDataTable($(".stats-table"), location.search)
+        </script>
     </div>
 
     </div>

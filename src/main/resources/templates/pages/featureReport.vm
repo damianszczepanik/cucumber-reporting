@@ -29,6 +29,7 @@
                     
                     #set($sf = $feature.getRawName())
 
+                    <tbody>
                     <tr>
                         <td><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
                         #if($parallel)
@@ -46,6 +47,7 @@
                         <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   style="background-color:#FBB9A7;" #end>$feature.getNumberOfMissing()</td>
                         <td id="stats-duration-$sf" style="text-align:right;white-space:nowrap">$feature.getTotalDuration()</td>
                         <td id="stats-status-$sf" style="background-color: $report_status_colour;">$feature.getRawStatus()</td></tr>
+                    </tbody>
 
                 </table>
 
