@@ -19,7 +19,6 @@ public class FeatureOverviewPage extends AbstractPage {
 
         contextMap.put("features", reportInformation.getFeatures());
         contextMap.put("parallel", ReportBuilder.isParallel());
-        contextMap.put("total_features", reportInformation.getTotalFeatures());
 
         contextMap.put("total_steps", reportInformation.getTotalSteps());
         contextMap.put("total_passes", reportInformation.getTotalStepsPassed());
@@ -53,8 +52,8 @@ public class FeatureOverviewPage extends AbstractPage {
             contextMap.put("scenario_data", scenarioColours);
         }
         contextMap.put("total_duration", reportInformation.getTotalDurationAsString());
-        contextMap.put("flashCharts", reportBuilder.isFlashCharts());
-        contextMap.put("highCharts", reportBuilder.isHighCharts());
+        contextMap.put("flash_charts", reportBuilder.isFlashCharts());
+        contextMap.put("high_charts", reportBuilder.isHighCharts());
 
         super.generateReport("feature-overview.html");
     }

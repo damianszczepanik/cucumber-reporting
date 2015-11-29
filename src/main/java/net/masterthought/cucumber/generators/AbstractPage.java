@@ -78,7 +78,7 @@ public abstract class AbstractPage {
 
     protected Map<String, Object> getGeneralParameters() {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("fromJenkins", this.reportBuilder.isRunWithJenkins());
+        result.put("jenkins_source", this.reportBuilder.isRunWithJenkins());
         result.put("jenkins_base", this.reportBuilder.getPluginUrlPath());
         result.put("build_project", this.reportBuilder.getBuildProject());
         result.put("build_number", this.reportBuilder.getBuildNumber());
@@ -89,7 +89,7 @@ public abstract class AbstractPage {
         } catch (NumberFormatException e) {
             // could not parse build number, probably not valid int value
         }
-        result.put("previous_build_number", previousBuildNumber);
+        result.put("build_previous_number", previousBuildNumber);
 
         return result;
     }

@@ -21,7 +21,7 @@
 			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
 			<div class="grid_6" id="nav">
 				<ul>
-                    #if($fromJenkins)
+                    #if($jenkins_source)
                         <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
                     #end
 				</ul>

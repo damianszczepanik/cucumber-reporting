@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -40,8 +41,9 @@ public class StepOverviewPage extends AbstractPage {
     }
 
     private StepObject[] sortStepsByDate() {
-        StepObject[] array = new StepObject[reportInformation.getStepObject().size()];
-        Arrays.sort(reportInformation.getStepObject().values().toArray(array), new DurationCompator());
+        Map<String, StepObject> steps = reportInformation.getStepObject();
+        StepObject[] array = new StepObject[steps.size()];
+        Arrays.sort(steps.values().toArray(array), new DurationCompator());
 
         return array;
     }

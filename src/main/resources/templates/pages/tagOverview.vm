@@ -6,7 +6,7 @@
 #include("/templates/headers.html")
 
 #include("/templates/tableSorter.vm")
-#if($flashCharts)
+#if($flash_charts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
     <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
@@ -18,7 +18,7 @@
         -->
     </script>
 #else
-    #if ($highCharts)
+    #if ($high_charts)
         <script src="js/highcharts.js"></script>
         <script>
             jQuery(document).ready(function() {
@@ -192,7 +192,7 @@
             <div><p>You have no tags in your cucumber features</p></div>
         #else
 
-            #if($flashCharts)
+            #if($flash_charts)
         <div style="text-align:center;"><script language="JavaScript" type="text/javascript">
             <!--
             if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
@@ -236,7 +236,7 @@
         </div>
             #else
                 <div>
-                    #if ($highCharts)
+                    #if ($high_charts)
                     <div style="background-color: #E6FCFF;width:800px;height:450px;border: 1px solid gray;" >
                         <div id='stacked-graph' class='graph' style='width:800px; height: 400px; margin-left: auto; margin-right: auto;'></div>
                     </div>

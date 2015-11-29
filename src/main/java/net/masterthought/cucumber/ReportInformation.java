@@ -36,7 +36,7 @@ public class ReportInformation {
     private final StatusCounter tagStatusCounter = new StatusCounter();
     private final StatusCounter tagCounter = new StatusCounter();
     private final StatusCounter scenarioCounter = new StatusCounter();
-    private final StatusCounter statusCounter = new StatusCounter();
+    private final StatusCounter stepStatusCounter = new StatusCounter();
 
     private Background backgroundInfo = new Background();
 
@@ -62,36 +62,32 @@ public class ReportInformation {
         return scenarioCounter.size();
     }
 
-    public int getTotalFeatures() {
-        return features.size();
-    }
-
     public int getTotalSteps() {
-        return statusCounter.size();
+        return stepStatusCounter.size();
     }
 
     public int getTotalStepsPassed() {
-        return statusCounter.getValueFor(Status.PASSED);
+        return stepStatusCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalStepsFailed() {
-        return statusCounter.getValueFor(Status.FAILED);
+        return stepStatusCounter.getValueFor(Status.FAILED);
     }
 
     public int getTotalStepsSkipped() {
-        return statusCounter.getValueFor(Status.SKIPPED);
+        return stepStatusCounter.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalStepsPending() {
-        return statusCounter.getValueFor(Status.PENDING);
+        return stepStatusCounter.getValueFor(Status.PENDING);
     }
 
     public int getTotalStepsMissing() {
-        return statusCounter.getValueFor(Status.MISSING);
+        return stepStatusCounter.getValueFor(Status.MISSING);
     }
 
     public int getTotalStepsUndefined() {
-        return statusCounter.getValueFor(Status.UNDEFINED);
+        return stepStatusCounter.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDurationAsString() {
@@ -188,7 +184,7 @@ public class ReportInformation {
 
                 Step[] steps = scenario.getSteps();
                 for (Step step : steps) {
-                    statusCounter.incrementFor(step.getStatus());
+                    stepStatusCounter.incrementFor(step.getStatus());
                     totalDuration += step.getDuration();
                 }
                 countSteps(steps);

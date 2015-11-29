@@ -6,7 +6,7 @@
 #include("/templates/headers.html")
 
 #include("/templates/tableSorter.vm")
-#if($flashCharts)
+#if($flash_charts)
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script language="javascript"> DetectFlashVer = 0; </script>
     <script src="charts/AC_RunActiveContent.js" language="javascript"></script>
@@ -18,7 +18,7 @@
     -->
     </script>
 #else
-    #if ($highCharts)
+    #if ($high_charts)
         <script src="js/highcharts.js"></script>
     #else
         <script src="js/raphael.js"></script>
@@ -43,7 +43,7 @@
         <div class="grid_12">
 
 
-#if($flashCharts)
+#if($flash_charts)
      <div id="flash-charts" style="text-align:center;">
 
          <table>
@@ -138,7 +138,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
  </table>
 </div>
 #else
-    #if ($highCharts)
+    #if ($high_charts)
         <script>
             jQuery(document).ready(function() {
                 jQuery('#steps_chart').highcharts({
@@ -373,7 +373,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #end
       </tbody>
 <tr>
-<th id="stats-total-features" style="background-color:lightgray">$total_features</th>
+<th id="stats-total-features" style="background-color:lightgray">$features.size()</th>
 #if($parallel)
   <th id="stats-total-features" style="background-color:lightgray">-</th>
 #end
