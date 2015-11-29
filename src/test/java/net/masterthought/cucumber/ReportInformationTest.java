@@ -2,7 +2,6 @@ package net.masterthought.cucumber;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.isA;
-import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
@@ -156,11 +155,6 @@ public class ReportInformationTest {
     }
 
     @Test
-    public void shouldReturnTotalTagDuration() {
-        assertThat(reportInformation.getTotalTagDuration(), containsString("ms"));
-    }
-
-    @Test
     public void shouldReturnTotalScenariosPassed() {
         assertThat(reportInformation.getTotalScenariosPassed(), is(16));
     }
@@ -169,6 +163,4 @@ public class ReportInformationTest {
     public void shouldReturnTotalScenariosFailed() {
         assertThat(reportInformation.getTotalScenariosFailed(), is(2));
     }
-
-
 }

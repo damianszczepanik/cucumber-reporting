@@ -53,11 +53,6 @@ public class TagsTest {
     }
 
     @Test
-    public void shouldGetTotalTagDuration() {
-        assertThat(reportInformation.getTotalTagDuration(), is("001ms"));
-    }
-
-    @Test
     public void shouldGetTotalTagScenarios() {
         assertThat(reportInformation.getTotalTagScenarios(), is(4));
     }

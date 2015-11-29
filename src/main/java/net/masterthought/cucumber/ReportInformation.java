@@ -23,19 +23,21 @@ import net.masterthought.cucumber.util.Util;
 
 public class ReportInformation {
 
-    private final Map<String, StepObject> stepObjects = new HashMap<>();
     private final List<Feature> features;
 
-    private final StatusCounter atatusCounter = new StatusCounter();
-    private final StatusCounter scenarioCounter = new StatusCounter();
-
     private long totalDuration;
-    private final Map<String, TagObject> allTags = new TreeMap<>();
+    private long totalTagDuration;
+
     private int totalTagSteps;
+
+    private final Map<String, TagObject> allTags = new TreeMap<>();
+    private final Map<String, StepObject> stepObjects = new HashMap<>();
+
     private final StatusCounter tagStatusCounter = new StatusCounter();
     private final StatusCounter tagCounter = new StatusCounter();
+    private final StatusCounter scenarioCounter = new StatusCounter();
+    private final StatusCounter statusCounter = new StatusCounter();
 
-    private long totalTagDuration;
     private Background backgroundInfo = new Background();
 
     public ReportInformation(List<Feature> features) {
@@ -65,31 +67,31 @@ public class ReportInformation {
     }
 
     public int getTotalSteps() {
-        return atatusCounter.size();
+        return statusCounter.size();
     }
 
     public int getTotalStepsPassed() {
-        return atatusCounter.getValueFor(Status.PASSED);
+        return statusCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalStepsFailed() {
-        return atatusCounter.getValueFor(Status.FAILED);
+        return statusCounter.getValueFor(Status.FAILED);
     }
 
     public int getTotalStepsSkipped() {
-        return atatusCounter.getValueFor(Status.SKIPPED);
+        return statusCounter.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalStepsPending() {
-        return atatusCounter.getValueFor(Status.PENDING);
+        return statusCounter.getValueFor(Status.PENDING);
     }
 
     public int getTotalStepsMissing() {
-        return atatusCounter.getValueFor(Status.MISSING);
+        return statusCounter.getValueFor(Status.MISSING);
     }
 
     public int getTotalStepsUndefined() {
-        return atatusCounter.getValueFor(Status.UNDEFINED);
+        return statusCounter.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDurationAsString() {
@@ -144,11 +146,7 @@ public class ReportInformation {
         return tagStatusCounter.getValueFor(Status.MISSING);
     }
 
-    public String getTotalTagDuration() {
-        return Util.formatDuration(totalTagDuration);
-    }
-
-    public long getLongTotalTagDuration() {
+    public long getTotalTagDuration() {
         return totalTagDuration;
     }
 
@@ -190,7 +188,7 @@ public class ReportInformation {
 
                 Step[] steps = scenario.getSteps();
                 for (Step step : steps) {
-                    atatusCounter.incrementFor(step.getStatus());
+                    statusCounter.incrementFor(step.getStatus());
                     totalDuration += step.getDuration();
                 }
                 countSteps(steps);
