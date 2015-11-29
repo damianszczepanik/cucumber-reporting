@@ -19,8 +19,9 @@ public class TagOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        contextMap.put("tags", reportInformation.getTags());
-        contextMap.put("total_tags", reportInformation.getTags().size());
+        List<TagObject> tags = this.reportInformation.getTags();
+        contextMap.put("tags", tags);
+        contextMap.put("total_tags", tags.size());
         contextMap.put("total_scenarios", reportInformation.getTotalTagScenarios());
         contextMap.put("total_passed_scenarios", reportInformation.getTotalTagScenariosPassed());
         contextMap.put("total_failed_scenarios", reportInformation.getTotalTagScenariosFailed());
@@ -35,7 +36,6 @@ public class TagOverviewPage extends AbstractPage {
 
         boolean flashCharts = this.reportBuilder.isFlashCharts();
         boolean highCharts = this.reportBuilder.isHighCharts();
-        List<TagObject> tags = this.reportInformation.getTags();
 
         contextMap.put("backgrounds", reportInformation.getBackgroundInfo());
         if (flashCharts) {
@@ -48,11 +48,11 @@ public class TagOverviewPage extends AbstractPage {
                 contextMap.put("chart_rows", JsChartUtil.generateTagChartData(tags));
             }
         }
-        contextMap.put("total_duration", reportInformation.getTotalTagDuration());
+        contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
         contextMap.put("flashCharts", flashCharts);
         contextMap.put("highCharts", highCharts);
         long durationl = reportInformation.getBackgroundInfo().getTotalDuration()
-                + reportInformation.getLongTotalTagDuration();
+                + reportInformation.getTotalTagDuration();
         String duration = Util.formatDuration(durationl);
         contextMap.put("total_duration", duration);
 
