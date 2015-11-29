@@ -26,20 +26,8 @@ public class StatusCounter {
      *            status for which the counter should be incremented.
      */
     public void incrementFor(Status status) {
-        this.incrementFor(status, 1);
-    }
-
-    /**
-     * Increments status counter.
-     * 
-     * @param status
-     *            status for which the counter should be incremented.
-     * @param incrementBy
-     *            by this value counter will be incremented
-     */
-    public void incrementFor(Status status, int incrementBy) {
         int counter = this.counter.get(status);
-        counter += incrementBy;
+        counter++;
         this.counter.put(status, counter);
     }
 
@@ -48,5 +36,14 @@ public class StatusCounter {
      */
     public int getValueFor(Status status) {
         return this.counter.get(status);
+    }
+
+    /** Sums all occurrences for all statuses. */
+    public int size() {
+        int size = 0;
+        for (Status status : Status.values()) {
+            size += counter.get(status).intValue();
+        }
+        return size;
     }
 }
