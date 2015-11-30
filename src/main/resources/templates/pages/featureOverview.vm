@@ -342,7 +342,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #parse("/templates/tableHeader.vm")
 
       <tbody>
-      #foreach($feature in $features)
+      #foreach($feature in $all_features)
 
           #if($feature.getStatus().name() == "PASSED")
           #set($bgcolour = "#00CE00")
@@ -373,7 +373,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #end
       </tbody>
 <tr>
-<th id="stats-total-features" style="background-color:lightgray">$total_features</th>
+<th id="stats-total-features" style="background-color:lightgray">$all_features.size()</th>
 #if($parallel)
   <th id="stats-total-features" style="background-color:lightgray">-</th>
 #end

@@ -28,7 +28,7 @@ public class StepOverviewPage extends AbstractPage {
 
         int allOccurrences = 0;
         long allDurations = 0;
-        for (StepObject stepObject : reportInformation.getStepObject().values()) {
+        for (StepObject stepObject : reportInformation.getAllSteps().values()) {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getTotalDuration();
         }
@@ -40,8 +40,8 @@ public class StepOverviewPage extends AbstractPage {
     }
 
     private StepObject[] sortStepsByDate() {
-        StepObject[] array = new StepObject[reportInformation.getStepObject().size()];
-        Arrays.sort(reportInformation.getStepObject().values().toArray(array), new DurationCompator());
+        StepObject[] array = new StepObject[reportInformation.getAllSteps().size()];
+        Arrays.sort(reportInformation.getAllSteps().values().toArray(array), new DurationCompator());
 
         return array;
     }

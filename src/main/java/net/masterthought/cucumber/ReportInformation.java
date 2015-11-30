@@ -31,7 +31,7 @@ public class ReportInformation {
     private int totalTagSteps;
 
     private final Map<String, TagObject> allTags = new TreeMap<>();
-    private final Map<String, StepObject> stepObjects = new HashMap<>();
+    private final Map<String, StepObject> allSteps = new HashMap<>();
 
     private final StatusCounter tagStatusCounter = new StatusCounter();
     private final StatusCounter tagCounter = new StatusCounter();
@@ -54,16 +54,12 @@ public class ReportInformation {
         return new ArrayList<>(allTags.values());
     }
 
-    public Map<String, StepObject> getStepObject() {
-        return stepObjects;
+    public Map<String, StepObject> getAllSteps() {
+        return allSteps;
     }
 
     public int getTotalScenarios() {
         return scenarioCounter.size();
-    }
-
-    public int getTotalFeatures() {
-        return features.size();
     }
 
     public int getTotalSteps() {
@@ -208,7 +204,7 @@ public class ReportInformation {
             if (match != null) {
                 methodName = match.getLocation();
             }
-            StepObject stepObject = stepObjects.get(methodName);
+            StepObject stepObject = allSteps.get(methodName);
             // if first occurrence of this location add element to the map
             if (stepObject == null) {
                 stepObject = new StepObject(methodName);
@@ -222,7 +218,7 @@ public class ReportInformation {
                 // and for this case FAILED status is used to avoid problems during parsing
                 stepObject.addDuration(0, Status.FAILED.name());
             }
-            stepObjects.put(methodName, stepObject);
+            allSteps.put(methodName, stepObject);
         }
     }
 

@@ -17,9 +17,8 @@ public class FeatureOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        contextMap.put("features", reportInformation.getFeatures());
+        contextMap.put("all_features", reportInformation.getFeatures());
         contextMap.put("parallel", ReportBuilder.isParallel());
-        contextMap.put("total_features", reportInformation.getTotalFeatures());
 
         contextMap.put("total_steps", reportInformation.getTotalSteps());
         contextMap.put("total_passes", reportInformation.getTotalStepsPassed());
