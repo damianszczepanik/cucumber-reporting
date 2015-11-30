@@ -21,17 +21,7 @@ public class DocString {
         return value;
     }
 
-    public String getContentType() {
-        return content_type;
-    }
-
-    public int getLine() {
-        return line == null ? 0 : line;
-    }
-
-    /**
-     * Returns getValue but escaped for HTML and to preserve whitespace
-     */
+    /** Returns getValue escaped for HTML and to preserve whitespace. */
     public String getEscapedValue() {
         String html = StringEscapeUtils.escapeHtml(this.getValue());
         return html.replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;");

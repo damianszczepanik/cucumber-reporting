@@ -34,7 +34,7 @@ public class Feature {
     private final List<Scenario> passedScenarios = new ArrayList<>();
     private final List<Scenario> failedScenarios = new ArrayList<>();
     private Status featureStatus;
-    private StatusCounter statusCounter;
+    private final StatusCounter statusCounter = new StatusCounter();
     private long totalDuration;
     private int totalSteps;
 
@@ -75,9 +75,13 @@ public class Feature {
     }
 
     public String getName() {
-        return StringUtils.isNotEmpty(name) ? "<div class=\"" + getStatus().getName().toLowerCase() + "\">"
-                + "<div class=\"feature-line\"><span class=\"feature-keyword\">" + keyword + ":</span> " + name
-                + "</div></div>" : "";
+        if (StringUtils.isNotEmpty(name)) {
+            return String.format(
+                    "<div class=\"%s\"><div class=\"feature-line\"><span class=\"feature-keyword\">%s: </span>%s</div></div>",
+                    getStatus().getName().toLowerCase(), keyword, name);
+        } else {
+            return "";
+        }
     }
 
     public String getRawName() {
@@ -184,8 +188,6 @@ public class Feature {
     }
 
     private void calculateSteps() {
-        statusCounter = new StatusCounter();
-
         for (Scenario scenario : scenarios) {
             if (scenario.getStatus() == Status.PASSED) {
                 passedScenarios.add(scenario);
