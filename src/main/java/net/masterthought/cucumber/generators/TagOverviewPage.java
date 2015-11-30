@@ -19,8 +19,8 @@ public class TagOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        List<TagObject> tags = this.reportInformation.getTags();
-        contextMap.put("tags", tags);
+        List<TagObject> tags = reportInformation.getTags();
+        contextMap.put("all_tags", tags);
         contextMap.put("total_scenarios", reportInformation.getTotalTagScenarios());
         contextMap.put("total_passed_scenarios", reportInformation.getTotalTagScenariosPassed());
         contextMap.put("total_failed_scenarios", reportInformation.getTotalTagScenariosFailed());

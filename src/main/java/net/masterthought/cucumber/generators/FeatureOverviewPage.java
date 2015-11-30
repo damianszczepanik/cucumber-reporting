@@ -17,10 +17,10 @@ public class FeatureOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        contextMap.put("features", reportInformation.getFeatures());
+        contextMap.put("all_features", reportInformation.getFeatures());
         contextMap.put("parallel", ReportBuilder.isParallel());
 
-        contextMap.put("total_steps", reportInformation.getTotalSteps());
+        contextMap.put("all_steps", reportInformation.getStepsCounter());
         contextMap.put("total_passes", reportInformation.getTotalStepsPassed());
         contextMap.put("total_fails", reportInformation.getTotalStepsFailed());
         contextMap.put("total_skipped", reportInformation.getTotalStepsSkipped());
@@ -36,10 +36,8 @@ public class FeatureOverviewPage extends AbstractPage {
                     reportInformation.getTotalStepsFailed(), reportInformation.getTotalStepsSkipped(),
                     reportInformation.getTotalStepsPending(), reportInformation.getTotalStepsUndefined(),
                     reportInformation.getTotalStepsMissing()));
-            contextMap.put(
-                    "scenario_data",
-                    FlashChartBuilder.pieScenariosChart(reportInformation.getTotalScenariosPassed(),
-                            reportInformation.getTotalScenariosFailed()));
+            contextMap.put("scenario_data", FlashChartBuilder.pieScenariosChart(
+                    reportInformation.getTotalScenariosPassed(), reportInformation.getTotalScenariosFailed()));
         } else {
             JsChartUtil pie = new JsChartUtil();
             List<String> stepColours = pie.orderStepsByValue(reportInformation.getTotalStepsPassed(),

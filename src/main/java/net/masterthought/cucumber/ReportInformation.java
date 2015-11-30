@@ -27,11 +27,10 @@ public class ReportInformation {
 
     private long totalDuration;
     private long totalTagDuration;
-
     private int totalTagSteps;
 
     private final Map<String, TagObject> allTags = new TreeMap<>();
-    private final Map<String, StepObject> stepObjects = new HashMap<>();
+    private final Map<String, StepObject> allSteps = new HashMap<>();
 
     private final StatusCounter tagStatusCounter = new StatusCounter();
     private final StatusCounter tagCounter = new StatusCounter();
@@ -54,16 +53,16 @@ public class ReportInformation {
         return new ArrayList<>(allTags.values());
     }
 
-    public Map<String, StepObject> getStepObject() {
-        return stepObjects;
+    public Map<String, StepObject> getAllSteps() {
+        return allSteps;
     }
 
     public int getTotalScenarios() {
         return scenarioCounter.size();
     }
 
-    public int getTotalSteps() {
-        return stepStatusCounter.size();
+    public StatusCounter getStepsCounter() {
+        return stepStatusCounter;
     }
 
     public int getTotalStepsPassed() {
@@ -147,22 +146,15 @@ public class ReportInformation {
     }
 
     public int getTotalScenariosPassed() {
-        return this.scenarioCounter.getValueFor(Status.PASSED);
+        return scenarioCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalScenariosFailed() {
-        return this.scenarioCounter.getValueFor(Status.FAILED);
+        return scenarioCounter.getValueFor(Status.FAILED);
     }
 
-    private void processTag(TagObject tag, Scenario scenario) {
-        tag.addScenarios(scenario);
-        tagStatusCounter.incrementFor(tag.getStatus());
-
-        Step[] steps = scenario.getSteps();
-        for (Step step : steps) {
-            totalTagDuration += step.getDuration();
-        }
-        totalTagSteps += steps.length;
+    public Background getBackgroundInfo() {
+        return backgroundInfo;
     }
 
     private void processFeatures() {
@@ -195,6 +187,17 @@ public class ReportInformation {
         }
     }
 
+    private void processTag(TagObject tag, Scenario scenario) {
+        tag.addScenarios(scenario);
+        tagStatusCounter.incrementFor(tag.getStatus());
+
+        Step[] steps = scenario.getSteps();
+        for (Step step : steps) {
+            totalTagDuration += step.getDuration();
+        }
+        totalTagSteps += steps.length;
+    }
+
     private void countSteps(ResultsWithMatch[] steps) {
         for (ResultsWithMatch step : steps) {
 
@@ -204,7 +207,7 @@ public class ReportInformation {
             if (match != null) {
                 methodName = match.getLocation();
             }
-            StepObject stepObject = stepObjects.get(methodName);
+            StepObject stepObject = allSteps.get(methodName);
             // if first occurrence of this location add element to the map
             if (stepObject == null) {
                 stepObject = new StepObject(methodName);
@@ -218,7 +221,7 @@ public class ReportInformation {
                 // and for this case FAILED status is used to avoid problems during parsing
                 stepObject.addDuration(0, Status.FAILED.name());
             }
-            stepObjects.put(methodName, stepObject);
+            allSteps.put(methodName, stepObject);
         }
     }
 
@@ -244,9 +247,5 @@ public class ReportInformation {
             allTags.put(tagObject.getTagName(), tagObject);
         }
         return tagObject;
-    }
-
-    public Background getBackgroundInfo() {
-        return backgroundInfo;
     }
 }

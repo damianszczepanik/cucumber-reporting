@@ -73,12 +73,22 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature:</span> Account Holder withdraws cash & <MyPlace></div></div>"));
+        assertThat(passingFeature.getName(), is("<div class=\"passed\"><div class=\"feature-line\"><span class=\"feature-keyword\">Feature: </span>Account Holder withdraws cash & <MyPlace></div></div>"));
+    }
+
+    @Test
+    public void shouldReturnEmptyName() {
+        assertThat(failingFeature.getName(), is(""));
     }
 
     @Test
     public void shouldReturnRawName() {
         assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash &amp; &lt;MyPlace&gt;"));
+    }
+
+    @Test
+    public void shouldReturnEmptyRawName() {
+        assertThat(failingFeature.getRawName(), is(""));
     }
 
     @Test

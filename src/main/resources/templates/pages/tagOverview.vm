@@ -188,7 +188,7 @@
     <div class="container_12">
         <div class="grid_12">
 
-        #if($tags.isEmpty())
+        #if($all_tags.isEmpty())
             <div><p>You have no tags in your cucumber features</p></div>
         #else
 
@@ -258,7 +258,7 @@
                 #parse("/templates/tableHeader.vm")
 
                 <tbody>
-                #foreach($tag in $tags)
+                #foreach($tag in $all_tags)
 
                     #if($tag.getStatus().name() == "PASSED")
                         #set($bgcolour = "#00CE00")
@@ -286,7 +286,7 @@
 
                 <!--  add row to adjust num of steps -->
                 <tr>
-                    <th style="background-color:lightgray">background steps </th>
+                    <th style="background-color:lightgray">included background</th>
                     <th style="background-color:lightgray;">$backgrounds.getTotalScenarios()</th>
                     <th style="background-color:lightgray;">$backgrounds.getTotalScenariosPassed()</th>
                     <th style="background-color:lightgray;">$backgrounds.getTotalScenariosFailed()</th>
@@ -309,7 +309,7 @@
                 #set($total_undefined = $total_undefined + $backgrounds.getTotalStepsUndefined())
                 #set($total_missing   = $total_missing   + $backgrounds.getTotalStepsMissing())
                 <tr>
-                    <th style="background-color:lightgray;">$tags.size()</th>
+                    <th style="background-color:lightgray;">$all_tags.size()</th>
                     <th style="background-color:lightgray;">$total_scenarios</th>
                     <th style="background-color:lightgray;">$total_passed_scenarios</th>
                     <th style="background-color:lightgray;">$total_failed_scenarios</th>

@@ -25,11 +25,11 @@ public class StepOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        contextMap.put("steps", sortStepsByDate());
+        contextMap.put("all_steps", sortStepsByDuration());
 
         int allOccurrences = 0;
         long allDurations = 0;
-        for (StepObject stepObject : reportInformation.getStepObject().values()) {
+        for (StepObject stepObject : reportInformation.getAllSteps().values()) {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getTotalDuration();
         }
@@ -40,8 +40,8 @@ public class StepOverviewPage extends AbstractPage {
         super.generateReport("step-overview.html");
     }
 
-    private StepObject[] sortStepsByDate() {
-        Map<String, StepObject> steps = reportInformation.getStepObject();
+    private StepObject[] sortStepsByDuration() {
+        Map<String, StepObject> steps = reportInformation.getAllSteps();
         StepObject[] array = new StepObject[steps.size()];
         Arrays.sort(steps.values().toArray(array), new DurationCompator());
 

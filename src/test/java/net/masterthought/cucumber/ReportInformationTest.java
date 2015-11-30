@@ -51,7 +51,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfSteps() {
-        assertThat(reportInformation.getTotalSteps(), is(98));
+        assertThat(reportInformation.getStepsCounter().size(), is(98));
     }
 
     @Test

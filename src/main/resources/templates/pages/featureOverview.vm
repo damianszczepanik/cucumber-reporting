@@ -342,7 +342,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #parse("/templates/tableHeader.vm")
 
       <tbody>
-      #foreach($feature in $features)
+      #foreach($feature in $all_features)
 
           #if($feature.getStatus().name() == "PASSED")
           #set($bgcolour = "#00CE00")
@@ -373,14 +373,14 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
       #end
       </tbody>
 <tr>
-<th id="stats-total-features" style="background-color:lightgray">$features.size()</th>
+<th id="stats-total-features" style="background-color:lightgray">$all_features.size()</th>
 #if($parallel)
   <th id="stats-total-features" style="background-color:lightgray">-</th>
 #end
 <th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
 <th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
 <th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
-<th id="stats-total-steps" style="background-color:lightgray">$total_steps</th>
+<th id="stats-total-steps" style="background-color:lightgray">$all_steps.size()</th>
 <th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
 <th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
 <th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>

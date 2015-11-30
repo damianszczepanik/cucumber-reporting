@@ -36,10 +36,6 @@ public class ReportBuilder {
         return reportInformation;
     }
 
-    public void setRi(ReportInformation ri) {
-        this.reportInformation = ri;
-    }
-
     public static boolean isParallel(){
         return parallel;
     }

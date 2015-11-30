@@ -36,7 +36,7 @@
             </tr></thead>
 
             <tbody>
-            #foreach($step in $steps)
+            #foreach($step in $all_steps)
                 <tr>
                     #if($step.getPercentageResult() == 100.0)
                         #set($bgcolour = "#00CE00")
