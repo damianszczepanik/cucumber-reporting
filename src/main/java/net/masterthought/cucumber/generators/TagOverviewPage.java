@@ -19,9 +19,8 @@ public class TagOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        List<TagObject> tags = this.reportInformation.getTags();
-        contextMap.put("tags", tags);
-        contextMap.put("total_tags", tags.size());
+        List<TagObject> tags = reportInformation.getTags();
+        contextMap.put("all_tags", tags);
         contextMap.put("total_scenarios", reportInformation.getTotalTagScenarios());
         contextMap.put("total_passed_scenarios", reportInformation.getTotalTagScenariosPassed());
         contextMap.put("total_failed_scenarios", reportInformation.getTotalTagScenariosFailed());
@@ -32,7 +31,6 @@ public class TagOverviewPage extends AbstractPage {
         contextMap.put("total_pending", reportInformation.getTotalTagPending());
         contextMap.put("total_undefined", reportInformation.getTotalTagUndefined());
         contextMap.put("total_missing", reportInformation.getTotalTagMissing());
-        contextMap.put("hasCustomHeader", false);
 
         boolean flashCharts = this.reportBuilder.isFlashCharts();
         boolean highCharts = this.reportBuilder.isHighCharts();
@@ -49,8 +47,8 @@ public class TagOverviewPage extends AbstractPage {
             }
         }
         contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
-        contextMap.put("flashCharts", flashCharts);
-        contextMap.put("highCharts", highCharts);
+        contextMap.put("flash_charts", flashCharts);
+        contextMap.put("high_charts", highCharts);
         long durationl = reportInformation.getBackgroundInfo().getTotalDuration()
                 + reportInformation.getTotalTagDuration();
         String duration = Util.formatDuration(durationl);

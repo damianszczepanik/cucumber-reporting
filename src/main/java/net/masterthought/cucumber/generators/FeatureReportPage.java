@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import java.io.IOException;
 
-import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.Feature;
 
@@ -22,7 +21,6 @@ public class FeatureReportPage extends AbstractPage {
             contextMap.put("feature", feature);
             contextMap.put("report_status_colour", feature.getStatus().color);
             contextMap.put("scenarios", feature.getScenarios());
-            contextMap.put("artifactsEnabled", ConfigurationOptions.instance().artifactsEnabled());
 
             generateReport(feature.getReportFileName());
         }

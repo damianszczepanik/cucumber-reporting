@@ -27,16 +27,15 @@ public class ReportInformation {
 
     private long totalDuration;
     private long totalTagDuration;
-
     private int totalTagSteps;
 
     private final Map<String, TagObject> allTags = new TreeMap<>();
-    private final Map<String, StepObject> stepObjects = new HashMap<>();
+    private final Map<String, StepObject> allSteps = new HashMap<>();
 
     private final StatusCounter tagStatusCounter = new StatusCounter();
     private final StatusCounter tagCounter = new StatusCounter();
     private final StatusCounter scenarioCounter = new StatusCounter();
-    private final StatusCounter statusCounter = new StatusCounter();
+    private final StatusCounter stepStatusCounter = new StatusCounter();
 
     private Background backgroundInfo = new Background();
 
@@ -54,44 +53,40 @@ public class ReportInformation {
         return new ArrayList<>(allTags.values());
     }
 
-    public Map<String, StepObject> getStepObject() {
-        return stepObjects;
+    public Map<String, StepObject> getAllSteps() {
+        return allSteps;
     }
 
     public int getTotalScenarios() {
         return scenarioCounter.size();
     }
 
-    public int getTotalFeatures() {
-        return features.size();
-    }
-
-    public int getTotalSteps() {
-        return statusCounter.size();
+    public StatusCounter getStepsCounter() {
+        return stepStatusCounter;
     }
 
     public int getTotalStepsPassed() {
-        return statusCounter.getValueFor(Status.PASSED);
+        return stepStatusCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalStepsFailed() {
-        return statusCounter.getValueFor(Status.FAILED);
+        return stepStatusCounter.getValueFor(Status.FAILED);
     }
 
     public int getTotalStepsSkipped() {
-        return statusCounter.getValueFor(Status.SKIPPED);
+        return stepStatusCounter.getValueFor(Status.SKIPPED);
     }
 
     public int getTotalStepsPending() {
-        return statusCounter.getValueFor(Status.PENDING);
+        return stepStatusCounter.getValueFor(Status.PENDING);
     }
 
     public int getTotalStepsMissing() {
-        return statusCounter.getValueFor(Status.MISSING);
+        return stepStatusCounter.getValueFor(Status.MISSING);
     }
 
     public int getTotalStepsUndefined() {
-        return statusCounter.getValueFor(Status.UNDEFINED);
+        return stepStatusCounter.getValueFor(Status.UNDEFINED);
     }
 
     public String getTotalDurationAsString() {
@@ -151,22 +146,15 @@ public class ReportInformation {
     }
 
     public int getTotalScenariosPassed() {
-        return this.scenarioCounter.getValueFor(Status.PASSED);
+        return scenarioCounter.getValueFor(Status.PASSED);
     }
 
     public int getTotalScenariosFailed() {
-        return this.scenarioCounter.getValueFor(Status.FAILED);
+        return scenarioCounter.getValueFor(Status.FAILED);
     }
 
-    private void processTag(TagObject tag, Scenario scenario) {
-        tag.addScenarios(scenario);
-        tagStatusCounter.incrementFor(tag.getStatus());
-
-        Step[] steps = scenario.getSteps();
-        for (Step step : steps) {
-            totalTagDuration += step.getDuration();
-        }
-        totalTagSteps += steps.length;
+    public Background getBackgroundInfo() {
+        return backgroundInfo;
     }
 
     private void processFeatures() {
@@ -188,7 +176,7 @@ public class ReportInformation {
 
                 Step[] steps = scenario.getSteps();
                 for (Step step : steps) {
-                    statusCounter.incrementFor(step.getStatus());
+                    stepStatusCounter.incrementFor(step.getStatus());
                     totalDuration += step.getDuration();
                 }
                 countSteps(steps);
@@ -197,6 +185,17 @@ public class ReportInformation {
                 countSteps(scenario.getAfter());
             }
         }
+    }
+
+    private void processTag(TagObject tag, Scenario scenario) {
+        tag.addScenarios(scenario);
+        tagStatusCounter.incrementFor(tag.getStatus());
+
+        Step[] steps = scenario.getSteps();
+        for (Step step : steps) {
+            totalTagDuration += step.getDuration();
+        }
+        totalTagSteps += steps.length;
     }
 
     private void countSteps(ResultsWithMatch[] steps) {
@@ -208,7 +207,7 @@ public class ReportInformation {
             if (match != null) {
                 methodName = match.getLocation();
             }
-            StepObject stepObject = stepObjects.get(methodName);
+            StepObject stepObject = allSteps.get(methodName);
             // if first occurrence of this location add element to the map
             if (stepObject == null) {
                 stepObject = new StepObject(methodName);
@@ -222,7 +221,7 @@ public class ReportInformation {
                 // and for this case FAILED status is used to avoid problems during parsing
                 stepObject.addDuration(0, Status.FAILED.name());
             }
-            stepObjects.put(methodName, stepObject);
+            allSteps.put(methodName, stepObject);
         }
     }
 
@@ -248,9 +247,5 @@ public class ReportInformation {
             allTags.put(tagObject.getTagName(), tagObject);
         }
         return tagObject;
-    }
-
-    public Background getBackgroundInfo() {
-        return backgroundInfo;
     }
 }

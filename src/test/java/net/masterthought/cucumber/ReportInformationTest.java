@@ -50,13 +50,8 @@ public class ReportInformationTest {
     }
 
     @Test
-    public void shouldReturnTotalNumberOfFeatures() {
-        assertThat(reportInformation.getTotalFeatures(), is(4));
-    }
-
-    @Test
     public void shouldReturnTotalNumberOfSteps() {
-        assertThat(reportInformation.getTotalSteps(), is(98));
+        assertThat(reportInformation.getStepsCounter().size(), is(98));
     }
 
     @Test
