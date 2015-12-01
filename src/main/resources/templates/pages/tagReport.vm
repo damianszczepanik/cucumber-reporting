@@ -45,10 +45,11 @@
             #foreach($scenario in $tag.getScenarios())
                 <div style="margin-bottom:20px;width:100%">
                     <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
+                $scenario.getBeforeAttachments()
                 $scenario.getTagsList()
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps())
-                  $step.getName()
+                    $step.getDetails()
                     $step.getDocString()
                     #if($step.hasRows())
                         <div class="data $step.$step.getStatus().getName()">
@@ -63,12 +64,13 @@
                       </table>
                         </div>
                     #end
-                <div class="output-data">
-                #foreach($output in $step.getOutput())
-                    <div>$output</div>
+                    <div class="output-data">
+                    #foreach($output in $step.getOutput())
+                        <div>$output</div>
+                    #end
+                    </div>
                 #end
-                </div>
-                #end
+                $scenario.getAfterAttachments()
                 </div>
             #end
         </div>

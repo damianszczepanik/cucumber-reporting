@@ -22,6 +22,9 @@ public class Scenario {
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
+    private String beforeAttachments;
+    private String afterAttachments;
+
     private StatusCounter statusCounter;
     private Feature feature;
 
@@ -39,6 +42,14 @@ public class Scenario {
 
     public Tag[] getTags() {
         return tags;
+    }
+
+    public String getBeforeAttachments() {
+        return beforeAttachments;
+    }
+
+    public String getAfterAttachments() {
+        return afterAttachments;
     }
 
     public Status getStatus() {
@@ -142,6 +153,10 @@ public class Scenario {
             step.setMedaData(this);
         }
         calculateStatus();
+        calculateHooks(before);
+        calculateHooks(after);
+        beforeAttachments = calculateAttachments("Before", before);
+        afterAttachments = calculateAttachments("After", after);
     }
 
     private void calculateStatus() {
@@ -149,5 +164,33 @@ public class Scenario {
         for (Step step : steps) {
             statusCounter.incrementFor(step.getStatus());
         }
+    }
+
+    private void calculateHooks(Hook[] hooks) {
+        for (int i = 0; i < hooks.length; i++) {
+            hooks[i].setMedaData();
+        }
+    }
+
+    private String calculateAttachments(String keyword, Hook[] hooks) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hooks.length; i++) {
+            String status = hooks[i].getResult().getStatus();
+
+            sb.append("<div class=\"").append(status).append("\">");
+            sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
+            sb.append("<i>").append(hooks[i].getMatch().getLocation()).append("</i>");
+
+            sb.append("<span class=\"step-duration\">");
+            if (status != Status.MISSING.getName()) {
+                sb.append(Util.formatDuration(hooks[i].getResult().getDuration()));
+            }
+            sb.append("</span>");
+            sb.append(Util.formatErrorMessage(hooks[i].getResult().getErrorMessage(), hooks[i].getResult().hashCode()));
+            sb.append("</div>");
+
+            sb.append(hooks[i].getAttachments());
+        }
+        return sb.toString();
     }
 }

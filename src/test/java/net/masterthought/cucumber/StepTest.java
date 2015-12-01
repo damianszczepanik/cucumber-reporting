@@ -60,7 +60,7 @@ public class StepTest {
         Feature feature = features.get(0);
         Step step = feature.getScenarios()[0].getSteps()[0];
 
-        assertThat(step.getName(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
+        assertThat(step.getDetails(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"step-error-message\"><pre class=\"step-error-message-content\"><span class=\"missing\">Result was missing for this step</span></pre></div></div>"));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class StepTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingStep.getName(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
+        assertThat(passingStep.getDetails(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
         ));
     }
 
@@ -94,7 +94,7 @@ public class StepTest {
     public void shouldReturnNameWhenStepSkipped() {
         ConfigurationOptions.instance().setSkippedFailsBuild(false);
         assertThat(
-                skippedStep.getName(),
+                skippedStep.getDetails(),
                 is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
         ));
     }
@@ -105,7 +105,7 @@ public class StepTest {
         configuration.setSkippedFailsBuild(true);
         try {
             assertThat(
-                    skippedStep.getName(),
+                    skippedStep.getDetails(),
                     is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
         } finally {
             // restore the initial state for next tests
@@ -122,11 +122,12 @@ public class StepTest {
 
     @Test
     public void shouldCreateLinkToScreenshotWhenOneExists() throws IOException {
-        assertThat(failingStepWithEmbeddedScreenshot().getAttachments(),
-                       is("<a onclick=\"attachment=document.getElementById('embedding-1'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a><a href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg==\"><img id=\"embedding-1\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg==\" style=\"max-width:250px; display:none;\"/></a></br>"
-                        + "<a onclick=\"attachment=document.getElementById('embedding-2'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a><a href=\"data:image/png;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\"><img id=\"embedding-2\" src=\"data:image/png;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\" style=\"max-width:250px; display:none;\"/></a></br>"
-                        + "<a onclick=\"attachment=document.getElementById('embedding-3'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Plain text 3</a><pre id=\"embedding-3\" style=\"max-width:250px; display:none;\">java.lang.Throwable</pre><br>"
-                        + "<a onclick=\"attachment=document.getElementById('embedding-4'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">HTML text 4</a><span id=\"embedding-4\" style=\"max-width:250px; display:none;\"><i>Hello</i> <b>World!<b></span><br><span style=\"color:red\">Attachment number 4, has unsupported mimetype 'unknown'.<br>File the bug <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">here</a> so support will be added!</span>"));
+        // ids are generated by Object.hashCode which is different each time so this must be replaced
+        assertThat(failingStepWithEmbeddedScreenshot().getAttachments().replaceAll("embedding-[-\\d]+", "embedding-1234"),
+                       is("<a onclick=\"attachment=document.getElementById('embedding-1234'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 1</a><a href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg==\"><img id=\"embedding-1234\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1gcBFzozgT/kfQAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAABgUlEQVQ4y8WTMU+UQRCGn5ldwC8GKbAywcZCKOzMNSbGGH8B5kIiMdJRWkgDP8BrbCztoLAgGBNt7EjgriSn0dpYcHQf3x1Q3F1gZyzAky+oOWPhJps3O+/k2Z3ZXfjfQwCqc9Wnol5z86xkqnTdZHljfePl7wDxNNFrC08WsokrEyXz4PAgW11brQF/Brh5dml0jHpju2RWbldw86w699DPxzWEXcQW11+/+RB/BA+Pjuj3+yVAvr/P/KP5C7u29lpT9XrjFXB9AOh0OnS7vVJi82Pzl8eevjmNWZoalABQtNv0er2hOl+02+UeABRFMTygKC4C8jwfGpDn+c+rflxZ/Ixxy8X/8gEJCF+iiMzcm70DQIgBVUVEcHfcHEs2mOkkYSmRkgGws/VpJlqy7bdr7++PXx4nngGCalnDuXU41W+tFiM69i6qyrPESfPqtUmJMaCiiAoigorAmYoKKgoIZgmP5lFDTQDu3njwPJGWcEaGql/kGHjR+Lq58s+/8TtoKJeZGE46kQAAAABJRU5ErkJggg==\" style=\"max-width:250px; display:none;\"/></a></br>"
+                        + "<a onclick=\"attachment=document.getElementById('embedding-1234'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Screenshot 2</a><a href=\"data:image/png;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\"><img id=\"embedding-1234\" src=\"data:image/png;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==\" style=\"max-width:250px; display:none;\"/></a></br>"
+                        + "<a onclick=\"attachment=document.getElementById('embedding-1234'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Plain text 3</a><pre id=\"embedding-1234\" style=\"max-width:250px; display:none;\">java.lang.Throwable</pre><br>"
+                        + "<a onclick=\"attachment=document.getElementById('embedding-1234'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">HTML text 4</a><span id=\"embedding-1234\" style=\"max-width:250px; display:none;\"><i>Hello</i> <b>World!<b></span><br><span style=\"color:red\">Attachment number 4, has unsupported mimetype 'unknown'.<br>File the bug <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">here</a> so support will be added!</span>"));
     }
 
     private Step failingStepWithEmbeddedScreenshot() throws IOException {

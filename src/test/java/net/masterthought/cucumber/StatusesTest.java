@@ -46,16 +46,12 @@ public class StatusesTest {
     }
 
     @Test
-      public void shouldGetNumberOfMissing() {
-          assertThat(statusesFeature.getNumberOfMissing(), is(1));
-      }
+    public void shouldGetNumberOfMissing() {
+        assertThat(statusesFeature.getNumberOfMissing(), is(1));
+    }
 
     @Test
     public void shouldGetNumberOfUndefined() {
         assertThat(statusesFeature.getNumberOfUndefined(), is(1));
     }
-
-
 }
-
-

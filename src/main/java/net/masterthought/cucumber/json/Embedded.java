@@ -13,12 +13,6 @@ public class Embedded {
     // End: attributes from JSON file report
 
     /**
-     * Unique number of the attachment on the HTML page. This must be unique to fully support expand/collapse option
-     * when the same step is added to the report more than once.
-     */
-    private static int counter = 0;
-
-    /**
      * Generates HTML code with attachment.
      * 
      * @param index
@@ -27,17 +21,17 @@ public class Embedded {
      */
     public String render(int index) {
 
-        final String uniqueContentId = generateNextUniqueId();
+        final String contentId = "embedding-" + generateUniqueId();
 
         switch (mime_type) {
         case "image/png":
-            return publishImg("png", uniqueContentId, index);
+            return publishImg("png", contentId, index);
         case "image/bmp":
-            return publishImg("bmp", uniqueContentId, index);
+            return publishImg("bmp", contentId, index);
         case "text/plain":
-            return publishPlainType(uniqueContentId, index);
+            return publishPlainType(contentId, index);
         case "text/html":
-            return publishHTMLType(uniqueContentId, index);
+            return publishHTMLType(contentId, index);
         default:
             return publishUnknownType(mime_type, index);
         }
@@ -93,8 +87,7 @@ public class Embedded {
         return new String(Base64.decodeBase64(data.getBytes()));
     }
 
-    private String generateNextUniqueId() {
-        counter++;
-        return "embedding-" + counter;
+    private int generateUniqueId() {
+        return super.hashCode();
     }
 }

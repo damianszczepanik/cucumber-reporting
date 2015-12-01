@@ -7,7 +7,10 @@ public class Hook implements ResultsWithMatch {
     // Start: attributes from JSON file report
     private final Result result = null;
     private final Match match = null;
+    private final Embedded[] embeddings = new Embedded[0];
     // End: attributes from JSON file report
+
+    private String attachments;
 
     @Override
     public Result getResult() {
@@ -18,4 +21,27 @@ public class Hook implements ResultsWithMatch {
     public Match getMatch() {
         return match;
     }
+
+    @Override
+    public Embedded[] getEmbeddings() {
+        return embeddings;
+    }
+
+    @Override
+    public String getAttachments() {
+        return attachments;
+    }
+    
+    public void setMedaData() {
+        calculateAttachments();
+    }
+
+    private void calculateAttachments() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < embeddings.length; i++) {
+            sb.append(embeddings[i].render(i));
+        }
+        attachments = sb.toString();
+    }
+
 }
