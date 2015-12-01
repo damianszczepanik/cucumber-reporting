@@ -131,7 +131,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(20));
+        assertThat(reportInformation.getTotalTagPasses(), is(140));
     }
 
     @Test

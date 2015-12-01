@@ -284,30 +284,6 @@
                 #end
                 </tbody>
 
-                <!--  add row to adjust num of steps -->
-                <tr>
-                    <th style="background-color:lightgray">included background</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalScenarios()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalScenariosPassed()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalScenariosFailed()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalSteps()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsPassed()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsFailed()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsSkipped()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsPending()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsUndefined()</th>
-                    <th style="background-color:lightgray;">$backgrounds.getTotalStepsMissing()</th>
-                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$backgrounds.getTotalFormattedDuration()</th>
-                    <th style="background-color:lightgray;">Totals</th>
-                </tr>
-                <!--  Summarize all steps and time executions -->
-                #set($total_steps     = $total_steps     + $backgrounds.getTotalSteps())
-                #set($total_passes    = $total_passes    + $backgrounds.getTotalStepsPassed())
-                #set($total_fails     = $total_fails     + $backgrounds.getTotalStepsFailed())
-                #set($total_skipped   = $total_skipped   + $backgrounds.getTotalStepsSkipped())
-                #set($total_pending   = $total_pending   + $backgrounds.getTotalStepsPending())
-                #set($total_undefined = $total_undefined + $backgrounds.getTotalStepsUndefined())
-                #set($total_missing   = $total_missing   + $backgrounds.getTotalStepsMissing())
                 <tr>
                     <th style="background-color:lightgray;">$all_tags.size()</th>
                     <th style="background-color:lightgray;">$total_scenarios</th>

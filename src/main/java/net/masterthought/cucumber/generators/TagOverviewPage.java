@@ -35,7 +35,6 @@ public class TagOverviewPage extends AbstractPage {
         boolean flashCharts = this.reportBuilder.isFlashCharts();
         boolean highCharts = this.reportBuilder.isHighCharts();
 
-        contextMap.put("backgrounds", reportInformation.getBackgroundInfo());
         if (flashCharts) {
             contextMap.put("chart_data", FlashChartBuilder.generateStackedColumnChart(tags));
         } else {
@@ -49,10 +48,7 @@ public class TagOverviewPage extends AbstractPage {
         contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
         contextMap.put("flash_charts", flashCharts);
         contextMap.put("high_charts", highCharts);
-        long durationl = reportInformation.getBackgroundInfo().getTotalDuration()
-                + reportInformation.getTotalTagDuration();
-        String duration = Util.formatDuration(durationl);
-        contextMap.put("total_duration", duration);
+        contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
 
         super.generateReport("tag-overview.html");
     }
