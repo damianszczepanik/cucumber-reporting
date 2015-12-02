@@ -22,9 +22,6 @@ public class Scenario {
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
-    /** Refers to background scenario. Is defined in json file. */
-    private final static String BACKGROUND_TYPE = "background";
-
     private StatusCounter statusCounter;
     private Feature feature;
 
@@ -108,10 +105,6 @@ public class Scenario {
 
     public boolean hasSteps() {
         return steps.length > 0;
-    }
-
-    public boolean isBackground() {
-        return BACKGROUND_TYPE.equals(type);
     }
 
     public String getTagsList() {

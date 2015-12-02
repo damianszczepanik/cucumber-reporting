@@ -37,8 +37,6 @@ public class ReportInformation {
     private final StatusCounter scenarioCounter = new StatusCounter();
     private final StatusCounter stepStatusCounter = new StatusCounter();
 
-    private Background backgroundInfo = new Background();
-
     public ReportInformation(List<Feature> features) {
         this.features = features;
 
@@ -102,7 +100,7 @@ public class ReportInformation {
     }
 
     public int getTotalTagScenarios() {
-        return tagStatusCounter.size();
+        return tagCounter.size();
     }
 
     public int getTotalTagScenariosPassed() {
@@ -153,19 +151,11 @@ public class ReportInformation {
         return scenarioCounter.getValueFor(Status.FAILED);
     }
 
-    public Background getBackgroundInfo() {
-        return backgroundInfo;
-    }
-
     private void processFeatures() {
         for (Feature feature : features) {
 
             for (Scenario scenario : feature.getScenarios()) {
                 scenarioCounter.incrementFor(scenario.getStatus());
-
-                if (scenario.isBackground()) {
-                    updateBackgroundInfo(scenario);
-                }
 
                 for (Tag tag : scenario.getTags()) {
                     tagCounter.incrementFor(scenario.getStatus());
@@ -189,10 +179,10 @@ public class ReportInformation {
 
     private void processTag(TagObject tag, Scenario scenario) {
         tag.addScenarios(scenario);
-        tagStatusCounter.incrementFor(tag.getStatus());
 
         Step[] steps = scenario.getSteps();
         for (Step step : steps) {
+            tagStatusCounter.incrementFor(step.getStatus());
             totalTagDuration += step.getDuration();
         }
         totalTagSteps += steps.length;
@@ -222,21 +212,6 @@ public class ReportInformation {
                 stepObject.addDuration(0, Status.FAILED.name());
             }
             allSteps.put(methodName, stepObject);
-        }
-    }
-
-    private void updateBackgroundInfo(Scenario scenario) {
-        backgroundInfo.incrTotalScenarios();
-        if (scenario.getStatus() == Status.PASSED) {
-            backgroundInfo.incPassedScenarios();
-        } else {
-            backgroundInfo.incFailedScenarios();
-        }
-
-        backgroundInfo.addTotalSteps(scenario.getSteps().length);
-        for (Step step : scenario.getSteps()) {
-            backgroundInfo.incrTotalDurationBy(step.getDuration());
-            backgroundInfo.incrStepCounterFor(step.getStatus());
         }
     }
 
