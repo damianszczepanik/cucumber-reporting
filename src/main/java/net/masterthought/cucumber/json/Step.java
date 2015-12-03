@@ -98,7 +98,8 @@ public class Step implements ResultsWithMatch {
         sb.append("</span>");
 
         if (status == Status.FAILED || status == Status.MISSING) {
-            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">").append(formatError(errorMessage)).append("</pre></div>");
+            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">")
+                    .append(convertEOL(errorMessage)).append("</pre></div>");
 
         }
         sb.append("</div>");
@@ -122,18 +123,12 @@ public class Step implements ResultsWithMatch {
                 + doc_string.getEscapedValue() + "</div></div>";
     }
 
-    private String formatError(String errorMessage) {
-        String result = errorMessage;
-        if (errorMessage != null && !errorMessage.isEmpty()) {
-            if (errorMessage.startsWith( "<" )) {
-                result = errorMessage.replaceAll( "\\\\n", "<br/>" );
-            } else {
-                int id = ++labelCount;
-                String[] headLineAndTrace = StringUtils.split( errorMessage , "\n", 2 );
-                result = String.format( "<input class=\"collapse\" id=\"_%d\" type=\"checkbox\"><label for=\"_%d\">%s</label><div>%s</div>", id, id, headLineAndTrace[0], headLineAndTrace[1].replaceAll( "\n", "<br/>" ) );
-            }
+    private String convertEOL(String errorMessage) {
+        if (StringUtils.isEmpty(errorMessage)) {
+            return StringUtils.EMPTY;
+        } else {
+            return errorMessage.replaceAll("\\\\n", "<br/>");
         }
-        return result;
     }
 
     public String getAttachments() {
