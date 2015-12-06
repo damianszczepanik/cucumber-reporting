@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.gson.JsonElement;
@@ -50,7 +49,8 @@ public class Step implements ResultsWithMatch {
         return result;
     }
 
-    public Object[] getEmbeddings() {
+    @Override
+    public Embedded[] getEmbeddings() {
         return embeddings;
     }
 
@@ -70,7 +70,7 @@ public class Step implements ResultsWithMatch {
         return name;
     }
 
-    public String getName() {
+    public String getDetails() {
         Status status = getStatus();
         String errorMessage = null;
         switch (status) {
@@ -98,9 +98,9 @@ public class Step implements ResultsWithMatch {
         sb.append("</span>");
 
         if (status == Status.FAILED || status == Status.MISSING) {
-            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">")
-                    .append(convertEOL(errorMessage)).append("</pre></div>");
-
+            // if the reasult is not available take a hash of message reference - not perfect but still better than -1
+            int id = result != null ? result.hashCode() : errorMessage.hashCode();
+            sb.append(Util.formatErrorMessage(errorMessage, id));
         }
         sb.append("</div>");
         sb.append(getAttachments());
@@ -123,14 +123,7 @@ public class Step implements ResultsWithMatch {
                 + doc_string.getEscapedValue() + "</div></div>";
     }
 
-    private String convertEOL(String errorMessage) {
-        if (StringUtils.isEmpty(errorMessage)) {
-            return StringUtils.EMPTY;
-        } else {
-            return errorMessage.replaceAll("\\\\n", "<br/>");
-        }
-    }
-
+    @Override
     public String getAttachments() {
         return attachments;
     }
@@ -143,10 +136,8 @@ public class Step implements ResultsWithMatch {
 
     private void calculateAttachments() {
         StringBuilder sb = new StringBuilder();
-        if (embeddings != null) {
-            for (int i = 0; i < embeddings.length; i++) {
-                sb.append(embeddings[i].render(i));
-            }
+        for (int i = 0; i < embeddings.length; i++) {
+            sb.append(embeddings[i].render(i));
         }
         attachments = sb.toString();
     }

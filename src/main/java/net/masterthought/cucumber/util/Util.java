@@ -81,4 +81,35 @@ public class Util {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Converts error message into HTML code
+     * 
+     * @param errorMessage
+     *            error message
+     * @param errorID
+     *            id of the message which should be unique per page so expand/collapse works correctly
+     * @return
+     */
+    public static String formatErrorMessage(String errorMessage, int errorID) {
+        StringBuffer sb = new StringBuffer();
+        if (StringUtils.isEmpty(errorMessage)) {
+            sb.append(StringUtils.EMPTY);
+        } else {
+            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">");
+            // split the message to the header and content (rest)
+            String[] headLineAndMessage = StringUtils.split(errorMessage, "\n", 2);
+            if (headLineAndMessage.length == 2) {
+            sb.append(String.format(
+                        "<input class=\"collapse\" id=\"error_%s\" type=\"checkbox\"><label for=\"error_%s\">%s</label><div>%s</div>",
+                        errorID, errorID, headLineAndMessage[0], headLineAndMessage[1].replaceAll("\n", "<br/>")));
+            } else {
+                sb.append(errorMessage.replaceAll("\\\\n", "<br/>"));
+            }
+
+            sb.append("</pre></div>");
+        }
+
+        return sb.toString();
+    }
 }
