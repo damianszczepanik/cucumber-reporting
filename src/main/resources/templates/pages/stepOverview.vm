@@ -16,7 +16,7 @@
     #parse("/templates/topMenu.vm")
 
     #set($summary_key = "Steps")
-    #set($summary_description = "The following graph shows this statistics in this build.")
+    #set($summary_description = "The following graph shows this statistics in this build. Below list is based on location. If step does not provide information about location then is not listed below.")
     #parse("/templates/summaryOverview.vm")
 
 <div class="container_12">
@@ -24,7 +24,7 @@
 
         <div>
             <br/>
-            <h2>Step Statistics</h2>
+            <h2>Step Statistics</h2>            
             <table id="tablesorter" class="stats-table">
 
             <thead><tr>
