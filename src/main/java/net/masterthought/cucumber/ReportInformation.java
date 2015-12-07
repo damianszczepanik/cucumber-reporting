@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Result;
@@ -191,12 +193,18 @@ public class ReportInformation {
     private void countSteps(ResultsWithMatch[] steps) {
         for (ResultsWithMatch step : steps) {
 
-            String methodName = null;
             Match match = step.getMatch();
             // no match = could not find method that was matched to this step -> status is missing
-            if (match != null) {
-                methodName = match.getLocation();
+            if (match == null) {
+                continue;
             }
+
+            String methodName = match.getLocation();
+            // location is missing so there is no way to identify step
+            if (StringUtils.isEmpty(methodName)) {
+                continue;
+            }
+
             StepObject stepObject = allSteps.get(methodName);
             // if first occurrence of this location add element to the map
             if (stepObject == null) {
