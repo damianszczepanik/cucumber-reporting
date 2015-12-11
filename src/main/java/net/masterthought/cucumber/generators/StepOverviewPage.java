@@ -29,19 +29,19 @@ public class StepOverviewPage extends AbstractPage {
 
         int allOccurrences = 0;
         long allDurations = 0;
-        for (StepObject stepObject : reportInformation.getAllSteps().values()) {
+        for (StepObject stepObject : reportInformation.getTotalSteps().values()) {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getTotalDuration();
         }
         contextMap.put("all_occurrences", allOccurrences);
-        contextMap.put("all_durations", allDurations);
-        contextMap.put("all_formatted_durations", Util.formatDuration(allDurations));
+        contextMap.put("all_durations", Util.formatDuration(allDurations));
+        contextMap.put("all_average", Util.formatDuration(allDurations / allOccurrences));
 
         super.generateReport("step-overview.html");
     }
 
     private StepObject[] sortStepsByDuration() {
-        Map<String, StepObject> steps = reportInformation.getAllSteps();
+        Map<String, StepObject> steps = reportInformation.getTotalSteps();
         StepObject[] array = new StepObject[steps.size()];
         Arrays.sort(steps.values().toArray(array), new DurationCompator());
 

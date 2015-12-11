@@ -16,7 +16,7 @@
     #parse("/templates/topMenu.vm")
 
     #set($summary_key = "Steps")
-    #set($summary_description = "The following graph shows this statistics in this build. Below list is based on location. If step does not provide information about location then is not listed below.")
+    #set($summary_description = "The following graph shows step statistics for this build. Below list is based on results. If step does not provide information about result then is not listed below. Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
     #parse("/templates/summaryOverview.vm")
 
 <div class="container_12">
@@ -30,9 +30,9 @@
             <thead><tr>
                 <th id="stats-header-feature">Implementation</th>
                 <th id="stats-header-scenarios-total">Total</th>
-                <th id="stats-header-duration">Duration (ms)</th>
                 <th id="stats-header-duration">Duration</th>
-                <th id="stats-header-status">Status</th>
+                <th id="stats-header-average">Average</th>
+                <th id="stats-header-status">Ratio</th>
             </tr></thead>
 
             <tbody>
@@ -46,8 +46,8 @@
 
                     <td style="text-align:left;">$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
-                    <td style="text-align:right;white-space:nowrap">$step.getTotalDuration()</td>
                     <td style="text-align:right;white-space:nowrap">$step.getTotalFormattedDuration()</td>
+                    <td style="text-align:right;white-space:nowrap">$step.getTotalDuration()</td>
                     <td style="background-color: $bgcolour;">$step.getPercentageResult()%</td>
                 </tr>
             #end
@@ -58,7 +58,7 @@
                     <th style="background-color:lightgray">all steps</th>
                     <th style="background-color:lightgray;">$all_occurrences</th>
                     <th style="background-color:lightgray;">$all_durations</th>
-                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_formatted_durations</th>
+                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_average</th>
                     <th style="background-color:lightgray;">Totals</th>
                 </tr>
             </table>

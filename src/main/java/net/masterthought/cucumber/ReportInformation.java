@@ -53,7 +53,7 @@ public class ReportInformation {
         return new ArrayList<>(allTags.values());
     }
 
-    public Map<String, StepObject> getAllSteps() {
+    public Map<String, StepObject> getTotalSteps() {
         return allSteps;
     }
 
