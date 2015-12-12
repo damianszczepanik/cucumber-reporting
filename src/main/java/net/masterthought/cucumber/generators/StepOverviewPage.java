@@ -35,7 +35,9 @@ public class StepOverviewPage extends AbstractPage {
         }
         contextMap.put("all_occurrences", allOccurrences);
         contextMap.put("all_durations", Util.formatDuration(allDurations));
-        contextMap.put("all_average", Util.formatDuration(allDurations / allOccurrences));
+        // make sure it does not divide by 0 - may happens if there is no step at all or all results have 0 ms durations
+        long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
+        contextMap.put("all_average", Util.formatDuration(average));
 
         super.generateReport("step-overview.html");
     }

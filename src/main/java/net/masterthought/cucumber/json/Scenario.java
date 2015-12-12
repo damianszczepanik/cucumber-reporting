@@ -182,7 +182,7 @@ public class Scenario {
             sb.append("<i>").append(hooks[i].getMatch().getLocation()).append("</i>");
 
             sb.append("<span class=\"step-duration\">");
-            if (status != Status.MISSING.getName()) {
+            if (Status.MISSING.getName().equals(status)) {
                 sb.append(Util.formatDuration(hooks[i].getResult().getDuration()));
             }
             sb.append("</span>");

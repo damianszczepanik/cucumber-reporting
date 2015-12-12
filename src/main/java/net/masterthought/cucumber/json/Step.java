@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.gson.JsonElement;
@@ -73,6 +74,7 @@ public class Step implements ResultsWithMatch {
     public String getDetails() {
         Status status = getStatus();
         String errorMessage = null;
+
         switch (status) {
         case FAILED:
             errorMessage = result.getErrorMessage();
@@ -81,7 +83,7 @@ public class Step implements ResultsWithMatch {
             errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
             return getStatusDetails(status, errorMessage);
         default:
-            return getStatusDetails(status, errorMessage);
+            return getStatusDetails(status, null);
         }
     }
 
@@ -97,8 +99,8 @@ public class Step implements ResultsWithMatch {
         }
         sb.append("</span>");
 
-        if (status == Status.FAILED || status == Status.MISSING) {
-            // if the reasult is not available take a hash of message reference - not perfect but still better than -1
+        if (StringUtils.isNotBlank(errorMessage)) {
+            // if the result is not available take a hash of message reference - not perfect but still better than -1
             int id = result != null ? result.hashCode() : errorMessage.hashCode();
             sb.append(Util.formatErrorMessage(errorMessage, id));
         }
