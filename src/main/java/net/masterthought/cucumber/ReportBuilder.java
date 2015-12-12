@@ -132,15 +132,15 @@ public class ReportBuilder {
         }
     }
 
-    public boolean getBuildStatus() {
-        return reportInformation.getTotalStepsFailed() == 0;
+    public boolean hasBuildPassed() {
+        return reportInformation != null && reportInformation.getTotalStepsFailed() == 0;
     }
 
     public void generateReports() throws IOException, VelocityException {
         try {
             ReportParser reportParser = new ReportParser();
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
-            this.reportInformation = new ReportInformation(features);
+            reportInformation = new ReportInformation(features);
 
             copyResource("themes", "blue.zip");
             copyResource("charts", "js.zip");
