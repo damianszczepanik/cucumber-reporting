@@ -91,7 +91,14 @@ public class Step implements ResultsWithMatch {
         StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"").append(status.getName().toLowerCase()).append("\">");
         sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
-        sb.append("<span class=\"step-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
+        sb.append("<span class=\"step-name\">");
+        // for keyword == Before|After attribute 'name' is not available
+        if (StringUtils.isNotBlank(name)) {
+            sb.append(StringEscapeUtils.escapeHtml(name));
+        } else {
+            sb.append("<i>unknown name</i>");
+        }
+        sb.append("</span>");
 
         sb.append("<span class=\"step-duration\">");
         if (status != Status.MISSING) {
