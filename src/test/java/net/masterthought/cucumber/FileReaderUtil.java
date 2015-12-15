@@ -8,8 +8,8 @@ public class FileReaderUtil {
     public static String getAbsolutePathFromResource(String resource) {
         try {
             return new File(ReportInformationTest.class.getClassLoader().getResource(resource).toURI()).getAbsolutePath();
-        } catch (URISyntaxException use) {
-            throw new RuntimeException("could not read resource " + resource, use);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Could not read resource: " + resource, e);
         }
     }
 

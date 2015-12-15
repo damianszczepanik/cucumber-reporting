@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.velocity.exception.VelocityException;
 
 import net.masterthought.cucumber.generators.ErrorPage;
@@ -18,6 +20,8 @@ import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.util.Util;
 
 public class ReportBuilder {
+
+    private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
 
     private ReportInformation reportInformation;
     private List<String> jsonFiles;
@@ -167,13 +171,13 @@ public class ReportBuilder {
         tempFile.delete();
     }
 
-    
+
     private String getPluginUrlPath(String path) {
         return path.isEmpty() ? "/" : path;
     }
 
     private void generateErrorPage(Exception exception) throws IOException {
-        exception.printStackTrace();
+        LOG.info(exception);
         ErrorPage errorPage = new ErrorPage(this, exception);
         errorPage.generatePage();
     }

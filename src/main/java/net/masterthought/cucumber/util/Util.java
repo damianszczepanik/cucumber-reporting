@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -18,6 +20,9 @@ import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.Status;
 
 public class Util {
+
+    private static final Logger LOG = LogManager.getLogger(Util.class);
+
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
             .appendDays()
             .appendSuffix("d")
@@ -78,7 +83,7 @@ public class Util {
             ZipFile zipFile = new ZipFile(srcZipFile);
             zipFile.extractAll(destDirectory);
         } catch (ZipException e) {
-            e.printStackTrace();
+            LOG.error("Could not unzip {} into {}.", srcZipFile.getAbsolutePath(), destDirectory);
         }
     }
 
@@ -89,7 +94,7 @@ public class Util {
      *            error message
      * @param errorID
      *            id of the message which should be unique per page so expand/collapse works correctly
-     * @return
+     * @return formatted message
      */
     public static String formatErrorMessage(String errorMessage, int errorID) {
         StringBuffer sb = new StringBuffer();
