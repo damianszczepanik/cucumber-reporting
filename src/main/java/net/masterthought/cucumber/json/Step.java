@@ -95,8 +95,6 @@ public class Step implements ResultsWithMatch {
         // for keyword == Before|After attribute 'name' is not available
         if (StringUtils.isNotBlank(name)) {
             sb.append(StringEscapeUtils.escapeHtml(name));
-        } else {
-            sb.append("<i>unknown name</i>");
         }
         sb.append("</span>");
 
