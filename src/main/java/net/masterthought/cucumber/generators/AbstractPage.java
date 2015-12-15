@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -27,6 +29,8 @@ import net.masterthought.cucumber.VelocityContextMap;
  *
  */
 public abstract class AbstractPage {
+
+    private static final Logger LOG = LogManager.getLogger(AbstractPage.class);
 
     protected final VelocityEngine ve = new VelocityEngine();
     protected final VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
@@ -73,6 +77,7 @@ public abstract class AbstractPage {
         props.setProperty("class.resource.loader.class",
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         props.setProperty("runtime.log", new File(this.reportBuilder.getReportDirectory(), "velocity.log").getPath());
+
         return props;
     }
 
@@ -87,7 +92,7 @@ public abstract class AbstractPage {
             previousBuildNumber = Integer.parseInt(this.reportBuilder.getBuildNumber());
             previousBuildNumber--;
         } catch (NumberFormatException e) {
-            // could not parse build number, probably not valid int value
+            LOG.info("Could not parse build number: {}.", this.reportBuilder.getBuildNumber(), e);
         }
         result.put("build_previous_number", previousBuildNumber);
 

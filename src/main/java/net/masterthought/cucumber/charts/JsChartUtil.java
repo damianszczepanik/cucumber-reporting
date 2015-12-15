@@ -6,14 +6,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class JsChartUtil {
-
-    private static Logger logger = Logger.getLogger("net.masterthought.cucumber.charts.jschartutil");
 
     public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped,
             int numberTotalPending, int numberTotalUndefined, int numberTotalMissing) {
