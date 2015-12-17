@@ -1,9 +1,11 @@
-[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting.svg)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Build Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting.svg)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
+
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Coverity Status](https://scan.coverity.com/projects/6166/badge.svg)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![Maven Dependencies](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed/badge.svg)](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed?child=summary)
-
+[![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 
@@ -22,7 +24,7 @@ Add a maven dependency to your pom
 <dependency>
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
-    <version>0.1.0</version>
+    <version>(check version above)</version>
 </dependency>
 ```
 Read this if you need further [detailed install and configuration]
