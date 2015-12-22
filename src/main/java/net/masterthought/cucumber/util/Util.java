@@ -101,18 +101,19 @@ public class Util {
         if (StringUtils.isEmpty(errorMessage)) {
             sb.append(StringUtils.EMPTY);
         } else {
-            sb.append("<div class=\"step-error-message\"><pre class=\"step-error-message-content\">");
-            // split the message to the header and content (rest)
+            sb.append("<pre class=\"error_message\">");
+            // split the message to the header (first line) and the content (rest)
             String[] headLineAndMessage = StringUtils.split(errorMessage, "\n", 2);
             if (headLineAndMessage.length == 2) {
-            sb.append(String.format(
-                        "<input class=\"collapse\" id=\"error_%s\" type=\"checkbox\"><label for=\"error_%s\">%s</label><div>%s</div>",
-                        errorID, errorID, headLineAndMessage[0], headLineAndMessage[1].replaceAll("\n", "<br/>")));
+                sb.append(String.format("<input class=\"error_collapse\" id=\"error_%s\" type=\"checkbox\">", errorID));
+                sb.append(String.format("<label for=\"error_%s\">%s</label>", errorID, headLineAndMessage[0]));
+                sb.append(String.format("<div>%s</div>", headLineAndMessage[1].replaceAll("\n", "<br/>")));
             } else {
+                // one-line message
                 sb.append(errorMessage.replaceAll("\\\\n", "<br/>"));
             }
 
-            sb.append("</pre></div>");
+            sb.append("</pre>");
         }
 
         return sb.toString();

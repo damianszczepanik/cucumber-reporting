@@ -46,38 +46,37 @@ h2 {
 	padding-left: 50px;
 }
 
-.step-error-message {
+.error_message {
 	background-color: #FFEEEE;
 	padding-left: 50px;
 	border: 1px solid #D88A8A;
-}
-
-.step-error-message-content {
 	margin-bottom: 5px;
 	overflow: auto;
 }
 
-.collapse {
+.error_collapse {
 	display:none;
+	padding-left: 10px;
 }
 
-.collapse + label {
-	font-size: 12px;
+.error_collapse + label {
+	font-size: 15px;
 	font-weight: bold;
-	display:block;
+	display: block;
 	cursor: pointer;
-	cursor: hand;
+	padding-top: 2px;
 }
 
-.collapse + label + * {
-	display:none;
+.error_collapse + label + * {
+	display: none;
+    padding-left: 25px;
 }
 
-.collapse:checked + label + * {
-	display:block;
+.error_collapse:checked + label + * {
+	display: block;
 }
 
-.collapse + label:before {
+.error_collapse + label:before {
 	background-color: #4F5150;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -86,15 +85,13 @@ h2 {
 	content: "+";
 	display: block;
 	float: left;
-	font-weight: bold;
-	height: 20px;
 	line-height: 20px;
+	width: 20px;
 	margin-right: 5px;
 	text-align: center;
-	width: 20px;
 }
 
-.collapse:checked + label:before {
+.error_collapse:checked + label:before {
 	content: "\2212";
 }
 
