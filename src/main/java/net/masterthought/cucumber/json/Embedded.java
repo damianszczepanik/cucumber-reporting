@@ -25,9 +25,9 @@ public class Embedded {
 
         switch (mime_type) {
         case "image/png":
-            return publishImg("png", contentId, index);
+            return publishImage("png", contentId, index);
         case "image/bmp":
-            return publishImg("bmp", contentId, index);
+            return publishImage("bmp", contentId, index);
         case "text/plain":
             return publishPlainType(contentId, index);
         case "text/html":
@@ -42,12 +42,11 @@ public class Embedded {
                 encodedImageContent);
     }
 
-
-    private String publishImg(String imgType, String imageId, int index) {
+    private String publishImage(String imgType, String imageId, int index) {
         String encodedImageContent = "data:image/" + imgType + ";base64," + data;
 
         StringBuilder sb = new StringBuilder();
-        sb.append(getExpandAnchor(imageId, "Screenshot", index));
+        sb.append(getExpandAnchor(imageId, "image", index));
         sb.append(String.format("<a href=\"%s\">", encodedImageContent));
         sb.append(getImg(imageId, encodedImageContent));
         sb.append("</a></br>");
@@ -57,7 +56,7 @@ public class Embedded {
 
     private String publishPlainType(String contentId, int index) {
         StringBuilder sb = new StringBuilder();
-        sb.append(getExpandAnchor(contentId, "Plain text", index));
+        sb.append(getExpandAnchor(contentId, "plain text", index));
         sb.append(String.format("<pre id=\"%s\" style=\"max-width:250px; display:none;\">%s</pre><br>", contentId,
                 decodeDataFromBase()));
         return sb.toString();
@@ -79,8 +78,8 @@ public class Embedded {
 
     private static String getExpandAnchor(String contentId, String label, int index) {
         return String.format(
-                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">%s %d</a>",
-                contentId, label, index + 1);
+                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Attachment %d (%s)</a>",
+                contentId, index + 1, label);
     }
 
     private String decodeDataFromBase() {
