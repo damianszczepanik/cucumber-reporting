@@ -36,17 +36,17 @@ public class ReportInformationTest {
 
     @Test
     public void shouldListAllFeatures() throws IOException {
-        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
+        assertThat(reportInformation.getAllFeatures().get(0), isA(Feature.class));
     }
 
     @Test
     public void shouldListAllTags() {
-        assertThat(reportInformation.getTags().get(0), isA(TagObject.class));
+        assertThat(reportInformation.getAllTags().get(0), isA(TagObject.class));
     }
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportInformation.getTotalScenarios(), is(18));
+        assertThat(reportInformation.getAllScenarios().size(), is(18));
     }
 
     @Test
@@ -56,22 +56,22 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberPassingSteps() {
-        assertThat(reportInformation.getTotalStepsPassed(), is(90));
+        assertThat(reportInformation.getAllPassedSteps(), is(90));
     }
 
     @Test
     public void shouldReturnTotalNumberFailingSteps() {
-        assertThat(reportInformation.getTotalStepsFailed(), is(2));
+        assertThat(reportInformation.getAllFailedSteps(), is(2));
     }
 
     @Test
     public void shouldReturnTotalNumberSkippedSteps() {
-        assertThat(reportInformation.getTotalStepsSkipped(), is(6));
+        assertThat(reportInformation.getAllSkippedSteps(), is(6));
     }
 
     @Test
     public void shouldReturnTotalNumberPendingSteps() {
-        assertThat(reportInformation.getTotalStepsPending(), is(0));
+        assertThat(reportInformation.getPendingStepsl(), is(0));
     }
 
     @Test
@@ -81,12 +81,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalDuration() {
-        assertThat(reportInformation.getTotalDuration(), is(236050000L));
+        assertThat(reportInformation.getAllDurations(), is(236050000L));
     }
 
     @Test
     public void shouldReturnTotalDurationAsString() {
-        assertThat(reportInformation.getTotalDurationAsString(), is("236ms"));
+        assertThat(reportInformation.getAllDurationsAsString(), is("236ms"));
     }
 
     @Test
@@ -96,66 +96,66 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnReportStatusColour() {
-        assertThat(reportInformation.getFeatures().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportInformation.getAllFeatures().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportInformation.getTags().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportInformation.getAllTags().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test
     public void shouldReturnTotalTags() {
-        assertThat(reportInformation.getTags().size(), is(3));
+        assertThat(reportInformation.getAllTags().size(), is(3));
     }
 
     @Test
     public void shouldReturnTotalTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenarios(), is(20));
+        assertThat(reportInformation.getAllTagScenarios(), is(20));
     }
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenariosPassed(), is(20));
+        assertThat(reportInformation.getAllPassedTagScenarios(), is(20));
     }
 
     @Test
     public void shouldReturnTotalFailingTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenariosFailed(), is(0));
+        assertThat(reportInformation.getAllFailedTagScenarios(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSteps() {
-        assertThat(reportInformation.getTotalTagSteps(), is(140));
+        assertThat(reportInformation.getAllTagSteps(), is(140));
     }
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(140));
+        assertThat(reportInformation.getAllPassesTags(), is(140));
     }
 
     @Test
     public void shouldReturnTotalTagFails() {
-        assertThat(reportInformation.getTotalTagFails(), is(0));
+        assertThat(reportInformation.getAllFailsTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSkipped() {
-        assertThat(reportInformation.getTotalTagSkipped(), is(0));
+        assertThat(reportInformation.getAllSkippedTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagPending() {
-        assertThat(reportInformation.getTotalTagPending(), is(0));
+        assertThat(reportInformation.getAllPendingTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalScenariosPassed() {
-        assertThat(reportInformation.getTotalScenariosPassed(), is(16));
+        assertThat(reportInformation.getAllPassedScenarios(), is(16));
     }
 
     @Test
     public void shouldReturnTotalScenariosFailed() {
-        assertThat(reportInformation.getTotalScenariosFailed(), is(2));
+        assertThat(reportInformation.getAllFailedScenarios(), is(2));
     }
 }

@@ -286,17 +286,17 @@
 
                 <tr>
                     <th style="background-color:lightgray;">$all_tags.size()</th>
-                    <th style="background-color:lightgray;">$total_scenarios</th>
-                    <th style="background-color:lightgray;">$total_passed_scenarios</th>
-                    <th style="background-color:lightgray;">$total_failed_scenarios</th>
-                    <th style="background-color:lightgray;">$total_steps</th>
-                    <th style="background-color:lightgray;">$total_passes</th>
-                    <th style="background-color:lightgray;">$total_fails</th>
-                    <th style="background-color:lightgray;">$total_skipped</th>
-                    <th style="background-color:lightgray;">$total_pending</th>
-                    <th style="background-color:lightgray;">$total_undefined</th>
-                    <th style="background-color:lightgray;">$total_missing</th>
-                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+                    <th style="background-color:lightgray;">$all_tags_scenarios</th>
+                    <th style="background-color:lightgray;">$all_tags_passed_scenarios</th>
+                    <th style="background-color:lightgray;">$all_tags_failed_scenarios</th>
+                    <th style="background-color:lightgray;">$all_tags_steps</th>
+                    <th style="background-color:lightgray;">$all_tags_passes</th>
+                    <th style="background-color:lightgray;">$all_tags_failed</th>
+                    <th style="background-color:lightgray;">$all_tags_skipped</th>
+                    <th style="background-color:lightgray;">$all_tags_pending</th>
+                    <th style="background-color:lightgray;">$all_tags_undefined</th>
+                    <th style="background-color:lightgray;">$all_tags_missing</th>
+                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_durations</th>
                     <th style="background-color:lightgray;">Totals</th>
                 </tr>
             </table>

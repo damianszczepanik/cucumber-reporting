@@ -29,59 +29,59 @@ public class TagsTest {
 
     @Test
     public void shouldGetTotalTagSteps() {
-        assertThat(reportInformation.getTotalTagSteps(), is(4));
+        assertThat(reportInformation.getAllTagSteps(), is(4));
     }
 
     @Test
     public void shouldGetTotalTagPasses() {
-        assertThat(reportInformation.getTotalTagPasses(), is(2));
+        assertThat(reportInformation.getAllPassesTags(), is(2));
     }
 
     @Test
     public void shouldGetTotalTagFails() {
-        assertThat(reportInformation.getTotalTagFails(), is(2));
+        assertThat(reportInformation.getAllFailsTags(), is(2));
     }
 
     @Test
     public void shouldGetTotalTagSkipped() {
-        assertThat(reportInformation.getTotalTagSkipped(), is(0));
+        assertThat(reportInformation.getAllSkippedTags(), is(0));
     }
 
     @Test
     public void shouldGetTotalTagPending() {
-        assertThat(reportInformation.getTotalTagPending(), is(0));
+        assertThat(reportInformation.getAllPendingTags(), is(0));
     }
 
     @Test
     public void shouldGetTotalTagScenarios() {
-        assertThat(reportInformation.getTotalTagScenarios(), is(4));
+        assertThat(reportInformation.getAllTagScenarios(), is(4));
     }
 
     @Test
     public void shouldgetTotalTagScenariosPassed() {
-        assertThat(reportInformation.getTotalTagScenariosPassed(), is(2));
+        assertThat(reportInformation.getAllPassedTagScenarios(), is(2));
     }
 
     @Test
     public void shouldgetTotalTagScenariosFailed() {
-        assertThat(reportInformation.getTotalTagScenariosFailed(), is(2));
+        assertThat(reportInformation.getAllFailedTagScenarios(), is(2));
     }
 
     @Test
     public void shouldGetTagInfoForTag1() {
-        TagObject tagObject = reportInformation.getTags().get(0);
+        TagObject tagObject = reportInformation.getAllTags().get(0);
         assertThat(tagObject.getTagName(), is("@tag1"));
     }
 
     @Test
     public void shouldGetTagInfoForTag2() {
-        TagObject tagObject = reportInformation.getTags().get(1);
+        TagObject tagObject = reportInformation.getAllTags().get(1);
         assertThat(tagObject.getTagName(), is("@tag2"));
     }
 
     @Test
     public void shouldGetTagScenariosForTag1() {
-        List<Scenario> scenarios = reportInformation.getTags().get(0).getScenarios();
+        List<Scenario> scenarios = reportInformation.getAllTags().get(0).getScenarios();
         assertThat(scenarios.size(), is(2));
         Scenario firstScenario = scenarios.get(0);
         Scenario secondScenario = scenarios.get(1);
@@ -91,7 +91,7 @@ public class TagsTest {
 
     @Test
     public void shouldGetTagScenariosForTag2() {
-        List<Scenario> scenarios = reportInformation.getTags().get(1).getScenarios();
+        List<Scenario> scenarios = reportInformation.getAllTags().get(1).getScenarios();
         assertThat(scenarios.size(), is(2));
         Scenario firstScenario = scenarios.get(0);
         Scenario secondScenario = scenarios.get(1);

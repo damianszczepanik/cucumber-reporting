@@ -19,18 +19,18 @@ public class TagOverviewPage extends AbstractPage {
     public void generatePage() throws IOException {
         super.generatePage();
 
-        List<TagObject> tags = reportInformation.getTags();
+        List<TagObject> tags = reportInformation.getAllTags();
         contextMap.put("all_tags", tags);
-        contextMap.put("total_scenarios", reportInformation.getTotalTagScenarios());
-        contextMap.put("total_passed_scenarios", reportInformation.getTotalTagScenariosPassed());
-        contextMap.put("total_failed_scenarios", reportInformation.getTotalTagScenariosFailed());
-        contextMap.put("total_steps", reportInformation.getTotalTagSteps());
-        contextMap.put("total_passes", reportInformation.getTotalTagPasses());
-        contextMap.put("total_fails", reportInformation.getTotalTagFails());
-        contextMap.put("total_skipped", reportInformation.getTotalTagSkipped());
-        contextMap.put("total_pending", reportInformation.getTotalTagPending());
-        contextMap.put("total_undefined", reportInformation.getTotalTagUndefined());
-        contextMap.put("total_missing", reportInformation.getTotalTagMissing());
+        contextMap.put("all_tags_scenarios", reportInformation.getAllTagScenarios());
+        contextMap.put("all_tags_passed_scenarios", reportInformation.getAllPassedTagScenarios());
+        contextMap.put("all_tags_failed_scenarios", reportInformation.getAllFailedTagScenarios());
+        contextMap.put("all_tags_steps", reportInformation.getAllTagSteps());
+        contextMap.put("all_tags_passes", reportInformation.getAllPassesTags());
+        contextMap.put("all_tags_failed", reportInformation.getAllFailsTags());
+        contextMap.put("all_tags_skipped", reportInformation.getAllSkippedTags());
+        contextMap.put("all_tags_pending", reportInformation.getAllPendingTags());
+        contextMap.put("all_tags_undefined", reportInformation.getAllUndefinedTags());
+        contextMap.put("all_tags_missing", reportInformation.getAllMissingTags());
 
         boolean flashCharts = this.reportBuilder.isFlashCharts();
         boolean highCharts = this.reportBuilder.isHighCharts();
@@ -45,10 +45,9 @@ public class TagOverviewPage extends AbstractPage {
                 contextMap.put("chart_rows", JsChartUtil.generateTagChartData(tags));
             }
         }
-        contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
+        contextMap.put("all_durations", Util.formatDuration(reportInformation.getAllTagDuration()));
         contextMap.put("flash_charts", flashCharts);
         contextMap.put("high_charts", highCharts);
-        contextMap.put("total_duration", Util.formatDuration(reportInformation.getTotalTagDuration()));
 
         super.generateReport("tag-overview.html");
     }

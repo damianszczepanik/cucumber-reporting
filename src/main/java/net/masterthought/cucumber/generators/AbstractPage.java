@@ -50,6 +50,8 @@ public abstract class AbstractPage {
     public void generatePage() throws IOException {
         ve.init(getProperties());
         template = ve.getTemplate("templates/pages/" + fileName);
+
+        contextMap.clear();
         contextMap.putAll(getGeneralParameters());
         contextMap.put("esc", new EscapeTool());
 
@@ -62,7 +64,7 @@ public abstract class AbstractPage {
 
     protected void generateReport(String fileName) throws IOException {
         VelocityContext context = contextMap.getVelocityContext();
-        context.put("pageUrl", fileName);
+        context.put("page_url", fileName);
         File dir = new File(this.reportBuilder.getReportDirectory(), fileName);
         try (FileOutputStream fileStream = new FileOutputStream(dir)) {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF8"))) {
@@ -92,7 +94,7 @@ public abstract class AbstractPage {
             previousBuildNumber = Integer.parseInt(this.reportBuilder.getBuildNumber());
             previousBuildNumber--;
         } catch (NumberFormatException e) {
-            LOG.info("Could not parse build number: {}.", this.reportBuilder.getBuildNumber(), e);
+            LOG.error("Could not parse build number: {}.", this.reportBuilder.getBuildNumber(), e);
         }
         result.put("build_previous_number", previousBuildNumber);
 

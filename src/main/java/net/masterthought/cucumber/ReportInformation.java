@@ -25,59 +25,59 @@ import net.masterthought.cucumber.util.Util;
 
 public class ReportInformation {
 
-    private final List<Feature> features;
-
-    private long totalDuration;
-    private long totalTagDuration;
-    private int totalTagSteps;
+    private final List<Feature> allFeatures;
+    private long allDurations;
+    private long allTagDuration;
+    private int allTagSteps;
 
     private final Map<String, TagObject> allTags = new TreeMap<>();
     private final Map<String, StepObject> allSteps = new HashMap<>();
 
-    private final StatusCounter tagStatusCounter = new StatusCounter();
-    private final StatusCounter tagCounter = new StatusCounter();
+    private final StatusCounter tagsStatusCounter = new StatusCounter();
+    private final StatusCounter tagsCounter = new StatusCounter();
     private final StatusCounter scenarioCounter = new StatusCounter();
     private final StatusCounter stepStatusCounter = new StatusCounter();
 
     public ReportInformation(List<Feature> features) {
-        this.features = features;
+        this.allFeatures = features;
 
         processFeatures();
     }
 
-    public List<Feature> getFeatures() {
-        return this.features;
+    public List<Feature> getAllFeatures() {
+        return allFeatures;
     }
 
-    public List<TagObject> getTags() {
+    public List<TagObject> getAllTags() {
         return new ArrayList<>(allTags.values());
     }
 
-    public Map<String, StepObject> getTotalSteps() {
-        return allSteps;
+    public List<StepObject> getAllSteps() {
+        return new ArrayList<>(allSteps.values());
+
     }
 
-    public int getTotalScenarios() {
-        return scenarioCounter.size();
+    public StatusCounter getAllScenarios() {
+        return scenarioCounter;
     }
 
     public StatusCounter getStepsCounter() {
         return stepStatusCounter;
     }
 
-    public int getTotalStepsPassed() {
+    public int getAllPassedSteps() {
         return stepStatusCounter.getValueFor(Status.PASSED);
     }
 
-    public int getTotalStepsFailed() {
+    public int getAllFailedSteps() {
         return stepStatusCounter.getValueFor(Status.FAILED);
     }
 
-    public int getTotalStepsSkipped() {
+    public int getAllSkippedSteps() {
         return stepStatusCounter.getValueFor(Status.SKIPPED);
     }
 
-    public int getTotalStepsPending() {
+    public int getPendingStepsl() {
         return stepStatusCounter.getValueFor(Status.PENDING);
     }
 
@@ -85,82 +85,82 @@ public class ReportInformation {
         return stepStatusCounter.getValueFor(Status.MISSING);
     }
 
-    public int getTotalStepsUndefined() {
+    public int getUndefinedSteps() {
         return stepStatusCounter.getValueFor(Status.UNDEFINED);
     }
 
-    public String getTotalDurationAsString() {
-        return Util.formatDuration(totalDuration);
+    public String getAllDurationsAsString() {
+        return Util.formatDuration(allDurations);
     }
 
-    public Long getTotalDuration() {
-        return totalDuration;
+    public Long getAllDurations() {
+        return allDurations;
     }
 
     public String timeStamp() {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
     }
 
-    public int getTotalTagScenarios() {
-        return tagCounter.size();
+    public int getAllTagScenarios() {
+        return tagsCounter.size();
     }
 
-    public int getTotalTagScenariosPassed() {
-        return tagCounter.getValueFor(Status.PASSED);
+    public int getAllPassedTagScenarios() {
+        return tagsCounter.getValueFor(Status.PASSED);
     }
 
-    public int getTotalTagScenariosFailed() {
-        return tagCounter.getValueFor(Status.FAILED);
+    public int getAllFailedTagScenarios() {
+        return tagsCounter.getValueFor(Status.FAILED);
     }
 
-    public int getTotalTagSteps() {
-        return totalTagSteps;
+    public int getAllTagSteps() {
+        return allTagSteps;
     }
 
-    public int getTotalTagPasses() {
-        return tagStatusCounter.getValueFor(Status.PASSED);
+    public int getAllPassesTags() {
+        return tagsStatusCounter.getValueFor(Status.PASSED);
     }
 
-    public int getTotalTagFails() {
-        return tagStatusCounter.getValueFor(Status.FAILED);
+    public int getAllFailsTags() {
+        return tagsStatusCounter.getValueFor(Status.FAILED);
     }
 
-    public int getTotalTagSkipped() {
-        return tagStatusCounter.getValueFor(Status.SKIPPED);
+    public int getAllSkippedTags() {
+        return tagsStatusCounter.getValueFor(Status.SKIPPED);
     }
 
-    public int getTotalTagPending() {
-        return tagStatusCounter.getValueFor(Status.PENDING);
+    public int getAllPendingTags() {
+        return tagsStatusCounter.getValueFor(Status.PENDING);
     }
 
-    public int getTotalTagUndefined() {
-        return tagStatusCounter.getValueFor(Status.UNDEFINED);
+    public int getAllUndefinedTags() {
+        return tagsStatusCounter.getValueFor(Status.UNDEFINED);
     }
 
-    public int getTotalTagMissing() {
-        return tagStatusCounter.getValueFor(Status.MISSING);
+    public int getAllMissingTags() {
+        return tagsStatusCounter.getValueFor(Status.MISSING);
     }
 
-    public long getTotalTagDuration() {
-        return totalTagDuration;
+    public long getAllTagDuration() {
+        return allTagDuration;
     }
 
-    public int getTotalScenariosPassed() {
+    public int getAllPassedScenarios() {
         return scenarioCounter.getValueFor(Status.PASSED);
     }
 
-    public int getTotalScenariosFailed() {
+    public int getAllFailedScenarios() {
         return scenarioCounter.getValueFor(Status.FAILED);
     }
 
     private void processFeatures() {
-        for (Feature feature : features) {
+        for (Feature feature : allFeatures) {
 
             for (Scenario scenario : feature.getScenarios()) {
                 scenarioCounter.incrementFor(scenario.getStatus());
 
                 for (Tag tag : scenario.getTags()) {
-                    tagCounter.incrementFor(scenario.getStatus());
+                    tagsCounter.incrementFor(scenario.getStatus());
 
                     TagObject tagObject = addTagObject(tag.getName());
                     processTag(tagObject, scenario);
@@ -169,7 +169,7 @@ public class ReportInformation {
                 Step[] steps = scenario.getSteps();
                 for (Step step : steps) {
                     stepStatusCounter.incrementFor(step.getStatus());
-                    totalDuration += step.getDuration();
+                    allDurations += step.getDuration();
                 }
                 countSteps(steps);
 
@@ -184,10 +184,10 @@ public class ReportInformation {
 
         Step[] steps = scenario.getSteps();
         for (Step step : steps) {
-            tagStatusCounter.incrementFor(step.getStatus());
-            totalTagDuration += step.getDuration();
+            tagsStatusCounter.incrementFor(step.getStatus());
+            allTagDuration += step.getDuration();
         }
-        totalTagSteps += steps.length;
+        allTagSteps += steps.length;
     }
 
     private void countSteps(ResultsWithMatch[] steps) {

@@ -137,7 +137,7 @@ public class ReportBuilder {
     }
 
     public boolean hasBuildPassed() {
-        return reportInformation != null && reportInformation.getTotalStepsFailed() == 0;
+        return reportInformation != null && reportInformation.getAllFailedSteps() == 0;
     }
 
     public void generateReports() throws IOException, VelocityException {
