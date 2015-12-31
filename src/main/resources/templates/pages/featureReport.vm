@@ -34,9 +34,9 @@
                         #if($parallel)
                           <td id="device">$feature.getDeviceName()</td>
                         #end
-                        <td id="stats-number-scenarios-$sf">$feature.getNumberOfScenarios()</td>
-                        <td id="stats-number-scenarios-passed-$sf">$feature.getNumberOfScenariosPassed()</td>
-                        <td id="stats-number-scenarios-failed-$sf">$feature.getNumberOfScenariosFailed()</td>
+                        <td id="stats-number-scenarios-$sf">$feature.getScenarios()</td>
+                        <td id="stats-number-scenarios-passed-$sf">$feature.getPassedScenarios()</td>
+                        <td id="stats-number-scenarios-failed-$sf">$feature.getFailedScenarios()</td>
                         <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
                         <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
                         <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  style="background-color:#FF0000;" #end>$feature.getNumberOfFailures()</td>
@@ -57,7 +57,7 @@
             $feature.getName()
             <i>$feature.getDescription()</i>
 
-            #foreach($scenario in $scenarios)
+            #foreach($scenario in $elements)
                 $scenario.getTagsList()
                 $scenario.getBeforeAttachments()
                 $scenario.getName()

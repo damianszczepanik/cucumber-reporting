@@ -20,7 +20,7 @@ public class FeatureReportPage extends AbstractPage {
             contextMap.put("parallel", ReportBuilder.isParallel());
             contextMap.put("feature", feature);
             contextMap.put("status_colour", feature.getStatus().color);
-            contextMap.put("scenarios", feature.getScenarios());
+            contextMap.put("elements", feature.getElements());
 
             generateReport(feature.getReportFileName());
         }

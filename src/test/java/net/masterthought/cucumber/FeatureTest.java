@@ -46,11 +46,6 @@ public class FeatureTest {
     }
 
     @Test
-    public void shouldHasScenario() {
-        assertThat(passingFeature.hasScenarios(), is(true));
-    }
-
-    @Test
     public void shouldKnowIfTagsExists() {
         assertThat(passingFeature.hasTags(), is(true));
     }
@@ -137,7 +132,7 @@ public class FeatureTest {
 
     @Test
     public void shouldGetNumberOScenarios() {
-        assertThat(passingFeature.getNumberOfScenarios(), is(8));
+        assertThat(passingFeature.getScenarios(), is(4));
     }
 
     @Test
@@ -150,12 +145,12 @@ public class FeatureTest {
 
     @Test
     public void shouldGetNumberOfPassingScenarios() {
-        assertThat(passingFeature.getNumberOfScenariosPassed(), is(8));
+        assertThat(passingFeature.getPassedScenarios(), is(4));
     }
 
     @Test
     public void shouldGetNumberOfFailingScenarios() {
-        assertThat(failingFeature.getNumberOfScenariosFailed(), is(1));
+        assertThat(failingFeature.getFailedScenarios(), is(1));
     }
 
 }

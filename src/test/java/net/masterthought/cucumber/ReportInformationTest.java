@@ -46,7 +46,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportInformation.getAllScenarios().size(), is(18));
+        assertThat(reportInformation.getAllScenarios().size(), is(10));
     }
 
     @Test
@@ -151,7 +151,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalScenariosPassed() {
-        assertThat(reportInformation.getAllPassedScenarios(), is(16));
+        assertThat(reportInformation.getAllPassedScenarios(), is(8));
     }
 
     @Test

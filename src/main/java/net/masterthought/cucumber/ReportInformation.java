@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Result;
-import net.masterthought.cucumber.json.Scenario;
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
@@ -156,33 +156,35 @@ public class ReportInformation {
     private void processFeatures() {
         for (Feature feature : allFeatures) {
 
-            for (Scenario scenario : feature.getScenarios()) {
-                scenarioCounter.incrementFor(scenario.getStatus());
-
-                for (Tag tag : scenario.getTags()) {
-                    tagsCounter.incrementFor(scenario.getStatus());
-
-                    TagObject tagObject = addTagObject(tag.getName());
-                    processTag(tagObject, scenario);
+            for (Element element : feature.getElements()) {
+                if (element.isScenario()) {
+                    scenarioCounter.incrementFor(element.getStatus());
                 }
 
-                Step[] steps = scenario.getSteps();
+                for (Tag tag : element.getTags()) {
+                    tagsCounter.incrementFor(element.getStatus());
+
+                    TagObject tagObject = addTagObject(tag.getName());
+                    processTag(tagObject, element);
+                }
+
+                Step[] steps = element.getSteps();
                 for (Step step : steps) {
                     stepStatusCounter.incrementFor(step.getStatus());
                     allDurations += step.getDuration();
                 }
                 countSteps(steps);
 
-                countSteps(scenario.getBefore());
-                countSteps(scenario.getAfter());
+                countSteps(element.getBefore());
+                countSteps(element.getAfter());
             }
         }
     }
 
-    private void processTag(TagObject tag, Scenario scenario) {
-        tag.addScenarios(scenario);
+    private void processTag(TagObject tag, Element element) {
+        tag.addElement(element);
 
-        Step[] steps = scenario.getSteps();
+        Step[] steps = element.getSteps();
         for (Step step : steps) {
             tagsStatusCounter.incrementFor(step.getStatus());
             allTagDuration += step.getDuration();

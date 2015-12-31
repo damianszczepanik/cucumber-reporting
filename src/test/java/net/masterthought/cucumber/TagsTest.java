@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Scenario;
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagsTest {
@@ -81,21 +81,21 @@ public class TagsTest {
 
     @Test
     public void shouldGetTagScenariosForTag1() {
-        List<Scenario> scenarios = reportInformation.getAllTags().get(0).getScenarios();
-        assertThat(scenarios.size(), is(2));
-        Scenario firstScenario = scenarios.get(0);
-        Scenario secondScenario = scenarios.get(1);
-        assertThat(firstScenario.getRawName(), is("scenario1 for tag1"));
-        assertThat(secondScenario.getRawName(), is("scenario2 for tag1"));
+        List<Element> elements = reportInformation.getAllTags().get(0).getElements();
+        assertThat(elements.size(), is(2));
+        Element firstElement = elements.get(0);
+        Element secondElement = elements.get(1);
+        assertThat(firstElement.getRawName(), is("scenario1 for tag1"));
+        assertThat(secondElement.getRawName(), is("scenario2 for tag1"));
     }
 
     @Test
     public void shouldGetTagScenariosForTag2() {
-        List<Scenario> scenarios = reportInformation.getAllTags().get(1).getScenarios();
-        assertThat(scenarios.size(), is(2));
-        Scenario firstScenario = scenarios.get(0);
-        Scenario secondScenario = scenarios.get(1);
-        assertThat(firstScenario.getRawName(), is("scenario1 for tag2"));
-        assertThat(secondScenario.getRawName(), is("scenario2 for tag2"));
+        List<Element> elements = reportInformation.getAllTags().get(1).getElements();
+        assertThat(elements.size(), is(2));
+        Element firstElement = elements.get(0);
+        Element secondElement = elements.get(1);
+        assertThat(firstElement.getRawName(), is("scenario1 for tag2"));
+        assertThat(secondElement.getRawName(), is("scenario2 for tag2"));
     }
 }

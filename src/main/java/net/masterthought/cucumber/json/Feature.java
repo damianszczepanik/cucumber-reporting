@@ -7,8 +7,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.google.gson.annotations.SerializedName;
-
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
@@ -23,16 +21,15 @@ public class Feature {
     private final String description = null;
     private final String keyword = null;
 
-    @SerializedName("elements")
-    private final Scenario[] scenarios = new Scenario[0];
+    private final Element[] elements = new Element[0];
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
     private String jsonFile;
     private String reportFileName;
     private String deviceName;
-    private final List<Scenario> passedScenarios = new ArrayList<>();
-    private final List<Scenario> failedScenarios = new ArrayList<>();
+    private final List<Element> scenarios = new ArrayList<>();
+    private final StatusCounter scenarioCounter = new StatusCounter();
     private Status featureStatus;
     private final StatusCounter statusCounter = new StatusCounter();
     private long totalDuration;
@@ -46,8 +43,8 @@ public class Feature {
         return id;
     }
 
-    public Scenario[] getScenarios() {
-        return scenarios;
+    public Element[] getElements() {
+        return elements;
     }
 
     public String getReportFileName() {
@@ -56,10 +53,6 @@ public class Feature {
 
     public boolean hasTags() {
         return ArrayUtils.isNotEmpty(tags);
-    }
-
-    public boolean hasScenarios() {
-        return ArrayUtils.isNotEmpty(scenarios);
     }
 
     public Tag[] getTags() {
@@ -96,8 +89,8 @@ public class Feature {
         return description;
     }
 
-    public int getNumberOfScenarios() {
-        return scenarios.length;
+    public int getScenarios() {
+        return scenarios.size();
     }
 
     public int getNumberOfSteps() {
@@ -132,20 +125,24 @@ public class Feature {
         return Util.formatDuration(totalDuration);
     }
 
-    public int getNumberOfScenariosPassed() {
-        return passedScenarios.size();
+    public int getPassedScenarios() {
+        return scenarioCounter.getValueFor(Status.PASSED);
     }
 
-    public int getNumberOfScenariosFailed() {
-        return failedScenarios.size();
+    public int getFailedScenarios() {
+        return scenarioCounter.getValueFor(Status.FAILED);
     }
 
     /** Sets additional information and calculates values which should be calculated during object creation. */
     public void setMetaData(String jsonFile) {
         this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
 
-        for (Scenario scenario : scenarios) {
-            scenario.setMedaData(this);
+        for (Element element : elements) {
+            element.setMedaData(this);
+
+            if (element.isScenario()) {
+                scenarios.add(element);
+            }
         }
 
         setDeviceName();
@@ -178,7 +175,7 @@ public class Feature {
     }
 
     private void calculateFeatureStatus() {
-        for (Scenario element : scenarios) {
+        for (Element element : elements) {
             if (element.getStatus() != Status.PASSED) {
                 featureStatus = Status.FAILED;
                 return;
@@ -188,16 +185,14 @@ public class Feature {
     }
 
     private void calculateSteps() {
-        for (Scenario scenario : scenarios) {
-            if (scenario.getStatus() == Status.PASSED) {
-                passedScenarios.add(scenario);
-            } else if (scenario.getStatus() == Status.FAILED) {
-                failedScenarios.add(scenario);
+        for (Element element : elements) {
+            if (element.isScenario()) {
+                scenarioCounter.incrementFor(element.getStatus());
             }
 
-            totalSteps += scenario.getSteps().length;
+            totalSteps += element.getSteps().length;
 
-            for (Step step : scenario.getSteps()) {
+            for (Step step : element.getSteps()) {
                 statusCounter.incrementFor(step.getStatus());
                 totalDuration += step.getDuration();
             }
