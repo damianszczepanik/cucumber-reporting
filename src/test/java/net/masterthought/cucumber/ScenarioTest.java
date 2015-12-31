@@ -13,17 +13,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Scenario;
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
 public class ScenarioTest {
 
-    private Scenario passingElement;
-    private Scenario failingElement;
-    private Scenario undefinedElement;
-    private Scenario skippedElement;
-    private Scenario taggedElement;
+    private Element passingElement;
+    private Element failingElement;
+    private Element undefinedElement;
+    private Element skippedElement;
+    private Element taggedElement;
 
 
     @Before
@@ -37,12 +37,12 @@ public class ScenarioTest {
         Feature undefinedFeature = features.get(2);
         Feature skippedFeature = features.get(3);
         
-        passingElement = passingFeature.getScenarios()[0];
-        failingElement = failingFeature.getScenarios()[0];
-        undefinedElement = undefinedFeature.getScenarios()[0];
-        skippedElement = skippedFeature.getScenarios()[0];
+        passingElement = passingFeature.getElements()[0];
+        failingElement = failingFeature.getElements()[0];
+        undefinedElement = undefinedFeature.getElements()[0];
+        skippedElement = skippedFeature.getElements()[0];
         
-        taggedElement = passingFeature.getScenarios()[1];
+        taggedElement = passingFeature.getElements()[1];
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ScenarioTest {
     
     @Test
     public void shouldReturnName() {
-        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"scenario-keyword\">Background: </span><span class=\"scenario-name\">Activate Credit Card</span></div>"
+        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"element-keyword\">Background: </span><span class=\"element-name\">Activate Credit Card</span></div>"
         ));
     }
 

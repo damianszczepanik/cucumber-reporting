@@ -35,10 +35,10 @@ public class StepTest {
         Feature passingFeature = features.get(0);
         Feature failingFeature = features.get(1);
 
-        passingStep = passingFeature.getScenarios()[0].getSteps()[0];
-        failingStep = failingFeature.getScenarios()[0].getSteps()[5];
-        skippedStep = failingFeature.getScenarios()[0].getSteps()[6];
-        withOutput = passingFeature.getScenarios()[1].getSteps()[0];
+        passingStep = passingFeature.getElements()[0].getSteps()[0];
+        failingStep = failingFeature.getElements()[0].getSteps()[5];
+        skippedStep = failingFeature.getElements()[0].getSteps()[6];
+        withOutput = passingFeature.getElements()[1].getSteps()[0];
     }
 
     @Test
@@ -47,7 +47,7 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         Feature feature = features.get(0);
-        Step step = feature.getScenarios()[0].getSteps()[0];
+        Step step = feature.getElements()[0].getSteps()[0];
 
         assertThat(step.getRows()[0], isA(Row.class));
     }
@@ -58,7 +58,7 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         Feature feature = features.get(0);
-        Step step = feature.getScenarios()[0].getSteps()[0];
+        Step step = feature.getElements()[0].getSteps()[0];
 
         assertThat(step.getDetails(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><pre class=\"error_message\"><span class=\"missing\">Result was missing for this step</span></pre></div>"));
     }
@@ -135,6 +135,6 @@ public class StepTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         Feature failingFeatureWithEmbeddedScreenshot = features.get(0);
-        return failingFeatureWithEmbeddedScreenshot.getScenarios()[0].getSteps()[2];
+        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
     }
 }

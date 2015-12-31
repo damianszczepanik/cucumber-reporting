@@ -8,7 +8,7 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-public class Scenario {
+public class Element {
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -21,6 +21,8 @@ public class Scenario {
     private final Hook[] after = new Hook[0];
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
+
+    private static final String[] SCENARIO_KEYWORDS = { "Scenario", "Scenario Outline" };
 
     private String beforeAttachments;
     private String afterAttachments;
@@ -93,17 +95,26 @@ public class Scenario {
         return type;
     }
 
+    public boolean isScenario() {
+        for (String reference : SCENARIO_KEYWORDS) {
+            if (reference.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getName() {
         StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"").append(getStatus().getName().toLowerCase()).append("\">");
 
         if (StringUtils.isNotEmpty(keyword)) {
-            sb.append("<span class=\"scenario-keyword\">").append(StringEscapeUtils.escapeHtml(keyword))
+            sb.append("<span class=\"element-keyword\">").append(StringEscapeUtils.escapeHtml(keyword))
                     .append(": </span>");
         }
 
         if (StringUtils.isNotEmpty(name)) {
-            sb.append("<span class=\"scenario-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
+            sb.append("<span class=\"element-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
         }
         sb.append("</div>");
 
@@ -142,7 +153,7 @@ public class Scenario {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Scenario other = (Scenario) obj;
+        Element other = (Element) obj;
 
         return id != null ? id.equals(other.id) : super.equals(obj);
     }

@@ -135,7 +135,7 @@ public class Step implements ResultsWithMatch {
         return attachments;
     }
 
-    public void setMedaData(Scenario scenario) {
+    public void setMedaData(Element element) {
         calculateAttachments();
         calculateOutputs();
         calculateStatus();

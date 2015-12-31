@@ -27,7 +27,7 @@ public class DocStringTest {
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/docstring.json"));
         List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
         Feature feature = features.get(0);
-        step = feature.getScenarios()[0].getSteps()[0];
+        step = feature.getElements()[0].getSteps()[0];
     }
 
     @Test

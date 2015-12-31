@@ -32,12 +32,12 @@ h2 {
 	color: darkblue;
 }
 
-.scenario-keyword {
+.element-keyword {
 	font-weight: bold;
 	padding-left: 15px;
 }
 
-.scenario-scenario_name {
+.element-element_name {
 	padding-left: 15px;
 }
 

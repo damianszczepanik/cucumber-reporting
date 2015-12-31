@@ -226,8 +226,8 @@ public class ReportBuilderTest {
 
     private void assertStatsFirstFeature(Document doc) {
         assertThat("stats", fromId("stats-Account Holder withdraws cash", doc).text(), is("Account Holder withdraws cash"));
-        assertThat("stats-number-scenarios", fromId("stats-number-scenarios-Account Holder withdraws cash", doc).text(), is("8"));
-        assertThat("stats-number-scenarios-passed", fromId("stats-number-scenarios-passed-Account Holder withdraws cash", doc).text(), is("8"));
+        assertThat("stats-number-scenarios", fromId("stats-number-scenarios-Account Holder withdraws cash", doc).text(), is("4"));
+        assertThat("stats-number-scenarios-passed", fromId("stats-number-scenarios-passed-Account Holder withdraws cash", doc).text(), is("4"));
         assertThat("stats-number-scenarios-failed", fromId("stats-number-scenarios-failed-Account Holder withdraws cash", doc).text(), is("0"));
         assertThat("stats-number-steps", fromId("stats-number-steps-Account Holder withdraws cash", doc).text(), is("40"));
         assertThat("stats-number-steps-passed", fromId("stats-number-steps-passed-Account Holder withdraws cash", doc).text(), is("40"));
@@ -243,8 +243,8 @@ public class ReportBuilderTest {
 
         assertThat("feature-keyword", elements.select("div.feature-line span.feature-keyword").first().text(), is("Feature:"));
         assertThat("feature-text", elements.select("div.feature-line").first().text(), is("Feature: Account Holder withdraws cash"));
-        assertThat("scenario-background-keyword", doc.select("div.passed span.scenario-keyword").first().text(), is("Background:"));
-        assertThat("scenario-background-name", doc.select("div.passed span.scenario-name").first().text(), is("Activate Credit Card"));
+        assertThat("scenario-background-keyword", doc.select("div.passed span.element-keyword").first().text(), is("Background:"));
+        assertThat("scenario-background-name", doc.select("div.passed span.element-name").first().text(), is("Activate Credit Card"));
 
         elements = doc.select("div.passed span.step-keyword");
         List<String> backgroundStepKeywords = new ArrayList<>();
@@ -305,8 +305,8 @@ public class ReportBuilderTest {
 
     private void assertStatsTotals(Document doc) {
         assertThat("stats-total-features", fromId("stats-total-features", doc).text(), is("4"));
-        assertThat("stats-total-scenarios", fromId("stats-total-scenarios", doc).text(), is("11"));
-        assertThat("stats-total-scenarios-passed", fromId("stats-total-scenarios-passed", doc).text(), is("10"));
+        assertThat("stats-total-scenarios", fromId("stats-total-scenarios", doc).text(), is("7"));
+        assertThat("stats-total-scenarios-passed", fromId("stats-total-scenarios-passed", doc).text(), is("6"));
         assertThat("stats-total-scenarios-failed", fromId("stats-total-scenarios-failed", doc).text(), is("1"));
         assertThat("stats-total-steps", fromId("stats-total-steps", doc).text(), is("67"));
         assertThat("stats-total-steps-passed", fromId("stats-total-steps-passed", doc).text(), is("55"));

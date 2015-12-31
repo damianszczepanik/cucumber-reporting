@@ -3,23 +3,23 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.masterthought.cucumber.json.Scenario;
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject {
 
     private final String tagName;
-    private final List<Scenario> scenarios = new ArrayList<>();
+    private final List<Element> elements = new ArrayList<>();
 
     private final String reportFileName;
     private int scenarioCounter;
-    private StatusCounter scenariosStatusCounter = new StatusCounter();
+    private StatusCounter elementsStatusCounter = new StatusCounter();
     private StatusCounter stepsStatusCounter = new StatusCounter();
     private long totalDuration;
     private int totalSteps;
 
-    /** Status for current tag: {@link Status#PASSED} if all scenarios pass {@link Status#FAILED} otherwise. */
+    /** Status for current tag: {@link Status#PASSED} if all elements pass {@link Status#FAILED} otherwise. */
     private Status status = Status.PASSED;
 
     public TagObject(String tagName) {
@@ -37,37 +37,41 @@ public class TagObject {
         return reportFileName;
     }
 
-    public List<Scenario> getScenarios() {
-        return scenarios;
+    public List<Element> getElements() {
+        return elements;
     }
 
-    public void addScenarios(Scenario scenario) {
-        scenarios.add(scenario);
 
-        if (status != Status.FAILED && scenario.getStatus() != Status.PASSED) {
+    public void addElement(Element element) {
+        elements.add(element);
+
+        if (status != Status.FAILED && element.getStatus() != Status.PASSED) {
             status = Status.FAILED;
         }
 
-        scenarioCounter++;
-        scenariosStatusCounter.incrementFor(scenario.getStatus());
+        if (element.isScenario()) {
+            scenarioCounter++;
+        }
 
-        for (Step step : scenario.getSteps()) {
+        elementsStatusCounter.incrementFor(element.getStatus());
+
+        for (Step step : element.getSteps()) {
             stepsStatusCounter.incrementFor(step.getStatus());
             totalDuration += step.getDuration();
             totalSteps++;
         }
     }
 
-    public int getNumberOfScenarios() {
+    public int getScenarios() {
         return scenarioCounter;
     }
 
     public Integer getNumberOfPassingScenarios() {
-        return scenariosStatusCounter.getValueFor(Status.PASSED);
+        return elementsStatusCounter.getValueFor(Status.PASSED);
     }
 
     public Integer getNumberOfFailingScenarios() {
-        return scenariosStatusCounter.getValueFor(Status.FAILED);
+        return elementsStatusCounter.getValueFor(Status.FAILED);
     }
 
     public String getTotalDuration() {
