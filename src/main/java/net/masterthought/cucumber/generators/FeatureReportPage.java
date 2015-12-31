@@ -13,13 +13,13 @@ public class FeatureReportPage extends AbstractPage {
 
     @Override
     public void generatePage() throws IOException {
-        for (Feature feature : reportInformation.getFeatures()) {
+        for (Feature feature : reportInformation.getAllFeatures()) {
             super.generatePage();
 
             contextMap.putAll(getGeneralParameters());
             contextMap.put("parallel", ReportBuilder.isParallel());
             contextMap.put("feature", feature);
-            contextMap.put("report_status_colour", feature.getStatus().color);
+            contextMap.put("status_colour", feature.getStatus().color);
             contextMap.put("scenarios", feature.getScenarios());
 
             generateReport(feature.getReportFileName());

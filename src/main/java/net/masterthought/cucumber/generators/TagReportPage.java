@@ -13,11 +13,11 @@ public class TagReportPage extends AbstractPage {
 
     @Override
     public void generatePage() throws IOException {
-        for (TagObject tagObject : reportInformation.getTags()) {
+        for (TagObject tagObject : reportInformation.getAllTags()) {
             super.generatePage();
 
             contextMap.put("tag", tagObject);
-            contextMap.put("report_status_colour", tagObject.getStatus().color);
+            contextMap.put("status_colour", tagObject.getStatus().color);
 
             generateReport(tagObject.getReportFileName());
         }

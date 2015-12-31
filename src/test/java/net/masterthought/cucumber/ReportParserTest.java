@@ -43,7 +43,7 @@ public class ReportParserTest {
         ReportInformation reportInformation = new ReportInformation(features);
 
         // Should not crash with NPE
-        assertThat(reportInformation.getFeatures().get(0), isA(Feature.class));
+        assertThat(reportInformation.getAllFeatures().get(0), isA(Feature.class));
         assertThat(features.size(), is(1));
     }
 

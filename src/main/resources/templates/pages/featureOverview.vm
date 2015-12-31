@@ -175,34 +175,34 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             {
                                 name: 'Passed',
                                 color: "$step_data.get(0)",
-                                y: $total_passes,
+                                y: $all_steps_passes,
                                 sliced: true,
                                 selected: true
                             },
                             {
                                 name: 'Failed',
                                 color: "#CC1134",
-                                y: $total_fails
+                                y: $all_steps_failed
                             },
                             {
                                 name: 'Skipped',
                                 color: "$step_data.get(2)",
-                                y: $total_skipped
+                                y: $all_steps_skipped
                             },
                             {
                                 name: 'Pending',
                                 color: "$step_data.get(3)",
-                                y: $total_pending
+                                y: $all_steps_pending
                             },
                             {
                                 name: 'Undefined',
                                 color: "$step_data.get(4)",
-                                y: $total_undefined
+                                y: $all_steps_undefined
                             },
                             {
                                 name: 'Missing',
                                 color: "$step_data.get(5)",
-                                y: $total_missing
+                                y: $all_steps_missing
                             }
                         ]
                     }]
@@ -241,14 +241,14 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                         data: [
                             {
                                 name: 'Passed',
-                                y: $scenarios_passed,
+                                y: $all_scenarios_passed,
                                 color: "$step_data.get(0)",
                                 sliced: true,
                                 selected: true
                             },
                             {
                                 name: 'Failed',
-                                y: $scenarios_failed,
+                                y: $all_scenarios_failed,
                                 color: "#CC1134"
                             }
                         ]
@@ -263,12 +263,12 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                 steps.text(45, 280, "Steps").attr({ font: "30px sans-serif" });
                 steps.piechart(200, 150, 120,
                 [
-                    #if( $total_passes == 0) 0.000001 #{else} $total_passes #end,
-                    #if( $total_fails == 0) 0.000001 #{else} $total_fails #end,
-                    #if( $total_skipped == 0) 0.000001 #{else} $total_skipped #end,
-                    #if( $total_pending == 0) 0.000001 #{else} $total_pending #end,
-                    #if( $total_undefined == 0) 0.000001 #{else} $total_undefined #end,
-                    #if( $total_missing == 0) 0.000001 #{else} $total_missing #end
+                    #if( $all_steps_passes == 0) 0.000001 #{else} $all_steps_passes #end,
+                    #if( $all_steps_failed == 0) 0.000001 #{else} $all_steps_failed #end,
+                    #if( $all_steps_skipped == 0) 0.000001 #{else} $all_steps_skipped #end,
+                    #if( $all_steps_pending == 0) 0.000001 #{else} $all_steps_pending #end,
+                    #if( $all_steps_undefined == 0) 0.000001 #{else} $all_steps_undefined #end,
+                    #if( $all_steps_missing == 0) 0.000001 #{else} $all_steps_missing #end
                 ],
                 {
                     legend:
@@ -298,8 +298,8 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                 scenarios.text(75, 280, "Scenarios").attr({ font: "30px sans-serif", fill: "white" });
                 scenarios.piechart(200, 150, 120,
                 [
-                    #if( $scenarios_passed == 0) 0.000001 #{else} $scenarios_passed #end,
-                    #if( $scenarios_failed == 0) 0.000001 #{else} $scenarios_failed #end
+                    #if( $all_scenarios_passed == 0) 0.000001 #{else} $all_scenarios_passed #end,
+                    #if( $all_scenarios_failed == 0) 0.000001 #{else} $all_scenarios_failed #end
                     ],
                     {
                         legend:
@@ -377,17 +377,17 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
 #if($parallel)
   <th id="stats-total-features" style="background-color:lightgray">-</th>
 #end
-<th id="stats-total-scenarios" style="background-color:lightgray">$total_scenarios</th>
-<th id="stats-total-scenarios-passed" style="background-color:lightgray">$scenarios_passed</th>
-<th id="stats-total-scenarios-failed" style="background-color:lightgray">$scenarios_failed</th>
+<th id="stats-total-scenarios" style="background-color:lightgray">$all_scenarios</th>
+<th id="stats-total-scenarios-passed" style="background-color:lightgray">$all_scenarios_passed</th>
+<th id="stats-total-scenarios-failed" style="background-color:lightgray">$all_scenarios_failed</th>
 <th id="stats-total-steps" style="background-color:lightgray">$all_steps.size()</th>
-<th id="stats-total-steps-passed" style="background-color:lightgray">$total_passes</th>
-<th id="stats-total-steps-failed" style="background-color:lightgray">$total_fails</th>
-<th id="stats-total-steps-skipped" style="background-color:lightgray">$total_skipped</th>
-<th id="stats-total-steps-pending" style="background-color:lightgray">$total_pending</th>
-<th id="stats-total-steps-undefined" style="background-color:lightgray">$total_undefined</th>
-<th id="stats-total-steps-missing" style="background-color:lightgray">$total_missing</th>
-<th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$total_duration</th>
+<th id="stats-total-steps-passed" style="background-color:lightgray">$all_steps_passes</th>
+<th id="stats-total-steps-failed" style="background-color:lightgray">$all_steps_failed</th>
+<th id="stats-total-steps-skipped" style="background-color:lightgray">$all_steps_skipped</th>
+<th id="stats-total-steps-pending" style="background-color:lightgray">$all_steps_pending</th>
+<th id="stats-total-steps-undefined" style="background-color:lightgray">$all_steps_undefined</th>
+<th id="stats-total-steps-missing" style="background-color:lightgray">$all_steps_missing</th>
+<th id="stats-total-duration" style="background-color:lightgray;text-align:right;white-space:nowrap">$all_durations</th>
 <th id="stats-total-totals" style="background-color:lightgray">Totals</th>
 </tr></table>
     </div>
