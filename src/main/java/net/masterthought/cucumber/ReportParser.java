@@ -21,14 +21,15 @@ public class ReportParser {
         List<Feature> featureResults = new ArrayList<>();
         Gson gson = new Gson();
 
-        for (String jsonFile : jsonReportFiles) {
+        for (int i = 0; i < jsonReportFiles.size(); i++) {
+            String jsonFile = jsonReportFiles.get(i);
             try (InputStream in = new FileInputStream(jsonFile);
                     Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
                 Feature[] features = gson.fromJson(reader, Feature[].class);
                 if (features == null) {
                     throw new IllegalArgumentException(String.format("File '%s' does not contan features!", jsonFile));
                 }
-                setMetadata(features, jsonFile);
+                setMetadata(features, jsonFile, i);
 
                 featureResults.addAll(Arrays.asList(features));
             }
@@ -38,9 +39,9 @@ public class ReportParser {
     }
 
     /** Sets additional information and calculates values which should be calculated during object creation. */
-    private void setMetadata(Feature[] features, String jsonFile) {
+    private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
         for (Feature feature : features) {
-            feature.setMetaData(jsonFile);
+            feature.setMetaData(jsonFile, jsonFileNo);
         }
     }
 }
