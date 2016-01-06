@@ -134,7 +134,7 @@ public class Feature {
     }
 
     /** Sets additional information and calculates values which should be calculated during object creation. */
-    public void setMetaData(String jsonFile) {
+    public void setMetaData(String jsonFile, int jsonFileNo) {
         this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
 
         for (Element element : elements) {
@@ -146,7 +146,7 @@ public class Feature {
         }
 
         setDeviceName();
-        setReportFileName();
+        setReportFileName(jsonFileNo);
         calculateFeatureStatus();
 
         calculateSteps();
@@ -163,15 +163,23 @@ public class Feature {
         }
     }
 
-    private void setReportFileName() {
+    private void setReportFileName(int jsonFileNo) {
         // remove all characters that might not be valid file name
         reportFileName = uri.replaceAll("[^\\d\\w]", "-");
 
         // If we expect to have parallel executions, we add postfix to file name
         if (ReportBuilder.isParallel()) {
-            reportFileName = reportFileName + "-" + getDeviceName();
+            reportFileName += "_" + getDeviceName();
         }
-        reportFileName = reportFileName + ".html";
+
+        // if there is only one JSON file - skip unique prefix
+        if (jsonFileNo > 0) {
+            // add jsonFile index to the file name so if two the same features are reported
+            // in two different JSON files then file name must be different
+            reportFileName += "_" + jsonFileNo;
+        }
+
+        reportFileName += ".html";
     }
 
     private void calculateFeatureStatus() {
