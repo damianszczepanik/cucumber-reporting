@@ -13,7 +13,7 @@ public class FeatureReportPage extends AbstractPage {
 
     @Override
     public void generatePage() throws IOException {
-        for (Feature feature : reportInformation.getAllFeatures()) {
+        for (Feature feature : report.getAllFeatures()) {
             super.generatePage();
 
             contextMap.putAll(getGeneralParameters());

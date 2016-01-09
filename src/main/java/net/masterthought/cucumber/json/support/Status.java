@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.json.support;
 
 /**
- * Defines all possible status provided by Cucumber.
+ * Defines all possible statuses provided by cucumber-jvm.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
- *
  */
 public enum Status {
 
     // use RGB color instead of predefined such as blue, yellow!
-    PASSED("#00CE00"),
+    PASSED("#00A000"),
     FAILED("#FF0000"),
     SKIPPED("#88AAFF"),
     PENDING("#FBB907"),
@@ -25,12 +24,12 @@ public enum Status {
 
     /** Returns status colors in order they are displayed (is the same as defined above). */
     public static String[] getOrderedColors() {
-
         Status[] allStatuses = Status.values();
         String[] colors = new String[Status.values().length];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = allStatuses[i].color;
         }
+
         return colors;
     }
 
@@ -41,7 +40,7 @@ public enum Status {
 
     /** Returns name of the status changing first letter to upper case character. */
     public String getLabel() {
-        return String.valueOf(name().charAt(0)).toUpperCase() + name().substring(1).toLowerCase();
+        return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
     }
 
 }

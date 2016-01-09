@@ -29,9 +29,7 @@ public class ReportBuilder {
     private String buildNumber;
     private String buildProject;
     private String pluginUrlPath;
-    private boolean flashCharts;
     private boolean runWithJenkins;
-    private boolean highCharts;
 
     //Added to control parallel reports
     private static boolean parallel = false;
@@ -88,39 +86,21 @@ public class ReportBuilder {
         this.runWithJenkins = runWithJenkins;
     }
 
-    public boolean isFlashCharts() {
-        return flashCharts;
-    }
-
-    public void setFlashCharts(boolean flashCharts) {
-        this.flashCharts = flashCharts;
-    }
-
-    public boolean isHighCharts() {
-        return highCharts;
-    }
-
-    public void setHighCharts(boolean highCharts) {
-        this.highCharts = highCharts;
-    }
-
     public List<String> getJsonFiles() {
         return this.jsonFiles;
     }
 
     public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber,
             String buildProject, boolean skippedFails, boolean pendingFails, boolean undefinedFails,
-            boolean missingFails, boolean flashCharts, boolean runWithJenkins, boolean highCharts,
-            boolean parallelTesting) throws IOException, VelocityException {
+            boolean missingFails, boolean runWithJenkins, boolean parallelTesting)
+                    throws IOException, VelocityException {
 
         try {
             this.reportDirectory = reportDirectory;
             this.buildNumber = buildNumber;
             this.buildProject = buildProject;
             this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
-            this.flashCharts = flashCharts;
             this.runWithJenkins = runWithJenkins;
-            this.highCharts = highCharts;
             ReportBuilder.parallel = parallelTesting;
             this.jsonFiles = jsonReports;
 
@@ -147,10 +127,7 @@ public class ReportBuilder {
             reportInformation = new ReportInformation(features);
 
             copyResource("themes", "blue.zip");
-            copyResource("charts", "js.zip");
-            if (flashCharts) {
-                copyResource("charts", "flash_charts.zip");
-            }
+            copyResource("charts", "Highcharts-4.2.1.zip");
 
             new FeatureOverviewPage(this).generatePage();
             new FeatureReportPage(this).generatePage();
@@ -170,7 +147,6 @@ public class ReportBuilder {
         Util.unzipToFile(tempFile, reportDirectory.getAbsolutePath());
         tempFile.delete();
     }
-
 
     private String getPluginUrlPath(String path) {
         return path.isEmpty() ? "/" : path;

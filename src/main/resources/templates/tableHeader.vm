@@ -18,12 +18,12 @@
             <th id="stats-header-scenarios-passed">Passed</th>
             <th id="stats-header-scenarios-failed">Failed</th>
             <th id="stats-header-steps-total">Total</th>
-            <th id="stats-header-steps-passed"    style="background-color:#00CE00;">Passed</th>
-            <th id="stats-header-steps-failed"    style="background-color:#FF0000;">Failed</th>
-            <th id="stats-header-steps-skipped"   style="background-color:#88AAFF;">Skipped</th>
-            <th id="stats-header-steps-pending"   style="background-color:#FBB907;">Pending</th>
-            <th id="stats-header-steps-undefined" style="background-color:#FBB957;">Undefined</th>
-            <th id="stats-header-steps-missing"   style="background-color:#FBB9A7;">Missing</th>
+            <th id="stats-header-steps-passed"    style="background-color:$status_color.get(0)">Passed</th>
+            <th id="stats-header-steps-failed"    style="background-color:$status_color.get(1)">Failed</th>
+            <th id="stats-header-steps-skipped"   style="background-color:$status_color.get(2)">Skipped</th>
+            <th id="stats-header-steps-pending"   style="background-color:$status_color.get(3)">Pending</th>
+            <th id="stats-header-steps-undefined" style="background-color:$status_color.get(4)">Undefined</th>
+            <th id="stats-header-steps-missing"   style="background-color:$status_color.get(5)">Missing</th>
             <th id="stats-header-duration">Duration</th>
             <th id="stats-header-status">Status</th>
     </tr>
