@@ -1,8 +1,11 @@
-[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting.svg)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
-[![Build Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting.svg)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
+[![Build Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting.svg?label=Travis%20bulid)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Build Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting.svg?label=AppVeyor%20build)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
 
-[![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![Coverity Status](https://scan.coverity.com/projects/6166/badge.svg)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
+[![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Codecov%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
+[![SonarQube coverage](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/coverage.svg?label=Sonarqube%20coverage)](http://nemo.sonarqube.org/overview/coverage?id=net.masterthought%3Acucumber-reporting)
+[![SonarQube tech debt](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/tech_debt.svg?label=Sonarqube%20tech%20debt)](http://nemo.sonarqube.org/overview/debt?id=net.masterthought%3Acucumber-reporting)
+[![Coverity Status](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
+
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![Maven Dependencies](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed/badge.svg)](https://www.versioneye.com/user/projects/55c5301d653762001a0035ed?child=summary)
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
