@@ -22,10 +22,16 @@ public enum Status {
     private Status(String color) {
         this.color = color;
     }
-    
-    /** Returns statuses in order they are displayed. */
-    public static Status[] getOrderedStatuses() {
-        return new Status[] {PASSED, FAILED, SKIPPED, PENDING, UNDEFINED, MISSING };
+
+    /** Returns status colors in order they are displayed (is the same as defined above). */
+    public static String[] getOrderedColors() {
+
+        Status[] allStatuses = Status.values();
+        String[] colors = new String[Status.values().length];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = allStatuses[i].color;
+        }
+        return colors;
     }
 
     /** Returns name of the status as lower case characters. */

@@ -12,7 +12,7 @@ public final class FlashChartBuilder {
         StringBuilder sb = new StringBuilder();
         sb.append("<chart>");
         sb.append("<chart_data><row><null/>");
-        for (Status status : Status.getOrderedStatuses()) {
+        for (Status status : Status.values()) {
             sb.append("<string>").append(status.getLabel()).append("</string>");
         }
         sb.append("</row><row><string></string>");
@@ -131,7 +131,7 @@ public final class FlashChartBuilder {
     private static String generateColumnsForColumnChart(List<TagObject> tagObjectList) {
         StringBuilder sb = new StringBuilder();
 
-        for (Status status : Status.getOrderedStatuses()) {
+        for (Status status : Status.values()) {
             sb.append("<row>");
             sb.append("<string>").append(status.getLabel()).append("</string>");
             for (TagObject tag : tagObjectList) {
@@ -149,7 +149,7 @@ public final class FlashChartBuilder {
     private static void generateSeriesColor(StringBuilder sb) {
         sb.append("<series_color>");
 
-        for (Status status : Status.getOrderedStatuses()) {
+        for (Status status : Status.values()) {
             // substring because it expects color without trailing hash character
             sb.append("<color>").append(status.color.substring(1)).append("</color>");
         }
