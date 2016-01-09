@@ -1,11 +1,12 @@
 package net.masterthought.cucumber.generators;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.charts.FlashChartBuilder;
-import net.masterthought.cucumber.charts.JsChartUtil;
+import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureOverviewPage extends AbstractPage {
 
@@ -37,14 +38,8 @@ public class FeatureOverviewPage extends AbstractPage {
             contextMap.put("scenario_data", FlashChartBuilder.pieScenariosChart(
                     reportInformation.getAllPassedScenarios(), reportInformation.getAllFailedScenarios()));
         } else {
-            JsChartUtil pie = new JsChartUtil();
-            List<String> stepColours = pie.orderStepsByValue(reportInformation.getAllPassedSteps(),
-                    reportInformation.getAllFailedSteps(), reportInformation.getAllSkippedSteps(),
-                    reportInformation.getPendingStepsl(), reportInformation.getUndefinedSteps(),
-                    reportInformation.getTotalStepsMissing());
-            contextMap.put("step_data", stepColours);
-            List<String> scenarioColours = pie.orderScenariosByValue(reportInformation.getAllPassedScenarios(),
-                    reportInformation.getAllFailedScenarios());
+            contextMap.put("step_data", Arrays.asList(Status.getOrderedColors()));
+            List<String> scenarioColours = Arrays.asList(Status.PASSED.color, Status.FAILED.color);
             contextMap.put("scenario_data", scenarioColours);
         }
         contextMap.put("all_durations", reportInformation.getAllDurationsAsString());

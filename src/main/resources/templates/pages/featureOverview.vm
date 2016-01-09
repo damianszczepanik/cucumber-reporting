@@ -181,7 +181,7 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             },
                             {
                                 name: 'Failed',
-                                color: "#CC1134",
+                                color: "$step_data.get(1)",
                                 y: $all_steps_failed
                             },
                             {
@@ -242,14 +242,12 @@ if (AC_FL_RunContent == 0 || DetectFlashVer == 0) {
                             {
                                 name: 'Passed',
                                 y: $all_scenarios_passed,
-                                color: "$step_data.get(0)",
-                                sliced: true,
-                                selected: true
+                                color: "$step_data.get(0)"
                             },
                             {
                                 name: 'Failed',
                                 y: $all_scenarios_failed,
-                                color: "#CC1134"
+                                color: "$step_data.get(1)"
                             }
                         ]
                     }]
