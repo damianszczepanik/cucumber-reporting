@@ -1,5 +1,3 @@
-<style>
-
 h2 {
 	font-size: 24px !important;
 }
@@ -142,7 +140,7 @@ table.stats-table th {
 	border-style: inset;
 	border-color: gray;
 	background-color: #66CCEE;
-	-moz-border-radius:;
+	-moz-border-radius;
 }
 
 table.stats-table td {
@@ -217,7 +215,7 @@ table.data-table td {
 }
 
 .graph-header h3 {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .graph-header {
@@ -225,12 +223,12 @@ table.data-table td {
 }
 
 .graph-header p {
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 .graph .legend td, .graph .legend, .graph .legend tr {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	border-collapse: collapse;
 }
 
@@ -263,5 +261,3 @@ table.data-table td {
 table#tablesorter thead tr th {
 	cursor: pointer;
 }
-
-</style>
