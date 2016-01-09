@@ -83,7 +83,7 @@ public class Util {
             ZipFile zipFile = new ZipFile(srcZipFile);
             zipFile.extractAll(destDirectory);
         } catch (ZipException e) {
-            LOG.error("Could not unzip {} into {}.", srcZipFile.getAbsolutePath(), destDirectory);
+            LOG.error("Could not unzip {} into {}.", srcZipFile.getAbsolutePath(), destDirectory, e);
         }
     }
 
@@ -97,7 +97,7 @@ public class Util {
      * @return formatted message
      */
     public static String formatErrorMessage(String errorMessage, int errorID) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (StringUtils.isEmpty(errorMessage)) {
             sb.append(StringUtils.EMPTY);
         } else {

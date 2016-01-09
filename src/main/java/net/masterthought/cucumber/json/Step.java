@@ -27,7 +27,6 @@ public class Step implements ResultsWithMatch {
     private final DocString doc_string = null;
     // End: attributes from JSON file report
 
-    private static int labelCount = 0;
     private String attachments;
     private String[] outputs;
     private Status status;

@@ -1,7 +1,6 @@
 package net.masterthought.cucumber.json.support;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 /**
  * Keeps information about statuses occurrence.
@@ -11,7 +10,7 @@ import java.util.Map;
  */
 public class StatusCounter {
 
-    private final Map<Status, Integer> counter = new HashMap<>();
+    EnumMap<Status, Integer> counter = new EnumMap<>(Status.class);
 
     public StatusCounter() {
         for (Status status : Status.values()) {
