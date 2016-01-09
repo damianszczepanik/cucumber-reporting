@@ -3,7 +3,7 @@ package net.masterthought.cucumber.charts;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class JsChartUtil {
     public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped,
             int numberTotalPending, int numberTotalUndefined, int numberTotalMissing) {
 
-        Map<Status, Integer> map = new HashMap<>();
+        EnumMap<Status, Integer> map = new EnumMap<>(Status.class);
 
         map.put(Status.PASSED, numberTotalPassed);
         map.put(Status.FAILED, numberTotalFailed);
@@ -29,7 +29,7 @@ public class JsChartUtil {
 
     public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
 
-        Map<Status, Integer> map = new HashMap<>();
+        EnumMap<Status, Integer> map = new EnumMap<>(Status.class);
 
         map.put(Status.PASSED, numberTotalPassed);
         map.put(Status.FAILED, numberTotalFailed);
@@ -55,7 +55,7 @@ public class JsChartUtil {
         });
 
 
-        List<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<>();
         for (Map.Entry<Status, Integer> entry : list) {
             keys.add(entry.getKey().color);
         }

@@ -56,7 +56,7 @@ public class StepObject {
         if (total == 0) {
             return 0;
         } else {
-            return 100 * this.statusCounter.getValueFor(Status.PASSED) / total;
+            return 100F * this.statusCounter.getValueFor(Status.PASSED) / total;
         }
     }
 }

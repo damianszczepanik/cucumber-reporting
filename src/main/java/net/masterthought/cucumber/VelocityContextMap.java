@@ -1,8 +1,13 @@
 package net.masterthought.cucumber;
 
-import org.apache.velocity.VelocityContext;
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import org.apache.velocity.VelocityContext;
 
 /**
  * Created by Arno Noordover on 30-1-14.
@@ -80,7 +85,7 @@ public final class VelocityContextMap implements Map<String,Object> {
 
     @Override
     public Collection<Object> values() {
-        Collection<Object> result = new HashSet<Object>();
+        Collection<Object> result = new HashSet<>();
         for (String key : keySet()) {
             result.add(velocityContext.get(key));
         }
@@ -89,7 +94,7 @@ public final class VelocityContextMap implements Map<String,Object> {
 
     @Override
     public Set<Entry<String, Object>> entrySet() {
-        Set<Entry<String,Object>> result = new HashSet<Entry<String, Object>>();
+        Set<Entry<String, Object>> result = new HashSet<>();
         for (String key : keySet()) {
             result.add(new AbstractMap.SimpleEntry<String,Object>(key,velocityContext.get(key)));
         }
