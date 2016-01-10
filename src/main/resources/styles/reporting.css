@@ -77,8 +77,6 @@ h2 {
 
 .error_collapse + label:before {
 	background-color: #4F5150;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
 	border-radius: 10px;
 	color: #FFFFFF;
 	content: "+";
@@ -141,7 +139,6 @@ table.stats-table th {
 	border-style: inset;
 	border-color: gray;
 	background-color: #66CCEE;
-	-moz-border-radius;
 }
 
 table.stats-table td {
@@ -152,7 +149,6 @@ table.stats-table td {
 	border-style: inset;
 	border-color: gray;
 	background-color: white;
-	-moz-border-radius:;
 }
 
 table.data-table {
@@ -245,18 +241,6 @@ table.data-table td {
 	width: 14px;
 	height: 10px;
 	overflow: hidden;
-}
-
-.graph .label {
-	text-align: center;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	display: block;
-	position: absolute;
-	right: -5px;
-	top: 15px;
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
 }
 
 table#tablesorter thead tr th {
