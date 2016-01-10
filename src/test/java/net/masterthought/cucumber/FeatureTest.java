@@ -139,8 +139,7 @@ public class FeatureTest {
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
-        Feature feature = features.get(0);
+        new ReportParser().parseJsonResults(jsonReports);
     }
 
     @Test

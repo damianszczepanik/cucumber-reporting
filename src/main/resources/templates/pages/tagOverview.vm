@@ -104,22 +104,6 @@
 
 #include("/styles/reporting.css")                        
 
-     <!--[if IE]>
-         <style>
-             .graph .label {
-                    text-align: center;
-                    padding-top: 5px;
-                    padding-bottom: 5px;
-                    display: block;
-                    position: absolute;
-                    right: -5px;
-                    top: 15px;
-                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-                    right:-15px; top:5px;
-                 }
-         </style>
-         <![endif]-->
-
 </head>
 <body id="top">
 

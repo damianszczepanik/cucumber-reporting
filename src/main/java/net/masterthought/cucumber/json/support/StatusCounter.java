@@ -10,7 +10,7 @@ import java.util.EnumMap;
  */
 public class StatusCounter {
 
-    EnumMap<Status, Integer> counter = new EnumMap<>(Status.class);
+    private EnumMap<Status, Integer> counter = new EnumMap<>(Status.class);
 
     public StatusCounter() {
         for (Status status : Status.values()) {

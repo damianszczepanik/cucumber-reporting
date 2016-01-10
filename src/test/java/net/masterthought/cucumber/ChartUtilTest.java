@@ -13,7 +13,7 @@ public class ChartUtilTest {
 
     @Test
     public void testGetTags() throws Exception {
-        List<TagObject> tagObjectList = new ArrayList<TagObject>();
+        List<TagObject> tagObjectList = new ArrayList<>();
         TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = ChartUtil.getTags(tagObjectList);
@@ -22,14 +22,14 @@ public class ChartUtilTest {
 
     @Test
     public void testGetTags_withoutTags() throws Exception {
-        List<TagObject> tagObjectList = new ArrayList<TagObject>();
+        List<TagObject> tagObjectList = new ArrayList<>();
         String result = ChartUtil.getTags(tagObjectList);
         Assert.assertEquals("[]", result);
     }
 
     @Test
     public void testGenerateTagChartDataForHighCharts() throws Exception {
-        List<TagObject> tagObjectList = new ArrayList<TagObject>();
+        List<TagObject> tagObjectList = new ArrayList<>();
         TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = ChartUtil.generateTagChartDataForHighCharts(tagObjectList);
@@ -38,7 +38,7 @@ public class ChartUtilTest {
 
     @Test
     public void testGenerateTagChartDataForHighCharts_withoutTags() throws Exception {
-        List<TagObject> tagObjectList = new ArrayList<TagObject>();
+        List<TagObject> tagObjectList = new ArrayList<>();
         String result = ChartUtil.generateTagChartDataForHighCharts(tagObjectList);
         Assert.assertEquals("[]", result);
     }
