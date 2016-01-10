@@ -13,7 +13,7 @@ public class TagReportPage extends AbstractPage {
 
     @Override
     public void generatePage() throws IOException {
-        for (TagObject tagObject : reportInformation.getAllTags()) {
+        for (TagObject tagObject : report.getAllTags()) {
             super.generatePage();
 
             contextMap.put("tag", tagObject);

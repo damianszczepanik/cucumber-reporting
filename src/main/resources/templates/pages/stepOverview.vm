@@ -29,7 +29,7 @@
 
             <thead><tr>
                 <th id="stats-header-feature">Implementation</th>
-                <th id="stats-header-scenarios-total">Total</th>
+                <th id="stats-header-occurrences">Occurrences</th>
                 <th id="stats-header-duration">Duration</th>
                 <th id="stats-header-average">Average</th>
                 <th id="stats-header-status">Ratio</th>
@@ -39,9 +39,9 @@
             #foreach($step in $all_steps)
                 <tr>
                     #if($step.getPercentageResult() == 100.0)
-                        #set($bgcolour = "#00CE00")
+                        #set($bgcolour = $status_color.get(0))
                     #else
-                        #set($bgcolour = "#FF0000")
+                        #set($bgcolour = $status_color.get(1))
                     #end
 
                     <td style="text-align:left;">$step.getLocation()</td>
