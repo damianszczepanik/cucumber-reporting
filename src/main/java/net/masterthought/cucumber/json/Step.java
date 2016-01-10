@@ -152,11 +152,9 @@ public class Step implements ResultsWithMatch {
         List<String> list = new ArrayList<>();
         for (JsonElement element : this.output) {
             if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
-                String elementString = element.getAsString();
-                list.add(StringEscapeUtils.escapeHtml(elementString));
+                list.add(element.getAsString());
             } else {
-                String elementString = element.toString();
-                list.add(StringEscapeUtils.escapeHtml(elementString));
+                list.add(element.toString());
             }
         }
         outputs = list.toArray(new String[list.size()]);
