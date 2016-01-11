@@ -126,8 +126,8 @@ public class ReportBuilder {
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportInformation = new ReportInformation(features);
 
-            copyResource("themes", "blue.zip");
-            copyResource("charts", "Highcharts-4.2.1.zip");
+            copyResource("theme", "blue.zip");
+            copyResource("chart", "Highcharts-4.2.1.zip");
 
             new FeatureOverviewPage(this).generatePage();
             new FeatureReportPage(this).generatePage();
