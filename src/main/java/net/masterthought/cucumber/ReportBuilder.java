@@ -126,8 +126,9 @@ public class ReportBuilder {
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportInformation = new ReportInformation(features);
 
-            copyResource("theme", "blue.zip");
-            copyResource("chart", "Highcharts-4.2.1.zip");
+            copyResource("theme", "blue.zip", true);
+            copyResource("chart", "Highcharts-4.2.1.zip", true);
+            copyResource("styles", "reporting.css", false);
 
             new FeatureOverviewPage(this).generatePage();
             new FeatureReportPage(this).generatePage();
@@ -140,12 +141,15 @@ public class ReportBuilder {
         }
     }
 
-    private void copyResource(String resourceLocation, String resourceName) throws IOException, URISyntaxException {
+    private void copyResource(String resourceLocation, String resourceName, boolean decompress)
+            throws IOException, URISyntaxException {
         File tempFile = new File(reportDirectory.getAbsoluteFile(), resourceName);
         FileUtils.copyInputStreamToFile(
                 this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resourceName), tempFile);
-        Util.unzipToFile(tempFile, reportDirectory.getAbsolutePath());
-        tempFile.delete();
+        if (decompress) {
+            Util.unzipToFile(tempFile, reportDirectory.getAbsolutePath());
+            tempFile.delete();
+        }
     }
 
     private String getPluginUrlPath(String path) {
