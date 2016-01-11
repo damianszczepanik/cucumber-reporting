@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <title>Cucumber-JVM Html Reports - Feature Overview</title>
 
@@ -8,8 +8,6 @@
 #include("/templates/tableSorter.vm")
 <script src="js/highcharts.js"></script>
 <script src="js/highcharts-3d.js"></script>
-
-#include("/styles/reporting.css")                        
 
 </head>
 <body id="top">

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName() </title>
 
 #include("/templates/headers.html")
-
-#include("/styles/reporting.css")
 
 </head>
 <body id="top">
