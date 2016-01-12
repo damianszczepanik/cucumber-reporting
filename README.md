@@ -40,7 +40,7 @@ Read this if you need further  [detailed install and configuration]
 ## Usage
 
     File reportOutputDirectory = new File("target");
-    List<String> list = new ArrayList<String>();
+    List<String> list = new ArrayList<>();
     list.add("cucumber-report1.json");
     list.add("cucumber-report2.json");
 
@@ -51,18 +51,15 @@ Read this if you need further  [detailed install and configuration]
     boolean pendingFails = true;
     boolean undefinedFails = true;
     boolean missingFails = true;
-    boolean flashCharts = true;
     boolean runWithJenkins = false;
-    boolean highCharts = false;
     boolean parallelTesting = false;
 
     ReportBuilder reportBuilder = new ReportBuilder(list, reportOutputDirectory, pluginUrlPath, buildNumber,
-        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, flashCharts, runWithJenkins,
-        highCharts, parallelTesting);
+        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, runWithJenkins, parallelTesting);
     reportBuilder.generateReports();
 
 skippedFails means the build will be failed if any steps are in skipped status and undefinedFails means the build will be failed if any steps are in undefined status. This only applies when running with Jenkins.
-flashCharts means either use the default flashcharts or use the D3 javascript charts. runWithJenkins means put in the links back to Jenkins in the report.
+runWithJenkins means put in the links back to Jenkins in the report.
 
 There is a feature overview page:
 

@@ -3,7 +3,7 @@
         "id":"account-holder-withdraws-cash",
         "tags":[
             {
-                "name":"@super",
+                "name":"@featureTag",
                 "line":1
             }
         ],
@@ -65,7 +65,7 @@
                         "line":12
                     },
                     {
-                        "name":"@super",
+                        "name":"@featureTag",
                         "line":1
                     },
                     {
@@ -257,7 +257,7 @@
                         "line":12
                     },
                     {
-                        "name":"@super",
+                        "name":"@featureTag",
                         "line":1
                     },
                     {
@@ -445,7 +445,7 @@
                         "line":12
                     },
                     {
-                        "name":"@super",
+                        "name":"@featureTag",
                         "line":1
                     },
                     {
@@ -629,7 +629,7 @@
                 "id":"account-holder-withdraws-cash;account-has-sufficient-funds-again",
                 "tags":[
                     {
-                        "name":"@super",
+                        "name":"@featureTag_2",
                         "line":28
                     }
                 ],

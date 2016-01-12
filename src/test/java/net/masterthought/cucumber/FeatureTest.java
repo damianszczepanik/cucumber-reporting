@@ -52,13 +52,13 @@ public class FeatureTest {
 
     @Test
     public void shouldListTheTags() {
-        String name = "@super";
+        String name = "@featureTag";
         assertThat(passingFeature.getTags()[0].getName(), is(name));
     }
 
     @Test
     public void shouldListTheTagsAsHtml() {
-        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\"><a href=\"super.html\">@super</a></div>"));
+        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\"><a href=\"featureTag.html\">@featureTag</a></div>"));
     }
 
     @Test

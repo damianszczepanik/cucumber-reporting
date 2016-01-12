@@ -10,10 +10,10 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Result;
-import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
@@ -159,13 +159,16 @@ public class ReportInformation {
             for (Element element : feature.getElements()) {
                 if (element.isScenario()) {
                     scenarioCounter.incrementFor(element.getStatus());
+
+                    // all feature tags should be linked with scenario
+                    for (Tag tag : feature.getTags()) {
+                        processTag(tag, element, feature.getStatus());
+                    }
                 }
 
+                // all element tags should be linked with element
                 for (Tag tag : element.getTags()) {
-                    tagsCounter.incrementFor(element.getStatus());
-
-                    TagObject tagObject = addTagObject(tag.getName());
-                    processTag(tagObject, element);
+                    processTag(tag, element, element.getStatus());
                 }
 
                 Step[] steps = element.getSteps();
@@ -181,15 +184,21 @@ public class ReportInformation {
         }
     }
 
-    private void processTag(TagObject tag, Element element) {
-        tag.addElement(element);
+    private void processTag(Tag tag, Element element, Status status) {
 
-        Step[] steps = element.getSteps();
-        for (Step step : steps) {
-            tagsStatusCounter.incrementFor(step.getStatus());
-            allTagDuration += step.getDuration();
+        TagObject tagObject = addTagObject(tag.getName());
+
+        // if this element was not added by feature tag, add it as element tag
+        if (tagObject.addElement(element)) {
+            tagsCounter.incrementFor(status);
+
+            Step[] steps = element.getSteps();
+            for (Step step : steps) {
+                tagsStatusCounter.incrementFor(step.getStatus());
+                allTagDuration += step.getDuration();
+            }
+            allTagSteps += steps.length;
         }
-        allTagSteps += steps.length;
     }
 
     private void countSteps(ResultsWithMatch[] steps) {

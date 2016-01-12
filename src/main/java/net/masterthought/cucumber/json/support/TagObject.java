@@ -42,7 +42,12 @@ public class TagObject {
     }
 
 
-    public void addElement(Element element) {
+    public boolean addElement(Element element) {
+        // don't process if this element was already linked with this tag
+        if (elements.contains(element)) {
+            return false;
+        }
+
         elements.add(element);
 
         if (status != Status.FAILED && element.getStatus() != Status.PASSED) {
@@ -60,6 +65,7 @@ public class TagObject {
             totalDuration += step.getDuration();
             totalSteps++;
         }
+        return true;
     }
 
     public int getScenarios() {
