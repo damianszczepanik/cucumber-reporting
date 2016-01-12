@@ -19,13 +19,15 @@ import net.masterthought.cucumber.json.Step;
 
 public class DocStringTest {
 
+    private final Configuration configuration = new Configuration();
+
     private Step step;
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/docstring.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature feature = features.get(0);
         step = feature.getElements()[0].getSteps()[0];
     }

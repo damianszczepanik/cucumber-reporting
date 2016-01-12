@@ -3,7 +3,7 @@ package net.masterthought.cucumber.json;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import net.masterthought.cucumber.ConfigurationOptions;
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
@@ -26,6 +26,7 @@ public class Element {
 
     private String beforeAttachments;
     private String afterAttachments;
+    private Status status;
 
     private StatusCounter statusCounter;
     private Feature feature;
@@ -55,28 +56,7 @@ public class Element {
     }
 
     public Status getStatus() {
-        if (statusCounter.getValueFor(Status.FAILED) > 0) {
-            return Status.FAILED;
-        }
-
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        if (configuration.skippedFailsBuild() && statusCounter.getValueFor(Status.SKIPPED) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.pendingFailsBuild() && statusCounter.getValueFor(Status.PENDING) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.undefinedFailsBuild() && statusCounter.getValueFor(Status.UNDEFINED) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.missingFailsBuild() && statusCounter.getValueFor(Status.MISSING) > 0) {
-            return Status.FAILED;
-        }
-
-        return Status.PASSED;
+        return status;
     }
 
     public String getId() {
@@ -158,7 +138,7 @@ public class Element {
         return id != null ? id.equals(other.id) : super.equals(obj);
     }
 
-    public void setMedaData(Feature feature) {
+    public void setMedaData(Feature feature, Configuration configuration) {
         this.feature = feature;
         for (Step step : steps) {
             step.setMedaData(this);
@@ -168,6 +148,7 @@ public class Element {
         calculateHooks(after);
         beforeAttachments = calculateAttachments("Before", before);
         afterAttachments = calculateAttachments("After", after);
+        status = calculateStatus(configuration);
     }
 
     private void calculateStatus() {
@@ -203,5 +184,30 @@ public class Element {
             sb.append(hooks[i].getAttachments());
         }
         return sb.toString();
+    }
+
+    private Status calculateStatus(Configuration configuration) {
+
+        if (statusCounter.getValueFor(Status.FAILED) > 0) {
+            return Status.FAILED;
+        }
+
+        if (configuration.failsIfSkipped() && statusCounter.getValueFor(Status.SKIPPED) > 0) {
+            return Status.FAILED;
+        }
+
+        if (configuration.failsIFPending() && statusCounter.getValueFor(Status.PENDING) > 0) {
+            return Status.FAILED;
+        }
+
+        if (configuration.failsIfUndefined() && statusCounter.getValueFor(Status.UNDEFINED) > 0) {
+            return Status.FAILED;
+        }
+
+        if (configuration.failsIfMissing() && statusCounter.getValueFor(Status.MISSING) > 0) {
+            return Status.FAILED;
+        }
+
+        return Status.PASSED;
     }
 }

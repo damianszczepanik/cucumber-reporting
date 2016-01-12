@@ -19,6 +19,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.EscapeTool;
 
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportInformation;
 import net.masterthought.cucumber.VelocityContextMap;
@@ -42,11 +43,13 @@ public abstract class AbstractPage {
 
     protected final ReportBuilder reportBuilder;
     protected final ReportInformation report;
+    protected final Configuration configuration;
 
-    protected AbstractPage(ReportBuilder reportBuilder, String fileName) {
+    protected AbstractPage(ReportBuilder reportBuilder, String fileName, Configuration configuration) {
         this.reportBuilder = reportBuilder;
         this.fileName = fileName;
         this.report = reportBuilder.getReportInformation();
+        this.configuration = configuration;
     }
 
     public void generatePage() throws IOException {

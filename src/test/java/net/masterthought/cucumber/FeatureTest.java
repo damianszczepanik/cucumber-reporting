@@ -17,6 +17,8 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 
+    private final Configuration configuration = new Configuration();
+
     private Feature passingFeature;
     private Feature failingFeature;
 
@@ -24,7 +26,7 @@ public class FeatureTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         passingFeature = features.get(0);
         failingFeature = features.get(1);
     }
@@ -139,7 +141,7 @@ public class FeatureTest {
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/noscenario.json"));
-        new ReportParser().parseJsonResults(jsonReports);
+        new ReportParser(configuration).parseJsonResults(jsonReports);
     }
 
     @Test

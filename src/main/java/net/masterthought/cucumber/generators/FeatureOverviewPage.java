@@ -3,13 +3,14 @@ package net.masterthought.cucumber.generators;
 import java.io.IOException;
 import java.util.Arrays;
 
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureOverviewPage extends AbstractPage {
 
-    public FeatureOverviewPage(ReportBuilder reportBuilder) {
-        super(reportBuilder, "featureOverview.vm");
+    public FeatureOverviewPage(ReportBuilder reportBuilder, Configuration configuration) {
+        super(reportBuilder, "featureOverview.vm", configuration);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class FeatureOverviewPage extends AbstractPage {
         contextMap.put("scenario_data", Arrays.asList(Status.PASSED.color, Status.FAILED.color));
 
         contextMap.put("all_durations", report.getAllDurationsAsString());
-        contextMap.put("parallel", ReportBuilder.isParallel());
+        contextMap.put("parallel", configuration.isParallelTesting());
 
         super.generateReport("feature-overview.html");
     }

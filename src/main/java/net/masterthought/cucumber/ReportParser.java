@@ -17,7 +17,14 @@ import net.masterthought.cucumber.json.Feature;
 
 public class ReportParser {
 
-    public List<Feature> parseJsonResults(List<String> jsonReportFiles) throws IOException, JsonSyntaxException {
+    private final Configuration configuration;
+
+    public ReportParser(Configuration configuration){
+        this.configuration = configuration;
+    }
+
+    public List<Feature> parseJsonResults(List<String> jsonReportFiles)
+            throws IOException, JsonSyntaxException {
         List<Feature> featureResults = new ArrayList<>();
         Gson gson = new Gson();
 
@@ -41,7 +48,7 @@ public class ReportParser {
     /** Sets additional information and calculates values which should be calculated during object creation. */
     private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
         for (Feature feature : features) {
-            feature.setMetaData(jsonFile, jsonFileNo);
+            feature.setMetaData(jsonFile, jsonFileNo, configuration);
         }
     }
 }

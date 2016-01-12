@@ -15,13 +15,15 @@ import net.masterthought.cucumber.json.Feature;
 
 public class StatusesTest {
 
+    private final Configuration configuration = new Configuration();
+
     private Feature statusesFeature;
 
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/statuses.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         statusesFeature = features.get(0);
     }
 
