@@ -6,7 +6,6 @@ public final class ConfigurationOptions {
     public boolean pendingFailsBuildValue;
     public boolean undefinedFailsBuildValue;
     public boolean missingFailsBuildValue;
-    public boolean artifactsEnabledValue;
 
     private static final ConfigurationOptions configuration = new ConfigurationOptions();
 
@@ -47,9 +46,5 @@ public final class ConfigurationOptions {
 
     public boolean missingFailsBuild() {
         return missingFailsBuildValue;
-    }
-
-    public boolean artifactsEnabled() {
-        return artifactsEnabledValue;
     }
 }

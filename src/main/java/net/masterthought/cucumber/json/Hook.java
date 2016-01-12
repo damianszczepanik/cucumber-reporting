@@ -23,20 +23,15 @@ public class Hook implements ResultsWithMatch {
     }
 
     @Override
-    public Embedded[] getEmbeddings() {
-        return embeddings;
-    }
-
-    @Override
     public String getAttachments() {
         return attachments;
     }
     
     public void setMedaData() {
-        calculateAttachments();
+        calculateEmbeddings();
     }
 
-    private void calculateAttachments() {
+    private void calculateEmbeddings() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < embeddings.length; i++) {
             sb.append(embeddings[i].render(i));

@@ -1,11 +1,9 @@
 package net.masterthought.cucumber.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +15,6 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.masterthought.cucumber.json.Tag;
-import net.masterthought.cucumber.json.support.Status;
 
 public class Util {
 
@@ -42,26 +39,8 @@ public class Util {
             .appendSuffix("ms")
             .toFormatter();
 
-    public static String readFileAsString(String filePath) throws IOException {
-        return FileUtils.readFileToString(new File(filePath));
-    }
-
-    public static String passed(boolean value) {
-        return value ? "<div class=\"passed\">" : "</div>";
-    }
-
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
-    }
-
-    public static int findStatusCount(List<Status> statuses, Status statusToFind) {
-        int occurrence = 0;
-        for (Status status : statuses) {
-            if (status == statusToFind) {
-                occurrence++;
-            }
-        }
-        return occurrence;
     }
 
     public static String tagsToHtml(Tag[] tags) {

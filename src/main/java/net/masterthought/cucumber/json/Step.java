@@ -49,11 +49,6 @@ public class Step implements ResultsWithMatch {
         return result;
     }
 
-    @Override
-    public Embedded[] getEmbeddings() {
-        return embeddings;
-    }
-
     public boolean hasRows() {
         return ArrayUtils.isNotEmpty(rows);
     }
@@ -64,10 +59,6 @@ public class Step implements ResultsWithMatch {
 
     public long getDuration() {
         return result == null ? 0L : result.getDuration();
-    }
-
-    public String getRawName() {
-        return name;
     }
 
     public String getDetails() {
@@ -122,7 +113,7 @@ public class Step implements ResultsWithMatch {
      */
     public String getDocString() {
         if (doc_string == null || !doc_string.hasValue()) {
-            return "";
+            return StringUtils.EMPTY;
         }
         
         return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" + "<div class=\"doc-string\">"
