@@ -890,10 +890,7 @@
                         "match":{
                             "location":"ATMScenario.cardShouldBeReturned()"
                         },
-                        "output": [
-                            ["\u003cdiv\u003ethis one skipped\u003c/div\u003e"],
-                            ["<div>expected to skip</div>"]
-                        ]
+                        "output": ["single output"]
                     },
                     {
                         "result":{
