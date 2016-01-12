@@ -17,13 +17,16 @@ import net.masterthought.cucumber.json.Row;
 
 public class RowTest {
 
+    private final Configuration configuration = new Configuration();
+
     private Row row;
 
     @Before
     public void setUpJsonReports() throws IOException {
+
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature feature = features.get(0);
         row = feature.getElements()[0].getSteps()[0].getRows()[0];
     }

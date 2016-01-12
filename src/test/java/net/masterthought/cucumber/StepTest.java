@@ -22,6 +22,8 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class StepTest {
 
+    private final Configuration configuration = new Configuration();
+
     private Step passingStep;
     private Step failingStep;
     private Step skippedStep;
@@ -29,9 +31,11 @@ public class StepTest {
 
     @Before
     public void setUpJsonReports() throws IOException {
+        configuration.setStatusFlags(false, false, false, false);
+
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature passingFeature = features.get(0);
         Feature failingFeature = features.get(1);
 
@@ -45,7 +49,7 @@ public class StepTest {
     public void shouldReturnRows() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature feature = features.get(0);
         Step step = feature.getElements()[0].getSteps()[0];
 
@@ -56,7 +60,7 @@ public class StepTest {
     public void shouldReturnRowsWhenNoResultsForStep() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature feature = features.get(0);
         Step step = feature.getElements()[0].getSteps()[0];
 
@@ -86,13 +90,13 @@ public class StepTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(passingStep.getDetails(), is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"
-        ));
+        assertThat(
+                passingStep.getDetails(),
+                is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
-        ConfigurationOptions.instance().setSkippedFailsBuild(false);
         assertThat(
                 skippedStep.getDetails(),
                 is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
@@ -101,16 +105,11 @@ public class StepTest {
 
     @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setSkippedFailsBuild(true);
-        try {
-            assertThat(
-                    skippedStep.getDetails(),
-                    is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
-        } finally {
-            // restore the initial state for next tests
-            configuration.setSkippedFailsBuild(false);
-        }
+        configuration.setStatusFlags(true, false, false, false);
+
+        assertThat(
+                skippedStep.getDetails(),
+                is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
     }
 
     @Test
@@ -133,7 +132,7 @@ public class StepTest {
     private Step failingStepWithEmbeddedScreenshot() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         Feature failingFeatureWithEmbeddedScreenshot = features.get(0);
         return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
     }

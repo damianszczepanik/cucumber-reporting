@@ -20,13 +20,15 @@ import org.junit.Test;
 
 public class ReportBuilderTest {
 
+    private final Configuration configuration = new Configuration();
+
     @Test
     public void shouldRenderTheFeatureOverviewPageCorrectlyWithJSCharts() throws Exception {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "feature-overview.html");
@@ -43,8 +45,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "net-masterthought-example-ATM-feature.html");
@@ -60,8 +62,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/tableErrorExample.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "com-cme-falcon-acceptancetests-FrameworkTests-FIX_Inbound_Outbound-NewOrderOverrides-feature.html");
@@ -98,8 +100,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/invalid_format.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "feature-overview.html");
@@ -114,8 +116,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/empty.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "feature-overview.html");
@@ -130,8 +132,8 @@ public class ReportBuilderTest {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader()
                 .getResource("net/masterthought/cucumber/somethingelse.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", false, false,
-                false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
+                true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "feature-overview.html");
@@ -147,8 +149,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/docstring.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting", false,
-                false, false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting",
+                configuration, true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "tag-1.html");
@@ -175,8 +177,8 @@ public class ReportBuilderTest {
         File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder =
-            new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting", false, false, false, false, true, false);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting",
+                configuration, true);
         reportBuilder.generateReports();
 
         File input = new File(rd, "net-masterthought-example-ATMKexception-feature.html");

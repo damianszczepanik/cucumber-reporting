@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators;
 import java.io.IOException;
 import java.util.List;
 
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.ChartUtil;
@@ -10,8 +11,8 @@ import net.masterthought.cucumber.util.Util;
 
 public class TagOverviewPage extends AbstractPage {
 
-    public TagOverviewPage(ReportBuilder reportBuilder) {
-        super(reportBuilder, "tagOverview.vm");
+    public TagOverviewPage(ReportBuilder reportBuilder, Configuration configuration) {
+        super(reportBuilder, "tagOverview.vm", configuration);
     }
 
     @Override

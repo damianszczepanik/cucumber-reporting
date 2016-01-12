@@ -15,9 +15,11 @@ import net.masterthought.cucumber.json.Feature;
 
 public class ReportParserTest {
 
+    private final Configuration configuration = new Configuration();
+
     @Test
     public void shouldReturnAListOfFeaturesFromAJsonReport() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(validJsonReports());
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(validJsonReports());
         assertThat(features.size(), is(4));
         assertThat(features.get(0), isA(Feature.class));
         assertThat(features.get(2), isA(Feature.class));
@@ -25,7 +27,7 @@ public class ReportParserTest {
 
     @Test
     public void shouldContainFourFeatures() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(validJsonReports());
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(validJsonReports());
         List<Feature> updatedFeatures = new ArrayList<Feature>();
         updatedFeatures.addAll(features);
         assertThat(updatedFeatures.size(), is(4));
@@ -33,13 +35,13 @@ public class ReportParserTest {
 
     @Test
     public void shouldProcessCucumberReportsWithNoSteps() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(withNoStepsInJsonReport());
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(withNoStepsInJsonReport());
         assertThat(features.size(), is(4));
     }
 
     @Test
     public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(withNoSteps2InJsonReport());
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(withNoSteps2InJsonReport());
         ReportInformation reportInformation = new ReportInformation(features);
 
         // Should not crash with NPE
@@ -49,7 +51,7 @@ public class ReportParserTest {
 
     @Test
     public void shouldProcessCucumberReportsWithNoScenarios() throws IOException {
-        List<Feature> features = new ReportParser().parseJsonResults(withNoScenariosInJsonReport());
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(withNoScenariosInJsonReport());
         assertThat(features.size(), is(4));
     }
 

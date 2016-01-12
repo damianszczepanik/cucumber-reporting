@@ -24,26 +24,18 @@ public class ReportBuilder {
     private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
 
     private ReportInformation reportInformation;
+
+    private Configuration configuration;
     private List<String> jsonFiles;
+
     private File reportDirectory;
     private String buildNumber;
     private String buildProject;
     private String pluginUrlPath;
     private boolean runWithJenkins;
 
-    //Added to control parallel reports
-    private static boolean parallel = false;
-
     public ReportInformation getReportInformation() {
         return reportInformation;
-    }
-
-    public static boolean isParallel(){
-        return parallel;
-    }
-
-    public static void setParallel(boolean p){
-       parallel = p;
     }
 
     public File getReportDirectory() {
@@ -86,29 +78,18 @@ public class ReportBuilder {
         this.runWithJenkins = runWithJenkins;
     }
 
-    public List<String> getJsonFiles() {
-        return this.jsonFiles;
-    }
-
-    public ReportBuilder(List<String> jsonReports, File reportDirectory, String pluginUrlPath, String buildNumber,
-            String buildProject, boolean skippedFails, boolean pendingFails, boolean undefinedFails,
-            boolean missingFails, boolean runWithJenkins, boolean parallelTesting)
+    public ReportBuilder(List<String> jsonFiles, File reportDirectory, String pluginUrlPath, String buildNumber,
+            String buildProject, Configuration configuration, boolean runWithJenkins)
                     throws IOException, VelocityException {
 
         try {
+            this.jsonFiles = jsonFiles;
             this.reportDirectory = reportDirectory;
+            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
             this.buildNumber = buildNumber;
             this.buildProject = buildProject;
-            this.pluginUrlPath = getPluginUrlPath(pluginUrlPath);
+            this.configuration = configuration;
             this.runWithJenkins = runWithJenkins;
-            ReportBuilder.parallel = parallelTesting;
-            this.jsonFiles = jsonReports;
-
-            ConfigurationOptions configuration = ConfigurationOptions.instance();
-            configuration.setSkippedFailsBuild(skippedFails);
-            configuration.setPendingFailsBuild(pendingFails);
-            configuration.setUndefinedFailsBuild(undefinedFails);
-            configuration.setMissingFailsBuild(missingFails);
 
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
@@ -122,7 +103,7 @@ public class ReportBuilder {
 
     public void generateReports() throws IOException, VelocityException {
         try {
-            ReportParser reportParser = new ReportParser();
+            ReportParser reportParser = new ReportParser(configuration);
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportInformation = new ReportInformation(features);
 
@@ -130,11 +111,11 @@ public class ReportBuilder {
             copyResource("chart", "Highcharts-4.2.1.zip", true);
             copyResource("styles", "reporting.css", false);
 
-            new FeatureOverviewPage(this).generatePage();
-            new FeatureReportPage(this).generatePage();
-            new TagReportPage(this).generatePage();
-            new TagOverviewPage(this).generatePage();
-            new StepOverviewPage(this).generatePage();
+            new FeatureOverviewPage(this, configuration).generatePage();
+            new FeatureReportPage(this, configuration).generatePage();
+            new TagReportPage(this, configuration).generatePage();
+            new TagOverviewPage(this, configuration).generatePage();
+            new StepOverviewPage(this, configuration).generatePage();
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
             generateErrorPage(e);
@@ -158,7 +139,7 @@ public class ReportBuilder {
 
     private void generateErrorPage(Exception exception) throws IOException {
         LOG.info(exception);
-        ErrorPage errorPage = new ErrorPage(this, exception);
+        ErrorPage errorPage = new ErrorPage(this, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }
 }

@@ -11,11 +11,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagsTest {
+
+    private final Configuration configuration = new Configuration();
 
     private ReportInformation reportInformation;
 
@@ -23,7 +25,7 @@ public class TagsTest {
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/tags.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         reportInformation = new ReportInformation(features);
     }
 

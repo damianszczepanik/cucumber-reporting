@@ -19,18 +19,19 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
 
+    private final Configuration configuration = new Configuration();
+
     private ReportInformation reportInformation;
 
     @Before
     public void setUpReportInformation() throws IOException, URISyntaxException {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setSkippedFailsBuild(false);
-        configuration.setUndefinedFailsBuild(false);
-        List<String> jsonReports = new ArrayList<String>();
+        configuration.setStatusFlags(true, false, true, false);
+
+        List<String> jsonReports = new ArrayList<>();
         //will work iff the resources are not jarred up, otherwise use IOUtils to copy to a temp file.
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         reportInformation = new ReportInformation(features);
     }
 

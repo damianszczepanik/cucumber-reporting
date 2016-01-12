@@ -9,15 +9,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
 public class ScenarioTest {
+
+    private final Configuration configuration = new Configuration();
 
     private Element passingElement;
     private Element failingElement;
@@ -25,12 +26,13 @@ public class ScenarioTest {
     private Element skippedElement;
     private Element taggedElement;
 
+    private void setUpJsonReports(boolean failsIfSkipped, boolean failsIFPending, boolean failsIfUndefined,
+            boolean failsIfMissing) throws IOException {
+        configuration.setStatusFlags(failsIfSkipped, failsIFPending, failsIfUndefined, failsIfMissing);
 
-    @Before
-    public void setUpJsonReports() throws IOException {
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project3.json"));
-        List<Feature> features = new ReportParser().parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
         
         Feature passingFeature = features.get(0);
         Feature failingFeature = features.get(1);
@@ -46,12 +48,14 @@ public class ScenarioTest {
     }
 
     @Test
-    public void shouldReturnSteps() {
+    public void shouldReturnSteps() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getSteps()[0], isA(Step.class));
     }
 
     @Test
-    public void shouldReturnStatus() {
+    public void shouldReturnStatus() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getStatus(), is(Status.PASSED));
         assertThat(failingElement.getStatus(), is(Status.FAILED));
         assertThat(undefinedElement.getStatus(), is(Status.PASSED));
@@ -59,7 +63,8 @@ public class ScenarioTest {
     }
 
     @Test
-    public void shouldReturnId() {
+    public void shouldReturnId() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getId(), is((String) null));
         assertThat(failingElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;1"));
         assertThat(undefinedElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;2"));
@@ -67,54 +72,47 @@ public class ScenarioTest {
     }
 
     @Test
-    public void shouldReturnNameWhenConfigSkippedTurnedOn() {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setSkippedFailsBuild(true);
-    	try {
-            assertThat(passingElement.getStatus(), is(Status.PASSED));
-            assertThat(failingElement.getStatus(), is(Status.FAILED));
-            assertThat(undefinedElement.getStatus(), is(Status.PASSED));
-            assertThat(skippedElement.getStatus(), is(Status.FAILED));
-    	} finally {
-    		// restore the initial state for next tests
-            configuration.setSkippedFailsBuild(false);
-    	}
+    public void shouldReturnNameWhenConfigSkippedTurnedOn() throws IOException {
+        setUpJsonReports(true, false, false, false);
+
+        assertThat(passingElement.getStatus(), is(Status.PASSED));
+        assertThat(failingElement.getStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getStatus(), is(Status.PASSED));
+        assertThat(skippedElement.getStatus(), is(Status.FAILED));
     }
-    
+
     @Test
-    public void shouldReturnNameWhenConfiUndefinedTurnedOn() {
-        ConfigurationOptions configuration = ConfigurationOptions.instance();
-        configuration.setUndefinedFailsBuild(true);
-    	try {
-            assertThat(passingElement.getStatus(), is(Status.PASSED));
-            assertThat(failingElement.getStatus(), is(Status.FAILED));
-            assertThat(undefinedElement.getStatus(), is(Status.FAILED));
-            assertThat(skippedElement.getStatus(), is(Status.PASSED));
-    	} finally {
-    		// restore the initial state for next tests
-            configuration.setUndefinedFailsBuild(false);
-    	}
+    public void shouldReturnNameWhenConfiUndefinedTurnedOn() throws IOException {
+        setUpJsonReports(false, false, true, false);
+
+        assertThat(passingElement.getStatus(), is(Status.PASSED));
+        assertThat(failingElement.getStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getStatus(), is(Status.FAILED));
+        assertThat(skippedElement.getStatus(), is(Status.PASSED));
     }
-    
-    
+
     @Test
-    public void shouldReturnName() {
+    public void shouldReturnName() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"element-keyword\">Background: </span><span class=\"element-name\">Activate Credit Card</span></div>"
         ));
     }
 
     @Test
-    public void shouldReturnKeyword() {
+    public void shouldReturnKeyword() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getKeyword(), is("Background"));
     }
 
     @Test
-    public void shouldReturnType() {
+    public void shouldReturnType() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getType(), is("background"));
     }
 
     @Test
-    public void shouldReturnTagList(){
+    public void shouldReturnTagList() throws IOException {
+        setUpJsonReports(false, false, false, false);
         String[] expectedList = { "@fast", "@super", "@checkout" };
         for (int i = 0; i < taggedElement.getTags().length; i++) {
             assertThat(taggedElement.getTags()[i].getName(), is(expectedList[i]));
@@ -122,12 +120,14 @@ public class ScenarioTest {
     }
 
     @Test
-    public void shouldKnowIfHasTags(){
+    public void shouldKnowIfHasTags() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(taggedElement.hasTags(), is(true));
     }
 
     @Test
-    public void shouldReturnTagsAsHtml(){
+    public void shouldReturnTagsAsHtml() throws IOException {
+        setUpJsonReports(false, false, false, false);
         assertThat(taggedElement.getTagsList(), is("<div class=\"feature-tags\"><a href=\"fast.html\">@fast</a>,<a href=\"super.html\">@super</a>,<a href=\"checkout.html\">@checkout</a></div>"));
     }
     

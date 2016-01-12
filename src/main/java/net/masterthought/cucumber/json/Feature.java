@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
-import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
@@ -134,11 +134,11 @@ public class Feature {
     }
 
     /** Sets additional information and calculates values which should be calculated during object creation. */
-    public void setMetaData(String jsonFile, int jsonFileNo) {
+    public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
         this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
 
         for (Element element : elements) {
-            element.setMedaData(this);
+            element.setMedaData(this, configuration);
 
             if (element.isScenario()) {
                 scenarios.add(element);
@@ -146,7 +146,7 @@ public class Feature {
         }
 
         setDeviceName();
-        setReportFileName(jsonFileNo);
+        setReportFileName(jsonFileNo, configuration);
         calculateFeatureStatus();
 
         calculateSteps();
@@ -163,12 +163,12 @@ public class Feature {
         }
     }
 
-    private void setReportFileName(int jsonFileNo) {
+    private void setReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
         reportFileName = uri.replaceAll("[^\\d\\w]", "-");
 
         // If we expect to have parallel executions, we add postfix to file name
-        if (ReportBuilder.isParallel()) {
+        if (configuration.isParallelTesting()) {
             reportFileName += "_" + getDeviceName();
         }
 
@@ -206,5 +206,4 @@ public class Feature {
             }
         }
     }
-
 }
