@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.util.Util;
 
@@ -18,8 +18,8 @@ import net.masterthought.cucumber.util.Util;
  */
 public class StepOverviewPage extends AbstractPage {
 
-    public StepOverviewPage(ReportBuilder reportBuilder, Configuration configuration) {
-        super(reportBuilder, "stepOverview.vm", configuration);
+    public StepOverviewPage(ReportResult reportResult, Configuration configuration) {
+        super(reportResult, "stepOverview.vm", configuration);
     }
 
     @Override

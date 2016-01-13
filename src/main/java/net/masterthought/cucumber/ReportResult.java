@@ -23,7 +23,7 @@ import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
 
-public class ReportInformation {
+public class ReportResult {
 
     private final List<Feature> allFeatures;
     private long allDurations;
@@ -38,7 +38,7 @@ public class ReportInformation {
     private final StatusCounter scenarioCounter = new StatusCounter();
     private final StatusCounter stepStatusCounter = new StatusCounter();
 
-    public ReportInformation(List<Feature> features) {
+    public ReportResult(List<Feature> features) {
         this.allFeatures = features;
 
         processFeatures();

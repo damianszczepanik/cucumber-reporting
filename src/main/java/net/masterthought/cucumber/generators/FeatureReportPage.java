@@ -3,13 +3,13 @@ package net.masterthought.cucumber.generators;
 import java.io.IOException;
 
 import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Feature;
 
 public class FeatureReportPage extends AbstractPage {
 
-    public FeatureReportPage(ReportBuilder reportBuilder, Configuration configuration) {
-        super(reportBuilder, "featureReport.vm", configuration);
+    public FeatureReportPage(ReportResult reportResult, Configuration configuration) {
+        super(reportResult, "featureReport.vm", configuration);
     }
 
     @Override

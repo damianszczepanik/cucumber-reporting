@@ -19,9 +19,9 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportInformationTest {
 
-    private final Configuration configuration = new Configuration();
+    private final Configuration configuration = new Configuration(new File(""), "testProject");
 
-    private ReportInformation reportInformation;
+    private ReportResult reportResult;
 
     @Before
     public void setUpReportInformation() throws IOException, URISyntaxException {
@@ -32,131 +32,131 @@ public class ReportInformationTest {
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project1.json").toURI()).getAbsolutePath());
         jsonReports.add(new File(ReportInformationTest.class.getClassLoader().getResource("net/masterthought/cucumber/project2.json").toURI()).getAbsolutePath());
         List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
-        reportInformation = new ReportInformation(features);
+        reportResult = new ReportResult(features);
     }
 
     @Test
     public void shouldListAllFeatures() throws IOException {
-        assertThat(reportInformation.getAllFeatures().get(0), isA(Feature.class));
+        assertThat(reportResult.getAllFeatures().get(0), isA(Feature.class));
     }
 
     @Test
     public void shouldListAllTags() {
-        assertThat(reportInformation.getAllTags().get(0), isA(TagObject.class));
+        assertThat(reportResult.getAllTags().get(0), isA(TagObject.class));
     }
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportInformation.getAllScenarios().size(), is(10));
+        assertThat(reportResult.getAllScenarios().size(), is(10));
     }
 
     @Test
     public void shouldReturnTotalNumberOfSteps() {
-        assertThat(reportInformation.getStepsCounter().size(), is(98));
+        assertThat(reportResult.getStepsCounter().size(), is(98));
     }
 
     @Test
     public void shouldReturnTotalNumberPassingSteps() {
-        assertThat(reportInformation.getAllPassedSteps(), is(90));
+        assertThat(reportResult.getAllPassedSteps(), is(90));
     }
 
     @Test
     public void shouldReturnTotalNumberFailingSteps() {
-        assertThat(reportInformation.getAllFailedSteps(), is(2));
+        assertThat(reportResult.getAllFailedSteps(), is(2));
     }
 
     @Test
     public void shouldReturnTotalNumberSkippedSteps() {
-        assertThat(reportInformation.getAllSkippedSteps(), is(6));
+        assertThat(reportResult.getAllSkippedSteps(), is(6));
     }
 
     @Test
     public void shouldReturnTotalNumberPendingSteps() {
-        assertThat(reportInformation.getPendingStepsl(), is(0));
+        assertThat(reportResult.getPendingStepsl(), is(0));
     }
 
     @Test
     public void shouldReturnTotalNumberMissingSteps() {
-        assertThat(reportInformation.getTotalStepsMissing(), is(0));
+        assertThat(reportResult.getTotalStepsMissing(), is(0));
     }
 
     @Test
     public void shouldReturnTotalDuration() {
-        assertThat(reportInformation.getAllDurations(), is(236050000L));
+        assertThat(reportResult.getAllDurations(), is(236050000L));
     }
 
     @Test
     public void shouldReturnTotalDurationAsString() {
-        assertThat(reportInformation.getAllDurationsAsString(), is("236ms"));
+        assertThat(reportResult.getAllDurationsAsString(), is("236ms"));
     }
 
     @Test
     public void shouldReturnTimeStamp() {
-        assertThat(reportInformation.timeStamp(), isA(String.class));
+        assertThat(reportResult.timeStamp(), isA(String.class));
     }
 
     @Test
     public void shouldReturnReportStatusColour() {
-        assertThat(reportInformation.getAllFeatures().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportResult.getAllFeatures().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportInformation.getAllTags().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportResult.getAllTags().get(0).getStatus().color, is(Status.PASSED.color));
     }
 
     @Test
     public void shouldReturnTotalTags() {
-        assertThat(reportInformation.getAllTags().size(), is(5));
+        assertThat(reportResult.getAllTags().size(), is(5));
     }
 
     @Test
     public void shouldReturnTotalTagScenarios() {
-        assertThat(reportInformation.getAllTagScenarios(), is(21));
+        assertThat(reportResult.getAllTagScenarios(), is(21));
     }
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportInformation.getAllPassedTagScenarios(), is(21));
+        assertThat(reportResult.getAllPassedTagScenarios(), is(21));
     }
 
     @Test
     public void shouldReturnTotalFailingTagScenarios() {
-        assertThat(reportInformation.getAllFailedTagScenarios(), is(0));
+        assertThat(reportResult.getAllFailedTagScenarios(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSteps() {
-        assertThat(reportInformation.getAllTagSteps(), is(147));
+        assertThat(reportResult.getAllTagSteps(), is(147));
     }
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportInformation.getAllPassesTags(), is(147));
+        assertThat(reportResult.getAllPassesTags(), is(147));
     }
 
     @Test
     public void shouldReturnTotalTagFails() {
-        assertThat(reportInformation.getAllFailsTags(), is(0));
+        assertThat(reportResult.getAllFailsTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSkipped() {
-        assertThat(reportInformation.getAllSkippedTags(), is(0));
+        assertThat(reportResult.getAllSkippedTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagPending() {
-        assertThat(reportInformation.getAllPendingTags(), is(0));
+        assertThat(reportResult.getAllPendingTags(), is(0));
     }
 
     @Test
     public void shouldReturnTotalScenariosPassed() {
-        assertThat(reportInformation.getAllPassedScenarios(), is(8));
+        assertThat(reportResult.getAllPassedScenarios(), is(8));
     }
 
     @Test
     public void shouldReturnTotalScenariosFailed() {
-        assertThat(reportInformation.getAllFailedScenarios(), is(2));
+        assertThat(reportResult.getAllFailedScenarios(), is(2));
     }
 }

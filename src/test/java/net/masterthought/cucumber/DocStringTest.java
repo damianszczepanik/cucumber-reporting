@@ -4,6 +4,7 @@ import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResou
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import net.masterthought.cucumber.json.Step;
 
 public class DocStringTest {
 
-    private final Configuration configuration = new Configuration();
+    private final Configuration configuration = new Configuration(new File(""), "testProject");
 
     private Step step;
 
