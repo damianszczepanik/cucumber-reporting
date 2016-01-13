@@ -28,10 +28,6 @@ public class ReportBuilder {
     private Configuration configuration;
     private List<String> jsonFiles;
 
-    public ReportResult getReportResult() {
-        return reportResult;
-    }
-
     public ReportBuilder(List<String> jsonFiles, Configuration configuration) throws IOException, VelocityException {
         try {
             this.jsonFiles = jsonFiles;
