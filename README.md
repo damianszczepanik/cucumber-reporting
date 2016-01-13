@@ -38,27 +38,34 @@ Read this if you need further  [detailed install and configuration]
 (https://github.com/damianszczepanik/cucumber-reporting-jenkins/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
+```java
+File reportOutputDirectory = new File("target");
+List<String> jsonFiles = new ArrayList<>();
+jsonFiles.add("cucumber-report-1.json");
+jsonFiles.add("cucumber-report-2.json");
 
-    File reportOutputDirectory = new File("target");
-    List<String> list = new ArrayList<>();
-    list.add("cucumber-report1.json");
-    list.add("cucumber-report2.json");
+String jenkinsBasePath = "";
+String buildNumber = "1";
+String projectName = "cucumber-jvm";
+boolean skippedFails = true;
+boolean pendingFails = false;
+boolean undefinedFails = true;
+boolean missingFails = true;
+boolean runWithJenkins = false;
+boolean parallelTesting = false;
 
-    String pluginUrlPath = "";
-    String buildNumber = "1";
-    String buildProject = "cucumber-jvm";
-    boolean skippedFails = true;
-    boolean pendingFails = true;
-    boolean undefinedFails = true;
-    boolean missingFails = true;
-    boolean runWithJenkins = false;
-    boolean parallelTesting = false;
+Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+// optionally only if you need
+configuration.setStatusFlags(skippedFails, pendingFails, undefinedFails, missingFails);
+configuration.setParallelTesting(parallelTesting);
+configuration.setJenkinsBasePath(jenkinsBasePath);
+configuration.setRunWithJenkins(runWithJenkins);
+configuration.setBuildNumber(buildNumber);
 
-    ReportBuilder reportBuilder = new ReportBuilder(list, reportOutputDirectory, pluginUrlPath, buildNumber,
-        buildProject, skippedFails, pendingFails, undefinedFails, missingFails, runWithJenkins, parallelTesting);
-    reportBuilder.generateReports();
-
-skippedFails means the build will be failed if any steps are in skipped status and undefinedFails means the build will be failed if any steps are in undefined status. This only applies when running with Jenkins.
+ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+reportBuilder.generateReports();
+```
+`skippedFails` means the build will be failed if any steps are in skipped status and similar happens for other flags. This only applies when running with Jenkins.
 runWithJenkins means put in the links back to Jenkins in the report.
 
 There is a feature overview page:
