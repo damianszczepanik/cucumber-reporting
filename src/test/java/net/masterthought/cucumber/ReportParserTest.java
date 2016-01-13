@@ -5,6 +5,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import net.masterthought.cucumber.json.Feature;
 
 public class ReportParserTest {
 
-    private final Configuration configuration = new Configuration();
+    private final Configuration configuration = new Configuration(new File(""), "testBuild");
 
     @Test
     public void shouldReturnAListOfFeaturesFromAJsonReport() throws IOException {
@@ -42,10 +43,10 @@ public class ReportParserTest {
     @Test
     public void shouldProcessCucumberReportsWithNoSteps2() throws IOException {
         List<Feature> features = new ReportParser(configuration).parseJsonResults(withNoSteps2InJsonReport());
-        ReportInformation reportInformation = new ReportInformation(features);
+        ReportResult reportResult = new ReportResult(features);
 
         // Should not crash with NPE
-        assertThat(reportInformation.getAllFeatures().get(0), isA(Feature.class));
+        assertThat(reportResult.getAllFeatures().get(0), isA(Feature.class));
         assertThat(features.size(), is(1));
     }
 

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,22 +17,29 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ReportBuilderTest {
 
-    private final Configuration configuration = new Configuration();
+    private Configuration configuration;
+
+    @Before
+    public void setup() throws URISyntaxException {
+        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
+        configuration = new Configuration(rd, "cucumber-reporting");
+        configuration.setRunWithJenkins(true);
+        configuration.setBuildNumber("1");
+    }
 
     @Test
     public void shouldRenderTheFeatureOverviewPageCorrectlyWithJSCharts() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(), is("Feature Overview for build: 1"));
         assertStatsHeader(doc);
@@ -42,14 +50,12 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderTheFeaturePageCorrectly() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "net-masterthought-example-ATM-feature.html");
+        File input = new File(configuration.getReportDirectory(), "net-masterthought-example-ATM-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("feature-title", doc).text(), is("Result for Account Holder withdraws cash in build: 1"));
         assertStatsHeader(doc);
@@ -59,14 +65,12 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderFeaturePageWithTableInStepsCorrectly() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/tableErrorExample.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "com-cme-falcon-acceptancetests-FrameworkTests-FIX_Inbound_Outbound-NewOrderOverrides-feature.html");
+        File input = new File(configuration.getReportDirectory(), "com-cme-falcon-acceptancetests-FrameworkTests-FIX_Inbound_Outbound-NewOrderOverrides-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
 
         Elements rows = fromClass("data-table",doc).get(2).getElementsByTag("tr");
@@ -97,14 +101,12 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderErrorPageOnParsingError() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/invalid_format.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(), is("Oops Something went wrong with cucumber-reporting build: 1"));
         assertTrue(fromId("error-message", doc).text().contains(
@@ -113,14 +115,12 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderErrorPageOnEmptyJson() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/empty.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(), is("Oops Something went wrong with cucumber-reporting build: 1"));
         assertTrue(fromId("error-message", doc).text().contains("does not contan features!"));
@@ -128,15 +128,12 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderErrorPageOnNoCucumberJson() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader()
-                .getResource("net/masterthought/cucumber/somethingelse.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "", "1", "cucumber-reporting", configuration,
-                true);
+        List<String> jsonReports = new ArrayList<>();
+        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/somethingelse.json").toURI()).getAbsolutePath());
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("overview-title", doc).text(),
                 is("Oops Something went wrong with cucumber-reporting build: 1"));
@@ -146,14 +143,13 @@ public class ReportBuilderTest {
 
     @Test
     public void shouldRenderDocStringInTagReport() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/docstring.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting",
-                configuration, true);
+        configuration.setJenkinsBasePath("/jenkins/");
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "tag-1.html");
+        File input = new File(configuration.getReportDirectory(), "tag-1.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromClass("doc-string", doc).get(0).text(), is("X _ X O X O _ O X"));
         Elements tableCells = doc.getElementsByClass("stats-table").get(0).getElementsByTag("tr").get(2).getElementsByTag("td");
@@ -174,14 +170,13 @@ public class ReportBuilderTest {
     
     @Test
     public void shouldRenderExceptionInFeatureReport() throws Exception {
-        File rd = new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
-        List<String> jsonReports = new ArrayList<String>();
+        List<String> jsonReports = new ArrayList<>();
         jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, rd, "/jenkins/", "1", "cucumber-reporting",
-                configuration, true);
+        configuration.setJenkinsBasePath("/jenkins/");
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(rd, "net-masterthought-example-ATMKexception-feature.html");
+        File input = new File(configuration.getReportDirectory(), "net-masterthought-example-ATMKexception-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         
         assertThat(fromClass("error_message", doc).text(), containsString("java.lang.AssertionError:"));

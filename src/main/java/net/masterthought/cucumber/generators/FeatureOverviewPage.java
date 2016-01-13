@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureOverviewPage extends AbstractPage {
 
-    public FeatureOverviewPage(ReportBuilder reportBuilder, Configuration configuration) {
-        super(reportBuilder, "featureOverview.vm", configuration);
+    public FeatureOverviewPage(ReportResult reportResult, Configuration configuration) {
+        super(reportResult, "featureOverview.vm", configuration);
     }
 
     @Override

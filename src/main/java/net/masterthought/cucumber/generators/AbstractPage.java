@@ -20,8 +20,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.EscapeTool;
 
 import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportInformation;
+import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.VelocityContextMap;
 import net.masterthought.cucumber.json.support.Status;
 
@@ -38,17 +37,15 @@ public abstract class AbstractPage {
     protected final VelocityEngine ve = new VelocityEngine();
     protected final VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
     private Template template;
+
     /** Name of the html file which will be generated. */
     private final String fileName;
-
-    protected final ReportBuilder reportBuilder;
-    protected final ReportInformation report;
+    protected final ReportResult report;
     protected final Configuration configuration;
 
-    protected AbstractPage(ReportBuilder reportBuilder, String fileName, Configuration configuration) {
-        this.reportBuilder = reportBuilder;
+    protected AbstractPage(ReportResult reportResult, String fileName, Configuration configuration) {
         this.fileName = fileName;
-        this.report = reportBuilder.getReportInformation();
+        this.report = reportResult;
         this.configuration = configuration;
     }
 
@@ -71,7 +68,7 @@ public abstract class AbstractPage {
     protected void generateReport(String fileName) throws IOException {
         VelocityContext context = contextMap.getVelocityContext();
         context.put("page_url", fileName);
-        File dir = new File(this.reportBuilder.getReportDirectory(), fileName);
+        File dir = new File(configuration.getReportDirectory(), fileName);
         try (FileOutputStream fileStream = new FileOutputStream(dir)) {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF8"))) {
                 template.merge(context, writer);
@@ -84,23 +81,23 @@ public abstract class AbstractPage {
         props.setProperty("resource.loader", "class");
         props.setProperty("class.resource.loader.class",
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        props.setProperty("runtime.log", new File(this.reportBuilder.getReportDirectory(), "velocity.log").getPath());
+        props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
 
         return props;
     }
 
     protected Map<String, Object> getGeneralParameters() {
         Map<String, Object> result = new HashMap<>();
-        result.put("jenkins_source", this.reportBuilder.isRunWithJenkins());
-        result.put("jenkins_base", this.reportBuilder.getPluginUrlPath());
-        result.put("build_project", this.reportBuilder.getBuildProject());
-        result.put("build_number", this.reportBuilder.getBuildNumber());
+        result.put("jenkins_source", configuration.isRunWithJenkins());
+        result.put("jenkins_base", configuration.getJenkinsBasePath());
+        result.put("build_project", configuration.getProjectName());
+        result.put("build_number", configuration.getBuildNumber());
         int previousBuildNumber = -1;
         try {
-            previousBuildNumber = Integer.parseInt(this.reportBuilder.getBuildNumber());
+            previousBuildNumber = Integer.parseInt(configuration.getBuildNumber());
             previousBuildNumber--;
         } catch (NumberFormatException e) {
-            LOG.error("Could not parse build number: {}.", this.reportBuilder.getBuildNumber(), e);
+            LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
         }
         result.put("build_previous_number", previousBuildNumber);
 

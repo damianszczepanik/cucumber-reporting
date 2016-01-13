@@ -5,6 +5,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import net.masterthought.cucumber.json.Row;
 
 public class RowTest {
 
-    private final Configuration configuration = new Configuration();
+    private final Configuration configuration = new Configuration(new File(""), "testProject");
 
     private Row row;
 

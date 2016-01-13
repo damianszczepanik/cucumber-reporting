@@ -4,6 +4,7 @@ import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResou
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureTest {
 
-    private final Configuration configuration = new Configuration();
+    private final Configuration configuration = new Configuration(new File(""), "testProject");
 
     private Feature passingFeature;
     private Feature failingFeature;
