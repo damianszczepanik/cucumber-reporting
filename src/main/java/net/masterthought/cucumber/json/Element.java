@@ -167,14 +167,14 @@ public class Element {
     private String calculateAttachments(String keyword, Hook[] hooks) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < hooks.length; i++) {
-            String status = hooks[i].getResult().getStatus();
+            String attachmentStatus = hooks[i].getResult().getStatus();
 
-            sb.append("<div class=\"").append(status).append("\">");
+            sb.append("<div class=\"").append(attachmentStatus).append("\">");
             sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
             sb.append("<i>").append(hooks[i].getMatch().getLocation()).append("</i>");
 
             sb.append("<span class=\"step-duration\">");
-            if (Status.MISSING.getName().equals(status)) {
+            if (Status.MISSING.getName().equals(attachmentStatus)) {
                 sb.append(Util.formatDuration(hooks[i].getResult().getDuration()));
             }
             sb.append("</span>");

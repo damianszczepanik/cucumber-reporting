@@ -62,7 +62,6 @@ public class Step implements ResultsWithMatch {
     }
 
     public String getDetails() {
-        Status status = getStatus();
         String errorMessage = null;
 
         switch (status) {

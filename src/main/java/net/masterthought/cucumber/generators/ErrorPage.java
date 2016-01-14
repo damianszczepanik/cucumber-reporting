@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -21,7 +20,7 @@ public class ErrorPage extends AbstractPage {
     }
 
     @Override
-    public void generatePage() throws IOException {
+    public void generatePage() {
         super.generatePage();
 
         contextMap.put("error_message", ExceptionUtils.getStackTrace(exception));

@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.velocity.exception.VelocityException;
 
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FeatureOverviewPage;
@@ -28,7 +27,7 @@ public class ReportBuilder {
     private Configuration configuration;
     private List<String> jsonFiles;
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration) throws IOException, VelocityException {
+    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
         try {
             this.jsonFiles = jsonFiles;
             this.configuration = configuration;
@@ -43,7 +42,7 @@ public class ReportBuilder {
         return reportResult != null && reportResult.getAllFailedSteps() == 0;
     }
 
-    public void generateReports() throws IOException, VelocityException {
+    public void generateReports() {
         try {
             ReportParser reportParser = new ReportParser(configuration);
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
@@ -75,7 +74,7 @@ public class ReportBuilder {
         }
     }
 
-    private void generateErrorPage(Exception exception) throws IOException {
+    private void generateErrorPage(Exception exception) {
         LOG.info(exception);
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();

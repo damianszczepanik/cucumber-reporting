@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.IOException;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Feature;
@@ -13,7 +11,7 @@ public class FeatureReportPage extends AbstractPage {
     }
 
     @Override
-    public void generatePage() throws IOException {
+    public void generatePage() {
         for (Feature feature : report.getAllFeatures()) {
             super.generatePage();
 

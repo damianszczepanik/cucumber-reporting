@@ -1,10 +1,10 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
@@ -49,7 +50,7 @@ public abstract class AbstractPage {
         this.configuration = configuration;
     }
 
-    public void generatePage() throws IOException {
+    public void generatePage() {
         ve.init(getProperties());
         template = ve.getTemplate("templates/pages/" + fileName);
 
@@ -65,14 +66,14 @@ public abstract class AbstractPage {
         contextMap.put("status_color", Arrays.asList(Status.getOrderedColors()));
     }
 
-    protected void generateReport(String fileName) throws IOException {
+    protected void generateReport(String fileName) {
         VelocityContext context = contextMap.getVelocityContext();
         context.put("page_url", fileName);
         File dir = new File(configuration.getReportDirectory(), fileName);
-        try (FileOutputStream fileStream = new FileOutputStream(dir)) {
-            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileStream, "UTF8"))) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(dir), Charsets.UTF_8)) {
                 template.merge(context, writer);
-            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
