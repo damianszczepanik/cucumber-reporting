@@ -25,9 +25,9 @@ public class StatusCounter {
      *            status for which the counter should be incremented.
      */
     public void incrementFor(Status status) {
-        int counter = this.counter.get(status);
-        counter++;
-        this.counter.put(status, counter);
+        int counterValue = this.counter.get(status);
+        counterValue++;
+        this.counter.put(status, counterValue);
     }
 
     /**

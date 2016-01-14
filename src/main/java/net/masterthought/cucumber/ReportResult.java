@@ -41,7 +41,9 @@ public class ReportResult {
     public ReportResult(List<Feature> features) {
         this.allFeatures = features;
 
-        processFeatures();
+        for (Feature feature : allFeatures) {
+            processFeature(feature);
+        }
     }
 
     public List<Feature> getAllFeatures() {
@@ -153,34 +155,31 @@ public class ReportResult {
         return scenarioCounter.getValueFor(Status.FAILED);
     }
 
-    private void processFeatures() {
-        for (Feature feature : allFeatures) {
+    private void processFeature(Feature feature) {
+        for (Element element : feature.getElements()) {
+            if (element.isScenario()) {
+                scenarioCounter.incrementFor(element.getStatus());
 
-            for (Element element : feature.getElements()) {
-                if (element.isScenario()) {
-                    scenarioCounter.incrementFor(element.getStatus());
-
-                    // all feature tags should be linked with scenario
-                    for (Tag tag : feature.getTags()) {
-                        processTag(tag, element, feature.getStatus());
-                    }
+                // all feature tags should be linked with scenario
+                for (Tag tag : feature.getTags()) {
+                    processTag(tag, element, feature.getStatus());
                 }
-
-                // all element tags should be linked with element
-                for (Tag tag : element.getTags()) {
-                    processTag(tag, element, element.getStatus());
-                }
-
-                Step[] steps = element.getSteps();
-                for (Step step : steps) {
-                    stepStatusCounter.incrementFor(step.getStatus());
-                    allDurations += step.getDuration();
-                }
-                countSteps(steps);
-
-                countSteps(element.getBefore());
-                countSteps(element.getAfter());
             }
+
+            // all element tags should be linked with element
+            for (Tag tag : element.getTags()) {
+                processTag(tag, element, element.getStatus());
+            }
+
+            Step[] steps = element.getSteps();
+            for (Step step : steps) {
+                stepStatusCounter.incrementFor(step.getStatus());
+                allDurations += step.getDuration();
+            }
+            countSteps(steps);
+
+            countSteps(element.getBefore());
+            countSteps(element.getAfter());
         }
     }
 

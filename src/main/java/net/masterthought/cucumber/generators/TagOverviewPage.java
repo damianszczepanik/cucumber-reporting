@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.IOException;
 import java.util.List;
 
 import net.masterthought.cucumber.Configuration;
@@ -16,7 +15,7 @@ public class TagOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void generatePage() throws IOException {
+    public void generatePage() {
         super.generatePage();
 
         List<TagObject> tags = report.getAllTags();

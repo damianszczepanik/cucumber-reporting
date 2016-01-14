@@ -23,7 +23,6 @@ public final class ChartUtil {
 
         if (!tagObjectList.isEmpty()) {
             for (TagObject tag : tagObjectList) {
-                // TODO: could be merged with generateTagChartData
                 buffer.append("[");
                 buffer.append(tag.getNumberOfPasses());
                 buffer.append(",");

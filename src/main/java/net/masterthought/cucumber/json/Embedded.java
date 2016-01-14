@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import org.apache.commons.io.Charsets;
 import org.codehaus.plexus.util.Base64;
 
 /**
@@ -83,7 +84,7 @@ public class Embedded {
     }
 
     private String decodeDataFromBase() {
-        return new String(Base64.decodeBase64(data.getBytes()));
+        return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)));
     }
 
     private int generateUniqueId() {

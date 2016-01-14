@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +22,7 @@ public class StepOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void generatePage() throws IOException {
+    public void generatePage() {
         super.generatePage();
 
         contextMap.put("all_steps", sortStepsByDuration(report.getAllSteps()));
