@@ -23,7 +23,7 @@ public class ErrorPage extends AbstractPage {
     public void generatePage() {
         super.generatePage();
 
-        contextMap.put("error_message", ExceptionUtils.getStackTrace(exception));
+        contextMap.put("output_message", ExceptionUtils.getStackTrace(exception));
         contextMap.put("json_files", jsonFiles);
 
         super.generateReport("feature-overview.html");

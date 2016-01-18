@@ -45,20 +45,22 @@ h2 {
 	padding-left: 50px;
 }
 
-.error_message {
-	background-color: #FFEEEE;
+.output_message {
 	padding-left: 50px;
-	border: 1px solid #D88A8A;
+	background: white;
+	border: 1px solid;
 	margin-bottom: 5px;
 	overflow: auto;
+    white-space: nowrap;
+    font-family: "Courier New", Courier, monospace;
 }
 
-.error_collapse {
+.output_collapse {
 	display:none;
 	padding-left: 10px;
 }
 
-.error_collapse + label {
+.output_collapse + label {
 	font-size: 15px;
 	font-weight: bold;
 	display: block;
@@ -66,16 +68,16 @@ h2 {
 	padding-top: 2px;
 }
 
-.error_collapse + label + * {
+.output_collapse + label + * {
 	display: none;
     padding-left: 25px;
 }
 
-.error_collapse:checked + label + * {
+.output_collapse:checked + label + * {
 	display: block;
 }
 
-.error_collapse + label:before {
+.output_collapse + label:before {
 	background-color: #4F5150;
 	border-radius: 10px;
 	color: #FFFFFF;
@@ -88,7 +90,7 @@ h2 {
 	text-align: center;
 }
 
-.error_collapse:checked + label:before {
+.output_collapse:checked + label:before {
 	content: "\2212";
 }
 
@@ -184,12 +186,6 @@ table.data-table td {
 	padding-left: 50px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-}
-
-.output-data {
-	padding-left: 50px;
-	background-color: beige;
-	text-indent: 50px;
 }
 
 .doc-string {

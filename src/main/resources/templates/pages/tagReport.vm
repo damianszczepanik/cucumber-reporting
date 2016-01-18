@@ -50,7 +50,7 @@
                     $step.getDetails()
                     $step.getDocString()
                     #if($step.hasRows())
-                        <div class="data $step.$step.getStatus().getName()">
+                        <div class="data">
                         <table class="data-table">
                       #foreach($row in $step.getRows())
                        <tr>
@@ -62,11 +62,7 @@
                       </table>
                         </div>
                     #end
-                    <div class="output-data">
-                    #foreach($output in $step.getOutput())
-                        <div>$output</div>
-                    #end
-                    </div>
+                    $step.getOutput()
                 #end
                 $scenario.getAfterAttachments()
                 </div>

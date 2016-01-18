@@ -28,15 +28,15 @@ public class Step implements ResultsWithMatch {
     // End: attributes from JSON file report
 
     private String attachments;
-    private String[] outputs;
+    private String convertedOutput;
     private Status status;
 
     public Row[] getRows() {
         return rows;
     }
 
-    public String[] getOutput() {
-        return outputs;
+    public String getOutput() {
+        return convertedOutput;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Step implements ResultsWithMatch {
         if (StringUtils.isNotBlank(errorMessage)) {
             // if the result is not available take a hash of message reference - not perfect but still better than -1
             int id = result != null ? result.hashCode() : errorMessage.hashCode();
-            sb.append(Util.formatErrorMessage(errorMessage, id));
+            sb.append(Util.formatMessage(errorMessage, id));
         }
         sb.append("</div>");
         sb.append(getAttachments());
@@ -140,14 +140,16 @@ public class Step implements ResultsWithMatch {
 
     private void calculateOutputs() {
         List<String> list = new ArrayList<>();
-        for (JsonElement element : this.output) {
+        for (int i=0; i< output.length; i++) {
+            JsonElement element = this.output[i];
+            // check if passed output is one or two dimensions array
             if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
                 list.add(element.getAsString());
             } else {
                 list.add(element.toString());
             }
         }
-        outputs = list.toArray(new String[list.size()]);
+        convertedOutput = Util.formatMessage(StringUtils.join(list, "\n"), hashCode());
     }
 
     private void calculateStatus() {

@@ -67,32 +67,32 @@ public class Util {
     }
 
     /**
-     * Converts error message into HTML code
+     * Converts message into HTML code.
      * 
-     * @param errorMessage
+     * @param message
      *            error message
-     * @param errorID
+     * @param messageId
      *            id of the message which should be unique per page so expand/collapse works correctly
      * @return formatted message
      */
-    public static String formatErrorMessage(String errorMessage, int errorID) {
+    public static String formatMessage(String message, int messageId) {
         StringBuilder sb = new StringBuilder();
-        if (StringUtils.isEmpty(errorMessage)) {
+        if (StringUtils.isEmpty(message)) {
             sb.append(StringUtils.EMPTY);
         } else {
-            sb.append("<pre class=\"error_message\">");
+            sb.append("<div class=\"output_message\">");
             // split the message to the header (first line) and the content (rest)
-            String[] headLineAndMessage = StringUtils.split(errorMessage, "\n", 2);
+            String[] headLineAndMessage = StringUtils.split(message, "\n", 2);
             if (headLineAndMessage.length == 2) {
-                sb.append(String.format("<input class=\"error_collapse\" id=\"error_%s\" type=\"checkbox\">", errorID));
-                sb.append(String.format("<label for=\"error_%s\">%s</label>", errorID, headLineAndMessage[0]));
+                sb.append(String.format("<input class=\"output_collapse\" id=\"output_%d\" type=\"checkbox\">", messageId));
+                sb.append(String.format("<label for=\"output_%d\">%s</label>", messageId, headLineAndMessage[0]));
                 sb.append(String.format("<div>%s</div>", headLineAndMessage[1].replaceAll("\n", "<br/>")));
             } else {
                 // one-line message
-                sb.append(errorMessage.replaceAll("\\\\n", "<br/>"));
+                sb.append(message.replaceAll("\\\\n", "<br/>"));
             }
 
-            sb.append("</pre>");
+            sb.append("</div>");
         }
 
         return sb.toString();
