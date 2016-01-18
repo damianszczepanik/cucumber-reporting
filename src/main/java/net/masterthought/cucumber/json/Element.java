@@ -166,22 +166,22 @@ public class Element {
 
     private String calculateAttachments(String keyword, Hook[] hooks) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < hooks.length; i++) {
-            String attachmentStatus = hooks[i].getResult().getStatus();
+        for (Hook hook : hooks) {
+            String attachmentStatus = hook.getResult().getStatus();
 
             sb.append("<div class=\"").append(attachmentStatus).append("\">");
             sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
-            sb.append("<i>").append(hooks[i].getMatch().getLocation()).append("</i>");
+            sb.append("<i>").append(hook.getMatch().getLocation()).append("</i>");
 
             sb.append("<span class=\"step-duration\">");
             if (Status.MISSING.getName().equals(attachmentStatus)) {
-                sb.append(Util.formatDuration(hooks[i].getResult().getDuration()));
+                sb.append(Util.formatDuration(hook.getResult().getDuration()));
             }
             sb.append("</span>");
-            sb.append(Util.formatErrorMessage(hooks[i].getResult().getErrorMessage(), hooks[i].getResult().hashCode()));
+            sb.append(Util.formatMessage(hook.getResult().getErrorMessage(), hook.getResult().hashCode()));
             sb.append("</div>");
 
-            sb.append(hooks[i].getAttachments());
+            sb.append(hook.getAttachments());
         }
         return sb.toString();
     }

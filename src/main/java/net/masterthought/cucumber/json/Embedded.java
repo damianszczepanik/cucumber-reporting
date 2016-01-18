@@ -39,7 +39,7 @@ public class Embedded {
     }
 
     private static String getImg(String imageId, String encodedImageContent) {
-        return String.format("<img id=\"%s\" src=\"%s\" style=\"max-width:250px; display:none;\"/>", imageId,
+        return String.format("<img id=\"%s\" src=\"%s\" style=\"display:none;\"/>", imageId,
                 encodedImageContent);
     }
 
@@ -58,7 +58,7 @@ public class Embedded {
     private String publishPlainType(String contentId, int index) {
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(contentId, "plain text", index));
-        sb.append(String.format("<pre id=\"%s\" style=\"max-width:250px; display:none;\">%s</pre><br>", contentId,
+        sb.append(String.format("<pre id=\"%s\" style=\"display:none;\">%s</pre><br>", contentId,
                 decodeDataFromBase()));
         return sb.toString();
     }
@@ -66,7 +66,7 @@ public class Embedded {
     private String publishHTMLType(String contentId, int index) {
         StringBuilder sb = new StringBuilder();
         sb.append(getExpandAnchor(contentId, "HTML text", index));
-        sb.append(String.format("<span id=\"%s\" style=\"max-width:250px; display:none;\">%s</span><br>", contentId,
+        sb.append(String.format("<span id=\"%s\" style=\"display:none;\">%s</span><br>", contentId,
                 decodeDataFromBase()));
         return sb.toString();
     }
