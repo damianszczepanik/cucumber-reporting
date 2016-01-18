@@ -59,7 +59,6 @@
                     $step.getDetails()
                     $step.getDocString()
                     #if($step.hasRows())
-                        <div class="data">
                         <table class="data-table">
                         #foreach($row in $step.getRows())
                         <tr>
@@ -69,11 +68,12 @@
                         </tr>
                         #end
                         </table>
-                        </div>
                     #end
-                    $step.getOutput()
+                    <div>$step.getOutput()</div>
+                    <div>$step.getAttachments()</div>
                 #end
                 $scenario.getAfterAttachments()
+                <br>
             #end
     </div>
 </div>

@@ -99,7 +99,6 @@ public class Step implements ResultsWithMatch {
             sb.append(Util.formatMessage(errorMessage, id));
         }
         sb.append("</div>");
-        sb.append(getAttachments());
 
         return sb.toString();
     }
@@ -134,6 +133,9 @@ public class Step implements ResultsWithMatch {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < embeddings.length; i++) {
             sb.append(embeddings[i].render(i));
+        }
+        if (embeddings.length > 0) {
+            sb.append("<br>");
         }
         attachments = sb.toString();
     }
