@@ -93,14 +93,16 @@ public abstract class AbstractPage {
         result.put("jenkins_base", configuration.getJenkinsBasePath());
         result.put("build_project", configuration.getProjectName());
         result.put("build_number", configuration.getBuildNumber());
-        int previousBuildNumber = -1;
-        try {
-            previousBuildNumber = Integer.parseInt(configuration.getBuildNumber());
-            previousBuildNumber--;
-        } catch (NumberFormatException e) {
-            LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
+        if (configuration.isRunWithJenkins()){
+            int previousBuildNumber = -1;
+            try {
+                previousBuildNumber = Integer.parseInt(configuration.getBuildNumber());
+                previousBuildNumber--;
+            } catch (NumberFormatException e) {
+                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
+            }
+            result.put("build_previous_number", previousBuildNumber);
         }
-        result.put("build_previous_number", previousBuildNumber);
 
         return result;
     }
