@@ -22,7 +22,7 @@ public class Element {
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
-    private static final String[] SCENARIO_KEYWORDS = { "Scenario", "Scenario Outline" };
+    private static final String SCENARIO_TYPE = "scenario";
 
     private String beforeAttachments;
     private String afterAttachments;
@@ -76,12 +76,7 @@ public class Element {
     }
 
     public boolean isScenario() {
-        for (String reference : SCENARIO_KEYWORDS) {
-            if (reference.equals(keyword)) {
-                return true;
-            }
-        }
-        return false;
+        return SCENARIO_TYPE.equals(type);
     }
 
     public String getName() {
