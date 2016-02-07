@@ -85,49 +85,49 @@
 		        }]
 		    });
 
-                $('#scenarios_chart').highcharts({
-			        chart: {
-			            type: 'pie',
-			            options3d: {
-			                enabled: true,
-			                alpha: 45
-			            }
-			        },
-                    title: {
-                        text: 'Scenarios'
-                    },
-			        plotOptions: {
-			            pie: {
-			                innerSize: 150,
-			                depth: 35,
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-		                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
-                            }
-			            }
-			        },
-                    series: [{
-                        name: 'Scenarios',
-                        data: [
-                            {
-                                name: 'Passed',
-                                y: $all_scenarios_passed,
-                                color: "#00A000"
-                            },
-                            {
+            $('#scenarios_chart').highcharts({
+		        chart: {
+		            type: 'pie',
+		            options3d: {
+		                enabled: true,
+		                alpha: 45
+		            }
+		        },
+                title: {
+                    text: 'Scenarios'
+                },
+		        plotOptions: {
+		            pie: {
+		                innerSize: 150,
+		                depth: 35,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+	                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                        }
+		            }
+		        },
+                series: [{
+                    name: 'Scenarios',
+                    data: [
+                        {
+                            name: 'Passed',
+                            y: $all_scenarios_passed,
+                            color: "#00A000"
+                        },
+                        {
 
-                                selected: true,
- 	                            sliced: true,
-                                name: 'Failed',
-                                y: $all_scenarios_failed,
-                                color: "#FF0000"
-                            }
-                        ]
-                    }]
-                });
+                            selected: true,
+                            sliced: true,
+                            name: 'Failed',
+                            y: $all_scenarios_failed,
+                            color: "#FF0000"
+                        }
+                    ]
+                }]
             });
+        });
         </script>
         </div>
         <div style="text-align:center;">
@@ -170,7 +170,7 @@
                 <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
                 <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
                 <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-                <td id="stats-duration-$featureName" style="text-align:right;white-space:nowrap">$feature.getTotalDuration()</td>
+                <td id="stats-duration-$featureName" class="duration">$feature.getTotalDuration()</td>
                 <td id="stats-status-$featureName" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
             </tr>
         #end
@@ -190,13 +190,12 @@
             <th id="stats-total-steps-pending">$all_steps_pending</th>
             <th id="stats-total-steps-undefined">$all_steps_undefined</th>
             <th id="stats-total-steps-missing">$all_steps_missing</th>
-            <th id="stats-total-duration" style="text-align:right;white-space:nowrap">$all_durations</th>
+            <th id="stats-total-duration" class="duration">$all_durations</th>
             <th id="stats-total-totals">Totals</th>
         </tr>
     </table>
     </div>
 
-    </div>
 </div>
 
 
