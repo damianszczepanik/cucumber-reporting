@@ -17,32 +17,32 @@
             formattedData = [
                 {
                     name: "Passed",
-		            color: "$status_color.get(0)",
+		            color: "#00A000",
                     data: []
                 },
                 {
                     name: "Failed",
-		            color: "$status_color.get(1)",
+		            color: "#FF0000",
                     data: []
                 },
                 {
                     name: "Skipped",
-		            color: "$status_color.get(2)",
+		            color: "#88AAFF",
                     data: []
                 },
                 {
                     name: "Pending",
-		            color: "$status_color.get(3)",
+		            color: "#FBB907",
                     data: []
                 },
                 {
                     name: "Undefined",
-		            color: "$status_color.get(4)",
+		            color: "#FBB957",
                     data: []
                 },
                 {
                     name: "Missing",
-		            color: "$status_color.get(5)",
+		            color: "#FBB9A7",
                     data: []
                 }
             ];
@@ -131,9 +131,9 @@
                 #foreach($tag in $all_tags)
 
                     #if($tag.getStatus().name() == "PASSED")
-                        #set($bgcolour = $status_color.get(0))
+                        #set($bgcolour = "passed")
                     #else
-                        #set($bgcolour = $status_color.get(1))
+                        #set($bgcolour = "failed")
                     #end
 
                     <tr>
@@ -143,13 +143,13 @@
                         <td>$tag.getNumberOfFailingScenarios()</td>
                         <td>$tag.getNumberOfSteps()</td>
                         <td>$tag.getNumberOfPasses()</td>
-                        <td #if($tag.getNumberOfFailures() > 0)  style="background-color:$status_color.get(1)" #end>$tag.getNumberOfFailures()</td>
-                        <td #if($tag.getNumberOfSkipped() > 0)   style="background-color:$status_color.get(2)" #end>$tag.getNumberOfSkipped()</td>
-                        <td #if($tag.getNumberOfPending() > 0)   style="background-color:$status_color.get(3)" #end>$tag.getNumberOfPending()</td>
-                        <td #if($tag.getNumberOfUndefined() > 0) style="background-color:$status_color.get(4)" #end>$tag.getNumberOfUndefined()</td>
-                        <td #if($tag.getNumberOfMissing() > 0)   style="background-color:$status_color.get(5)" #end>$tag.getNumberOfMissing()</td>
+                        <td #if($tag.getNumberOfFailures() > 0)  class="failed" #end>$tag.getNumberOfFailures()</td>
+                        <td #if($tag.getNumberOfSkipped() > 0)   class="skipped" #end>$tag.getNumberOfSkipped()</td>
+                        <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
+                        <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
+                        <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
                         <td style="text-align:right;white-space:nowrap">$tag.getTotalDuration()</td>
-                        <td style="background-color: $bgcolour;">$tag.getRawStatus()</td>
+                        <td class="$bgcolour">$tag.getRawStatus()</td>
                     </tr>
                 #end
                 </tbody>

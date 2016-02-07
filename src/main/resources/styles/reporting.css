@@ -122,6 +122,30 @@ h2 {
 	background-color: #FBB9D7;
 }
 
+table.stats-table * .passed {
+	background-color: #00A000;
+}
+
+table.stats-table * .failed {
+	background-color: #FF0000;
+}
+
+table.stats-table * .skipped {
+	background-color: #88AAFF;
+}
+
+table.stats-table * .pending {
+	background-color: #FBB907;
+}
+
+table.stats-table * .undefined {
+	background-color: #FBB957;
+}
+
+table.stats-table * .missing {
+	background-color: #FBB9A7;
+}
+
 table.stats-table {
 	color: black;
 	width: 100%;
@@ -241,4 +265,8 @@ table.data-table td {
 
 table#tablesorter thead tr th {
 	cursor: pointer;
+}
+
+div.report {
+	color:black;
 }

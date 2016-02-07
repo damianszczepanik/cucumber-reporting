@@ -53,32 +53,32 @@
                             selected: true,
  		                    sliced: true,
  		                    name: 'Passed',
-		                    color: "$status_color.get(0)",
+		                    color: "#00A000",
 		                    y: $all_steps_passes
 		                },
 		                {
 		                    name: 'Failed',
-		                    color: "$status_color.get(1)",
+		                    color: "#FF0000",
 		                    y: $all_steps_failed
 		                },
 		                {
 		                    name: 'Skipped',
-		                    color: "$status_color.get(2)",
+		                    color: "#88AAFF",
 		                    y: $all_steps_skipped
 		                },
 		                {
 		                    name: 'Pending',
-		                    color: "$status_color.get(3)",
+		                    color: "#FBB907",
 		                    y: $all_steps_pending
 		                },
 		                {
 		                    name: 'Undefined',
-		                    color: "$status_color.get(4)",
+		                    color: "#FBB957",
 		                    y: $all_steps_undefined
 		                },
 		                {
 		                    name: 'Missing',
-		                    color: "$status_color.get(5)",
+		                    color: "#FBB9A7",
 		                    y: $all_steps_missing
 		                }
 		            ]
@@ -114,7 +114,7 @@
                             {
                                 name: 'Passed',
                                 y: $all_scenarios_passed,
-                                color: "$status_color.get(0)"
+                                color: "#00A000"
                             },
                             {
 
@@ -122,7 +122,7 @@
  	                            sliced: true,
                                 name: 'Failed',
                                 y: $all_scenarios_failed,
-                                color: "$status_color.get(1)"
+                                color: "#FF0000"
                             }
                         ]
                     }]
@@ -149,9 +149,9 @@
         #foreach($feature in $all_features)
 
             #if($feature.getStatus().name() == "PASSED")
-                #set($bgcolour = $status_color.get(0))
+                #set($bgcolour = "#00A000")
             #else
-                #set($bgcolour = $status_color.get(1))
+                #set($bgcolour = "#FF0000")
             #end
             #set($featureName = $feature.getRawName())
 
@@ -165,11 +165,11 @@
                 <td id="stats-number-scenarios-failed-$featureName">$feature.getFailedScenarios()</td>
                 <td id="stats-number-steps-$featureName">$feature.getNumberOfSteps()</td>
                 <td id="stats-number-steps-passed-$featureName">$feature.getNumberOfPasses()</td>
-                <td id="stats-number-steps-failed-$featureName"    #if($feature.getNumberOfFailures() > 0)  style="background-color:$status_color.get(1)" #end>$feature.getNumberOfFailures()</td>
-                <td id="stats-number-steps-skipped-$featureName"   #if($feature.getNumberOfSkipped() > 0)   style="background-color:$status_color.get(2)" #end>$feature.getNumberOfSkipped()</td>
-                <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   style="background-color:$status_color.get(3)" #end>$feature.getNumberOfPending()</td>
-                <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) style="background-color:$status_color.get(4)" #end>$feature.getNumberOfUndefined()</td>
-                <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   style="background-color:$status_color.get(5)" #end>$feature.getNumberOfMissing()</td>
+                <td id="stats-number-steps-failed-$featureName"    #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
+                <td id="stats-number-steps-skipped-$featureName"   #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
+                <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
+                <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
+                <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
                 <td id="stats-duration-$featureName" style="text-align:right;white-space:nowrap">$feature.getTotalDuration()</td>
                 <td id="stats-status-$featureName" style="background-color: $bgcolour;">$feature.getRawStatus()</td>
             </tr>

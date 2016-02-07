@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,6 @@ import org.apache.velocity.tools.generic.EscapeTool;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.VelocityContextMap;
-import net.masterthought.cucumber.json.support.Status;
 
 /**
  * Delivers common methods for page generation.
@@ -63,7 +61,6 @@ public abstract class AbstractPage {
         } else {
             contextMap.put("time_stamp", report.timeStamp());
         }
-        contextMap.put("status_color", Arrays.asList(Status.getOrderedColors()));
     }
 
     protected void generateReport(String fileName) {

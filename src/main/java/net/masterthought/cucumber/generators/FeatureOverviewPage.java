@@ -1,10 +1,7 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.Arrays;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.json.support.Status;
 
 public class FeatureOverviewPage extends AbstractPage {
 
@@ -27,8 +24,6 @@ public class FeatureOverviewPage extends AbstractPage {
         contextMap.put("all_scenarios", report.getAllScenarios().size());
         contextMap.put("all_scenarios_passed", report.getAllPassedScenarios());
         contextMap.put("all_scenarios_failed", report.getAllFailedScenarios());
-
-        contextMap.put("scenario_data", Arrays.asList(Status.PASSED.color, Status.FAILED.color));
 
         contextMap.put("all_durations", report.getAllDurationsAsString());
         contextMap.put("parallel", configuration.isParallelTesting());
