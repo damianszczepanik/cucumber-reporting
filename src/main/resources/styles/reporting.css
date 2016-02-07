@@ -180,11 +180,11 @@ table.stats-table td {
 	background-color: white;
 }
 
-table.stats-table tr.header {
+table.stats-table .header {
 	background-color: #66CCEE;
 }
 
-table.stats-table tr.summary {
+table.stats-table .summary {
 	background-color: lightgray;
 }
 
@@ -272,6 +272,6 @@ table#tablesorter thead tr th {
 	cursor: pointer;
 }
 
-div.report {
+.report {
 	color: black;
 }
