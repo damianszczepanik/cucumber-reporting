@@ -46,13 +46,13 @@
                     <td style="text-align:left;">$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
                     <td class="duration">$step.getTotalFormattedDuration()</td>
-                    <td class="duration">$step.getTotalDuration()</td>
+                    <td class="duration">$step.getAverageFormattedDuration()</td>
                     <td class="$bgcolour">$step.getPercentageResult()%</td>
                 </tr>
             #end
             </tbody>
                 <tr class="summary">
-                    <th>all steps</th>
+                    <th>$all_steps.size()</th>
                     <th>$all_occurrences</th>
                     <th>$all_durations</th>
                     <th class="duration">$all_average</th>

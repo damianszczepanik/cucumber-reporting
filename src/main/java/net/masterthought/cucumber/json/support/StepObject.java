@@ -43,6 +43,10 @@ public class StepObject {
         return Util.formatDuration(totalDuration);
     }
 
+    public String getAverageFormattedDuration() {
+        return Util.formatDuration(totalDuration / totalOccurrences);
+    }
+
     public int getTotalOccurrences() {
         return totalOccurrences;
     }
