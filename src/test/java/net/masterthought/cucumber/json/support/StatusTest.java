@@ -37,7 +37,7 @@ public class StatusTest {
         Status status = Status.valueOf(statusName);
 
         // then
-        assertEquals(status.getName(), name);
+        assertEquals(status.getRawName(), name);
     }
 
     @Test

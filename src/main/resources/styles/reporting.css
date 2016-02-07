@@ -1,5 +1,10 @@
 h2 {
-	font-size: 24px !important;
+	font-size: 24px;
+}
+
+.tag-name {
+	color: gray;
+	font-style: italic;
 }
 
 .feature-keyword {
@@ -98,6 +103,7 @@ h2 {
 	padding-right: 15px;
 }
 
+/* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
 	background-color: #C5D88A;
 }
@@ -121,6 +127,7 @@ h2 {
 .missing {
 	background-color: #FBB9D7;
 }
+
 
 table.stats-table * .passed {
 	background-color: #00A000;
@@ -149,6 +156,10 @@ table.stats-table * .missing {
 table.stats-table .duration {
 	text-align: right;
 	white-space: nowrap;
+}
+
+table.stats-table .tag {
+	text-align: left;
 }
 
 table.stats-table {
@@ -274,4 +285,8 @@ table#tablesorter thead tr th {
 
 .report {
 	color: black;
+}
+
+.footer {
+	text-align: center;
 }

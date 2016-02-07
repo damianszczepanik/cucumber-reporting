@@ -81,7 +81,7 @@ public class Element {
 
     public String getName() {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div class=\"").append(getStatus().getName().toLowerCase()).append("\">");
+        sb.append("<div class=\"").append(getStatus().getRawName()).append("\">");
 
         if (StringUtils.isNotEmpty(keyword)) {
             sb.append("<span class=\"element-keyword\">").append(StringEscapeUtils.escapeHtml(keyword))
@@ -169,7 +169,7 @@ public class Element {
             sb.append("<i>").append(hook.getMatch().getLocation()).append("</i>");
 
             sb.append("<span class=\"step-duration\">");
-            if (Status.MISSING.getName().equals(attachmentStatus)) {
+            if (Status.MISSING.getRawName().equals(attachmentStatus)) {
                 sb.append(Util.formatDuration(hook.getResult().getDuration()));
             }
             sb.append("</span>");

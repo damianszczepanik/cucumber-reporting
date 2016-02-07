@@ -33,7 +33,7 @@
                         <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
                         <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
                         <td class="duration">$tag.getTotalDuration()</td>
-                        <td style="background-color: $status_colour;">$tag.getRawStatus()</td></tr>
+                        <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td></tr>
 
                 </table>
 
@@ -41,7 +41,7 @@
 
         <div class="report">
             #foreach($scenario in $tag.getElements())
-                <div style="margin-bottom:20px;width:100%">
+                <div>
                     <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
                 $scenario.getBeforeAttachments()
                 $scenario.getTagsList()

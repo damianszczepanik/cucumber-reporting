@@ -78,7 +78,7 @@ public class Step implements ResultsWithMatch {
 
     private String getStatusDetails(Status status, String errorMessage) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div class=\"").append(status.getName().toLowerCase()).append("\">");
+        sb.append("<div class=\"").append(status.getRawName()).append("\">");
         sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
         sb.append("<span class=\"step-name\">");
         // for keyword == Before|After attribute 'name' is not available
@@ -114,7 +114,7 @@ public class Step implements ResultsWithMatch {
             return StringUtils.EMPTY;
         }
         
-        return "<div class=\"" + getStatus().getName().toLowerCase() + "\">" + "<div class=\"doc-string\">"
+        return "<div class=\"" + getStatus().getRawName() + "\">" + "<div class=\"doc-string\">"
                 + doc_string.getEscapedValue() + "</div></div>";
     }
 

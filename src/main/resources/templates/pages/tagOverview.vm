@@ -118,7 +118,7 @@
             <div><p>You have no tags in your cucumber features</p></div>
         #else
 
-        <div id="stacked-graph" style="width:900px; height:400px"></div>
+        <div id="stacked-graph"></div>
 
         <div>
             <br/>
@@ -129,15 +129,8 @@
 
                 <tbody>
                 #foreach($tag in $all_tags)
-
-                    #if($tag.getStatus().name() == "PASSED")
-                        #set($bgcolour = "passed")
-                    #else
-                        #set($bgcolour = "failed")
-                    #end
-
                     <tr>
-                        <td style="text-align:left;"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+                        <td class="tag"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
                         <td>$tag.getScenarios()</td>
                         <td>$tag.getNumberOfPassingScenarios()</td>
                         <td>$tag.getNumberOfFailingScenarios()</td>
@@ -149,7 +142,7 @@
                         <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
                         <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
                         <td class="duration">$tag.getTotalDuration()</td>
-                        <td class="$bgcolour">$tag.getRawStatus()</td>
+                        <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
                     </tr>
                 #end
                 </tbody>

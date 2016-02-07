@@ -7,23 +7,15 @@ package net.masterthought.cucumber.json.support;
  */
 public enum Status {
 
-    // use RGB color instead of predefined such as blue, yellow!
-    PASSED("#00A000"),
-    FAILED("#FF0000"),
-    SKIPPED("#88AAFF"),
-    PENDING("#FBB907"),
-    UNDEFINED("#FBB957"),
-    MISSING("#FBB9A7");
-
-    /** Color representation for given status. */
-    public final String color;
-    
-    private Status(String color) {
-        this.color = color;
-    }
+    PASSED,
+    FAILED,
+    SKIPPED,
+    PENDING,
+    UNDEFINED,
+    MISSING;
 
     /** Returns name of the status as lower case characters. */
-    public String getName() {
+    public String getRawName() {
         return name().toLowerCase();
     }
 
