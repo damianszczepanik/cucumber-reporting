@@ -45,8 +45,8 @@
 
                     <td style="text-align:left;">$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
-                    <td style="text-align:right;white-space:nowrap">$step.getTotalFormattedDuration()</td>
-                    <td style="text-align:right;white-space:nowrap">$step.getTotalDuration()</td>
+                    <td class="duration">$step.getTotalFormattedDuration()</td>
+                    <td class="duration">$step.getTotalDuration()</td>
                     <td class="$bgcolour">$step.getPercentageResult()%</td>
                 </tr>
             #end
@@ -55,7 +55,7 @@
                     <th>all steps</th>
                     <th>$all_occurrences</th>
                     <th>$all_durations</th>
-                    <th style="text-align:right;white-space:nowrap">$all_average</th>
+                    <th class="duration">$all_average</th>
                     <th>Totals</th>
                 </tr>
             </table>

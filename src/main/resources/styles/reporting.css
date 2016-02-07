@@ -146,6 +146,11 @@ table.stats-table * .missing {
 	background-color: #FBB9A7;
 }
 
+table.stats-table .duration {
+	text-align: right;
+	white-space: nowrap;
+}
+
 table.stats-table {
 	color: black;
 	width: 100%;
@@ -175,11 +180,11 @@ table.stats-table td {
 	background-color: white;
 }
 
-table.stats-table thead tr.header {
+table.stats-table tr.header {
 	background-color: #66CCEE;
 }
 
-table.stats-table tbody tr.summary {
+table.stats-table tr.summary {
 	background-color: lightgray;
 }
 
@@ -268,5 +273,5 @@ table#tablesorter thead tr th {
 }
 
 div.report {
-	color:black;
+	color: black;
 }

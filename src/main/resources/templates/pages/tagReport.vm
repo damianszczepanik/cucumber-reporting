@@ -27,12 +27,12 @@
                         <td>$tag.getNumberOfFailingScenarios()</td>
                         <td>$tag.getNumberOfSteps()</td>
                         <td>$tag.getNumberOfPasses()</td>
-                        <td #if($tag.getNumberOfFailures() > 0)  class="failure" #end>$tag.getNumberOfFailures()</td>
+                        <td #if($tag.getNumberOfFailures() > 0)  class="failed" #end>$tag.getNumberOfFailures()</td>
                         <td #if($tag.getNumberOfSkipped() > 0)   class="skipped" #end>$tag.getNumberOfSkipped()</td>
                         <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
                         <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
                         <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
-                        <td style="text-align:right;white-space:nowrap">$tag.getTotalDuration()</td>
+                        <td class="duration">$tag.getTotalDuration()</td>
                         <td style="background-color: $status_colour;">$tag.getRawStatus()</td></tr>
 
                 </table>

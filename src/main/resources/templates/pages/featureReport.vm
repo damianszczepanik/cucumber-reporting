@@ -38,7 +38,7 @@
                         <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
                         <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
                         <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-                        <td id="stats-duration-$sf" style="text-align:right;white-space:nowrap">$feature.getTotalDuration()</td>
+                        <td id="stats-duration-$sf" class="duration">$feature.getTotalDuration()</td>
                         <td id="stats-status-$sf" style="background-color: $status_colour;">$feature.getRawStatus()</td></tr>
 
                 </table>
