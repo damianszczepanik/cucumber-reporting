@@ -24,13 +24,15 @@
             <h2>Step Statistics</h2>            
             <table id="tablesorter" class="stats-table">
 
-            <thead><tr>
+            <thead>
+              <tr class="header">
                 <th id="stats-header-feature">Implementation</th>
                 <th id="stats-header-occurrences">Occurrences</th>
                 <th id="stats-header-duration">Duration</th>
                 <th id="stats-header-average">Average</th>
                 <th id="stats-header-status">Ratio</th>
-            </tr></thead>
+              </tr>
+            </thead>
 
             <tbody>
             #foreach($step in $all_steps)
@@ -49,14 +51,12 @@
                 </tr>
             #end
             </tbody>
-
-                <!--  add row to adjust num of steps -->
-                <tr>
-                    <th style="background-color:lightgray">all steps</th>
-                    <th style="background-color:lightgray;">$all_occurrences</th>
-                    <th style="background-color:lightgray;">$all_durations</th>
-                    <th style="background-color:lightgray;text-align:right;white-space:nowrap">$all_average</th>
-                    <th style="background-color:lightgray;">Totals</th>
+                <tr class="summary">
+                    <th>all steps</th>
+                    <th>$all_occurrences</th>
+                    <th>$all_durations</th>
+                    <th style="text-align:right;white-space:nowrap">$all_average</th>
+                    <th>Totals</th>
                 </tr>
             </table>
         </div>
