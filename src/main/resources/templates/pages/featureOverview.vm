@@ -10,7 +10,7 @@
 <script src="js/highcharts-3d.js"></script>
 
 </head>
-<body id="top">
+<body>
 
     #parse("/templates/topMenu.vm")
 
@@ -148,7 +148,7 @@
             #set($featureName = $feature.getRawName())
 
             <tr>
-                <td class="tag"><a id="stats-$featureName" href="$feature.getReportFileName()">$featureName</a></td>
+                <td class="tagname"><a id="stats-$featureName" href="$feature.getReportFileName()">$featureName</a></td>
                 #if($parallel)
                 <td id="device">$feature.getDeviceName()</td>
                 #end

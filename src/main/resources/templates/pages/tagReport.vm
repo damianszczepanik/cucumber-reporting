@@ -6,7 +6,7 @@
 #include("/templates/headers.html")
 
 </head>
-<body id="top">
+<body>
 
     #parse("/templates/topMenu.vm")
 
@@ -42,7 +42,7 @@
         <div class="report">
             #foreach($scenario in $tag.getElements())
                 <div>
-                    <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
+                <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
                 $scenario.getBeforeAttachments()
                 $scenario.getTagsList()
                 $scenario.getName()

@@ -8,7 +8,7 @@
 #include("/templates/tableSorter.vm")
 
 </head>
-<body id="top">
+<body>
 
     #parse("/templates/topMenu.vm")
 
@@ -43,7 +43,7 @@
                         #set($bgcolour = "failed")
                     #end
 
-                    <td>$step.getLocation()</td>
+                    <td class="tagname">$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
                     <td class="duration">$step.getTotalFormattedDuration()</td>
                     <td class="duration">$step.getAverageFormattedDuration()</td>
@@ -60,7 +60,6 @@
                 </tr>
             </table>
         </div>
-
     </div>
 </div>
 

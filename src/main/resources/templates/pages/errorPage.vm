@@ -3,8 +3,6 @@
 <head>
 <title>Cucumber-JVM Html Reports - Error Page</title>
 
-#include("/templates/headers.html")
-
 <style>
 .error-message {
     color:red;
@@ -13,10 +11,13 @@
     background-color: lightpink;
 }
 </style>
-
+#include("/templates/headers.html")
 </head>
-<body id="top">
-	<div id="fullwidth_header">
+
+<body>
+#parse("/templates/topMenu.vm")
+
+	<div>
 		<div class="container_12">
 			<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
 			<div class="grid_6" id="nav">
@@ -28,7 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="fullwidth_gradient">
+	<div>
 		<div class="container_12">
 			<div class="grid_9 heading">
 				<h2 id="overview-title">Oops Something went wrong with $build_project build: $build_number</h2>
@@ -39,17 +40,15 @@
 
 	<div class="container_12">
 		<div class="grid_12">
-
-	<br/>
-
-	<div id="error-message" class="error-message"><pre>$output_message</pre></div>
+		<br/>
+	
+		<div id="error-message" class="error-message"><pre>$output_message</pre></div>
         <br/>
         <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
             #foreach($file in $json_files)
                 <br>$file
             #end
         <br/><br/>
-	</div>
 
 
 #parse("/templates/footer.vm")                        
