@@ -22,17 +22,6 @@ public enum Status {
         this.color = color;
     }
 
-    /** Returns status colors in order they are displayed (is the same as defined above). */
-    public static String[] getOrderedColors() {
-        Status[] allStatuses = Status.values();
-        String[] colors = new String[Status.values().length];
-        for (int i = 0; i < colors.length; i++) {
-            colors[i] = allStatuses[i].color;
-        }
-
-        return colors;
-    }
-
     /** Returns name of the status as lower case characters. */
     public String getName() {
         return name().toLowerCase();

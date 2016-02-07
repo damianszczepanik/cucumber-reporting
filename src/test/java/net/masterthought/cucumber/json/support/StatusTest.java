@@ -27,21 +27,6 @@ public class StatusTest {
     }
 
     @Test
-    public void getOrderedColorsReturnsColorsInDeclaredOrder() {
-
-        // given
-        final Status[] reference = { PASSED, FAILED, SKIPPED, PENDING, UNDEFINED, MISSING };
-
-        // when
-        String[] colors = Status.getOrderedColors();
-
-        // then
-        for (int i = 0; i < reference.length; i++) {
-            assertEquals(reference[i].color, colors[i]);
-        }
-    }
-
-    @Test
     public void getNameReturnsNameToLowerCase() {
 
         // given

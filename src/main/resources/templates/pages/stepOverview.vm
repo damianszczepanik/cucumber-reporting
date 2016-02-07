@@ -38,16 +38,16 @@
             #foreach($step in $all_steps)
                 <tr>
                     #if($step.getPercentageResult() == 100.0)
-                        #set($bgcolour = $status_color.get(0))
+                        #set($bgcolour = "passed")
                     #else
-                        #set($bgcolour = $status_color.get(1))
+                        #set($bgcolour = "failed")
                     #end
 
                     <td style="text-align:left;">$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
                     <td style="text-align:right;white-space:nowrap">$step.getTotalFormattedDuration()</td>
                     <td style="text-align:right;white-space:nowrap">$step.getTotalDuration()</td>
-                    <td style="background-color: $bgcolour;">$step.getPercentageResult()%</td>
+                    <td class="$bgcolour">$step.getPercentageResult()%</td>
                 </tr>
             #end
             </tbody>
