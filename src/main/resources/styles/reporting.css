@@ -2,7 +2,7 @@ h2 {
 	font-size: 24px;
 }
 
-.tag-name {
+.header-tag-name {
 	color: gray;
 	font-style: italic;
 }
@@ -98,11 +98,6 @@ h2 {
 	content: "\2212";
 }
 
-.step-duration {
-	float: right;
-	padding-right: 15px;
-}
-
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
 	background-color: #C5D88A;
@@ -126,6 +121,63 @@ h2 {
 
 .missing {
 	background-color: #FBB9D7;
+}
+
+table.stats-table {
+	color: black;
+	border-width: 1px;
+	border-spacing: 2px;
+	border-color: gray;
+	border-collapse: collapse;
+	background-color: white;
+	padding: 5px;
+	text-align: center;
+}
+
+
+table.stats-table {
+	color: black;
+	width: 100%;
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+}
+
+table.stats-table th {
+	color: black;
+	border-width: 1px;
+	padding: 5px;
+	border-style: inset;
+	border-color: gray;
+}
+
+table.stats-table td {
+	color: black;
+	text-align: center;
+	border-width: 1px;
+	padding: 5px;
+	border-style: inset;
+	border-color: gray;
+	background-color: white;
+}
+
+table.stats-table tr.header {
+	background-color: #66CCEE;
+}
+
+table.stats-table tr.summary {
+	background-color: lightgray;
+}
+
+table.stats-table td.duration {
+	text-align: right;
+	white-space: nowrap;
+}
+
+table.stats-table td.tagname {
+	text-align: left;
 }
 
 
@@ -153,80 +205,6 @@ table.stats-table * .missing {
 	background-color: #FBB9A7;
 }
 
-table.stats-table .duration {
-	text-align: right;
-	white-space: nowrap;
-}
-
-table.stats-table .tag {
-	text-align: left;
-}
-
-table.stats-table {
-	color: black;
-	width: 100%;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
-	background-color: white;
-}
-
-table.stats-table th {
-	color: black;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-}
-
-table.stats-table td {
-	color: black;
-	text-align: center;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-	background-color: white;
-}
-
-table.stats-table .header {
-	background-color: #66CCEE;
-}
-
-table.stats-table .summary {
-	background-color: lightgray;
-}
-
-table.data-table {
-	color: black;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
-	background-color: beige;
-}
-
-table.data-table th {
-	color: black;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-	background-color: #66CCEE;
-}
-
-table.data-table td {
-	color: black;
-	text-align: center;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-	background-color: beige;
-}
 
 .doc-string {
 	width: auto;

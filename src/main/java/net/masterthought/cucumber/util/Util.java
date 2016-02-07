@@ -52,7 +52,7 @@ public class Util {
                 String ref = "<a href=\"" + link + "\">" + tag.getName() + "</a>";
                 tagList.add(ref);
             }
-            result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ",") + "</div>";
+            result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ", ") + "</div>";
         }
         return result;
     }

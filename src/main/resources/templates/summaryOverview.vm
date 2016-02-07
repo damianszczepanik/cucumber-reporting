@@ -1,4 +1,4 @@
-<div id="fullwidth_gradient">
+<div>
     <div class="heading container_12">
         <h2><span id="overview-title">$summary_key Overview for build: $build_number</span>
         #if($jenkins_source)

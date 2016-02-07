@@ -103,7 +103,7 @@
 
 </head>
 
-<body id="top">
+<body>
 
     #parse("/templates/topMenu.vm")
 
@@ -130,7 +130,7 @@
                 <tbody>
                 #foreach($tag in $all_tags)
                     <tr>
-                        <td class="tag"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+                        <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
                         <td>$tag.getScenarios()</td>
                         <td>$tag.getNumberOfPassingScenarios()</td>
                         <td>$tag.getNumberOfFailingScenarios()</td>
