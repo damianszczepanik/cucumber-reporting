@@ -97,12 +97,12 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnReportStatusColour() {
-        assertThat(reportResult.getAllFeatures().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportResult.getAllFeatures().get(0).getStatus(), is(Status.PASSED));
     }
 
     @Test
     public void shouldReturnTagReportStatusColour() {
-        assertThat(reportResult.getAllTags().get(0).getStatus().color, is(Status.PASSED.color));
+        assertThat(reportResult.getAllTags().get(0).getStatus(), is(Status.PASSED));
     }
 
     @Test

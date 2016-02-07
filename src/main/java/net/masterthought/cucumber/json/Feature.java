@@ -71,7 +71,7 @@ public class Feature {
         if (StringUtils.isNotEmpty(name)) {
             return String.format(
                     "<div class=\"%s\"><div class=\"feature-line\"><span class=\"feature-keyword\">%s: </span>%s</div></div>",
-                    getStatus().getName().toLowerCase(), keyword, name);
+                    getStatus().getRawName(), keyword, name);
         } else {
             return "";
         }

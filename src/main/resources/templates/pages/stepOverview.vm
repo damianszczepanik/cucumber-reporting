@@ -43,7 +43,7 @@
                         #set($bgcolour = "failed")
                     #end
 
-                    <td style="text-align:left;">$step.getLocation()</td>
+                    <td>$step.getLocation()</td>
                     <td>$step.getTotalOccurrences()</td>
                     <td class="duration">$step.getTotalFormattedDuration()</td>
                     <td class="duration">$step.getAverageFormattedDuration()</td>

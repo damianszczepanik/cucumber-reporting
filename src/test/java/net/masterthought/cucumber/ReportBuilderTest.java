@@ -165,7 +165,7 @@ public class ReportBuilderTest {
         assertEquals("0", tableCells.get(9).text());
         assertEquals("0", tableCells.get(10).text());
         assertEquals("106ms", tableCells.get(11).text());
-        assertEquals("passed", tableCells.get(12).text());
+        assertEquals("Passed", tableCells.get(12).text());
     }
     
     @Test
