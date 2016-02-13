@@ -116,7 +116,6 @@
                             color: "#00A000"
                         },
                         {
-
                             selected: true,
                             sliced: true,
                             name: 'Failed',
@@ -162,28 +161,29 @@
                 <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
                 <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
                 <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-                <td id="stats-duration-$featureName" class="duration">$feature.getTotalDuration()</td>
+                <td id="stats-duration-$featureName" class="duration-format">$feature.getTotalDuration()</td>
                 <td id="stats-status-$featureName" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
             </tr>
         #end
         </tbody>
+
         <tr class="summary">
-            <th id="stats-total-features">$all_features.size()</th>
+            <td id="stats-total-features">$all_features.size()</td>
             #if($parallel)
-            <th id="stats-total-features">-</th>
+            <td id="stats-total-features">-</td>
             #end
-            <th id="stats-total-scenarios">$all_scenarios</th>
-            <th id="stats-total-scenarios-passed">$all_scenarios_passed</th>
-            <th id="stats-total-scenarios-failed">$all_scenarios_failed</th>
-            <th id="stats-total-steps">$all_steps.size()</th>
-            <th id="stats-total-steps-passed">$all_steps_passes</th>
-            <th id="stats-total-steps-failed">$all_steps_failed</th>
-            <th id="stats-total-steps-skipped">$all_steps_skipped</th>
-            <th id="stats-total-steps-pending">$all_steps_pending</th>
-            <th id="stats-total-steps-undefined">$all_steps_undefined</th>
-            <th id="stats-total-steps-missing">$all_steps_missing</th>
-            <th id="stats-total-duration" class="duration">$all_durations</th>
-            <th id="stats-total-totals">Totals</th>
+            <td id="stats-total-scenarios">$all_scenarios</td>
+            <td id="stats-total-scenarios-passed">$all_scenarios_passed</td>
+            <td id="stats-total-scenarios-failed">$all_scenarios_failed</td>
+            <td id="stats-total-steps">$all_steps.size()</td>
+            <td id="stats-total-steps-passed">$all_steps_passes</td>
+            <td id="stats-total-steps-failed">$all_steps_failed</td>
+            <td id="stats-total-steps-skipped">$all_steps_skipped</td>
+            <td id="stats-total-steps-pending">$all_steps_pending</td>
+            <td id="stats-total-steps-undefined">$all_steps_undefined</td>
+            <td id="stats-total-steps-missing">$all_steps_missing</td>
+            <td id="stats-total-duration" class="duration-format">$all_durations</td>
+            <td id="stats-total-totals">Totals</td>
         </tr>
     </table>
     </div>
