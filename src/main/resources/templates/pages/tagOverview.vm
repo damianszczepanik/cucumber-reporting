@@ -141,26 +141,26 @@
                         <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
                         <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
                         <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
-                        <td class="duration">$tag.getTotalDuration()</td>
+                        <td class="duration-format">$tag.getTotalDuration()</td>
                         <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
                     </tr>
                 #end
                 </tbody>
 
                 <tr class="summary">
-                    <th>$all_tags.size()</th>
-                    <th>$all_tags_scenarios</th>
-                    <th>$all_tags_passed_scenarios</th>
-                    <th>$all_tags_failed_scenarios</th>
-                    <th>$all_tags_steps</th>
-                    <th>$all_tags_passes</th>
-                    <th>$all_tags_failed</th>
-                    <th>$all_tags_skipped</th>
-                    <th>$all_tags_pending</th>
-                    <th>$all_tags_undefined</th>
-                    <th>$all_tags_missing</th>
-                    <th class="duration">$all_durations</th>
-                    <th>Totals</th>
+                    <td>$all_tags.size()</td>
+                    <td>$all_tags_scenarios</td>
+                    <td>$all_tags_passed_scenarios</td>
+                    <td>$all_tags_failed_scenarios</td>
+                    <td>$all_tags_steps</td>
+                    <td>$all_tags_passes</td>
+                    <td>$all_tags_failed</td>
+                    <td>$all_tags_skipped</td>
+                    <td>$all_tags_pending</td>
+                    <td>$all_tags_undefined</td>
+                    <td>$all_tags_missing</td>
+                    <td class="duration-format">$all_durations</td>
+                    <td>Totals</td>
                 </tr>
             </table>
         </div>
