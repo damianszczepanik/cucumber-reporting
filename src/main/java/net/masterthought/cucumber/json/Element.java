@@ -28,7 +28,6 @@ public class Element {
     private String afterAttachments;
     private Status status;
 
-    private StatusCounter statusCounter;
     private Feature feature;
 
     public Step[] getSteps() {
@@ -138,19 +137,11 @@ public class Element {
         for (Step step : steps) {
             step.setMedaData(this);
         }
-        calculateStatus();
         calculateHooks(before);
         calculateHooks(after);
         beforeAttachments = calculateAttachments("Before", before);
         afterAttachments = calculateAttachments("After", after);
         status = calculateStatus(configuration);
-    }
-
-    private void calculateStatus() {
-        statusCounter = new StatusCounter();
-        for (Step step : steps) {
-            statusCounter.incrementFor(step.getStatus());
-        }
     }
 
     private void calculateHooks(Hook[] hooks) {
@@ -182,6 +173,12 @@ public class Element {
     }
 
     private Status calculateStatus(Configuration configuration) {
+        StatusCounter statusCounter = new StatusCounter();
+        for (Step step : steps) {
+            statusCounter.incrementFor(step.getStatus());
+        }
+        calculateStatusForHook(statusCounter, before);
+        calculateStatusForHook(statusCounter, after);
 
         if (statusCounter.getValueFor(Status.FAILED) > 0) {
             return Status.FAILED;
@@ -204,5 +201,14 @@ public class Element {
         }
 
         return Status.PASSED;
+    }
+
+    private void calculateStatusForHook(StatusCounter statusCounter, Hook[] hooks) {
+        for (Hook hook : hooks) {
+            Result result = hook.getResult();
+            if (result != null) {
+                statusCounter.incrementFor(Status.toStatus(result.getStatus()));
+            }
+        }
     }
 }

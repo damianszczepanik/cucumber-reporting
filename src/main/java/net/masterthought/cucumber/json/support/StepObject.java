@@ -32,7 +32,7 @@ public class StepObject {
     public void addDuration(long duration, String status) {
         this.totalDuration += duration;
         this.totalOccurrences++;
-        this.statusCounter.incrementFor(Status.valueOf(status.toUpperCase()));
+        this.statusCounter.incrementFor(Status.toStatus(status));
     }
 
     public long getTotalDuration() {
