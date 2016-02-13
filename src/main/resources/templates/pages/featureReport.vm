@@ -6,7 +6,7 @@
 #include("/templates/headers.html")
 
 </head>
-<body id="top">
+<body>
 
 #parse("/templates/topMenu.vm")
 
@@ -39,42 +39,42 @@
                     <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
                     <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
                     <td id="stats-duration-$sf" class="duration-format">$feature.getTotalDuration()</td>
-                    <td id="stats-status-$sf" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td></tr>
-
+                    <td id="stats-status-$sf" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
+                </tr>
             </table>
-
         </div>
 
-    <div class="report">
-
-        $feature.getTagsList()
-        $feature.getName()
-        <i>$feature.getDescription()</i>
-
-        #foreach($scenario in $elements)
-            $scenario.getTagsList()
-            $scenario.getBeforeAttachments()
-            $scenario.getName()
-            #foreach($step in $scenario.getSteps())
-                $step.getDetails()
-                $step.getDocString()
-                #if($step.hasRows())
-                    <table class="data-table">
-                    #foreach($row in $step.getRows())
-                    <tr>
-                        #foreach($cell in $row.getCells())
-                            <td>$esc.html($cell)</td>
+        <div class="report">
+    
+            $feature.getTagsList()
+            $feature.getName()
+            <i>$feature.getDescription()</i>
+    
+            #foreach($scenario in $elements)
+                $scenario.getTagsList()
+                $scenario.getBeforeAttachments()
+                $scenario.getName()
+                #foreach($step in $scenario.getSteps())
+                    $step.getDetails()
+                    $step.getDocString()
+                    #if($step.hasRows())
+                        <table class="data-table">
+                        #foreach($row in $step.getRows())
+                        <tr>
+                            #foreach($cell in $row.getCells())
+                                <td>$esc.html($cell)</td>
+                            #end
+                        </tr>
                         #end
-                    </tr>
+                        </table>
                     #end
-                    </table>
+                    <div>$step.getOutput()</div>
+                    <div>$step.getAttachments()</div>
                 #end
-                <div>$step.getOutput()</div>
-                <div>$step.getAttachments()</div>
+                $scenario.getAfterAttachments()
+                <br>
             #end
-            $scenario.getAfterAttachments()
-            <br>
-        #end
+        </div>
     </div>
 </div>
 
