@@ -39,8 +39,8 @@ public class RowTest {
 
     @Test
     public void shouldReturnCells() {
-        assertThat(row.cells[0], is("title"));
-        assertThat(row.cells[1], is("lord"));
+        assertThat(row.getCells()[0], is("title"));
+        assertThat(row.getCells()[1], is("lord"));
     }
 
 }

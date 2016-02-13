@@ -79,7 +79,7 @@ public class Embedded {
 
     private static String getExpandAnchor(String contentId, String label, int index) {
         return String.format(
-                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\">Attachment %d (%s)</a>",
+                "<a onclick=\"attachment=document.getElementById('%s'); attachment.style.display = (attachment.style.display == 'none' ? 'block' : 'none');return false\" href=\"#\">Attachment %d (%s)</a>",
                 contentId, index + 1, label);
     }
 

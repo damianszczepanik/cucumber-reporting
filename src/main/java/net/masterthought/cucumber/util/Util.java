@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.Period;
@@ -44,17 +43,14 @@ public class Util {
     }
 
     public static String tagsToHtml(Tag[] tags) {
-        String result = "<div class=\"feature-tags\"></div>";
-        if (!ArrayUtils.isEmpty(tags)) {
-            List<String> tagList = new ArrayList<>();
-            for (Tag tag : tags) {
-                String link = tag.getName().replace("@", "").trim() + ".html";
-                String ref = "<a href=\"" + link + "\">" + tag.getName() + "</a>";
-                tagList.add(ref);
-            }
-            result = "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ", ") + "</div>";
+        List<String> tagList = new ArrayList<>();
+        for (Tag tag : tags) {
+            String link = tag.getName().replace("@", "").trim() + ".html";
+            String ref = "<a href=\"" + link + "\">" + tag.getName() + "</a>";
+            tagList.add(ref);
         }
-        return result;
+        return "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ", ") + "</div>";
+
     }
 
     public static void unzipToFile(File srcZipFile, String destDirectory) {

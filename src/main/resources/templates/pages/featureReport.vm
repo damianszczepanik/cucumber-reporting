@@ -20,9 +20,8 @@
             <table class="stats-table">
                 #set($table_key = "Feature")
                 #parse("/templates/tableHeader.vm")
-                
-                #set($sf = $feature.getRawName())
 
+                #set($sf = $feature.getRawName())
                 <tr>
                     <td><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
                     #if($parallel)
@@ -45,11 +44,10 @@
         </div>
 
         <div class="report">
-    
             $feature.getTagsList()
             $feature.getName()
-            <i>$feature.getDescription()</i>
-    
+            <div class="feature-description">$feature.getDescription()</div>
+
             #foreach($scenario in $elements)
                 $scenario.getTagsList()
                 $scenario.getBeforeAttachments()
@@ -58,11 +56,11 @@
                     $step.getDetails()
                     $step.getDocString()
                     #if($step.hasRows())
-                        <table class="data-table">
+                        <table class="arguments-table">
                         #foreach($row in $step.getRows())
                         <tr>
                             #foreach($cell in $row.getCells())
-                                <td>$esc.html($cell)</td>
+                                <td>$cell</td>
                             #end
                         </tr>
                         #end

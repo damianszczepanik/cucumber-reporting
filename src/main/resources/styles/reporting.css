@@ -17,30 +17,8 @@ h2 {
 	background-color: beige;
 }
 
-.feature-role {
-	font-weight: bold;
-}
-
-.feature-action {
-	font-weight: bold;
-}
-
-.feature-value {
-	font-weight: bold;
-}
-
-.feature-tags {
-	padding-top: 10px;
-	padding-left: 15px;
-	color: darkblue;
-}
-
 .element-keyword {
 	font-weight: bold;
-	padding-left: 15px;
-}
-
-.element-element_name {
 	padding-left: 15px;
 }
 
@@ -124,40 +102,16 @@ h2 {
 }
 
 table.stats-table {
-	color: black;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-color: gray;
-	border-collapse: collapse;
 	background-color: white;
-	padding: 5px;
-	text-align: center;
-}
-
-
-table.stats-table {
 	color: black;
+	margin-bottom: 20px;
 	width: 100%;
-	border-width: 1px;
-	border-spacing: 2px;
-	border-style: outset;
-	border-color: gray;
-	border-collapse: collapse;
 }
 
-table.stats-table th {
-	border-width: 1px;
+table.stats-table th, table.stats-table td {
+	border: 1px solid gray;
 	padding: 5px;
-	border-style: inset;
-	border-color: gray;
-}
-
-table.stats-table td {
 	text-align: center;
-	border-width: 1px;
-	padding: 5px;
-	border-style: inset;
-	border-color: gray;
 }
 
 table.stats-table tr.header {
@@ -177,7 +131,6 @@ table.stats-table td.duration-format {
 table.stats-table td.tagname {
 	text-align: left;
 }
-
 
 table.stats-table * .passed {
 	background-color: #00A000;
@@ -203,6 +156,17 @@ table.stats-table * .missing {
 	background-color: #FBB9A7;
 }
 
+table.arguments-table {
+	margin-bottom: 5px;
+	margin-left: 80px;
+	margin-top: 3px;
+}
+
+table.arguments-table th, table.arguments-table td {
+	border: 1px solid gray;
+	padding: 3px;
+	text-align: left;
+}
 
 .doc-string {
 	width: auto;
