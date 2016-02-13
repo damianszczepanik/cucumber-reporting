@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.tools.generic.EscapeTool;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
@@ -54,7 +53,6 @@ public abstract class AbstractPage {
 
         contextMap.clear();
         contextMap.putAll(getGeneralParameters());
-        contextMap.put("esc", new EscapeTool());
 
         if (this instanceof ErrorPage) {
             contextMap.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));

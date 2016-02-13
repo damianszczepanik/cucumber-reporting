@@ -73,7 +73,7 @@ public class ReportBuilderTest {
         File input = new File(configuration.getReportDirectory(), "com-cme-falcon-acceptancetests-FrameworkTests-FIX_Inbound_Outbound-NewOrderOverrides-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
 
-        Elements rows = fromClass("data-table",doc).get(2).getElementsByTag("tr");
+        Elements rows = fromClass("arguments-table", doc).get(2).getElementsByTag("tr");
         Elements firstRow = rows.get(0).getElementsByTag("td");
         Elements secondRow = rows.get(1).getElementsByTag("td");
 

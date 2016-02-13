@@ -40,21 +40,21 @@
 
         <div class="report">
             #foreach($scenario in $tag.getElements())
-                <div><a href="$scenario.getFeature().getReportFileName()">View Feature File</a></div>
-                $scenario.getBeforeAttachments()
+                <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
                 $scenario.getTagsList()
+                $scenario.getBeforeAttachments()
                 $scenario.getName()
                 #foreach($step in $scenario.getSteps())
                     $step.getDetails()
                     $step.getDocString()
                     #if($step.hasRows())
-                        <table class="data-table">
+                        <table class="arguments-table">
                         #foreach($row in $step.getRows())
-                           <tr>
-                               #foreach($cell in $row.getCells())
-                                   <td>$cell</td>
-                               #end
-                           </tr>
+                        <tr>
+                            #foreach($cell in $row.getCells())
+                                <td>$cell</td>
+                            #end
+                        </tr>
                         #end
                         </table>
                     #end
@@ -62,6 +62,7 @@
                     <div>$step.getAttachments()</div>
                 #end
                 $scenario.getAfterAttachments()
+                <br>
             #end
         </div>
     </div>
