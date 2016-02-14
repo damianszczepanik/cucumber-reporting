@@ -45,7 +45,11 @@
 
         <div class="report">
             $feature.getTagsList()
-            $feature.getName()
+            <div class="$feature.getStatus().getRawName()">
+                <div class="feature-line">
+                    <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()
+                </div>
+            </div>
             <div class="feature-description">$feature.getDescription()</div>
 
             #foreach($scenario in $elements)

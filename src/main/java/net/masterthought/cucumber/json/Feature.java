@@ -68,17 +68,15 @@ public class Feature {
     }
 
     public String getName() {
-        if (StringUtils.isNotEmpty(name)) {
-            return String.format(
-                    "<div class=\"%s\"><div class=\"feature-line\"><span class=\"feature-keyword\">%s: </span>%s</div></div>",
-                    getStatus().getRawName(), keyword, name);
-        } else {
-            return "";
-        }
+        return StringUtils.defaultString(name);
+    }
+
+    public String getKeyword() {
+        return StringUtils.defaultString(keyword);
     }
 
     public String getRawName() {
-        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : "";
+        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : StringUtils.EMPTY;
     }
 
     public String getRawStatus() {
@@ -86,7 +84,7 @@ public class Feature {
     }
 
     public String getDescription() {
-        return description;
+        return StringUtils.defaultString(description);
     }
 
     public int getScenarios() {
