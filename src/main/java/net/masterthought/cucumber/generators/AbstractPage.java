@@ -7,8 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
@@ -20,7 +18,6 @@ import org.apache.velocity.app.VelocityEngine;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.VelocityContextMap;
 
 /**
  * Delivers common methods for page generation.
@@ -33,7 +30,7 @@ public abstract class AbstractPage {
     private static final Logger LOG = LogManager.getLogger(AbstractPage.class);
 
     protected final VelocityEngine ve = new VelocityEngine();
-    protected final VelocityContextMap contextMap = VelocityContextMap.of(new VelocityContext());
+    protected final VelocityContext velocityContext = new VelocityContext();
     private Template template;
 
     /** Name of the html file which will be generated. */
@@ -45,28 +42,26 @@ public abstract class AbstractPage {
         this.fileName = fileName;
         this.report = reportResult;
         this.configuration = configuration;
+
+        buildGeneralParameters();
     }
 
     public void generatePage() {
         ve.init(getProperties());
         template = ve.getTemplate("templates/pages/" + fileName);
 
-        contextMap.clear();
-        contextMap.putAll(getGeneralParameters());
-
         if (this instanceof ErrorPage) {
-            contextMap.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
+            velocityContext.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
         } else {
-            contextMap.put("time_stamp", report.timeStamp());
+            velocityContext.put("time_stamp", report.timeStamp());
         }
     }
 
     protected void generateReport(String fileName) {
-        VelocityContext context = contextMap.getVelocityContext();
-        context.put("page_url", fileName);
+        velocityContext.put("page_url", fileName);
         File dir = new File(configuration.getReportDirectory(), fileName);
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(dir), Charsets.UTF_8)) {
-                template.merge(context, writer);
+            template.merge(velocityContext, writer);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
@@ -82,24 +77,20 @@ public abstract class AbstractPage {
         return props;
     }
 
-    protected Map<String, Object> getGeneralParameters() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("jenkins_source", configuration.isRunWithJenkins());
-        result.put("jenkins_base", configuration.getJenkinsBasePath());
-        result.put("build_project", configuration.getProjectName());
-        result.put("build_number", configuration.getBuildNumber());
+    protected void buildGeneralParameters() {
+        velocityContext.put("jenkins_source", configuration.isRunWithJenkins());
+        velocityContext.put("jenkins_base", configuration.getJenkinsBasePath());
+        velocityContext.put("build_project", configuration.getProjectName());
+        velocityContext.put("build_number", configuration.getBuildNumber());
         if (configuration.isRunWithJenkins()){
-            int previousBuildNumber = -1;
+            int buildNumber = -1;
             try {
-                previousBuildNumber = Integer.parseInt(configuration.getBuildNumber());
-                previousBuildNumber--;
+                buildNumber = Integer.parseInt(configuration.getBuildNumber());
             } catch (NumberFormatException e) {
                 LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
             }
-            result.put("build_previous_number", previousBuildNumber);
+            velocityContext.put("build_previous_number", --buildNumber);
         }
-
-        return result;
     }
 
 }

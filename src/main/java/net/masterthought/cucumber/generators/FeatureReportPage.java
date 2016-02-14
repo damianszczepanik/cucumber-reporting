@@ -15,10 +15,9 @@ public class FeatureReportPage extends AbstractPage {
         for (Feature feature : report.getAllFeatures()) {
             super.generatePage();
 
-            contextMap.putAll(getGeneralParameters());
-            contextMap.put("parallel", configuration.isParallelTesting());
-            contextMap.put("feature", feature);
-            contextMap.put("elements", feature.getElements());
+            velocityContext.put("parallel", configuration.isParallelTesting());
+            velocityContext.put("feature", feature);
+            velocityContext.put("elements", feature.getElements());
 
             generateReport(feature.getReportFileName());
         }
