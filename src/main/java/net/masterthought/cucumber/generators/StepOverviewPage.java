@@ -25,7 +25,7 @@ public class StepOverviewPage extends AbstractPage {
     public void generatePage() {
         super.generatePage();
 
-        contextMap.put("all_steps", sortStepsByDuration(report.getAllSteps()));
+        velocityContext.put("all_steps", sortStepsByDuration(report.getAllSteps()));
 
         int allOccurrences = 0;
         long allDurations = 0;
@@ -33,11 +33,11 @@ public class StepOverviewPage extends AbstractPage {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getTotalDuration();
         }
-        contextMap.put("all_occurrences", allOccurrences);
-        contextMap.put("all_durations", Util.formatDuration(allDurations));
+        velocityContext.put("all_occurrences", allOccurrences);
+        velocityContext.put("all_durations", Util.formatDuration(allDurations));
         // make sure it does not divide by 0 - may happens if there is no step at all or all results have 0 ms durations
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        contextMap.put("all_average", Util.formatDuration(average));
+        velocityContext.put("all_average", Util.formatDuration(average));
 
         super.generateReport("step-overview.html");
     }

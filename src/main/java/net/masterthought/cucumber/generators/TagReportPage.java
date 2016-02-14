@@ -15,7 +15,7 @@ public class TagReportPage extends AbstractPage {
         for (TagObject tagObject : report.getAllTags()) {
             super.generatePage();
 
-            contextMap.put("tag", tagObject);
+            velocityContext.put("tag", tagObject);
 
             generateReport(tagObject.getReportFileName());
         }
