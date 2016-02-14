@@ -1,3 +1,9 @@
+.top-menu {
+	height: 180px;
+	margin-top: 80px;
+	width: 100%;
+}
+
 h2 {
 	font-size: 24px;
 }
