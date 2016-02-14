@@ -110,12 +110,14 @@ public class Step implements ResultsWithMatch {
      * @return string of html
      */
     public String getDocString() {
-        if (doc_string == null || !doc_string.hasValue()) {
+        if (doc_string == null || StringUtils.isBlank(doc_string.getValue())) {
             return StringUtils.EMPTY;
         }
-        
-        return "<div class=\"" + getStatus().getRawName() + "\">" + "<div class=\"doc-string\">"
-                + doc_string.getEscapedValue() + "</div></div>";
+
+        return "<div class=\""
+                + status.getRawName() + "\">" + "<div class=\"doc-string\">" + StringEscapeUtils
+                        .escapeHtml(doc_string.getValue()).replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;")
+                + "</div></div>";
     }
 
     @Override

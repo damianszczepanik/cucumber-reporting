@@ -15,7 +15,7 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.masterthought.cucumber.json.Tag;
 
-public class Util {
+public final class Util {
 
     private static final Logger LOG = LogManager.getLogger(Util.class);
 

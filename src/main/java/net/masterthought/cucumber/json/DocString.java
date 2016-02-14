@@ -1,8 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * Doc Strings are handy for specifying a larger piece of text. This is inspired from Python’s Docstring syntax.
  *
@@ -19,18 +16,5 @@ public class DocString {
 
     public String getValue() {
         return value;
-    }
-
-    /** Returns getValue escaped for HTML and to preserve whitespace. */
-    public String getEscapedValue() {
-        String html = StringEscapeUtils.escapeHtml(this.getValue());
-        return html.replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;");
-    }
-
-    /**
-     * @return Returns true if value has content
-     */
-    public boolean hasValue() {
-        return StringUtils.isNotBlank(value);
     }
 }
