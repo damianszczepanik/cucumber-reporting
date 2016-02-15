@@ -29,6 +29,8 @@ public class Embedded {
             return publishImage("png", contentId, index);
         case "image/bmp":
             return publishImage("bmp", contentId, index);
+        case "image/jpeg":
+            return publishImage("jpeg", contentId, index);
         case "text/plain":
             return publishPlainType(contentId, index);
         case "text/html":
