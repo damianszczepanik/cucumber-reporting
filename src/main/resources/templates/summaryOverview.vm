@@ -2,9 +2,7 @@
     <div class="container_12">
         <div class="grid_9 heading">
             <h2><span id="overview-title">$summary_key Overview for build: $build_number</span>
-            #if($jenkins_source)
                 <br id="overview-project">Project Name: <i>$build_project</i></br>
-            #end
             </h2>
             <span class="subhead">$summary_description</span>
         </div>
