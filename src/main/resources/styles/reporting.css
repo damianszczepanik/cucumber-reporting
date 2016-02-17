@@ -13,6 +13,14 @@ h2 {
 	font-style: italic;
 }
 
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
+
 .feature-keyword {
 	font-weight: bold;
 }
