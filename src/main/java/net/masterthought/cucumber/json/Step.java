@@ -62,21 +62,11 @@ public class Step implements ResultsWithMatch {
     }
 
     public String getDetails() {
-        String errorMessage = null;
-
-        switch (status) {
-        case FAILED:
-            errorMessage = result.getErrorMessage();
-            return getStatusDetails(status, errorMessage);
-        case MISSING:
+        String errorMessage = result == null ? null : result.getErrorMessage();
+        if (status == Status.MISSING) {
             errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
-            return getStatusDetails(status, errorMessage);
-        default:
-            return getStatusDetails(status, null);
         }
-    }
 
-    private String getStatusDetails(Status status, String errorMessage) {
         StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"").append(status.getRawName()).append("\">");
         sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
@@ -160,7 +150,7 @@ public class Step implements ResultsWithMatch {
         if (result == null) {
             status = Status.MISSING;
         } else {
-            status = Status.valueOf(result.getStatus().toUpperCase());
+            status = Status.toStatus(result.getStatus());
         }
     }
 }
