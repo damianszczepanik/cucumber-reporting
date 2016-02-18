@@ -18,13 +18,11 @@ import net.masterthought.cucumber.util.Util;
 public class StepOverviewPage extends AbstractPage {
 
     public StepOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "stepOverview.vm", configuration);
+        super(reportResult, "stepOverview.vm", configuration, "step-overview.html");
     }
 
     @Override
-    public void generatePage() {
-        super.generatePage();
-
+    public void prepareReport() {
         velocityContext.put("all_steps", sortStepsByDuration(report.getAllSteps()));
 
         int allOccurrences = 0;
@@ -39,7 +37,6 @@ public class StepOverviewPage extends AbstractPage {
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
         velocityContext.put("all_average", Util.formatDuration(average));
 
-        super.generateReport("step-overview.html");
     }
 
     private StepObject[] sortStepsByDuration(List<StepObject> steps) {

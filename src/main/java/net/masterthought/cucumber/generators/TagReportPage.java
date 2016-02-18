@@ -6,19 +6,16 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagReportPage extends AbstractPage {
 
-    public TagReportPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagReport.vm", configuration);
+    private final TagObject tagObject;
+
+    public TagReportPage(ReportResult reportResult, Configuration configuration, TagObject tagObject) {
+        super(reportResult, "tagReport.vm", configuration, tagObject.getReportFileName());
+        this.tagObject = tagObject;
     }
 
     @Override
-    public void generatePage() {
-        for (TagObject tagObject : report.getAllTags()) {
-            super.generatePage();
-
-            velocityContext.put("tag", tagObject);
-
-            generateReport(tagObject.getReportFileName());
-        }
+    public void prepareReport() {
+        velocityContext.put("tag", tagObject);
     }
 
 }

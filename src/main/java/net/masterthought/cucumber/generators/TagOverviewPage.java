@@ -11,13 +11,11 @@ import net.masterthought.cucumber.util.Util;
 public class TagOverviewPage extends AbstractPage {
 
     public TagOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagOverview.vm", configuration);
+        super(reportResult, "tagOverview.vm", configuration, "tag-overview.html");
     }
 
     @Override
-    public void generatePage() {
-        super.generatePage();
-
+    public void prepareReport() {
         List<TagObject> tags = report.getAllTags();
         velocityContext.put("all_tags", tags);
         velocityContext.put("all_tags_scenarios", report.getAllTagScenarios());
@@ -34,7 +32,5 @@ public class TagOverviewPage extends AbstractPage {
         velocityContext.put("chart_categories", ChartUtil.getTags(tags));
         velocityContext.put("chart_data", ChartUtil.generateTagChartDataForHighCharts(tags));
         velocityContext.put("all_durations", Util.formatDuration(report.getAllTagDuration()));
-
-        super.generateReport("tag-overview.html");
     }
 }

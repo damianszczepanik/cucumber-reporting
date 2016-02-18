@@ -34,32 +34,40 @@ public abstract class AbstractPage {
     private Template template;
 
     /** Name of the html file which will be generated. */
-    private final String fileName;
+    private final String templateFileName;
     protected final ReportResult report;
     protected final Configuration configuration;
+    protected final String targetFileName;
 
-    protected AbstractPage(ReportResult reportResult, String fileName, Configuration configuration) {
-        this.fileName = fileName;
+    protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration,
+            String targetFileName) {
+        this.templateFileName = templateFileName;
         this.report = reportResult;
         this.configuration = configuration;
+        this.targetFileName = targetFileName;
 
         buildGeneralParameters();
     }
 
-    public void generatePage() {
+    public final void generatePage() {
         ve.init(getProperties());
-        template = ve.getTemplate("templates/pages/" + fileName);
+        template = ve.getTemplate("templates/pages/" + templateFileName);
 
         if (this instanceof ErrorPage) {
             velocityContext.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
         } else {
             velocityContext.put("time_stamp", report.timeStamp());
         }
+
+        prepareReport();
+        generateReport();
     }
 
-    protected void generateReport(String fileName) {
-        velocityContext.put("page_url", fileName);
-        File dir = new File(configuration.getReportDirectory(), fileName);
+    protected abstract void prepareReport();
+
+    private void generateReport() {
+        velocityContext.put("page_url", targetFileName);
+        File dir = new File(configuration.getReportDirectory(), targetFileName);
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(dir), Charsets.UTF_8)) {
             template.merge(velocityContext, writer);
         } catch (IOException e) {
@@ -67,7 +75,7 @@ public abstract class AbstractPage {
         }
     }
 
-    protected Properties getProperties() {
+    private Properties getProperties() {
         Properties props = new Properties();
         props.setProperty("resource.loader", "class");
         props.setProperty("class.resource.loader.class",
@@ -77,7 +85,7 @@ public abstract class AbstractPage {
         return props;
     }
 
-    protected void buildGeneralParameters() {
+    private void buildGeneralParameters() {
         velocityContext.put("jenkins_source", configuration.isRunWithJenkins());
         velocityContext.put("jenkins_base", configuration.getJenkinsBasePath());
         velocityContext.put("build_project", configuration.getProjectName());
