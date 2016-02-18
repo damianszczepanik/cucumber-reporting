@@ -1,7 +1,11 @@
-.top-menu {
-	height: 180px;
-	margin-top: 80px;
-	width: 100%;
+body {
+	/* Shifts body so navigation bar does not overlap it.
+	Make sure to include this after the core Bootstrap CSS. */
+	padding-top: 60px;
+}
+
+.navbar-nav {
+	font-size: 18px;
 }
 
 h2 {

@@ -1,5 +1,5 @@
 <thead>
-    <tr class="header">
+    <tr>
         #if($parallel)
             <th></th>
         #end
@@ -9,7 +9,7 @@
         <th></th>
         <th></th>
     </tr>
-    <tr class="header">
+    <tr>
         <th id="stats-header-key">$table_key</th>
         #if($parallel)
             <th id="stats-header-device">Device</th>

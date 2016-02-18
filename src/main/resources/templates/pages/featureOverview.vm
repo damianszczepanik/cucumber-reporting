@@ -148,7 +148,6 @@ $(function () {
     });
 
 
-
     $('#features_chart').highcharts({
         chart: {
             plotShadow: false,
@@ -209,15 +208,15 @@ $(function () {
 </head>
 
 <body>
-    #parse("/templates/topMenu.vm")
+#set($nav_active = "features")
+#parse("/templates/topMenu.vm")
 
-    #set($summary_key = "Feature")
-    #set($summary_description = "The following graph shows passing and failing statistics for features in this build.")
-    #parse("/templates/summaryOverview.vm")
+#set($summary_key = "Feature Overview")
+#set($summary_description = "The following graph shows passing and failing statistics for features in this build.")
+#parse("/templates/summaryOverview.vm")
 
-    <div class="container_12">
-        <div class="grid_12">
-            <table>
+    <div>
+        <table>
                 <tr>
                     <td><div style="width:25%" id="steps_chart"></div></td>
                     <td><div style="width:25%" id="scenarios_chart"></div></td>
@@ -278,9 +277,6 @@ $(function () {
 	        </table>
 	    </div>
     </div>
-
-</div>
-
 
 #parse("/templates/footer.vm")                        
 

@@ -1,8 +1,5 @@
-<div class="footer">
-    <hr/>
-    <span>
-        <a href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
-        <a href="https://github.com/damianszczepanik/cucumber-reporting">Cucumber-JVM reports</a>
-        <br>build: $time_stamp
-    </span>
+<div>
+    <a href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+    <a href="https://github.com/damianszczepanik/cucumber-reporting">Cucumber-JVM reports</a>
+    <br>build: $time_stamp
 </div>

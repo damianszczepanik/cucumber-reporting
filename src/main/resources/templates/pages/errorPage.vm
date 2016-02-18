@@ -16,33 +16,26 @@
 <body>
 #parse("/templates/topMenu.vm")
 
-	<div class="container_12">
-		<h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
-		<div class="grid_6" id="nav">
-			<ul>
-                #if($jenkins_source)
-                    <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
-                #end
-			</ul>
-		</div>
-	</div>
-	<div class="container_12">
-		<div class="grid_9 heading">
-			<h2 id="overview-title">Something went wrong with project <i>$build_project</i>, build $build_number</h2>
-			<span class="subhead">The error message (if any) is below:</span>
-		</div>
-	</div>
-
-	<div class="container_12">
-		<div class="grid_12">
-            <div id="error-message" class="error-message"><pre>$output_message</pre></div>
-            <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
-            #foreach($file in $json_files)
-                <br>$file
+	<div>
+		<h1><a href="feature-overview.html">Cucumber</a></h1>
+		<ul>
+            #if($jenkins_source)
+                <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
             #end
-        </div>
-    </div>
+		</ul>
+	</div>
+	<div>
+		<h2 id="overview-title">Something went wrong with project <i>$build_project</i>, build $build_number</h2>
+		<span class="subhead">The error message (if any) is below:</span>
+	</div>
 
+	<div>
+        <div id="error-message" class="error-message"><pre>$output_message</pre></div>
+        <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
+        #foreach($file in $json_files)
+            <br>$file
+        #end
+    </div>
 
 #parse("/templates/footer.vm")                        
 

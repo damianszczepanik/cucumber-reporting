@@ -8,64 +8,60 @@
 </head>
 <body>
 
+#set($nav_active = "tags")
 #parse("/templates/topMenu.vm")
 
 #set($summary_key = "$tag.getTagName()")
 #parse("/templates/summaryReport.vm")
 
-<div class="container_12">
-    <div class="grid_12">
+<div>
+    <table class="stats-table">
+        #set($table_key = "Tag Report")
+        #parse("/templates/tableHeader.vm")
+        <tr>
+            <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+            <td>$tag.getScenarios()</td>
+            <td>$tag.getNumberOfPassingScenarios()</td>
+            <td>$tag.getNumberOfFailingScenarios()</td>
+            <td>$tag.getNumberOfSteps()</td>
+            <td>$tag.getNumberOfPasses()</td>
+            <td #if($tag.getNumberOfFailures() > 0)  class="failed"    #end>$tag.getNumberOfFailures()</td>
+            <td #if($tag.getNumberOfSkipped() > 0)   class="skipped"   #end>$tag.getNumberOfSkipped()</td>
+            <td #if($tag.getNumberOfPending() > 0)   class="pending"   #end>$tag.getNumberOfPending()</td>
+            <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
+            <td #if($tag.getNumberOfMissing() > 0)   class="missing"   #end>$tag.getNumberOfMissing()</td>
+            <td class="duration-format">$tag.getTotalDuration()</td>
+            <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
+        </tr>
+    </table>
+</div>
 
-        <div>
-            <table class="stats-table">
-                #set($table_key = "Tag")
-                #parse("/templates/tableHeader.vm")
+<div class="report">
+    #foreach($scenario in $tag.getElements())
+        <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
+        $scenario.getTagsList()
+        $scenario.getBeforeAttachments()
+        $scenario.getName()
+        #foreach($step in $scenario.getSteps())
+            $step.getDetails()
+            $step.getDocString()
+            #if($step.hasRows())
+                <table class="arguments-table">
+                #foreach($row in $step.getRows())
                 <tr>
-                    <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
-                    <td>$tag.getScenarios()</td>
-                    <td>$tag.getNumberOfPassingScenarios()</td>
-                    <td>$tag.getNumberOfFailingScenarios()</td>
-                    <td>$tag.getNumberOfSteps()</td>
-                    <td>$tag.getNumberOfPasses()</td>
-                    <td #if($tag.getNumberOfFailures() > 0)  class="failed"    #end>$tag.getNumberOfFailures()</td>
-                    <td #if($tag.getNumberOfSkipped() > 0)   class="skipped"   #end>$tag.getNumberOfSkipped()</td>
-                    <td #if($tag.getNumberOfPending() > 0)   class="pending"   #end>$tag.getNumberOfPending()</td>
-                    <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
-                    <td #if($tag.getNumberOfMissing() > 0)   class="missing"   #end>$tag.getNumberOfMissing()</td>
-                    <td class="duration-format">$tag.getTotalDuration()</td>
-                    <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="report">
-            #foreach($scenario in $tag.getElements())
-                <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
-                $scenario.getTagsList()
-                $scenario.getBeforeAttachments()
-                $scenario.getName()
-                #foreach($step in $scenario.getSteps())
-                    $step.getDetails()
-                    $step.getDocString()
-                    #if($step.hasRows())
-                        <table class="arguments-table">
-                        #foreach($row in $step.getRows())
-                        <tr>
-                            #foreach($cell in $row.getCells())
-                                <td>$cell</td>
-                            #end
-                        </tr>
-                        #end
-                        </table>
+                    #foreach($cell in $row.getCells())
+                        <td>$cell</td>
                     #end
-                    <div>$step.getOutput()</div>
-                    <div>$step.getAttachments()</div>
+                </tr>
                 #end
-                $scenario.getAfterAttachments()
-                <br>
+                </table>
             #end
-        </div>
-    </div>
+            <div>$step.getOutput()</div>
+            <div>$step.getAttachments()</div>
+        #end
+        $scenario.getAfterAttachments()
+        <br>
+    #end
 </div>
 
 

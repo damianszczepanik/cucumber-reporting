@@ -99,69 +99,65 @@
 </head>
 
 <body>
-    #parse("/templates/topMenu.vm")
 
-    #set($summary_key = "Tag")
-    #set($summary_description = "The following graph shows passing and failing statistics for tags in this build.")
-    #parse("/templates/summaryOverview.vm")
+#set($nav_active = "tags")
+#parse("/templates/topMenu.vm")
 
-    <div class="container_12">
-        <div class="grid_12">
+#set($summary_key = "Tag Overview")
+#set($summary_description = "The following graph shows passing and failing statistics for tags in this build.")
+#parse("/templates/summaryOverview.vm")
 
-        #if($all_tags.isEmpty())
-            <div><p>You have no tags in your cucumber features</p></div>
-        #else
+#if($all_tags.isEmpty())
+    <div><p>You have no tags in your cucumber features</p></div>
+#else
 
-        <div id="stacked-graph"></div>
+<div id="stacked-graph"></div>
 
-        <div>
-            <br/>
-            <h2>Tag Statistics</h2>
-            <table id="tablesorter" class="stats-table">
-                #set($table_key = "Tag")
-                #parse("/templates/tableHeader.vm")
+<div>
+    <br/>
+    <h2>Tag Statistics</h2>
+    <table id="tablesorter" class="stats-table">
+        #set($table_key = "Tag")
+        #parse("/templates/tableHeader.vm")
 
-                <tbody>
-                #foreach($tag in $all_tags)
-                    <tr>
-                        <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
-                        <td>$tag.getScenarios()</td>
-                        <td>$tag.getNumberOfPassingScenarios()</td>
-                        <td>$tag.getNumberOfFailingScenarios()</td>
-                        <td>$tag.getNumberOfSteps()</td>
-                        <td>$tag.getNumberOfPasses()</td>
-                        <td #if($tag.getNumberOfFailures() > 0)  class="failed" #end>$tag.getNumberOfFailures()</td>
-                        <td #if($tag.getNumberOfSkipped() > 0)   class="skipped" #end>$tag.getNumberOfSkipped()</td>
-                        <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
-                        <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
-                        <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
-                        <td class="duration-format">$tag.getTotalDuration()</td>
-                        <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
-                    </tr>
-                #end
-                </tbody>
-
-                <tr class="summary">
-                    <td>$all_tags.size()</td>
-                    <td>$all_tags_scenarios</td>
-                    <td>$all_tags_passed_scenarios</td>
-                    <td>$all_tags_failed_scenarios</td>
-                    <td>$all_tags_steps</td>
-                    <td>$all_tags_passes</td>
-                    <td>$all_tags_failed</td>
-                    <td>$all_tags_skipped</td>
-                    <td>$all_tags_pending</td>
-                    <td>$all_tags_undefined</td>
-                    <td>$all_tags_missing</td>
-                    <td class="duration-format">$all_durations</td>
-                    <td>Totals</td>
-                </tr>
-            </table>
-        </div>
+        <tbody>
+        #foreach($tag in $all_tags)
+            <tr>
+                <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+                <td>$tag.getScenarios()</td>
+                <td>$tag.getNumberOfPassingScenarios()</td>
+                <td>$tag.getNumberOfFailingScenarios()</td>
+                <td>$tag.getNumberOfSteps()</td>
+                <td>$tag.getNumberOfPasses()</td>
+                <td #if($tag.getNumberOfFailures() > 0)  class="failed" #end>$tag.getNumberOfFailures()</td>
+                <td #if($tag.getNumberOfSkipped() > 0)   class="skipped" #end>$tag.getNumberOfSkipped()</td>
+                <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
+                <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
+                <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
+                <td class="duration-format">$tag.getTotalDuration()</td>
+                <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
+            </tr>
         #end
+        </tbody>
 
-    </div>
+        <tr class="summary">
+            <td>$all_tags.size()</td>
+            <td>$all_tags_scenarios</td>
+            <td>$all_tags_passed_scenarios</td>
+            <td>$all_tags_failed_scenarios</td>
+            <td>$all_tags_steps</td>
+            <td>$all_tags_passes</td>
+            <td>$all_tags_failed</td>
+            <td>$all_tags_skipped</td>
+            <td>$all_tags_pending</td>
+            <td>$all_tags_undefined</td>
+            <td>$all_tags_missing</td>
+            <td class="duration-format">$all_durations</td>
+            <td>Totals</td>
+        </tr>
+    </table>
 </div>
+#end
 
 
 #parse("/templates/footer.vm")                        
