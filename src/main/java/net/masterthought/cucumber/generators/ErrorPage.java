@@ -14,18 +14,14 @@ public class ErrorPage extends AbstractPage {
 
     public ErrorPage(ReportResult reportResult, Configuration configuration, Exception exception,
             List<String> jsonFiles) {
-        super(reportResult, "errorPage.vm", configuration);
+        super(reportResult, "errorPage.vm", configuration, "feature-overview.html");
         this.exception = exception;
         this.jsonFiles = jsonFiles;
     }
 
     @Override
-    public void generatePage() {
-        super.generatePage();
-
+    public void prepareReport() {
         velocityContext.put("output_message", ExceptionUtils.getStackTrace(exception));
         velocityContext.put("json_files", jsonFiles);
-
-        super.generateReport("feature-overview.html");
     }
 }

@@ -16,6 +16,7 @@ import net.masterthought.cucumber.generators.StepOverviewPage;
 import net.masterthought.cucumber.generators.TagOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
 
 public class ReportBuilder {
@@ -53,10 +54,15 @@ public class ReportBuilder {
             copyResource("styles", "reporting.css", false);
 
             new FeatureOverviewPage(reportResult, configuration).generatePage();
-            new FeatureReportPage(reportResult, configuration).generatePage();
-            new TagReportPage(reportResult, configuration).generatePage();
+            for (Feature feature : reportResult.getAllFeatures()) {
+                new FeatureReportPage(reportResult, configuration, feature).generatePage();
+            }
             new TagOverviewPage(reportResult, configuration).generatePage();
+            for (TagObject tagObject : reportResult.getAllTags()) {
+                new TagReportPage(reportResult, configuration, tagObject).generatePage();
+            }
             new StepOverviewPage(reportResult, configuration).generatePage();
+
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
             generateErrorPage(e);

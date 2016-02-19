@@ -6,21 +6,18 @@ import net.masterthought.cucumber.json.Feature;
 
 public class FeatureReportPage extends AbstractPage {
 
-    public FeatureReportPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "featureReport.vm", configuration);
+    private final Feature feature;
+
+    public FeatureReportPage(ReportResult reportResult, Configuration configuration, Feature feature) {
+        super(reportResult, "featureReport.vm", configuration, feature.getReportFileName());
+        this.feature = feature;
     }
 
     @Override
-    public void generatePage() {
-        for (Feature feature : report.getAllFeatures()) {
-            super.generatePage();
-
-            velocityContext.put("parallel", configuration.isParallelTesting());
-            velocityContext.put("feature", feature);
-            velocityContext.put("elements", feature.getElements());
-
-            generateReport(feature.getReportFileName());
-        }
+    public void prepareReport() {
+        velocityContext.put("parallel", configuration.isParallelTesting());
+        velocityContext.put("feature", feature);
+        velocityContext.put("elements", feature.getElements());
     }
 
 }

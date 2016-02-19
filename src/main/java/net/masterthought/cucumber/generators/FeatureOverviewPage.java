@@ -6,13 +6,11 @@ import net.masterthought.cucumber.ReportResult;
 public class FeatureOverviewPage extends AbstractPage {
 
     public FeatureOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "featureOverview.vm", configuration);
+        super(reportResult, "featureOverview.vm", configuration, "feature-overview.html");
     }
 
     @Override
-    public void generatePage() {
-        super.generatePage();
-
+    public void prepareReport() {
         velocityContext.put("all_features", report.getAllFeatures());
         velocityContext.put("all_steps", report.getStepsCounter());
         velocityContext.put("all_steps_passes", report.getAllPassedSteps());
@@ -27,7 +25,5 @@ public class FeatureOverviewPage extends AbstractPage {
 
         velocityContext.put("all_durations", report.getAllDurationsAsString());
         velocityContext.put("parallel", configuration.isParallelTesting());
-
-        super.generateReport("feature-overview.html");
     }
 }
