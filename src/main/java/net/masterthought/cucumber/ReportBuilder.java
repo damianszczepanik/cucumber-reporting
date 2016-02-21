@@ -51,7 +51,7 @@ public class ReportBuilder {
 
             copyResource("theme", "blue.zip", true);
             copyResource("chart", "Highcharts-4.2.1.zip", true);
-            copyResource("styles", "reporting.css", false);
+            copyResource("css", "reporting.css", false);
 
             new FeatureOverviewPage(reportResult, configuration).generatePage();
             for (Feature feature : reportResult.getAllFeatures()) {

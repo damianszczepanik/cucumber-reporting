@@ -1,6 +1,6 @@
  <div id="fullwidth_header">
      <div class="container_12">
-         <h1 class="grid_4 logo"><a href="feature-overview.html" class='ie6fix'>Cucumber</a></h1>
+         <h1 class="grid_4 logo"><a href="feature-overview.html">Cucumber</a></h1>
 
          <div id="nav">
              <ul>

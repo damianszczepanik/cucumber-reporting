@@ -8,6 +8,14 @@ h2 {
 	font-size: 24px;
 }
 
+a {
+    color: #0097da;
+}
+
+a:hover {
+    color: #00587f;
+}
+
 .header-tag-name {
 	color: gray;
 	font-style: italic;

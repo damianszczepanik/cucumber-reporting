@@ -4,7 +4,6 @@
 <title>Cucumber-JVM Html Reports - Step Overview</title>
 
 #include("/templates/headers.html")
-#include("/templates/tableSorter.vm")
 
 </head>
 <body>
