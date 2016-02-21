@@ -5,10 +5,6 @@
 
 #include("/templates/headers.html")
 
-#include("/templates/tableSorter.vm")
-<script src="js/highcharts.js"></script>
-<script src="js/highcharts-3d.js"></script>
-
 <script>
     jQuery(document).ready(function() {
 
@@ -100,11 +96,9 @@
         });
     });
 </script>
-
 </head>
 
 <body>
-
     #parse("/templates/topMenu.vm")
 
     #set($summary_key = "Tag")

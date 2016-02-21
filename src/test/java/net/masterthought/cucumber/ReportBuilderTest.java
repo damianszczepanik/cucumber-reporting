@@ -41,7 +41,7 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("overview-title", doc).text(), is("Feature Overview for build: 1"));
+        assertThat(fromId("page-title", doc).text(), is("Feature Overview for build number 1, project cucumber-reporting"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertStatsTotals(doc);
@@ -57,7 +57,7 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "net-masterthought-example-ATM-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("feature-title", doc).text(), is("Result for Account Holder withdraws cash in build: 1"));
+        assertThat(fromId("page-title", doc).text(), is("Result for Account Holder withdraws cash, build number 1, project cucumber-reporting"));
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertFeatureContent(doc);
@@ -95,7 +95,7 @@ public class ReportBuilderTest {
         assertThat(secondRow.get(4).text(),is("1"));
         assertThat(secondRow.get(5).text(),is("session"));
 
-        assertThat(fromId("feature-title", doc).text(), is("Result for New Inbound Order Overrides in build: 1"));
+        assertThat(fromId("page-title", doc).text(), is("Result for New Inbound Order Overrides, build number 1, project cucumber-reporting"));
         assertStatsHeader(doc);
     }
 

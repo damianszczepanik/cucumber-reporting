@@ -21,7 +21,7 @@
                 #set($table_key = "Tag")
                 #parse("/templates/tableHeader.vm")
                 <tr>
-                    <td><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+                    <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
                     <td>$tag.getScenarios()</td>
                     <td>$tag.getNumberOfPassingScenarios()</td>
                     <td>$tag.getNumberOfFailingScenarios()</td>

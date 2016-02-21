@@ -78,7 +78,7 @@ public class Step implements ResultsWithMatch {
         sb.append("</span>");
 
         sb.append("<span class=\"step-duration\">");
-        if (status != Status.MISSING) {
+        if (status != Status.MISSING && result != null) {
             sb.append(Util.formatDuration(result.getDuration()));
         }
         sb.append("</span>");

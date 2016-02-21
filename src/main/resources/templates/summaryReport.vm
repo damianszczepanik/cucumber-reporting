@@ -1,7 +1,10 @@
 <div class="top-menu">
     <div class="container_12">
-        <div class="grid_9 heading">
-            <h2 id="feature-title">Result for <span class="header-tag-name">$summary_key</span> in build: $build_number</h2>
+        <div class="grid_12 heading">
+            <h2 id="page-title">Result for <span class="header-tag-name">$summary_key</span>,
+                <br>build number <span class="header-tag-name">$build_number</span>,
+                project <span class="header-tag-name">$build_project</span>
+            </h2>
         </div>
     </div>
 </div>
