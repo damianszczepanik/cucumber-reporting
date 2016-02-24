@@ -108,14 +108,14 @@
                     data: [
                         {
                             name: 'Passed',
-                            y: $all_scenarios_passed,
+                            y: $all_features_passed,
                             color: "#00A000"
                         },
                         {
                             selected: true,
                             sliced: true,
                             name: 'Failed',
-                            y: $all_scenarios_failed,
+                            y: $all_features_failed,
                             color: "#FF0000"
                         }
                     ]

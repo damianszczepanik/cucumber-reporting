@@ -47,7 +47,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportResult.getAllScenarios().size(), is(10));
+        assertThat(reportResult.getAllScenarios(), is(10));
     }
 
     @Test
