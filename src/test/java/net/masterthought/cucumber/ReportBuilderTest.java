@@ -45,7 +45,8 @@ public class ReportBuilderTest {
         assertStatsHeader(doc);
         assertStatsFirstFeature(doc);
         assertStatsTotals(doc);
-        assertNotNull(fromId("js-charts", doc));
+        assertNotNull(fromId("steps_chart", doc));
+        assertNotNull(fromId("scenarios_chart", doc));
     }
 
     @Test
