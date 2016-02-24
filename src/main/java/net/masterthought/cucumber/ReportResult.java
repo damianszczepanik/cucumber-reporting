@@ -35,6 +35,8 @@ public class ReportResult {
 
     private final StatusCounter tagsStatusCounter = new StatusCounter();
     private final StatusCounter tagsCounter = new StatusCounter();
+
+    private final StatusCounter featureCounter = new StatusCounter();
     private final StatusCounter scenarioCounter = new StatusCounter();
     private final StatusCounter stepStatusCounter = new StatusCounter();
 
@@ -57,10 +59,6 @@ public class ReportResult {
     public List<StepObject> getAllSteps() {
         return new ArrayList<>(allSteps.values());
 
-    }
-
-    public StatusCounter getAllScenarios() {
-        return scenarioCounter;
     }
 
     public StatusCounter getStepsCounter() {
@@ -147,12 +145,24 @@ public class ReportResult {
         return allTagDuration;
     }
 
+    public int getAllScenarios() {
+        return scenarioCounter.size();
+    }
+
     public int getAllPassedScenarios() {
         return scenarioCounter.getValueFor(Status.PASSED);
     }
 
     public int getAllFailedScenarios() {
         return scenarioCounter.getValueFor(Status.FAILED);
+    }
+
+    public int getAllPassedFeatures() {
+        return featureCounter.getValueFor(Status.PASSED);
+    }
+
+    public int getAllFailedFeatures() {
+        return featureCounter.getValueFor(Status.FAILED);
     }
 
     private void processFeature(Feature feature) {
@@ -181,6 +191,7 @@ public class ReportResult {
             countSteps(element.getBefore());
             countSteps(element.getAfter());
         }
+        featureCounter.incrementFor(feature.getStatus());
     }
 
     private void processTag(Tag tag, Element element, Status status) {
