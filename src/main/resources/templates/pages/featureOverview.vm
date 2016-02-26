@@ -17,7 +17,19 @@ $(function () {
             }
         },
         title: {
-            text: 'Steps'
+            text: 'Steps',
+            y: 50,
+            style: {
+                fontWeight: 'bold',
+                fontSize: 'x-large'
+            }
+        },
+        tooltip: {
+            style: {
+                fontWeight: 'bold',
+                color: 'darkcyan',
+                fontSize: 'large'
+            }
         },
         plotOptions: {
             pie: {
@@ -26,7 +38,12 @@ $(function () {
                 depth: 35,
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                    distance: 15,
+                    format: '<b>{point.name}</b>:<br>{point.percentage:.2f} %',
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'indigo'
+                    }
                 }
             }
         },
@@ -70,6 +87,7 @@ $(function () {
         }]
     });
 
+
     $('#scenarios_chart').highcharts({
         chart: {
             type: 'pie',
@@ -79,22 +97,97 @@ $(function () {
             }
         },
         title: {
-            text: 'Scenarios'
+            text: 'Scenarios',
+            y: 50,
+            style: {
+                fontWeight: 'bold',
+                fontSize: 'x-large'
+            }
+        },
+        tooltip: {
+            style: {
+                fontWeight: 'bold',
+                color: 'darkcyan',
+                fontSize: 'large'
+            }
         },
         plotOptions: {
             pie: {
-                innerSize: 150,
+                innerSize: '70%',
                 depth: 35,
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                    distance: 15,
+                    format: '<b>{point.name}</b>:<br>{point.percentage:.2f} %',
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'indigo'
+                    }
                 }
             }
         },
         series: [{
             name: 'Scenarios',
+            data: [
+                {
+                    name: 'Passed',
+                    y: $all_scenarios_passed,
+                    color: "#00A000"
+                },
+                {
+                    selected: true,
+                    sliced: true,
+                    name: 'Failed',
+                    y: $all_scenarios_failed,
+                    color: "#FF0000"
+                }
+            ]
+        }]
+    });
+
+
+
+    $('#features_chart').highcharts({
+        chart: {
+            plotShadow: false,
+        },
+        title: {
+            text: 'Features',
+            y: 50,
+            style: {
+                fontWeight: 'bold',
+                fontSize: 'x-large'
+            }
+        },
+        tooltip: {
+            style: {
+                fontWeight: 'bold',
+                color: 'darkcyan',
+                fontSize: 'large'
+            }
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: 15,
+                    format: '<b>{point.name}</b>:<br>{point.percentage:.2f} %',
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'indigo'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Features',
+            innerSize: '50%',
             data: [
                 {
                     name: 'Passed',
@@ -124,10 +217,11 @@ $(function () {
 
     <div class="container_12">
         <div class="grid_12">
-            <table id="js-charts">
+            <table>
                 <tr>
-                    <td><div style="width:480px" id="steps_chart"></div></td>
-                    <td><div style="width:480px" id="scenarios_chart"></div></td>
+                    <td><div style="width:25%" id="steps_chart"></div></td>
+                    <td><div style="width:25%" id="scenarios_chart"></div></td>
+                    <td><div style="width:25%" id="features_chart"></div></td>
                 </tr>
             </table>
 
