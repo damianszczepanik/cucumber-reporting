@@ -39,8 +39,13 @@ public class ReportBuilder {
         }
     }
 
+    /**
+     * Checks if all features pass.
+     * 
+     * @return true if all feature pass otherwise false
+     */
     public boolean hasBuildPassed() {
-        return reportResult != null && reportResult.getAllFailedSteps() == 0;
+        return reportResult != null && reportResult.getAllFailedFeatures() == 0;
     }
 
     public void generateReports() {
