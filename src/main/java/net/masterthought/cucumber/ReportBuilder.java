@@ -54,9 +54,9 @@ public class ReportBuilder {
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportResult = new ReportResult(features);
 
-            copyResource("theme", "blue.zip", true);
             copyResource("chart", "Highcharts-4.2.1.zip", true);
-            copyResource("css", "reporting.css", false);
+            copyResources("css", "reporting.css");
+            copyResources("bootstrap", "bootstrap.min.css", "bootstrap.min.js", "bootstrap-theme.min.css");
 
             new FeatureOverviewPage(reportResult, configuration).generatePage();
             for (Feature feature : reportResult.getAllFeatures()) {
@@ -72,6 +72,14 @@ public class ReportBuilder {
         } catch (Exception e) {
             generateErrorPage(e);
         }
+    }
+
+    private void copyResources(String resourceLocation, String... resourceName)
+            throws IOException, URISyntaxException {
+        for (String resource : resourceName) {
+            copyResource(resourceLocation, resource, false);
+        }
+
     }
 
     private void copyResource(String resourceLocation, String resourceName, boolean decompress)
