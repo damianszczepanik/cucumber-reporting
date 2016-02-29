@@ -3,7 +3,7 @@
         <p class="navbar-text navbar-right">
             <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
             <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Cucumber-JVM reports</a>
-            <br>build: $time_stamp
+            <br>build: $build_time
         </p>
     </div>
 </nav>

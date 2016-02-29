@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2 id="page-title">$summary_key for
         build number <span class="header-tag-name">$build_number</span>,
-        project <span class="header-tag-name">$build_project</span>
+        project <span class="header-tag-name">$build_project_name</span>
     </h2>
     <span class="subhead">$summary_description</span>
 </div>

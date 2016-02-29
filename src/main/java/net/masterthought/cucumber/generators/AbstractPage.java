@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
@@ -53,10 +51,9 @@ public abstract class AbstractPage {
         ve.init(getProperties());
         template = ve.getTemplate("templates/pages/" + templateFileName);
 
-        if (this instanceof ErrorPage) {
-            velocityContext.put("time_stamp", new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
-        } else {
-            velocityContext.put("time_stamp", report.timeStamp());
+        // if report generation fails then report is null
+        if (report != null) {
+            velocityContext.put("build_time", report.getBuildTime());
         }
 
         prepareReport();
@@ -88,16 +85,14 @@ public abstract class AbstractPage {
     private void buildGeneralParameters() {
         velocityContext.put("jenkins_source", configuration.isRunWithJenkins());
         velocityContext.put("jenkins_base", configuration.getJenkinsBasePath());
-        velocityContext.put("build_project", configuration.getProjectName());
+        velocityContext.put("build_project_name", configuration.getProjectName());
         velocityContext.put("build_number", configuration.getBuildNumber());
-        if (configuration.isRunWithJenkins()){
-            int buildNumber = -1;
-            try {
-                buildNumber = Integer.parseInt(configuration.getBuildNumber());
-            } catch (NumberFormatException e) {
-                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
-            }
+
+        try {
+            int buildNumber = Integer.parseInt(configuration.getBuildNumber());
             velocityContext.put("build_previous_number", --buildNumber);
+        } catch (NumberFormatException e) {
+            LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
         }
     }
 

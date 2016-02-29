@@ -92,7 +92,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTimeStamp() {
-        assertThat(reportResult.timeStamp(), isA(String.class));
+        assertThat(reportResult.getBuildTime(), isA(String.class));
     }
 
     @Test
