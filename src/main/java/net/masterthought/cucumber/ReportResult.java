@@ -40,12 +40,16 @@ public class ReportResult {
     private final StatusCounter scenarioCounter = new StatusCounter();
     private final StatusCounter stepStatusCounter = new StatusCounter();
 
+    private final String buildTime;
+
     public ReportResult(List<Feature> features) {
         this.allFeatures = features;
 
         for (Feature feature : allFeatures) {
             processFeature(feature);
         }
+
+        this.buildTime = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(new Date());
     }
 
     public List<Feature> getAllFeatures() {
@@ -95,10 +99,6 @@ public class ReportResult {
 
     public Long getAllDurations() {
         return allDurations;
-    }
-
-    public String timeStamp() {
-        return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
     }
 
     public int getAllTagScenarios() {
@@ -163,6 +163,10 @@ public class ReportResult {
 
     public int getAllFailedFeatures() {
         return featureCounter.getValueFor(Status.FAILED);
+    }
+
+    public String getBuildTime() {
+        return buildTime;
     }
 
     private void processFeature(Feature feature) {

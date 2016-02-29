@@ -25,7 +25,7 @@
 		</ul>
 	</div>
 	<div>
-		<h2 id="overview-title">Something went wrong with project <i>$build_project</i>, build $build_number</h2>
+		<h2 id="overview-title">Something went wrong with project <i>$build_project_name</i>, build $build_number</h2>
 		<span class="subhead">The error message (if any) is below:</span>
 	</div>
 
