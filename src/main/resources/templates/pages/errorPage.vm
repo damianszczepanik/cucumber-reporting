@@ -14,7 +14,7 @@
 </head>
 
 <body>
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 	<div>
 		<h1><a href="feature-overview.html">Cucumber</a></h1>

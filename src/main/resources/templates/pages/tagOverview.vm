@@ -101,7 +101,7 @@
 <body>
 
 #set($nav_active = "tags")
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 #set($summary_key = "Tag Overview")
 #set($summary_description = "The following graph shows passing and failing statistics for tags in this build.")

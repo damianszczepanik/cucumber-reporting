@@ -209,7 +209,7 @@ $(function () {
 
 <body>
 #set($nav_active = "features")
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 #set($summary_key = "Feature Overview")
 #set($summary_description = "The following graph shows passing and failing statistics for features in this build.")
