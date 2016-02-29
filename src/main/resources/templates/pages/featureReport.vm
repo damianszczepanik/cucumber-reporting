@@ -9,7 +9,7 @@
 <body>
 
 #set($nav_active = "features")
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 #set($summary_key = $feature.getRawName())
 #parse("/templates/summaryReport.vm")

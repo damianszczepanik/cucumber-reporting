@@ -9,7 +9,7 @@
 <body>
 
 #set($nav_active = "tags")
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 #set($summary_key = "$tag.getTagName()")
 #parse("/templates/summaryReport.vm")

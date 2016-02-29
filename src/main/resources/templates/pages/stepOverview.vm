@@ -9,7 +9,7 @@
 <body>
 
 #set($nav_active = "steps")
-#parse("/templates/topMenu.vm")
+#parse("/templates/navigation.vm")
 
 #set($summary_key = "Steps Overview")
 #set($summary_description = "The following graph shows step statistics for this build. Below list is based on results. If step does not provide information about result then is not listed below. Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
