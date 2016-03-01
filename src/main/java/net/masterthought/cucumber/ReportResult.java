@@ -49,7 +49,7 @@ public class ReportResult {
             processFeature(feature);
         }
 
-        this.buildTime = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(new Date());
+        this.buildTime = new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
     }
 
     public List<Feature> getAllFeatures() {

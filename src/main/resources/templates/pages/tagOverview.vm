@@ -103,9 +103,7 @@
 #set($nav_active = "tags")
 #parse("/templates/navigation.vm")
 
-#set($summary_key = "Tag Overview")
-#set($summary_description = "The following graph shows passing and failing statistics for tags in this build.")
-#parse("/templates/summaryOverview.vm")
+#parse("/templates/summary.vm")
 
 #if($all_tags.isEmpty())
     <div><p>You have no tags in your cucumber features</p></div>
@@ -113,6 +111,7 @@
 
 <div id="stacked-graph"></div>
 
+<p>The following graph shows passing and failing statistics for tags in this build.</p>
 <div>
     <br/>
     <h2>Tag Statistics</h2>

@@ -1,11 +1,11 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <p class="navbar-text navbar-left">Cucumber-jvm Report</p>
             <ul class="nav navbar-nav navbar-right">
                 #if($jenkins_source)
                     <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_number">Jenkins</a></li>
-                    #if($build_previous_number != -1)
+                    #if($build_previous_number)
                         <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_previous_number/cucumber-html-reports/$page_url">Previous build</a></li>
                     #end
                     <li role="presentation"><a href="${jenkins_base}job/$build_project/cucumber-html-reports/$page_url">Last build</a></li>

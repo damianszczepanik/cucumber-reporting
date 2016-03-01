@@ -1,6 +1,0 @@
-<div>
-    <h2 id="page-title">Result for <span class="header-tag-name">$summary_key</span>,
-        <br>build number <span class="header-tag-name">$build_number</span>,
-        project <span class="header-tag-name">$build_project_name</span>
-    </h2>
-</div>

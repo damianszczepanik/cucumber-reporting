@@ -51,11 +51,6 @@ public abstract class AbstractPage {
         ve.init(getProperties());
         template = ve.getTemplate("templates/pages/" + templateFileName);
 
-        // if report generation fails then report is null
-        if (report != null) {
-            velocityContext.put("build_time", report.getBuildTime());
-        }
-
         prepareReport();
         generateReport();
     }
@@ -87,6 +82,11 @@ public abstract class AbstractPage {
         velocityContext.put("jenkins_base", configuration.getJenkinsBasePath());
         velocityContext.put("build_project_name", configuration.getProjectName());
         velocityContext.put("build_number", configuration.getBuildNumber());
+
+        // if report generation fails then report is null
+        if (report != null) {
+            velocityContext.put("build_time", report.getBuildTime());
+        }
 
         try {
             int buildNumber = Integer.parseInt(configuration.getBuildNumber());

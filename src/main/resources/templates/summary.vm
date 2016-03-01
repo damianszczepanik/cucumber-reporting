@@ -1,0 +1,22 @@
+<div class="container-fluid" id="summary>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Number</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="info">
+            <td>$build_project_name</td>
+            <td>$build_number</td>
+            <td>$build_time</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
