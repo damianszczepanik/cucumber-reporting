@@ -1,9 +1,8 @@
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <p class="navbar-text navbar-right">
-            <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
-            <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Cucumber-JVM reports</a>
-            <br>build: $build_time
-        </p>
-    </div>
+  <div class="container-fluid">
+    <p class="navbar-text navbar-right">
+      <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+      <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Cucumber-JVM Reports</a>
+    </p>
+  </div>
 </nav>

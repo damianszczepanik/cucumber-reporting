@@ -88,11 +88,15 @@ public abstract class AbstractPage {
             velocityContext.put("build_time", report.getBuildTime());
         }
 
-        try {
-            int buildNumber = Integer.parseInt(configuration.getBuildNumber());
-            velocityContext.put("build_previous_number", --buildNumber);
-        } catch (NumberFormatException e) {
-            LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
+        // build number is not mandatory
+        String buildNumber = configuration.getBuildNumber();
+        if (buildNumber != null) {
+            try {
+                int buildValue = Integer.parseInt(buildNumber);
+                velocityContext.put("build_previous_number", --buildValue);
+            } catch (NumberFormatException e) {
+                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
+            }
         }
     }
 

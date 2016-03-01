@@ -5,14 +5,18 @@
         <thead>
           <tr>
             <th>Project</th>
-            <th>Number</th>
+            #if($build_number)
+              <th>Number</th>
+            #end
             <th>Date</th>
           </tr>
         </thead>
         <tbody>
           <tr class="info">
             <td>$build_project_name</td>
-            <td>$build_number</td>
+            #if($build_number)
+              <td>$build_number</td>
+            #end
             <td>$build_time</td>
           </tr>
         </tbody>

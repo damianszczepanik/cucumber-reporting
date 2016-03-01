@@ -1,19 +1,19 @@
 <nav class="navbar navbar-default navbar-fixed-top" id="navigation">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse">
-            <p class="navbar-text navbar-left">Cucumber-jvm Report</p>
-            <ul class="nav navbar-nav navbar-right">
-                #if($jenkins_source)
-                    <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_number">Jenkins</a></li>
-                    #if($build_previous_number)
-                        <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_previous_number/cucumber-html-reports/$page_url">Previous build</a></li>
-                    #end
-                    <li role="presentation"><a href="${jenkins_base}job/$build_project/cucumber-html-reports/$page_url">Last build</a></li>
-                #end
-                <li role="presentation" #if($nav_active == "features") class="active" #end><a href="feature-overview.html">Features</a></li>
-                <li role="presentation" #if($nav_active == "tags")     class="active" #end><a href="tag-overview.html">Tags</a></li>
-                <li role="presentation" #if($nav_active == "steps")    class="active" #end><a href="step-overview.html">Steps</a></li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber-jvm Report</p>
+      <ul class="nav navbar-nav navbar-right">
+        #if($jenkins_source)
+          <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_number">Jenkins</a></li>
+          #if($build_previous_number)
+            <li role="presentation"><a href="${jenkins_base}job/$build_project/$build_previous_number/cucumber-html-reports/$page_url">Previous build</a></li>
+          #end
+        <li role="presentation"><a href="${jenkins_base}job/$build_project/cucumber-html-reports/$page_url">Last build</a></li>
+        #end
+        <li role="presentation" #if($nav_active == "features") class="active" #end><a href="feature-overview.html">Features</a></li>
+        <li role="presentation" #if($nav_active == "tags")     class="active" #end><a href="tag-overview.html">Tags</a></li>
+        <li role="presentation" #if($nav_active == "steps")    class="active" #end><a href="step-overview.html">Steps</a></li>
+      </ul>
     </div>
+  </div>
 </nav>
