@@ -11,8 +11,7 @@
 #set($nav_active = "tags")
 #parse("/templates/navigation.vm")
 
-#set($summary_key = "$tag.getTagName()")
-#parse("/templates/summaryReport.vm")
+#parse("/templates/summary.vm")
 
 <div>
     <table class="stats-table">

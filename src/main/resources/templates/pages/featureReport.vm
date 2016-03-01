@@ -11,8 +11,7 @@
 #set($nav_active = "features")
 #parse("/templates/navigation.vm")
 
-#set($summary_key = $feature.getRawName())
-#parse("/templates/summaryReport.vm")
+#parse("/templates/summary.vm")
 
 <div>
     <table class="stats-table">
