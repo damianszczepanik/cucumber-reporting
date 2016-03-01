@@ -17,7 +17,6 @@ import net.masterthought.cucumber.generators.TagOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.util.Util;
 
 public class ReportBuilder {
 
@@ -54,9 +53,9 @@ public class ReportBuilder {
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportResult = new ReportResult(features);
 
-            copyResource("chart", "Highcharts-4.2.1.zip", true);
-            copyResources("css", "reporting.css");
-            copyResources("bootstrap", "bootstrap.min.css", "bootstrap.min.js", "bootstrap-theme.min.css");
+            copyResources("css", "reporting.css", "bootstrap.min.css");
+            copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js",
+                    "highcharts.js", "highcharts-3d.js");
 
             new FeatureOverviewPage(reportResult, configuration).generatePage();
             for (Feature feature : reportResult.getAllFeatures()) {
@@ -74,22 +73,13 @@ public class ReportBuilder {
         }
     }
 
-    private void copyResources(String resourceLocation, String... resourceName)
+    private void copyResources(String resourceLocation, String... resources)
             throws IOException, URISyntaxException {
-        for (String resource : resourceName) {
-            copyResource(resourceLocation, resource, false);
-        }
-
-    }
-
-    private void copyResource(String resourceLocation, String resourceName, boolean decompress)
-            throws IOException, URISyntaxException {
-        File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(), resourceName);
-        FileUtils.copyInputStreamToFile(
-                this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resourceName), tempFile);
-        if (decompress) {
-            Util.unzipToFile(tempFile, configuration.getReportDirectory().getAbsolutePath());
-            tempFile.delete();
+        for (String resource : resources) {
+            File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(), resource);
+            // don't change this implementation unless you verified it works on Jenkins
+            FileUtils.copyInputStreamToFile(
+                    this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
         }
     }
 
