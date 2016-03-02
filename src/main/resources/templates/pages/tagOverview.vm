@@ -112,9 +112,9 @@
 #set($nav_active = "tags")
 #parse("/templates/navigation.vm")
 
-#parse("/templates/summary.vm")
+#includeSummary()
 
-#pageTitle("Tag Statistics" "The following graph shows passing and failing statistics for tags.")
+#includeTitle("Tag Statistics" "The following graph shows passing and failing statistics for tags.")
 
 
 #if($all_tags.isEmpty())
@@ -172,7 +172,7 @@
 #end
 
 
-#parse("/templates/footer.vm")                        
+#include("/templates/footer.html")                        
 
 </body>
 </html>

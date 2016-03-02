@@ -18,3 +18,4 @@ $(document).ready(function() {
 
 
 #parse("/templates/macros/title.vm")
+#parse("/templates/macros/summary.vm")
