@@ -11,9 +11,9 @@
 #set($nav_active = "features")
 #parse("/templates/navigation.vm")
 
-#parse("/templates/summary.vm")
+#includeSummary()
 
-#pageTitle("Feature Report")
+#includeTitle("Feature Report")
 
 
 <div>
@@ -78,7 +78,7 @@
     #end
 </div>
 
-#parse("/templates/footer.vm")                        
+#include("/templates/footer.html")                        
 
 </body>
 </html>

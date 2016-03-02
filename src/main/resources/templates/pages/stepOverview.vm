@@ -11,9 +11,9 @@
 #set($nav_active = "steps")
 #parse("/templates/navigation.vm")
 
-#parse("/templates/summary.vm")
+#includeSummary()
 
-#pageTitle("Step Statistics" "The following graph shows step statistics for this build. Below list is based on results.
+#includeTitle("Step Statistics" "The following graph shows step statistics for this build. Below list is based on results.
  step does not provide information about result then is not listed below.
  Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
 
@@ -58,7 +58,7 @@
 </div>
 
 
-#parse("/templates/footer.vm")                        
+#include("/templates/footer.html")                        
 
 </body>
 </html>

@@ -16,28 +16,22 @@
 <body>
 #parse("/templates/navigation.vm")
 
-	<div>
-		<h1><a href="feature-overview.html">Cucumber</a></h1>
-		<ul>
-            #if($jenkins_source)
-                <li><a href="${jenkins_base}job/$build_project/$build_number">Back To Jenkins</a></li>
-            #end
-		</ul>
-	</div>
-	<div>
-		<h2 id="overview-title">Something went wrong with project <i>$build_project_name</i>, build $build_number</h2>
-		<span class="subhead">The error message (if any) is below:</span>
-	</div>
+#includeTitle("Error" "Something went wrong with project <i>$build_project_name</i>, build $build_number")
 
-	<div>
-        <div id="error-message" class="error-message"><pre>$output_message</pre></div>
-        <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
-        #foreach($file in $json_files)
-            <br>$file
-        #end
-    </div>
+<div>
+  <div id="error-message" class="error-message">
+    <pre>$output_message</pre>
+  </div>
+  <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
+  <ul>
+    #foreach($file in $json_files)
+      <li>$file
+    #end
+  </ul>
+</div>
 
-#parse("/templates/footer.vm")                        
+
+#include("/templates/footer.html")                        
 
 </body>
 </html>
