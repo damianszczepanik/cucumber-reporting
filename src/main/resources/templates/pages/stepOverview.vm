@@ -3,7 +3,7 @@
 <head>
 <title>Cucumber-JVM Html Reports - Step Overview</title>
 
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 
 </head>
 <body>
@@ -13,13 +13,11 @@
 
 #parse("/templates/summary.vm")
 
-<p>The following graph shows step statistics for this build. Below list is based on results.
-If step does not provide information about result then is not listed below.
-Additionally @Before and @After are not counted because they are part of the scenarios, not steps.</p>
+#pageTitle("Step Statistics" "The following graph shows step statistics for this build. Below list is based on results.
+ step does not provide information about result then is not listed below.
+ Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
 
 <div>
-    <br/>
-    <h2>Step Statistics</h2>
     <table id="tablesorter" class="stats-table">
 
     <thead>
