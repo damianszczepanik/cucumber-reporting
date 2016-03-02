@@ -213,16 +213,48 @@ $(function () {
 
 #parse("/templates/summary.vm")
 
-<p>The following graph shows passing and failing statistics for features in this build.</p>
 
-    <div>
-        <table>
-                <tr>
-                    <td><div style="width:25%" id="steps_chart"></div></td>
-                    <td><div style="width:25%" id="scenarios_chart"></div></td>
-                    <td><div style="width:25%" id="features_chart"></div></td>
-                </tr>
-            </table>
+<div class="container-fluid" id="charts">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div id="featureChartCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#featureChartCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#featureChartCarousel" data-slide-to="1"></li>
+          <li data-target="#featureChartCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <div id="steps_chart"></div>
+          </div>
+
+          <div class="item">
+            <div id="scenarios_chart"></div>
+          </div>
+    
+          <div class="item">
+            <div id="features_chart"></div>
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#featureChartCarousel" role="button" data-slide="prev"></span>
+          &lt;
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#featureChartCarousel" role="button" data-slide="next">
+          &gt;
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>The following graph shows passing and failing statistics for features in this build.</p>
 
 	    <div>
 	        <br/>

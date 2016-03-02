@@ -1,11 +1,11 @@
 body {
-	/* Shifts body so navigation bar does not overlap it.
-	Make sure to include this after the core Bootstrap CSS. */
-	padding-top: 60px;
+    /* Shifts body so navigation bar does not overlap it.
+    Make sure to include this after the core Bootstrap CSS. */
+    padding-top: 60px;
 }
 
 h2 {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 a {
@@ -17,240 +17,264 @@ a:hover {
 }
 
 .header-tag-name {
-	color: gray;
-	font-style: italic;
+    color: gray;
+    font-style: italic;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .visible {
-	display: block;
+    display: block;
 }
 
 .feature-keyword {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .feature-description {
-	padding-left: 15px;
-	font-style: italic;
-	background-color: beige;
+    padding-left: 15px;
+    font-style: italic;
+    background-color: beige;
 }
 
 .element-keyword {
-	font-weight: bold;
-	padding-left: 15px;
+    font-weight: bold;
+    padding-left: 15px;
 }
 
 .step-keyword {
-	font-weight: bold;
-	padding-left: 50px;
+    font-weight: bold;
+    padding-left: 50px;
 }
 
 .output_message {
-	padding-left: 50px;
-	background: white;
-	border: 1px solid;
-	margin-bottom: 5px;
-	overflow: auto;
-	white-space: nowrap;
-	font-family: "Courier New", Courier, monospace;
+    padding-left: 50px;
+    background: white;
+    border: 1px solid;
+    margin-bottom: 5px;
+    overflow: auto;
+    white-space: nowrap;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .output_collapse {
-	display: none;
-	padding-left: 10px;
+    display: none;
+    padding-left: 10px;
 }
 
 .output_collapse+label {
-	font-size: 15px;
-	font-weight: bold;
-	display: block;
-	cursor: pointer;
-	padding-top: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    display: block;
+    cursor: pointer;
+    padding-top: 2px;
 }
 
 .output_collapse+label+* {
-	display: none;
-	padding-left: 25px;
+    display: none;
+    padding-left: 25px;
 }
 
 .output_collapse:checked+label+* {
-	display: block;
+    display: block;
 }
 
 .output_collapse+label:before {
-	background-color: #4F5150;
-	border-radius: 10px;
-	color: #FFFFFF;
-	content: "+";
-	display: block;
-	float: left;
-	line-height: 20px;
-	width: 20px;
-	margin-right: 5px;
-	text-align: center;
+    background-color: #4F5150;
+    border-radius: 10px;
+    color: #FFFFFF;
+    content: "+";
+    display: block;
+    float: left;
+    line-height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    text-align: center;
 }
 
 .output_collapse:checked+label:before {
-	content: "\2212";
+    content: "\2212";
 }
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
-	background-color: #C5D88A;
+    background-color: #C5D88A;
 }
 
 .failed {
-	background-color: #D88A8A;
+    background-color: #D88A8A;
 }
 
 .skipped {
-	background-color: #88AAFF;
+    background-color: #88AAFF;
 }
 
 .pending {
-	background-color: #FBB907;
+    background-color: #FBB907;
 }
 
 .undefined {
-	background-color: #FBB987;
+    background-color: #FBB987;
 }
 
 .missing {
-	background-color: #FBB9D7;
+    background-color: #FBB9D7;
 }
 
 table.stats-table {
-	background-color: white;
-	color: black;
-	margin-bottom: 20px;
-	width: 100%;
+    background-color: white;
+    color: black;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 table.stats-table th, table.stats-table td {
-	border: 1px solid gray;
-	padding: 5px;
-	text-align: center;
+    border: 1px solid gray;
+    padding: 5px;
+    text-align: center;
 }
 
 table.stats-table tr.header {
-	background-color: #66CCEE;
+    background-color: #66CCEE;
 }
 
 table.stats-table tr.summary {
-	background-color: lightgray;
-	font-weight: bold;
+    background-color: lightgray;
+    font-weight: bold;
 }
 
 table.stats-table td.duration-format {
-	text-align: right;
-	white-space: nowrap;
+    text-align: right;
+    white-space: nowrap;
 }
 
 table.stats-table td.tagname {
-	text-align: left;
+    text-align: left;
 }
 
 table.stats-table * .passed {
-	background-color: #00A000;
+    background-color: #00A000;
 }
 
 table.stats-table * .failed {
-	background-color: #FF0000;
+    background-color: #FF0000;
 }
 
 table.stats-table * .skipped {
-	background-color: #88AAFF;
+    background-color: #88AAFF;
 }
 
 table.stats-table * .pending {
-	background-color: #FBB907;
+    background-color: #FBB907;
 }
 
 table.stats-table * .undefined {
-	background-color: #FBB957;
+    background-color: #FBB957;
 }
 
 table.stats-table * .missing {
-	background-color: #FBB9A7;
+    background-color: #FBB9A7;
 }
 
 table.arguments-table {
-	margin-bottom: 5px;
-	margin-left: 80px;
-	margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 80px;
+    margin-top: 3px;
 }
 
 table.arguments-table th, table.arguments-table td {
-	border: 1px solid gray;
-	padding: 3px;
-	text-align: left;
+    border: 1px solid gray;
+    padding: 3px;
+    text-align: left;
 }
 
 .doc-string {
-	width: auto;
-	display: inline-block;
-	margin: 10px auto 10px 70px;
-	padding: 10px;
-	background-color: rgba(255, 255, 255, 0.35);
-	border-radius: 10px;
-	font-family: "Courier New", Courier, monospace;
-	font-size: 95%;
+    width: auto;
+    display: inline-block;
+    margin: 10px auto 10px 70px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 95%;
 }
 
 .graph {
-	margin-bottom: 50px;
-	margin-top: 30px;
-	clear: both;
-	font-family: georgia, serif;
-	font-size: 14px;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    clear: both;
+    font-family: georgia, serif;
+    font-size: 14px;
 }
 
 .graph-header h3 {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .graph-header {
-	text-align: center;
+    text-align: center;
 }
 
 .graph-header p {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .graph .legend td, .graph .legend, .graph .legend tr {
-	padding: 0;
-	margin: 0;
-	border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
 }
 
 .graph .legend {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .graph .legend td {
-	padding-right: 5px;
+    padding-right: 5px;
 }
 
 .graph .legend .color-box {
-	width: 14px;
-	height: 10px;
-	overflow: hidden;
+    width: 14px;
+    height: 10px;
+    overflow: hidden;
 }
 
 table#tablesorter thead tr th {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .report {
-	color: black;
+    color: black;
 }
 
 .footer {
-	font-size: smaller;
-	text-align: center;
-	margin-top: 30px;
+    font-size: smaller;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+
+/* Custom Bootstrap CSS overloading.*/
+.carousel-indicators {
+    bottom: 0;
+}
+
+.carousel-indicators li {
+    border: 1px solid black;
+}
+
+.carousel-indicators .active {
+    background-color: black;
+}
+
+.carousel-control {
+    font-size: 40px;
+    padding-top: 150px;;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
 }
