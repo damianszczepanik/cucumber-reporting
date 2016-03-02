@@ -3,7 +3,7 @@
 <head>
 <title>Cucumber-JVM Html Reports - Tag Overview</title>
 
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
@@ -13,67 +13,72 @@
             formattedData = [
                 {
                     name: "Passed",
-		            color: "#00A000",
+                    color: "#00A000",
                     data: []
                 },
                 {
                     name: "Failed",
-		            color: "#FF0000",
+                    color: "#FF0000",
                     data: []
                 },
                 {
                     name: "Skipped",
-		            color: "#88AAFF",
+                    color: "#88AAFF",
                     data: []
                 },
                 {
                     name: "Pending",
-		            color: "#FBB907",
+                    color: "#FBB907",
                     data: []
                 },
                 {
                     name: "Undefined",
-		            color: "#FBB957",
+                    color: "#FBB957",
                     data: []
                 },
                 {
                     name: "Missing",
-		            color: "#FBB9A7",
+                    color: "#FBB9A7",
                     data: []
                 }
             ];
 
-        jQuery.each(chartCategory, function (i, categoryName) {
-            formattedData[0].data.push(chartData[i][0]);
-            formattedData[1].data.push(chartData[i][1]);
-            formattedData[2].data.push(chartData[i][2]);
-            formattedData[3].data.push(chartData[i][3]);
-            formattedData[4].data.push(chartData[i][4]);
-            formattedData[5].data.push(chartData[i][5]);
-        });
-    
-        $('#stacked-graph').highcharts({
-        chart: {
-            type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 10,
-                beta: 25,
-                depth: 70
-            }
-        },
-        title: {
-            text: 'Tag Overview'
-        },
-        xAxis: {
-            categories: $chart_categories
-        },
-        yAxis: {
-            min: 0,
+            jQuery.each(chartCategory, function (i, categoryName) {
+                formattedData[0].data.push(chartData[i][0]);
+                formattedData[1].data.push(chartData[i][1]);
+                formattedData[2].data.push(chartData[i][2]);
+                formattedData[3].data.push(chartData[i][3]);
+                formattedData[4].data.push(chartData[i][4]);
+                formattedData[5].data.push(chartData[i][5]);
+            });
+        
+            $('#stacked-graph').highcharts({
+            chart: {
+                type: 'column',
+                options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    beta: 25,
+                    depth: 70
+                }
+            },
             title: {
+                text: 'Tags',
+                y: 50,
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: 'large'
+                }
+            },
+            xAxis: {
+                categories: $chart_categories
+            },
+            yAxis: {
+                min: 0,
+                title: {
                     text: ''
-            }
-        },
+                }
+            },
             legend: {
                 align: 'right',
                 x: 0,
@@ -82,9 +87,13 @@
             },
             tooltip: {
                 formatter: function() {
-                    return '<b>'+ this.x +'</b><br/>'+
-                            this.series.name +': '+ this.y +'<br/>'+
-                            'Total: '+ this.point.stackTotal;
+                    return this.x +'<br/>'
+                           + this.series.name + ': '+ this.y + '<br/>'
+                           + 'Total: ' + this.point.stackTotal;
+                },
+                style: {
+                    fontWeight: 'bold',
+                    color: 'darkcyan'
                 }
             },
             plotOptions: {
@@ -105,13 +114,17 @@
 
 #parse("/templates/summary.vm")
 
+#pageTitle("Tag Statistics" "The following graph shows passing and failing statistics for tags.")
+
+
 #if($all_tags.isEmpty())
     <div><p>You have no tags in your cucumber features</p></div>
 #else
 
-<div id="stacked-graph"></div>
+<div class="container-fluid" id="charts">
+  <div id="stacked-graph"></div>
+</div>
 
-<p>The following graph shows passing and failing statistics for tags in this build.</p>
 <div>
     <br/>
     <h2>Tag Statistics</h2>

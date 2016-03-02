@@ -3,7 +3,7 @@
 <head>
 <title>Cucumber-JVM Html Reports - Feature Overview</title>
 
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 
 <script type="text/javascript">
 $(function () {
@@ -21,14 +21,13 @@ $(function () {
             y: 50,
             style: {
                 fontWeight: 'bold',
-                fontSize: 'x-large'
+                fontSize: 'large'
             }
         },
         tooltip: {
             style: {
                 fontWeight: 'bold',
-                color: 'darkcyan',
-                fontSize: 'large'
+                color: 'darkcyan'
             }
         },
         plotOptions: {
@@ -101,14 +100,13 @@ $(function () {
             y: 50,
             style: {
                 fontWeight: 'bold',
-                fontSize: 'x-large'
+                fontSize: 'large'
             }
         },
         tooltip: {
             style: {
                 fontWeight: 'bold',
-                color: 'darkcyan',
-                fontSize: 'large'
+                color: 'darkcyan'
             }
         },
         plotOptions: {
@@ -157,14 +155,13 @@ $(function () {
             y: 50,
             style: {
                 fontWeight: 'bold',
-                fontSize: 'x-large'
+                fontSize: 'large'
             }
         },
         tooltip: {
             style: {
                 fontWeight: 'bold',
-                color: 'darkcyan',
-                fontSize: 'large'
+                color: 'darkcyan'
             }
         },
         plotOptions: {
@@ -213,6 +210,8 @@ $(function () {
 
 #parse("/templates/summary.vm")
 
+#pageTitle("Feature Statistics" "The following graph shows passing and failing statistics for features")
+
 
 <div class="container-fluid" id="charts">
   <div class="row">
@@ -254,11 +253,8 @@ $(function () {
   </div>
 </div>
 
-<p>The following graph shows passing and failing statistics for features in this build.</p>
 
-	    <div>
-	        <br/>
-	        <h2 id="feature-statistics-title">Feature Statistics</h2>
+<div class="container-fluid" id="statistics">
 	        <table id="tablesorter" class="stats-table">
 	            #set($table_key = "Feature")
 	            #parse("/templates/tableHeader.vm")
@@ -308,7 +304,7 @@ $(function () {
 	            </tr>
 	        </table>
 	    </div>
-    </div>
+</div>
 
 #parse("/templates/footer.vm")                        
 

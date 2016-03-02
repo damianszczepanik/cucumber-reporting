@@ -10,7 +10,7 @@
     background-color: lightpink;
 }
 </style>
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 </head>
 
 <body>

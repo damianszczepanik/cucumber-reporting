@@ -3,7 +3,7 @@
 <head>
 <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName()</title>
 
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 
 </head>
 <body>
@@ -12,6 +12,9 @@
 #parse("/templates/navigation.vm")
 
 #parse("/templates/summary.vm")
+
+#pageTitle("Tag Report")
+
 
 <div>
     <table class="stats-table">

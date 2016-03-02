@@ -3,7 +3,7 @@
 <head>
 <title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
 
-#include("/templates/headers.html")
+#parse("/templates/headers.vm")
 
 </head>
 <body>
@@ -13,9 +13,12 @@
 
 #parse("/templates/summary.vm")
 
+#pageTitle("Feature Report")
+
+
 <div>
     <table class="stats-table">
-        #set($table_key = "Feature Report")
+        #set($table_key = "Feature")
         #parse("/templates/tableHeader.vm")
 
         #set($sf = $feature.getRawName())
