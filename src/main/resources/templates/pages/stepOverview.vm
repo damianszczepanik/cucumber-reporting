@@ -8,8 +8,7 @@
 </head>
 <body>
 
-#set($nav_active = "steps")
-#parse("/templates/navigation.vm")
+#includeNavigation("steps")
 
 #includeSummary()
 

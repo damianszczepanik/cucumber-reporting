@@ -8,8 +8,7 @@
 </head>
 <body>
 
-#set($nav_active = "tags")
-#parse("/templates/navigation.vm")
+#includeNavigation()
 
 #includeSummary()
 
