@@ -140,7 +140,7 @@ table.stats-table tr.header {
     background-color: #66CCEE;
 }
 
-table.stats-table tr.summary {
+table.stats-table tfoot {
     background-color: lightgray;
     font-weight: bold;
 }
@@ -243,10 +243,6 @@ table.arguments-table th, table.arguments-table td {
 
 table#tablesorter thead tr th {
     cursor: pointer;
-}
-
-.report {
-    color: black;
 }
 
 .footer {
