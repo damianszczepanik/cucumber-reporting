@@ -14,7 +14,7 @@
 </head>
 
 <body>
-#parse("/templates/navigation.vm")
+#includeNavigation()
 
 #includeTitle("Error" "Something went wrong with project <i>$build_project_name</i>, build $build_number")
 

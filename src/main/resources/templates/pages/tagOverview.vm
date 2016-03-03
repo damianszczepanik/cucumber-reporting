@@ -109,8 +109,7 @@
 
 <body>
 
-#set($nav_active = "tags")
-#parse("/templates/navigation.vm")
+#includeNavigation("tags")
 
 #includeSummary()
 
