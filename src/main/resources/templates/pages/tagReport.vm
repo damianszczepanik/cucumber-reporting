@@ -18,8 +18,7 @@
 
 <div>
     <table class="stats-table">
-        #set($table_key = "Tag Report")
-        #parse("/templates/tableHeader.vm")
+        #includeTableHeader( "Tag" false )
         <tr>
             <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
             <td>$tag.getScenarios()</td>

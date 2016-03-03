@@ -129,8 +129,7 @@
     <br/>
     <h2>Tag Statistics</h2>
     <table id="tablesorter" class="stats-table">
-        #set($table_key = "Tag")
-        #parse("/templates/tableHeader.vm")
+      #includeTableHeader( "Tag" false )
 
         <tbody>
         #foreach($tag in $all_tags)

@@ -253,57 +253,55 @@ $(function () {
   </div>
 </div>
 
-
+<br>
 <div class="container-fluid" id="statistics">
-	        <table id="tablesorter" class="stats-table">
-	            #set($table_key = "Feature")
-	            #parse("/templates/tableHeader.vm")
-	    
-	            <tbody>
-	            #foreach($feature in $all_features)
-	                #set($featureName = $feature.getRawName())
-	    
-	                <tr>
-	                    <td class="tagname"><a id="stats-$featureName" href="$feature.getReportFileName()">$featureName</a></td>
-	                    #if($parallel)
-	                    <td id="device">$feature.getDeviceName()</td>
-	                    #end
-	                    <td id="stats-number-scenarios-$featureName">$feature.getScenarios()</td>
-	                    <td id="stats-number-scenarios-passed-$featureName">$feature.getPassedScenarios()</td>
-	                    <td id="stats-number-scenarios-failed-$featureName">$feature.getFailedScenarios()</td>
-	                    <td id="stats-number-steps-$featureName">$feature.getNumberOfSteps()</td>
-	                    <td id="stats-number-steps-passed-$featureName">$feature.getNumberOfPasses()</td>
-	                    <td id="stats-number-steps-failed-$featureName"    #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
-	                    <td id="stats-number-steps-skipped-$featureName"   #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
-	                    <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
-	                    <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
-	                    <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-	                    <td id="stats-duration-$featureName" class="duration-format">$feature.getTotalDuration()</td>
-	                    <td id="stats-status-$featureName" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
-	                </tr>
-	            #end
-	            </tbody>
-	    
-	            <tr class="summary">
-	                <td id="stats-total-features">$all_features.size()</td>
-	                #if($parallel)
-	                <td id="stats-total-features">-</td>
-	                #end
-	                <td id="stats-total-scenarios">$all_scenarios</td>
-	                <td id="stats-total-scenarios-passed">$all_scenarios_passed</td>
-	                <td id="stats-total-scenarios-failed">$all_scenarios_failed</td>
-	                <td id="stats-total-steps">$all_steps.size()</td>
-	                <td id="stats-total-steps-passed">$all_steps_passes</td>
-	                <td id="stats-total-steps-failed">$all_steps_failed</td>
-	                <td id="stats-total-steps-skipped">$all_steps_skipped</td>
-	                <td id="stats-total-steps-pending">$all_steps_pending</td>
-	                <td id="stats-total-steps-undefined">$all_steps_undefined</td>
-	                <td id="stats-total-steps-missing">$all_steps_missing</td>
-	                <td id="stats-total-duration" class="duration-format">$all_durations</td>
-	                <td id="stats-total-totals">Totals</td>
-	            </tr>
-	        </table>
-	    </div>
+  <table id="tablesorter" class="stats-table">
+    #includeTableHeader( "Feature" $parallel )
+
+    <tbody>
+    #foreach($feature in $all_features)
+      #set($featureName = $feature.getRawName())
+
+      <tr>
+        <td class="tagname"><a id="stats-$featureName" href="$feature.getReportFileName()">$featureName</a></td>
+        #if($parallel)
+          <td id="device">$feature.getDeviceName()</td>
+        #end
+        <td id="stats-number-scenarios-$featureName">$feature.getScenarios()</td>
+        <td id="stats-number-scenarios-passed-$featureName">$feature.getPassedScenarios()</td>
+        <td id="stats-number-scenarios-failed-$featureName">$feature.getFailedScenarios()</td>
+        <td id="stats-number-steps-$featureName">$feature.getNumberOfSteps()</td>
+        <td id="stats-number-steps-passed-$featureName">$feature.getNumberOfPasses()</td>
+        <td id="stats-number-steps-failed-$featureName"    #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
+        <td id="stats-number-steps-skipped-$featureName"   #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
+        <td id="stats-number-steps-pending-$featureName"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
+        <td id="stats-number-steps-undefined-$featureName" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
+        <td id="stats-number-steps-missing-$featureName"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
+        <td id="stats-duration-$featureName" class="duration-format">$feature.getTotalDuration()</td>
+        <td id="stats-status-$featureName" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
+      </tr>
+    #end
+    </tbody>
+
+    <tr class="summary">
+      <td id="stats-total-features">$all_features.size()</td>
+      #if($parallel)
+        <td id="stats-total-features">-</td>
+      #end
+      <td id="stats-total-scenarios">$all_scenarios</td>
+      <td id="stats-total-scenarios-passed">$all_scenarios_passed</td>
+      <td id="stats-total-scenarios-failed">$all_scenarios_failed</td>
+      <td id="stats-total-steps">$all_steps.size()</td>
+      <td id="stats-total-steps-passed">$all_steps_passes</td>
+      <td id="stats-total-steps-failed">$all_steps_failed</td>
+      <td id="stats-total-steps-skipped">$all_steps_skipped</td>
+      <td id="stats-total-steps-pending">$all_steps_pending</td>
+      <td id="stats-total-steps-undefined">$all_steps_undefined</td>
+      <td id="stats-total-steps-missing">$all_steps_missing</td>
+      <td id="stats-total-duration" class="duration-format">$all_durations</td>
+      <td id="stats-total-totals">Totals</td>
+    </tr>
+  </table>
 </div>
 
 #include("/templates/footer.html")                        

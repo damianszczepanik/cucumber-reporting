@@ -1,0 +1,32 @@
+#macro( includeTableHeader $table_key $parallel )
+<thead>
+  <tr>
+    #if($parallel)
+      <th></th>
+    #end
+    <th></th>
+    <th id="stats-header-scenarios" colspan="3">Scenarios</th>
+    <th id="stats-header-steps" colspan="7">Steps</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <th id="stats-header-key">$table_key</th>
+    #if($parallel)
+      <th id="stats-header-device">Device</th>
+    #end
+    <th id="stats-header-scenarios-total">Total</th>
+    <th id="stats-header-scenarios-passed">Passed</th>
+    <th id="stats-header-scenarios-failed">Failed</th>
+    <th id="stats-header-steps-total">Total</th>
+    <th id="stats-header-steps-passed"    class="passed">Passed</th>
+    <th id="stats-header-steps-failed"    class="failed">Failed</th>
+    <th id="stats-header-steps-skipped"   class="skipped">Skipped</th>
+    <th id="stats-header-steps-pending"   class="pending">Pending</th>
+    <th id="stats-header-steps-undefined" class="undefined">Undefined</th>
+    <th id="stats-header-steps-missing"   class="missing">Missing</th>
+    <th id="stats-header-duration">Duration</th>
+    <th id="stats-header-status">Status</th>
+  </tr>
+</thead>
+#end
