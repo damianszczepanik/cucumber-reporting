@@ -16,44 +16,47 @@
  step does not provide information about result then is not listed below.
  Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
 
-<div>
-    <table id="tablesorter" class="stats-table">
+<div class="container-fluid" id="report-details">
+  <table id="tablesorter" class="stats-table">
 
     <thead>
-        <tr class="header">
-            <th id="stats-header-feature">Implementation</th>
-            <th id="stats-header-occurrences">Occurrences</th>
-            <th id="stats-header-duration">Duration</th>
-            <th id="stats-header-average">Average</th>
-            <th id="stats-header-status">Ratio</th>
-        </tr>
+      <tr class="header">
+        <th id="stats-header-feature">Implementation</th>
+        <th id="stats-header-occurrences">Occurrences</th>
+        <th id="stats-header-duration">Duration</th>
+        <th id="stats-header-average">Average</th>
+        <th id="stats-header-status">Ratio</th>
+      </tr>
     </thead>
 
     <tbody>
-    #foreach($step in $all_steps)
+      #foreach($step in $all_steps)
         <tr>
-            #if($step.getPercentageResult() == 100.0)
-                #set($status = "passed")
-            #else
-                #set($status = "failed")
-            #end
+          #if($step.getPercentageResult() == 100.0)
+            #set($status = "passed")
+          #else
+            #set($status = "failed")
+          #end
 
-            <td class="tagname">$step.getLocation()</td>
-            <td>$step.getTotalOccurrences()</td>
-            <td class="duration-format">$step.getTotalFormattedDuration()</td>
-            <td class="duration-format">$step.getAverageFormattedDuration()</td>
-            <td class="$status">$step.getPercentageResult()%</td>
+          <td class="tagname">$step.getLocation()</td>
+          <td>$step.getTotalOccurrences()</td>
+          <td class="duration-format">$step.getTotalFormattedDuration()</td>
+          <td class="duration-format">$step.getAverageFormattedDuration()</td>
+          <td class="$status">$step.getPercentageResult()%</td>
         </tr>
-    #end
+      #end
     </tbody>
-        <tr class="summary">
-            <td>$all_steps.size()</td>
-            <td>$all_occurrences</td>
-            <td class="duration-format">$all_durations</td>
-            <td class="duration-format">$all_average</td>
-            <td>Totals</td>
-        </tr>
-    </table>
+
+    <tfoot>
+      <tr>
+        <td>$all_steps.size()</td>
+        <td>$all_occurrences</td>
+        <td class="duration-format">$all_durations</td>
+        <td class="duration-format">$all_average</td>
+        <td>Totals</td>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 
 

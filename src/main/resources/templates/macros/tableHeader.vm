@@ -1,6 +1,6 @@
 #macro( includeTableHeader $table_key $parallel )
 <thead>
-  <tr>
+  <tr class="header">
     #if($parallel)
       <th></th>
     #end

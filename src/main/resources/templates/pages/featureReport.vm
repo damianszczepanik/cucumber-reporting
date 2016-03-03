@@ -15,65 +15,66 @@
 #includeTitle("Feature Report")
 
 
-<div>
-    <table class="stats-table">
-        #includeTableHeader( "Feature" $parallel )
+<div class="container-fluid" id="report-summary">
+  <table class="stats-table">
+    #includeTableHeader( "Feature" $parallel )
 
-        #set($sf = $feature.getRawName())
-        <tr>
-            <td class="tagname"><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
-            #if($parallel)
-              <td id="device">$feature.getDeviceName()</td>
-            #end
-            <td id="stats-number-scenarios-$sf">$feature.getScenarios()</td>
-            <td id="stats-number-scenarios-passed-$sf">$feature.getPassedScenarios()</td>
-            <td id="stats-number-scenarios-failed-$sf">$feature.getFailedScenarios()</td>
-            <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
-            <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
-            <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
-            <td id="stats-number-steps-skipped-$sf"   #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
-            <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
-            <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
-            <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-            <td id="stats-duration-$sf" class="duration-format">$feature.getTotalDuration()</td>
-            <td id="stats-status-$sf" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
-        </tr>
-    </table>
+    #set($sf = $feature.getRawName())
+    <tr>
+      <td class="tagname"><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
+      #if($parallel)
+        <td id="device">$feature.getDeviceName()</td>
+      #end
+      <td id="stats-number-scenarios-$sf">$feature.getScenarios()</td>
+      <td id="stats-number-scenarios-passed-$sf">$feature.getPassedScenarios()</td>
+      <td id="stats-number-scenarios-failed-$sf">$feature.getFailedScenarios()</td>
+      <td id="stats-number-steps-$sf">$feature.getNumberOfSteps()</td>
+      <td id="stats-number-steps-passed-$sf">$feature.getNumberOfPasses()</td>
+      <td id="stats-number-steps-failed-$sf"    #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
+      <td id="stats-number-steps-skipped-$sf"   #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
+      <td id="stats-number-steps-pending-$sf"   #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
+      <td id="stats-number-steps-undefined-$sf" #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
+      <td id="stats-number-steps-missing-$sf"   #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
+      <td id="stats-duration-$sf" class="duration-format">$feature.getTotalDuration()</td>
+      <td id="stats-status-$sf" class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
+    </tr>
+  </table>
 </div>
 
-<div class="report">
-    $feature.getTagsList()
-    <div class="$feature.getStatus().getRawName()">
-        <div class="feature-line">
-            <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()
-        </div>
-    </div>
-    <div class="feature-description">$feature.getDescription()</div>
 
-    #foreach($scenario in $elements)
-        $scenario.getTagsList()
-        $scenario.getBeforeAttachments()
-        $scenario.getName()
-        #foreach($step in $scenario.getSteps())
-            $step.getDetails()
-            $step.getDocString()
-            #if($step.hasRows())
-                <table class="arguments-table">
-                #foreach($row in $step.getRows())
-                <tr>
-                    #foreach($cell in $row.getCells())
-                        <td>$cell</td>
-                    #end
-                </tr>
-                #end
-                </table>
+<div class="container-fluid" id="report-details">
+  $feature.getTagsList()
+  <div class="$feature.getStatus().getRawName()">
+    <div class="feature-line">
+      <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()
+    </div>
+  </div>
+  <div class="feature-description">$feature.getDescription()</div>
+
+  #foreach($scenario in $elements)
+    $scenario.getTagsList()
+    $scenario.getBeforeAttachments()
+    $scenario.getName()
+    #foreach($step in $scenario.getSteps())
+      $step.getDetails()
+      $step.getDocString()
+      #if($step.hasRows())
+        <table class="arguments-table">
+        #foreach($row in $step.getRows())
+          <tr>
+            #foreach($cell in $row.getCells())
+              <td>$cell</td>
             #end
-            <div>$step.getOutput()</div>
-            <div>$step.getAttachments()</div>
+          </tr>
         #end
-        $scenario.getAfterAttachments()
-        <br>
+        </table>
+      #end
+      <div>$step.getOutput()</div>
+      <div>$step.getAttachments()</div>
     #end
+    $scenario.getAfterAttachments()
+    <br>
+  #end
 </div>
 
 #include("/templates/footer.html")                        
