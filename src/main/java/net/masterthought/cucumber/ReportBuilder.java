@@ -23,19 +23,15 @@ public class ReportBuilder {
     private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
 
     private ReportResult reportResult;
+    private final ReportParser reportParser;
 
     private Configuration configuration;
     private List<String> jsonFiles;
 
     public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
-        try {
-            this.jsonFiles = jsonFiles;
-            this.configuration = configuration;
-
-            // whatever happens we want to provide at least error page instead of empty report
-        } catch (Exception e) {
-            generateErrorPage(e);
-        }
+        this.jsonFiles = jsonFiles;
+        this.configuration = configuration;
+        reportParser = new ReportParser(configuration);
     }
 
     /**
@@ -49,28 +45,36 @@ public class ReportBuilder {
 
     public void generateReports() {
         try {
-            ReportParser reportParser = new ReportParser(configuration);
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportResult = new ReportResult(features);
 
-            copyResources("css", "reporting.css", "bootstrap.min.css");
-            copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js",
-                    "highcharts.js", "highcharts-3d.js");
-
-            new FeatureOverviewPage(reportResult, configuration).generatePage();
-            for (Feature feature : reportResult.getAllFeatures()) {
-                new FeatureReportPage(reportResult, configuration, feature).generatePage();
-            }
-            new TagOverviewPage(reportResult, configuration).generatePage();
-            for (TagObject tagObject : reportResult.getAllTags()) {
-                new TagReportPage(reportResult, configuration, tagObject).generatePage();
-            }
-            new StepOverviewPage(reportResult, configuration).generatePage();
+            copyStaticResources();
+            generateAllPages();
 
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
             generateErrorPage(e);
         }
+    }
+
+    private void copyStaticResources() throws IOException, URISyntaxException {
+        copyResources("css", "reporting.css", "bootstrap.min.css");
+        copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js", "highcharts.js",
+                "highcharts-3d.js");
+    }
+
+    private void generateAllPages() {
+        new FeatureOverviewPage(reportResult, configuration).generatePage();
+        for (Feature feature : reportResult.getAllFeatures()) {
+            new FeatureReportPage(reportResult, configuration, feature).generatePage();
+        }
+
+        new TagOverviewPage(reportResult, configuration).generatePage();
+        for (TagObject tagObject : reportResult.getAllTags()) {
+            new TagReportPage(reportResult, configuration, tagObject).generatePage();
+        }
+
+        new StepOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void copyResources(String resourceLocation, String... resources)
