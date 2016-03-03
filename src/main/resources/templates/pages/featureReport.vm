@@ -18,8 +18,7 @@
 
 <div>
     <table class="stats-table">
-        #set($table_key = "Feature")
-        #parse("/templates/tableHeader.vm")
+        #includeTableHeader( "Feature" $parallel )
 
         #set($sf = $feature.getRawName())
         <tr>
