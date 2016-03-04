@@ -16,6 +16,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.ValidationException;
 
 /**
  * Delivers common methods for page generation.
@@ -35,14 +36,11 @@ public abstract class AbstractPage {
     private final String templateFileName;
     protected final ReportResult report;
     protected final Configuration configuration;
-    protected final String targetFileName;
 
-    protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration,
-            String targetFileName) {
+    protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration) {
         this.templateFileName = templateFileName;
         this.report = reportResult;
         this.configuration = configuration;
-        this.targetFileName = targetFileName;
 
         buildGeneralParameters();
     }
@@ -55,15 +53,18 @@ public abstract class AbstractPage {
         generateReport();
     }
 
+    /** Returns HTML file name (with extension) for this report. */
+    public abstract String getWebPage();
+
     protected abstract void prepareReport();
 
     private void generateReport() {
-        velocityContext.put("page_url", targetFileName);
-        File dir = new File(configuration.getReportDirectory(), targetFileName);
+        velocityContext.put("page_url", getWebPage());
+        File dir = new File(configuration.getReportDirectory(), getWebPage());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(dir), Charsets.UTF_8)) {
             template.merge(velocityContext, writer);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e);
+            throw new ValidationException(e);
         }
     }
 

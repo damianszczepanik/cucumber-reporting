@@ -18,7 +18,12 @@ import net.masterthought.cucumber.util.Util;
 public class StepOverviewPage extends AbstractPage {
 
     public StepOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "stepOverview.vm", configuration, "step-overview.html");
+        super(reportResult, "stepOverview.vm", configuration);
+    }
+
+    @Override
+    public String getWebPage() {
+        return "step-overview.html";
     }
 
     @Override

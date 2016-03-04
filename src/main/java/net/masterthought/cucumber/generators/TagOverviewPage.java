@@ -11,7 +11,12 @@ import net.masterthought.cucumber.util.Util;
 public class TagOverviewPage extends AbstractPage {
 
     public TagOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagOverview.vm", configuration, "tag-overview.html");
+        super(reportResult, "tagOverview.vm", configuration);
+    }
+
+    @Override
+    public String getWebPage() {
+        return "tag-overview.html";
     }
 
     @Override
