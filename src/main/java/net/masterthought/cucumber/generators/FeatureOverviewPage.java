@@ -6,7 +6,12 @@ import net.masterthought.cucumber.ReportResult;
 public class FeatureOverviewPage extends AbstractPage {
 
     public FeatureOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "featureOverview.vm", configuration, "feature-overview.html");
+        super(reportResult, "featureOverview.vm", configuration);
+    }
+
+    @Override
+    public String getWebPage() {
+        return "feature-overview.html";
     }
 
     @Override

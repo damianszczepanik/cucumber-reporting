@@ -2,7 +2,6 @@ package net.masterthought.cucumber;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -57,7 +56,7 @@ public class ReportBuilder {
         }
     }
 
-    private void copyStaticResources() throws IOException, URISyntaxException {
+    private void copyStaticResources() {
         copyResources("css", "reporting.css", "bootstrap.min.css");
         copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js", "highcharts.js",
                 "highcharts-3d.js");
@@ -77,13 +76,16 @@ public class ReportBuilder {
         new StepOverviewPage(reportResult, configuration).generatePage();
     }
 
-    private void copyResources(String resourceLocation, String... resources)
-            throws IOException, URISyntaxException {
+    private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(), resource);
             // don't change this implementation unless you verified it works on Jenkins
-            FileUtils.copyInputStreamToFile(
-                    this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
+            try {
+                FileUtils.copyInputStreamToFile(
+                        this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
+            } catch (IOException e) {
+                throw new ValidationException(e);
+            }
         }
     }
 

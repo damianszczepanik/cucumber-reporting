@@ -9,8 +9,13 @@ public class FeatureReportPage extends AbstractPage {
     private final Feature feature;
 
     public FeatureReportPage(ReportResult reportResult, Configuration configuration, Feature feature) {
-        super(reportResult, "featureReport.vm", configuration, feature.getReportFileName());
+        super(reportResult, "featureReport.vm", configuration);
         this.feature = feature;
+    }
+
+    @Override
+    public String getWebPage() {
+        return feature.getReportFileName();
     }
 
     @Override

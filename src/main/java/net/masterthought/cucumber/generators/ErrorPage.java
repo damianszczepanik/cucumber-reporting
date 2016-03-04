@@ -14,9 +14,14 @@ public class ErrorPage extends AbstractPage {
 
     public ErrorPage(ReportResult reportResult, Configuration configuration, Exception exception,
             List<String> jsonFiles) {
-        super(reportResult, "errorPage.vm", configuration, "feature-overview.html");
+        super(reportResult, "errorPage.vm", configuration);
         this.exception = exception;
         this.jsonFiles = jsonFiles;
+    }
+
+    @Override
+    public String getWebPage() {
+        return "feature-overview.html";
     }
 
     @Override

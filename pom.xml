@@ -15,6 +15,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
         
         <powermock.version>1.6.4</powermock.version>
+        <log4j.version>2.5</log4j.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
@@ -57,14 +58,14 @@
 
     <developers>
         <developer>
-            <id>kingsleyh</id>
-            <name>Kingsley Hendrickse</name>
-            <email>kingsley.hendrickse@gmail.com</email>
-        </developer>
-        <developer>
             <id>damianszczepanik</id>
             <name>Damian Szczepanik</name>
             <email>damianszczepanik@github</email>
+        </developer>
+        <developer>
+            <id>kingsleyh</id>
+            <name>Kingsley Hendrickse</name>
+            <email>kingsley.hendrickse@gmail.com</email>
         </developer>
     </developers>
 
@@ -207,8 +208,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.5</version>
+            <version>${log4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
