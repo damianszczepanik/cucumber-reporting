@@ -17,7 +17,7 @@ public class CommonTemplateIntegrationTest extends TemplateUtility {
 
     @Before
     public void setup() {
-        addReport("project3.json");
+        addReport("sample.json");
         createConfiguration();
     }
 

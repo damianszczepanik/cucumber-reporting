@@ -13,19 +13,19 @@ import net.masterthought.cucumber.json.Feature;
  */
 public abstract class ReportGenerator {
 
-    private final static String JSON_DIRECTORY = "net/masterthought/cucumber/";
+    private final static String JSON_DIRECTORY = "jsons-samples/";
     private final File reportDirectory;
 
     protected Configuration configuration;
-    private String projectName = "cucumber project";
+    private String projectName = "test cucumberProject";
     private final List<String> jsonReports = new ArrayList<>();
     protected List<Feature> features;
     protected ReportResult reportResult;
 
     public ReportGenerator() {
         try {
-            reportDirectory = new File(
-                    ReportGenerator.class.getClassLoader().getResource("net/masterthought/cucumber").toURI());
+            // points to target/test-classes output
+            reportDirectory = new File(ReportGenerator.class.getClassLoader().getResource("").toURI());
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
         }
