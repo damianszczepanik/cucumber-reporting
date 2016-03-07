@@ -23,51 +23,52 @@ public class Match {
 
         if (location.isJsonPrimitive() && location.getAsJsonPrimitive().isString()) {
             return location.getAsString();
-        } else {
-            locationObject = location.getAsJsonObject();
-            String filename;
-            if (locationObject.has("file") && locationObject.get("file").getAsJsonPrimitive().isString()) {
-                filename = locationObject.get("file").getAsString();
-            } else if (locationObject.has("filepath") && locationObject.get("filepath").isJsonObject()) {
-                JsonObject filePath = locationObject.get("filepath").getAsJsonObject();
-                if (filePath.has("filename") && filePath.get("filename").getAsJsonPrimitive().isString()) {
-                    filename = filePath.get("filename").getAsString();
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-
-            sb.append(filename).append(":");
-
-            LinkedList<Integer> lineList = new LinkedList<>();
-            if (locationObject.has("lines") && locationObject.get("lines").isJsonObject()) {
-                JsonObject lines = locationObject.get("lines").getAsJsonObject();
-                if (lines.has("data") && lines.get("data").isJsonArray()) {
-                    JsonArray data = lines.get("data").getAsJsonArray();
-                    for (JsonElement lineElement : data) {
-                        try {
-                            int line = Integer.parseInt(lineElement.getAsString());
-                            lineList.add(line);
-                        } catch (NumberFormatException e) {
-                            return null;
-                        }
-                    }
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-
-            if (lineList.size() > 1 && areConsecutive(lineList)) {
-                sb.append(lineList.getFirst()).append("..").append(lineList.getLast());
-            } else {
-                sb.append(StringUtils.join(lineList, ','));
-            }
-            return sb.toString();
         }
+
+        locationObject = location.getAsJsonObject();
+        String filename;
+        if (jsonHasString(locationObject,"file")) {
+            filename = locationObject.get("file").getAsString();
+        } else if (jsonHasJsonObject(locationObject,"filepath")) {
+            JsonObject filePath = locationObject.get("filepath").getAsJsonObject();
+            if (jsonHasString(filePath,"filename")) {
+                filename = filePath.get("filename").getAsString();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+        sb.append(filename).append(":");
+
+        LinkedList<Integer> lineList = new LinkedList<>();
+        if (jsonHasJsonObject(locationObject,"lines")) {
+            JsonObject lines = locationObject.get("lines").getAsJsonObject();
+            if (jsonHasArray(lines,"data")) {
+                JsonArray data = lines.get("data").getAsJsonArray();
+                for (JsonElement lineElement : data) {
+                    try {
+                        int line = Integer.parseInt(lineElement.getAsString());
+                        lineList.add(line);
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+        if (lineList.size() > 1 && areConsecutive(lineList)) {
+            sb.append(lineList.getFirst()).append("..").append(lineList.getLast());
+        } else {
+            sb.append(StringUtils.join(lineList, ','));
+        }
+        return sb.toString();
+
     }
 
     private boolean areConsecutive(List<Integer> lines) {
@@ -78,5 +79,17 @@ public class Match {
             }
         }
         return true;
+    }
+
+    private boolean jsonHasJsonObject(JsonObject parent, String child){
+        return parent.has(child) && parent.get(child).isJsonObject();
+    }
+
+    private boolean jsonHasString(JsonObject parent, String child){
+        return parent.has(child) && parent.get(child).isJsonPrimitive() && parent.getAsJsonPrimitive(child).isString();
+    }
+
+    private boolean jsonHasArray(JsonObject parent, String child){
+        return parent.has(child) && parent.get(child).isJsonArray();
     }
 }
