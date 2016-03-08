@@ -13,7 +13,7 @@ import net.masterthought.cucumber.ValidationException;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TemplateUtility extends ReportGenerator {
+public class PageUtility extends ReportGenerator {
 
     protected ElementWrapper documentFrom(String pageName) {
         File input = new File(configuration.getReportDirectory(), pageName);
