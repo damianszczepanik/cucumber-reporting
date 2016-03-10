@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.templates;
+package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,15 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.AbstractPage;
-import net.masterthought.cucumber.generators.FeatureOverviewPage;
-import net.masterthought.cucumber.generators.StepOverviewPage;
-import net.masterthought.cucumber.generators.TagReportPage;
-
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class PageIntegrationTest extends PageUtility {
+public class PageIntegrationTest extends Page {
 
     private AbstractPage page;
 
@@ -47,7 +42,7 @@ public class PageIntegrationTest extends PageUtility {
         Elements menuItems = extractNaviBarLinks(navigation);
 
         validatePluginName(navigation);
-        assertThat(menuItems.size()).isEqualTo(3);
+        assertThat(menuItems).hasSize(3);
 
         validateFeaturesInNaviBar(menuItems.get(0));
         validateTagsInNaviBar(menuItems.get(1));
@@ -73,7 +68,7 @@ public class PageIntegrationTest extends PageUtility {
         Elements menuItems = extractNaviBarLinks(navigation);
 
         validatePluginName(navigation);
-        assertThat(menuItems.size()).isEqualTo(6);
+        assertThat(menuItems).hasSize(6);
 
         validateJenkinsInNaviBar(menuItems.get(0));
         validatePreviousResultInNaviBar(menuItems.get(1));
@@ -99,7 +94,7 @@ public class PageIntegrationTest extends PageUtility {
         ElementWrapper summary = extractSummary(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
-        assertThat(headValues.size()).isEqualTo(2);
+        assertThat(headValues).hasSize(2);
         validateProjectSummaryHeader(headValues.get(0));
         validateDateSummaryHeader(headValues.get(1));
 
@@ -126,7 +121,7 @@ public class PageIntegrationTest extends PageUtility {
         ElementWrapper summary = extractSummary(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
-        assertThat(headValues.size()).isEqualTo(3);
+        assertThat(headValues).hasSize(3);
         validateProjectSummaryHeader(headValues.get(0));
         validateBuildNumberSummaryHeader(headValues.get(1));
         validateDateSummaryHeader(headValues.get(2));
@@ -152,7 +147,7 @@ public class PageIntegrationTest extends PageUtility {
         ElementWrapper footer = extractFooter(document);
         Elements footerLinks = extractFooterLinks(footer);
 
-        assertThat(footerLinks.size()).isEqualTo(2);
+        assertThat(footerLinks).hasSize(2);
         validateLink(footerLinks.get(0), "https://github.com/jenkinsci/cucumber-reports-plugin", "Jenkins Plugin");
         validateLink(footerLinks.get(1), "https://github.com/damianszczepanik/cucumber-reporting", "Cucumber-JVM Reports");
     }

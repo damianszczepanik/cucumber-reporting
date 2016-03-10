@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.templates;
+package net.masterthought.cucumber.generators;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
