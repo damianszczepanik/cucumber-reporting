@@ -16,7 +16,7 @@ public class PageIntegrationTest extends Page {
     private AbstractPage page;
 
     @Before
-    public void setup() {
+    public void setUp() {
         addReport("sample.json");
         createConfiguration();
     }
@@ -91,7 +91,7 @@ public class PageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractSummary(document);
+        ElementWrapper summary = extractHeader(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
         assertThat(headValues).hasSize(2);
@@ -118,7 +118,7 @@ public class PageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractSummary(document);
+        ElementWrapper summary = extractHeader(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
         assertThat(headValues).hasSize(3);
@@ -199,8 +199,8 @@ public class PageIntegrationTest extends Page {
         assertThat(link.attr("href")).isEqualTo(href);
     }
 
-    private ElementWrapper extractSummary(ElementWrapper navigation) {
-        return navigation.byId("summary");
+    private ElementWrapper extractHeader(ElementWrapper navigation) {
+        return navigation.byId("header");
     }
 
     private Elements extractSummaryHeaderValues(ElementWrapper document) {

@@ -113,7 +113,7 @@
 
 #includeSummary()
 
-#includeTitle("Tag Statistics" "The following graph shows passing and failing statistics for tags.")
+#includeTitle("Tag Statistics", "The following graph shows passing and failing statistics for tags.")
 
 
 #if($all_tags.isEmpty())
