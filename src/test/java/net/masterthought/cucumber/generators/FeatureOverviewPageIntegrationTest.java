@@ -15,7 +15,7 @@ public class FeatureOverviewPageIntegrationTest extends Page {
     private AbstractPage page;
 
     @Before
-    public void setup() {
+    public void setUp() {
         addReport("sample.json");
         createConfiguration();
     }

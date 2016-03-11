@@ -15,7 +15,7 @@
 #includeTitle("Feature Report")
 
 
-<div class="container-fluid" id="report-summary">
+<div class="container-fluid" id="summary">
   <table class="stats-table">
     #includeTableHeader( "Feature" $parallel )
 
@@ -42,7 +42,7 @@
 </div>
 
 
-<div class="container-fluid" id="report-details">
+<div class="container-fluid" id="report">
   $feature.getTagsList()
   <div class="$feature.getStatus().getRawName()">
     <div class="feature-line">

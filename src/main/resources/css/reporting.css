@@ -123,6 +123,11 @@ a:hover {
     background-color: #FBB9D7;
 }
 
+.step-duration {
+    float: right;
+    padding-right: 15px;
+}
+
 table.stats-table {
     background-color: white;
     color: black;

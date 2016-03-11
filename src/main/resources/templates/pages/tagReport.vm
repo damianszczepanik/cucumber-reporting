@@ -15,9 +15,9 @@
 #includeTitle("Tag Report")
 
 
-<div class="container-fluid" id="report-summary">
+<div class="container-fluid" id="summary">
   <table class="stats-table">
-    #includeTableHeader( "Tag" false )
+    #includeTableHeader("Tag", false)
     <tr>
       <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
       <td>$tag.getScenarios()</td>
@@ -36,7 +36,7 @@
   </table>
 </div>
 
-<div class="container-fluid" id="report-details">
+<div class="container-fluid" id="report">
   #foreach($scenario in $tag.getElements())
     <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
     $scenario.getTagsList()
