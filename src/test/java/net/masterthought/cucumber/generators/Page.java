@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.After;
 
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
@@ -16,6 +19,21 @@ import net.masterthought.cucumber.ValidationException;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class Page extends ReportGenerator {
+
+    protected static final String SAMPLE_JOSN = "sample.json";
+    protected static final String EMPTY_JOSN = "empty.json";
+
+    protected AbstractPage page;
+
+    @After
+    public void cleanUp() {
+        // delete report file if was already created by any of test
+        if (page != null) {
+            File report = new File(configuration.getReportDirectory(), page.getWebPage());
+            report.delete();
+            page = null;
+        }
+    }
 
     protected ElementWrapper documentFrom(String pageName) {
         File input = new File(configuration.getReportDirectory(), pageName);
@@ -39,7 +57,15 @@ public class Page extends ReportGenerator {
     }
 
     private ElementWrapper getTableStats(ElementWrapper document) {
-        return document.byClass("stats-table");
+        return getStatistics(document).byClass("stats-table");
+    }
+
+    protected Elements getEmptyReportMessage(ElementWrapper document) {
+        return getStatistics(document).bySelectors("div div p");
+    }
+
+    protected ElementWrapper getStatistics(ElementWrapper document) {
+        return document.byId("statistics");
     }
 
     protected Elements getRows(ElementWrapper statsTable) {
@@ -68,4 +94,31 @@ public class Page extends ReportGenerator {
         }
     }
 
+    protected void validateCSSClasses(Elements array, String... classes) {
+        if (array.size() != classes.length) {
+            throw new IllegalArgumentException(
+                    String.format("Found %d elements but expected to compare with %d.", array.size(), classes.length));
+        }
+
+        for (int i = 0; i < classes.length; i++) {
+            if (StringUtils.isEmpty(classes[i])) {
+                if (!array.get(i).classNames().isEmpty()) {
+                    throw new IllegalArgumentException(String.format(
+                            "On index %d found '%s' while expected none css class", i, array.get(i).className()));
+                }
+            } else if (!array.get(i).classNames().contains(classes[i])) {
+                throw new IllegalArgumentException(String.format("On index %d found '%s' while expected '%s'", i,
+                        array.get(i).className(), classes[i]));
+            }
+        }
+    }
+
+    protected void validateReportLink(Elements row, String href, String name) {
+        validateLink(new ElementWrapper(row.get(0)).bySelector("a").getElement(), href, name);
+    }
+
+    protected void validateLink(Element link, String href, String name) {
+        assertThat(link.text()).isEqualTo(name);
+        assertThat(link.attr("href")).isEqualTo(href);
+    }
 }

@@ -3,7 +3,6 @@ package net.masterthought.cucumber;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -30,19 +29,6 @@ public class ReportBuilderTest {
         configuration = new Configuration(rd, "cucumber-reporting");
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
-    }
-
-    @Test
-    public void shouldRenderTheFeatureOverviewPageCorrectlyWithJSCharts() throws Exception {
-        List<String> jsonReports = new ArrayList<>();
-        jsonReports.add(new File(ReportBuilderTest.class.getClassLoader().getResource("net/masterthought/cucumber/project3.json").toURI()).getAbsolutePath());
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
-        reportBuilder.generateReports();
-
-        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
-        Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertNotNull(fromId("steps_chart", doc));
-        assertNotNull(fromId("scenarios_chart", doc));
     }
 
     @Test

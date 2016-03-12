@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.masterthought.cucumber.json.Feature;
 
 /**
@@ -31,7 +33,17 @@ public abstract class ReportGenerator {
         }
     }
 
-    protected void addReport(String jsonReport) {
+    public void setUpWithJson(String... jsonFiles) {
+        if (ArrayUtils.isNotEmpty(jsonFiles)) {
+            for (String jsonFile : jsonFiles)
+                addReport(jsonFile);
+        }
+
+        configuration = new Configuration(reportDirectory, projectName);
+        createReportBuilder();
+    }
+
+    private void addReport(String jsonReport) {
         try {
             URL path = ReportGenerator.class.getClassLoader().getResource(JSON_DIRECTORY + jsonReport);
             jsonReports.add(new File(path.toURI()).getAbsolutePath());
@@ -41,15 +53,7 @@ public abstract class ReportGenerator {
         }
     }
 
-    protected void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    protected void createConfiguration() {
-        configuration = new Configuration(reportDirectory, projectName);
-    }
-
-    protected void createReportBuilder() {
+    private void createReportBuilder() {
         ReportParser reportParser = new ReportParser(configuration);
 
         features = reportParser.parseJsonResults(jsonReports);

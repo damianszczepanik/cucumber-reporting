@@ -3,8 +3,6 @@ package net.masterthought.cucumber.generators;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.jsoup.select.Elements;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,24 +10,27 @@ import org.junit.Test;
  */
 public class FeatureOverviewPageIntegrationTest extends Page {
 
-    private AbstractPage page;
+    @Test
+    public void generatePage_generatesCharts() {
 
-    @Before
-    public void setUp() {
-        addReport("sample.json");
-        createConfiguration();
-    }
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        page = new FeatureOverviewPage(reportResult, configuration);
 
-    @After
-    public void cleanup() {
-        page = null;
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+
+        assertThat(document.getElement().getElementById("charts")).isNotNull();
     }
 
     @Test
     public void generatePage_generatesStatsTableHeader() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
         page = new FeatureOverviewPage(reportResult, configuration);
 
         // when
@@ -54,7 +55,8 @@ public class FeatureOverviewPageIntegrationTest extends Page {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
+        configuration.setStatusFlags(true, false, false, true);
         page = new FeatureOverviewPage(reportResult, configuration);
 
         // when
@@ -69,16 +71,22 @@ public class FeatureOverviewPageIntegrationTest extends Page {
         Elements firstRow = getCells(bodyRows.get(0));
         validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111ms",
                 "Passed");
+        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "",
+                "duration-format", "passed");
+        validateReportLink(firstRow, "net-masterthought-example-s--ATM-local-feature.html", "First feature");
 
         Elements secondRow = getCells(bodyRows.get(1));
         validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002ms", "Failed");
+        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing",
+                "duration-format", "failed");
+        validateReportLink(secondRow, "net-masterthought-example-ATMK-feature.html", "2nd feature");
     }
 
     @Test
     public void generatePage_generatesStatsTableFooter() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
         configuration.setStatusFlags(true, false, false, true);
         page = new FeatureOverviewPage(reportResult, configuration);
 
@@ -92,4 +100,18 @@ public class FeatureOverviewPageIntegrationTest extends Page {
         validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "113ms", "Totals");
     }
 
+    @Test
+    public void generatePage_onEmptyJsons_generatesProperMessage() {
+
+        // given
+        setUpWithJson(EMPTY_JOSN);
+        page = new FeatureOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+        assertThat(getEmptyReportMessage(document).text()).isEqualTo("You have no features in your cucumber report");
+    }
 }

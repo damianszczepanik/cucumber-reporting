@@ -21,7 +21,7 @@
       <table class="stats-table">
         #includeTableHeader("Tag", false)
         <tr>
-          <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+          <td class="tagname">$tag.getTagName()</td>
           <td>$tag.getScenarios()</td>
           <td>$tag.getNumberOfPassingScenarios()</td>
           <td>$tag.getNumberOfFailingScenarios()</td>
@@ -45,7 +45,7 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       #foreach($scenario in $tag.getElements())
-        <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
+        <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
         $scenario.getTagsList()
         $scenario.getBeforeAttachments()
         $scenario.getName()
