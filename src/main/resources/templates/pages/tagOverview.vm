@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Tag Overview</title>
-
-#parse("/templates/headers.vm")
-
-<script type="text/javascript">
+  <title>Cucumber-JVM Html Reports - Tag Overview</title>
+  #parse("/templates/headers.vm")
+  
+  <script type="text/javascript">
     jQuery(document).ready(function() {
 
         var chartData = $chart_data,
@@ -104,7 +103,7 @@
             series: formattedData
         });
     });
-</script>
+  </script>
 </head>
 
 <body>

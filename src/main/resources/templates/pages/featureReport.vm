@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
-
-#parse("/templates/headers.vm")
-
+  <title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
+  #parse("/templates/headers.vm")
 </head>
 <body>
 
@@ -19,7 +17,7 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <table class="stats-table">
-        #includeTableHeader( "Feature" $parallel )
+        #includeTableHeader("Feature", $parallel)
     
         #set($sf = $feature.getRawName())
         <tr>
@@ -56,32 +54,7 @@
         </div>
       </div>
       <div class="description">$feature.getDescription()</div>
-
-      #foreach($scenario in $feature.getElements())
-        $scenario.getTagsList()
-        $scenario.getBeforeAttachments()
-        $scenario.getName()
-        <div class="description">$scenario.getDescription()</div>
-        #foreach($step in $scenario.getSteps())
-          $step.getDetails()
-          $step.getDocString()
-          #if($step.hasRows())
-            <table class="arguments-table">
-              #foreach($row in $step.getRows())
-                <tr>
-                  #foreach($cell in $row.getCells())
-                    <td>$cell</td>
-                  #end
-                </tr>
-              #end
-            </table>
-          #end
-          <div>$step.getOutput()</div>
-          <div>$step.getAttachments()</div>
-        #end
-        $scenario.getAfterAttachments()
-        <br>
-      #end
+      #printScenario($feature.getElements(), false)
     </div>
   </div>
 </div>

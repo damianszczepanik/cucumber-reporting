@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Feature Overview</title>
-
-#parse("/templates/headers.vm")
-
-<script type="text/javascript">
-$(function () {
+  <title>Cucumber-JVM Html Reports - Feature Overview</title>
+  #parse("/templates/headers.vm")
+  <script type="text/javascript">
+  $(function () {
     $('#steps_chart').highcharts({
         chart: {
             type: 'pie',
@@ -200,8 +198,8 @@ $(function () {
             ]
         }]
     });
-});
-</script>
+  });
+  </script>
 </head>
 
 <body>

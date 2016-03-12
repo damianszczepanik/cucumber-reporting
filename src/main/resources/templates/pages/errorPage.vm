@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Error Page</title>
-
-<style>
-.error-message {
+  <title>Cucumber-JVM Html Reports - Error Page</title>
+  <style>
+  .error-message {
     color:red;
     font-weight: bold;
     background-color: lightpink;
-}
-</style>
-#parse("/templates/headers.vm")
+  }
+  </style>
+  #parse("/templates/headers.vm")
 </head>
-
 <body>
+
 #includeNavigation()
 
 #includeTitle("Error", "Something went wrong with project <i>$build_project_name</i>, build $build_number")
