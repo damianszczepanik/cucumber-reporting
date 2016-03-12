@@ -33,12 +33,6 @@ a:hover {
     font-weight: bold;
 }
 
-.feature-description {
-    padding-left: 15px;
-    font-style: italic;
-    background-color: beige;
-}
-
 .element-keyword {
     font-weight: bold;
     padding-left: 15px;
@@ -47,6 +41,12 @@ a:hover {
 .step-keyword {
     font-weight: bold;
     padding-left: 50px;
+}
+
+.description {
+    padding-left: 15px;
+    font-style: italic;
+    background-color: beige;
 }
 
 .output_message {

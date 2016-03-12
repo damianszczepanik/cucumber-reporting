@@ -49,6 +49,7 @@
         $scenario.getTagsList()
         $scenario.getBeforeAttachments()
         $scenario.getName()
+        <div class="description">$scenario.getDescription()</div>
         #foreach($step in $scenario.getSteps())
           $step.getDetails()
           $step.getDocString()

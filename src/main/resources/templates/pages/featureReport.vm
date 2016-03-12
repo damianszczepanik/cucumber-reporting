@@ -55,24 +55,25 @@
           <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()
         </div>
       </div>
-      <div class="feature-description">$feature.getDescription()</div>
+      <div class="description">$feature.getDescription()</div>
 
-      #foreach($scenario in $elements)
+      #foreach($scenario in $feature.getElements())
         $scenario.getTagsList()
         $scenario.getBeforeAttachments()
         $scenario.getName()
+        <div class="description">$scenario.getDescription()</div>
         #foreach($step in $scenario.getSteps())
           $step.getDetails()
           $step.getDocString()
           #if($step.hasRows())
             <table class="arguments-table">
-            #foreach($row in $step.getRows())
-              <tr>
-                #foreach($cell in $row.getCells())
-                  <td>$cell</td>
-                #end
-              </tr>
-            #end
+              #foreach($row in $step.getRows())
+                <tr>
+                  #foreach($cell in $row.getCells())
+                    <td>$cell</td>
+                  #end
+                </tr>
+              #end
             </table>
           #end
           <div>$step.getOutput()</div>

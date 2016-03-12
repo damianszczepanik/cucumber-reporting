@@ -74,6 +74,10 @@ public class Element {
         return type;
     }
 
+    public String getDescription() {
+        return StringUtils.defaultString(description);
+    }
+
     public boolean isScenario() {
         return SCENARIO_TYPE.equals(type);
     }
