@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,24 +11,11 @@ import org.junit.Test;
  */
 public class PageIntegrationTest extends Page {
 
-    private AbstractPage page;
-
-    @Before
-    public void setUp() {
-        addReport("sample.json");
-        createConfiguration();
-    }
-
-    @After
-    public void cleanup() {
-        page = null;
-    }
-
     @Test
     public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBarfor() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
         page = new FeatureOverviewPage(reportResult, configuration);
 
         // when
@@ -53,10 +38,10 @@ public class PageIntegrationTest extends Page {
     public void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBarfor() {
 
         // given
+        setUpWithJson(SAMPLE_JOSN);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
-        createReportBuilder();
         page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
 
         // when
@@ -83,7 +68,7 @@ public class PageIntegrationTest extends Page {
     public void generatePage_onDefaultConfiguration_generatesSummaryTable() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
         page = new StepOverviewPage(reportResult, configuration);
 
         // when
@@ -107,10 +92,10 @@ public class PageIntegrationTest extends Page {
     public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumber() {
 
         // given
+        setUpWithJson(SAMPLE_JOSN);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
-        createReportBuilder();
         page = new StepOverviewPage(reportResult, configuration);
 
         // when
@@ -136,7 +121,7 @@ public class PageIntegrationTest extends Page {
     public void generatePage_generatesFooter() {
 
         // given
-        createReportBuilder();
+        setUpWithJson(SAMPLE_JOSN);
         page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
 
         // when
@@ -192,11 +177,6 @@ public class PageIntegrationTest extends Page {
 
     private void validateStepsInNaviBar(Element featureLink) {
         validateLink(featureLink, "step-overview.html", "Steps");
-    }
-
-    private void validateLink(Element link, String href, String name) {
-        assertThat(link.text()).isEqualTo(name);
-        assertThat(link.attr("href")).isEqualTo(href);
     }
 
     private ElementWrapper extractHeader(ElementWrapper navigation) {

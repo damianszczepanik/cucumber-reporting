@@ -23,7 +23,7 @@
     
         #set($sf = $feature.getRawName())
         <tr>
-          <td class="tagname"><a id="stats-$sf" href="$feature.getReportFileName()">$sf</a></td>
+          <td class="tagname">$sf</td>
           #if($parallel)
             <td id="device">$feature.getDeviceName()</td>
           #end

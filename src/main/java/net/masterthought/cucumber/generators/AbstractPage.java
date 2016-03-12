@@ -59,9 +59,10 @@ public abstract class AbstractPage {
     protected abstract void prepareReport();
 
     private void generateReport() {
-        velocityContext.put("page_url", getWebPage());
-        File dir = new File(configuration.getReportDirectory(), getWebPage());
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(dir), Charsets.UTF_8)) {
+        velocityContext.put("report_file", getWebPage());
+
+        File reprotFile = new File(configuration.getReportDirectory(), getWebPage());
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reprotFile), Charsets.UTF_8)) {
             template.merge(velocityContext, writer);
         } catch (IOException e) {
             throw new ValidationException(e);

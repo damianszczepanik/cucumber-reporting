@@ -264,7 +264,7 @@ $(function () {
         <p>You have no features in your cucumber report</p>
       #else
         <table id="tablesorter" class="stats-table">
-          #includeTableHeader( "Feature" $parallel )
+          #includeTableHeader("Feature", $parallel)
 
           <tbody>
           #foreach($feature in $all_features)
