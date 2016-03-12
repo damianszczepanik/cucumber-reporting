@@ -1,8 +1,12 @@
 #macro( includeTitle $page_title $page_description )
 <div class="container-fluid" id="title">
-  <h2>$page_title</h2>
-  #if($page_description)
-    <p>$page_description</p>
-  #end
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h2>$page_title</h2>
+      #if($page_description)
+        <p>$page_description</p>
+      #end
+    </div>
+  </div>
 </div>
 #end

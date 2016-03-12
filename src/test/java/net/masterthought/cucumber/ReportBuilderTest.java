@@ -101,7 +101,7 @@ public class ReportBuilderTest {
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
-        assertTrue(fromId("error-message", doc).text().contains(
+        assertTrue(fromClass("error-message", doc).text().contains(
                 "com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 19 column 18 path $[0].elements[0].keyword"));
     }
 
@@ -116,7 +116,7 @@ public class ReportBuilderTest {
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
-        assertTrue(fromId("error-message", doc).text().contains("does not contan features!"));
+        assertTrue(fromClass("error-message", doc).text().contains("does not contan features!"));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ReportBuilderTest {
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
-        assertTrue(fromId("error-message", doc).text().contains(
+        assertTrue(fromClass("error-message", doc).text().contains(
                 "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $"));
     }
 

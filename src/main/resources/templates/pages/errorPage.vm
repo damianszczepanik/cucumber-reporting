@@ -18,16 +18,18 @@
 
 #includeTitle("Error", "Something went wrong with project <i>$build_project_name</i>, build $build_number")
 
-<div>
-  <div id="error-message" class="error-message">
-    <pre>$output_message</pre>
+<div class="container-fluid" id="title">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <pre class="error-message">$output_message</pre>
+      <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
+      <pre>
+        #foreach($file in $json_files)
+          $file
+        #end
+      </pre>
+    </div>
   </div>
-  <span class="subhead">Trying to generate report from following files. Make sure they are valid cucumber report files:</span>
-  <ul>
-    #foreach($file in $json_files)
-      <li>$file
-    #end
-  </ul>
 </div>
 
 
