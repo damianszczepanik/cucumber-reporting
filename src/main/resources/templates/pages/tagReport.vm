@@ -16,52 +16,61 @@
 
 
 <div class="container-fluid" id="summary">
-  <table class="stats-table">
-    #includeTableHeader("Tag", false)
-    <tr>
-      <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
-      <td>$tag.getScenarios()</td>
-      <td>$tag.getNumberOfPassingScenarios()</td>
-      <td>$tag.getNumberOfFailingScenarios()</td>
-      <td>$tag.getNumberOfSteps()</td>
-      <td>$tag.getNumberOfPasses()</td>
-      <td #if($tag.getNumberOfFailures() > 0)  class="failed"    #end>$tag.getNumberOfFailures()</td>
-      <td #if($tag.getNumberOfSkipped() > 0)   class="skipped"   #end>$tag.getNumberOfSkipped()</td>
-      <td #if($tag.getNumberOfPending() > 0)   class="pending"   #end>$tag.getNumberOfPending()</td>
-      <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
-      <td #if($tag.getNumberOfMissing() > 0)   class="missing"   #end>$tag.getNumberOfMissing()</td>
-      <td class="duration-format">$tag.getTotalDuration()</td>
-      <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
-    </tr>
-  </table>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="stats-table">
+        #includeTableHeader("Tag", false)
+        <tr>
+          <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+          <td>$tag.getScenarios()</td>
+          <td>$tag.getNumberOfPassingScenarios()</td>
+          <td>$tag.getNumberOfFailingScenarios()</td>
+          <td>$tag.getNumberOfSteps()</td>
+          <td>$tag.getNumberOfPasses()</td>
+          <td #if($tag.getNumberOfFailures() > 0)  class="failed"    #end>$tag.getNumberOfFailures()</td>
+          <td #if($tag.getNumberOfSkipped() > 0)   class="skipped"   #end>$tag.getNumberOfSkipped()</td>
+          <td #if($tag.getNumberOfPending() > 0)   class="pending"   #end>$tag.getNumberOfPending()</td>
+          <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
+          <td #if($tag.getNumberOfMissing() > 0)   class="missing"   #end>$tag.getNumberOfMissing()</td>
+          <td class="duration-format">$tag.getTotalDuration()</td>
+          <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
 
+
 <div class="container-fluid" id="report">
-  #foreach($scenario in $tag.getElements())
-    <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
-    $scenario.getTagsList()
-    $scenario.getBeforeAttachments()
-    $scenario.getName()
-    #foreach($step in $scenario.getSteps())
-      $step.getDetails()
-      $step.getDocString()
-      #if($step.hasRows())
-        <table class="arguments-table">
-          #foreach($row in $step.getRows())
-            <tr>
-              #foreach($cell in $row.getCells())
-                <td>$cell</td>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      #foreach($scenario in $tag.getElements())
+        <a href="$scenario.getFeature().getReportFileName()">View Feature File</a>
+        $scenario.getTagsList()
+        $scenario.getBeforeAttachments()
+        $scenario.getName()
+        #foreach($step in $scenario.getSteps())
+          $step.getDetails()
+          $step.getDocString()
+          #if($step.hasRows())
+            <table class="arguments-table">
+              #foreach($row in $step.getRows())
+                <tr>
+                  #foreach($cell in $row.getCells())
+                    <td>$cell</td>
+                  #end
+                </tr>
               #end
-            </tr>
+            </table>
           #end
-        </table>
+          <div>$step.getOutput()</div>
+          <div>$step.getAttachments()</div>
+        #end
+        $scenario.getAfterAttachments()
+        <br>
       #end
-      <div>$step.getOutput()</div>
-      <div>$step.getAttachments()</div>
-    #end
-    $scenario.getAfterAttachments()
-    <br>
-  #end
+    </div>
+  </div>
 </div>
 
 
