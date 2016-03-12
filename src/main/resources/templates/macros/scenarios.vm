@@ -1,0 +1,30 @@
+#macro(printScenario, $elements, $linkToFeature)
+  #foreach($scenario in $elements)
+    #if($linkToFeature)
+      <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
+    #end
+    $scenario.getTagsList()
+    $scenario.getBeforeAttachments()
+    $scenario.getName()
+    <div class="description">$scenario.getDescription()</div>
+    #foreach($step in $scenario.getSteps())
+      $step.getDetails()
+      $step.getDocString()
+      #if($step.hasRows())
+        <table class="arguments-table">
+          #foreach($row in $step.getRows())
+            <tr>
+              #foreach($cell in $row.getCells())
+                <td>$cell</td>
+              #end
+            </tr>
+          #end
+        </table>
+      #end
+      <div>$step.getOutput()</div>
+      <div>$step.getAttachments()</div>
+    #end
+    $scenario.getAfterAttachments()
+    <br>
+  #end
+#end

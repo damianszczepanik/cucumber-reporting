@@ -1,4 +1,4 @@
-#macro( includeTableHeader $table_key $parallel )
+#macro(includeTableHeader, $table_key, $parallel)
 <thead>
   <tr class="header">
     #if($parallel)

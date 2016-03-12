@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Step Overview</title>
-
-#parse("/templates/headers.vm")
-
+  <title>Cucumber-JVM Html Reports - Step Overview</title>
+  #parse("/templates/headers.vm")
 </head>
 <body>
 

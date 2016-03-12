@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cucumber-JVM Html Reports - Tag: $tag.getTagName()</title>
-
-#parse("/templates/headers.vm")
-
+  <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName()</title>
+  #parse("/templates/headers.vm")
 </head>
 <body>
 
@@ -44,32 +42,7 @@
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      #foreach($scenario in $tag.getElements())
-        <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
-        $scenario.getTagsList()
-        $scenario.getBeforeAttachments()
-        $scenario.getName()
-        <div class="description">$scenario.getDescription()</div>
-        #foreach($step in $scenario.getSteps())
-          $step.getDetails()
-          $step.getDocString()
-          #if($step.hasRows())
-            <table class="arguments-table">
-              #foreach($row in $step.getRows())
-                <tr>
-                  #foreach($cell in $row.getCells())
-                    <td>$cell</td>
-                  #end
-                </tr>
-              #end
-            </table>
-          #end
-          <div>$step.getOutput()</div>
-          <div>$step.getAttachments()</div>
-        #end
-        $scenario.getAfterAttachments()
-        <br>
-      #end
+      #printScenario($tag.getElements(), true)
     </div>
   </div>
 </div>

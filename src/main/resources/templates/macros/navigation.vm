@@ -1,4 +1,4 @@
-#macro( includeNavigation $active_tab )
+#macro(includeNavigation, $active_tab)
 <nav class="navbar navbar-default navbar-fixed-top" id="navigation">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">

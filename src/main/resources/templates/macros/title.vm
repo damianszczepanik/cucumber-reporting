@@ -1,4 +1,4 @@
-#macro( includeTitle $page_title $page_description )
+#macro(includeTitle, $page_title, $page_description)
 <div class="container-fluid" id="title">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
