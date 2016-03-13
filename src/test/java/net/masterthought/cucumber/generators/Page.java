@@ -44,15 +44,27 @@ public class Page extends ReportGenerator {
         }
     }
 
-    protected ElementWrapper extractHeaderStatsTable(ElementWrapper document) {
+    protected ElementWrapper getLeadHeader(ElementWrapper document) {
+        return getLead(document).bySelector("h2");
+    }
+
+    protected ElementWrapper getLeadDescription(ElementWrapper document) {
+        return getLead(document).bySelector("p");
+    }
+
+    private ElementWrapper getLead(ElementWrapper document) {
+        return document.byId("lead");
+    }
+
+    protected ElementWrapper getHeaderStatsTable(ElementWrapper document) {
         return getTableStats(document).bySelector("thead");
     }
 
-    protected Elements extractBodyStatsTable(ElementWrapper document) {
+    protected Elements getBodyStatsTable(ElementWrapper document) {
         return getTableStats(document).bySelectors("tbody tr");
     }
 
-    protected Elements extractFooterCellsInStatsTable(ElementWrapper document) {
+    protected Elements getFooterCellsInStatsTable(ElementWrapper document) {
         return getTableStats(document).bySelectors("tfoot tr td");
     }
 

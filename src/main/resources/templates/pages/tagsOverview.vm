@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cucumber-JVM Html Reports - Tag Overview</title>
   #parse("/templates/headers.vm")
-  
+  #includeTitle("Tags Overview")
+
   <script type="text/javascript">
     jQuery(document).ready(function() {
 
@@ -105,14 +105,13 @@
     });
   </script>
 </head>
-
 <body>
 
 #includeNavigation("tags")
 
 #includeSummary()
 
-#includeTitle("Tag Statistics", "The following graph shows passing and failing statistics for tags.")
+#includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags.")
 
 
 #if(!$all_tags.isEmpty())
@@ -134,7 +133,7 @@
       #else
         <table id="tablesorter" class="stats-table">
           #includeTableHeader( "Tag" false )
-  
+
           <tbody>
             #foreach($tag in $all_tags)
               <tr>

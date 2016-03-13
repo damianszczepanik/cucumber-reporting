@@ -9,10 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.generators.ErrorPage;
-import net.masterthought.cucumber.generators.FeatureOverviewPage;
+import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.StepOverviewPage;
-import net.masterthought.cucumber.generators.TagOverviewPage;
+import net.masterthought.cucumber.generators.StepsOverviewPage;
+import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -63,17 +63,17 @@ public class ReportBuilder {
     }
 
     private void generateAllPages() {
-        new FeatureOverviewPage(reportResult, configuration).generatePage();
+        new FeaturesOverviewPage(reportResult, configuration).generatePage();
         for (Feature feature : reportResult.getAllFeatures()) {
             new FeatureReportPage(reportResult, configuration, feature).generatePage();
         }
 
-        new TagOverviewPage(reportResult, configuration).generatePage();
+        new TagsOverviewPage(reportResult, configuration).generatePage();
         for (TagObject tagObject : reportResult.getAllTags()) {
             new TagReportPage(reportResult, configuration, tagObject).generatePage();
         }
 
-        new StepOverviewPage(reportResult, configuration).generatePage();
+        new StepsOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void copyResources(String resourceLocation, String... resources) {

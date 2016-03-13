@@ -8,15 +8,15 @@ import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.ChartUtil;
 import net.masterthought.cucumber.util.Util;
 
-public class TagOverviewPage extends AbstractPage {
+public class TagsOverviewPage extends AbstractPage {
 
-    public TagOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagOverview.vm", configuration);
+    public TagsOverviewPage(ReportResult reportResult, Configuration configuration) {
+        super(reportResult, "tagsOverview.vm", configuration);
     }
 
     @Override
     public String getWebPage() {
-        return "tag-overview.html";
+        return "tags-overview.html";
     }
 
     @Override

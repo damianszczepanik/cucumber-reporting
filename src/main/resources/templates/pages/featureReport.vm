@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cucumber-JVM Html Reports - Feature: $feature.getRawName() </title>
   #parse("/templates/headers.vm")
+  #includeTitle("Feature: $feature.getRawName()")
 </head>
 <body>
 
@@ -10,7 +10,7 @@
 
 #includeSummary()
 
-#includeTitle("Feature Report")
+#includeLead("Feature Report")
 
 
 <div class="container-fluid" id="summary">

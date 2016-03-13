@@ -85,8 +85,8 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
-        assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
+        assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
+        assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
         assertTrue(fromClass("error-message", doc).text().contains(
                 "com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 19 column 18 path $[0].elements[0].keyword"));
     }
@@ -100,8 +100,8 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
-        assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
+        assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
+        assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
         assertTrue(fromClass("error-message", doc).text().contains("does not contan features!"));
     }
 
@@ -114,8 +114,8 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "feature-overview.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("title", doc).getElementsByTag("h2").text(), is("Error"));
-        assertThat(fromId("title", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
+        assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
+        assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
         assertTrue(fromClass("error-message", doc).text().contains(
                 "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $"));
     }
