@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cucumber-JVM Html Reports - Feature Overview</title>
   #parse("/templates/headers.vm")
+  #includeTitle("Features Overview")
+
   <script type="text/javascript">
   $(function () {
     $('#steps_chart').highcharts({
@@ -208,7 +209,7 @@
 
 #includeSummary()
 
-#includeTitle("Feature Statistics" "The following graph shows passing and failing statistics for features")
+#includeLead("Features Statistics", "The following graphs show passing and failing statistics for features.")
 
 
 #if(!$all_features.isEmpty())
@@ -265,26 +266,26 @@
           #includeTableHeader("Feature", $parallel)
 
           <tbody>
-          #foreach($feature in $all_features)
-            <tr>
-              <td class="tagname"><a href="$feature.getReportFileName()">$feature.getRawName()</a></td>
-              #if($parallel)
-                <td>$feature.getDeviceName()</td>
-              #end
-              <td>$feature.getScenarios()</td>
-              <td>$feature.getPassedScenarios()</td>
-              <td>$feature.getFailedScenarios()</td>
-              <td>$feature.getNumberOfSteps()</td>
-              <td>$feature.getNumberOfPasses()</td>
-              <td #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
-              <td #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
-              <td #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
-              <td #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
-              <td #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-              <td class="duration-format">$feature.getTotalDuration()</td>
-              <td class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
-            </tr>
-          #end
+            #foreach($feature in $all_features)
+              <tr>
+                <td class="tagname"><a href="$feature.getReportFileName()">$feature.getRawName()</a></td>
+                #if($parallel)
+                  <td>$feature.getDeviceName()</td>
+                #end
+                <td>$feature.getScenarios()</td>
+                <td>$feature.getPassedScenarios()</td>
+                <td>$feature.getFailedScenarios()</td>
+                <td>$feature.getNumberOfSteps()</td>
+                <td>$feature.getNumberOfPasses()</td>
+                <td #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
+                <td #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
+                <td #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
+                <td #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
+                <td #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
+                <td class="duration-format">$feature.getTotalDuration()</td>
+                <td class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
+              </tr>
+            #end
           </tbody>
 
           <tfoot>
@@ -308,8 +309,8 @@
             </tr>
           </tfoot>
         </table>
-        #end
-      </div>
+      #end
+    </div>
   </div>
 </div>
 

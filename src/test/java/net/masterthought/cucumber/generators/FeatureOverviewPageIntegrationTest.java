@@ -11,11 +11,30 @@ import org.junit.Test;
 public class FeatureOverviewPageIntegrationTest extends Page {
 
     @Test
+    public void generatePage_generatesLead() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        page = new FeaturesOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+        String leadHeader = getLeadHeader(document).text();
+        String leadDescription = getLeadDescription(document).text();
+
+        assertThat(leadHeader).isEqualTo("Features Statistics");
+        assertThat(leadDescription).isEqualTo("The following graphs show passing and failing statistics for features.");
+    }
+
+    @Test
     public void generatePage_generatesCharts() {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
@@ -31,14 +50,14 @@ public class FeatureOverviewPageIntegrationTest extends Page {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper headerTable = extractHeaderStatsTable(document);
+        ElementWrapper headerTable = getHeaderStatsTable(document);
         Elements headerRows = getRows(headerTable);
 
         assertThat(headerRows).hasSize(2);
@@ -57,14 +76,14 @@ public class FeatureOverviewPageIntegrationTest extends Page {
         // given
         setUpWithJson(SAMPLE_JOSN);
         configuration.setStatusFlags(true, false, false, true);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = extractBodyStatsTable(document);
+        Elements bodyRows = getBodyStatsTable(document);
 
         assertThat(bodyRows).hasSize(2);
 
@@ -88,14 +107,14 @@ public class FeatureOverviewPageIntegrationTest extends Page {
         // given
         setUpWithJson(SAMPLE_JOSN);
         configuration.setStatusFlags(true, false, false, true);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements footerCells = extractFooterCellsInStatsTable(document);
+        Elements footerCells = getFooterCellsInStatsTable(document);
 
         validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "113ms", "Totals");
     }
@@ -105,7 +124,7 @@ public class FeatureOverviewPageIntegrationTest extends Page {
 
         // given
         setUpWithJson(EMPTY_JOSN);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();

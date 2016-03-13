@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cucumber-JVM Html Reports - Tag: $tag.getTagName()</title>
   #parse("/templates/headers.vm")
+  #includeTitle("Tag: $tag.getTagName()")
 </head>
 <body>
 
@@ -10,7 +10,7 @@
 
 #includeSummary()
 
-#includeTitle("Tag Report")
+#includeLead("Tag Report")
 
 
 <div class="container-fluid" id="summary">

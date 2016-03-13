@@ -16,7 +16,7 @@ public class PageIntegrationTest extends Page {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
-        page = new FeatureOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
@@ -69,7 +69,7 @@ public class PageIntegrationTest extends Page {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
-        page = new StepOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
@@ -96,7 +96,7 @@ public class PageIntegrationTest extends Page {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
-        page = new StepOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage(reportResult, configuration);
 
         // when
         page.generatePage();
@@ -168,15 +168,15 @@ public class PageIntegrationTest extends Page {
     }
 
     private void validateFeaturesInNaviBar(Element featureLink) {
-        validateLink(featureLink, "feature-overview.html", "Features");
+        validateLink(featureLink, "features-overview.html", "Features");
     }
 
     private void validateTagsInNaviBar(Element featureLink) {
-        validateLink(featureLink, "tag-overview.html", "Tags");
+        validateLink(featureLink, "tags-overview.html", "Tags");
     }
 
     private void validateStepsInNaviBar(Element featureLink) {
-        validateLink(featureLink, "step-overview.html", "Steps");
+        validateLink(featureLink, "steps-overview.html", "Steps");
     }
 
     private ElementWrapper extractHeader(ElementWrapper navigation) {

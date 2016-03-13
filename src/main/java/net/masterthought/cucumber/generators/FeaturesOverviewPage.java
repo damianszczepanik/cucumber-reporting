@@ -3,15 +3,15 @@ package net.masterthought.cucumber.generators;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 
-public class FeatureOverviewPage extends AbstractPage {
+public class FeaturesOverviewPage extends AbstractPage {
 
-    public FeatureOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "featureOverview.vm", configuration);
+    public FeaturesOverviewPage(ReportResult reportResult, Configuration configuration) {
+        super(reportResult, "featuresOverview.vm", configuration);
     }
 
     @Override
     public String getWebPage() {
-        return "feature-overview.html";
+        return "features-overview.html";
     }
 
     @Override

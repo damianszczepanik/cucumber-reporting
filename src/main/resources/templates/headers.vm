@@ -17,8 +17,9 @@ $(document).ready(function() {
 </script>
 
 
+#parse("/templates/macros/title.vm")
 #parse("/templates/macros/navigation.vm")
 #parse("/templates/macros/header.vm")
-#parse("/templates/macros/title.vm")
+#parse("/templates/macros/lead.vm")
 #parse("/templates/macros/tableHeader.vm")
 #parse("/templates/macros/scenarios.vm")
