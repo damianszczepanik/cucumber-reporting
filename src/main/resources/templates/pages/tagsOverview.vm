@@ -63,7 +63,7 @@
             },
             title: {
                 text: 'Tags',
-                y: 50,
+                y: 10,
                 style: {
                     fontWeight: 'bold',
                     fontSize: 'large'
@@ -79,10 +79,10 @@
                 }
             },
             legend: {
-                align: 'right',
+                align: 'left',
                 x: 0,
-                verticalAlign: 'top',
-                y: 20
+                verticalAlign: 'bottom',
+                y: 0
             },
             tooltip: {
                 formatter: function() {
@@ -111,7 +111,7 @@
 
 #includeSummary()
 
-#includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags.")
+#includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags")
 
 
 #if(!$all_tags.isEmpty())
