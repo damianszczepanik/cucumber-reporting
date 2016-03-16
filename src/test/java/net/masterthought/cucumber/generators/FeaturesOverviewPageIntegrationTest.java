@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeatureOverviewPageIntegrationTest extends Page {
+public class FeaturesOverviewPageIntegrationTest extends Page {
 
     @Test
     public void generatePage_generatesLead() {
@@ -26,7 +26,7 @@ public class FeatureOverviewPageIntegrationTest extends Page {
         String leadDescription = getLeadDescription(document).text();
 
         assertThat(leadHeader).isEqualTo("Features Statistics");
-        assertThat(leadDescription).isEqualTo("The following graphs show passing and failing statistics for features.");
+        assertThat(leadDescription).isEqualTo("The following graphs show passing and failing statistics for features");
     }
 
     @Test

@@ -209,7 +209,7 @@
 
 #includeSummary()
 
-#includeLead("Features Statistics", "The following graphs show passing and failing statistics for features.")
+#includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
 
 
 #if(!$all_features.isEmpty())
