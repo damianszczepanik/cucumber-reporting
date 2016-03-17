@@ -24,28 +24,22 @@
 
           <thead>
             <tr class="header">
-              <th id="stats-header-feature">Implementation</th>
-              <th id="stats-header-occurrences">Occurrences</th>
-              <th id="stats-header-duration">Duration</th>
-              <th id="stats-header-average">Average</th>
-              <th id="stats-header-status">Ratio</th>
+              <th>Implementation</th>
+              <th>Occurrences</th>
+              <th>Duration</th>
+              <th>Average</th>
+              <th>Ratio</th>
             </tr>
           </thead>
 
           <tbody>
             #foreach($step in $all_steps)
               <tr>
-                #if($step.getPercentageResult() == 100.0)
-                  #set($status = "passed")
-                #else
-                  #set($status = "failed")
-                #end
-
                 <td class="stepname">$step.getLocation()</td>
                 <td>$step.getTotalOccurrences()</td>
                 <td class="duration">$step.getTotalFormattedDuration()</td>
                 <td class="duration">$step.getAverageFormattedDuration()</td>
-                <td class="$status">$step.getPercentageResult()%</td>
+                <td class="$step.getStatus().getRawName()">$step.getPercentageResult()</td>
               </tr>
             #end
           </tbody>
