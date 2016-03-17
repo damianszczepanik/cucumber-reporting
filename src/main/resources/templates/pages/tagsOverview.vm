@@ -148,7 +148,7 @@
                 <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
                 <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
                 <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
-                <td class="duration-format">$tag.getTotalDuration()</td>
+                <td class="duration">$tag.getTotalDuration()</td>
                 <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
               </tr>
             #end

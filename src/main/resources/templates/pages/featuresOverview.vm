@@ -282,7 +282,7 @@
                 <td #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
                 <td #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
                 <td #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-                <td class="duration-format">$feature.getTotalDuration()</td>
+                <td class="duration">$feature.getTotalDuration()</td>
                 <td class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
               </tr>
             #end
@@ -304,7 +304,7 @@
               <td>$all_steps_pending</td>
               <td>$all_steps_undefined</td>
               <td>$all_steps_missing</td>
-              <td class="duration-format">$all_durations</td>
+              <td class="duration">$all_durations</td>
               <td>Totals</td>
             </tr>
           </tfoot>

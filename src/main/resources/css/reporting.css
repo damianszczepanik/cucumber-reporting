@@ -56,7 +56,7 @@ a:hover {
     margin-bottom: 5px;
     overflow: auto;
     white-space: nowrap;
-    font-family: "Courier New", Courier, monospace;
+    font-family: monospace;
 }
 
 .output_collapse {
@@ -150,12 +150,17 @@ table.stats-table tfoot {
     font-weight: bold;
 }
 
-table.stats-table td.duration-format {
+table.stats-table td.duration {
     text-align: right;
     white-space: nowrap;
 }
 
 table.stats-table td.tagname {
+    text-align: left;
+}
+
+table.stats-table td.stepname {
+    font-family: monospace;
     text-align: left;
 }
 
@@ -202,7 +207,7 @@ table.arguments-table th, table.arguments-table td {
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.35);
     border-radius: 10px;
-    font-family: "Courier New", Courier, monospace;
+    font-family: monospace;
     font-size: 95%;
 }
 

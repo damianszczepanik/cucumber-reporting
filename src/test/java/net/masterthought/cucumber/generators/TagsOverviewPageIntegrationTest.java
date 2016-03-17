@@ -90,19 +90,19 @@ public class TagsOverviewPageIntegrationTest extends Page {
         Elements firstRow = getCells(bodyRows.get(0));
         validateElements(firstRow, "@checkout", "2", "1", "1", "16", "8", "1", "3", "1", "1", "1", "006ms", "Failed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined",
-                "missing", "duration-format", "failed");
+                "missing", "duration", "failed");
         validateReportLink(firstRow, "checkout.html", "@checkout");
 
         Elements secondRow = getCells(bodyRows.get(1));
         validateElements(secondRow, "@fast", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004ms", "Passed");
-        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "",
-                "duration-format", "passed");
+        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
+                "passed");
         validateReportLink(secondRow, "fast.html", "@fast");
 
         Elements thirdRow = getCells(bodyRows.get(2));
         validateElements(thirdRow, "@featureTag", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004ms", "Passed");
-        validateCSSClasses(thirdRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "",
-                "duration-format", "passed");
+        validateCSSClasses(thirdRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
+                "passed");
         validateReportLink(thirdRow, "featureTag.html", "@featureTag");
     }
 
