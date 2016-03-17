@@ -51,16 +51,21 @@ public class StepObject {
         return totalOccurrences;
     }
 
-    /** Returns in as percentage how many steps passed (PASSED / All ). */
-    public float getPercentageResult() {
+    /** Returns in as percentage how many steps passed (PASSED / All) formatted to double decimal precision. */
+    public String getPercentageResult() {
         int total = 0;
         for (Status status : Status.values()) {
             total += this.statusCounter.getValueFor(status);
         }
         if (total == 0) {
-            return 0;
+            return Util.PERCENT_FORMATTER.format(0);
         } else {
-            return 100F * this.statusCounter.getValueFor(Status.PASSED) / total;
+            // 1F is to force floating conversion instead of loosing decimal part
+            return Util.PERCENT_FORMATTER.format(1F * this.statusCounter.getValueFor(Status.PASSED) / total);
         }
+    }
+
+    public Status getStatus() {
+        return statusCounter.getFinalStatus();
     }
 }

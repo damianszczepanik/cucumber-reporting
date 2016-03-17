@@ -1,8 +1,10 @@
 package net.masterthought.cucumber.util;
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +20,13 @@ import net.masterthought.cucumber.json.Tag;
 public final class Util {
 
     private static final Logger LOG = LogManager.getLogger(Util.class);
+
+    // provide Locale so tests can validate . (instead of ,) separator
+    public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
+    static {
+        PERCENT_FORMATTER.setMinimumFractionDigits(2);
+        PERCENT_FORMATTER.setMaximumFractionDigits(2);
+    }
 
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
             .appendDays()
