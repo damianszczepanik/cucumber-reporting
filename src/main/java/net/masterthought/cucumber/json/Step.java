@@ -64,7 +64,7 @@ public class Step implements ResultsWithMatch {
     public String getDetails() {
         String errorMessage = result == null ? null : result.getErrorMessage();
         if (status == Status.MISSING) {
-            errorMessage = "<span class=\"missing\">Result was missing for this step</span>";
+            errorMessage = "<span>Result was missing for this step</span>";
         }
 
         StringBuilder sb = new StringBuilder();

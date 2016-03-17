@@ -12,12 +12,12 @@
             formattedData = [
                 {
                     name: "Passed",
-                    color: "#00A000",
+                    color: "#00B000",
                     data: []
                 },
                 {
                     name: "Failed",
-                    color: "#FF0000",
+                    color: "#FF3030",
                     data: []
                 },
                 {
@@ -27,7 +27,7 @@
                 },
                 {
                     name: "Pending",
-                    color: "#FBB907",
+                    color: "#FFFF33",
                     data: []
                 },
                 {

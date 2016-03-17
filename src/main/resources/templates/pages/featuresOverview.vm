@@ -53,12 +53,12 @@
                     selected: true,
                     sliced: true,
                     name: 'Passed',
-                    color: "#00A000",
+                    color: "#00B000",
                     y: $all_steps_passes
                 },
                 {
                     name: 'Failed',
-                    color: "#FF0000",
+                    color: "#FF3030",
                     y: $all_steps_failed
                 },
                 {
@@ -68,7 +68,7 @@
                 },
                 {
                     name: 'Pending',
-                    color: "#FBB907",
+                    color: "#FFFF33",
                     y: $all_steps_pending
                 },
                 {
@@ -131,14 +131,14 @@
                 {
                     name: 'Passed',
                     y: $all_scenarios_passed,
-                    color: "#00A000"
+                    color: "#00B000"
                 },
                 {
                     selected: true,
                     sliced: true,
                     name: 'Failed',
                     y: $all_scenarios_failed,
-                    color: "#FF0000"
+                    color: "#FF3030"
                 }
             ]
         }]
@@ -187,14 +187,14 @@
                 {
                     name: 'Passed',
                     y: $all_features_passed,
-                    color: "#00A000"
+                    color: "#00B000"
                 },
                 {
                     selected: true,
                     sliced: true,
                     name: 'Failed',
                     y: $all_features_failed,
-                    color: "#FF0000"
+                    color: "#FF3030"
                 }
             ]
         }]

@@ -65,7 +65,7 @@ public class StepTest {
         Feature feature = features.get(0);
         Step step = feature.getElements()[0].getSteps()[0];
 
-        assertThat(step.getDetails(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"output_message\"><span class=\"missing\">Result was missing for this step</span></div></div>"));
+        assertThat(step.getDetails(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"output_message\"><span>Result was missing for this step</span></div></div>"));
     }
 
     @Test
