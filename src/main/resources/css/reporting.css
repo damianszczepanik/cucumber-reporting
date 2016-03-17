@@ -100,11 +100,11 @@ a:hover {
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
-    background-color: #C5D88A;
+    background-color: #00B000;
 }
 
 .failed {
-    background-color: #D88A8A;
+    background-color: #FF3030;
 }
 
 .skipped {
@@ -112,15 +112,15 @@ a:hover {
 }
 
 .pending {
-    background-color: #FBB907;
+    background-color: #FFFF33;
 }
 
 .undefined {
-    background-color: #FBB987;
+    background-color: #FBB957;
 }
 
 .missing {
-    background-color: #FBB9D7;
+    background-color: #FBB9A7;
 }
 
 .step-duration {
@@ -162,30 +162,6 @@ table.stats-table td.tagname {
 table.stats-table td.stepname {
     font-family: monospace;
     text-align: left;
-}
-
-table.stats-table * .passed {
-    background-color: #00A000;
-}
-
-table.stats-table * .failed {
-    background-color: #FF0000;
-}
-
-table.stats-table * .skipped {
-    background-color: #88AAFF;
-}
-
-table.stats-table * .pending {
-    background-color: #FBB907;
-}
-
-table.stats-table * .undefined {
-    background-color: #FBB957;
-}
-
-table.stats-table * .missing {
-    background-color: #FBB9A7;
 }
 
 table.arguments-table {
