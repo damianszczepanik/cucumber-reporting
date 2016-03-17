@@ -90,14 +90,14 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         Elements firstRow = getCells(bodyRows.get(0));
         validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111ms",
                 "Passed");
-        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "",
-                "duration-format", "passed");
+        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
+                "passed");
         validateReportLink(firstRow, "net-masterthought-example-s--ATM-local-feature.html", "First feature");
 
         Elements secondRow = getCells(bodyRows.get(1));
         validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002ms", "Failed");
-        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing",
-                "duration-format", "failed");
+        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration",
+                "failed");
         validateReportLink(secondRow, "net-masterthought-example-ATMK-feature.html", "2nd feature");
     }
 
