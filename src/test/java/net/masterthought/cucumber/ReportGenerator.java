@@ -15,12 +15,12 @@ import net.masterthought.cucumber.json.Feature;
  */
 public abstract class ReportGenerator {
 
-    private final static String JSON_DIRECTORY = "jsons-samples/";
+    private final static String JSON_DIRECTORY = "json/";
     private final File reportDirectory;
 
     protected Configuration configuration;
     private String projectName = "test cucumberProject";
-    private final List<String> jsonReports = new ArrayList<>();
+    protected final List<String> jsonReports = new ArrayList<>();
     protected List<Feature> features;
     protected ReportResult reportResult;
 

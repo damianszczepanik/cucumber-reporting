@@ -9,17 +9,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.generators.ErrorPage;
-import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
+import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
-import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
+import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportBuilder {
 
     private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
+
+    /**
+     * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
+     * {@link ErrorPage}.
+     */
+    public static final String HOME_PAGE = "features-overview.html";
 
     private ReportResult reportResult;
     private final ReportParser reportParser;

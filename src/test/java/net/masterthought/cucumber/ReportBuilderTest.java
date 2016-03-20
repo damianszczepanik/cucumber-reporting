@@ -83,7 +83,7 @@ public class ReportBuilderTest {
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), ReportBuilder.HOME_PAGE);
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
@@ -98,7 +98,7 @@ public class ReportBuilderTest {
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), ReportBuilder.HOME_PAGE);
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
@@ -112,7 +112,7 @@ public class ReportBuilderTest {
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         reportBuilder.generateReports();
 
-        File input = new File(configuration.getReportDirectory(), "feature-overview.html");
+        File input = new File(configuration.getReportDirectory(), ReportBuilder.HOME_PAGE);
         Document doc = Jsoup.parse(input, "UTF-8", "");
         assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));

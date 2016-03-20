@@ -83,20 +83,7 @@ public class Element {
     }
 
     public String getName() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<div class=\"").append(getStatus().getRawName()).append("\">");
-
-        if (StringUtils.isNotEmpty(keyword)) {
-            sb.append("<span class=\"element-keyword\">").append(StringEscapeUtils.escapeHtml(keyword))
-                    .append(": </span>");
-        }
-
-        if (StringUtils.isNotEmpty(name)) {
-            sb.append("<span class=\"element-name\">").append(StringEscapeUtils.escapeHtml(name)).append("</span>");
-        }
-        sb.append("</div>");
-
-        return sb.toString();
+        return StringUtils.defaultString(StringEscapeUtils.escapeHtml(name));
     }
 
     public boolean hasTags() {

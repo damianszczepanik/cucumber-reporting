@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.generators;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 
 public class FeaturesOverviewPage extends AbstractPage {
@@ -11,7 +12,7 @@ public class FeaturesOverviewPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return "features-overview.html";
+        return ReportBuilder.HOME_PAGE;
     }
 
     @Override
