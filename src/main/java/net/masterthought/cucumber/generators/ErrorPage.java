@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 
 public class ErrorPage extends AbstractPage {
@@ -21,7 +22,7 @@ public class ErrorPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return "feature-overview.html";
+        return ReportBuilder.HOME_PAGE;
     }
 
     @Override

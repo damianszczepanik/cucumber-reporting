@@ -95,8 +95,7 @@ public class ScenarioTest {
     @Test
     public void shouldReturnName() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getName(), is("<div class=\"passed\"><span class=\"element-keyword\">Background: </span><span class=\"element-name\">Activate Credit Card</span></div>"
-        ));
+        assertThat(passingElement.getName(), is("Activate Credit Card"));
     }
 
     @Test
