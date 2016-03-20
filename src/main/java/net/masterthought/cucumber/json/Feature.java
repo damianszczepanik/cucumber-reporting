@@ -59,10 +59,6 @@ public class Feature {
         return tags;
     }
 
-    public String getTagsList() {
-        return Util.tagsToHtml(tags);
-    }
-
     public Status getStatus() {
         return featureStatus;
     }
@@ -163,7 +159,7 @@ public class Feature {
 
     private void setReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
-        reportFileName = uri.replaceAll("[^\\d\\w]", "-");
+        reportFileName = Util.toValidFileName(uri);
 
         // If we expect to have parallel executions, we add postfix to file name
         if (configuration.isParallelTesting()) {

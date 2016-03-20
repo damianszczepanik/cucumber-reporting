@@ -2,8 +2,6 @@ package net.masterthought.cucumber.util;
 
 import java.io.File;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,7 +13,6 @@ import org.joda.time.format.PeriodFormatterBuilder;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
-import net.masterthought.cucumber.json.Tag;
 
 public final class Util {
 
@@ -49,17 +46,6 @@ public final class Util {
 
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
-    }
-
-    public static String tagsToHtml(Tag[] tags) {
-        List<String> tagList = new ArrayList<>();
-        for (Tag tag : tags) {
-            String link = tag.getName().replace("@", "").trim() + ".html";
-            String ref = "<a href=\"" + link + "\">" + tag.getName() + "</a>";
-            tagList.add(ref);
-        }
-        return "<div class=\"feature-tags\">" + StringUtils.join(tagList.toArray(), ", ") + "</div>";
-
     }
 
     public static void unzipToFile(File srcZipFile, String destDirectory) {
@@ -101,5 +87,17 @@ public final class Util {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Converts characters of passed string by replacing to dash (-) each character that might not be accepted as file
+     * name such as / ? or &gt;.
+     * 
+     * @param value
+     *            sequence that should be converted
+     * @return converted string
+     */
+    public static String toValidFileName(String value) {
+        return value.replaceAll("[^\\d\\w]", "-");
     }
 }

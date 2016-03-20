@@ -25,7 +25,7 @@ public class ReportBuilder {
      * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
      * {@link ErrorPage}.
      */
-    public static final String HOME_PAGE = "features-overview.html";
+    public static final String HOME_PAGE = "feature-overview.html";
 
     private ReportResult reportResult;
     private final ReportParser reportParser;

@@ -23,3 +23,4 @@ $(document).ready(function() {
 #parse("/templates/macros/lead.vm")
 #parse("/templates/macros/tableHeader.vm")
 #parse("/templates/macros/scenarios.vm")
+#parse("/templates/macros/tags.vm")

@@ -60,11 +60,6 @@ public class FeatureTest {
     }
 
     @Test
-    public void shouldListTheTagsAsHtml() {
-        assertThat(passingFeature.getTagsList(), is("<div class=\"feature-tags\"><a href=\"featureTag.html\">@featureTag</a></div>"));
-    }
-
-    @Test
     public void shouldGetStatus() {
         assertThat(passingFeature.getStatus(), is(Status.PASSED));
     }
