@@ -18,7 +18,6 @@
     <div class="col-md-10 col-md-offset-1">
       <table class="stats-table">
         #includeTableHeader("Feature", $parallel)
-    
         #set($sf = $feature.getRawName())
         <tr>
           <td class="tagname">$sf</td>
@@ -47,7 +46,7 @@
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      $feature.getTagsList()
+      #includeTags($feature.getTags())
       <div class="$feature.getStatus().getRawName()">
         <div class="feature-line">
           <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()

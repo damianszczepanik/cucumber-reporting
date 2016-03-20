@@ -94,10 +94,6 @@ public class Element {
         return steps.length > 0;
     }
 
-    public String getTagsList() {
-        return Util.tagsToHtml(tags);
-    }
-
     public Feature getFeature() {
         return feature;
     }

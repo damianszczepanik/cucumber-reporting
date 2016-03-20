@@ -124,11 +124,4 @@ public class ScenarioTest {
         setUpJsonReports(false, false, false, false);
         assertThat(taggedElement.hasTags(), is(true));
     }
-
-    @Test
-    public void shouldReturnTagsAsHtml() throws IOException {
-        setUpJsonReports(false, false, false, false);
-        assertThat(taggedElement.getTagsList(), is("<div class=\"feature-tags\"><a href=\"fast.html\">@fast</a>, <a href=\"super.html\">@super</a>, <a href=\"checkout.html\">@checkout</a></div>"));
-    }
-    
 }

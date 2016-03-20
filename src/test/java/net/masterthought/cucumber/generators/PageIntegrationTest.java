@@ -168,15 +168,15 @@ public class PageIntegrationTest extends Page {
     }
 
     private void validateFeaturesInNaviBar(Element featureLink) {
-        validateLink(featureLink, "features-overview.html", "Features");
+        validateLink(featureLink, "feature-overview.html", "Features");
     }
 
     private void validateTagsInNaviBar(Element featureLink) {
-        validateLink(featureLink, "tags-overview.html", "Tags");
+        validateLink(featureLink, "tag-overview.html", "Tags");
     }
 
     private void validateStepsInNaviBar(Element featureLink) {
-        validateLink(featureLink, "steps-overview.html", "Steps");
+        validateLink(featureLink, "step-overview.html", "Steps");
     }
 
     private ElementWrapper extractHeader(ElementWrapper navigation) {

@@ -95,7 +95,7 @@ public class Step implements ResultsWithMatch {
 
     /**
      * Returns a formatted doc-string section. This is formatted w.r.t the parent Step element. To preserve whitespace
-     * in example, line breaks and whitespace are preserved
+     * in example, line breaks and whitespace are preserved.
      *
      * @return string of html
      */
@@ -134,7 +134,7 @@ public class Step implements ResultsWithMatch {
 
     private void calculateOutputs() {
         List<String> list = new ArrayList<>();
-        for (int i=0; i< output.length; i++) {
+        for (int i = 0; i < output.length; i++) {
             JsonElement element = this.output[i];
             // check if passed output is one or two dimensions array
             if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {

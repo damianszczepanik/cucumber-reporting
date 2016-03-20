@@ -3,7 +3,7 @@
     #if($linkToFeature)
       <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
     #end
-    $scenario.getTagsList()
+    #includeTags($scenario.getTags())
     $scenario.getBeforeAttachments()
     <div class="$scenario.getStatus().getRawName()">
       <span class="element-keyword">$scenario.getKeyword():</span>

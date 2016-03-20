@@ -16,7 +16,7 @@ public class TagsOverviewPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return "tags-overview.html";
+        return "tag-overview.html";
     }
 
     @Override

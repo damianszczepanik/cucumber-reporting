@@ -23,7 +23,7 @@ public class StepsOverviewPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return "steps-overview.html";
+        return "step-overview.html";
     }
 
     @Override

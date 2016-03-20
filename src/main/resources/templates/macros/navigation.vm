@@ -11,9 +11,9 @@
           #end
           <li role="presentation"><a href="${jenkins_base}job/$build_project_name/cucumber-html-reports/$report_file">Last results</a></li>
         #end
-        <li role="presentation" #if($active_tab == "features") class="active" #end><a href="features-overview.html">Features</a></li>
-        <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="tags-overview.html">Tags</a></li>
-        <li role="presentation" #if($active_tab == "steps")    class="active" #end><a href="steps-overview.html">Steps</a></li>
+        <li role="presentation" #if($active_tab == "features") class="active" #end><a href="feature-overview.html">Features</a></li>
+        <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="tag-overview.html">Tags</a></li>
+        <li role="presentation" #if($active_tab == "steps")    class="active" #end><a href="step-overview.html">Steps</a></li>
       </ul>
     </div>
   </div>
