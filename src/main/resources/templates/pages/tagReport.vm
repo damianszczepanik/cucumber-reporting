@@ -12,31 +12,7 @@
 
 #includeLead("Tag Report")
 
-
-<div class="container-fluid" id="summary">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <table class="stats-table">
-        #includeTableHeader("Tag", false)
-        <tr>
-          <td class="tagname">$tag.getTagName()</td>
-          <td>$tag.getScenarios()</td>
-          <td>$tag.getNumberOfPassingScenarios()</td>
-          <td>$tag.getNumberOfFailingScenarios()</td>
-          <td>$tag.getNumberOfSteps()</td>
-          <td>$tag.getNumberOfPasses()</td>
-          <td #if($tag.getNumberOfFailures() > 0)  class="failed"    #end>$tag.getNumberOfFailures()</td>
-          <td #if($tag.getNumberOfSkipped() > 0)   class="skipped"   #end>$tag.getNumberOfSkipped()</td>
-          <td #if($tag.getNumberOfPending() > 0)   class="pending"   #end>$tag.getNumberOfPending()</td>
-          <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
-          <td #if($tag.getNumberOfMissing() > 0)   class="missing"   #end>$tag.getNumberOfMissing()</td>
-          <td class="duration">$tag.getTotalDuration()</td>
-          <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
+#includeReportTable("Tag", $tag, false)
 
 
 <div class="container-fluid" id="report">
@@ -46,7 +22,6 @@
     </div>
   </div>
 </div>
-
 
 #include("/templates/footer.html")                        
 

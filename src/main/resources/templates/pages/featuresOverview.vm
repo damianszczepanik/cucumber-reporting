@@ -263,7 +263,7 @@
         <p>You have no features in your cucumber report</p>
       #else
         <table id="tablesorter" class="stats-table">
-          #includeTableHeader("Feature", $parallel)
+          #includeReportHeader("Feature", $parallel)
 
           <tbody>
             #foreach($feature in $all_features)
@@ -275,14 +275,14 @@
                 <td>$feature.getScenarios()</td>
                 <td>$feature.getPassedScenarios()</td>
                 <td>$feature.getFailedScenarios()</td>
-                <td>$feature.getNumberOfSteps()</td>
-                <td>$feature.getNumberOfPasses()</td>
-                <td #if($feature.getNumberOfFailures() > 0)  class="failed" #end>$feature.getNumberOfFailures()</td>
-                <td #if($feature.getNumberOfSkipped() > 0)   class="skipped" #end>$feature.getNumberOfSkipped()</td>
-                <td #if($feature.getNumberOfPending() > 0)   class="pending" #end>$feature.getNumberOfPending()</td>
-                <td #if($feature.getNumberOfUndefined() > 0) class="undefined" #end>$feature.getNumberOfUndefined()</td>
-                <td #if($feature.getNumberOfMissing() > 0)   class="missing" #end>$feature.getNumberOfMissing()</td>
-                <td class="duration">$feature.getTotalDuration()</td>
+                <td>$feature.getSteps()</td>
+                <td>$feature.getPassedSteps()</td>
+                <td #if($feature.getFailedSteps() > 0)  class="failed" #end>$feature.getFailedSteps()</td>
+                <td #if($feature.getSkippedSteps() > 0)   class="skipped" #end>$feature.getSkippedSteps()</td>
+                <td #if($feature.getPendingSteps() > 0)   class="pending" #end>$feature.getPendingSteps()</td>
+                <td #if($feature.getUndefinedSteps() > 0) class="undefined" #end>$feature.getUndefinedSteps()</td>
+                <td #if($feature.getMissingSteps() > 0)   class="missing" #end>$feature.getMissingSteps()</td>
+                <td class="duration">$feature.getDurations()</td>
                 <td class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
               </tr>
             #end

@@ -73,13 +73,13 @@ public class TagsTest {
     @Test
     public void shouldGetTagInfoForTag1() {
         TagObject tagObject = reportResult.getAllTags().get(0);
-        assertThat(tagObject.getTagName(), is("@tag1"));
+        assertThat(tagObject.getRawName(), is("@tag1"));
     }
 
     @Test
     public void shouldGetTagInfoForTag2() {
         TagObject tagObject = reportResult.getAllTags().get(1);
-        assertThat(tagObject.getTagName(), is("@tag2"));
+        assertThat(tagObject.getRawName(), is("@tag2"));
     }
 
     @Test

@@ -35,7 +35,7 @@ public class StepObject {
         this.statusCounter.incrementFor(Status.toStatus(status));
     }
 
-    public long getTotalDuration() {
+    public long getDurations() {
         return totalDuration;
     }
 

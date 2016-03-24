@@ -12,7 +12,7 @@ public final class ChartUtil {
 
         String[] tagNames = new String[tagObjectList.size()];
         for (int i = 0; i < tagNames.length; i++) {
-            tagNames[i] = StringUtils.wrap(tagObjectList.get(i).getTagName(), "'");
+            tagNames[i] = StringUtils.wrap(tagObjectList.get(i).getRawName(), "'");
         }
 
         return "[" + StringUtils.join(tagNames, ",") + "]";
@@ -24,13 +24,13 @@ public final class ChartUtil {
         if (!tagObjectList.isEmpty()) {
             for (TagObject tag : tagObjectList) {
                 buffer.append("[");
-                buffer.append(tag.getNumberOfPasses());
+                buffer.append(tag.getPassedSteps());
                 buffer.append(",");
-                buffer.append(tag.getNumberOfFailures());
+                buffer.append(tag.getFailedSteps());
                 buffer.append(",");
-                buffer.append(tag.getNumberOfSkipped());
+                buffer.append(tag.getSkippedSteps());
                 buffer.append(",");
-                buffer.append(tag.getNumberOfPending());
+                buffer.append(tag.getPendingSteps());
                 buffer.append("]");
                 buffer.append(",");
             }

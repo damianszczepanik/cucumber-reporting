@@ -34,7 +34,7 @@ public class StepsOverviewPage extends AbstractPage {
         long allDurations = 0;
         for (StepObject stepObject : report.getAllSteps()) {
             allOccurrences += stepObject.getTotalOccurrences();
-            allDurations += stepObject.getTotalDuration();
+            allDurations += stepObject.getDurations();
         }
         velocityContext.put("all_occurrences", allOccurrences);
         velocityContext.put("all_durations", Util.formatDuration(allDurations));
@@ -55,7 +55,7 @@ public class StepsOverviewPage extends AbstractPage {
 
         @Override
         public int compare(StepObject o1, StepObject o2) {
-            return Long.signum(o2.getTotalDuration() - o1.getTotalDuration());
+            return Long.signum(o2.getDurations() - o1.getDurations());
         }
     }
 }

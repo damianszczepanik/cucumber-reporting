@@ -30,31 +30,31 @@ public class StatusesTest {
 
     @Test
     public void shouldGetNumberOfSkipped() {
-        assertThat(statusesFeature.getNumberOfSkipped(), is(1));
+        assertThat(statusesFeature.getSkippedSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfPassed() {
-        assertThat(statusesFeature.getNumberOfPasses(), is(1));
+        assertThat(statusesFeature.getPassedSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfFailed() {
-        assertThat(statusesFeature.getNumberOfFailures(), is(1));
+        assertThat(statusesFeature.getFailedSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfPending() {
-        assertThat(statusesFeature.getNumberOfPending(), is(1));
+        assertThat(statusesFeature.getPendingSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfMissing() {
-        assertThat(statusesFeature.getNumberOfMissing(), is(1));
+        assertThat(statusesFeature.getMissingSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfUndefined() {
-        assertThat(statusesFeature.getNumberOfUndefined(), is(1));
+        assertThat(statusesFeature.getUndefinedSteps(), is(1));
     }
 }

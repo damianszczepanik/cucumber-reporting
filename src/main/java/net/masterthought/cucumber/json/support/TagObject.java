@@ -3,11 +3,13 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
 
-public class TagObject {
+public class TagObject implements Reportable {
 
     private final String tagName;
     private final List<Element> elements = new ArrayList<>();
@@ -29,7 +31,8 @@ public class TagObject {
         this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
     }
 
-    public String getTagName() {
+    @Override
+    public String getRawName() {
         return tagName;
     }
 
@@ -68,23 +71,28 @@ public class TagObject {
         return true;
     }
 
+    @Override
     public int getScenarios() {
         return scenarioCounter;
     }
 
-    public Integer getNumberOfPassingScenarios() {
+    @Override
+    public int getPassedScenarios() {
         return elementsStatusCounter.getValueFor(Status.PASSED);
     }
 
-    public Integer getNumberOfFailingScenarios() {
+    @Override
+    public int getFailedScenarios() {
         return elementsStatusCounter.getValueFor(Status.FAILED);
     }
 
-    public String getTotalDuration() {
+    @Override
+    public String getDurations() {
         return Util.formatDuration(totalDuration);
     }
 
-    public int getNumberOfSteps() {
+    @Override
+    public int getSteps() {
         return totalSteps;
     }
 
@@ -92,33 +100,33 @@ public class TagObject {
         return stepsStatusCounter.getValueFor(status);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfPasses() {
+    @Override
+    public int getPassedSteps() {
         return getNumberOfStatus(Status.PASSED);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfFailures() {
+    @Override
+    public int getFailedSteps() {
         return getNumberOfStatus(Status.FAILED);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfSkipped() {
+    @Override
+    public int getSkippedSteps() {
         return getNumberOfStatus(Status.SKIPPED);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfUndefined() {
+    @Override
+    public int getUndefinedSteps() {
         return getNumberOfStatus(Status.UNDEFINED);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfMissing() {
+    @Override
+    public int getMissingSteps() {
         return getNumberOfStatus(Status.MISSING);
     }
 
-    /** No-parameters method required for velocity template. */
-    public int getNumberOfPending() {
+    @Override
+    public int getPendingSteps() {
         return getNumberOfStatus(Status.UNDEFINED);
     }
 
@@ -128,5 +136,10 @@ public class TagObject {
 
     public String getRawStatus() {
         return status.name().toLowerCase();
+    }
+
+    @Override
+    public String getDeviceName() {
+        throw new NotImplementedException();
     }
 }

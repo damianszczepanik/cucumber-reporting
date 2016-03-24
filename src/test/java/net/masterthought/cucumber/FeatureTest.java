@@ -81,7 +81,7 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnEmptyRawName() {
-        assertThat(failingFeature.getRawName(), is(""));
+        assertThat(failingFeature.getRawName(), is("unknown"));
     }
 
     @Test
@@ -91,41 +91,41 @@ public class FeatureTest {
 
     @Test
     public void shouldGetNumberOfSteps() {
-        assertThat(passingFeature.getNumberOfSteps(), is(40));
+        assertThat(passingFeature.getSteps(), is(40));
     }
 
     @Test
     public void shouldGetNumberOfPassingSteps() {
-        assertThat(passingFeature.getNumberOfPasses(), is(40));
-        assertThat(failingFeature.getNumberOfPasses(), is(5));
+        assertThat(passingFeature.getPassedSteps(), is(40));
+        assertThat(failingFeature.getPassedSteps(), is(5));
 
     }
 
     @Test
     public void shouldGetNumberOfFailingSteps() {
-        assertThat(passingFeature.getNumberOfFailures(), is(0));
-        assertThat(failingFeature.getNumberOfFailures(), is(1));
+        assertThat(passingFeature.getFailedSteps(), is(0));
+        assertThat(failingFeature.getFailedSteps(), is(1));
     }
 
     @Test
     public void shouldGetNumberOfSkippedSteps() {
-        assertThat(passingFeature.getNumberOfSkipped(), is(0));
-        assertThat(failingFeature.getNumberOfSkipped(), is(3));
+        assertThat(passingFeature.getSkippedSteps(), is(0));
+        assertThat(failingFeature.getSkippedSteps(), is(3));
     }
 
     @Test
     public void shouldGetNumberOfPendingSteps() {
-        assertThat(passingFeature.getNumberOfPending(), is(0));
+        assertThat(passingFeature.getPendingSteps(), is(0));
     }
 
     @Test
     public void shouldGetNumberOfMissingSteps() {
-        assertThat(passingFeature.getNumberOfMissing(), is(0));
+        assertThat(passingFeature.getMissingSteps(), is(0));
     }
 
     @Test
-    public void shouldgetTotalDuration() {
-        assertThat(passingFeature.getTotalDuration(), StringContains.containsString("ms"));
+    public void shouldgetDurations() {
+        assertThat(passingFeature.getDurations(), StringContains.containsString("ms"));
     }
 
     @Test
