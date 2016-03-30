@@ -100,27 +100,27 @@ a:hover {
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
-    background-color: #00B000;
+    background-color: #92DD96;
 }
 
 .failed {
-    background-color: #FF3030;
+    background-color: #F2928C;
 }
 
 .skipped {
-    background-color: #88AAFF;
+    background-color: #8AF;
 }
 
 .pending {
-    background-color: #FFFF33;
+    background-color: #F5F28F;
 }
 
 .undefined {
-    background-color: #FBB957;
+    background-color: #F5B975;
 }
 
 .missing {
-    background-color: #FBB9A7;
+    background-color: #FAB3E9;
 }
 
 .step-duration {
