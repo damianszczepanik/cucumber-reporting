@@ -50,10 +50,12 @@ public class ReportBuilder {
 
     public void generateReports() {
         try {
+            // first copy static resources so ErrorPage is displayed properly
+            copyStaticResources();
+
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportResult = new ReportResult(features);
 
-            copyStaticResources();
             generateAllPages();
 
             // whatever happens we want to provide at least error page instead of empty report

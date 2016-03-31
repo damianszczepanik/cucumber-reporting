@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-fixed-top" id="navigation">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
-      <p class="navbar-text navbar-left">Cucumber-jvm Report</p>
+      <p class="navbar-text navbar-left">Cucumber-JVM Report</p>
       <ul class="nav navbar-nav navbar-right">
         #if($jenkins_source)
           <li role="presentation"><a href="${jenkins_base}job/$build_project_name/$build_number">Jenkins</a></li>
