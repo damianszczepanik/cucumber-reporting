@@ -147,7 +147,7 @@ public class PageIntegrationTest extends Page {
 
     private void validatePluginName(ElementWrapper navigation) {
         String pluginName = navigation.bySelector("p").text();
-        assertThat(pluginName).isEqualTo("Cucumber-jvm Report");
+        assertThat(pluginName).isEqualTo("Cucumber-JVM Report");
     }
 
     private void validateJenkinsInNaviBar(Element featureLink) {
