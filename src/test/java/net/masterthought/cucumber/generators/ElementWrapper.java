@@ -25,13 +25,13 @@ public class ElementWrapper {
     public ElementWrapper byClass(String cssClass) {
         Elements inner = element.getElementsByClass(cssClass);
         if (inner == null) {
-            throw new IllegalArgumentException("Could not get element by class:" + cssClass);
+            throw new IllegalArgumentException("Could not get element by class: " + cssClass);
         }
         if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with class:" + cssClass);
+            throw new IllegalArgumentException("Could not find element with class: " + cssClass);
         }
         if (!inner.first().equals(inner.last())) {
-            throw new IllegalArgumentException("Found more than one element with class:" + cssClass);
+            throw new IllegalArgumentException("Found more than one element with class: " + cssClass);
         }
 
         return new ElementWrapper(inner.first());
@@ -40,13 +40,13 @@ public class ElementWrapper {
     public ElementWrapper bySelector(String selector) {
         Elements inner = element.getElementsByTag(selector);
         if (inner == null) {
-            throw new IllegalArgumentException("Could not get element with selector:" + selector);
+            throw new IllegalArgumentException("Could not get element with selector: " + selector);
         }
         if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with selector:" + selector);
+            throw new IllegalArgumentException("Could not find element with selector: " + selector);
         }
         if (!inner.first().equals(inner.last())) {
-            throw new IllegalArgumentException("Found more than one element with selector:" + selector);
+            throw new IllegalArgumentException("Found more than one element with selector: " + selector);
         }
 
         return new ElementWrapper(inner.first());
@@ -55,10 +55,10 @@ public class ElementWrapper {
     public Elements bySelectors(String selector) {
         Elements inner = element.select(selector);
         if (inner == null) {
-            throw new IllegalArgumentException("Could not get element with selector:" + selector);
+            throw new IllegalArgumentException("Could not get element with selector: " + selector);
         }
         if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with selector:" + selector);
+            throw new IllegalArgumentException("Could not find element with selector: " + selector);
         }
 
         return inner;

@@ -8,11 +8,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.json.support.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-public class Feature {
+public class Feature implements Reportable {
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -25,6 +26,8 @@ public class Feature {
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
+    private static final String UNKNOWN_NAME = "unknown";
+
     private String jsonFile;
     private String reportFileName;
     private String deviceName;
@@ -35,6 +38,7 @@ public class Feature {
     private long totalDuration;
     private int totalSteps;
 
+    @Override
     public String getDeviceName() {
         return deviceName;
     }
@@ -71,8 +75,9 @@ public class Feature {
         return StringUtils.defaultString(keyword);
     }
 
+    @Override
     public String getRawName() {
-        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : StringUtils.EMPTY;
+        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : UNKNOWN_NAME;
     }
 
     public String getRawStatus() {
@@ -83,46 +88,57 @@ public class Feature {
         return StringUtils.defaultString(description);
     }
 
+    @Override
     public int getScenarios() {
         return scenarios.size();
     }
 
-    public int getNumberOfSteps() {
+    @Override
+    public int getSteps() {
         return totalSteps;
     }
 
-    public int getNumberOfPasses() {
+    @Override
+    public int getPassedSteps() {
         return statusCounter.getValueFor(Status.PASSED);
     }
 
-    public int getNumberOfFailures() {
+    @Override
+    public int getFailedSteps() {
         return statusCounter.getValueFor(Status.FAILED);
     }
 
-    public int getNumberOfPending() {
+    @Override
+    public int getPendingSteps() {
         return statusCounter.getValueFor(Status.PENDING);
     }
 
-    public int getNumberOfSkipped() {
+    @Override
+    public int getSkippedSteps() {
         return statusCounter.getValueFor(Status.SKIPPED);
     }
 
-    public int getNumberOfMissing() {
+    @Override
+    public int getMissingSteps() {
         return statusCounter.getValueFor(Status.MISSING);
     }
 
-    public int getNumberOfUndefined() {
+    @Override
+    public int getUndefinedSteps() {
         return statusCounter.getValueFor(Status.UNDEFINED);
     }
 
-    public String getTotalDuration() {
+    @Override
+    public String getDurations() {
         return Util.formatDuration(totalDuration);
     }
 
+    @Override
     public int getPassedScenarios() {
         return scenarioCounter.getValueFor(Status.PASSED);
     }
 
+    @Override
     public int getFailedScenarios() {
         return scenarioCounter.getValueFor(Status.FAILED);
     }

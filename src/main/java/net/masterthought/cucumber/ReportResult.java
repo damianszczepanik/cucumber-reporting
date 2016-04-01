@@ -252,7 +252,7 @@ public class ReportResult {
         TagObject tagObject = allTags.get(name);
         if (tagObject == null) {
             tagObject = new TagObject(name);
-            allTags.put(tagObject.getTagName(), tagObject);
+            allTags.put(tagObject.getRawName(), tagObject);
         }
         return tagObject;
     }

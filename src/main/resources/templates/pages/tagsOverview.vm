@@ -132,28 +132,28 @@
         <p>You have no tags in your cucumber report</p>
       #else
         <table id="tablesorter" class="stats-table">
-          #includeTableHeader( "Tag" false )
+          #includeReportHeader("Tag", false)
 
           <tbody>
             #foreach($tag in $all_tags)
               <tr>
-                <td class="tagname"><a href="$tag.getReportFileName()">$tag.getTagName()</a></td>
+                <td class="tagname"><a href="$tag.getReportFileName()">$tag.getRawName()</a></td>
                 <td>$tag.getScenarios()</td>
-                <td>$tag.getNumberOfPassingScenarios()</td>
-                <td>$tag.getNumberOfFailingScenarios()</td>
-                <td>$tag.getNumberOfSteps()</td>
-                <td>$tag.getNumberOfPasses()</td>
-                <td #if($tag.getNumberOfFailures() > 0)  class="failed" #end>$tag.getNumberOfFailures()</td>
-                <td #if($tag.getNumberOfSkipped() > 0)   class="skipped" #end>$tag.getNumberOfSkipped()</td>
-                <td #if($tag.getNumberOfPending() > 0)   class="pending" #end>$tag.getNumberOfPending()</td>
-                <td #if($tag.getNumberOfUndefined() > 0) class="undefined" #end>$tag.getNumberOfUndefined()</td>
-                <td #if($tag.getNumberOfMissing() > 0)   class="missing" #end>$tag.getNumberOfMissing()</td>
-                <td class="duration">$tag.getTotalDuration()</td>
+                <td>$tag.getPassedScenarios()</td>
+                <td>$tag.getFailedScenarios()</td>
+                <td>$tag.getSteps()</td>
+                <td>$tag.getPassedSteps()</td>
+                <td #if($tag.getFailedSteps() > 0)  class="failed" #end>$tag.getFailedSteps()</td>
+                <td #if($tag.getSkippedSteps() > 0)   class="skipped" #end>$tag.getSkippedSteps()</td>
+                <td #if($tag.getPendingSteps() > 0)   class="pending" #end>$tag.getPendingSteps()</td>
+                <td #if($tag.getUndefinedSteps() > 0) class="undefined" #end>$tag.getUndefinedSteps()</td>
+                <td #if($tag.getMissingSteps() > 0)   class="missing" #end>$tag.getMissingSteps()</td>
+                <td class="duration">$tag.getDurations()</td>
                 <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
               </tr>
             #end
           </tbody>
-      
+
           <tfoot>
             <tr>
               <td>$all_tags.size()</td>
@@ -167,7 +167,7 @@
               <td>$all_tags_pending</td>
               <td>$all_tags_undefined</td>
               <td>$all_tags_missing</td>
-              <td class="duration-format">$all_durations</td>
+              <td class="duration">$all_durations</td>
               <td>Totals</td>
             </tr>
           </tfoot>
@@ -176,7 +176,6 @@
     </div>
   </div>
 </div>
-
 
 #include("/templates/footer.html")                        
 
