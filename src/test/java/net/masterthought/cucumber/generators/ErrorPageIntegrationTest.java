@@ -10,6 +10,25 @@ import org.junit.Test;
 public class ErrorPageIntegrationTest extends Page {
 
     private final Exception cause = new IllegalArgumentException("Help me!");
+
+    @Test
+    public void generatePage_generatesTitle() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        page = new ErrorPage(reportResult, configuration, cause, jsonReports);
+        final String titleValue = String.format("Cucumber-JVM Html Reports  - Error Page");
+
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+        String title = getTitle(document).text();
+
+        assertThat(title).isEqualTo(titleValue);
+    }
+
     @Test
     public void generatePage_generatesLead() {
 

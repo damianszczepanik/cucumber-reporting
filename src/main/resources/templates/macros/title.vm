@@ -2,7 +2,7 @@
 
 #set($buildNo = "")
 #if($jenkins_source)
-  #set($buildNo = "(no $build_number) ")
+  #set($buildNo = "(no $build_number)")
 #end
 <title>Cucumber-JVM Html Reports $buildNo - $reportName</title>
 
