@@ -1,4 +1,6 @@
-package net.masterthought.cucumber.json.support;
+package net.masterthought.cucumber.reports;
+
+import net.masterthought.cucumber.json.support.Status;
 
 /**
  * Defines methods required to generate single report. Implementations of this interface are used by Velocity template.
@@ -46,4 +48,6 @@ public interface Reportable {
     /** Returns formatted duration for this element. */
     String getDurations();
 
+    /** Returns status for this element. */
+    Status getStatus();
 }

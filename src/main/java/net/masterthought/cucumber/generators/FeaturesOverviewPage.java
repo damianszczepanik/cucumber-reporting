@@ -18,20 +18,10 @@ public class FeaturesOverviewPage extends AbstractPage {
     @Override
     public void prepareReport() {
         velocityContext.put("all_features", report.getAllFeatures());
-        velocityContext.put("all_steps", report.getStepsCounter());
-        velocityContext.put("all_steps_passes", report.getAllPassedSteps());
-        velocityContext.put("all_steps_failed", report.getAllFailedSteps());
-        velocityContext.put("all_steps_skipped", report.getAllSkippedSteps());
-        velocityContext.put("all_steps_pending", report.getPendingStepsl());
-        velocityContext.put("all_steps_undefined", report.getUndefinedSteps());
-        velocityContext.put("all_steps_missing", report.getTotalStepsMissing());
-        velocityContext.put("all_scenarios", report.getAllScenarios());
-        velocityContext.put("all_scenarios_passed", report.getAllPassedScenarios());
-        velocityContext.put("all_scenarios_failed", report.getAllFailedScenarios());
+        velocityContext.put("report_summary", report.getFeatureReport());
         velocityContext.put("all_features_passed", report.getAllPassedFeatures());
         velocityContext.put("all_features_failed", report.getAllFailedFeatures());
 
-        velocityContext.put("all_durations", report.getAllDurationsAsString());
         velocityContext.put("parallel", configuration.isParallelTesting());
     }
 }

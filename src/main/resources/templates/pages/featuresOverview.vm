@@ -54,32 +54,32 @@
                     sliced: true,
                     name: 'Passed',
                     color: "#00B000",
-                    y: $all_steps_passes
+                    y: $report_summary.getPassedSteps()
                 },
                 {
                     name: 'Failed',
                     color: "#FF3030",
-                    y: $all_steps_failed
+                    y: $report_summary.getFailedSteps()
                 },
                 {
                     name: 'Skipped',
                     color: "#88AAFF",
-                    y: $all_steps_skipped
-                },
-                {
-                    name: 'Pending',
-                    color: "#FFFF33",
-                    y: $all_steps_pending
+                    y: $report_summary.getSkippedSteps()
                 },
                 {
                     name: 'Undefined',
                     color: "#FBB957",
-                    y: $all_steps_undefined
+                    y: $report_summary.getUndefinedSteps()
                 },
                 {
                     name: 'Missing',
                     color: "#FBB9A7",
-                    y: $all_steps_missing
+                    y: $report_summary.getMissingSteps()
+                },
+                {
+                    name: 'Pending',
+                    color: "#FFFF33",
+                    y: $report_summary.getPendingSteps()
                 }
             ]
         }]
@@ -130,14 +130,14 @@
             data: [
                 {
                     name: 'Passed',
-                    y: $all_scenarios_passed,
+                    y: $report_summary.getPassedScenarios(),
                     color: "#00B000"
                 },
                 {
                     selected: true,
                     sliced: true,
                     name: 'Failed',
-                    y: $all_scenarios_failed,
+                    y: $report_summary.getFailedScenarios(),
                     color: "#FF3030"
                 }
             ]
@@ -262,53 +262,7 @@
       #if($all_features.isEmpty())
         <p>You have no features in your cucumber report</p>
       #else
-        <table id="tablesorter" class="stats-table">
-          #includeReportHeader("Feature", $parallel)
-
-          <tbody>
-            #foreach($feature in $all_features)
-              <tr>
-                <td class="tagname"><a href="$feature.getReportFileName()">$feature.getRawName()</a></td>
-                #if($parallel)
-                  <td>$feature.getDeviceName()</td>
-                #end
-                <td>$feature.getScenarios()</td>
-                <td>$feature.getPassedScenarios()</td>
-                <td>$feature.getFailedScenarios()</td>
-                <td>$feature.getSteps()</td>
-                <td>$feature.getPassedSteps()</td>
-                <td #if($feature.getFailedSteps() > 0)  class="failed" #end>$feature.getFailedSteps()</td>
-                <td #if($feature.getSkippedSteps() > 0)   class="skipped" #end>$feature.getSkippedSteps()</td>
-                <td #if($feature.getPendingSteps() > 0)   class="pending" #end>$feature.getPendingSteps()</td>
-                <td #if($feature.getUndefinedSteps() > 0) class="undefined" #end>$feature.getUndefinedSteps()</td>
-                <td #if($feature.getMissingSteps() > 0)   class="missing" #end>$feature.getMissingSteps()</td>
-                <td class="duration">$feature.getDurations()</td>
-                <td class="$feature.getStatus().getRawName()">$feature.getStatus().getLabel()</td>
-              </tr>
-            #end
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td>$all_features.size()</td>
-              #if($parallel)
-                <td>-</td>
-              #end
-              <td>$all_scenarios</td>
-              <td>$all_scenarios_passed</td>
-              <td>$all_scenarios_failed</td>
-              <td>$all_steps.size()</td>
-              <td>$all_steps_passes</td>
-              <td>$all_steps_failed</td>
-              <td>$all_steps_skipped</td>
-              <td>$all_steps_pending</td>
-              <td>$all_steps_undefined</td>
-              <td>$all_steps_missing</td>
-              <td class="duration">$all_durations</td>
-              <td>Totals</td>
-            </tr>
-          </tfoot>
-        </table>
+        #includeStatsTable("Feature", $parallel, $all_features, $report_summary)
       #end
     </div>
   </div>

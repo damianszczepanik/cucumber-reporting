@@ -2,7 +2,7 @@
 <html>
 <head>
   #parse("/templates/headers.vm")
-  #includeTitle("Tag: $tag.getTagName()")
+  #includeTitle("Tag: $tag.getRawName()")
 </head>
 <body>
 

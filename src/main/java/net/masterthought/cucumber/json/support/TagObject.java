@@ -7,6 +7,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject implements Reportable {
@@ -130,6 +131,7 @@ public class TagObject implements Reportable {
         return getNumberOfStatus(Status.UNDEFINED);
     }
 
+    @Override
     public Status getStatus() {
         return status;
     }

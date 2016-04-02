@@ -47,47 +47,42 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalNumberOfScenarios() {
-        assertThat(reportResult.getAllScenarios(), is(10));
+        assertThat(reportResult.getFeatureReport().getScenarios(), is(10));
     }
 
     @Test
     public void shouldReturnTotalNumberOfSteps() {
-        assertThat(reportResult.getStepsCounter().size(), is(98));
+        assertThat(reportResult.getFeatureReport().getSteps(), is(98));
     }
 
     @Test
     public void shouldReturnTotalNumberPassingSteps() {
-        assertThat(reportResult.getAllPassedSteps(), is(90));
+        assertThat(reportResult.getFeatureReport().getPassedSteps(), is(90));
     }
 
     @Test
     public void shouldReturnTotalNumberFailingSteps() {
-        assertThat(reportResult.getAllFailedSteps(), is(2));
+        assertThat(reportResult.getFeatureReport().getFailedSteps(), is(2));
     }
 
     @Test
     public void shouldReturnTotalNumberSkippedSteps() {
-        assertThat(reportResult.getAllSkippedSteps(), is(6));
+        assertThat(reportResult.getFeatureReport().getSkippedSteps(), is(6));
     }
 
     @Test
     public void shouldReturnTotalNumberPendingSteps() {
-        assertThat(reportResult.getPendingStepsl(), is(0));
+        assertThat(reportResult.getFeatureReport().getPendingSteps(), is(0));
     }
 
     @Test
     public void shouldReturnTotalNumberMissingSteps() {
-        assertThat(reportResult.getTotalStepsMissing(), is(0));
-    }
-
-    @Test
-    public void shouldReturnTotalDuration() {
-        assertThat(reportResult.getAllDurations(), is(236050000L));
+        assertThat(reportResult.getFeatureReport().getMissingSteps(), is(0));
     }
 
     @Test
     public void shouldReturnTotalDurationAsString() {
-        assertThat(reportResult.getAllDurationsAsString(), is("236ms"));
+        assertThat(reportResult.getFeatureReport().getDurations(), is("236ms"));
     }
 
     @Test
@@ -112,51 +107,51 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalTagScenarios() {
-        assertThat(reportResult.getAllTagScenarios(), is(21));
+        assertThat(reportResult.getTagReport().getScenarios(), is(21));
     }
 
     @Test
     public void shouldReturnTotalPassingTagScenarios() {
-        assertThat(reportResult.getAllPassedTagScenarios(), is(21));
+        assertThat(reportResult.getTagReport().getPassedScenarios(), is(21));
     }
 
     @Test
     public void shouldReturnTotalFailingTagScenarios() {
-        assertThat(reportResult.getAllFailedTagScenarios(), is(0));
+        assertThat(reportResult.getTagReport().getFailedScenarios(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSteps() {
-        assertThat(reportResult.getAllTagSteps(), is(147));
+        assertThat(reportResult.getTagReport().getSteps(), is(147));
     }
 
     @Test
     public void shouldReturnTotalTagPasses() {
-        assertThat(reportResult.getAllPassesTags(), is(147));
+        assertThat(reportResult.getTagReport().getPassedSteps(), is(147));
     }
 
     @Test
     public void shouldReturnTotalTagFails() {
-        assertThat(reportResult.getAllFailsTags(), is(0));
+        assertThat(reportResult.getTagReport().getFailedSteps(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagSkipped() {
-        assertThat(reportResult.getAllSkippedTags(), is(0));
+        assertThat(reportResult.getTagReport().getSkippedSteps(), is(0));
     }
 
     @Test
     public void shouldReturnTotalTagPending() {
-        assertThat(reportResult.getAllPendingTags(), is(0));
+        assertThat(reportResult.getTagReport().getPendingSteps(), is(0));
     }
 
     @Test
     public void shouldReturnTotalScenariosPassed() {
-        assertThat(reportResult.getAllPassedScenarios(), is(8));
+        assertThat(reportResult.getFeatureReport().getPassedScenarios(), is(8));
     }
 
     @Test
     public void shouldReturnTotalScenariosFailed() {
-        assertThat(reportResult.getAllFailedScenarios(), is(2));
+        assertThat(reportResult.getFeatureReport().getFailedScenarios(), is(2));
     }
 }

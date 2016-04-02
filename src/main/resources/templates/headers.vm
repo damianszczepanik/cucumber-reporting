@@ -21,6 +21,7 @@ $(document).ready(function() {
 #parse("/templates/macros/navigation.vm")
 #parse("/templates/macros/header.vm")
 #parse("/templates/macros/lead.vm")
+#parse("/templates/macros/statsTable.vm")
 #parse("/templates/macros/reportTable.vm")
 #parse("/templates/macros/reportHeader.vm")
 #parse("/templates/macros/scenarios.vm")
