@@ -13,6 +13,10 @@ public class FeatureReportPage extends AbstractPage {
         this.feature = feature;
     }
 
+    public Feature getFeature() {
+        return feature;
+    }
+
     @Override
     public String getWebPage() {
         return feature.getReportFileName();

@@ -1,34 +1,41 @@
-#macro(printScenario, $elements, $linkToFeature)
-  #foreach($scenario in $elements)
-    #if($linkToFeature)
-      <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
-    #end
-    #includeTags($scenario.getTags())
-    $scenario.getBeforeAttachments()
-    <div class="$scenario.getStatus().getRawName()">
-      <span class="element-keyword">$scenario.getKeyword():</span>
-      <span class="element-name">$scenario.getName()</span>
-    </div>
-    <div class="description">$scenario.getDescription()</div>
+#macro(includeScenario, $elements, $linkToFeature)
 
-    #foreach($step in $scenario.getSteps())
-      $step.getDetails()
-      $step.getDocString()
-      #if($step.hasRows())
-        <table class="arguments-table">
-          #foreach($row in $step.getRows())
-            <tr>
-              #foreach($cell in $row.getCells())
-                <td>$cell</td>
-              #end
-            </tr>
-          #end
-        </table>
+  #foreach($scenario in $elements)
+    <div class="element">
+      #if($linkToFeature)
+        <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
       #end
-      <div>$step.getOutput()</div>
-      <div>$step.getAttachments()</div>
-    #end
-    $scenario.getAfterAttachments()
-    <br>
+      #includeTags($scenario.getTags())
+      $scenario.getBeforeAttachments()
+      <div class="keyword-element">
+        #includeKeyword($scenario.getKeyword(), $scenario.getStatus(), $scenario.getName())
+      </div>
+      <div class="description">$scenario.getDescription()</div>
+
+      <div class="steps">
+        #foreach($step in $scenario.getSteps())
+          <div class="step-details">
+            $step.getDetails()
+            $step.getDocString()
+          </div>
+
+          #if($step.hasRows())
+            <table class="arguments-table">
+              #foreach($row in $step.getRows())
+                <tr>
+                  #foreach($cell in $row.getCells())
+                    <td>$cell</td>
+                  #end
+                </tr>
+              #end
+            </table>
+          #end
+          <div>$step.getOutput()</div>
+          <div>$step.getAttachments()</div>
+        #end
+      </div>
+      $scenario.getAfterAttachments()
+    </div>
   #end
+
 #end

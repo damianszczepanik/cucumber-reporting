@@ -18,7 +18,7 @@ import net.masterthought.cucumber.ValidationException;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class Page extends ReportGenerator {
+public abstract class Page extends ReportGenerator {
 
     protected static final String SAMPLE_JOSN = "sample.json";
     protected static final String EMPTY_JOSN = "empty.json";
@@ -44,58 +44,97 @@ public class Page extends ReportGenerator {
         }
     }
 
+
+    // ================= <TITLE>
     protected ElementWrapper getTitle(ElementWrapper document) {
-        return document.bySelector("head").bySelector("title");
+        return document.oneBySelector("head").oneBySelector("title");
     }
 
+    // ================= id=lead
     protected ElementWrapper getLeadHeader(ElementWrapper document) {
-        return getLead(document).bySelector("h2");
+        return getLead(document).oneBySelector("h2");
     }
 
     protected ElementWrapper getLeadDescription(ElementWrapper document) {
-        return getLead(document).bySelector("p");
+        return getLead(document).oneBySelector("p");
     }
 
     private ElementWrapper getLead(ElementWrapper document) {
         return document.byId("lead");
     }
 
-    protected ElementWrapper getHeaderStatsTable(ElementWrapper document) {
-        return getTableStats(document).bySelector("thead");
+
+    // ================= class=stats-table
+    protected ElementWrapper getHeaderOfStatsTable(ElementWrapper document) {
+        return getTableStats(document).oneBySelector("thead");
     }
 
-    protected Elements getBodyStatsTable(ElementWrapper document) {
-        return getTableStats(document).bySelectors("tbody tr");
+    protected Elements getBodyOfStatsTable(ElementWrapper document) {
+        return getTableStats(document).allBySelector("tbody tr");
     }
 
-    protected Elements getFooterCellsInStatsTable(ElementWrapper document) {
-        return getTableStats(document).bySelectors("tfoot tr td");
-    }
-
-    private ElementWrapper getTableStats(ElementWrapper document) {
-        return getStatistics(document).byClass("stats-table");
+    protected Elements getFooterCellsOfStatsTable(ElementWrapper document) {
+        return getTableStats(document).allBySelector("tfoot tr td");
     }
 
     protected Elements getEmptyReportMessage(ElementWrapper document) {
-        return getStatistics(document).bySelectors("div div p");
+        return getSummary(document).allBySelector("div p");
     }
 
-    protected ElementWrapper getStatistics(ElementWrapper document) {
-        return document.byId("statistics");
+    protected ElementWrapper getTableStats(ElementWrapper document) {
+        return getSummary(document).oneByClass("stats-table");
     }
 
+    private ElementWrapper getSummary(ElementWrapper document) {
+        return document.byId("summary");
+    }
+
+
+    // ================= id=report
+
+    protected ElementWrapper getReport(ElementWrapper document) {
+        return document.byId("report");
+    }
+
+    protected Elements getFeatureTags(ElementWrapper report) {
+        return report.oneByClass("tags").getElement().children();
+    }
+
+    protected ElementWrapper getFeatureDescription(ElementWrapper report) {
+        return getFeatureDetails(report).oneByClass("description");
+    }
+
+    protected ElementWrapper getFeatureDetails(ElementWrapper element) {
+        return element.oneByClass("feature-details");
+    }
+
+    protected Elements getScenarios(ElementWrapper document) {
+        return getReport(document).allByClass("element");
+    }
+
+    protected Element getFeatureKeyword(ElementWrapper document) {
+        return getReport(document).oneByClass("keyword-feature").getElement();
+    }
+
+    protected Element getElementKeyword(ElementWrapper element) {
+        return element.oneByClass("keyword-element").getElement();
+    }
+
+    // ================= <TABLE>
     protected Elements getRows(ElementWrapper statsTable) {
-        return statsTable.bySelectors("tr");
+        return statsTable.allBySelector("tr");
     }
 
     protected Elements getHeaderCells(Element row) {
-        return new ElementWrapper(row).bySelectors("th");
+        return new ElementWrapper(row).allBySelector("th");
     }
 
     protected Elements getCells(Element row) {
-        return new ElementWrapper(row).bySelectors("td");
+        return new ElementWrapper(row).allBySelector("td");
     }
 
+
+    // ================= others
     protected void validateElements(Elements array, String... values) {
         if (array.size() != values.length) {
             throw new IllegalArgumentException(
@@ -130,11 +169,17 @@ public class Page extends ReportGenerator {
     }
 
     protected void validateReportLink(Elements row, String href, String name) {
-        validateLink(new ElementWrapper(row.get(0)).bySelector("a").getElement(), href, name);
+        validateLink(new ElementWrapper(row.get(0)).oneBySelector("a").getElement(), href, name);
     }
 
     protected void validateLink(Element link, String href, String name) {
         assertThat(link.text()).isEqualTo(name);
         assertThat(link.attr("href")).isEqualTo(href);
+    }
+
+    protected void validateElementKeyword(ElementWrapper htmlElement,
+            net.masterthought.cucumber.json.Element jsonElement) {
+        String firstKeyword = getElementKeyword(htmlElement).text();
+        assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + ": " + jsonElement.getName());
     }
 }

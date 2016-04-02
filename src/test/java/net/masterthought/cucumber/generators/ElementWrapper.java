@@ -22,14 +22,10 @@ public class ElementWrapper {
         return new ElementWrapper(inner);
     }
 
-    public ElementWrapper byClass(String cssClass) {
+    public ElementWrapper oneByClass(String cssClass) {
         Elements inner = element.getElementsByClass(cssClass);
-        if (inner == null) {
-            throw new IllegalArgumentException("Could not get element by class: " + cssClass);
-        }
-        if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with class: " + cssClass);
-        }
+
+        assertNotEmpty(inner, cssClass);
         if (!inner.first().equals(inner.last())) {
             throw new IllegalArgumentException("Found more than one element with class: " + cssClass);
         }
@@ -37,14 +33,18 @@ public class ElementWrapper {
         return new ElementWrapper(inner.first());
     }
 
-    public ElementWrapper bySelector(String selector) {
+    public Elements allByClass(String cssClass) {
+        Elements inner = element.getElementsByClass(cssClass);
+
+        assertNotEmpty(inner, cssClass);
+
+        return inner;
+    }
+
+    public ElementWrapper oneBySelector(String selector) {
         Elements inner = element.getElementsByTag(selector);
-        if (inner == null) {
-            throw new IllegalArgumentException("Could not get element with selector: " + selector);
-        }
-        if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with selector: " + selector);
-        }
+
+        assertNotEmpty(inner, selector);
         if (!inner.first().equals(inner.last())) {
             throw new IllegalArgumentException("Found more than one element with selector: " + selector);
         }
@@ -52,16 +52,17 @@ public class ElementWrapper {
         return new ElementWrapper(inner.first());
     }
 
-    public Elements bySelectors(String selector) {
+    public Elements allBySelector(String selector) {
         Elements inner = element.select(selector);
-        if (inner == null) {
-            throw new IllegalArgumentException("Could not get element with selector: " + selector);
-        }
-        if (inner.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element with selector: " + selector);
-        }
+        assertNotEmpty(inner, selector);
 
         return inner;
+    }
+
+    private void assertNotEmpty(Elements elements, String criteria) {
+        if (elements == null || elements.isEmpty()) {
+            throw new IllegalArgumentException("Could not find element by: " + criteria);
+        }
     }
 
     public Element getElement() {

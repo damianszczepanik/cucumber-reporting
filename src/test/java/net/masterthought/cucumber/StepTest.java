@@ -65,7 +65,8 @@ public class StepTest {
         Feature feature = features.get(0);
         Step step = feature.getElements()[0].getSteps()[0];
 
-        assertThat(step.getDetails(), is("<div class=\"missing\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"output_message\"><span>Result was missing for this step</span></div></div>"));
+        assertThat(step.getDetails(), is(
+                "<div class=\"missing\"><span class=\"keyword-key\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"output_message\"><span>Result was missing for this step</span></div></div>"));
     }
 
     @Test
@@ -95,14 +96,14 @@ public class StepTest {
     public void shouldReturnName() {
         assertThat(
                 passingStep.getDetails(),
-                is("<div class=\"passed\"><span class=\"step-keyword\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"));
+                is("<div class=\"passed\"><span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         assertThat(
                 skippedStep.getDetails(),
-                is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
+                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
         ));
     }
 
@@ -112,7 +113,7 @@ public class StepTest {
 
         assertThat(
                 skippedStep.getDetails(),
-                is("<div class=\"skipped\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
+                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
     }
 
     @Test

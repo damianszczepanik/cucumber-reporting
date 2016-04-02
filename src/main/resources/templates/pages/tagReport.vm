@@ -18,7 +18,7 @@
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      #printScenario($tag.getElements(), true)
+      #includeScenario($tag.getElements(), true)
     </div>
   </div>
 </div>

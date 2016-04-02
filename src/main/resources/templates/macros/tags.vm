@@ -1,9 +1,9 @@
 #macro(includeTags, $tags)
-  #if($tags)
-    <div class="tags">
-      #foreach($tag in $tags)
-         <a href="$tag.getName().replace("@", "").trim()#[[.]]#html">$tag.getName()</a>
-      #end
-    </div>
+
+<div class="tags">
+  #foreach($tag in $tags)
+     <a href="$tag.getFileName()">$tag.getName()</a>
   #end
+</div>
+
 #end

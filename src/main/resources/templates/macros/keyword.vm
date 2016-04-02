@@ -1,0 +1,8 @@
+#macro(includeKeyword, $keyword, $status, $keyword_value)
+
+<div class="$status.getRawName()">
+  <span class="keyword-key">$keyword:</span>
+  <span class="keyword-value">$keyword_value</span>
+</div>
+
+#end
