@@ -11,6 +11,27 @@ import org.junit.Test;
 public class StepsOverviewPageIntegrationTest extends Page {
 
     @Test
+    public void generatePage_generatesTitle() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        configuration.setRunWithJenkins(true);
+        configuration.setBuildNumber("333");
+        page = new StepsOverviewPage(reportResult, configuration);
+        final String titleValue = String.format("Cucumber-JVM Html Reports (no %s) - Steps Overview",
+                configuration.getBuildNumber());
+
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+        String title = getTitle(document).text();
+
+        assertThat(title).isEqualTo(titleValue);
+    }
+
+    @Test
     public void generatePage_generatesLead() {
 
         // given

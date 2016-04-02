@@ -44,6 +44,10 @@ public class Page extends ReportGenerator {
         }
     }
 
+    protected ElementWrapper getTitle(ElementWrapper document) {
+        return document.bySelector("head").bySelector("title");
+    }
+
     protected ElementWrapper getLeadHeader(ElementWrapper document) {
         return getLead(document).bySelector("h2");
     }
