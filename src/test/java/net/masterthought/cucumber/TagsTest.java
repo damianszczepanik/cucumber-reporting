@@ -32,42 +32,42 @@ public class TagsTest {
 
     @Test
     public void shouldGetTotalTagSteps() {
-        assertThat(reportResult.getAllTagSteps(), is(4));
+        assertThat(reportResult.getTagReport().getSteps(), is(4));
     }
 
     @Test
     public void shouldGetTotalTagPasses() {
-        assertThat(reportResult.getAllPassesTags(), is(2));
+        assertThat(reportResult.getTagReport().getPassedSteps(), is(2));
     }
 
     @Test
     public void shouldGetTotalTagFails() {
-        assertThat(reportResult.getAllFailsTags(), is(2));
+        assertThat(reportResult.getTagReport().getFailedSteps(), is(2));
     }
 
     @Test
     public void shouldGetTotalTagSkipped() {
-        assertThat(reportResult.getAllSkippedTags(), is(0));
+        assertThat(reportResult.getTagReport().getSkippedSteps(), is(0));
     }
 
     @Test
     public void shouldGetTotalTagPending() {
-        assertThat(reportResult.getAllPendingTags(), is(0));
+        assertThat(reportResult.getTagReport().getPendingSteps(), is(0));
     }
 
     @Test
     public void shouldGetTotalTagScenarios() {
-        assertThat(reportResult.getAllTagScenarios(), is(4));
+        assertThat(reportResult.getTagReport().getScenarios(), is(4));
     }
 
     @Test
     public void shouldgetTotalTagScenariosPassed() {
-        assertThat(reportResult.getAllPassedTagScenarios(), is(2));
+        assertThat(reportResult.getTagReport().getPassedScenarios(), is(2));
     }
 
     @Test
     public void shouldgetTotalTagScenariosFailed() {
-        assertThat(reportResult.getAllFailedTagScenarios(), is(2));
+        assertThat(reportResult.getTagReport().getFailedScenarios(), is(2));
     }
 
     @Test

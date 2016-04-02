@@ -125,53 +125,14 @@
   </div>
 #end
 
+
 <div class="container-fluid" id="statistics">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       #if($all_tags.isEmpty())
         <p>You have no tags in your cucumber report</p>
       #else
-        <table id="tablesorter" class="stats-table">
-          #includeReportHeader("Tag", false)
-
-          <tbody>
-            #foreach($tag in $all_tags)
-              <tr>
-                <td class="tagname"><a href="$tag.getReportFileName()">$tag.getRawName()</a></td>
-                <td>$tag.getScenarios()</td>
-                <td>$tag.getPassedScenarios()</td>
-                <td>$tag.getFailedScenarios()</td>
-                <td>$tag.getSteps()</td>
-                <td>$tag.getPassedSteps()</td>
-                <td #if($tag.getFailedSteps() > 0)  class="failed" #end>$tag.getFailedSteps()</td>
-                <td #if($tag.getSkippedSteps() > 0)   class="skipped" #end>$tag.getSkippedSteps()</td>
-                <td #if($tag.getPendingSteps() > 0)   class="pending" #end>$tag.getPendingSteps()</td>
-                <td #if($tag.getUndefinedSteps() > 0) class="undefined" #end>$tag.getUndefinedSteps()</td>
-                <td #if($tag.getMissingSteps() > 0)   class="missing" #end>$tag.getMissingSteps()</td>
-                <td class="duration">$tag.getDurations()</td>
-                <td class="$tag.getStatus().getRawName()">$tag.getStatus().getLabel()</td>
-              </tr>
-            #end
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td>$all_tags.size()</td>
-              <td>$all_tags_scenarios</td>
-              <td>$all_tags_passed_scenarios</td>
-              <td>$all_tags_failed_scenarios</td>
-              <td>$all_tags_steps</td>
-              <td>$all_tags_passes</td>
-              <td>$all_tags_failed</td>
-              <td>$all_tags_skipped</td>
-              <td>$all_tags_pending</td>
-              <td>$all_tags_undefined</td>
-              <td>$all_tags_missing</td>
-              <td class="duration">$all_durations</td>
-              <td>Totals</td>
-            </tr>
-          </tfoot>
-        </table>
+        #includeStatsTable("Tag", $parallel, $all_tags, $report_summary)
       #end
     </div>
   </div>

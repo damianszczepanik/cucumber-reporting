@@ -21,35 +21,28 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.util.Util;
+import net.masterthought.cucumber.reports.OverviewReport;
+import net.masterthought.cucumber.reports.Reportable;
 
 public class ReportResult {
 
-    private final List<Feature> allFeatures;
-    private long allDurations;
-    private long allTagDuration;
-    private int allTagSteps;
-
+    private final List<Feature> allFeatures = new ArrayList<>();
     private final Map<String, TagObject> allTags = new TreeMap<>();
     private final Map<String, StepObject> allSteps = new HashMap<>();
 
-    private final StatusCounter tagsStatusCounter = new StatusCounter();
-    private final StatusCounter tagsCounter = new StatusCounter();
-
     private final StatusCounter featureCounter = new StatusCounter();
-    private final StatusCounter scenarioCounter = new StatusCounter();
-    private final StatusCounter stepStatusCounter = new StatusCounter();
 
     private final String buildTime;
 
-    public ReportResult(List<Feature> features) {
-        this.allFeatures = features;
+    private final OverviewReport featuresReport = new OverviewReport("Features");
+    private final OverviewReport tagsReport = new OverviewReport("Tags");
 
-        for (Feature feature : allFeatures) {
+    public ReportResult(List<Feature> features) {
+        this.buildTime = new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
+
+        for (Feature feature : features) {
             processFeature(feature);
         }
-
-        this.buildTime = new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
     }
 
     public List<Feature> getAllFeatures() {
@@ -62,99 +55,14 @@ public class ReportResult {
 
     public List<StepObject> getAllSteps() {
         return new ArrayList<>(allSteps.values());
-
     }
 
-    public StatusCounter getStepsCounter() {
-        return stepStatusCounter;
+    public Reportable getFeatureReport() {
+        return featuresReport;
     }
 
-    public int getAllPassedSteps() {
-        return stepStatusCounter.getValueFor(Status.PASSED);
-    }
-
-    public int getAllFailedSteps() {
-        return stepStatusCounter.getValueFor(Status.FAILED);
-    }
-
-    public int getAllSkippedSteps() {
-        return stepStatusCounter.getValueFor(Status.SKIPPED);
-    }
-
-    public int getPendingStepsl() {
-        return stepStatusCounter.getValueFor(Status.PENDING);
-    }
-
-    public int getTotalStepsMissing() {
-        return stepStatusCounter.getValueFor(Status.MISSING);
-    }
-
-    public int getUndefinedSteps() {
-        return stepStatusCounter.getValueFor(Status.UNDEFINED);
-    }
-
-    public String getAllDurationsAsString() {
-        return Util.formatDuration(allDurations);
-    }
-
-    public Long getAllDurations() {
-        return allDurations;
-    }
-
-    public int getAllTagScenarios() {
-        return tagsCounter.size();
-    }
-
-    public int getAllPassedTagScenarios() {
-        return tagsCounter.getValueFor(Status.PASSED);
-    }
-
-    public int getAllFailedTagScenarios() {
-        return tagsCounter.getValueFor(Status.FAILED);
-    }
-
-    public int getAllTagSteps() {
-        return allTagSteps;
-    }
-
-    public int getAllPassesTags() {
-        return tagsStatusCounter.getValueFor(Status.PASSED);
-    }
-
-    public int getAllFailsTags() {
-        return tagsStatusCounter.getValueFor(Status.FAILED);
-    }
-
-    public int getAllSkippedTags() {
-        return tagsStatusCounter.getValueFor(Status.SKIPPED);
-    }
-
-    public int getAllPendingTags() {
-        return tagsStatusCounter.getValueFor(Status.PENDING);
-    }
-
-    public int getAllUndefinedTags() {
-        return tagsStatusCounter.getValueFor(Status.UNDEFINED);
-    }
-
-    public int getAllMissingTags() {
-        return tagsStatusCounter.getValueFor(Status.MISSING);
-    }
-
-    public long getAllTagDuration() {
-        return allTagDuration;
-    }
-
-    public int getAllScenarios() {
-        return scenarioCounter.size();
-    }
-
-    public int getAllPassedScenarios() {
-        return scenarioCounter.getValueFor(Status.PASSED);
-    }
-
-    public int getAllFailedScenarios() {
-        return scenarioCounter.getValueFor(Status.FAILED);
+    public Reportable getTagReport() {
+        return tagsReport;
     }
 
     public int getAllPassedFeatures() {
@@ -170,9 +78,11 @@ public class ReportResult {
     }
 
     private void processFeature(Feature feature) {
+        allFeatures.add(feature);
+
         for (Element element : feature.getElements()) {
             if (element.isScenario()) {
-                scenarioCounter.incrementFor(element.getStatus());
+                featuresReport.incScenarioFor(element.getStatus());
 
                 // all feature tags should be linked with scenario
                 for (Tag tag : feature.getTags()) {
@@ -187,8 +97,8 @@ public class ReportResult {
 
             Step[] steps = element.getSteps();
             for (Step step : steps) {
-                stepStatusCounter.incrementFor(step.getStatus());
-                allDurations += step.getDuration();
+                featuresReport.incStepsFor(step.getStatus());
+                featuresReport.incDurationBy(step.getDuration());
             }
             countSteps(steps);
 
@@ -204,14 +114,13 @@ public class ReportResult {
 
         // if this element was not added by feature tag, add it as element tag
         if (tagObject.addElement(element)) {
-            tagsCounter.incrementFor(status);
+            tagsReport.incScenarioFor(status);
 
             Step[] steps = element.getSteps();
             for (Step step : steps) {
-                tagsStatusCounter.incrementFor(step.getStatus());
-                allTagDuration += step.getDuration();
+                tagsReport.incStepsFor(step.getStatus());
+                tagsReport.incDurationBy(step.getDuration());
             }
-            allTagSteps += steps.length;
         }
     }
 

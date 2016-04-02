@@ -8,9 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.json.support.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature implements Reportable {
@@ -63,6 +63,7 @@ public class Feature implements Reportable {
         return tags;
     }
 
+    @Override
     public Status getStatus() {
         return featureStatus;
     }
