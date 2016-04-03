@@ -64,7 +64,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper headerTable = getHeaderStatsTable(document);
+        ElementWrapper headerTable = getHeaderOfStatsTable(document);
         Elements headerRows = getRows(headerTable);
 
         assertThat(headerRows).hasSize(1);
@@ -85,7 +85,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = getBodyStatsTable(document);
+        Elements bodyRows = getBodyOfStatsTable(document);
 
         assertThat(bodyRows).hasSize(11);
 
@@ -119,7 +119,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements footerCells = getFooterCellsInStatsTable(document);
+        Elements footerCells = getFooterCellsOfStatsTable(document);
 
         validateElements(footerCells, "11", "18", "113ms", "006ms", "Totals");
     }

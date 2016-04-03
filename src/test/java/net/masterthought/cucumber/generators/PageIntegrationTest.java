@@ -142,11 +142,11 @@ public class PageIntegrationTest extends Page {
     }
 
     private Elements extractNaviBarLinks(ElementWrapper navigation) {
-        return navigation.bySelectors("a");
+        return navigation.allBySelector("a");
     }
 
     private void validatePluginName(ElementWrapper navigation) {
-        String pluginName = navigation.bySelector("p").text();
+        String pluginName = navigation.oneBySelector("p").text();
         assertThat(pluginName).isEqualTo("Cucumber-JVM Report");
     }
 
@@ -184,7 +184,7 @@ public class PageIntegrationTest extends Page {
     }
 
     private Elements extractSummaryHeaderValues(ElementWrapper document) {
-        return document.bySelectors("thead > tr > th");
+        return document.allBySelector("thead > tr > th");
     }
 
     private void validateProjectSummaryHeader(Element value) {
@@ -200,7 +200,7 @@ public class PageIntegrationTest extends Page {
     }
 
     private Elements extractSummaryBodyValues(ElementWrapper document) {
-        return document.bySelectors("tbody > tr > td");
+        return document.allBySelector("tbody > tr > td");
     }
 
     private void validateProjectSummaryBody(Element project) {
@@ -221,7 +221,7 @@ public class PageIntegrationTest extends Page {
     }
 
     private Elements extractFooterLinks(ElementWrapper footer) {
-        return footer.bySelectors("a");
+        return footer.allBySelector("a");
     }
 
 }

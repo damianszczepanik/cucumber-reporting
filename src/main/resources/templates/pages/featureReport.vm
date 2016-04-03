@@ -18,14 +18,17 @@
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      #includeTags($feature.getTags())
-      <div class="$feature.getStatus().getRawName()">
-        <div class="feature-line">
-          <span class="feature-keyword">$feature.getKeyword(): </span>$feature.getRawName()
+      <div class="feature-details">
+        #includeTags($feature.getTags())
+        <div class="keyword-feature">
+          #includeKeyword($feature.getKeyword(), $feature.getStatus(), $feature.getRawName())
         </div>
+        <div class="description">$feature.getDescription()</div>
       </div>
-      <div class="description">$feature.getDescription()</div>
-      #printScenario($feature.getElements(), false)
+
+      <div class="elements">
+        #includeScenario($feature.getElements(), false)
+      </div>
     </div>
   </div>
 </div>

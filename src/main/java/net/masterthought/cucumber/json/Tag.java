@@ -10,6 +10,10 @@ public class Tag {
         return name;
     }
 
+    public String getFileName() {
+        return name.replace("@", "").trim() + ".html";
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();

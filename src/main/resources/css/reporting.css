@@ -29,22 +29,32 @@ a:hover {
     display: block;
 }
 
-.feature-keyword {
+.keyword-key {
     font-weight: bold;
 }
 
-.element-keyword {
-    font-weight: bold;
-    padding-left: 15px;
+.keyword-value {
+    font-weight: normal;
 }
 
-.step-keyword {
-    font-weight: bold;
-    padding-left: 50px;
+.feature-details {
+    text-indent: 3px;
+}
+
+.elements {
+    padding-left: 25px;
+    text-indent: 3px;
+}
+
+.element {
+    padding-top: 15px;
+}
+
+.steps {
+    padding-left: 25px;
 }
 
 .description {
-    padding-left: 15px;
     font-style: italic;
     background-color: beige;
 }
