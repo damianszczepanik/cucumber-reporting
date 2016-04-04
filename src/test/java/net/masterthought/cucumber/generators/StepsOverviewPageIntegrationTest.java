@@ -90,19 +90,20 @@ public class StepsOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(11);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107ms", "107ms", "100.00%");
+        validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms",
+                "100.00%");
         validateCSSClasses(firstRow, "stepname", "", "duration", "duration", "passed");
 
         Elements secondRow = getCells(bodyRows.get(1));
-        validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003ms", "001ms", "100.00%");
+        validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003 ms", "001 ms", "100.00%");
         validateCSSClasses(secondRow, "stepname", "", "duration", "duration", "passed");
 
         Elements failedRow = getCells(bodyRows.get(6));
-        validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "000ms", "000ms", "33.33%");
+        validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "000 ms", "000 ms", "33.33%");
         validateCSSClasses(failedRow, "stepname", "", "duration", "duration", "failed");
 
         Elements lastRow = getCells(bodyRows.get(10));
-        validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000ms", "000ms", "0.00%");
+        validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
         validateCSSClasses(lastRow, "stepname", "", "duration", "duration", "skipped");
     }
 
@@ -121,7 +122,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "11", "18", "113ms", "006ms", "Totals");
+        validateElements(footerCells, "11", "18", "113 ms", "006 ms", "Totals");
     }
 
     @Test

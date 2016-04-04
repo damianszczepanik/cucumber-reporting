@@ -109,14 +109,15 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(2);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111ms",
+        validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
         validateReportLink(firstRow, "net-masterthought-example-s--ATM-local-feature.html", "First feature");
 
         Elements secondRow = getCells(bodyRows.get(1));
-        validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002ms", "Failed");
+        validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms",
+                "Failed");
         validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration",
                 "failed");
         validateReportLink(secondRow, "net-masterthought-example-ATMK-feature.html", "2nd feature");
@@ -137,7 +138,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "113ms", "Totals");
+        validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "113 ms", "Totals");
     }
 
     @Test

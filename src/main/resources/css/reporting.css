@@ -37,13 +37,12 @@ a:hover {
     font-weight: normal;
 }
 
-.feature-details {
-    text-indent: 3px;
+.keyword-feature, .description, .keyword-key {
+    padding-left: 3px;
 }
 
 .elements {
     padding-left: 25px;
-    text-indent: 3px;
 }
 
 .element {

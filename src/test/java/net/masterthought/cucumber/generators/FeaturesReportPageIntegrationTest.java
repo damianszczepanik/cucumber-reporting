@@ -51,7 +51,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         assertThat(bodyRows).hasSize(1);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, feature.getRawName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111ms",
+        validateElements(firstRow, feature.getRawName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
