@@ -96,14 +96,14 @@ public class StepTest {
     public void shouldReturnName() {
         assertThat(
                 passingStep.getDetails(),
-                is("<div class=\"passed\"><span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107ms</span></div>"));
+                is("<div class=\"passed\"><span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107&nbsp;ms</span></div>"));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         assertThat(
                 skippedStep.getDetails(),
-                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"
+                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000&nbsp;ms</span></div>"
         ));
     }
 
@@ -113,7 +113,7 @@ public class StepTest {
 
         assertThat(
                 skippedStep.getDetails(),
-                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000ms</span></div>"));
+                is("<div class=\"skipped\"><span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000&nbsp;ms</span></div>"));
     }
 
     @Test

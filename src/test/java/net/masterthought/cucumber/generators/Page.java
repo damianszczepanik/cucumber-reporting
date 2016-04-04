@@ -135,6 +135,14 @@ public abstract class Page extends ReportGenerator {
 
 
     // ================= others
+    /**
+     * Validates if element of passed array is equal (as a text) to passed values (reference).
+     * 
+     * @param array
+     *            elements that will be compared
+     * @param values
+     *            reference element to compare with
+     */
     protected void validateElements(Elements array, String... values) {
         if (array.size() != values.length) {
             throw new IllegalArgumentException(
@@ -142,7 +150,8 @@ public abstract class Page extends ReportGenerator {
         }
 
         for (int i = 0; i < values.length; i++) {
-            if (!array.get(i).text().equals(values[i])) {
+            String html2Text = normalize(array.get(i).text());
+            if (!html2Text.equals(values[i])) {
                 throw new IllegalArgumentException(
                         String.format("On index %d found '%s' while expected '%s'", i, array.get(i).text(), values[i]));
             }
@@ -181,5 +190,10 @@ public abstract class Page extends ReportGenerator {
             net.masterthought.cucumber.json.Element jsonElement) {
         String firstKeyword = getElementKeyword(htmlElement).text();
         assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + ": " + jsonElement.getName());
+    }
+
+    private static String normalize(String text) {
+        // &nbsp; converted by jsoup is "\u00a0"
+        return text.replace("\u00a0", " ");
     }
 }

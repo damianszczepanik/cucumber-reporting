@@ -1,22 +1,14 @@
 package net.masterthought.cucumber.util;
 
-import java.io.File;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-
 public final class Util {
-
-    private static final Logger LOG = LogManager.getLogger(Util.class);
 
     // provide Locale so tests can validate . (instead of ,) separator
     public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
@@ -41,20 +33,11 @@ public final class Util {
             .appendSeparator(" ")
             .minimumPrintedDigits(3)
             .appendMillis()
-            .appendSuffix("ms")
+            .appendSuffix("&nbsp;ms")
             .toFormatter();
 
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
-    }
-
-    public static void unzipToFile(File srcZipFile, String destDirectory) {
-        try {
-            ZipFile zipFile = new ZipFile(srcZipFile);
-            zipFile.extractAll(destDirectory);
-        } catch (ZipException e) {
-            LOG.error("Could not unzip {} into {}.", srcZipFile.getAbsolutePath(), destDirectory, e);
-        }
     }
 
     /**

@@ -107,19 +107,20 @@ public class TagsOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(3);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, "@checkout", "2", "1", "1", "16", "8", "1", "3", "1", "1", "1", "006ms", "Failed");
+        validateElements(firstRow, "@checkout", "2", "1", "1", "16", "8", "1", "3", "1", "1", "1", "006 ms",
+                "Failed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined",
                 "missing", "duration", "failed");
         validateReportLink(firstRow, "checkout.html", "@checkout");
 
         Elements secondRow = getCells(bodyRows.get(1));
-        validateElements(secondRow, "@fast", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004ms", "Passed");
+        validateElements(secondRow, "@fast", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004 ms", "Passed");
         validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
         validateReportLink(secondRow, "fast.html", "@fast");
 
         Elements thirdRow = getCells(bodyRows.get(2));
-        validateElements(thirdRow, "@featureTag", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004ms", "Passed");
+        validateElements(thirdRow, "@featureTag", "1", "1", "0", "7", "4", "0", "0", "1", "1", "0", "004 ms", "Passed");
         validateCSSClasses(thirdRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
         validateReportLink(thirdRow, "featureTag.html", "@featureTag");
@@ -140,7 +141,7 @@ public class TagsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "015ms", "Totals");
+        validateElements(footerCells, "3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "015 ms", "Totals");
     }
 
     @Test
