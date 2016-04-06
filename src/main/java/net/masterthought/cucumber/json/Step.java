@@ -68,17 +68,15 @@ public class Step implements ResultsWithMatch {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("<div class=\"").append(status.getRawName()).append("\">");
         sb.append("<span class=\"keyword-key\">").append(keyword).append(" </span>");
         sb.append("<span class=\"step-name\">");
-        // for keyword == Before|After attribute 'name' is not available
         if (StringUtils.isNotBlank(name)) {
             sb.append(StringEscapeUtils.escapeHtml(name));
         }
         sb.append("</span>");
 
         sb.append("<span class=\"step-duration\">");
-        if (status != Status.MISSING && result != null) {
+        if (result != null) {
             sb.append(Util.formatDuration(result.getDuration()));
         }
         sb.append("</span>");
@@ -88,7 +86,6 @@ public class Step implements ResultsWithMatch {
             int id = result != null ? result.hashCode() : errorMessage.hashCode();
             sb.append(Util.formatMessage(errorMessage, id));
         }
-        sb.append("</div>");
 
         return sb.toString();
     }

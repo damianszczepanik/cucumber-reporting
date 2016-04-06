@@ -33,7 +33,7 @@ public final class Util {
             .appendSeparator(" ")
             .minimumPrintedDigits(3)
             .appendMillis()
-            .appendSuffix("&nbsp;ms")
+            .appendSuffix(" ms")
             .toFormatter();
 
     public static String formatDuration(long duration) {

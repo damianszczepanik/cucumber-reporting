@@ -128,7 +128,7 @@ public class TagObject implements Reportable {
 
     @Override
     public int getPendingSteps() {
-        return getNumberOfStatus(Status.UNDEFINED);
+        return getNumberOfStatus(Status.PENDING);
     }
 
     @Override

@@ -101,7 +101,7 @@ public class ReportBuilderTest {
         assertEquals("0", tableCells.get(8).text());
         assertEquals("0", tableCells.get(9).text());
         assertEquals("0", tableCells.get(10).text());
-        assertEquals("106&nbsp;ms", tableCells.get(11).html());
+        assertEquals("106 ms", tableCells.get(11).html());
         assertEquals("Passed", tableCells.get(12).text());
     }
     
