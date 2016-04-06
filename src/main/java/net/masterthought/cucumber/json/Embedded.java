@@ -80,7 +80,7 @@ public class Embedded {
     }
 
     private String decodeDataFromBase() {
-        return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)));
+        return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
     }
 
     private int generateUniqueId() {

@@ -15,7 +15,9 @@
       <div class="steps">
         #foreach($step in $scenario.getSteps())
           <div class="step-details">
-            $step.getDetails()
+            <div class="$step.getStatus().getRawName()">
+              $step.getDetails()
+            </div>
             $step.getDocString()
           </div>
 

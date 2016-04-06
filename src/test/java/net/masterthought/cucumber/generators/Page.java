@@ -150,7 +150,7 @@ public abstract class Page extends ReportGenerator {
         }
 
         for (int i = 0; i < values.length; i++) {
-            String html2Text = normalize(array.get(i).text());
+            String html2Text = array.get(i).text();
             if (!html2Text.equals(values[i])) {
                 throw new IllegalArgumentException(
                         String.format("On index %d found '%s' while expected '%s'", i, array.get(i).text(), values[i]));
@@ -190,10 +190,5 @@ public abstract class Page extends ReportGenerator {
             net.masterthought.cucumber.json.Element jsonElement) {
         String firstKeyword = getElementKeyword(htmlElement).text();
         assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + ": " + jsonElement.getName());
-    }
-
-    private static String normalize(String text) {
-        // &nbsp; converted by jsoup is "\u00a0"
-        return text.replace("\u00a0", " ");
     }
 }
