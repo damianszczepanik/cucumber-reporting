@@ -46,7 +46,6 @@
             }
         },
         series: [{
-            type: 'pie',
             name: 'Steps',
             data: [
                 {
@@ -147,6 +146,7 @@
 
     $('#features_chart').highcharts({
         chart: {
+            type: 'pie',
             plotShadow: false,
         },
         title: {
@@ -233,7 +233,7 @@
             <div class="item">
               <div id="scenarios_chart"></div>
             </div>
-    
+
             <div class="item">
               <div id="features_chart"></div>
             </div>
@@ -268,7 +268,7 @@
   </div>
 </div>
 
-#include("/templates/footer.html")                        
+#include("/templates/footer.html")
 
 </body>
 </html>
