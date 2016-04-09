@@ -50,7 +50,7 @@
                 formattedData[4].data.push(chartData[i][4]);
                 formattedData[5].data.push(chartData[i][5]);
             });
-        
+
             $('#stacked-graph').highcharts({
             chart: {
                 type: 'column',
@@ -138,7 +138,7 @@
   </div>
 </div>
 
-#include("/templates/footer.html")                        
+#include("/templates/footer.html")
 
 </body>
 </html>
