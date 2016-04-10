@@ -76,12 +76,12 @@ public class FeatureTest {
 
     @Test
     public void shouldReturnRawName() {
-        assertThat(passingFeature.getRawName(), is("Account Holder withdraws cash &amp; &lt;MyPlace&gt;"));
+        assertThat(passingFeature.getName(), is("Account Holder withdraws cash & <MyPlace>"));
     }
 
     @Test
     public void shouldReturnEmptyRawName() {
-        assertThat(failingFeature.getRawName(), is("unknown"));
+        assertThat(failingFeature.getName(), is(""));
     }
 
     @Test

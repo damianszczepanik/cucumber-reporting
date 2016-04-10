@@ -58,18 +58,6 @@ public class StepTest {
     }
 
     @Test
-    public void shouldReturnRowsWhenNoResultsForStep() throws IOException {
-        List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/with_no_step_results.json"));
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
-        Feature feature = features.get(0);
-        Step step = feature.getElements()[0].getSteps()[0];
-
-        assertThat(step.getDetails().replaceAll("errormessage_[-\\d]+", "errormessage_1234"), is(
-                "<span class=\"keyword-key\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"report-duration\"></span><div class=\"message\"><a onclick=\"message=document.getElementById('errormessage_1234'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">Error message</a><br><div id=\"errormessage_1234\" class=\"hidden\"><pre><span>Result was missing for this step</span></pre></div></div>"));
-    }
-
-    @Test
     public void shouldKnowIfHasRows() {
         assertThat(passingStep.hasRows(), is(false));
     }
@@ -90,30 +78,6 @@ public class StepTest {
     @Test
     public void shouldReturnDuration() {
         assertThat(passingStep.getDuration(), is(107447000L));
-    }
-
-    @Test
-    public void shouldReturnName() {
-        assertThat(
-                passingStep.getDetails(),
-                is("<span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"report-duration\">107 ms</span>"));
-    }
-
-    @Test
-    public void shouldReturnNameWhenStepSkipped() {
-        assertThat(
-                skippedStep.getDetails(),
-                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"report-duration\">000 ms</span>"
-        ));
-    }
-
-    @Test
-    public void shouldReturnNameWhenConfigSkippedTurnedOn() {
-        configuration.setStatusFlags(true, false, false, false);
-
-        assertThat(
-                skippedStep.getDetails(),
-                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"report-duration\">000 ms</span>"));
     }
 
     @Test

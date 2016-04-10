@@ -12,7 +12,7 @@ public final class ChartUtil {
 
         String[] tagNames = new String[tagObjectList.size()];
         for (int i = 0; i < tagNames.length; i++) {
-            tagNames[i] = StringUtils.wrap(tagObjectList.get(i).getRawName(), "'");
+            tagNames[i] = StringUtils.wrap(tagObjectList.get(i).getName(), "'");
         }
 
         return "[" + StringUtils.join(tagNames, ",") + "]";

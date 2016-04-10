@@ -2,7 +2,7 @@
 <html>
 <head>
   #parse("/templates/headers.vm")
-  #includeTitle("Feature: $feature.getRawName()")
+  #includeTitle("Feature: $feature.getName()")
 </head>
 <body>
 
@@ -21,7 +21,7 @@
       <div class="feature-details">
         #includeTags($feature.getTags())
         <div class="keyword-feature">
-          #includeKeyword($feature.getKeyword(), $feature.getStatus(), $feature.getRawName())
+          #includeKeyword($feature.getKeyword(), $feature.getStatus(), $feature.getName())
         </div>
         <div class="description">$feature.getDescription()</div>
       </div>

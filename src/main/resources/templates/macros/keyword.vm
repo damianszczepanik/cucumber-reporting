@@ -1,8 +1,11 @@
-#macro(includeKeyword, $keyword, $status, $keyword_value)
+#macro(includeKeyword, $keyword, $status, $keyword_value, $result)
 
 <div class="$status.getRawName()">
-  <span class="keyword-key">$keyword:</span>
+  <span class="keyword-key">$keyword</span>
   <span class="keyword-value">$keyword_value</span>
+  #if($result)
+    <span class="report-duration">$result.getFormatedDuration()</span>
+  #end
 </div>
 
 #end

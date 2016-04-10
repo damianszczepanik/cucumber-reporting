@@ -161,7 +161,7 @@ public class ReportResult {
         TagObject tagObject = allTags.get(name);
         if (tagObject == null) {
             tagObject = new TagObject(name);
-            allTags.put(tagObject.getRawName(), tagObject);
+            allTags.put(tagObject.getName(), tagObject);
         }
         return tagObject;
     }

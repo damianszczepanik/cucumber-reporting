@@ -6,7 +6,7 @@
         <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
       #end
       #includeTags($scenario.getTags())
-      $scenario.getBeforeHooks()
+      #includeHooks("Before", $scenario.getBefore())
 
       <div class="keyword-element">
         #includeKeyword($scenario.getKeyword(), $scenario.getStatus(), $scenario.getName())
@@ -17,7 +17,10 @@
         #foreach($step in $scenario.getSteps())
           <div class="step-details">
             <div class="$step.getStatus().getRawName()">
-              $step.getDetails()
+              <div class="keyword-step">
+                #includeKeyword($step.getKeyword(), $step.getStatus(), $step.getName(), $step.getResult())
+              </div>
+              $step.getErrorMessage()
             </div>
             $step.getDocString()
           </div>
@@ -38,7 +41,7 @@
         #end
       </div>
 
-      $scenario.getAfterHooks()
+      #includeHooks("After", $scenario.getAfter())
     </div>
   #end
 

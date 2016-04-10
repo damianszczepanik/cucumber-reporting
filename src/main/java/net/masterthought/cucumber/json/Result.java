@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.util.Util;
 
 public class Result {
 
@@ -18,7 +19,16 @@ public class Result {
         return duration;
     }
 
+    public String getFormatedDuration() {
+        return Util.formatDuration(duration);
+    }
+
     public String getErrorMessage() {
         return error_message;
+    }
+
+    public String getFormatedErrorMessage() {
+        final String contentId = "output_" + hashCode();
+        return Util.formatMessage("Error message", error_message, contentId);
     }
 }

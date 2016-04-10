@@ -36,6 +36,14 @@ public class Step implements ResultsWithMatch {
         return rows;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
     public String getOutput() {
         return convertedOutput;
     }
@@ -63,34 +71,17 @@ public class Step implements ResultsWithMatch {
         return result == null ? 0L : result.getDuration();
     }
 
-    public String getDetails() {
+    public String getErrorMessage() {
         String errorMessage = result == null ? null : result.getErrorMessage();
-        if (status == Status.MISSING) {
-            errorMessage = "<span>Result was missing for this step</span>";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("<span class=\"keyword-key\">").append(keyword).append(" </span>");
-        sb.append("<span class=\"step-name\">");
-        if (StringUtils.isNotBlank(name)) {
-            sb.append(StringEscapeUtils.escapeHtml(name));
-        }
-        sb.append("</span>");
-
-        sb.append("<span class=\"report-duration\">");
-        if (result != null) {
-            sb.append(Util.formatDuration(result.getDuration()));
-        }
-        sb.append("</span>");
 
         if (StringUtils.isNotBlank(errorMessage)) {
             // if the result is not available take a hash of message reference - not perfect but still better than -1
             int id = result != null ? result.hashCode() : errorMessage.hashCode();
             final String contentId = "errormessage_" + id;
-            sb.append(Util.formatMessage("Error message", errorMessage, contentId));
+            return Util.formatMessage("Error message", errorMessage, contentId);
         }
 
-        return sb.toString();
+        return StringUtils.EMPTY;
     }
 
     /**
