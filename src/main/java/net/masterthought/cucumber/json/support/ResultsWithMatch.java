@@ -11,9 +11,9 @@ import net.masterthought.cucumber.json.Result;
  */
 public interface ResultsWithMatch {
 
-    public Result getResult();
+    Result getResult();
 
-    public Match getMatch();
+    Status getStatus();
 
-    public String getAttachments();
+    Match getMatch();
 }

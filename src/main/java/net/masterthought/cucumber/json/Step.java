@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -53,6 +54,7 @@ public class Step implements ResultsWithMatch {
         return ArrayUtils.isNotEmpty(rows);
     }
 
+    @Override
     public Status getStatus() {
         return status;
     }
@@ -84,7 +86,8 @@ public class Step implements ResultsWithMatch {
         if (StringUtils.isNotBlank(errorMessage)) {
             // if the result is not available take a hash of message reference - not perfect but still better than -1
             int id = result != null ? result.hashCode() : errorMessage.hashCode();
-            sb.append(Util.formatMessage(errorMessage, id));
+            final String contentId = "errormessage_" + id;
+            sb.append(Util.formatMessage("Error message", errorMessage, contentId));
         }
 
         return sb.toString();
@@ -107,7 +110,6 @@ public class Step implements ResultsWithMatch {
                 + "</div></div>";
     }
 
-    @Override
     public String getAttachments() {
         return attachments;
     }
@@ -123,24 +125,35 @@ public class Step implements ResultsWithMatch {
         for (int i = 0; i < embeddings.length; i++) {
             sb.append(embeddings[i].render(i));
         }
-        if (embeddings.length > 0) {
-            sb.append("<br>");
-        }
         attachments = sb.toString();
     }
 
     private void calculateOutputs() {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < output.length; i++) {
-            JsonElement element = this.output[i];
-            // check if passed output is one or two dimensions array
-            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
-                list.add(element.getAsString());
-            } else {
-                list.add(element.toString());
+        for (JsonElement element : output) {
+            // process two dimensional array
+            if (element.isJsonArray()) {
+                Iterator<JsonElement> iterator = element.getAsJsonArray().iterator();
+                while (iterator.hasNext()) {
+                    list.add(elementToString(iterator.next()));
+                }
+            }
+            else            {
+                list.add(elementToString(element));
             }
         }
-        convertedOutput = Util.formatMessage(StringUtils.join(list, "\n"), hashCode());
+
+        final String contentId = "output_" + hashCode();
+        convertedOutput = Util.formatMessage("Output:", StringUtils.join(list, "\n"), contentId);
+    }
+
+    private static String elementToString(JsonElement element) {
+        // if primitive string, then wrapping "" should be deleted
+        if (element.isJsonPrimitive() && !element.getAsJsonPrimitive().isString()) {
+            return element.toString();
+        } else {
+            return element.getAsString();
+        }
     }
 
     private void calculateStatus() {

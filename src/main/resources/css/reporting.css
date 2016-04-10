@@ -41,7 +41,7 @@ a:hover {
     padding-left: 3px;
 }
 
-.elements, .embeddings, .output_message {
+.elements, .embeddings, .message {
     padding-left: 25px;
 }
 
@@ -65,52 +65,11 @@ a:hover {
     background-color: beige;
 }
 
-.output_message {
+.message {
     background: white;
-    border: 1px solid;
     margin-bottom: 5px;
     overflow: auto;
     white-space: nowrap;
-    font-family: monospace;
-}
-
-.output_collapse {
-    display: none;
-    padding-left: 10px;
-}
-
-.output_collapse+label {
-    font-size: 15px;
-    font-weight: bold;
-    display: block;
-    cursor: pointer;
-    padding-top: 2px;
-}
-
-.output_collapse+label+* {
-    display: none;
-    padding-left: 25px;
-}
-
-.output_collapse:checked+label+* {
-    display: block;
-}
-
-.output_collapse+label:before {
-    background-color: #4F5150;
-    border-radius: 10px;
-    color: #FFFFFF;
-    content: "+";
-    display: block;
-    float: left;
-    line-height: 20px;
-    width: 20px;
-    margin-right: 5px;
-    text-align: center;
-}
-
-.output_collapse:checked+label:before {
-    content: "\2212";
 }
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */

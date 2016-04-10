@@ -140,22 +140,18 @@ public class Element {
     private String calculateHooks(String keyword, Hook[] hooks) {
         StringBuilder sb = new StringBuilder();
         for (Hook hook : hooks) {
-            Result result = hook.getResult();
-            String hookStatus = result.getStatus();
 
-            sb.append("<div class=\"").append(hookStatus).append("\">");
+            sb.append("<div class=\"").append(hook.getStatus().getRawName()).append("\">");
             sb.append("<span class=\"keyword-key\">").append(keyword).append(" </span>");
             sb.append("<span class=\"location\">").append(hook.getMatch().getLocation()).append("</span>");
 
+            Result result = hook.getResult();
             sb.append("<span class=\"report-duration\">");
-            if (!Status.MISSING.getRawName().equals(hookStatus)) {
-                sb.append(Util.formatDuration(result.getDuration()));
-            }
+            sb.append(Util.formatDuration(result.getDuration()));
             sb.append("</span>");
-            sb.append(Util.formatMessage(result.getErrorMessage(), result.hashCode()));
+            final String contentId = "output_" + result.hashCode();
+            sb.append(Util.formatMessage("Error message", result.getErrorMessage(), contentId));
             sb.append("</div>");
-
-            sb.append(hook.getAttachments());
         }
         return sb.toString();
     }

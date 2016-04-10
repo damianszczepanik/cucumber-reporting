@@ -32,10 +32,9 @@
                 </tr>
               #end
             </table>
-            <div class="embeddings">$step.getAttachments()</div>
           #end
-          <div>$step.getOutput()</div>
-          <div>$step.getAttachments()</div>
+          $step.getOutput()
+          <div class="embeddings">$step.getAttachments()</div>
         #end
       </div>
 

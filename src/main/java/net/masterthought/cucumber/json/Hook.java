@@ -1,16 +1,16 @@
 package net.masterthought.cucumber.json;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.json.support.Status;
 
 public class Hook implements ResultsWithMatch {
 
     // Start: attributes from JSON file report
     private final Result result = null;
     private final Match match = null;
-    private final Embedded[] embeddings = new Embedded[0];
     // End: attributes from JSON file report
 
-    private String attachments;
+    private Status status;
 
     @Override
     public Result getResult() {
@@ -18,25 +18,24 @@ public class Hook implements ResultsWithMatch {
     }
 
     @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
     public Match getMatch() {
         return match;
     }
 
-    @Override
-    public String getAttachments() {
-        return attachments;
-    }
-    
     public void setMedaData() {
-        calculateEmbeddings();
+        calculateStatus();
     }
 
-    private void calculateEmbeddings() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < embeddings.length; i++) {
-            sb.append(embeddings[i].render(i));
+    private void calculateStatus() {
+        if (result == null) {
+            status = Status.MISSING;
+        } else {
+            status = Status.toStatus(result.getStatus());
         }
-        attachments = sb.toString();
     }
-
 }
