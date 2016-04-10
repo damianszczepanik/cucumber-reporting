@@ -32,7 +32,7 @@
                     },
                     {
                         "result":{
-                            "duration":16000,
+                            "duration":7040000,
                             "status":"passed"
                         },
                         "name":"I confirm my pin number",
@@ -76,7 +76,7 @@
                     },
                     {
                         "result":{
-                            "duration":14000,
+                            "duration":111111,
                             "status":"passed"
                         },
                         "name":"the card should be activated",
@@ -112,7 +112,7 @@
                 "steps":[
                     {
                         "result":{
-                            "duration":996000,
+                            "duration":17007000,
                             "status":"passed"
                         },
                         "name":"the account balance is 100",
@@ -130,7 +130,7 @@
                     },
                     {
                         "result":{
-                            "duration":30003,
+                            "duration":33444444,
                             "status":"pending"
                         },
                         "name":"the card is valid",
@@ -142,7 +142,7 @@
                     },
                     {
                         "result":{
-                            "duration":58001,
+                            "duration":44333333,
                             "status":"pending"
                         },
                         "name":"the machine contains 100",
@@ -163,7 +163,7 @@
                     },
                     {
                         "result":{
-                            "duration":42000,
+                            "duration":11000001,
                             "status":"passed"
                         },
                         "name":"the Account Holder requests 10",
@@ -205,7 +205,7 @@
                     },
                     {
                         "result":{
-                            "duration":65000,
+                            "duration":30000000,
                             "status":"passed"
                         },
                         "name":"the account balance should be 90",
@@ -226,7 +226,7 @@
                     },
                     {
                         "result":{
-                            "duration":20000,
+                            "duration":90000000,
                             "status":"undefined"
                         },
                         "name":"the card should be returned",
@@ -256,6 +256,26 @@
                         "name":"@checkout",
                         "line":101
                     }
+                ],
+                "before": [
+                  {
+                    "result": {
+                      "duration": 10744700,
+                      "status": "passed"
+                    },
+                    "match": {
+                      "location": "MachineFactory.findCachMachine()"
+                    }
+                  },
+                  {
+                    "result": {
+                      "duration": 1000001,
+                      "status": "failed"
+                    },
+                    "match": {
+                      "location": "MachineFactory.wait()"
+                    }
+                  }
                 ],
                 "description":"Account holder withdraws more cash",
                 "name":"Account has sufficient funds",

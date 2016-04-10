@@ -24,8 +24,8 @@ public class Element {
 
     private static final String SCENARIO_TYPE = "scenario";
 
-    private String beforeAttachments;
-    private String afterAttachments;
+    private String beforeHooks;
+    private String afterHooks;
     private Status status;
 
     private Feature feature;
@@ -46,12 +46,12 @@ public class Element {
         return tags;
     }
 
-    public String getBeforeAttachments() {
-        return beforeAttachments;
+    public String getBeforeHooks() {
+        return beforeHooks;
     }
 
-    public String getAfterAttachments() {
-        return afterAttachments;
+    public String getAfterHooks() {
+        return afterHooks;
     }
 
     public Status getStatus() {
@@ -126,8 +126,8 @@ public class Element {
         }
         calculateHooks(before);
         calculateHooks(after);
-        beforeAttachments = calculateAttachments("Before", before);
-        afterAttachments = calculateAttachments("After", after);
+        beforeHooks = calculateHooks("Before", before);
+        afterHooks = calculateHooks("After", after);
         status = calculateStatus(configuration);
     }
 
@@ -137,21 +137,22 @@ public class Element {
         }
     }
 
-    private String calculateAttachments(String keyword, Hook[] hooks) {
+    private String calculateHooks(String keyword, Hook[] hooks) {
         StringBuilder sb = new StringBuilder();
         for (Hook hook : hooks) {
-            String attachmentStatus = hook.getResult().getStatus();
+            Result result = hook.getResult();
+            String hookStatus = result.getStatus();
 
-            sb.append("<div class=\"").append(attachmentStatus).append("\">");
-            sb.append("<span class=\"step-keyword\">").append(keyword).append(" </span>");
-            sb.append("<i>").append(hook.getMatch().getLocation()).append("</i>");
+            sb.append("<div class=\"").append(hookStatus).append("\">");
+            sb.append("<span class=\"keyword-key\">").append(keyword).append(" </span>");
+            sb.append("<span class=\"location\">").append(hook.getMatch().getLocation()).append("</span>");
 
-            sb.append("<span class=\"step-duration\">");
-            if (Status.MISSING.getRawName().equals(attachmentStatus)) {
-                sb.append(Util.formatDuration(hook.getResult().getDuration()));
+            sb.append("<span class=\"report-duration\">");
+            if (!Status.MISSING.getRawName().equals(hookStatus)) {
+                sb.append(Util.formatDuration(result.getDuration()));
             }
             sb.append("</span>");
-            sb.append(Util.formatMessage(hook.getResult().getErrorMessage(), hook.getResult().hashCode()));
+            sb.append(Util.formatMessage(result.getErrorMessage(), result.hashCode()));
             sb.append("</div>");
 
             sb.append(hook.getAttachments());

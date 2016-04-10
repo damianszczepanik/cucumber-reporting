@@ -35,7 +35,7 @@
           <tbody>
             #foreach($step in $all_steps)
               <tr>
-                <td class="stepname">$step.getLocation()</td>
+                <td class="location">$step.getLocation()</td>
                 <td>$step.getTotalOccurrences()</td>
                 <td class="duration">$step.getTotalFormattedDuration()</td>
                 <td class="duration">$step.getAverageFormattedDuration()</td>
