@@ -66,7 +66,7 @@ public class StepTest {
         Step step = feature.getElements()[0].getSteps()[0];
 
         assertThat(step.getDetails(), is(
-                "<span class=\"keyword-key\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"step-duration\"></span><div class=\"output_message\"><span>Result was missing for this step</span></div>"));
+                "<span class=\"keyword-key\">Given  </span><span class=\"step-name\">a &quot;Big&quot; customer</span><span class=\"report-duration\"></span><div class=\"output_message\"><span>Result was missing for this step</span></div>"));
     }
 
     @Test
@@ -96,14 +96,14 @@ public class StepTest {
     public void shouldReturnName() {
         assertThat(
                 passingStep.getDetails(),
-                is("<span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"step-duration\">107 ms</span>"));
+                is("<span class=\"keyword-key\">Given  </span><span class=\"step-name\">I have a new credit card</span><span class=\"report-duration\">107 ms</span>"));
     }
 
     @Test
     public void shouldReturnNameWhenStepSkipped() {
         assertThat(
                 skippedStep.getDetails(),
-                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000 ms</span>"
+                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"report-duration\">000 ms</span>"
         ));
     }
 
@@ -113,7 +113,7 @@ public class StepTest {
 
         assertThat(
                 skippedStep.getDetails(),
-                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"step-duration\">000 ms</span>"));
+                is("<span class=\"keyword-key\">And  </span><span class=\"step-name\">the card should be returned</span><span class=\"report-duration\">000 ms</span>"));
     }
 
     @Test

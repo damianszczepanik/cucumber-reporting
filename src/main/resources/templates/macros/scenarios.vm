@@ -6,7 +6,8 @@
         <a href="$scenario.getFeature().getReportFileName()">View Feature</a> <i>$scenario.getFeature().getName()</i>
       #end
       #includeTags($scenario.getTags())
-      $scenario.getBeforeAttachments()
+      $scenario.getBeforeHooks()
+
       <div class="keyword-element">
         #includeKeyword($scenario.getKeyword(), $scenario.getStatus(), $scenario.getName())
       </div>
@@ -31,12 +32,14 @@
                 </tr>
               #end
             </table>
+            <div class="embeddings">$step.getAttachments()</div>
           #end
           <div>$step.getOutput()</div>
           <div>$step.getAttachments()</div>
         #end
       </div>
-      $scenario.getAfterAttachments()
+
+      $scenario.getAfterHooks()
     </div>
   #end
 

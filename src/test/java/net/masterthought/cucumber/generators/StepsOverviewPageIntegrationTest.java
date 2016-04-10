@@ -87,24 +87,24 @@ public class StepsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements bodyRows = getBodyOfStatsTable(document);
 
-        assertThat(bodyRows).hasSize(11);
+        assertThat(bodyRows).hasSize(13);
 
         Elements firstRow = getCells(bodyRows.get(0));
         validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms",
                 "100.00%");
-        validateCSSClasses(firstRow, "stepname", "", "duration", "duration", "passed");
+        validateCSSClasses(firstRow, "location", "", "duration", "duration", "passed");
 
-        Elements secondRow = getCells(bodyRows.get(1));
+        Elements failedRow = getCells(bodyRows.get(3));
+        validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "033 ms", "011 ms", "33.33%");
+        validateCSSClasses(failedRow, "location", "", "duration", "duration", "failed");
+
+        Elements secondRow = getCells(bodyRows.get(9));
         validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003 ms", "001 ms", "100.00%");
-        validateCSSClasses(secondRow, "stepname", "", "duration", "duration", "passed");
+        validateCSSClasses(secondRow, "location", "", "duration", "duration", "passed");
 
-        Elements failedRow = getCells(bodyRows.get(6));
-        validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "000 ms", "000 ms", "33.33%");
-        validateCSSClasses(failedRow, "stepname", "", "duration", "duration", "failed");
-
-        Elements lastRow = getCells(bodyRows.get(10));
+        Elements lastRow = getCells(bodyRows.get(12));
         validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
-        validateCSSClasses(lastRow, "stepname", "", "duration", "duration", "skipped");
+        validateCSSClasses(lastRow, "location", "", "duration", "duration", "skipped");
     }
 
     @Test
@@ -122,7 +122,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "11", "18", "113 ms", "006 ms", "Totals");
+        validateElements(footerCells, "13", "20", "357 ms", "017 ms", "Totals");
     }
 
     @Test

@@ -41,15 +41,22 @@ a:hover {
     padding-left: 3px;
 }
 
-.elements {
+.elements, .embeddings, .output_message {
     padding-left: 25px;
 }
 
 .element {
-    padding-top: 15px;
+    margin-top: 15px;
+    padding-left: 3px;
+}
+
+.element:hover {
+    border-left: 2px solid;
+    padding-left: 1px;
 }
 
 .steps {
+    margin-top: 15px;
     padding-left: 25px;
 }
 
@@ -59,7 +66,6 @@ a:hover {
 }
 
 .output_message {
-    padding-left: 50px;
     background: white;
     border: 1px solid;
     margin-bottom: 5px;
@@ -132,7 +138,7 @@ a:hover {
     background-color: #FAB3E9;
 }
 
-.step-duration {
+.report-duration {
     float: right;
     padding-right: 15px;
 }
@@ -168,14 +174,14 @@ table.stats-table td.tagname {
     text-align: left;
 }
 
-table.stats-table td.stepname {
+table.stats-table td.location, .location {
     font-family: monospace;
     text-align: left;
 }
 
 table.arguments-table {
     margin-bottom: 5px;
-    margin-left: 80px;
+    margin-left: 25px;
     margin-top: 3px;
 }
 

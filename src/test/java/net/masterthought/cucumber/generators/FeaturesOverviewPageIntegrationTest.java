@@ -109,7 +109,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(2);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "111 ms",
+        validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
@@ -138,7 +138,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "113 ms", "Totals");
+        validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "345 ms", "Totals");
     }
 
     @Test
