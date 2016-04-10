@@ -8,7 +8,7 @@
 
         <tbody>
         <tr>
-          <td class="tagname">$reportable.getRawName()</td>
+          <td class="tagname">$reportable.getName()</td>
           <td>$reportable.getScenarios()</td>
           <td>$reportable.getPassedScenarios()</td>
           <td>$reportable.getFailedScenarios()</td>

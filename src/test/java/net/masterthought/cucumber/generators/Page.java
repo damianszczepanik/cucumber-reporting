@@ -189,6 +189,6 @@ public abstract class Page extends ReportGenerator {
     protected void validateElementKeyword(ElementWrapper htmlElement,
             net.masterthought.cucumber.json.Element jsonElement) {
         String firstKeyword = getElementKeyword(htmlElement).text();
-        assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + ": " + jsonElement.getName());
+        assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + " " + jsonElement.getName());
     }
 }

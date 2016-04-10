@@ -92,7 +92,7 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public String getRawName() {
+    public String getName() {
         return reportName;
     }
 

@@ -1,0 +1,17 @@
+#macro(includeHooks, $keyword, $hooks)
+
+#foreach($hook in $hooks)
+  <div class="$hook.getStatus().getRawName()">
+    <span class="keyword-key">$keyword</span>
+    #if($hook.getMatch())
+      <span class="location">$hook.getMatch().getLocation()</span>
+    #end
+
+    #if($hook.getResult())
+      <span class="report-duration">$hook.getResult().getFormatedDuration()</span>
+      $hook.getResult().getFormatedErrorMessage()
+    #end
+  </div>
+#end
+
+#end

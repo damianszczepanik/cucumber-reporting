@@ -33,7 +33,7 @@ public class TagObject implements Reportable {
     }
 
     @Override
-    public String getRawName() {
+    public String getName() {
         return tagName;
     }
 
@@ -44,7 +44,6 @@ public class TagObject implements Reportable {
     public List<Element> getElements() {
         return elements;
     }
-
 
     public boolean addElement(Element element) {
         // don't process if this element was already linked with this tag

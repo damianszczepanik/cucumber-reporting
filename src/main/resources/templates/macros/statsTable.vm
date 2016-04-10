@@ -6,7 +6,7 @@
   <tbody>
     #foreach($element in $elements)
       <tr>
-        <td class="tagname"><a href="$element.getReportFileName()">$element.getRawName()</a></td>
+        <td class="tagname"><a href="$element.getReportFileName()">$element.getName()</a></td>
         #if($parallel)
           <td>$element.getDeviceName()</td>
         #end

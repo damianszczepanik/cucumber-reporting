@@ -3,7 +3,6 @@ package net.masterthought.cucumber.json;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -68,17 +67,13 @@ public class Feature implements Reportable {
         return featureStatus;
     }
 
+    @Override
     public String getName() {
         return StringUtils.defaultString(name);
     }
 
     public String getKeyword() {
         return StringUtils.defaultString(keyword);
-    }
-
-    @Override
-    public String getRawName() {
-        return StringUtils.isNotEmpty(name) ? StringEscapeUtils.escapeHtml(name) : UNKNOWN_NAME;
     }
 
     public String getRawStatus() {

@@ -10,7 +10,7 @@ import net.masterthought.cucumber.json.support.Status;
 public interface Reportable {
 
     /** Returns name of the element that will be displayed to user. */
-    String getRawName();
+    String getName();
 
     /** In case of running the same tests on many devices it displays name of the device. */
     String getDeviceName();

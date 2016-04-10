@@ -27,3 +27,4 @@ $(document).ready(function() {
 #parse("/templates/macros/scenarios.vm")
 #parse("/templates/macros/tags.vm")
 #parse("/templates/macros/keyword.vm")
+#parse("/templates/macros/hooks.vm")

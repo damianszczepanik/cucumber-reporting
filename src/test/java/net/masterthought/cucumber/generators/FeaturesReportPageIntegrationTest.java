@@ -20,7 +20,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         setUpWithJson(SAMPLE_JOSN);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
-        final String titleValue = String.format("Cucumber-JVM Html Reports  - Feature: %s", feature.getRawName());
+        final String titleValue = String.format("Cucumber-JVM Html Reports  - Feature: %s", feature.getName());
 
         // when
         page.generatePage();
@@ -51,7 +51,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         assertThat(bodyRows).hasSize(1);
 
         Elements firstRow = getCells(bodyRows.get(0));
-        validateElements(firstRow, feature.getRawName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
+        validateElements(firstRow, feature.getName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
@@ -73,7 +73,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         ElementWrapper featureDetails = getFeatureDetails(document);
 
         String firstKeyword = getFeatureKeyword(document).text();
-        assertThat(firstKeyword).isEqualTo(feature.getKeyword() + ": " + feature.getName());
+        assertThat(firstKeyword).isEqualTo(feature.getKeyword() + " " + feature.getName());
 
         Elements featureTags = getFeatureTags(featureDetails);
         assertThat(featureTags).hasSize(1);
@@ -84,7 +84,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
     }
 
     @Test
-    public void generatePage_generatesScenarios() {
+    public void generatePage_generatesScenarioDetails() {
 
         // given
         setUpWithJson(SAMPLE_JOSN);

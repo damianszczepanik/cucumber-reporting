@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
-import net.masterthought.cucumber.util.Util;
 
 public class Element {
 
@@ -24,8 +23,6 @@ public class Element {
 
     private static final String SCENARIO_TYPE = "scenario";
 
-    private String beforeHooks;
-    private String afterHooks;
     private Status status;
 
     private Feature feature;
@@ -44,14 +41,6 @@ public class Element {
 
     public Tag[] getTags() {
         return tags;
-    }
-
-    public String getBeforeHooks() {
-        return beforeHooks;
-    }
-
-    public String getAfterHooks() {
-        return afterHooks;
     }
 
     public Status getStatus() {
@@ -126,8 +115,6 @@ public class Element {
         }
         calculateHooks(before);
         calculateHooks(after);
-        beforeHooks = calculateHooks("Before", before);
-        afterHooks = calculateHooks("After", after);
         status = calculateStatus(configuration);
     }
 
@@ -135,25 +122,6 @@ public class Element {
         for (int i = 0; i < hooks.length; i++) {
             hooks[i].setMedaData();
         }
-    }
-
-    private String calculateHooks(String keyword, Hook[] hooks) {
-        StringBuilder sb = new StringBuilder();
-        for (Hook hook : hooks) {
-
-            sb.append("<div class=\"").append(hook.getStatus().getRawName()).append("\">");
-            sb.append("<span class=\"keyword-key\">").append(keyword).append(" </span>");
-            sb.append("<span class=\"location\">").append(hook.getMatch().getLocation()).append("</span>");
-
-            Result result = hook.getResult();
-            sb.append("<span class=\"report-duration\">");
-            sb.append(Util.formatDuration(result.getDuration()));
-            sb.append("</span>");
-            final String contentId = "output_" + result.hashCode();
-            sb.append(Util.formatMessage("Error message", result.getErrorMessage(), contentId));
-            sb.append("</div>");
-        }
-        return sb.toString();
     }
 
     private Status calculateStatus(Configuration configuration) {
