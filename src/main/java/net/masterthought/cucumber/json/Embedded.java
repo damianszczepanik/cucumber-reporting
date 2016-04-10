@@ -22,7 +22,7 @@ public class Embedded {
      */
     public String render(int index) {
 
-        final String contentId = "embedding-" + generateUniqueId();
+        final String contentId = "embedding_" + hashCode();
 
         switch (mime_type) {
         case "image/png":
@@ -32,58 +32,42 @@ public class Embedded {
         case "image/jpeg":
             return buildImage("jpeg", contentId, index);
         case "text/plain":
-            return buildPlainText(contentId, index);
+            return buildPlainText("plain text", contentId, index);
         case "text/html":
             return buildhHTML(contentId, index);
         default:
-            return buildUnknown(mime_type, index);
+            return buildUnknown(mime_type, contentId, index);
         }
     }
 
-    private String buildImage(String imgType, String imageId, int index) {
-        String encodedImageContent = "data:image/" + imgType + ";base64," + data;
+    private String buildImage(String imgType, String contentId, int index) {
+        final String encodedImageContent = "data:image/" + imgType + ";base64," + this.data;
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(getExpandAnchor(imageId, "image", index));
-        sb.append(String.format("<a href=\"%s\">", encodedImageContent));
-        sb.append(String.format("<img id=\"%s\" src=\"%s\" class=\"hidden\"/></a></br>", imageId, encodedImageContent));
-
-        return sb.toString();
+        return toExpandable(contentId, index, imgType,
+                String.format("<img id=\"%s\" src=\"%s\">", contentId, encodedImageContent));
     }
 
-    private String buildPlainText(String contentId, int index) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getExpandAnchor(contentId, "plain text", index));
-        sb.append(String.format("<pre id=\"%s\" class=\"hidden\">%s</pre><br>", contentId,
-                decodeDataFromBase()));
-        return sb.toString();
+    private String buildPlainText(String mimeType, String contentId, int index) {
+        return toExpandable(contentId, index, mimeType, String.format("<pre>%s</pre>", decodeDataFromBase()));
     }
 
     private String buildhHTML(String contentId, int index) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getExpandAnchor(contentId, "HTML text", index));
-        sb.append(String.format("<span id=\"%s\" class=\"hidden\">%s</span><br>", contentId,
-                decodeDataFromBase()));
-        return sb.toString();
+        return toExpandable(contentId, index, "HTML", decodeDataFromBase());
     }
 
-    private String buildUnknown(String mimeType, int index) {
-        return String.format(
-                "<span>Attachment number %d, has unsupported mimetype '%s'.<br>File the bug <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">here</a> so support will be added!</span>",
-                index, mimeType);
+    private String buildUnknown(String mimeType, String contentId, int index) {
+        return toExpandable(contentId, index, mimeType,
+                "File the <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">bug</a> so support for this mimetype can be added.");
     }
 
-    private static String getExpandAnchor(String contentId, String label, int index) {
+    private static String toExpandable(String contentId, int index, String mimeType, String content) {
         return String.format(
-                "<a onclick=\"attachment=document.getElementById('%s'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">Attachment %d (%s)</a>",
-                contentId, index + 1, label);
+                "<a onclick=\"attachment=document.getElementById('%s'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
+                        + "Attachment %d (%s)</a><br><div id=\"%s\" class=\"hidden\">%s</div>",
+                contentId, index + 1, mimeType, contentId, content);
     }
 
     private String decodeDataFromBase() {
         return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
-    }
-
-    private int generateUniqueId() {
-        return super.hashCode();
     }
 }

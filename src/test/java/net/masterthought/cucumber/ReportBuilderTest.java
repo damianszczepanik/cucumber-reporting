@@ -116,7 +116,7 @@ public class ReportBuilderTest {
         File input = new File(configuration.getReportDirectory(), "net-masterthought-example-ATMKexception-feature.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
         
-        assertThat(fromClass("output_message", doc).text(), containsString("java.lang.AssertionError:"));
+        assertThat(fromClass("message", doc).text(), containsString("java.lang.AssertionError:"));
     }
 
     private Element fromId(String id, Element doc) {

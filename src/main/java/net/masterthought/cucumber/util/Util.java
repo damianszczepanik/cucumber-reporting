@@ -41,31 +41,24 @@ public final class Util {
     }
 
     /**
-     * Converts message into HTML code.
+     * Converts message into expandable HTML code.
      * 
-     * @param message
+     * @param messageName
+     *            message title
+     * @param content
      *            error message
-     * @param messageId
+     * @param contentId
      *            id of the message which should be unique per page so expand/collapse works correctly
-     * @return formatted message
+     * @return expandable message
      */
-    public static String formatMessage(String message, int messageId) {
+    public static String formatMessage(String messageName, String content, String contentId) {
         StringBuilder sb = new StringBuilder();
-        if (StringUtils.isEmpty(message)) {
-            sb.append(StringUtils.EMPTY);
-        } else {
-            sb.append("<div class=\"output_message\">");
-            // split the message to the header (first line) and the content (rest)
-            String[] headLineAndMessage = StringUtils.split(message, "\n", 2);
-            if (headLineAndMessage.length == 2) {
-                sb.append(String.format("<input class=\"output_collapse\" id=\"output_%d\" type=\"checkbox\">", messageId));
-                sb.append(String.format("<label for=\"output_%d\">%s</label>", messageId, headLineAndMessage[0]));
-                sb.append(String.format("<div>%s</div>", headLineAndMessage[1].replaceAll("\n", "<br/>")));
-            } else {
-                // one-line message
-                sb.append(message.replaceAll("\\\\n", "<br/>"));
-            }
-
+        if (StringUtils.isNotEmpty(content)) {
+            sb.append("<div class=\"message\">");
+            sb.append(String.format(
+                    "<a onclick=\"message=document.getElementById('%s'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
+                            + "%s</a><br><div id=\"%s\" class=\"hidden\"><pre>%s</pre></div>",
+                    contentId, messageName, contentId, content));
             sb.append("</div>");
         }
 

@@ -87,22 +87,22 @@ public class StepsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements bodyRows = getBodyOfStatsTable(document);
 
-        assertThat(bodyRows).hasSize(13);
+        assertThat(bodyRows).hasSize(14);
 
         Elements firstRow = getCells(bodyRows.get(0));
         validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms",
                 "100.00%");
         validateCSSClasses(firstRow, "location", "", "duration", "duration", "passed");
 
-        Elements failedRow = getCells(bodyRows.get(3));
+        Elements failedRow = getCells(bodyRows.get(4));
         validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "033 ms", "011 ms", "33.33%");
         validateCSSClasses(failedRow, "location", "", "duration", "duration", "failed");
 
-        Elements secondRow = getCells(bodyRows.get(9));
+        Elements secondRow = getCells(bodyRows.get(10));
         validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003 ms", "001 ms", "100.00%");
         validateCSSClasses(secondRow, "location", "", "duration", "duration", "passed");
 
-        Elements lastRow = getCells(bodyRows.get(12));
+        Elements lastRow = getCells(bodyRows.get(13));
         validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
         validateCSSClasses(lastRow, "location", "", "duration", "duration", "skipped");
     }
@@ -122,7 +122,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
         ElementWrapper document = documentFrom(page.getWebPage());
         Elements footerCells = getFooterCellsOfStatsTable(document);
 
-        validateElements(footerCells, "13", "20", "357 ms", "017 ms", "Totals");
+        validateElements(footerCells, "14", "21", "418 ms", "019 ms", "Totals");
     }
 
     @Test
