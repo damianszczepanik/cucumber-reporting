@@ -22,7 +22,9 @@
               </div>
               $step.getErrorMessage()
             </div>
-            $step.getDocString()
+            #if($step.getDocString())
+                <pre class="docstring">$step.getDocString().getValue()</pre>
+            #end
           </div>
 
           #if($step.hasRows())

@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.generators;
 
+import org.apache.commons.lang.text.StrBuilder;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -26,8 +27,13 @@ public class ElementWrapper {
         Elements inner = element.getElementsByClass(cssClass);
 
         assertNotEmpty(inner, cssClass);
-        if (!inner.first().equals(inner.last())) {
-            throw new IllegalArgumentException("Found more than one element with class: " + cssClass);
+        if (inner.size() > 1) {
+            StrBuilder sb = new StrBuilder();
+            for (int i = 0; i < inner.size(); i++) {
+                sb.append(inner.get(i)).append("\n");
+            }
+            throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
+                    inner.size(), cssClass, sb.toString()));
         }
 
         return new ElementWrapper(inner.first());

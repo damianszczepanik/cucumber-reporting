@@ -33,11 +33,9 @@ public class DocStringTest {
 
     @Test
     public void shouldFormatDocString() {
-        assertThat(step.getDocString(),
-                is("<div class=\"passed\"><div class=\"doc-string\">"
-                 + "X&nbsp;_&nbsp;X<br/>"
-                 + "O&nbsp;X&nbsp;O<br/>"
-                 + "_&nbsp;O&nbsp;X"
-                 + "</div></div>"));
+        assertThat(step.getDocString().getValue(),
+                is("X _ X\n"
+                 + "O X O\n"
+                 + "_ O X"));
     }
 }

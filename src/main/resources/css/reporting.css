@@ -150,57 +150,6 @@ table.arguments-table th, table.arguments-table td {
     text-align: left;
 }
 
-.doc-string {
-    width: auto;
-    display: inline-block;
-    margin: 10px auto 10px 70px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.35);
-    border-radius: 10px;
-    font-family: monospace;
-    font-size: 95%;
-}
-
-.graph {
-    margin-bottom: 50px;
-    margin-top: 30px;
-    clear: both;
-    font-family: georgia, serif;
-    font-size: 14px;
-}
-
-.graph-header h3 {
-    margin-bottom: 0;
-}
-
-.graph-header {
-    text-align: center;
-}
-
-.graph-header p {
-    margin-top: 0;
-}
-
-.graph .legend td, .graph .legend, .graph .legend tr {
-    padding: 0;
-    margin: 0;
-    border-collapse: collapse;
-}
-
-.graph .legend {
-    margin-left: 10px;
-}
-
-.graph .legend td {
-    padding-right: 5px;
-}
-
-.graph .legend .color-box {
-    width: 14px;
-    height: 10px;
-    overflow: hidden;
-}
-
 table#tablesorter thead tr th {
     cursor: pointer;
 }
@@ -213,7 +162,7 @@ table#tablesorter thead tr th {
 
 
 
-/* Custom Bootstrap CSS overloading.*/
+/* Custom Bootstrap CSS overloading. */
 .carousel-indicators {
     bottom: 0;
 }
