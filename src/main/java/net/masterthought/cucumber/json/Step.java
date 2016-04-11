@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -84,21 +83,8 @@ public class Step implements ResultsWithMatch {
         return StringUtils.EMPTY;
     }
 
-    /**
-     * Returns a formatted doc-string section. This is formatted w.r.t the parent Step element. To preserve whitespace
-     * in example, line breaks and whitespace are preserved.
-     *
-     * @return string of html
-     */
-    public String getDocString() {
-        if (doc_string == null || StringUtils.isBlank(doc_string.getValue())) {
-            return StringUtils.EMPTY;
-        }
-
-        return "<div class=\""
-                + status.getRawName() + "\">" + "<div class=\"doc-string\">" + StringEscapeUtils
-                        .escapeHtml(doc_string.getValue()).replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;")
-                + "</div></div>";
+    public DocString getDocString() {
+        return doc_string;
     }
 
     public String getAttachments() {

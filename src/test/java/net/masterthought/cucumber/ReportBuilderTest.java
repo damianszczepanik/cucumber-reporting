@@ -88,7 +88,7 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), "tag-1.html");
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromClass("doc-string", doc).get(0).text(), is("X _ X O X O _ O X"));
+        assertThat(fromClass("docstring", doc).get(0).text(), is("X _ X\nO X O\n_ O X"));
         Elements tableCells = doc.getElementsByClass("stats-table").get(0).getElementsByTag("tr").get(2).getElementsByTag("td");
         assertEquals("@tag:1", tableCells.get(0).text());
         assertEquals("1", tableCells.get(1).text());
