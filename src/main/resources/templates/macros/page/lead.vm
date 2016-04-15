@@ -1,5 +1,5 @@
 #macro(includeLead, $page_title, $page_description)
-<div class="container-fluid" id="lead">
+<div class="report-lead container-fluid>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <h2>$page_title</h2>

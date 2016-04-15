@@ -47,7 +47,7 @@ public abstract class AbstractPage {
 
     public final void generatePage() {
         ve.init(getProperties());
-        template = ve.getTemplate("templates/pages/" + templateFileName);
+        template = ve.getTemplate("templates/generators/" + templateFileName);
 
         prepareReport();
         generateReport();

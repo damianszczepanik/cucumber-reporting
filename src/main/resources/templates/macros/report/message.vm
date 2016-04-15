@@ -1,0 +1,11 @@
+#macro(includeMessage, $message, $type)
+
+  #if(!$message.isEmpty())
+    <div class="inner-level">
+      <div class="message $type">
+        $message
+      </div>
+    </div>
+  #end
+
+#end

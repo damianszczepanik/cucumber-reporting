@@ -1,6 +1,6 @@
 #macro(includeTags, $tags)
 
-<div class="tags">
+<div class="tags indention">
   #foreach($tag in $tags)
      <a href="$tag.getFileName()">$tag.getName()</a>
   #end

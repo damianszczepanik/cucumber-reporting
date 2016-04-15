@@ -8,7 +8,7 @@
 
 #includeNavigation("steps")
 
-#includeSummary()
+#includeBuildInfo()
 
 #includeLead("Steps Statistics", "The following graph shows step statistics for this build. Below list is based on results.
  step does not provide information about result then is not listed below.

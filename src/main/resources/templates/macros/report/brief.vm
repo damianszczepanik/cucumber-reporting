@@ -1,0 +1,11 @@
+#macro(includeBrief, $keyword, $status, $keyword_value, $result)
+
+<div class="brief indention $status.getRawName()">
+  <span class="keyword">$keyword</span>
+  <span class="name">$keyword_value</span>
+  #if($result)
+    <span class="lead-duration duration">$result.getFormatedDuration()</span>
+  #end
+</div>
+
+#end

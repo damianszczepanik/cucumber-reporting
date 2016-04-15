@@ -1,0 +1,21 @@
+#macro(includeHooks, $keyword, $hooks)
+
+#if($hooks.size() > 0)
+  <div class="inner-level">
+    #foreach($hook in $hooks)
+      <div class="$hook.getStatus().getRawName()">
+        <span class="keyword indention">$keyword</span>
+        #if($hook.getMatch())
+          <span class="location">$hook.getMatch().getLocation()</span>
+        #end
+        <span class="lead-duration duration">$hook.getResult().getFormatedDuration()</span>
+      </div>
+
+      #if($hook.getResult())
+        #includeMessage($hook.getResult().getFormatedErrorMessage(), "error-message")
+      #end
+    #end
+  </div>
+#end
+
+#end
