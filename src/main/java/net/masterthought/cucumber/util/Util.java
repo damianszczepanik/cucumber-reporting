@@ -54,12 +54,10 @@ public final class Util {
     public static String formatMessage(String messageName, String content, String contentId) {
         StringBuilder sb = new StringBuilder();
         if (StringUtils.isNotEmpty(content)) {
-            sb.append("<div class=\"message\">");
             sb.append(String.format(
                     "<a onclick=\"message=document.getElementById('%s'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
-                            + "%s</a><br><div id=\"%s\" class=\"hidden\"><pre>%s</pre></div>",
+                            + "%s</a><div id=\"%s\" class=\"hidden\"><pre>%s</pre></div>",
                     contentId, messageName, contentId, content));
-            sb.append("</div>");
         }
 
         return sb.toString();

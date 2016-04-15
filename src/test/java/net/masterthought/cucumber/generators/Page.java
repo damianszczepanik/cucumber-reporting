@@ -50,7 +50,7 @@ public abstract class Page extends ReportGenerator {
         return document.oneBySelector("head").oneBySelector("title");
     }
 
-    // ================= id=lead
+    // ================= class=lead
     protected ElementWrapper getLeadHeader(ElementWrapper document) {
         return getLead(document).oneBySelector("h2");
     }
@@ -60,7 +60,7 @@ public abstract class Page extends ReportGenerator {
     }
 
     private ElementWrapper getLead(ElementWrapper document) {
-        return document.byId("lead");
+        return document.oneByClass("report-lead");
     }
 
 
@@ -112,13 +112,6 @@ public abstract class Page extends ReportGenerator {
         return getReport(document).allByClass("element");
     }
 
-    protected Element getFeatureKeyword(ElementWrapper document) {
-        return getReport(document).oneByClass("keyword-feature").getElement();
-    }
-
-    protected Element getElementKeyword(ElementWrapper element) {
-        return element.oneByClass("keyword-element").getElement();
-    }
 
     // ================= <TABLE>
     protected Elements getRows(ElementWrapper statsTable) {
@@ -186,9 +179,17 @@ public abstract class Page extends ReportGenerator {
         assertThat(link.attr("href")).isEqualTo(href);
     }
 
-    protected void validateElementKeyword(ElementWrapper htmlElement,
-            net.masterthought.cucumber.json.Element jsonElement) {
-        String firstKeyword = getElementKeyword(htmlElement).text();
-        assertThat(firstKeyword).isEqualTo(jsonElement.getKeyword() + " " + jsonElement.getName());
+    protected void validateBrief(ElementWrapper element, String keyword, String name) {
+        validateFullBrief(element, keyword, name, null);
+    }
+
+    protected void validateFullBrief(ElementWrapper element, String keyword, String name, String duration) {
+        ElementWrapper brief = element.childByClass("brief");
+
+        assertThat(brief.oneByClass("keyword").text()).isEqualTo(keyword);
+        assertThat(brief.oneByClass("name").text()).isEqualTo(name);
+        if (duration != null) {
+            assertThat(brief.oneByClass("duration").text()).isEqualTo(duration);
+        }
     }
 }

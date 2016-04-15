@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Tag;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -72,8 +72,7 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         ElementWrapper document = documentFrom(page.getWebPage());
         ElementWrapper featureDetails = getFeatureDetails(document);
 
-        String firstKeyword = getFeatureKeyword(document).text();
-        assertThat(firstKeyword).isEqualTo(feature.getKeyword() + " " + feature.getName());
+        validateBrief(featureDetails, feature.getKeyword(), feature.getName());
 
         Elements featureTags = getFeatureTags(featureDetails);
         assertThat(featureTags).hasSize(1);
@@ -101,18 +100,29 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         assertThat(elements).hasSize(feature.getElements().length);
 
         ElementWrapper firstElement = new ElementWrapper(elements.get(0));
+        Element scenario = feature.getElements()[0];
+        validateBrief(firstElement, scenario.getKeyword(), scenario.getName());
+    }
+
+    @Test
+    public void generatePage_generatesScenariosTags() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        final Feature feature = features.get(0);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        ElementWrapper document = documentFrom(page.getWebPage());
+
+        Elements elements = getScenarios(document);
+        assertThat(elements).hasSize(feature.getElements().length);
+
+        ElementWrapper firstElement = new ElementWrapper(elements.get(0));
         Elements firstFeatureTags = getFeatureTags(firstElement);
         assertThat(firstFeatureTags).hasSize(feature.getElements()[0].getTags().length);
-        validateElementKeyword(firstElement, feature.getElements()[0]);
-
-
-        ElementWrapper secondElement = new ElementWrapper(elements.get(1));
-        Elements secondFeatureTags = getFeatureTags(secondElement);
-        Tag[] tags = feature.getElements()[1].getTags();
-        assertThat(secondFeatureTags).hasSize(tags.length);
-        for (int i = 0; i < tags.length; i++) {
-            validateLink(secondFeatureTags.get(i), tags[i].getFileName(), tags[i].getName());
-        }
-        validateElementKeyword(secondElement, feature.getElements()[1]);
     }
 }

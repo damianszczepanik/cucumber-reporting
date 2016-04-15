@@ -29,20 +29,18 @@ a:hover {
     display: block;
 }
 
-.keyword-key {
+.keyword {
     font-weight: bold;
 }
 
-.keyword-value {
-    font-weight: normal;
-}
-
-.keyword-feature, .description, .keyword-key {
+.indention {
     padding-left: 3px;
 }
 
-.elements, .embeddings, .message {
-    padding-left: 25px;
+.inner-level {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 20px;
 }
 
 .element {
@@ -55,19 +53,13 @@ a:hover {
     padding-left: 1px;
 }
 
-.steps {
-    margin-top: 15px;
-    padding-left: 25px;
-}
-
 .description {
     font-style: italic;
     background-color: beige;
 }
 
-.message {
-    background: white;
-    margin-bottom: 5px;
+.message, .embedding {
+    background-color: #dfdfdf;
     overflow: auto;
     white-space: nowrap;
 }
@@ -97,7 +89,7 @@ a:hover {
     background-color: #FAB3E9;
 }
 
-.report-duration {
+.lead-duration {
     float: right;
     padding-right: 15px;
 }
@@ -182,4 +174,9 @@ table#tablesorter thead tr th {
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
+}
+
+pre {
+    margin-left: 10px;
+    margin-right: 10px;
 }

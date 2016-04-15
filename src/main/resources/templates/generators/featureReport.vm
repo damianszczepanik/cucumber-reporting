@@ -8,7 +8,7 @@
 
 #includeNavigation()
 
-#includeSummary()
+#includeBuildInfo()
 
 #includeLead("Feature Report")
 
@@ -20,14 +20,12 @@
     <div class="col-md-10 col-md-offset-1">
       <div class="feature-details">
         #includeTags($feature.getTags())
-        <div class="keyword-feature">
-          #includeKeyword($feature.getKeyword(), $feature.getStatus(), $feature.getName())
-        </div>
-        <div class="description">$feature.getDescription()</div>
+        #includeBrief($feature.getKeyword(), $feature.getStatus(), $feature.getName())
+        <div class="description indention">$feature.getDescription()</div>
       </div>
 
-      <div class="elements">
-        #includeScenario($feature.getElements(), false)
+      <div class="elements inner-level">
+        #includeElements($feature.getElements(), false)
       </div>
     </div>
   </div>

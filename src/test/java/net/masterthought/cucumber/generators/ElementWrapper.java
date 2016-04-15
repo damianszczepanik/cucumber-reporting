@@ -1,5 +1,8 @@
 package net.masterthought.cucumber.generators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.text.StrBuilder;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -39,6 +42,30 @@ public class ElementWrapper {
         return new ElementWrapper(inner.first());
     }
 
+    public ElementWrapper childByClass(String cssClass) {
+        Elements children = element.children();
+
+        List<Element> matched = new ArrayList<>();
+        for (int i = 0; i < children.size(); i++) {
+            Element child = children.get(i);
+            if (child.hasClass(cssClass)) {
+                matched.add(child);
+            }
+        }
+
+        assertNotEmpty(matched, cssClass);
+        if (matched.size() > 1) {
+            StrBuilder sb = new StrBuilder();
+            for (int i = 0; i < matched.size(); i++) {
+                sb.append(matched.get(i)).append("\n");
+            }
+            throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
+                    matched.size(), cssClass, sb.toString()));
+        }
+
+        return new ElementWrapper(matched.get(0));
+    }
+
     public Elements allByClass(String cssClass) {
         Elements inner = element.getElementsByClass(cssClass);
 
@@ -67,7 +94,15 @@ public class ElementWrapper {
 
     private void assertNotEmpty(Elements elements, String criteria) {
         if (elements == null || elements.isEmpty()) {
-            throw new IllegalArgumentException("Could not find element by: " + criteria);
+            throw new IllegalArgumentException(
+                    String.format("Could not find element by '%s' in '%s' ", criteria, element.html()));
+        }
+    }
+
+    private void assertNotEmpty(List<?> elements, String criteria) {
+        if (elements == null || elements.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Could not find element by '%s' in '%s' ", criteria, element.html()));
         }
     }
 

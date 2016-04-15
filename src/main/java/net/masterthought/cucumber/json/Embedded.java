@@ -62,8 +62,8 @@ public class Embedded {
 
     private static String toExpandable(String contentId, int index, String mimeType, String content) {
         return String.format(
-                "<a onclick=\"attachment=document.getElementById('%s'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
-                        + "Attachment %d (%s)</a><br><div id=\"%s\" class=\"hidden\">%s</div>",
+                "<div class=\"embedding\"><a onclick=\"attachment=document.getElementById('%s'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
+                        + "Attachment %d (%s)</a><div id=\"%s\" class=\"hidden\">%s</div></div>",
                 contentId, index + 1, mimeType, contentId, content);
     }
 

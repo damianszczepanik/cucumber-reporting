@@ -76,7 +76,7 @@ public class PageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractHeader(document);
+        ElementWrapper summary = extractBuildInfo(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
         assertThat(headValues).hasSize(2);
@@ -103,7 +103,7 @@ public class PageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractHeader(document);
+        ElementWrapper summary = extractBuildInfo(document);
 
         Elements headValues = extractSummaryHeaderValues(summary);
         assertThat(headValues).hasSize(3);
@@ -179,8 +179,8 @@ public class PageIntegrationTest extends Page {
         validateLink(featureLink, "step-overview.html", "Steps");
     }
 
-    private ElementWrapper extractHeader(ElementWrapper navigation) {
-        return navigation.byId("header");
+    private ElementWrapper extractBuildInfo(ElementWrapper navigation) {
+        return navigation.oneByClass("buildInfo");
     }
 
     private Elements extractSummaryHeaderValues(ElementWrapper document) {

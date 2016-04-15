@@ -72,8 +72,9 @@ public class ReportBuilderTest {
 
         File input = new File(configuration.getReportDirectory(), ReportBuilder.HOME_PAGE);
         Document doc = Jsoup.parse(input, "UTF-8", "");
-        assertThat(fromId("lead", doc).getElementsByTag("h2").text(), is("Error"));
-        assertThat(fromId("lead", doc).getElementsByTag("p").text(), is("Something went wrong with project cucumber-reporting, build 1"));
+        assertThat(fromClass("report-lead", doc).get(0).getElementsByTag("h2").text(), is("Error"));
+        assertThat(fromClass("report-lead", doc).get(0).getElementsByTag("p").text(),
+                is("Something went wrong with project cucumber-reporting, build 1"));
         assertTrue(fromClass("error-message", doc).text().contains(
                 "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $"));
     }
@@ -117,10 +118,6 @@ public class ReportBuilderTest {
         Document doc = Jsoup.parse(input, "UTF-8", "");
         
         assertThat(fromClass("message", doc).text(), containsString("java.lang.AssertionError:"));
-    }
-
-    private Element fromId(String id, Element doc) {
-        return doc.getElementById(id);
     }
 
     private Elements fromClass(String clazz, Element doc) {
