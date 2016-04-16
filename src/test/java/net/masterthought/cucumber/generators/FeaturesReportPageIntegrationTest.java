@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.jsoup.select.Elements;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Element;
@@ -46,11 +45,11 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = getBodyOfStatsTable(document);
+        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
 
         assertThat(bodyRows).hasSize(1);
 
-        Elements firstRow = getCells(bodyRows.get(0));
+        ElementWrapper[] firstRow = getCells(bodyRows[0]);
         validateElements(firstRow, feature.getName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
@@ -72,14 +71,15 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         ElementWrapper document = documentFrom(page.getWebPage());
         ElementWrapper featureDetails = getFeatureDetails(document);
 
-        validateBrief(featureDetails, feature.getKeyword(), feature.getName());
+        ElementWrapper brief = getBrief(featureDetails);
+        validateBrief(brief, feature.getKeyword(), feature.getName());
 
-        Elements featureTags = getFeatureTags(featureDetails);
-        assertThat(featureTags).hasSize(1);
-        validateLink(featureTags.get(0), "featureTag.html", "@featureTag");
+        ElementWrapper[] tags = getTags(featureDetails);
+        assertThat(tags).hasSize(1);
+        validateLink(tags[0], "featureTag.html", "@featureTag");
 
-        String FeatureDescriptor = getFeatureDescription(featureDetails).text();
-        assertThat(FeatureDescriptor).isEqualTo(feature.getDescription());
+        String descriptor = getDescription(featureDetails).text();
+        assertThat(descriptor).isEqualTo(feature.getDescription());
     }
 
     @Test
@@ -96,20 +96,31 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
 
-        Elements elements = getScenarios(document);
+        ElementWrapper[] elements = getElements(document);
         assertThat(elements).hasSize(feature.getElements().length);
 
-        ElementWrapper firstElement = new ElementWrapper(elements.get(0));
-        Element scenario = feature.getElements()[0];
-        validateBrief(firstElement, scenario.getKeyword(), scenario.getName());
+        ElementWrapper firstElement = elements[1];
+        Element scenario = feature.getElements()[1];
+
+        ElementWrapper[] tags = getTags(firstElement);
+        assertThat(tags).hasSize(scenario.getTags().length);
+        for (int i = 0; i < tags.length; i++) {
+            validateLink(tags[i], scenario.getTags()[i].getFileName(), scenario.getTags()[i].getName());
+        }
+
+        ElementWrapper brief = getBrief(firstElement);
+        validateBrief(brief, scenario.getKeyword(), scenario.getName());
+
+        String descriptor = getDescription(firstElement).text();
+        assertThat(descriptor).isEqualTo(scenario.getDescription());
     }
 
     @Test
-    public void generatePage_generatesScenariosTags() {
+    public void generatePage_generatesScenarioHooks() {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
-        final Feature feature = features.get(0);
+        final Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
         // when
@@ -118,11 +129,12 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
 
-        Elements elements = getScenarios(document);
-        assertThat(elements).hasSize(feature.getElements().length);
+        ElementWrapper secondElement = getElements(document)[0];
 
-        ElementWrapper firstElement = new ElementWrapper(elements.get(0));
-        Elements firstFeatureTags = getFeatureTags(firstElement);
-        assertThat(firstFeatureTags).hasSize(feature.getElements()[0].getTags().length);
+        Element element = feature.getElements()[0];
+
+        ElementWrapper[] before = getBefore(secondElement);
+        assertThat(before).hasSize(element.getBefore().length);
     }
+
 }

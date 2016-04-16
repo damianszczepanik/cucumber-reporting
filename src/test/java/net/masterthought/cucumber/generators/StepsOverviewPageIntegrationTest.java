@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.jsoup.select.Elements;
 import org.junit.Test;
 
 /**
@@ -65,11 +64,11 @@ public class StepsOverviewPageIntegrationTest extends Page {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
         ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        Elements headerRows = getRows(headerTable);
+        ElementWrapper[] headerRows = getRows(headerTable);
 
         assertThat(headerRows).hasSize(1);
 
-        Elements firstRow = getHeaderCells(headerRows.get(0));
+        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
         validateElements(firstRow, "Implementation", "Occurrences", "Duration", "Average", "Ratio");
     }
 
@@ -85,24 +84,24 @@ public class StepsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = getBodyOfStatsTable(document);
+        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
 
         assertThat(bodyRows).hasSize(14);
 
-        Elements firstRow = getCells(bodyRows.get(0));
+        ElementWrapper[] firstRow = getCells(bodyRows[0]);
         validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms",
                 "100.00%");
         validateCSSClasses(firstRow, "location", "", "duration", "duration", "passed");
 
-        Elements failedRow = getCells(bodyRows.get(4));
+        ElementWrapper[] failedRow = getCells(bodyRows[4]);
         validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "033 ms", "011 ms", "33.33%");
         validateCSSClasses(failedRow, "location", "", "duration", "duration", "failed");
 
-        Elements secondRow = getCells(bodyRows.get(10));
+        ElementWrapper[] secondRow = getCells(bodyRows[10]);
         validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003 ms", "001 ms", "100.00%");
         validateCSSClasses(secondRow, "location", "", "duration", "duration", "passed");
 
-        Elements lastRow = getCells(bodyRows.get(13));
+        ElementWrapper[] lastRow = getCells(bodyRows[13]);
         validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
         validateCSSClasses(lastRow, "location", "", "duration", "duration", "skipped");
     }
@@ -120,7 +119,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements footerCells = getFooterCellsOfStatsTable(document);
+        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
 
         validateElements(footerCells, "14", "21", "418 ms", "019 ms", "Totals");
     }

@@ -1,9 +1,9 @@
 #macro(includeHooks, $keyword, $hooks)
 
 #if($hooks.size() > 0)
-  <div class="inner-level">
+  <div class="inner-level hooks-$keyword.toLowerCase()">
     #foreach($hook in $hooks)
-      <div class="$hook.getStatus().getRawName()">
+      <div class="hook $hook.getStatus().getRawName()">
         <span class="keyword indention">$keyword</span>
         #if($hook.getMatch())
           <span class="location">$hook.getMatch().getLocation()</span>

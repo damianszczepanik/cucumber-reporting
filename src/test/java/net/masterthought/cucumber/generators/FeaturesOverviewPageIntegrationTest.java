@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.jsoup.select.Elements;
 import org.junit.Test;
 
 /**
@@ -63,7 +62,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
 
-        assertThat(document.getElement().getElementById("charts")).isNotNull();
+        assertThat(document.byId("charts")).isNotNull();
     }
 
     @Test
@@ -79,14 +78,14 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
         ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        Elements headerRows = getRows(headerTable);
+        ElementWrapper[] headerRows = getRows(headerTable);
 
         assertThat(headerRows).hasSize(2);
 
-        Elements firstRow = getHeaderCells(headerRows.get(0));
+        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
         validateElements(firstRow, "", "Scenarios", "Steps", "", "");
 
-        Elements secondRow = getHeaderCells(headerRows.get(1));
+        ElementWrapper[] secondRow = getHeaderCells(headerRows[1]);
         validateElements(secondRow, "Feature", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
                 "Pending", "Undefined", "Missing", "Duration", "Status");
     }
@@ -104,18 +103,18 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = getBodyOfStatsTable(document);
+        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
 
         assertThat(bodyRows).hasSize(2);
 
-        Elements firstRow = getCells(bodyRows.get(0));
+        ElementWrapper[] firstRow = getCells(bodyRows[0]);
         validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
                 "Passed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
         validateReportLink(firstRow, "net-masterthought-example-s--ATM-local-feature.html", "First feature");
 
-        Elements secondRow = getCells(bodyRows.get(1));
+        ElementWrapper[] secondRow = getCells(bodyRows[1]);
         validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms",
                 "Failed");
         validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration",
@@ -136,7 +135,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements footerCells = getFooterCellsOfStatsTable(document);
+        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
 
         validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "345 ms", "Totals");
     }
