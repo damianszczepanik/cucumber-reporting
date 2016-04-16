@@ -12,6 +12,7 @@ import org.junit.After;
 
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.json.Hook;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -102,7 +103,15 @@ public abstract class Page extends ReportGenerator {
     }
 
     protected ElementWrapper[] getBefore(ElementWrapper element) {
-        return element.childByClass("hooks-before").allByClass("hook");
+        return getHooks(element.childByClass("hooks-before"));
+    }
+
+    protected ElementWrapper[] getAfter(ElementWrapper element) {
+        return getHooks(element.childByClass("hooks-after"));
+    }
+
+    private ElementWrapper[] getHooks(ElementWrapper hooks) {
+        return hooks.allByClass("hook");
     }
 
     protected ElementWrapper getDescription(ElementWrapper report) {
@@ -198,7 +207,23 @@ public abstract class Page extends ReportGenerator {
         }
     }
 
-    protected void validateHook() {
-
+    protected void validateHook(ElementWrapper[] elements, Hook[] hooks, String hookName) {
+        assertThat(elements).hasSameSizeAs(hooks);
+        for (int i = 0; i < elements.length; i++) {
+            ElementWrapper brief = elements[i].oneByClass("brief");
+            assertThat(brief.classNames()).contains(hooks[i].getStatus().getRawName());
+            assertThat(elements[i].oneByClass("keyword").text()).isEqualTo(hookName);
+            if (hooks[i].getMatch() != null) {
+                assertThat(elements[i].oneByClass("name").text()).isEqualTo(hooks[i].getMatch().getLocation());
+            }
+            if (hooks[i].getResult() != null) {
+                assertThat(elements[i].oneByClass("duration").text())
+                        .isEqualTo(hooks[i].getResult().getFormatedDuration());
+                if (hooks[i].getResult().getErrorMessage() != null) {
+                    assertThat(elements[i].oneByClass("message").text())
+                            .contains(hooks[i].getResult().getErrorMessage());
+                }
+            }
+        }
     }
 }

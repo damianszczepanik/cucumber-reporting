@@ -75,7 +75,7 @@ public class ReportBuilderTest {
         assertThat(fromId("report-lead", doc).getElementsByTag("h2").text(), is("Error"));
         assertThat(fromId("report-lead", doc).getElementsByTag("p").text(),
                 is("Something went wrong with project cucumber-reporting, build 1"));
-        assertTrue(fromClass("error-message", doc).text().contains(
+        assertTrue(fromClass("message", doc).text().contains(
                 "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $"));
     }
 

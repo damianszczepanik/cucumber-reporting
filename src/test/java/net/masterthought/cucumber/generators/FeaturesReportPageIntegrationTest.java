@@ -135,6 +135,11 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
 
         ElementWrapper[] before = getBefore(secondElement);
         assertThat(before).hasSize(element.getBefore().length);
+        validateHook(before, element.getBefore(), "Before");
+
+        ElementWrapper[] after = getAfter(secondElement);
+        assertThat(after).hasSize(element.getAfter().length);
+        validateHook(after, element.getAfter(), "After");
     }
 
 }
