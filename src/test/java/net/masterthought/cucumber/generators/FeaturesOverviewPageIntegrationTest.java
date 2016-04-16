@@ -4,6 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.LeadAssertion;
+import net.masterthought.cucumber.generators.helpers.SummaryAssertion;
+import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.helpers.WebAssertion;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -24,8 +30,8 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String title = getTitle(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
     }
@@ -41,12 +47,11 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String leadHeader = getLeadHeader(document).text();
-        String leadDescription = getLeadDescription(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        LeadAssertion lead = document.getLead();
 
-        assertThat(leadHeader).isEqualTo("Features Statistics");
-        assertThat(leadDescription).isEqualTo("The following graphs show passing and failing statistics for features");
+        assertThat(lead.getHeader()).isEqualTo("Features Statistics");
+        assertThat(lead.getDescription()).isEqualTo("The following graphs show passing and failing statistics for features");
     }
 
     @Test
@@ -60,9 +65,9 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(page.getWebPage());
 
-        assertThat(document.byId("charts")).isNotNull();
+        assertThat(document.byId("charts", WebAssertion.class)).isNotNull();
     }
 
     @Test
@@ -76,17 +81,16 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        ElementWrapper[] headerRows = getRows(headerTable);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] headerRows = document.getSummary().getTableStats().getHeaderRows();
 
         assertThat(headerRows).hasSize(2);
 
-        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
-        validateElements(firstRow, "", "Scenarios", "Steps", "", "");
+        TableRowAssertion firstRow = headerRows[0];
+        firstRow.hasExactValues("", "Scenarios", "Steps", "", "");
 
-        ElementWrapper[] secondRow = getHeaderCells(headerRows[1]);
-        validateElements(secondRow, "Feature", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
+        TableRowAssertion secondRow = headerRows[1];
+        secondRow.hasExactValues("Feature", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
                 "Pending", "Undefined", "Missing", "Duration", "Status");
     }
 
@@ -102,24 +106,21 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSize(2);
 
-        ElementWrapper[] firstRow = getCells(bodyRows[0]);
-        validateElements(firstRow, "First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("First feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
                 "Passed");
-        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
-                "passed");
-        validateReportLink(firstRow, "net-masterthought-example-s--ATM-local-feature.html", "First feature");
+        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
+        firstRow.getReportLink().hasLabelAndAddress("First feature","net-masterthought-example-s--ATM-local-feature.html");
 
-        ElementWrapper[] secondRow = getCells(bodyRows[1]);
-        validateElements(secondRow, "2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms",
-                "Failed");
-        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration",
-                "failed");
-        validateReportLink(secondRow, "net-masterthought-example-ATMK-feature.html", "2nd feature");
+        TableRowAssertion secondRow = bodyRows[1];
+        secondRow.hasExactValues("2nd feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms", "Failed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration", "failed");
+        secondRow.getReportLink().hasLabelAndAddress("2nd feature", "net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
@@ -134,10 +135,10 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        validateElements(footerCells, "2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "345 ms", "Totals");
+        footerCells.hasExactValues("2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "345 ms", "Totals");
     }
 
     @Test
@@ -151,7 +152,8 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        assertThat(getEmptyReportMessage(document).text()).isEqualTo("You have no features in your cucumber report");
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        SummaryAssertion summary = document.getSummary();
+        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no features in your cucumber report");
     }
 }

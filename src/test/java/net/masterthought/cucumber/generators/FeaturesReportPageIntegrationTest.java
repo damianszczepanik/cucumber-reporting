@@ -4,13 +4,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.BriefAssertion;
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.ElementAssertion;
+import net.masterthought.cucumber.generators.helpers.FeatureAssertion;
+import net.masterthought.cucumber.generators.helpers.HookAssertion;
+import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.helpers.TagAssertion;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Hook;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeaturesReportPageIntegrationTest extends ReportPage {
+public class FeaturesReportPageIntegrationTest extends Page {
 
     @Test
     public void generatePage_generatesTitle() {
@@ -25,8 +33,8 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String title = getTitle(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
     }
@@ -44,16 +52,14 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSize(1);
 
-        ElementWrapper[] firstRow = getCells(bodyRows[0]);
-        validateElements(firstRow, feature.getName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
-                "Passed");
-        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
-                "passed");
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues(feature.getName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms", "Passed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
     }
 
     @Test
@@ -68,18 +74,19 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper featureDetails = getFeatureDetails(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        FeatureAssertion featureDetails = document.getFeature();
 
-        ElementWrapper brief = getBrief(featureDetails);
-        validateBrief(brief, feature.getKeyword(), feature.getName());
+        BriefAssertion brief = featureDetails.getBrief();
+        assertThat(brief.getKeyword()).isEqualTo(feature.getKeyword());
+        assertThat(brief.getName()).isEqualTo(feature.getName());
+        brief.hasStatus(feature.getStatus());
 
-        ElementWrapper[] tags = getTags(featureDetails);
+        TagAssertion[] tags = featureDetails.getTags();
         assertThat(tags).hasSize(1);
-        validateLink(tags[0], "featureTag.html", "@featureTag");
+        tags[0].getLink().hasLabelAndAddress("@featureTag", "featureTag.html");
 
-        String descriptor = getDescription(featureDetails).text();
-        assertThat(descriptor).isEqualTo(feature.getDescription());
+        assertThat(featureDetails.getDescription()).isEqualTo(feature.getDescription());
     }
 
     @Test
@@ -94,25 +101,26 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(page.getWebPage());
 
-        ElementWrapper[] elements = getElements(document);
+        ElementAssertion[] elements = document.getFeature().getElements();
         assertThat(elements).hasSize(feature.getElements().length);
 
-        ElementWrapper firstElement = elements[1];
+        ElementAssertion firstElement = elements[1];
         Element scenario = feature.getElements()[1];
 
-        ElementWrapper[] tags = getTags(firstElement);
+        TagAssertion[] tags = firstElement.getTags();
         assertThat(tags).hasSize(scenario.getTags().length);
         for (int i = 0; i < tags.length; i++) {
-            validateLink(tags[i], scenario.getTags()[i].getFileName(), scenario.getTags()[i].getName());
+            tags[i].getLink().hasLabelAndAddress(scenario.getTags()[i].getName(), scenario.getTags()[i].getFileName());
         }
 
-        ElementWrapper brief = getBrief(firstElement);
-        validateBrief(brief, scenario.getKeyword(), scenario.getName());
+        BriefAssertion brief = firstElement.getBrief();
+        assertThat(brief.getKeyword()).isEqualTo(scenario.getKeyword());
+        assertThat(brief.getName()).isEqualTo(scenario.getName());
+        brief.hasStatus(scenario.getStatus());
 
-        String descriptor = getDescription(firstElement).text();
-        assertThat(descriptor).isEqualTo(scenario.getDescription());
+        assertThat(firstElement.getDescription()).isEqualTo(scenario.getDescription());
     }
 
     @Test
@@ -127,19 +135,37 @@ public class FeaturesReportPageIntegrationTest extends ReportPage {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(page.getWebPage());
 
-        ElementWrapper secondElement = getElements(document)[0];
+        ElementAssertion secondElement = document.getFeature().getElements()[0];
 
         Element element = feature.getElements()[0];
 
-        ElementWrapper[] before = getBefore(secondElement);
+        HookAssertion[] before = secondElement.getBefore();
         assertThat(before).hasSize(element.getBefore().length);
         validateHook(before, element.getBefore(), "Before");
 
-        ElementWrapper[] after = getAfter(secondElement);
+        HookAssertion[] after = secondElement.getAfter();
         assertThat(after).hasSize(element.getAfter().length);
         validateHook(after, element.getAfter(), "After");
+    }
+
+    private void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
+        for (int i = 0; i < elements.length; i++) {
+            BriefAssertion brief = elements[i].getBrief();
+            assertThat(brief.getKeyword()).isEqualTo(hookName);
+            brief.hasStatus(hooks[i].getStatus());
+
+            if (hooks[i].getMatch() != null) {
+                assertThat(brief.getName()).isEqualTo(hooks[i].getMatch().getLocation());
+            }
+            if (hooks[i].getResult() != null) {
+                assertThat(brief.getDuration()).isEqualTo(hooks[i].getResult().getFormatedDuration());
+                if (hooks[i].getResult().getErrorMessage() != null) {
+                    assertThat(elements[i].getMessage()).contains(hooks[i].getResult().getErrorMessage());
+                }
+            }
+        }
     }
 
 }

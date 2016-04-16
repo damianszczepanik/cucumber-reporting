@@ -1,5 +1,5 @@
 #macro(includeBuildInfo)
-<div class="buildinfo container-fluid">
+<div class="container-fluid" id="build-info">
   <div class="row">
     <div class="col-md-6 col-md-offset-1">
       <table class="table table-bordered">

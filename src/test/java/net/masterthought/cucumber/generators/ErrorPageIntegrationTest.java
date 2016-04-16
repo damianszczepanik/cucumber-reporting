@@ -4,6 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.LeadAssertion;
+import net.masterthought.cucumber.generators.helpers.WebAssertion;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -23,8 +27,8 @@ public class ErrorPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String title = getTitle(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
     }
@@ -41,12 +45,11 @@ public class ErrorPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String leadHeader = getLeadHeader(document).text();
-        String leadDescription = getLeadDescription(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        LeadAssertion lead = document.getLead();
 
-        assertThat(leadHeader).isEqualTo("Error");
-        assertThat(leadDescription).isEqualTo(String.format("Something went wrong with project %s, build %s",
+        assertThat(lead.getHeader()).isEqualTo("Error");
+        assertThat(lead.getDescription()).isEqualTo(String.format("Something went wrong with project %s, build %s",
                 configuration.getProjectName(), configuration.getBuildNumber()));
     }
 
@@ -61,7 +64,7 @@ public class ErrorPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(page.getWebPage());
         String error = getErrorMessage(document).text();
         assertThat(error).contains(cause.getMessage());
         assertThat(error).contains(cause.getClass().getName());
@@ -72,15 +75,15 @@ public class ErrorPageIntegrationTest extends Page {
         }
     }
 
-    private ElementWrapper getErrorMessage(ElementWrapper document) {
-        return getErrorSection(document).oneByClass("message");
+    private WebAssertion getErrorMessage(WebAssertion document) {
+        return getErrorSection(document).oneByClass("message", WebAssertion.class);
     }
 
-    private ElementWrapper getReportList(ElementWrapper document) {
-        return getErrorSection(document).oneByClass("error-files");
+    private WebAssertion getReportList(WebAssertion document) {
+        return getErrorSection(document).oneByClass("error-files", WebAssertion.class);
     }
 
-    private ElementWrapper getErrorSection(ElementWrapper document) {
-        return document.byId("report");
+    private WebAssertion getErrorSection(WebAssertion document) {
+        return document.byId("report", WebAssertion.class);
     }
 }

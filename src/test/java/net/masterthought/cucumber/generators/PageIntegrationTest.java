@@ -4,6 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.BuildInfoAssertion;
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.LinkAssertion;
+import net.masterthought.cucumber.generators.helpers.NavigationAssertion;
+import net.masterthought.cucumber.generators.helpers.NavigationItemAssertion;
+import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.helpers.WebAssertion;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -20,16 +28,16 @@ public class PageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper navigation = extractNaviBar(document);
-        ElementWrapper[] menuItems = extractNaviBarLinks(navigation);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        NavigationAssertion navigation = document.getNavigation();
+        NavigationItemAssertion[] menuItems = navigation.getNaviBarLinks();
 
-        validatePluginName(navigation);
+        navigation.hasPluginName();
         assertThat(menuItems).hasSize(3);
 
-        validateFeaturesInNaviBar(menuItems[0]);
-        validateTagsInNaviBar(menuItems[1]);
-        validateStepsInNaviBar(menuItems[2]);
+        menuItems[0].hasLinkToFeatures();
+        menuItems[1].hasLinkToTags();
+        menuItems[2].hasLinkToSteps();
     }
 
     @Test
@@ -46,20 +54,20 @@ public class PageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper navigation = extractNaviBar(document);
-        ElementWrapper[] menuItems = extractNaviBarLinks(navigation);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        NavigationAssertion navigation = document.getNavigation();
+        NavigationItemAssertion[] menuItems = navigation.getNaviBarLinks();
 
-        validatePluginName(navigation);
-        assertThat(menuItems).hasSize(6);
+        navigation.hasPluginName();
+        assertThat(navigation.getNaviBarLinks()).hasSize(6);
 
-        validateJenkinsInNaviBar(menuItems[0]);
-        validatePreviousResultInNaviBar(menuItems[1]);
-        validateLastResultInNaviBar(menuItems[2]);
+        menuItems[0].hasLinkToJenkins(configuration);
+        menuItems[1].hasLinkToPreviousResult(configuration, page.getWebPage());
+        menuItems[2].hasLinkToLastResult(configuration, page.getWebPage());
 
-        validateFeaturesInNaviBar(menuItems[3]);
-        validateTagsInNaviBar(menuItems[4]);
-        validateStepsInNaviBar(menuItems[5]);
+        menuItems[3].hasLinkToFeatures();
+        menuItems[4].hasLinkToTags();
+        menuItems[5].hasLinkToSteps();
     }
 
     @Test
@@ -73,17 +81,14 @@ public class PageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractBuildInfo(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        BuildInfoAssertion buildInfo = document.getBuildInfo();
 
-        ElementWrapper[] headValues = extractSummaryHeaderValues(summary);
-        assertThat(headValues).hasSize(2);
-        validateProjectSummaryHeader(headValues[0]);
-        validateDateSummaryHeader(headValues[1]);
+        TableRowAssertion headValues = buildInfo.getHeaderRow();
+        headValues.hasExactValues("Project", "Date");
 
-        ElementWrapper[] bodyValues = extractSummaryBodyValues(summary);
-        validateProjectSummaryBody(bodyValues[0]);
-        validateBuildSummaryBody(bodyValues[1]);
+        assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
+        buildInfo.hasBuildDate(false);
     }
 
     @Test
@@ -100,19 +105,15 @@ public class PageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper summary = extractBuildInfo(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        BuildInfoAssertion buildInfo = document.getBuildInfo();
 
-        ElementWrapper[] headValues = extractSummaryHeaderValues(summary);
-        assertThat(headValues).hasSize(3);
-        validateProjectSummaryHeader(headValues[0]);
-        validateBuildNumberSummaryHeader(headValues[1]);
-        validateDateSummaryHeader(headValues[2]);
+        TableRowAssertion headValues = buildInfo.getHeaderRow();
+        headValues.hasExactValues("Project", "Number", "Date");
 
-        ElementWrapper[] bodyValues = extractSummaryBodyValues(summary);
-        validateProjectSummaryBody(bodyValues[0]);
-        validateBuildNumberSummaryBody(bodyValues[1]);
-        validateBuildSummaryBody(bodyValues[2]);
+        assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
+        assertThat(buildInfo.getBuildNumber()).isEqualTo(configuration.getBuildNumber());
+        buildInfo.hasBuildDate(true);
     }
 
     @Test
@@ -126,100 +127,21 @@ public class PageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper footer = extractFooter(document);
-        ElementWrapper[] footerLinks = extractFooterLinks(footer);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        WebAssertion footer = extractFooter(document);
+        LinkAssertion[] footerLinks = extractFooterLinks(footer);
 
         assertThat(footerLinks).hasSize(2);
-        validateLink(footerLinks[0], "https://github.com/jenkinsci/cucumber-reports-plugin", "Jenkins Plugin");
-        validateLink(footerLinks[1], "https://github.com/damianszczepanik/cucumber-reporting", "Cucumber-JVM Reports");
+        footerLinks[0].hasLabelAndAddress("Jenkins Plugin", "https://github.com/jenkinsci/cucumber-reports-plugin");
+        footerLinks[1].hasLabelAndAddress("Cucumber-JVM Reports", "https://github.com/damianszczepanik/cucumber-reporting");
     }
 
-    private ElementWrapper extractNaviBar(ElementWrapper document) {
-        return document.byId("navigation");
+    private WebAssertion extractFooter(WebAssertion document) {
+        return document.byId("footer", WebAssertion.class);
     }
 
-    private ElementWrapper[] extractNaviBarLinks(ElementWrapper navigation) {
-        return navigation.allBySelector("a");
-    }
-
-    private void validatePluginName(ElementWrapper navigation) {
-        String pluginName = navigation.oneBySelector("p").text();
-        assertThat(pluginName).isEqualTo("Cucumber-JVM Report");
-    }
-
-    private void validateJenkinsInNaviBar(ElementWrapper featureLink) {
-        validateLink(featureLink, "/job/" + configuration.getProjectName() + "/" + configuration.getBuildNumber(),
-                "Jenkins");
-    }
-
-    private void validatePreviousResultInNaviBar(ElementWrapper featureLink) {
-        final Integer prevBuildNumber = Integer.parseInt(configuration.getBuildNumber()) - 1;
-        validateLink(featureLink, "/job/" + configuration.getProjectName() + "/" + prevBuildNumber
-                + "/cucumber-html-reports/" + page.getWebPage(), "Previous results");
-    }
-
-    private void validateLastResultInNaviBar(ElementWrapper featureLink) {
-        validateLink(featureLink,
-                "/job/" + configuration.getProjectName() + "/cucumber-html-reports/" + page.getWebPage(),
-                "Last results");
-    }
-
-    private void validateFeaturesInNaviBar(ElementWrapper featureLink) {
-        validateLink(featureLink, "feature-overview.html", "Features");
-    }
-
-    private void validateTagsInNaviBar(ElementWrapper featureLink) {
-        validateLink(featureLink, "tag-overview.html", "Tags");
-    }
-
-    private void validateStepsInNaviBar(ElementWrapper featureLink) {
-        validateLink(featureLink, "step-overview.html", "Steps");
-    }
-
-    private ElementWrapper extractBuildInfo(ElementWrapper navigation) {
-        return navigation.oneByClass("buildInfo");
-    }
-
-    private ElementWrapper[] extractSummaryHeaderValues(ElementWrapper document) {
-        return document.allBySelector("thead > tr > th");
-    }
-
-    private void validateProjectSummaryHeader(ElementWrapper value) {
-        assertThat(value.text()).isEqualTo("Project");
-    }
-
-    private void validateDateSummaryHeader(ElementWrapper value) {
-        assertThat(value.text()).isEqualTo("Date");
-    }
-
-    private void validateBuildNumberSummaryHeader(ElementWrapper value) {
-        assertThat(value.text()).isEqualTo("Number");
-    }
-
-    private ElementWrapper[] extractSummaryBodyValues(ElementWrapper document) {
-        return document.allBySelector("tbody > tr > td");
-    }
-
-    private void validateProjectSummaryBody(ElementWrapper project) {
-        assertThat(project.text()).isEqualTo(configuration.getProjectName());
-    }
-
-    private void validateBuildSummaryBody(ElementWrapper date) {
-        // date format: dd MMM yyyy, HH:mm
-        assertThat(date.text()).matches("^[0-3][0-9] \\w{3} \\d{4}, \\d{2}:\\d{2}$");
-    }
-
-    private void validateBuildNumberSummaryBody(ElementWrapper buildNumber) {
-        assertThat(buildNumber.text()).isEqualTo(configuration.getBuildNumber());
-    }
-
-    private ElementWrapper extractFooter(ElementWrapper document) {
-        return document.byId("footer");
-    }
-
-    private ElementWrapper[] extractFooterLinks(ElementWrapper footer) {
-        return footer.allBySelector("a");
+    private LinkAssertion[] extractFooterLinks(WebAssertion footer) {
+        return footer.allBySelector("a", LinkAssertion.class);
     }
 
 }
