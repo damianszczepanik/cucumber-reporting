@@ -478,7 +478,19 @@
                         ]
                     }
                 ],
-                "type":"scenario"
+                "type":"scenario",
+                "after":[
+                    {
+                        "result":{
+                            "duration":64700000,
+                            "status":"undefined",
+                            "error_message": "Undefined step"
+                        },
+                        "match":{
+                            "location":"any.error()"
+                        }
+                    }
+                ]
             }
         ],
         "uri":"net/masterthought/example/ATMK.feature"

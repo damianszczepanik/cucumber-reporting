@@ -73,7 +73,7 @@ public class ErrorPageIntegrationTest extends Page {
     }
 
     private ElementWrapper getErrorMessage(ElementWrapper document) {
-        return getErrorSection(document).oneByClass("error-message");
+        return getErrorSection(document).oneByClass("message");
     }
 
     private ElementWrapper getReportList(ElementWrapper document) {

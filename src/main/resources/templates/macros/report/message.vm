@@ -1,8 +1,8 @@
-#macro(includeMessage, $message, $type)
+#macro(includeMessage, $message)
 
   #if(!$message.isEmpty())
     <div class="inner-level">
-      <div class="message $type">
+      <div class="message indention">
         $message
       </div>
     </div>

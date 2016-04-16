@@ -19,7 +19,7 @@
             <div class="$step.getStatus().getRawName()">
               #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), $step.getResult())
             </div>
-              #includeMessage($step.getErrorMessage(), "error-message")
+              #includeMessage($step.getErrorMessage())
             #if($step.getDocString())
                 <pre class="docstring">$step.getDocString().getValue()</pre>
             #end

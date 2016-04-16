@@ -1,0 +1,7 @@
+#macro(includeDuration, $result)
+
+#if($result)
+  <span class="lead-duration duration">$result.getFormatedDuration()</span>
+#end
+
+#end

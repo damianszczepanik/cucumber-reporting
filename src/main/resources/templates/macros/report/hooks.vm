@@ -3,17 +3,19 @@
 #if($hooks.size() > 0)
   <div class="inner-level hooks-$keyword.toLowerCase()">
     #foreach($hook in $hooks)
-      <div class="hook $hook.getStatus().getRawName()">
-        <span class="keyword indention">$keyword</span>
-        #if($hook.getMatch())
-          <span class="location">$hook.getMatch().getLocation()</span>
-        #end
-        <span class="lead-duration duration">$hook.getResult().getFormatedDuration()</span>
-      </div>
+      <div class="hook">
+        <div class="brief $hook.getStatus().getRawName()">
+          <span class="keyword indention">$keyword</span>
+          #if($hook.getMatch())
+            <span class="location name">$hook.getMatch().getLocation()</span>
+          #end
+          #includeDuration($hook.getResult())
+        </div>
 
-      #if($hook.getResult())
-        #includeMessage($hook.getResult().getFormatedErrorMessage(), "error-message")
-      #end
+        #if($hook.getResult())
+          #includeMessage($hook.getResult().getFormatedErrorMessage())
+        #end
+      </div>
     #end
   </div>
 #end
