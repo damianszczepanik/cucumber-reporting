@@ -11,9 +11,7 @@
 
       #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName())
       <div class="description indention">$element.getDescription()</div>
-      <div class="hooks-before">
-        #includeHooks("Before", $element.getBefore())
-      </div>
+      #includeHooks("Before", $element.getBefore())
 
       <div class="steps inner-level">
         #foreach($step in $element.getSteps())
@@ -46,9 +44,7 @@
         #end
       </div>
 
-      <div class="hooks-after">
-        #includeHooks("After", $element.getAfter())
-      </div>
+      #includeHooks("After", $element.getAfter())
     </div>
   #end
 

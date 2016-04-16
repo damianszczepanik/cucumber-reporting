@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.text.StrBuilder;
 import org.jsoup.nodes.Element;
@@ -12,7 +13,7 @@ import org.jsoup.select.Elements;
  */
 public class ElementWrapper {
 
-    private Element element;
+    private final Element element;
 
     public ElementWrapper(Element element) {
         this.element = element;
@@ -66,12 +67,20 @@ public class ElementWrapper {
         return new ElementWrapper(matched.get(0));
     }
 
-    public Elements allByClass(String cssClass) {
+    public ElementWrapper[] allByClass(String cssClass) {
         Elements inner = element.getElementsByClass(cssClass);
 
         assertNotEmpty(inner, cssClass);
 
-        return inner;
+        return toArray(inner);
+    }
+
+    private ElementWrapper[] toArray(Elements inner) {
+        ElementWrapper[] elements = new ElementWrapper[inner.size()];
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = new ElementWrapper(inner.get(i));
+        }
+        return elements;
     }
 
     public ElementWrapper oneBySelector(String selector) {
@@ -85,11 +94,11 @@ public class ElementWrapper {
         return new ElementWrapper(inner.first());
     }
 
-    public Elements allBySelector(String selector) {
+    public ElementWrapper[] allBySelector(String selector) {
         Elements inner = element.select(selector);
         assertNotEmpty(inner, selector);
 
-        return inner;
+        return toArray(inner);
     }
 
     private void assertNotEmpty(Elements elements, String criteria) {
@@ -106,12 +115,15 @@ public class ElementWrapper {
         }
     }
 
-    public Element getElement() {
-        return element;
-    }
-
     public String text() {
         return element.text();
     }
 
+    public Set<String> classNames() {
+        return element.classNames();
+    }
+
+    public String attr(String attributeKey) {
+        return element.attr(attributeKey);
+    }
 }

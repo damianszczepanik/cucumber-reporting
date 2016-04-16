@@ -8,8 +8,6 @@ import java.io.IOException;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.After;
 
 import net.masterthought.cucumber.ReportGenerator;
@@ -50,7 +48,7 @@ public abstract class Page extends ReportGenerator {
         return document.oneBySelector("head").oneBySelector("title");
     }
 
-    // ================= class=lead
+    // ================= class=report-lead
     protected ElementWrapper getLeadHeader(ElementWrapper document) {
         return getLead(document).oneBySelector("h2");
     }
@@ -60,7 +58,7 @@ public abstract class Page extends ReportGenerator {
     }
 
     private ElementWrapper getLead(ElementWrapper document) {
-        return document.oneByClass("report-lead");
+        return document.byId("report-lead");
     }
 
 
@@ -69,19 +67,19 @@ public abstract class Page extends ReportGenerator {
         return getTableStats(document).oneBySelector("thead");
     }
 
-    protected Elements getBodyOfStatsTable(ElementWrapper document) {
+    protected ElementWrapper[] getBodyOfStatsTable(ElementWrapper document) {
         return getTableStats(document).allBySelector("tbody tr");
     }
 
-    protected Elements getFooterCellsOfStatsTable(ElementWrapper document) {
+    protected ElementWrapper[] getFooterCellsOfStatsTable(ElementWrapper document) {
         return getTableStats(document).allBySelector("tfoot tr td");
     }
 
-    protected Elements getEmptyReportMessage(ElementWrapper document) {
-        return getSummary(document).allBySelector("div p");
+    protected ElementWrapper getEmptyReportMessage(ElementWrapper document) {
+        return getSummary(document).oneBySelector("p");
     }
 
-    protected ElementWrapper getTableStats(ElementWrapper document) {
+    private ElementWrapper getTableStats(ElementWrapper document) {
         return getSummary(document).oneByClass("stats-table");
     }
 
@@ -91,39 +89,46 @@ public abstract class Page extends ReportGenerator {
 
 
     // ================= id=report
-
     protected ElementWrapper getReport(ElementWrapper document) {
         return document.byId("report");
     }
 
-    protected Elements getFeatureTags(ElementWrapper report) {
-        return report.oneByClass("tags").getElement().children();
+    protected ElementWrapper[] getTags(ElementWrapper report) {
+        return report.childByClass("tags").allBySelector("a");
     }
 
-    protected ElementWrapper getFeatureDescription(ElementWrapper report) {
-        return getFeatureDetails(report).oneByClass("description");
+    protected ElementWrapper getBrief(ElementWrapper element) {
+        return element.childByClass("brief");
+    }
+
+    protected ElementWrapper[] getBefore(ElementWrapper element) {
+        return element.childByClass("hooks-before").allByClass("hook");
+    }
+
+    protected ElementWrapper getDescription(ElementWrapper report) {
+        return report.childByClass("description");
     }
 
     protected ElementWrapper getFeatureDetails(ElementWrapper element) {
         return element.oneByClass("feature-details");
     }
 
-    protected Elements getScenarios(ElementWrapper document) {
+    protected ElementWrapper[] getElements(ElementWrapper document) {
         return getReport(document).allByClass("element");
     }
 
 
     // ================= <TABLE>
-    protected Elements getRows(ElementWrapper statsTable) {
+    protected ElementWrapper[] getRows(ElementWrapper statsTable) {
         return statsTable.allBySelector("tr");
     }
 
-    protected Elements getHeaderCells(Element row) {
-        return new ElementWrapper(row).allBySelector("th");
+    protected ElementWrapper[] getHeaderCells(ElementWrapper row) {
+        return row.allBySelector("th");
     }
 
-    protected Elements getCells(Element row) {
-        return new ElementWrapper(row).allBySelector("td");
+    protected ElementWrapper[] getCells(ElementWrapper row) {
+        return row.allBySelector("td");
     }
 
 
@@ -136,60 +141,64 @@ public abstract class Page extends ReportGenerator {
      * @param values
      *            reference element to compare with
      */
-    protected void validateElements(Elements array, String... values) {
-        if (array.size() != values.length) {
+    protected void validateElements(ElementWrapper[] array, String... values) {
+        if (array.length != values.length) {
             throw new IllegalArgumentException(
-                    String.format("Found %d elements but expected to compare with %d.", array.size(), values.length));
+                    String.format("Found %d elements but expected to compare with %d.", array.length, values.length));
         }
 
         for (int i = 0; i < values.length; i++) {
-            String html2Text = array.get(i).text();
+            String html2Text = array[i].text();
             if (!html2Text.equals(values[i])) {
                 throw new IllegalArgumentException(
-                        String.format("On index %d found '%s' while expected '%s'", i, array.get(i).text(), values[i]));
+                        String.format("On index %d found '%s' while expected '%s'", i, array[i].text(), values[i]));
             }
         }
     }
 
-    protected void validateCSSClasses(Elements array, String... classes) {
-        if (array.size() != classes.length) {
+    protected void validateCSSClasses(ElementWrapper[] array, String... classes) {
+        if (array.length != classes.length) {
             throw new IllegalArgumentException(
-                    String.format("Found %d elements but expected to compare with %d.", array.size(), classes.length));
+                    String.format("Found %d elements but expected to compare with %d.", array.length, classes.length));
         }
 
         for (int i = 0; i < classes.length; i++) {
             if (StringUtils.isEmpty(classes[i])) {
-                if (!array.get(i).classNames().isEmpty()) {
+                if (!array[i].classNames().isEmpty()) {
                     throw new IllegalArgumentException(String.format(
-                            "On index %d found '%s' while expected none css class", i, array.get(i).className()));
+                            "On index %d found '%s' while expected none css class", i, array[i].classNames()));
                 }
-            } else if (!array.get(i).classNames().contains(classes[i])) {
+            } else if (!array[i].classNames().contains(classes[i])) {
                 throw new IllegalArgumentException(String.format("On index %d found '%s' while expected '%s'", i,
-                        array.get(i).className(), classes[i]));
+                        array[i].classNames(), classes[i]));
             }
         }
     }
 
-    protected void validateReportLink(Elements row, String href, String name) {
-        validateLink(new ElementWrapper(row.get(0)).oneBySelector("a").getElement(), href, name);
+    protected void validateReportLink(ElementWrapper[] cells, String href, String name) {
+        // link is available in first cell of the row
+        ElementWrapper link = cells[0];
+        validateLink(link.oneBySelector("a"), href, name);
     }
 
-    protected void validateLink(Element link, String href, String name) {
+    protected void validateLink(ElementWrapper link, String href, String name) {
         assertThat(link.text()).isEqualTo(name);
         assertThat(link.attr("href")).isEqualTo(href);
     }
 
-    protected void validateBrief(ElementWrapper element, String keyword, String name) {
-        validateFullBrief(element, keyword, name, null);
+    protected void validateBrief(ElementWrapper brief, String keyword, String name) {
+        validateFullBrief(brief, keyword, name, null);
     }
 
-    protected void validateFullBrief(ElementWrapper element, String keyword, String name, String duration) {
-        ElementWrapper brief = element.childByClass("brief");
-
+    protected void validateFullBrief(ElementWrapper brief, String keyword, String name, String duration) {
         assertThat(brief.oneByClass("keyword").text()).isEqualTo(keyword);
         assertThat(brief.oneByClass("name").text()).isEqualTo(name);
         if (duration != null) {
             assertThat(brief.oneByClass("duration").text()).isEqualTo(duration);
         }
+    }
+
+    protected void validateHook() {
+
     }
 }

@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.jsoup.select.Elements;
 import org.junit.Test;
 
 /**
@@ -61,7 +60,7 @@ public class TagsOverviewPageIntegrationTest extends Page {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
 
-        assertThat(document.getElement().getElementById("charts")).isNotNull();
+        assertThat(document.byId("charts")).isNotNull();
     }
 
     @Test
@@ -77,14 +76,14 @@ public class TagsOverviewPageIntegrationTest extends Page {
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
         ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        Elements headerRows = getRows(headerTable);
+        ElementWrapper[] headerRows = getRows(headerTable);
 
         assertThat(headerRows).hasSize(2);
 
-        Elements firstRow = getHeaderCells(headerRows.get(0));
+        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
         validateElements(firstRow, "", "Scenarios", "Steps", "", "");
 
-        Elements secondRow = getHeaderCells(headerRows.get(1));
+        ElementWrapper[] secondRow = getHeaderCells(headerRows[1]);
         validateElements(secondRow, "Tag", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
                 "Pending", "Undefined", "Missing", "Duration", "Status");
     }
@@ -102,24 +101,24 @@ public class TagsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements bodyRows = getBodyOfStatsTable(document);
+        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
 
         assertThat(bodyRows).hasSize(3);
 
-        Elements firstRow = getCells(bodyRows.get(0));
+        ElementWrapper[] firstRow = getCells(bodyRows[0]);
         validateElements(firstRow, "@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms",
                 "Failed");
         validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined",
                 "missing", "duration", "failed");
         validateReportLink(firstRow, "checkout.html", "@checkout");
 
-        Elements secondRow = getCells(bodyRows.get(1));
+        ElementWrapper[] secondRow = getCells(bodyRows[1]);
         validateElements(secondRow, "@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
         validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
         validateReportLink(secondRow, "fast.html", "@fast");
 
-        Elements thirdRow = getCells(bodyRows.get(2));
+        ElementWrapper[] thirdRow = getCells(bodyRows[2]);
         validateElements(thirdRow, "@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
         validateCSSClasses(thirdRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
                 "passed");
@@ -139,7 +138,7 @@ public class TagsOverviewPageIntegrationTest extends Page {
 
         // then
         ElementWrapper document = documentFrom(page.getWebPage());
-        Elements footerCells = getFooterCellsOfStatsTable(document);
+        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
 
         validateElements(footerCells, "3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689 ms", "Totals");
     }
