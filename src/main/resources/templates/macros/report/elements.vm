@@ -33,7 +33,9 @@
 
             #includeMessage($step.getOutput(), "output")
             #if(!$step.getAttachments().isEmpty())
-              <div class="embeddings inner-level">$step.getAttachments()</div>
+              <div class="embeddings inner-level">
+                $step.getAttachments()
+              </div>
             #end
           </div>
         #end

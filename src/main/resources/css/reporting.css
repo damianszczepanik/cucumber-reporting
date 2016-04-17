@@ -64,6 +64,21 @@ a:hover {
     white-space: nowrap;
 }
 
+/* same as <pre> from bootstrap library */
+.embedding-box {
+    display: block;
+    padding: 9.5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.42857143;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px
+}
+
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
     background-color: #92DD96;
