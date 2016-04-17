@@ -1,11 +1,9 @@
 #macro(includeBrief, $keyword, $status, $keyword_value, $result)
 
-<div class="brief">
-  <div class="indention $status.getRawName()">
-    <span class="keyword">$keyword</span>
-    <span class="name">$keyword_value</span>
-    #includeDuration($result)
-  </div>
+<div class="brief indention $status.getRawName()">
+  <span class="keyword">$keyword</span>
+  <span class="name">$keyword_value</span>
+  #includeDuration($result)
 </div>
 
 #end

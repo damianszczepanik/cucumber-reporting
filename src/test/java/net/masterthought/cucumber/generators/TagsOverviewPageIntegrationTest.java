@@ -4,6 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.LeadAssertion;
+import net.masterthought.cucumber.generators.helpers.SummaryAssertion;
+import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.helpers.WebAssertion;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -22,8 +28,8 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String title = getTitle(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
     }
@@ -39,12 +45,11 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String leadHeader = getLeadHeader(document).text();
-        String leadDescription = getLeadDescription(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        LeadAssertion lead = document.getLead();
 
-        assertThat(leadHeader).isEqualTo("Tags Statistics");
-        assertThat(leadDescription).isEqualTo("The following graph shows passing and failing statistics for tags");
+        assertThat(lead.getHeader()).isEqualTo("Tags Statistics");
+        assertThat(lead.getDescription()).isEqualTo("The following graph shows passing and failing statistics for tags");
     }
 
     @Test
@@ -58,9 +63,9 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(page.getWebPage());
 
-        assertThat(document.byId("charts")).isNotNull();
+        assertThat(document.byId("charts", WebAssertion.class)).isNotNull();
     }
 
     @Test
@@ -74,18 +79,17 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        ElementWrapper[] headerRows = getRows(headerTable);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] headerRows = document.getSummary().getTableStats().getHeaderRows();
 
         assertThat(headerRows).hasSize(2);
 
-        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
-        validateElements(firstRow, "", "Scenarios", "Steps", "", "");
+        TableRowAssertion firstRow = headerRows[0];
+        firstRow.hasExactValues("", "Scenarios", "Steps", "", "");
 
-        ElementWrapper[] secondRow = getHeaderCells(headerRows[1]);
-        validateElements(secondRow, "Tag", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
-                "Pending", "Undefined", "Missing", "Duration", "Status");
+        TableRowAssertion secondRow = headerRows[1];
+        secondRow.hasExactValues("Tag", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped", "Pending",
+                "Undefined", "Missing", "Duration", "Status");
     }
 
     @Test
@@ -100,29 +104,25 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSize(3);
 
-        ElementWrapper[] firstRow = getCells(bodyRows[0]);
-        validateElements(firstRow, "@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms",
-                "Failed");
-        validateCSSClasses(firstRow, "tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined",
-                "missing", "duration", "failed");
-        validateReportLink(firstRow, "checkout.html", "@checkout");
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms", "Failed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
+        firstRow.getReportLink().hasLabelAndAddress("@checkout", "checkout.html");
 
-        ElementWrapper[] secondRow = getCells(bodyRows[1]);
-        validateElements(secondRow, "@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
-        validateCSSClasses(secondRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
-                "passed");
-        validateReportLink(secondRow, "fast.html", "@fast");
+        TableRowAssertion secondRow = bodyRows[1];
+        secondRow.hasExactValues("@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
+        secondRow.getReportLink().hasLabelAndAddress("@fast", "fast.html");
 
-        ElementWrapper[] thirdRow = getCells(bodyRows[2]);
-        validateElements(thirdRow, "@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
-        validateCSSClasses(thirdRow, "tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration",
-                "passed");
-        validateReportLink(thirdRow, "featureTag.html", "@featureTag");
+        TableRowAssertion lastRow = bodyRows[2];
+        lastRow.hasExactValues("@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
+        lastRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
+        lastRow.getReportLink().hasLabelAndAddress("@featureTag", "featureTag.html");
     }
 
     @Test
@@ -137,10 +137,9 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
-
-        validateElements(footerCells, "3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689 ms", "Totals");
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
+        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689 ms", "Totals");
     }
 
     @Test
@@ -154,7 +153,8 @@ public class TagsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        assertThat(getEmptyReportMessage(document).text()).isEqualTo("You have no tags in your cucumber report");
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        SummaryAssertion summary = document.getSummary();
+        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no tags in your cucumber report");
     }
 }

@@ -4,6 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.helpers.LeadAssertion;
+import net.masterthought.cucumber.generators.helpers.SummaryAssertion;
+import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -24,8 +29,8 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String title = getTitle(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
     }
@@ -41,12 +46,11 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        String leadHeader = getLeadHeader(document).text();
-        String leadDescription = getLeadDescription(document).text();
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        LeadAssertion lead = document.getLead();
 
-        assertThat(leadHeader).isEqualTo("Steps Statistics");
-        assertThat(leadDescription).isEqualTo("The following graph shows step statistics for this build."
+        assertThat(lead.getHeader()).isEqualTo("Steps Statistics");
+        assertThat(lead.getDescription()).isEqualTo("The following graph shows step statistics for this build."
                 + " Below list is based on results. step does not provide information about result then is not listed below."
                 + " Additionally @Before and @After are not counted because they are part of the scenarios, not steps.");
     }
@@ -62,14 +66,13 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper headerTable = getHeaderOfStatsTable(document);
-        ElementWrapper[] headerRows = getRows(headerTable);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] headerRows = document.getSummary().getTableStats().getHeaderRows();
 
         assertThat(headerRows).hasSize(1);
 
-        ElementWrapper[] firstRow = getHeaderCells(headerRows[0]);
-        validateElements(firstRow, "Implementation", "Occurrences", "Duration", "Average", "Ratio");
+        TableRowAssertion firstRow = headerRows[0];
+        firstRow.hasExactValues("Implementation", "Occurrences", "Duration", "Average", "Ratio");
     }
 
     @Test
@@ -83,27 +86,22 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] bodyRows = getBodyOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSize(15);
 
-        ElementWrapper[] firstRow = getCells(bodyRows[0]);
-        validateElements(firstRow, "ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms",
-                "100.00%");
-        validateCSSClasses(firstRow, "location", "", "duration", "duration", "passed");
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms", "100.00%");
+        firstRow.hasExactCSSClasses("location", "", "duration", "duration", "passed");
 
-        ElementWrapper[] failedRow = getCells(bodyRows[5]);
-        validateElements(failedRow, "ATMScenario.createCreditCard()", "3", "033 ms", "011 ms", "33.33%");
-        validateCSSClasses(failedRow, "location", "", "duration", "duration", "failed");
+        TableRowAssertion failedRow = bodyRows[5];
+        failedRow.hasExactValues("ATMScenario.createCreditCard()", "3", "033 ms", "011 ms", "33.33%");
+        failedRow.hasExactCSSClasses("location", "", "duration", "duration", "failed");
 
-        ElementWrapper[] secondRow = getCells(bodyRows[11]);
-        validateElements(secondRow, "ATMScenario.checkMoney(int)", "2", "003 ms", "001 ms", "100.00%");
-        validateCSSClasses(secondRow, "location", "", "duration", "duration", "passed");
-
-        ElementWrapper[] lastRow = getCells(bodyRows[14]);
-        validateElements(lastRow, "ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
-        validateCSSClasses(lastRow, "location", "", "duration", "duration", "skipped");
+        TableRowAssertion lastRow = bodyRows[14];
+        lastRow.hasExactValues("ATMScenario.its_not_implemented()", "1", "000 ms", "000 ms", "0.00%");
+        lastRow.hasExactCSSClasses("location", "", "duration", "duration", "skipped");
     }
 
     @Test
@@ -118,10 +116,10 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        ElementWrapper[] footerCells = getFooterCellsOfStatsTable(document);
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        validateElements(footerCells, "15", "22", "482 ms", "021 ms", "Totals");
+        footerCells.hasExactValues("15", "22", "482 ms", "021 ms", "Totals");
     }
 
     @Test
@@ -135,7 +133,8 @@ public class StepsOverviewPageIntegrationTest extends Page {
         page.generatePage();
 
         // then
-        ElementWrapper document = documentFrom(page.getWebPage());
-        assertThat(getEmptyReportMessage(document).text()).isEqualTo("You have no features in your cucumber report");
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        SummaryAssertion summary = document.getSummary();
+        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no features in your cucumber report");
     }
 }
