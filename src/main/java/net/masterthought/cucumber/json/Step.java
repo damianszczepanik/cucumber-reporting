@@ -40,7 +40,8 @@ public class Step implements ResultsWithMatch {
     }
 
     public String getKeyword() {
-        return keyword;
+        // step keywords have additional space at the end of string, while others don't
+        return keyword.trim();
     }
 
     public String getOutput() {

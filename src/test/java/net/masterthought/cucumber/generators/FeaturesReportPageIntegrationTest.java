@@ -9,11 +9,15 @@ import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.helpers.FeatureAssertion;
 import net.masterthought.cucumber.generators.helpers.HookAssertion;
+import net.masterthought.cucumber.generators.helpers.StepAssertion;
+import net.masterthought.cucumber.generators.helpers.TableAssertion;
 import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.helpers.TagAssertion;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
+import net.masterthought.cucumber.json.Row;
+import net.masterthought.cucumber.json.Step;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -124,7 +128,7 @@ public class FeaturesReportPageIntegrationTest extends Page {
     }
 
     @Test
-    public void generatePage_generatesScenarioHooks() {
+    public void generatePage_generatesHooks() {
 
         // given
         setUpWithJson(SAMPLE_JOSN);
@@ -150,7 +154,65 @@ public class FeaturesReportPageIntegrationTest extends Page {
         validateHook(after, element.getAfter(), "After");
     }
 
-    private void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
+    @Test
+    public void generatePage_generatesSteps() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        ElementAssertion secondElement = document.getFeature().getElements()[0];
+        Element element = feature.getElements()[0];
+
+        StepAssertion[] steps = secondElement.getSteps();
+        assertThat(steps).hasSameSizeAs(element.getSteps());
+
+        for (int i = 0; i < steps.length; i++) {
+            BriefAssertion brief = steps[i].getBrief();
+            Step step = element.getSteps()[i];
+
+            brief.hasStatus(step.getStatus());
+            assertThat(brief.getKeyword()).isEqualTo(step.getKeyword());
+            assertThat(brief.getName()).isEqualTo(step.getName());
+            brief.hasDuration(step.getDuration());
+        }
+    }
+
+    @Test
+    public void generatePage_generatesArguments() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        final Feature feature = features.get(0);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps()[1];
+        TableAssertion argTable = stepElement.getArgumentsTable();
+
+        Step step = feature.getElements()[0].getSteps()[1];
+
+        for (int r = 0; r < step.getRows().length; r++) {
+            Row row = step.getRows()[r];
+            TableRowAssertion rowElement = argTable.getBodyRows()[r];
+
+            assertThat(rowElement.getCellsValues()).isEqualTo(row.getCells());
+        }
+    }
+
+    private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
         for (int i = 0; i < elements.length; i++) {
             BriefAssertion brief = elements[i].getBrief();
             assertThat(brief.getKeyword()).isEqualTo(hookName);
@@ -160,9 +222,9 @@ public class FeaturesReportPageIntegrationTest extends Page {
                 assertThat(brief.getName()).isEqualTo(hooks[i].getMatch().getLocation());
             }
             if (hooks[i].getResult() != null) {
-                assertThat(brief.getDuration()).isEqualTo(hooks[i].getResult().getFormatedDuration());
+                brief.hasDuration(hooks[i].getResult().getDuration());
                 if (hooks[i].getResult().getErrorMessage() != null) {
-                    assertThat(elements[i].getMessage()).contains(hooks[i].getResult().getErrorMessage());
+                    assertThat(elements[i].getErrorMessage()).contains(hooks[i].getResult().getErrorMessage());
                 }
             }
         }

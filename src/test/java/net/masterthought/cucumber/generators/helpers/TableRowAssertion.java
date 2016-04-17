@@ -14,6 +14,15 @@ public class TableRowAssertion extends ReportAssertion {
         return allBySelector("td,th", WebAssertion.class);
     }
 
+    public String[] getCellsValues() {
+        WebAssertion[] cells = getCells();
+        String[] values = new String[cells.length];
+        for (int i = 0; i < cells.length; i++) {
+            values[i] = cells[i].text();
+        }
+        return values;
+    }
+
     /**
      * Validates if element of passed array is equal (as a text) to passed values (reference).
      * 

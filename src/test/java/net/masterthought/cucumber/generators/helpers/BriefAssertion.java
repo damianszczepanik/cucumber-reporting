@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators.helpers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.util.Util;
 
 public class BriefAssertion extends ReportAssertion {
 
@@ -14,8 +15,9 @@ public class BriefAssertion extends ReportAssertion {
         return oneByClass("name", WebAssertion.class).text();
     }
 
-    public String getDuration() {
-        return oneByClass("duration", WebAssertion.class).text();
+    public void hasDuration(long duration) {
+        String found = oneByClass("duration", WebAssertion.class).text();
+        assertThat(found).isEqualTo(Util.formatDuration(duration));
     }
 
     public void hasStatus(Status status) {

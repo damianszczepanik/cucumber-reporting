@@ -7,7 +7,7 @@ public class HookAssertion extends ReportAssertion {
         return super.getBrief();
     }
 
-    public String getMessage() {
+    public String getErrorMessage() {
         return oneByClass("message", WebAssertion.class).text();
     }
 }

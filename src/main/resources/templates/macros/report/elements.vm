@@ -15,32 +15,27 @@
 
       <div class="steps inner-level">
         #foreach($step in $element.getSteps())
-          <div class="step-details">
-            <div class="$step.getStatus().getRawName()">
-              #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), $step.getResult())
-            </div>
-              #includeMessage($step.getErrorMessage())
-            #if($step.getDocString())
-                <pre class="docstring">$step.getDocString().getValue()</pre>
+          <div class="step">
+            #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), $step.getResult())
+            #includeMessage($step.getErrorMessage())
+
+            #if($step.hasRows())
+              <table class="arguments-table">
+                #foreach($row in $step.getRows())
+                  <tr>
+                    #foreach($cell in $row.getCells())
+                      <td>$cell</td>
+                    #end
+                  </tr>
+                #end
+              </table>
+            #end
+
+            #includeMessage($step.getOutput(), "output")
+            #if(!$step.getAttachments().isEmpty())
+              <div class="embeddings inner-level">$step.getAttachments()</div>
             #end
           </div>
-
-          #if($step.hasRows())
-            <table class="arguments-table">
-              #foreach($row in $step.getRows())
-                <tr>
-                  #foreach($cell in $row.getCells())
-                    <td>$cell</td>
-                  #end
-                </tr>
-              #end
-            </table>
-          #end
-
-          #includeMessage($step.getOutput(), "output")
-          #if(!$step.getAttachments().isEmpty())
-            <div class="embeddings inner-level">$step.getAttachments()</div>
-          #end
         #end
       </div>
 
