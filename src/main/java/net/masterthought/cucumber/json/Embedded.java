@@ -44,7 +44,7 @@ public class Embedded {
         final String encodedImageContent = "data:image/" + imgType + ";base64," + this.data;
 
         return toExpandable(contentId, index, imgType,
-                String.format("<img id=\"%s\" src=\"%s\">", contentId, encodedImageContent));
+                toTableBox(String.format("<img id=\"%s\" src=\"%s\">", contentId, encodedImageContent)));
     }
 
     private String buildPlainText(String mimeType, String contentId, int index) {
@@ -52,12 +52,16 @@ public class Embedded {
     }
 
     private String buildhHTML(String contentId, int index) {
-        return toExpandable(contentId, index, "HTML", decodeDataFromBase());
+        return toExpandable(contentId, index, "HTML", toTableBox(decodeDataFromBase()));
     }
 
     private String buildUnknown(String mimeType, String contentId, int index) {
-        return toExpandable(contentId, index, mimeType,
-                "File the <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">bug</a> so support for this mimetype can be added.");
+        return toExpandable(contentId, index, mimeType, toTableBox(
+                "File the <a href=\"https://github.com/damianszczepanik/cucumber-reporting/issues\">bug</a> so support for this mimetype can be added."));
+    }
+
+    private static String toTableBox(String content) {
+        return String.format("<span class=\"embedding-box\">%s</span>", content);
     }
 
     private static String toExpandable(String contentId, int index, String mimeType, String content) {
