@@ -31,11 +31,9 @@ Add a maven dependency to your pom
     <version>(check version above)</version>
 </dependency>
 ```
-Read this if you need further [detailed install and configuration]
-(https://github.com/damianszczepanik/jenkins-cucumber-reporting-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
-Read this if you need further  [detailed install and configuration]
-(https://github.com/damianszczepanik/cucumber-reporting-jenkins/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+Read this if you need further [detailed install and configuration]
+(https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 ```java
