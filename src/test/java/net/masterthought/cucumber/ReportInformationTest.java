@@ -36,11 +36,6 @@ public class ReportInformationTest {
     }
 
     @Test
-    public void shouldListAllFeatures() throws IOException {
-        assertThat(reportResult.getAllFeatures().get(0), isA(Feature.class));
-    }
-
-    @Test
     public void shouldListAllTags() {
         assertThat(reportResult.getAllTags().get(0), isA(TagObject.class));
     }
@@ -88,11 +83,6 @@ public class ReportInformationTest {
     @Test
     public void shouldReturnTimeStamp() {
         assertThat(reportResult.getBuildTime(), isA(String.class));
-    }
-
-    @Test
-    public void shouldReturnReportStatusColour() {
-        assertThat(reportResult.getAllFeatures().get(0).getStatus(), is(Status.PASSED));
     }
 
     @Test

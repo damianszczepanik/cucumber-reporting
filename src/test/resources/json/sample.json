@@ -8,7 +8,7 @@
             }
         ],
         "description":"This is description of the feature",
-        "name":"First feature",
+        "name":"1st feature",
         "keyword":"Feature",
         "line":2,
         "elements":[
@@ -262,7 +262,7 @@
     {
         "id":"account-holder-withdraws-more-cash",
         "description":"As an Account Holder\nI want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed",
-        "name":"2nd feature",
+        "name":"Second feature",
         "keyword":"Feature",
         "line":1,
         "elements":[
@@ -295,7 +295,7 @@
                     }
                 ],
                 "description":"Account holder withdraws more cash",
-                "name":"Account has sufficient funds",
+                "name":"Account may not have sufficient funds",
                 "keyword":"Scenario Outline",
                 "line":19,
                 "steps":[

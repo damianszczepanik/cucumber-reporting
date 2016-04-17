@@ -89,9 +89,9 @@ public class StepsOverviewPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
 
-        assertThat(bodyRows).hasSameSizeAs(reportResult.getAllSteps());
+        assertThat(bodyRows).hasSameSizeAs(steps);
 
-        TableRowAssertion firstRow = bodyRows[0];
+        TableRowAssertion firstRow = bodyRows[1];
         firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms", "100.00%");
         firstRow.hasExactCSSClasses("location", "", "duration", "duration", "passed");
 

@@ -10,9 +10,9 @@ import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
-public class TagObject implements Reportable {
+public class TagObject implements Reportable, Comparable<TagObject> {
 
-    private final String tagName;
+    private final String name;
     private final List<Element> elements = new ArrayList<>();
 
     private final String reportFileName;
@@ -26,7 +26,7 @@ public class TagObject implements Reportable {
     private Status status = Status.PASSED;
 
     public TagObject(String tagName) {
-        this.tagName = tagName;
+        this.name = tagName;
 
         // eliminate characters that might be invalid as a file name
         this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
@@ -34,7 +34,7 @@ public class TagObject implements Reportable {
 
     @Override
     public String getName() {
-        return tagName;
+        return name;
     }
 
     public String getReportFileName() {
@@ -142,5 +142,11 @@ public class TagObject implements Reportable {
     @Override
     public String getDeviceName() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public int compareTo(TagObject o) {
+        // tag without name seems to be invalid
+        return Integer.signum(name.compareTo(o.getName()));
     }
 }
