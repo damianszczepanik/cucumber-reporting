@@ -20,6 +20,9 @@ public class ElementAssertion extends ReportAssertion {
         return getHooks(childByClass("hooks-after", HookAssertion.class));
     }
 
+    public StepAssertion[] getSteps() {
+        return allByClass("step", StepAssertion.class);
+    }
     private HookAssertion[] getHooks(HookAssertion hooks) {
         return hooks.allByClass("hook", HookAssertion.class);
     }

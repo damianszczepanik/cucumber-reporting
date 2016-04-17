@@ -17,4 +17,9 @@ public abstract class ReportAssertion extends WebAssertion {
     public LinkAssertion getLink() {
         return oneBySelector("a", LinkAssertion.class);
     }
+
+    protected String getErrorMessage() {
+        return oneByClass("message", WebAssertion.class).html();
+    }
+
 }
