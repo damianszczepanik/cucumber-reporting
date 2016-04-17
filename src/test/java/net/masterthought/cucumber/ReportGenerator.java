@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -21,8 +23,11 @@ public abstract class ReportGenerator {
     protected Configuration configuration;
     private String projectName = "test cucumberProject";
     protected final List<String> jsonReports = new ArrayList<>();
-    protected List<Feature> features;
     protected ReportResult reportResult;
+
+    protected List<Feature> features;
+    protected List<TagObject> tags;
+    protected List<StepObject> steps;
 
     public ReportGenerator() {
         try {
@@ -49,14 +54,17 @@ public abstract class ReportGenerator {
             jsonReports.add(new File(path.toURI()).getAbsolutePath());
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
-
         }
     }
 
     private void createReportBuilder() {
         ReportParser reportParser = new ReportParser(configuration);
 
-        features = reportParser.parseJsonResults(jsonReports);
-        reportResult = new ReportResult(features);
+        List<Feature> featuresFromJson = reportParser.parseJsonResults(jsonReports);
+        reportResult = new ReportResult(featuresFromJson);
+
+        features = reportResult.getAllFeatures();
+        tags = reportResult.getAllTags();
+        steps = reportResult.getAllSteps();
     }
 }

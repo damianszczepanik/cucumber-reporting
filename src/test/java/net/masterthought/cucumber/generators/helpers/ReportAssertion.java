@@ -10,7 +10,7 @@ public abstract class ReportAssertion extends WebAssertion {
         return TagAssertion.getTags(this);
     }
 
-    public BriefAssertion getBrief() {
+    protected BriefAssertion getBrief() {
         return childByClass("brief", BriefAssertion.class);
     }
 

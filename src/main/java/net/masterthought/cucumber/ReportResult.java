@@ -2,8 +2,9 @@ package net.masterthought.cucumber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,7 +29,7 @@ public class ReportResult {
 
     private final List<Feature> allFeatures = new ArrayList<>();
     private final Map<String, TagObject> allTags = new TreeMap<>();
-    private final Map<String, StepObject> allSteps = new HashMap<>();
+    private final Map<String, StepObject> allSteps = new TreeMap<>();
 
     private final StatusCounter featureCounter = new StatusCounter();
 
@@ -46,15 +47,15 @@ public class ReportResult {
     }
 
     public List<Feature> getAllFeatures() {
-        return allFeatures;
+        return mapToSortedList(allFeatures);
     }
 
     public List<TagObject> getAllTags() {
-        return new ArrayList<>(allTags.values());
+        return mapToSortedList(allTags.values());
     }
 
     public List<StepObject> getAllSteps() {
-        return new ArrayList<>(allSteps.values());
+        return mapToSortedList(allSteps.values());
     }
 
     public Reportable getFeatureReport() {
@@ -164,5 +165,11 @@ public class ReportResult {
             allTags.put(tagObject.getName(), tagObject);
         }
         return tagObject;
+    }
+
+    private static <T extends Comparable<? super T>> List<T> mapToSortedList(Collection<T> values) {
+        List<T> list = new ArrayList<T>(values);
+        Collections.sort(list);
+        return list;
     }
 }

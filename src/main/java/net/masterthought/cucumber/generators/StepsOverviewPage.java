@@ -1,9 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -28,7 +24,7 @@ public class StepsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("all_steps", sortStepsByDuration(report.getAllSteps()));
+        velocityContext.put("all_steps", report.getAllSteps());
 
         int allOccurrences = 0;
         long allDurations = 0;
@@ -42,20 +38,5 @@ public class StepsOverviewPage extends AbstractPage {
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
         velocityContext.put("all_average", Util.formatDuration(average));
 
-    }
-
-    private StepObject[] sortStepsByDuration(List<StepObject> steps) {
-        StepObject[] array = new StepObject[steps.size()];
-        Arrays.sort(steps.toArray(array), new DurationCompator());
-
-        return array;
-    }
-
-    private static class DurationCompator implements Comparator<StepObject> {
-
-        @Override
-        public int compare(StepObject o1, StepObject o2) {
-            return Long.signum(o2.getDurations() - o1.getDurations());
-        }
     }
 }

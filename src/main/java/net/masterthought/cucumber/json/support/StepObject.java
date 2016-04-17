@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.json.support;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.util.Util;
 
 /**
@@ -8,7 +10,7 @@ import net.masterthought.cucumber.util.Util;
  * @author Damian Szczepanik (damianszczepanik@github)
  *
  */
-public class StepObject {
+public class StepObject implements Comparable<StepObject> {
 
     /** Name of the method / step implementation. This value is unique, there are no two steps with the same locations. */
     public final String location;
@@ -67,5 +69,16 @@ public class StepObject {
 
     public Status getStatus() {
         return statusCounter.getFinalStatus();
+    }
+
+    @Override
+    public int compareTo(StepObject o) {
+        if (StringUtils.isEmpty(location)) {
+            return -1;
+        }
+        if (StringUtils.isEmpty(o.getLocation())) {
+            return 1;
+        }
+        return Integer.signum(location.compareTo(o.getLocation()));
     }
 }

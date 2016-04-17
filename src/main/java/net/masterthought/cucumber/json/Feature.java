@@ -12,7 +12,7 @@ import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
-public class Feature implements Reportable {
+public class Feature implements Reportable, Comparable<Feature> {
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -211,5 +211,11 @@ public class Feature implements Reportable {
                 totalDuration += step.getDuration();
             }
         }
+    }
+
+    @Override
+    public int compareTo(Feature o) {
+        // feature without name seems to be invalid
+        return Integer.signum(name.compareTo(o.getName()));
     }
 }
