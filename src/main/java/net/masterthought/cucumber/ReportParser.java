@@ -32,7 +32,7 @@ public class ReportParser {
             try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), Charsets.UTF_8)) {
                 Feature[] features = gson.fromJson(reader, Feature[].class);
                 if (features == null) {
-                    throw new IllegalArgumentException(String.format("File '%s' does not contan features!", jsonFile));
+                    throw new IllegalArgumentException(String.format("File '%s' does not contain features!", jsonFile));
                 }
                 setMetadata(features, jsonFile, i);
 
