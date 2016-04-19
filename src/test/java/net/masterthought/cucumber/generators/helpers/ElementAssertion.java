@@ -9,15 +9,15 @@ public class ElementAssertion extends ReportAssertion {
 
     @Override
     public BriefAssertion getBrief() {
-        return super.getBrief();
+        return super.getCollapseControl(BriefAssertion.class).getBrief();
     }
 
     public HookAssertion[] getBefore() {
-        return getHooks(childByClass("hooks-before", HookAssertion.class));
+        return getHooks(getCollapseDetails(HookAssertion.class).childByClass("hooks-before", HookAssertion.class));
     }
 
     public HookAssertion[] getAfter() {
-        return getHooks(childByClass("hooks-after", HookAssertion.class));
+        return getHooks(getCollapseDetails(HookAssertion.class).childByClass("hooks-after", HookAssertion.class));
     }
 
     public StepAssertion[] getSteps() {
