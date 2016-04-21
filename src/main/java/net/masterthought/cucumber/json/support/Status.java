@@ -27,4 +27,8 @@ public enum Status {
     public static Status toStatus(String status) {
         return valueOf(status.toUpperCase());
     }
+
+    public boolean isPassed() {
+        return this == PASSED;
+    }
 }

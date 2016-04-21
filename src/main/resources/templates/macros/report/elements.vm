@@ -1,22 +1,26 @@
 #macro(includeElements, $elements, $linkToFeature)
 
-  #foreach($element in $elements)
-    <div class="element">
-      #if($linkToFeature)
-        <div class="indention">
-          <a href="$element.getFeature().getReportFileName()">View Feature</a> <i>$element.getFeature().getName()</i>
-        </div>
-      #end
-      #includeTags($element.getTags())
+#foreach($element in $elements)
+  <div class="element">
+    #if($linkToFeature)
+      <div class="indention">
+        <a href="$element.getFeature().getReportFileName()">View Feature</a> <i>$element.getFeature().getName()</i>
+      </div>
+    #end
+    #includeTags($element.getTags())
 
-      #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName())
-      <div class="description indention">$element.getDescription()</div>
+    <span data-toggle="collapse" class="#if($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$element.hashCode()">
+      #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName(), true)
+    </span>
+    <div class="description indention">$element.getDescription()</div>
+
+    <span id="element-$element.hashCode()" class="collapse collapsable-details #if(!$element.getStatus().isPassed()) in #end">
       #includeHooks("Before", $element.getBefore())
 
       <div class="steps inner-level">
         #foreach($step in $element.getSteps())
           <div class="step">
-            #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), $step.getResult())
+            #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
             #includeMessage($step.getErrorMessage())
 
             #if($step.hasRows())
@@ -42,7 +46,8 @@
       </div>
 
       #includeHooks("After", $element.getAfter())
-    </div>
-  #end
+    <span>
+  </div>
+#end
 
 #end

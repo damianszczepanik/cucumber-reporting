@@ -65,9 +65,11 @@ public class ReportBuilder {
     }
 
     private void copyStaticResources() {
-        copyResources("css", "reporting.css", "bootstrap.min.css");
+        copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js", "highcharts.js",
                 "highcharts-3d.js");
+        copyResources("fonts", "FontAwesome.otf", "fontawesome-webfont.svg", "fontawesome-webfont.woff",
+                "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2");
     }
 
     private void generateAllPages() {
@@ -86,7 +88,8 @@ public class ReportBuilder {
 
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
-            File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(), resource);
+            File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
+                    resourceLocation + "/" + resource);
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(

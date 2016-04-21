@@ -161,6 +161,18 @@ table#tablesorter thead tr th {
     cursor: pointer;
 }
 
+.collapsable-control {
+    cursor: pointer;
+}
+
+.chevron:after {
+    content: "\f078";
+}
+
+.collapsed .chevron:after {
+    content: "\f054";
+}
+
 .footer {
     font-size: smaller;
     text-align: center;
