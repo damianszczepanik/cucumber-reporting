@@ -125,8 +125,13 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
-    public String getDurations() {
-        return Util.formatDuration(totalDuration);
+    public long getDurations() {
+        return totalDuration;
+    }
+
+    @Override
+    public String getFormattedDurations() {
+        return Util.formatDuration(getDurations());
     }
 
     @Override

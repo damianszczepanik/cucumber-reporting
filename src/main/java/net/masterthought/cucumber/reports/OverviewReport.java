@@ -78,8 +78,13 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public String getDurations() {
-        return Util.formatDuration(duration);
+    public long getDurations() {
+        return duration;
+    }
+
+    @Override
+    public String getFormattedDurations() {
+        return Util.formatDuration(getDurations());
     }
 
     public void incDurationBy(long duration) {

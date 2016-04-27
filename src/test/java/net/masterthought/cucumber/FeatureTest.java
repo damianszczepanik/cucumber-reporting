@@ -124,8 +124,13 @@ public class FeatureTest {
     }
 
     @Test
-    public void shouldgetDurations() {
-        assertThat(passingFeature.getDurations(), StringContains.containsString("ms"));
+    public void shouldGetDuration() {
+        assertThat(passingFeature.getDurations(), is(112739000L));
+    }
+
+    @Test
+    public void shouldGetFormattedDurations() {
+        assertThat(passingFeature.getFormattedDurations(), StringContains.containsString("ms"));
     }
 
     @Test

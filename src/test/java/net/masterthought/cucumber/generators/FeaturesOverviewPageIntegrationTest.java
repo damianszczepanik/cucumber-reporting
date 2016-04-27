@@ -115,11 +115,13 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         firstRow.hasExactValues("1st feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "1m 39s 343 ms",
                 "Passed");
         firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
+        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "99343602889", "");
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "net-masterthought-example-s--ATM-local-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
         secondRow.hasExactValues("Second feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms", "Failed");
         secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration", "failed");
+        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "2050000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "net-masterthought-example-ATMK-feature.html");
     }
 
