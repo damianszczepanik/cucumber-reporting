@@ -20,7 +20,7 @@
                 "steps":[
                     {
                         "result":{
-                            "duration":107447000,
+                            "duration":99107447000,
                             "status":"passed"
                         },
                         "name":"I have a new credit card",

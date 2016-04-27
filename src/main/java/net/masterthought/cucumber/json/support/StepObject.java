@@ -45,8 +45,12 @@ public class StepObject implements Comparable<StepObject> {
         return Util.formatDuration(totalDuration);
     }
 
+    public long getAverageDuration() {
+        return totalDuration / totalOccurrences;
+    }
+
     public String getAverageFormattedDuration() {
-        return Util.formatDuration(totalDuration / totalOccurrences);
+        return Util.formatDuration(getAverageDuration());
     }
 
     public int getTotalOccurrences() {
