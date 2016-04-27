@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.StringContains;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,5 +101,17 @@ public class TagsTest {
         Element secondElement = elements.get(1);
         assertThat(firstElement.getRawName(), is("scenario1 for tag2"));
         assertThat(secondElement.getRawName(), is("scenario2 for tag2"));
+    }
+
+    @Test
+    public void shouldGetDurations() {
+        TagObject tag = reportResult.getAllTags().get(0);
+        assertThat(tag.getDurations(), is(1106277L));
+    }
+
+    @Test
+    public void shouldGetFormattedDurations() {
+        TagObject tag = reportResult.getAllTags().get(0);
+        assertThat(tag.getFormattedDurations(), StringContains.containsString("ms"));
     }
 }

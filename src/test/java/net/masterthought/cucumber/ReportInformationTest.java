@@ -77,7 +77,7 @@ public class ReportInformationTest {
 
     @Test
     public void shouldReturnTotalDurationAsString() {
-        assertThat(reportResult.getFeatureReport().getDurations(), is("236 ms"));
+        assertThat(reportResult.getFeatureReport().getFormattedDurations(), is("236 ms"));
     }
 
     @Test

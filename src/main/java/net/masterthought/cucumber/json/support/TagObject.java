@@ -87,8 +87,13 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     @Override
-    public String getDurations() {
-        return Util.formatDuration(totalDuration);
+    public long getDurations() {
+        return totalDuration;
+    }
+
+    @Override
+    public String getFormattedDurations() {
+        return Util.formatDuration(getDurations());
     }
 
     @Override

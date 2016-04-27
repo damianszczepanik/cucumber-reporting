@@ -45,8 +45,11 @@ public interface Reportable {
     /** Returns number of pending steps for this element. */
     int getPendingSteps();
 
+    /** Returns raw duration for this element. */
+    long getDurations();
+
     /** Returns formatted duration for this element. */
-    String getDurations();
+    String getFormattedDurations();
 
     /** Returns status for this element. */
     Status getStatus();

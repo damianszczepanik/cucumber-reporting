@@ -21,7 +21,7 @@
         <td #if($element.getPendingSteps() > 0)   class="pending"   #end>$element.getPendingSteps()</td>
         <td #if($element.getUndefinedSteps() > 0) class="undefined" #end>$element.getUndefinedSteps()</td>
         <td #if($element.getMissingSteps() > 0)   class="missing"   #end>$element.getMissingSteps()</td>
-        <td class="duration">$element.getDurations()</td>
+        <td class="duration" data-value="$element.getDurations()">$element.getFormattedDurations()</td>
         <td class="$element.getStatus().getRawName()">$element.getStatus().getLabel()</td>
       </tr>
     #end
@@ -43,7 +43,7 @@
       <td>$report_summary.getPendingSteps()</td>
       <td>$report_summary.getUndefinedSteps()</td>
       <td>$report_summary.getMissingSteps()</td>
-      <td class="duration">$report_summary.getDurations()</td>
+      <td class="duration">$report_summary.getFormattedDurations()</td>
       <td>Totals</td>
     </tr>
   </tfoot>
