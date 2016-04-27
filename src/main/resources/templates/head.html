@@ -13,6 +13,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#tablesorter").tablesorter();
+    // this will tell tablesorter to try looking for the data-value attribute
+    // if present, it'll sort by that instead
+    // otherwise, it'll sort by the text content of the table cell
+    $("#tablesorter").tablesorter({
+        textAttribute: 'data-value'
+    });
 });
 </script>
