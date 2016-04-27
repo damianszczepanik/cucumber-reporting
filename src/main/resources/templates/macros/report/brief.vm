@@ -1,10 +1,10 @@
 #macro(includeBrief, $keyword, $status, $keyword_value, $expandable, $result)
 
-<div class="brief indention $status.getRawName() #if($expandable) #end">
+<div class="brief indention $status.getRawName()">
   <span class="keyword">$keyword</span>
   <span class="name">$keyword_value</span>
   #includeDuration($result)
-  #if($expandable)
+  #if ($expandable)
      <i class="chevron fa fa-fw"></i>
   #end
 </div>

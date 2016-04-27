@@ -57,10 +57,10 @@ public class ScenarioTest {
     @Test
     public void shouldReturnStatus() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getStatus(), is(Status.PASSED));
-        assertThat(failingElement.getStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getStatus(), is(Status.PASSED));
-        assertThat(skippedElement.getStatus(), is(Status.PASSED));
+        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
+        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
     }
 
     @Test
@@ -76,20 +76,20 @@ public class ScenarioTest {
     public void shouldReturnNameWhenConfigSkippedTurnedOn() throws IOException {
         setUpJsonReports(true, false, false, false);
 
-        assertThat(passingElement.getStatus(), is(Status.PASSED));
-        assertThat(failingElement.getStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getStatus(), is(Status.PASSED));
-        assertThat(skippedElement.getStatus(), is(Status.FAILED));
+        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
+        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(skippedElement.getElementStatus(), is(Status.FAILED));
     }
 
     @Test
     public void shouldReturnNameWhenConfiUndefinedTurnedOn() throws IOException {
         setUpJsonReports(false, false, true, false);
 
-        assertThat(passingElement.getStatus(), is(Status.PASSED));
-        assertThat(failingElement.getStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getStatus(), is(Status.FAILED));
-        assertThat(skippedElement.getStatus(), is(Status.PASSED));
+        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
+        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
+        assertThat(undefinedElement.getElementStatus(), is(Status.FAILED));
+        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
     }
 
     @Test

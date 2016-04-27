@@ -23,7 +23,9 @@ public class Element {
 
     private static final String SCENARIO_TYPE = "scenario";
 
-    private Status status;
+    private Status elementStatus;
+    private Status beforeStatus;
+    private Status afterStatus;
 
     private Feature feature;
 
@@ -43,8 +45,16 @@ public class Element {
         return tags;
     }
 
-    public Status getStatus() {
-        return status;
+    public Status getElementStatus() {
+        return elementStatus;
+    }
+
+    public Status getBeforeStatus() {
+        return beforeStatus;
+    }
+
+    public Status getAfterStatus() {
+        return afterStatus;
     }
 
     public String getId() {
@@ -115,13 +125,24 @@ public class Element {
         }
         calculateHooks(before);
         calculateHooks(after);
-        status = calculateStatus(configuration);
+        elementStatus = calculateStatus(configuration);
+        beforeStatus = calculateHookStatus(before);
+        afterStatus = calculateHookStatus(after);
     }
 
     private void calculateHooks(Hook[] hooks) {
-        for (int i = 0; i < hooks.length; i++) {
-            hooks[i].setMedaData();
+        for (Hook hook : hooks) {
+            hook.setMedaData();
         }
+    }
+
+    private Status calculateHookStatus(Hook[] hooks) {
+        StatusCounter statusCounter = new StatusCounter();
+        for (Hook hook : hooks) {
+            statusCounter.incrementFor(hook.getStatus());
+        }
+
+        return statusCounter.getFinalStatus();
     }
 
     private Status calculateStatus(Configuration configuration) {
@@ -132,6 +153,17 @@ public class Element {
         calculateStatusForHook(statusCounter, before);
         calculateStatusForHook(statusCounter, after);
 
+        return getStatusForConfiguration(statusCounter, configuration);
+    }
+
+    /**
+     * Evaluates the elementStatus according to the provided configuration.
+     * 
+     * @param configuration
+     *            configuration that keeps the information whether the not-passed elementStatus should fail the build
+     * @return evaluated elementStatus
+     */
+    private Status getStatusForConfiguration(StatusCounter statusCounter, Configuration configuration) {
         if (statusCounter.getValueFor(Status.FAILED) > 0) {
             return Status.FAILED;
         }

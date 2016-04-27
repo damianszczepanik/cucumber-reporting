@@ -83,7 +83,7 @@ public class ReportResult {
 
         for (Element element : feature.getElements()) {
             if (element.isScenario()) {
-                featuresReport.incScenarioFor(element.getStatus());
+                featuresReport.incScenarioFor(element.getElementStatus());
 
                 // all feature tags should be linked with scenario
                 for (Tag tag : feature.getTags()) {
@@ -93,7 +93,7 @@ public class ReportResult {
 
             // all element tags should be linked with element
             for (Tag tag : element.getTags()) {
-                processTag(tag, element, element.getStatus());
+                processTag(tag, element, element.getElementStatus());
             }
 
             Step[] steps = element.getSteps();

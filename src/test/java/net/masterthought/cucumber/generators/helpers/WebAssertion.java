@@ -128,7 +128,7 @@ public class WebAssertion {
     }
 
     private void assertNotEmpty(List<?> elements, String criteria) {
-        assertThat(elements).describedAs("Element by '%s' in '%s' ", criteria, element.html()).isNotEmpty();
+        assertThat(elements).describedAs("Element by '%s' does not exist in '%s' ", criteria, element.html()).isNotEmpty();
     }
 
     public String text() {
