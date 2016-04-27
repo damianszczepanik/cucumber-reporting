@@ -53,7 +53,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
         elements.add(element);
 
-        if (status != Status.FAILED && element.getStatus() != Status.PASSED) {
+        if (status != Status.FAILED && element.getElementStatus() != Status.PASSED) {
             status = Status.FAILED;
         }
 
@@ -61,7 +61,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
             scenarioCounter++;
         }
 
-        elementsStatusCounter.incrementFor(element.getStatus());
+        elementsStatusCounter.incrementFor(element.getElementStatus());
 
         for (Step step : element.getSteps()) {
             stepsStatusCounter.incrementFor(step.getStatus());

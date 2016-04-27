@@ -28,12 +28,13 @@ public class StatusCounter {
      *            finalStatus for which the counter should be incremented.
      */
     public void incrementFor(Status status) {
-        final int statusCounter = this.counter.get(status) + 1;
+        final int statusCounter = getValueFor(status) + 1;
         this.counter.put(status, statusCounter);
         size++;
 
-        // if state was already set to FAILED or PASSED, leave this state unchanged
-        if (status != Status.FAILED && status != Status.PASSED) {
+        // if state was already set to FAILED, leave this state unchanged
+        if (finalStatus != Status.FAILED) {
+            // if all statuses are the same
             if (statusCounter == size) {
                 finalStatus = status;
             } else {

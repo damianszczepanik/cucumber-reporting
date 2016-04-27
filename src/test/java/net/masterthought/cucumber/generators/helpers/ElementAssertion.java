@@ -13,11 +13,11 @@ public class ElementAssertion extends ReportAssertion {
     }
 
     public HookAssertion[] getBefore() {
-        return getHooks(getCollapseDetails(HookAssertion.class).childByClass("hooks-before", HookAssertion.class));
+        return getHooks(getCollapseDetails(HookAssertion.class).oneByClass("hooks-before", HookAssertion.class));
     }
 
     public HookAssertion[] getAfter() {
-        return getHooks(getCollapseDetails(HookAssertion.class).childByClass("hooks-after", HookAssertion.class));
+        return getHooks(getCollapseDetails(HookAssertion.class).oneByClass("hooks-after", HookAssertion.class));
     }
 
     public StepAssertion[] getSteps() {

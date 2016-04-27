@@ -7,6 +7,6 @@ public class StepAssertion extends ReportAssertion {
     }
 
     public TableAssertion getArgumentsTable() {
-        return oneByClass("arguments-table", TableAssertion.class);
+        return oneByClass("step-arguments", TableAssertion.class);
     }
 }

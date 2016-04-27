@@ -38,9 +38,10 @@ a:hover {
 }
 
 .inner-level {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-left: 1px;
 }
 
 .element {
@@ -48,9 +49,8 @@ a:hover {
     padding-left: 3px;
 }
 
-.element:hover {
-    border-left: 2px solid;
-    padding-left: 1px;
+.element:hover, .steps:hover, .hooks:hover {
+    box-shadow: -3px 0px black;
 }
 
 .description {
@@ -145,13 +145,13 @@ table.stats-table td.location, .location {
     text-align: left;
 }
 
-table.arguments-table {
+table.step-arguments {
     margin-bottom: 5px;
     margin-left: 25px;
     margin-top: 3px;
 }
 
-table.arguments-table th, table.arguments-table td {
+table.step-arguments th, table.step-arguments td {
     border: 1px solid gray;
     padding: 3px;
     text-align: left;

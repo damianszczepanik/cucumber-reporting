@@ -195,7 +195,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     private void calculateFeatureStatus() {
         for (Element element : elements) {
-            if (element.getStatus() != Status.PASSED) {
+            if (element.getElementStatus() != Status.PASSED) {
                 featureStatus = Status.FAILED;
                 return;
             }
@@ -206,7 +206,7 @@ public class Feature implements Reportable, Comparable<Feature> {
     private void calculateSteps() {
         for (Element element : elements) {
             if (element.isScenario()) {
-                scenarioCounter.incrementFor(element.getStatus());
+                scenarioCounter.incrementFor(element.getElementStatus());
             }
 
             totalSteps += element.getSteps().length;
