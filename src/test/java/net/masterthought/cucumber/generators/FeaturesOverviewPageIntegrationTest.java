@@ -112,7 +112,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(2);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("1st feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "343 ms",
+        firstRow.hasExactValues("1st feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "1m 39s 343 ms",
                 "Passed");
         firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "net-masterthought-example-s--ATM-local-feature.html");
@@ -138,7 +138,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "345 ms", "Totals");
+        footerCells.hasExactValues("2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "1m 39s 345 ms", "Totals");
     }
 
     @Test

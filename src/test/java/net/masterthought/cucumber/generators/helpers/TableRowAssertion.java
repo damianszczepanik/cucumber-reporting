@@ -24,10 +24,8 @@ public class TableRowAssertion extends ReportAssertion {
     }
 
     /**
-     * Validates if element of passed array is equal (as a text) to passed values (reference).
+     * Validates the row cells' text match the given passed values.
      * 
-     * @param array
-     *            elements that will be compared
      * @param values
      *            reference element to compare with
      */
@@ -41,6 +39,12 @@ public class TableRowAssertion extends ReportAssertion {
         }
     }
 
+    /**
+     * Validates the row cells' class names contain the given values.
+     *
+     * @param classes
+     *            reference element to compare with
+     */
     public void hasExactCSSClasses(String... classes) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
@@ -51,6 +55,26 @@ public class TableRowAssertion extends ReportAssertion {
                 assertThat(array[i].classNames()).describedAs("Unexpected CSC class on index %d", i).isEmpty();
             } else {
                 assertThat(array[i].classNames()).describedAs("Missing CSC class on index %d", i).contains(classes[i]);
+            }
+        }
+    }
+
+    /**
+     * Validates the row cells' data-value attribute values match the given values.
+     *
+     * @param values
+     *            reference element to compare with
+     */
+    public void hasExactDataValues(String... values) {
+        WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
+
+        assertThat(array.length).isEqualTo(values.length);
+
+        for (int i = 0; i < values.length; i++) {
+            if (StringUtils.isEmpty(values[i])) {
+                assertThat(array[i].attr("data-value")).describedAs("Unexpected data-value on index %d", i).isEmpty();
+            } else {
+                assertThat(array[i].attr("data-value")).describedAs("Missing data-value on index %d", i).isEqualTo(values[i]);
             }
         }
     }

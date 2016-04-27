@@ -92,9 +92,13 @@ public class StepsOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSameSizeAs(steps);
 
         TableRowAssertion firstRow = bodyRows[1];
-        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "107 ms", "107 ms", "100.00%");
+        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "1m 39s 107 ms", "1m 39s 107 ms", "100.00%");
         firstRow.hasExactCSSClasses("location", "", "duration", "duration", "passed");
+        firstRow.hasExactDataValues("", "", "99107447000", "99107447000", "");
 
+        // also verify the average durations is written to data-values correctly
+        TableRowAssertion secondRow = bodyRows[2];
+        secondRow.hasExactDataValues("", "", "90000000", "45000000", "");
     }
 
     @Test
@@ -112,7 +116,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("15", "22", "482 ms", "021 ms", "Totals");
+        footerCells.hasExactValues("15", "22", "1m 39s 482 ms", "04s 521 ms", "Totals");
     }
 
     @Test
