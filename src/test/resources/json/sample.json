@@ -446,7 +446,13 @@
                         "line":13,
                         "match":{
                             "location":"ATMScenario.cardShouldBeReturned()"
-                        }
+                        },
+                        "embeddings":[
+                            {
+                                "mime_type":"application/json",
+                                "data":"ew0KICAibW9kZWwiIDogIjEzNGIyIiwNCiAgInByaWNlIiA6IHsNCiAgICAidmFsdWUiIDogMTAwMDAwLA0KICAgICJjdXJyZW5jeSIgOiAiJCINCiAgfSwNCiAgIm5vdGVzIiA6IG51bGwNCn0="
+                            }
+                        ]
                     },
                     {
                         "result":{

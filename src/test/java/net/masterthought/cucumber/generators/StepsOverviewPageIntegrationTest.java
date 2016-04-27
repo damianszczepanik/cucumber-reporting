@@ -116,7 +116,7 @@ public class StepsOverviewPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("15", "22", "1m 39s 482 ms", "04s 521 ms", "Totals");
+        footerCells.hasExactValues("15", "22", "1m 39s 482 ms", "4s 521 ms", "Totals");
     }
 
     @Test
