@@ -34,7 +34,9 @@ public class Embedded {
         case "text/plain":
             return buildPlainText("plain text", contentId, index);
         case "text/html":
-            return buildhHTML(contentId, index);
+            return buildPlain(contentId, index, "HTML");
+        case "application/json":
+            return buildPlain(contentId, index, "JSON");
         default:
             return buildUnknown(mime_type, contentId, index);
         }
@@ -51,8 +53,8 @@ public class Embedded {
         return toExpandable(contentId, index, mimeType, String.format("<pre>%s</pre>", decodeDataFromBase()));
     }
 
-    private String buildhHTML(String contentId, int index) {
-        return toExpandable(contentId, index, "HTML", toTableBox(decodeDataFromBase()));
+    private String buildPlain(String contentId, int index, String label) {
+        return toExpandable(contentId, index, label, toTableBox(decodeDataFromBase()));
     }
 
     private String buildUnknown(String mimeType, String contentId, int index) {
