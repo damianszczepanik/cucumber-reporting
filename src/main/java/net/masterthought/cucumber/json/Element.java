@@ -26,6 +26,7 @@ public class Element {
     private Status elementStatus;
     private Status beforeStatus;
     private Status afterStatus;
+    private Status stepsStatus;
 
     private Feature feature;
 
@@ -55,6 +56,10 @@ public class Element {
 
     public Status getAfterStatus() {
         return afterStatus;
+    }
+
+    public Status getStepsStatus() {
+        return stepsStatus;
     }
 
     public String getId() {
@@ -128,6 +133,7 @@ public class Element {
         elementStatus = calculateStatus(configuration);
         beforeStatus = calculateHookStatus(before);
         afterStatus = calculateHookStatus(after);
+        stepsStatus = calculateStepsStatus();
     }
 
     private void calculateHooks(Hook[] hooks) {
@@ -154,6 +160,14 @@ public class Element {
         calculateStatusForHook(statusCounter, after);
 
         return getStatusForConfiguration(statusCounter, configuration);
+    }
+
+    private Status calculateStepsStatus() {
+        StatusCounter statusCounter = new StatusCounter();
+        for (Step step : steps) {
+            statusCounter.incrementFor(step.getStatus());
+        }
+        return statusCounter.getFinalStatus();
     }
 
     /**

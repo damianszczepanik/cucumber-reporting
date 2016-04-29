@@ -12,19 +12,16 @@ public class ElementAssertion extends ReportAssertion {
         return super.getCollapseControl(BriefAssertion.class).getBrief();
     }
 
-    public HookAssertion[] getBefore() {
-        return getHooks(getCollapseDetails(HookAssertion.class).oneByClass("hooks-before", HookAssertion.class));
+    public HooksAssertion getBefore() {
+        return oneByClass("hooks-before", HooksAssertion.class);
     }
 
-    public HookAssertion[] getAfter() {
-        return getHooks(getCollapseDetails(HookAssertion.class).oneByClass("hooks-after", HookAssertion.class));
+    public HooksAssertion getAfter() {
+        return oneByClass("hooks-after", HooksAssertion.class);
     }
 
-    public StepAssertion[] getSteps() {
-        return allByClass("step", StepAssertion.class);
-    }
-    private HookAssertion[] getHooks(HookAssertion hooks) {
-        return hooks.allByClass("hook", HookAssertion.class);
+    public StepsAssertion getSteps() {
+        return oneByClass("steps", StepsAssertion.class);
     }
 
     public String getDescription() {

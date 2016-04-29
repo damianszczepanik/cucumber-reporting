@@ -20,7 +20,7 @@
 
       <div class="steps inner-level">
         <div data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$element.getSteps().hashCode()">
-          #includeBrief("Steps", $element.getElementStatus(), "", true)
+          #includeBrief("Steps", $element.getStepsStatus(), "", true)
         </div>
 
         <div id="steps-$element.getSteps().hashCode()" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
