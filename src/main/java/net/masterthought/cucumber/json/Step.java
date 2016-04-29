@@ -11,7 +11,6 @@ import com.google.gson.JsonElement;
 
 import net.masterthought.cucumber.json.support.ResultsWithMatch;
 import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.util.Util;
 
 public class Step implements ResultsWithMatch {
 
@@ -72,16 +71,7 @@ public class Step implements ResultsWithMatch {
     }
 
     public String getErrorMessage() {
-        String errorMessage = result == null ? null : result.getErrorMessage();
-
-        if (StringUtils.isNotBlank(errorMessage)) {
-            // if the result is not available take a hash of message reference - not perfect but still better than -1
-            int id = result != null ? result.hashCode() : errorMessage.hashCode();
-            final String contentId = "errormessage_" + id;
-            return Util.formatMessage("Error message", errorMessage, contentId);
-        }
-
-        return StringUtils.EMPTY;
+        return result == null ? null : result.getErrorMessage();
     }
 
     public DocString getDocString() {
@@ -120,9 +110,7 @@ public class Step implements ResultsWithMatch {
                 list.add(elementToString(element));
             }
         }
-
-        final String contentId = "output_" + hashCode();
-        convertedOutput = Util.formatMessage("Output:", StringUtils.join(list, "\n"), contentId);
+        convertedOutput = list.isEmpty() ? null : StringUtils.join(list, "\n");
     }
 
     private static String elementToString(JsonElement element) {

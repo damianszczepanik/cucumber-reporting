@@ -25,8 +25,6 @@ public class Feature implements Reportable, Comparable<Feature> {
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
-    private static final String UNKNOWN_NAME = "unknown";
-
     private String jsonFile;
     private String reportFileName;
     private String deviceName;

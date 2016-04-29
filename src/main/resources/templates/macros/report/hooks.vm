@@ -18,7 +18,7 @@
           </div>
 
           #if ($hook.getResult())
-            #includeMessage($hook.getResult().getFormatedErrorMessage())
+            #includeMessage("Error message", $hook.getResult().getErrorMessage())
           #end
         </div>
       #end

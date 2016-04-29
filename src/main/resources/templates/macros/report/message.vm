@@ -1,11 +1,12 @@
-#macro(includeMessage, $message)
+#macro(includeMessage, $messageName, $message)
 
-  #if(!$message.isEmpty())
-    <div class="inner-level">
-      <div class="message indention">
-        $message
-      </div>
+#if ($message)
+  <div class="inner-level">
+    <div class="message indention">
+      <a onclick="message=document.getElementById('$message.hashCode()'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false" href="#">$messageName</a>
+      <div id="$message.hashCode()" class="hidden"><pre>$message</pre></div>
     </div>
-  #end
+  </div>
+#end
 
 #end
