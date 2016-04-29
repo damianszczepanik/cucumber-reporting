@@ -3,7 +3,6 @@ package net.masterthought.cucumber.util;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -37,29 +36,6 @@ public final class Util {
 
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
-    }
-
-    /**
-     * Converts message into expandable HTML code.
-     * 
-     * @param messageName
-     *            message title
-     * @param content
-     *            error message
-     * @param contentId
-     *            id of the message which should be unique per page so expand/collapse works correctly
-     * @return expandable message
-     */
-    public static String formatMessage(String messageName, String content, String contentId) {
-        StringBuilder sb = new StringBuilder();
-        if (StringUtils.isNotEmpty(content)) {
-            sb.append(String.format(
-                    "<a onclick=\"message=document.getElementById('%s'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false\" href=\"#\">"
-                            + "%s</a><div id=\"%s\" class=\"hidden\"><pre>%s</pre></div>",
-                    contentId, messageName, contentId, content));
-        }
-
-        return sb.toString();
     }
 
     /**

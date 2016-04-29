@@ -26,9 +26,4 @@ public class Result {
     public String getErrorMessage() {
         return error_message;
     }
-
-    public String getFormatedErrorMessage() {
-        final String contentId = "output_" + hashCode();
-        return Util.formatMessage("Error message", error_message, contentId);
-    }
 }
