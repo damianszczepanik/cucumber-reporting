@@ -9,7 +9,9 @@ import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.helpers.FeatureAssertion;
 import net.masterthought.cucumber.generators.helpers.HookAssertion;
+import net.masterthought.cucumber.generators.helpers.HooksAssertion;
 import net.masterthought.cucumber.generators.helpers.StepAssertion;
+import net.masterthought.cucumber.generators.helpers.StepsAssertion;
 import net.masterthought.cucumber.generators.helpers.TableAssertion;
 import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.helpers.TagAssertion;
@@ -142,13 +144,19 @@ public class FeatureReportPageIntegrationTest extends Page {
 
         Element element = feature.getElements()[0];
 
-        HookAssertion[] before = secondElement.getBefore();
+        HooksAssertion beforeHooks = secondElement.getBefore();
+        HookAssertion[] before = beforeHooks.getHooks();
         assertThat(before).hasSize(element.getBefore().length);
         validateHook(before, element.getBefore(), "Before");
+        BriefAssertion beforeBrief = beforeHooks.getBrief();
+        beforeBrief.hasStatus(element.getBeforeStatus());
 
-        HookAssertion[] after = secondElement.getAfter();
+        HooksAssertion afterHooks = secondElement.getAfter();
+        HookAssertion[] after = afterHooks.getHooks();
         assertThat(after).hasSize(element.getAfter().length);
         validateHook(after, element.getAfter(), "After");
+        BriefAssertion afterBrief = afterHooks.getBrief();
+        afterBrief.hasStatus(element.getAfterStatus());
     }
 
     @Test
@@ -168,7 +176,9 @@ public class FeatureReportPageIntegrationTest extends Page {
         ElementAssertion secondElement = document.getFeature().getElements()[0];
         Element element = feature.getElements()[0];
 
-        StepAssertion[] steps = secondElement.getSteps();
+        StepsAssertion stepsSection = secondElement.getSteps();
+        stepsSection.getBrief().hasStatus(element.getStepsStatus());
+        StepAssertion[] steps = stepsSection.getSteps();
         assertThat(steps).hasSameSizeAs(element.getSteps());
 
         for (int i = 0; i < steps.length; i++) {
@@ -196,7 +206,7 @@ public class FeatureReportPageIntegrationTest extends Page {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps()[1];
+        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps().getSteps()[1];
         TableAssertion argTable = stepElement.getArgumentsTable();
 
         Step step = feature.getElements()[0].getSteps()[1];
