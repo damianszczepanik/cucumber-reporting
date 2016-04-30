@@ -42,11 +42,7 @@
               #end
 
               #includeMessage("Output", $step.getOutput())
-              #if(!$step.getAttachments().isEmpty())
-                <div class="embeddings inner-level">
-                  $step.getAttachments()
-                </div>
-              #end
+              #includeEmbeddings($step.getEmbeddings())
             </div>
           #end
         </div>

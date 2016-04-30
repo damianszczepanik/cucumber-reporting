@@ -1,5 +1,8 @@
 package net.masterthought.cucumber.generators.helpers;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class FeatureAssertion extends ReportAssertion {
 
     public ElementAssertion[] getElements() {

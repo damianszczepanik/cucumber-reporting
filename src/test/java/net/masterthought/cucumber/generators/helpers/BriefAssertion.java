@@ -5,6 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class BriefAssertion extends ReportAssertion {
 
     public String getKeyword() {

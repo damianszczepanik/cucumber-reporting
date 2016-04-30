@@ -111,6 +111,7 @@ public class WebAssertion {
             elements.add(assertion);
         }
 
+        @SuppressWarnings("unchecked")
         T[] array = (T[]) java.lang.reflect.Array.newInstance(clazz, elements.size());
         return elements.toArray(array);
     }
