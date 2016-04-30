@@ -2,6 +2,9 @@ package net.masterthought.cucumber.generators.helpers;
 
 import net.masterthought.cucumber.Configuration;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class NavigationItemAssertion extends LinkAssertion {
 
     public void hasLinkToJenkins(Configuration configuration) {

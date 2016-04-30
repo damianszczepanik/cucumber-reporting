@@ -13,6 +13,7 @@
 #parse("/templates/macros/report/elements.vm")
 #parse("/templates/macros/report/brief.vm")
 #parse("/templates/macros/report/tags.vm")
+#parse("/templates/macros/report/embeddings.vm")
 #parse("/templates/macros/report/hooks.vm")
 #parse("/templates/macros/report/duration.vm")
 #parse("/templates/macros/report/message.vm")

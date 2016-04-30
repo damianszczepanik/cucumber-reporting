@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class TableRowAssertion extends ReportAssertion {
 
     public LinkAssertion getReportLink() {

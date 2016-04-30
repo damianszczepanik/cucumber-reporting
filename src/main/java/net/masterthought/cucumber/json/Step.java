@@ -21,12 +21,11 @@ public class Step implements ResultsWithMatch {
     private final Result result = null;
     private final Row[] rows = new Row[0];
     private final Match match = null;
-    private final Embedded[] embeddings = new Embedded[0];
+    private final Embedding[] embeddings = new Embedding[0];
     private final JsonElement[] output = new JsonElement[0];
     private final DocString doc_string = null;
     // End: attributes from JSON file report
 
-    private String attachments;
     private String convertedOutput;
     private Status status;
 
@@ -50,6 +49,10 @@ public class Step implements ResultsWithMatch {
     @Override
     public Match getMatch() {
         return match;
+    }
+
+    public Embedding[] getEmbeddings() {
+        return embeddings;
     }
 
     @Override
@@ -78,22 +81,9 @@ public class Step implements ResultsWithMatch {
         return doc_string;
     }
 
-    public String getAttachments() {
-        return attachments;
-    }
-
     public void setMedaData(Element element) {
-        calculateAttachments();
         calculateOutputs();
         calculateStatus();
-    }
-
-    private void calculateAttachments() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < embeddings.length; i++) {
-            sb.append(embeddings[i].render(i));
-        }
-        attachments = sb.toString();
     }
 
     private void calculateOutputs() {

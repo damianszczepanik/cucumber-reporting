@@ -1,0 +1,58 @@
+#macro(includeEmbeddings, $embeddings)
+
+#if ($embeddings)
+  <div class="embeddings inner-level">
+  #foreach($embedding in $embeddings)
+    #if ($embedding.getMimeType() == "image/png")
+      #includeImageEmbedding($embedding, "png", $foreach.index)
+    #elseif ($embedding.getMimeType() == "image/bmp")
+      #includeImageEmbedding($embedding, "bmp", $foreach.index)
+    #elseif ($embedding.getMimeType() == "image/jpeg")
+      #includeImageEmbedding($embedding, "jpeg", $foreach.index)
+    #elseif ($embedding.getMimeType() == "text/plain")
+      #includePlainTextEmbedding($embedding, $foreach.index)
+    #elseif ($embedding.getMimeType() == "text/html")
+      #includeMonochromeTextEmbedding($embedding, "HTML", $foreach.index)
+    #elseif ($embedding.getMimeType() == "application/json")
+      #includeMonochromeTextEmbedding($embedding, "JSON", $foreach.index)
+    #else
+      #includeUnknownEmbedding($embedding, $foreach.index)
+    #end
+  #end
+  </div>
+#end
+
+#end
+
+
+
+#macro(includeImageEmbedding, $embedding, $image_type, $index)
+  #set($Quote = '"')
+  #includeExpandableEmbedding($embedding, $image_type, "<img src=${Quote}data:image/$image_type;base64,$embedding.getData()${Quote}>", $index)
+#end
+
+
+#macro(includeMonochromeTextEmbedding, $embedding, $format, $index)
+  #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
+#end
+
+
+#macro(includePlainTextEmbedding, $embedding, $index)
+  #includeExpandableEmbedding($embedding "Text", $embedding.getDecodedData(), $index)
+#end
+
+
+#macro(includeUnknownEmbedding, $embedding, $index)
+  #set($Quote = '"')
+  #includeExpandableEmbedding($embedding, $embedding.getMimeType(), "File the <a href=${Quote}https://github.com/damianszczepanik/cucumber-reporting/issues${Quote}>bug</a> so support for this mimetype can be added.", $index)
+#end
+
+
+#macro(includeExpandableEmbedding, $embedding, $type, $content, $index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    <a onclick="attachment=document.getElementById('embedding_$embedding.hashCode()'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false" href="#">
+      Attachment $index ($type)</a>
+    <div id="embedding_$embedding.hashCode()" class="hidden"><span class="embedding-box">$content</span></div>
+  </div>
+#end

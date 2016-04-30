@@ -7,6 +7,7 @@ import org.junit.Test;
 import net.masterthought.cucumber.generators.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.helpers.ElementAssertion;
+import net.masterthought.cucumber.generators.helpers.EmbeddingAssertion;
 import net.masterthought.cucumber.generators.helpers.FeatureAssertion;
 import net.masterthought.cucumber.generators.helpers.HookAssertion;
 import net.masterthought.cucumber.generators.helpers.HooksAssertion;
@@ -16,6 +17,7 @@ import net.masterthought.cucumber.generators.helpers.TableAssertion;
 import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.helpers.TagAssertion;
 import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
 import net.masterthought.cucumber.json.Row;
@@ -217,6 +219,32 @@ public class FeatureReportPageIntegrationTest extends Page {
 
             assertThat(rowElement.getCellsValues()).isEqualTo(row.getCells());
         }
+    }
+
+    @Test
+    public void generatePage_generatesEmbedding() {
+
+        // given
+        setUpWithJson(SAMPLE_JOSN);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps().getSteps()[5];
+        EmbeddingAssertion[] embeddingsElement = stepElement.getEmbedding();
+
+        Step step = feature.getElements()[0].getSteps()[5];
+        Embedding[] embeddings = step.getEmbeddings();
+
+        assertThat(embeddingsElement).hasSameSizeAs(embeddings);
+        embeddingsElement[0].hasImageContent(embeddings[0].getData());
+        embeddingsElement[2].hasTextContent(embeddings[2].getData());
+        embeddingsElement[3].hasHtmlContent(embeddings[3].getDecodedData());
     }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {

@@ -2,6 +2,9 @@ package net.masterthought.cucumber.generators.helpers;
 
 import org.jsoup.nodes.Element;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class DocumentAssertion extends ReportAssertion {
 
     public DocumentAssertion(Element element) {
