@@ -33,7 +33,7 @@ public class ChartUtilTest {
         TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = ChartUtil.generateTagChartDataForHighCharts(tagObjectList);
-        Assert.assertEquals("[[0,0,0,0]]", result);
+        Assert.assertEquals("[[0, 0, 0, 0]]", result);
     }
 
     @Test

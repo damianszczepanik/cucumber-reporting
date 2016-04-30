@@ -91,7 +91,15 @@ And you can drill down into tag specific reports:
 ![Tag report]
 (https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
 
-## Develop
+
+## Code quality
+
+Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
+
+![codecov.io](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graphs/tree.svg)
+
+
+## Contribution
 
 Interested in contributing to the cucumber-reporting?  Great!  Start [here]
 (https://github.com/damianszczepanik/cucumber-reporting).
