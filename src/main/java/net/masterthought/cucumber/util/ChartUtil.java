@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,35 +10,21 @@ import net.masterthought.cucumber.json.support.TagObject;
 public final class ChartUtil {
 
     public static String getTags(List<TagObject> tagObjectList) {
+        List<String> tagNames = new ArrayList<>();
 
-        String[] tagNames = new String[tagObjectList.size()];
-        for (int i = 0; i < tagNames.length; i++) {
-            tagNames[i] = StringUtils.wrap(tagObjectList.get(i).getName(), "'");
+        for (TagObject tagObject : tagObjectList) {
+            tagNames.add(StringUtils.wrap(tagObject.getName(), "'"));
         }
-
         return "[" + StringUtils.join(tagNames, ",") + "]";
     }
 
     public static String generateTagChartDataForHighCharts(List<TagObject> tagObjectList) {
-    	StringBuilder buffer = new StringBuilder();
+        List<String> buffers = new ArrayList<>();
 
-        if (!tagObjectList.isEmpty()) {
-            for (TagObject tag : tagObjectList) {
-                buffer.append("[");
-                buffer.append(tag.getPassedSteps());
-                buffer.append(",");
-                buffer.append(tag.getFailedSteps());
-                buffer.append(",");
-                buffer.append(tag.getSkippedSteps());
-                buffer.append(",");
-                buffer.append(tag.getPendingSteps());
-                buffer.append("]");
-                buffer.append(",");
-            }
-
-            buffer.setLength(buffer.length() - 1);
+        for (TagObject tag : tagObjectList) {
+            buffers.add(String.format("[%d, %d, %d, %d]", tag.getPassedSteps(), tag.getFailedSteps(),
+                    tag.getSkippedSteps(), tag.getPendingSteps()));
         }
-
-        return "[" + buffer.toString() + "]";
+        return "[" + StringUtils.join(buffers, ",") + "]";
     }
 }
