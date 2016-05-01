@@ -157,7 +157,7 @@ table.step-arguments th, table.step-arguments td {
     text-align: left;
 }
 
-table#tablesorter thead tr th {
+table#tablesorter thead tr:not(.dont-sort) th {
     cursor: pointer;
 }
 

@@ -1,6 +1,6 @@
 #macro(includeReportHeader, $table_key, $parallel)
 <thead>
-  <tr class="header">
+  <tr class="header dont-sort">
     #if($parallel)
       <th></th>
     #end

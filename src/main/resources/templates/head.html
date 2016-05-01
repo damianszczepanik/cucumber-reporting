@@ -17,7 +17,10 @@ $(document).ready(function() {
     // if present, it'll sort by that instead
     // otherwise, it'll sort by the text content of the table cell
     $("#tablesorter").tablesorter({
-        textAttribute: 'data-value'
+        textAttribute: 'data-value',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
     });
 });
 </script>
