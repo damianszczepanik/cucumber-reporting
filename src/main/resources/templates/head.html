@@ -21,6 +21,8 @@ $(document).ready(function() {
         // ignores the first row of the header, the 'scenario', 'steps', since
         // sorting those doesn't make sense
         selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
     });
 });
 </script>
