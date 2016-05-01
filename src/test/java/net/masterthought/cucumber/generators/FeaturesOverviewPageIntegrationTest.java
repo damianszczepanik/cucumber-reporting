@@ -1,14 +1,9 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.helpers.*;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.helpers.LeadAssertion;
-import net.masterthought.cucumber.generators.helpers.SummaryAssertion;
-import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.helpers.WebAssertion;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -112,9 +107,9 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         assertThat(bodyRows).hasSize(2);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("1st feature", "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "1m 39s 343 ms",
-                "Passed");
-        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
+        firstRow.hasExactValues("1st feature", "1", "0", "0", "10", "7", "0", "0", "2", "1", "0", "1m 39s 343 ms",
+                "Failed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "99343602889", "");
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "net-masterthought-example-s--ATM-local-feature.html");
 
@@ -140,7 +135,7 @@ public class FeaturesOverviewPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("2", "2", "1", "1", "19", "11", "1", "3", "2", "1", "1", "1m 39s 345 ms", "Totals");
+        footerCells.hasExactValues("2", "2", "0", "1", "19", "11", "1", "3", "2", "1", "1", "1m 39s 345 ms", "Totals");
     }
 
     @Test
