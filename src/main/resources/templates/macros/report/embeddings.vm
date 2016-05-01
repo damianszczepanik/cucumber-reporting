@@ -1,6 +1,6 @@
 #macro(includeEmbeddings, $embeddings)
 
-#if ($embeddings)
+#if (!$embeddings.isEmpty())
   <div class="embeddings inner-level">
   #foreach($embedding in $embeddings)
     #if ($embedding.getMimeType() == "image/png")
