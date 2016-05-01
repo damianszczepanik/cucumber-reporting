@@ -1,6 +1,6 @@
 #macro(includeStatsTable, $table_key, $parallel, $elements, $report_summary)
 
-<table id="tablesorter" class="stats-table">
+<table id="tablesorter" class="stats-table table-hover">
   #includeReportHeader($table_key, $parallel)
 
   <tbody>

@@ -20,7 +20,7 @@
       #if($all_steps.isEmpty())
         <p>You have no features in your cucumber report</p>
       #else
-        <table id="tablesorter" class="stats-table">
+        <table id="tablesorter" class="stats-table table-hover">
 
           <thead>
             <tr class="header">
