@@ -24,5 +24,12 @@ $(document).ready(function() {
         // use a stable sort
         sortStable: true
     });
+
+    // reshuffle background results so they are visually coupled with their
+    // respective scenarios
+    $('.background').each(function(idx, el) {
+        el = $(el);
+        el.insertAfter(el.find('+ .scenario .tags'));
+    });
 });
 </script>
