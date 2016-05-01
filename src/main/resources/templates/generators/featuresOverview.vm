@@ -6,6 +6,8 @@
 
   <script type="text/javascript">
   $(function () {
+    var anim_time_ms = 300;
+
     $('#steps_chart').highcharts({
         chart: {
             type: 'pie',
@@ -13,7 +15,8 @@
                 enabled: true,
                 alpha: 45,
                 beta: 0
-            }
+            },
+            animation: {duration: anim_time_ms}
         },
         title: {
             text: 'Steps',
@@ -43,6 +46,9 @@
                         color: 'indigo'
                     }
                 }
+            },
+            series: {
+                animation: {duration: anim_time_ms}
             }
         },
         series: [{
@@ -91,7 +97,8 @@
             options3d: {
                 enabled: true,
                 alpha: 45
-            }
+            },
+            animation: {duration: anim_time_ms}
         },
         title: {
             text: 'Scenarios',
@@ -122,6 +129,9 @@
                         color: 'indigo'
                     }
                 }
+            },
+            series: {
+                animation: {duration: anim_time_ms}
             }
         },
         series: [{
@@ -148,6 +158,7 @@
         chart: {
             type: 'pie',
             plotShadow: false,
+            animation: {duration: anim_time_ms}
         },
         title: {
             text: 'Features',
@@ -177,6 +188,9 @@
                 startAngle: -90,
                 endAngle: 90,
                 center: ['50%', '75%']
+            },
+            series: {
+                animation: {duration: anim_time_ms}
             }
         },
         series: [{

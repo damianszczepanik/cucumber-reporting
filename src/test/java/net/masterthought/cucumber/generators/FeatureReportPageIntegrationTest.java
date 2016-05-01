@@ -1,27 +1,11 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.helpers.*;
+import net.masterthought.cucumber.json.*;
+import org.junit.Assert;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.helpers.BriefAssertion;
-import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.helpers.ElementAssertion;
-import net.masterthought.cucumber.generators.helpers.EmbeddingAssertion;
-import net.masterthought.cucumber.generators.helpers.FeatureAssertion;
-import net.masterthought.cucumber.generators.helpers.HookAssertion;
-import net.masterthought.cucumber.generators.helpers.HooksAssertion;
-import net.masterthought.cucumber.generators.helpers.StepAssertion;
-import net.masterthought.cucumber.generators.helpers.StepsAssertion;
-import net.masterthought.cucumber.generators.helpers.TableAssertion;
-import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.helpers.TagAssertion;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Hook;
-import net.masterthought.cucumber.json.Row;
-import net.masterthought.cucumber.json.Step;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -146,11 +130,11 @@ public class FeatureReportPageIntegrationTest extends Page {
 
         Element element = feature.getElements()[0];
 
-        HooksAssertion beforeHooks = secondElement.getBefore();
-        HookAssertion[] before = beforeHooks.getHooks();
-        assertThat(before).hasSize(element.getBefore().length);
-        validateHook(before, element.getBefore(), "Before");
-        BriefAssertion beforeBrief = beforeHooks.getBrief();
+        HooksAssertion[] beforeHooks = secondElement.getBefores();
+        Assert.assertEquals(beforeHooks.length, element.getBefore().length);
+        assertThat(beforeHooks).hasSize(element.getBefore().length);
+        validateHook(beforeHooks[0].getHooks(), element.getBefore(), "Before");
+        BriefAssertion beforeBrief = beforeHooks[1].getBrief();
         beforeBrief.hasStatus(element.getBeforeStatus());
 
         HooksAssertion afterHooks = secondElement.getAfter();
@@ -178,8 +162,9 @@ public class FeatureReportPageIntegrationTest extends Page {
         ElementAssertion secondElement = document.getFeature().getElements()[0];
         Element element = feature.getElements()[0];
 
+        secondElement.getBrief().hasStatus(element.getStepsStatus());
+
         StepsAssertion stepsSection = secondElement.getSteps();
-        stepsSection.getBrief().hasStatus(element.getStepsStatus());
         StepAssertion[] steps = stepsSection.getSteps();
         assertThat(steps).hasSameSizeAs(element.getSteps());
 

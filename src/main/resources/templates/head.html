@@ -17,7 +17,25 @@ $(document).ready(function() {
     // if present, it'll sort by that instead
     // otherwise, it'll sort by the text content of the table cell
     $("#tablesorter").tablesorter({
-        textAttribute: 'data-value'
+        textAttribute: 'data-value',
+        // this allows us to add an up/down chevron using css when a column is
+        // sorted
+        headerTemplate: '{content} {icon}',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
     });
+
+    // reshuffle background results so they are visually coupled with their
+    // respective scenarios
+    $('.background').each(function(idx, el) {
+        el = $(el);
+        el.insertAfter(el.find('+ .scenario .tags'));
+    });
+
+    // adds sorting chevrons to table header rows that can sort
+    $('.tablesorter-icon').addClass('fa').addClass('fa-fw');
 });
 </script>

@@ -1,8 +1,8 @@
 #macro(includeReportTable, $table_key, $reportable, $parallel)
-<div class="container-fluid" id="summary">
+<div class="container" id="summary">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <table class="stats-table">
+    <div class="col-md-5 col-md-offset-1">
+      <table class="table stats-table table-bordered">
 
         #includeReportHeader($table_key, $parallel)
 

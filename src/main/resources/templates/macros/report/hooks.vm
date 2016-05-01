@@ -1,29 +1,21 @@
 #macro(includeHooks, $keyword, $hooks, $status)
 
 #if($hooks.size() > 0)
-  <div class="inner-level hooks-$keyword.toLowerCase()">
-    <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hooks.hashCode()">
-      #includeBrief("Hooks", $status, "", true)
-    </div>
+  #foreach($hook in $hooks)
+    <div class="hook $keyword.toLowerCase()">
+      <div class="brief $hook.getStatus().getRawName()">
+        <span class="keyword indention">$keyword</span>
+        #if ($hook.getMatch())
+          <span class="location name">$hook.getMatch().getLocation()</span>
+        #end
+        #includeDuration($hook.getResult())
+      </div>
 
-    <div id="$keyword.toLowerCase()-$hooks.hashCode()" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
-      #foreach($hook in $hooks)
-        <div class="hook">
-          <div class="brief $hook.getStatus().getRawName()">
-            <span class="keyword indention">$keyword</span>
-            #if ($hook.getMatch())
-              <span class="location name">$hook.getMatch().getLocation()</span>
-            #end
-            #includeDuration($hook.getResult())
-          </div>
-
-          #if ($hook.getResult())
-            #includeMessage("Error message", $hook.getResult().getErrorMessage())
-          #end
-        </div>
+      #if ($hook.getResult())
+        #includeMessage("Error message", $hook.getResult().getErrorMessage())
       #end
     </div>
-  </div>
+  #end
 #end
 
 #end
