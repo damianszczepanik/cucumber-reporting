@@ -7,7 +7,7 @@ public class StepsAssertion extends ReportAssertion {
 
     @Override
     public BriefAssertion getBrief() {
-        return super.getCollapseControl(BriefAssertion.class).getBrief();
+        return super.getBrief();
     }
 
     public StepAssertion[] getSteps() {

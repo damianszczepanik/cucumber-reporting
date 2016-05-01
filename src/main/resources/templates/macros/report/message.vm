@@ -3,8 +3,12 @@
 #if ($message)
   <div class="inner-level">
     <div class="message indention">
-      <a onclick="message=document.getElementById('$message.hashCode()'); message.className = (message.className == 'hidden' ? 'visible' : 'hidden'); return false" href="#">$messageName</a>
-      <div id="$message.hashCode()" class="hidden"><pre>$message</pre></div>
+      <span data-toggle="collapse" class='collapsable-control' data-target='#msg-$message.hashCode()'>
+        <div>
+          $messageName
+        </div>
+      </span>
+      <div id="msg-$message.hashCode()" class="collapse collapsable-details"><pre>$message</pre></div>
     </div>
   </div>
 #end

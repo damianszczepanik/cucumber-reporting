@@ -1,7 +1,7 @@
 #macro(includeElements, $elements, $linkToFeature)
 
 #foreach($element in $elements)
-  <div class="element">
+  <div class="element $element.getKeyword().toLowerCase()">
     #if ($linkToFeature)
       <div class="indention">
         <a href="$element.getFeature().getReportFileName()">View Feature</a> <i>$element.getFeature().getName()</i>
@@ -10,46 +10,38 @@
 
     #includeTags($element.getTags())
 
-    <span data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$element.hashCode()">
+    <span data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$element.getSteps().hashCode()">
       #includeBrief($element.getKeyword(), $element.getElementStatus(), $element.getName(), true)
     </span>
     <div class="description indention">$element.getDescription()</div>
 
-    <span id="element-$element.hashCode()" class="collapse collapsable-details #if(!$element.getElementStatus().isPassed()) in #end">
-      #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus())
+      <div id="steps-$element.getSteps().hashCode()" class="steps inner-level collapse collapsable-details #if(!$element.getElementStatus().isPassed()) in #end">
+        #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus())
 
-      <div class="steps inner-level">
-        <div data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$element.getSteps().hashCode()">
-          #includeBrief("Steps", $element.getStepsStatus(), "", true)
-        </div>
+        #foreach($step in $element.getSteps())
+          <div class="step">
+            #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
+            #includeMessage("Error message", $step.getErrorMessage())
 
-        <div id="steps-$element.getSteps().hashCode()" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
-          #foreach($step in $element.getSteps())
-            <div class="step">
-              #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
-              #includeMessage("Error message", $step.getErrorMessage())
+            #if ($step.hasRows())
+              <table class="step-arguments">
+                #foreach($row in $step.getRows())
+                  <tr>
+                    #foreach($cell in $row.getCells())
+                      <td>$cell</td>
+                    #end
+                  </tr>
+                #end
+              </table>
+            #end
 
-              #if ($step.hasRows())
-                <table class="step-arguments">
-                  #foreach($row in $step.getRows())
-                    <tr>
-                      #foreach($cell in $row.getCells())
-                        <td>$cell</td>
-                      #end
-                    </tr>
-                  #end
-                </table>
-              #end
+            #includeMessage("Output", $step.getOutput())
+            #includeEmbeddings($step.getEmbeddings())
+          </div>
+        #end
 
-              #includeMessage("Output", $step.getOutput())
-              #includeEmbeddings($step.getEmbeddings())
-            </div>
-          #end
-        </div>
+        #includeHooks("After", $element.getAfter(), $element.getAfterStatus())
       </div>
-
-      #includeHooks("After", $element.getAfter(), $element.getAfterStatus())
-    <span>
   </div>
 #end
 

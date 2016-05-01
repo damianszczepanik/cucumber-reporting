@@ -1,6 +1,6 @@
 #macro(includeEmbeddings, $embeddings)
 
-#if ($embeddings)
+#if ($embeddings.size() > 0)
   <div class="embeddings inner-level">
   #foreach($embedding in $embeddings)
     #if ($embedding.getMimeType() == "image/png")
@@ -51,8 +51,11 @@
 #macro(includeExpandableEmbedding, $embedding, $type, $content, $index)
   #set($index = $index + 1)
   <div class="embedding indention">
-    <a onclick="attachment=document.getElementById('embedding_$embedding.hashCode()'); attachment.className = (attachment.className == 'hidden' ? 'visible' : 'hidden'); return false" href="#">
-      Attachment $index ($type)</a>
-    <div id="embedding_$embedding.hashCode()" class="hidden"><span class="embedding-box">$content</span></div>
+    <div data-toggle="collapse" data-target="#embedding_$embedding.hashCode()" class="collapsable-control">
+      Attachment $index ($type)
+    </div>
+    <div id="embedding_$embedding.hashCode()" class="collapse collapsable-detail">
+      <span class="embedding-box">$content</span>
+    </div>
   </div>
 #end
