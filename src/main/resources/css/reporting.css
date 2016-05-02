@@ -161,6 +161,10 @@ table#tablesorter thead tr:not(.dont-sort) th {
     cursor: pointer;
 }
 
+tr:hover {
+    transition: background-color 0.3s;
+}
+
 .collapsable-control {
     cursor: pointer;
 }
