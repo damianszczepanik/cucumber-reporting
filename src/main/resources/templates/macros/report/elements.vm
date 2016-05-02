@@ -15,7 +15,7 @@
     </span>
     <div class="description indention">$element.getDescription()</div>
 
-    <span id="element-$element.hashCode()" class="collapse collapsable-details #if(!$element.getElementStatus().isPassed()) in #end">
+    <div id="element-$element.hashCode()" class="collapse collapsable-details #if(!$element.getElementStatus().isPassed()) in #end">
       #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus())
 
       <div class="steps inner-level">
@@ -49,7 +49,7 @@
       </div>
 
       #includeHooks("After", $element.getAfter(), $element.getAfterStatus())
-    <span>
+    </div>
   </div>
 #end
 
