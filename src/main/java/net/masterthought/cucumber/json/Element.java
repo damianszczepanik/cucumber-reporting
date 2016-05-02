@@ -163,11 +163,14 @@ public class Element {
     }
 
     private Status calculateStepsStatus() {
-        StatusCounter statusCounter = new StatusCounter();
+        // if all the steps passed, then the steps as a whole passed
+        // otherwise, the status of the first non-passing step will roll up to
+        // the 'steps' status
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getStatus());
+            if (step.getStatus() != Status.PASSED)
+                return step.getStatus();
         }
-        return statusCounter.getFinalStatus();
+        return Status.PASSED;
     }
 
     /**
@@ -196,6 +199,14 @@ public class Element {
 
         if (configuration.failsIfMissing() && statusCounter.getValueFor(Status.MISSING) > 0) {
             return Status.FAILED;
+        }
+
+        // return the result of the first unsucessful step. this will help expose
+        // a scenario's status when looking at reports that might collapse passed tests
+        for (Step step : steps) {
+            if (step.getStatus() != Status.PASSED) {
+                return step.getStatus();
+            }
         }
 
         return Status.PASSED;

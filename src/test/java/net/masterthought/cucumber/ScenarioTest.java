@@ -1,21 +1,20 @@
 package net.masterthought.cucumber;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertThat;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.support.Status;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.json.support.Status;
+import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
+import static org.junit.Assert.assertThat;
 
 public class ScenarioTest {
 
@@ -59,8 +58,8 @@ public class ScenarioTest {
         setUpJsonReports(false, false, false, false);
         assertThat(passingElement.getElementStatus(), is(Status.PASSED));
         assertThat(failingElement.getElementStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
-        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(undefinedElement.getElementStatus(), is(Status.UNDEFINED));
+        assertThat(skippedElement.getElementStatus(), is(Status.SKIPPED));
     }
 
     @Test
@@ -78,7 +77,7 @@ public class ScenarioTest {
 
         assertThat(passingElement.getElementStatus(), is(Status.PASSED));
         assertThat(failingElement.getElementStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(undefinedElement.getElementStatus(), is(Status.UNDEFINED));
         assertThat(skippedElement.getElementStatus(), is(Status.FAILED));
     }
 
@@ -89,7 +88,7 @@ public class ScenarioTest {
         assertThat(passingElement.getElementStatus(), is(Status.PASSED));
         assertThat(failingElement.getElementStatus(), is(Status.FAILED));
         assertThat(undefinedElement.getElementStatus(), is(Status.FAILED));
-        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(skippedElement.getElementStatus(), is(Status.SKIPPED));
     }
 
     @Test

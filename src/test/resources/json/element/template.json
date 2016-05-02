@@ -1,0 +1,46 @@
+{
+    "id": "asdasd",
+    "type": "scenario",
+    "keyword": "Scenario",
+    "name": "Element rolls up statuses",
+    "description": "Test element status roll up",
+    "line": 1,
+    "steps": [
+        {
+            "result": {
+                "duration": 1000000,
+                "status": "passed"
+            },
+            "name": "the first step",
+            "keyword": "Given ",
+            "line": 10,
+            "match": {
+                "location": "Somewhere.first()"
+            }
+        },
+        {
+            "result": {
+                "duration": 2000000,
+                "status": "passed"
+            },
+            "name": "the second step",
+            "keyword": "And ",
+            "line": 11,
+            "match": {
+                "location": "Somewhere.second()"
+            }
+        },
+        {
+            "result": {
+                "duration": 3000000,
+                "status": "passed"
+            },
+            "name": "the third step",
+            "keyword": "And ",
+            "line": 12,
+            "match": {
+                "location": "Somewhere.third()"
+            }
+        }
+    ]
+}

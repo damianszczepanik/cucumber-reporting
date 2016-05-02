@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.helpers.TableRowAssertion;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -51,7 +50,7 @@ public class TagReportPageIntegrationTest extends Page {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(tag.getName(), "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms", "Failed");
+        bodyRow.hasExactValues(tag.getName(), "2", "0", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms", "Failed");
         bodyRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
     }
 
