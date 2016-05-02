@@ -38,9 +38,9 @@ a:hover {
 }
 
 .inner-level {
-    margin-bottom: 10px;
     margin-top: 5px;
     margin-left: 20px;
+    padding-bottom: 2px;
     padding-left: 1px;
 }
 
@@ -49,6 +49,7 @@ a:hover {
     padding-left: 3px;
 }
 
+/* left line along each section */
 .element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
     box-shadow: -3px 0px black;
 }

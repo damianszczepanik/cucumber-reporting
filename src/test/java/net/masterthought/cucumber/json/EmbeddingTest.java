@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import net.masterthought.cucumber.generators.Page;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class EmbeddingTest extends Page {
 
     @Before
