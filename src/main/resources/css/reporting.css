@@ -49,7 +49,7 @@ a:hover {
     padding-left: 3px;
 }
 
-.element:hover, .steps:hover, .hooks:hover {
+.element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
     box-shadow: -3px 0px black;
 }
 
