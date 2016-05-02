@@ -139,23 +139,26 @@ public class ReportResult {
             if (StringUtils.isEmpty(methodName)) {
                 continue;
             }
-
-            StepObject stepObject = allSteps.get(methodName);
-            // if first occurrence of this location add element to the map
-            if (stepObject == null) {
-                stepObject = new StepObject(methodName);
-            }
-            // happens that report is not valid - does not contain information about result
-            Result result = step.getResult();
-            if (result != null) {
-                stepObject.addDuration(result.getDuration(), result.getStatus());
-            } else {
-                // when result is not available it means that something really went wrong (report is incomplete)
-                // and for this case FAILED status is used to avoid problems during parsing
-                stepObject.addDuration(0, Status.FAILED.name());
-            }
-            allSteps.put(methodName, stepObject);
+            addNewStep(step.getResult(), methodName);
         }
+    }
+
+    private void addNewStep(Result result, String methodName) {
+        StepObject stepObject = allSteps.get(methodName);
+        // if first occurrence of this location add element to the map
+        if (stepObject == null) {
+            stepObject = new StepObject(methodName);
+        }
+
+        // happens that report is not valid - does not contain information about result
+        if (result != null) {
+            stepObject.addDuration(result.getDuration(), result.getStatus());
+        } else {
+            // when result is not available it means that something really went wrong (report is incomplete)
+            // and for this case FAILED status is used to avoid problems during parsing
+            stepObject.addDuration(0, Status.FAILED.name());
+        }
+        allSteps.put(methodName, stepObject);
     }
 
     private TagObject addTagObject(String name) {
