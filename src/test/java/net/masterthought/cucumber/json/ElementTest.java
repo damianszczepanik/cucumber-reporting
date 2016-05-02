@@ -23,6 +23,9 @@ public class ElementTest {
     // a simple element json that we'll tweak for our tests
     private static final String TEMPLATE_JSON = "json/element/template.json";
 
+    // the status we're testing for this run
+    private final Status step_status;
+
     @Parameterized.Parameters
     public static Collection<Status[]> data() {
         Collection<Status[]> params = new ArrayList<>();
@@ -34,9 +37,6 @@ public class ElementTest {
         params.add(new Status[] {Status.UNDEFINED});
         return params;
     }
-
-    // the status we're testing for this run
-    private final Status step_status;
 
     public ElementTest(Status step_status) {
         this.step_status = step_status;
