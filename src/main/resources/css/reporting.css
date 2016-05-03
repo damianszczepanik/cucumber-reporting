@@ -49,8 +49,19 @@ a:hover {
     padding-left: 3px;
 }
 
+/* background elements will be moved closer to their respective scenarios.
+so don't want to indent again. keeps background and scenario visually coupled */
+.element.background {
+    margin-top: 0;
+    padding-left: 0;
+}
+
+.element.background:hover {
+    box-shadow: none;
+}
+
 /* left line along each section */
-.element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
+.element:hover, .steps:hover, .hooks:hover {
     box-shadow: -3px 0px black;
 }
 

@@ -1,7 +1,7 @@
 #macro(includeElements, $elements, $linkToFeature)
 
 #foreach($element in $elements)
-  <div class="element">
+  <div class="element $element.getKeyword().toLowerCase()">
     #if ($linkToFeature)
       <div class="indention">
         <a href="$element.getFeature().getReportFileName()">View Feature</a> <i>$element.getFeature().getName()</i>
