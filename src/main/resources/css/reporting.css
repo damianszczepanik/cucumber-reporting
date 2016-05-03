@@ -50,8 +50,12 @@ a:hover {
 }
 
 /* left line along each section */
+.element, .steps, .hooks-after, .hooks-before {
+    box-shadow: -1px 0px lightgray;
+    transition: box-shadow 0.3s;
+}
 .element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
-    box-shadow: -3px 0px black;
+    box-shadow: -3px 0px #6ce;
 }
 
 .description {
