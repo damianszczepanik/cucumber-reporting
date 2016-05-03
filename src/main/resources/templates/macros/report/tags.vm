@@ -2,7 +2,7 @@
 
 <div class="tags indention">
   #foreach($tag in $tags)
-     <a href="$tag.getFileName()">$tag.getName()</a>
+     <a class="btn btn-default btn-xs" href="$tag.getFileName()">$tag.getName()</a>
   #end
 </div>
 

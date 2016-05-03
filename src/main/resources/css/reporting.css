@@ -8,7 +8,7 @@ h2 {
     font-size: 24px;
 }
 
-a {
+a, .tags a.btn {
     color: #0097da;
 }
 
@@ -47,6 +47,10 @@ a:hover {
 .element {
     margin-top: 15px;
     padding-left: 3px;
+}
+
+.tags {
+    margin-bottom: 3px;
 }
 
 /* left line along each section */
