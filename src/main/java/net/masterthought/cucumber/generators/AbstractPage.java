@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.Properties;
 
 import org.apache.commons.io.Charsets;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
@@ -28,13 +29,15 @@ public abstract class AbstractPage {
 
     private static final Logger LOG = LogManager.getLogger(AbstractPage.class);
 
-    protected final VelocityEngine ve = new VelocityEngine();
-    protected final VelocityContext velocityContext = new VelocityContext();
+    private final VelocityEngine engine = new VelocityEngine();
+    protected final VelocityContext context = new VelocityContext();
     private Template template;
 
-    /** Name of the html file which will be generated. */
+    /** Name of the HTML file which will be generated. */
     private final String templateFileName;
+    /** Results of the report. */
     protected final ReportResult report;
+    /** Configuration used for this report execution. */
     protected final Configuration configuration;
 
     protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration) {
@@ -42,13 +45,11 @@ public abstract class AbstractPage {
         this.report = reportResult;
         this.configuration = configuration;
 
+        this.engine.init(buildProperties());
         buildGeneralParameters();
     }
 
     public final void generatePage() {
-        ve.init(getProperties());
-        template = ve.getTemplate("templates/generators/" + templateFileName);
-
         prepareReport();
         generateReport();
     }
@@ -59,17 +60,18 @@ public abstract class AbstractPage {
     protected abstract void prepareReport();
 
     private void generateReport() {
-        velocityContext.put("report_file", getWebPage());
+        context.put("report_file", getWebPage());
 
-        File reprotFile = new File(configuration.getReportDirectory(), getWebPage());
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reprotFile), Charsets.UTF_8)) {
-            template.merge(velocityContext, writer);
+        template = engine.getTemplate("templates/generators/" + templateFileName);
+        File reportFile = new File(configuration.getReportDirectory(), getWebPage());
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), Charsets.UTF_8)) {
+            template.merge(context, writer);
         } catch (IOException e) {
             throw new ValidationException(e);
         }
     }
 
-    private Properties getProperties() {
+    private Properties buildProperties() {
         Properties props = new Properties();
         props.setProperty("resource.loader", "class");
         props.setProperty("class.resource.loader.class",
@@ -80,26 +82,23 @@ public abstract class AbstractPage {
     }
 
     private void buildGeneralParameters() {
-        velocityContext.put("jenkins_source", configuration.isRunWithJenkins());
-        velocityContext.put("jenkins_base", configuration.getJenkinsBasePath());
-        velocityContext.put("build_project_name", configuration.getProjectName());
-        velocityContext.put("build_number", configuration.getBuildNumber());
+        context.put("jenkins_source", configuration.isRunWithJenkins());
+        context.put("jenkins_base", configuration.getJenkinsBasePath());
+        context.put("build_project_name", configuration.getProjectName());
+        context.put("build_number", configuration.getBuildNumber());
 
         // if report generation fails then report is null
-        if (report != null) {
-            velocityContext.put("build_time", report.getBuildTime());
-        }
+        String formattedTime = report != null ? report.getBuildTime() : ReportResult.getCurrentTime();
+        context.put("build_time", formattedTime);
 
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
         if (buildNumber != null) {
-            try {
-                int buildValue = Integer.parseInt(buildNumber);
-                velocityContext.put("build_previous_number", --buildValue);
-            } catch (NumberFormatException e) {
-                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber(), e);
+            if (NumberUtils.isNumber(buildNumber)) {
+                context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
+            } else {
+                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber());
             }
         }
     }
-
 }

@@ -24,7 +24,7 @@ public class StepsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("all_steps", report.getAllSteps());
+        context.put("all_steps", report.getAllSteps());
 
         int allOccurrences = 0;
         long allDurations = 0;
@@ -32,11 +32,11 @@ public class StepsOverviewPage extends AbstractPage {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getDurations();
         }
-        velocityContext.put("all_occurrences", allOccurrences);
-        velocityContext.put("all_durations", Util.formatDuration(allDurations));
+        context.put("all_occurrences", allOccurrences);
+        context.put("all_durations", Util.formatDuration(allDurations));
         // make sure it does not divide by 0 - may happens if there is no step at all or all results have 0 ms durations
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        velocityContext.put("all_average", Util.formatDuration(average));
+        context.put("all_average", Util.formatDuration(average));
 
     }
 }

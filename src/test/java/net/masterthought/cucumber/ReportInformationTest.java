@@ -81,11 +81,6 @@ public class ReportInformationTest {
     }
 
     @Test
-    public void shouldReturnTimeStamp() {
-        assertThat(reportResult.getBuildTime(), isA(String.class));
-    }
-
-    @Test
     public void shouldReturnTagReportStatusColour() {
         assertThat(reportResult.getAllTags().get(0).getStatus(), is(Status.PASSED));
     }

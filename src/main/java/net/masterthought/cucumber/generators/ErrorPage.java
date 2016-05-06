@@ -27,7 +27,7 @@ public class ErrorPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("output_message", ExceptionUtils.getStackTrace(exception));
-        velocityContext.put("json_files", jsonFiles);
+        context.put("output_message", ExceptionUtils.getStackTrace(exception));
+        context.put("json_files", jsonFiles);
     }
 }

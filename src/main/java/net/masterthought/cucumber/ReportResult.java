@@ -39,7 +39,7 @@ public class ReportResult {
     private final OverviewReport tagsReport = new OverviewReport("Tags");
 
     public ReportResult(List<Feature> features) {
-        this.buildTime = new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
+        this.buildTime = getCurrentTime();
 
         for (Feature feature : features) {
             processFeature(feature);
@@ -168,6 +168,10 @@ public class ReportResult {
             allTags.put(tagObject.getName(), tagObject);
         }
         return tagObject;
+    }
+
+    public static String getCurrentTime() {
+        return new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
     }
 
     private static <T extends Comparable<? super T>> List<T> mapToSortedList(Collection<T> values) {

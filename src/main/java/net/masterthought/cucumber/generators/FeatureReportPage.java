@@ -24,8 +24,8 @@ public class FeatureReportPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("parallel", configuration.isParallelTesting());
-        velocityContext.put("feature", feature);
+        context.put("parallel", configuration.isParallelTesting());
+        context.put("feature", feature);
     }
 
 }
