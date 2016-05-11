@@ -21,10 +21,10 @@ public class TagsOverviewPage extends AbstractPage {
     @Override
     public void prepareReport() {
         List<TagObject> tags = report.getAllTags();
-        velocityContext.put("all_tags", tags);
-        velocityContext.put("report_summary", report.getTagReport());
+        context.put("all_tags", tags);
+        context.put("report_summary", report.getTagReport());
 
-        velocityContext.put("chart_categories", ChartUtil.getTags(tags));
-        velocityContext.put("chart_data", ChartUtil.generateTagChartDataForHighCharts(tags));
+        context.put("chart_categories", ChartUtil.getTags(tags));
+        context.put("chart_data", ChartUtil.generateTagChartDataForHighCharts(tags));
     }
 }

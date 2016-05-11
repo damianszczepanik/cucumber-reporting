@@ -17,11 +17,11 @@ public class FeaturesOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("all_features", report.getAllFeatures());
-        velocityContext.put("report_summary", report.getFeatureReport());
-        velocityContext.put("all_features_passed", report.getAllPassedFeatures());
-        velocityContext.put("all_features_failed", report.getAllFailedFeatures());
+        context.put("all_features", report.getAllFeatures());
+        context.put("report_summary", report.getFeatureReport());
+        context.put("all_features_passed", report.getAllPassedFeatures());
+        context.put("all_features_failed", report.getAllFailedFeatures());
 
-        velocityContext.put("parallel", configuration.isParallelTesting());
+        context.put("parallel", configuration.isParallelTesting());
     }
 }

@@ -20,7 +20,7 @@ public class TagReportPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        velocityContext.put("tag", tagObject);
+        context.put("tag", tagObject);
     }
 
 }

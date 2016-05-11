@@ -5,12 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.Page;
+import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagTest extends Page {
+public class TagTest extends PageTest {
 
     @Before
     public void setUp() {
