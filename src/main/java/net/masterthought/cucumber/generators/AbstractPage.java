@@ -97,7 +97,7 @@ public abstract class AbstractPage {
             if (NumberUtils.isNumber(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.error("Could not parse build number: {}.", configuration.getBuildNumber());
+                LOG.warn("Could not parse build number: {}.", configuration.getBuildNumber());
             }
         }
     }

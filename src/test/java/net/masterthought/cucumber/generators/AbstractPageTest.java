@@ -9,8 +9,8 @@ import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.utils.ReflectionUtility;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -43,7 +43,7 @@ public class AbstractPageTest extends PageTest {
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
-        Properties props = ReflectionUtility.invokeMethod(page, "buildProperties");
+        Properties props = Deencapsulation.invoke(page, "buildProperties");
 
         // then
         assertThat(props).hasSize(3);
@@ -62,7 +62,7 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = ReflectionUtility.getField(page, "context", VelocityContext.class);
+        VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.getKeys()).hasSize(5);
         assertThat(context.get("jenkins_source")).isEqualTo(configuration.isRunWithJenkins());
         assertThat(context.get("jenkins_base")).isEqualTo(configuration.getJenkinsBasePath());
@@ -82,7 +82,7 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = ReflectionUtility.getField(page, "context", VelocityContext.class);
+        VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.getKeys()).hasSize(6);
         assertThat(context.get("build_time")).isNotNull();
     }
@@ -98,7 +98,7 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = ReflectionUtility.getField(page, "context", VelocityContext.class);
+        VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.getKeys()).hasSize(5);
         assertThat(context.get("build_previous_number")).isNull();
     }
@@ -114,7 +114,7 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = ReflectionUtility.getField(page, "context", VelocityContext.class);
+        VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.getKeys()).hasSize(6);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
