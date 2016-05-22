@@ -15,6 +15,8 @@
       #includeMonochromeTextEmbedding($embedding, "HTML", $foreach.index)
     #elseif ($embedding.getMimeType() == "application/json")
       #includeMonochromeTextEmbedding($embedding, "JSON", $foreach.index)
+    #elseif ($embedding.getMimeType() == "image/url")
+      #includeImageReferenceEmbedding($embedding, $foreach.index)
     #else
       #includeUnknownEmbedding($embedding, $foreach.index)
     #end
@@ -31,6 +33,10 @@
   #includeExpandableEmbedding($embedding, $image_type, "<img src=${Quote}data:image/$image_type;base64,$embedding.getData()${Quote}>", $index)
 #end
 
+#macro(includeImageReferenceEmbedding, $embedding, $index)
+  #set($Quote = '"')
+  #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getData()${Quote}>", $index)
+#end
 
 #macro(includeMonochromeTextEmbedding, $embedding, $format, $index)
   #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
