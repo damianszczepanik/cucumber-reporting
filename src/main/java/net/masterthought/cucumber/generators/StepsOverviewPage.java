@@ -9,7 +9,6 @@ import net.masterthought.cucumber.util.Util;
  * Presents details about how long steps are executed (adds the same steps and presents sum).
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
- *
  */
 public class StepsOverviewPage extends AbstractPage {
 
