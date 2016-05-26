@@ -39,15 +39,6 @@ public class ReportBuilder {
         reportParser = new ReportParser(configuration);
     }
 
-    /**
-     * Checks if all features pass.
-     * 
-     * @return true if all feature pass otherwise false
-     */
-    public boolean hasBuildPassed() {
-        return reportResult != null && reportResult.getAllFailedFeatures() == 0;
-    }
-
     public void generateReports() {
         try {
             // first copy static resources so ErrorPage is displayed properly
@@ -64,26 +55,21 @@ public class ReportBuilder {
         }
     }
 
+    /**
+     * Checks if all features pass.
+     * 
+     * @return true if all feature pass otherwise false
+     */
+    public boolean hasBuildPassed() {
+        return reportResult != null && reportResult.getAllFailedFeatures() == 0;
+    }
+
     private void copyStaticResources() {
         copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js", "highcharts.js",
                 "highcharts-3d.js");
         copyResources("fonts", "FontAwesome.otf", "fontawesome-webfont.svg", "fontawesome-webfont.woff",
                 "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2");
-    }
-
-    private void generateAllPages() {
-        new FeaturesOverviewPage(reportResult, configuration).generatePage();
-        for (Feature feature : reportResult.getAllFeatures()) {
-            new FeatureReportPage(reportResult, configuration, feature).generatePage();
-        }
-
-        new TagsOverviewPage(reportResult, configuration).generatePage();
-        for (TagObject tagObject : reportResult.getAllTags()) {
-            new TagReportPage(reportResult, configuration, tagObject).generatePage();
-        }
-
-        new StepsOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void copyResources(String resourceLocation, String... resources) {
@@ -98,6 +84,20 @@ public class ReportBuilder {
                 throw new ValidationException(e);
             }
         }
+    }
+
+    private void generateAllPages() {
+        new FeaturesOverviewPage(reportResult, configuration).generatePage();
+        for (Feature feature : reportResult.getAllFeatures()) {
+            new FeatureReportPage(reportResult, configuration, feature).generatePage();
+        }
+
+        new TagsOverviewPage(reportResult, configuration).generatePage();
+        for (TagObject tagObject : reportResult.getAllTags()) {
+            new TagReportPage(reportResult, configuration, tagObject).generatePage();
+        }
+
+        new StepsOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void generateErrorPage(Exception exception) {

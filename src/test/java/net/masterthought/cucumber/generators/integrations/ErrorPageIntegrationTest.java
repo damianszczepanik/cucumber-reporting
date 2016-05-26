@@ -58,7 +58,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     public void generatePage_generatesErrorMessage() {
 
         // given
-        setUpWithJson(EMPTY_JOSN, SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JOSN);
         page = new ErrorPage(reportResult, configuration, cause, jsonReports);
 
         // when

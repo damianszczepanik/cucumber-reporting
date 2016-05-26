@@ -1,0 +1,28 @@
+[
+    {
+        "id":["this is","invalid id"],
+        "name":"1st feature",
+        "keyword":"Feature",
+        "line":2,
+        "elements":[
+            {
+                "description":"Perfect background",
+                "name":"Activate Credit Card",
+                "keyword":"Background",
+                "line":7,
+                "steps":[
+                    {
+                        "result":{
+                            "duration":99107447000,
+                            "status":"passed"
+                        },
+                        "name":"I have a new credit card",
+                        "keyword":"Given "
+                    }
+                ],
+                "type":"scenario"
+            }
+        ],
+        "uri":"simple:uri"
+    }
+]

@@ -124,7 +124,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_onEmptyJsons_generatesProperMessage() {
 
         // given
-        setUpWithJson(EMPTY_JOSN);
+        setUpWithJson(EMPTY_JSON);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
