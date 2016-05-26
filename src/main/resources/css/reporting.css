@@ -58,11 +58,10 @@ a:hover {
 .message, .embedding {
     background-color: #dfdfdf;
     overflow: auto;
-    white-space: nowrap;
 }
 
 /* same as <pre> from bootstrap library */
-.embedding-box {
+.embedding-content {
     display: block;
     padding: 9.5px;
     margin-left: 10px;
@@ -74,6 +73,13 @@ a:hover {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 4px
+    white-space: nowrap;
+}
+
+.download-button {
+    float: right;
+    margin-right: 10px;
+    color: #333;
 }
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
