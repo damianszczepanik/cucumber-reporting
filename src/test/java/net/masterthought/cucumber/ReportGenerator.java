@@ -18,6 +18,13 @@ import net.masterthought.cucumber.json.support.TagObject;
 public abstract class ReportGenerator {
 
     private final static String JSON_DIRECTORY = "json/";
+
+    protected static final String SAMPLE_JOSN = "sample.json";
+    protected static final String SIMPLE_JOSN = "simple.json";
+    protected static final String EMPTY_JSON = "empty.json";
+    protected static final String INVALID_JSON = "invalid.json";
+    protected static final String INVALID_REPORT_JSON = "invalid-report.json";
+
     private final File reportDirectory;
 
     protected Configuration configuration;

@@ -150,7 +150,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_onEmptyJsons_generatesProperMessage() {
 
         // given
-        setUpWithJson(EMPTY_JOSN);
+        setUpWithJson(EMPTY_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

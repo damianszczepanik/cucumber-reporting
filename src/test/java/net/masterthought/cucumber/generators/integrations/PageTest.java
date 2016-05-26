@@ -18,9 +18,6 @@ import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssert
  */
 public abstract class PageTest extends ReportGenerator {
 
-    protected static final String SAMPLE_JOSN = "sample.json";
-    protected static final String EMPTY_JOSN = "empty.json";
-
     protected AbstractPage page;
 
     @After
