@@ -121,7 +121,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion secondRow = bodyRows[1];
         secondRow.hasExactValues("Second feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002 ms", "Failed");
-        secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "", "", "missing", "duration", "failed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "failed", "skipped", "", "", "missing", "duration", "failed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "2050000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "net-masterthought-example-ATMK-feature.html");
     }
