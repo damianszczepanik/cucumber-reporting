@@ -24,4 +24,18 @@ public class Embedding {
     public String getDecodedData() {
         return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
     }
+
+    public String getExtension() {
+        switch (mime_type) {
+        case "image/png":
+        case "image/bmp":
+        case "image/jpeg":
+        case "text/html":
+        case "application/json":
+            return mime_type.substring(mime_type.indexOf("/") + 1);
+        case "text/plain":
+            return "txt";
+        }
+        return "unknown";
+    }
 }

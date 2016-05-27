@@ -30,7 +30,7 @@
 
 #macro(includeImageEmbedding, $embedding, $image_type, $index)
   #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, $image_type, "<img src=${Quote}data:image/$image_type;base64,$embedding.getData()${Quote}>", $index)
+  #includeExpandableEmbedding($embedding, $image_type, "<img src=${Quote}embeddings/$embedding.hashCode().$embedding.getExtension()${Quote}>", $index)
 #end
 
 #macro(includeImageReferenceEmbedding, $embedding, $index)
@@ -59,9 +59,10 @@
   <div class="embedding indention">
     <div data-toggle="collapse" data-target="#embedding_$embedding.hashCode()" class="collapsable-control">
       <a>Attachment $index ($type)</a>
+      <a href="embeddings/$embedding.hashCode().$embedding.getExtension()" target="_blank"><span class="download-button glyphicon glyphicon-download-alt"></span></a>
     </div>
     <div id="embedding_$embedding.hashCode()" class="collapse collapsable-detail">
-      <span class="embedding-box">$content</span>
+      <span class="embedding-content">$content</span>
     </div>
   </div>
 #end

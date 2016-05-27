@@ -243,7 +243,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         Embedding[] embeddings = step.getEmbeddings();
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
-        embeddingsElement[0].hasImageContent(embeddings[0].getData());
+        embeddingsElement[0].hasImageContent(embeddings[0]);
         embeddingsElement[2].hasTextContent(embeddings[2].getData());
         embeddingsElement[3].hasHtmlContent(embeddings[3].getDecodedData());
     }
