@@ -6,8 +6,7 @@ import static net.masterthought.cucumber.json.support.Status.PASSED;
 import static net.masterthought.cucumber.json.support.Status.PENDING;
 import static net.masterthought.cucumber.json.support.Status.SKIPPED;
 import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
@@ -17,40 +16,70 @@ import org.junit.Test;
 public class StatusTest {
 
     @Test
-    public void valuesReturnsOrderUsedByFrontEnd() {
+    public void valuesOfReturnsOrderedStatuses() {
 
         // given
+        // tables displays result with following order
         final Status[] reference = { PASSED, FAILED, SKIPPED, PENDING, UNDEFINED, MISSING };
 
+        // when
+        Status[] orderedStatuses = Status.values();
+
         // then
-        assertArrayEquals(reference, Status.values());
+        assertThat(orderedStatuses).isEqualTo(reference);
     }
 
     @Test
-    public void getNameReturnsNameToLowerCase() {
+    public void getNameReturnsNameAsLowerCase() {
 
         // given
-        final String statusName = "PASSED";
-        final String name = "passed";
+        final Status status = PASSED;
+        final String refName = "passed";
         
         // when
-        Status status = Status.valueOf(statusName);
+        String rawName = status.getRawName();
 
         // then
-        assertEquals(status.getRawName(), name);
+        assertThat(rawName).isEqualTo(refName);
     }
 
     @Test
-    public void getLabelReturnsNameStartingFRomUpperCase() {
+    public void getLabelReturnsNameStartingFromUpperCase() {
 
         // given
-        final String statusName = "PASSED";
-        final String label = "Passed";
+        final Status status = UNDEFINED;
+        final String refLabel = "Undefined";
 
         // when
-        Status status = Status.valueOf(statusName);
+        String label = status.getLabel();
 
         // then
-        assertEquals(status.getLabel(), label);
+        assertThat(label).isEqualTo(refLabel);
+    }
+
+    @Test
+    public void hasPassedReturnsTrueForPASSED() {
+
+        // given
+        Status status = Status.PASSED;
+
+        // when
+        boolean isPassed = status.isPassed();
+
+        // then
+        assertThat(isPassed).isTrue();
+    }
+
+    @Test
+    public void hasPassedReturnsFalseForNoPASSED() {
+
+        // given
+        Status status = Status.MISSING;
+
+        // when
+        boolean isPassed = status.isPassed();
+
+        // then
+        assertThat(isPassed).isFalse();
     }
 }

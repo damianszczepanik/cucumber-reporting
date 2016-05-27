@@ -35,7 +35,8 @@ public class Embedding {
             return mime_type.substring(mime_type.indexOf("/") + 1);
         case "text/plain":
             return "txt";
+        default:
+            return "unknown";
         }
-        return "unknown";
     }
 }
