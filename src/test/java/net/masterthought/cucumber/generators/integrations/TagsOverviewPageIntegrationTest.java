@@ -112,7 +112,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion firstRow = bodyRows[0];
         firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms", "Failed");
-        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "checkout.html");
 

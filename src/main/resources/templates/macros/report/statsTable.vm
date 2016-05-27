@@ -13,7 +13,7 @@
 
         <td>$element.getScenarios()</td>
         <td>$element.getPassedScenarios()</td>
-        <td>$element.getFailedScenarios()</td>
+        <td #if($element.getFailedScenarios() > 0)  class="failed"  #end>$element.getFailedScenarios()</td>
         <td>$element.getSteps()</td>
         <td>$element.getPassedSteps()</td>
         <td #if($element.getFailedSteps() > 0)    class="failed"    #end>$element.getFailedSteps()</td>
