@@ -1,7 +1,7 @@
 package net.masterthought.cucumber.json.support;
 
 /**
- * Defines all possible statuses provided by cucumber-jvm.
+ * Defines all possible statuses provided by cucumber-jvm library.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -28,6 +28,7 @@ public enum Status {
         return valueOf(status.toUpperCase());
     }
 
+    /** Returns true if status is equal to {@link #PASSED}. */
     public boolean isPassed() {
         return this == PASSED;
     }

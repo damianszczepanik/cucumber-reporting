@@ -24,8 +24,6 @@ public class StepTest {
 
     private Step passingStep;
     private Step failingStep;
-    private Step skippedStep;
-    private Step withOutput;
 
     @Before
     public void setUpJsonReports() throws IOException {
@@ -39,8 +37,6 @@ public class StepTest {
 
         passingStep = passingFeature.getElements()[0].getSteps()[0];
         failingStep = failingFeature.getElements()[0].getSteps()[5];
-        skippedStep = failingFeature.getElements()[0].getSteps()[6];
-        withOutput = passingFeature.getElements()[1].getSteps()[0];
     }
 
     @Test
@@ -68,13 +64,5 @@ public class StepTest {
     @Test
     public void shouldReturnDuration() {
         assertThat(passingStep.getDuration(), is(107447000L));
-    }
-
-    private Step failingStepWithEmbeddedScreenshot() throws IOException {
-        List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/embedded_image.json"));
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
-        Feature failingFeatureWithEmbeddedScreenshot = features.get(0);
-        return failingFeatureWithEmbeddedScreenshot.getElements()[0].getSteps()[2];
     }
 }

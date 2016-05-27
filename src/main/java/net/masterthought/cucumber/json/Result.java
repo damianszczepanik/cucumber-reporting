@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class Result {
@@ -12,7 +11,7 @@ public class Result {
     // End: attributes from JSON file report
 
     public String getStatus() {
-        return status == null ? Status.MISSING.getRawName() : status;
+        return status;
     }
 
     public long getDuration() {

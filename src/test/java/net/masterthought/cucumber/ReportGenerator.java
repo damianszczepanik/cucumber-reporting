@@ -6,8 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -45,11 +43,9 @@ public abstract class ReportGenerator {
         }
     }
 
-    public void setUpWithJson(String... jsonFiles) {
-        if (ArrayUtils.isNotEmpty(jsonFiles)) {
-            for (String jsonFile : jsonFiles)
-                addReport(jsonFile);
-        }
+    protected void setUpWithJson(String... jsonFiles) {
+        for (String jsonFile : jsonFiles)
+            addReport(jsonFile);
 
         configuration = new Configuration(reportDirectory, projectName);
         createReportBuilder();

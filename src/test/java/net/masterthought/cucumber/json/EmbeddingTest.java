@@ -44,7 +44,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getgetDecodedDataReturnsgetDecodedContent() {
+    public void getDecodedDataReturnsgetDecodedContent() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
@@ -54,5 +54,44 @@ public class EmbeddingTest extends PageTest {
 
         // then
         assertThat(content).isEqualTo("<i>Hello</i> <b>World!</b>");
+    }
+
+    @Test
+    public void getExtensionOnCommonMimeTypeResurnsFileExtension() {
+
+        // give
+        Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("html");
+    }
+
+    @Test
+    public void getExtensionOnTextMimeTypeResurnsTxt() {
+
+        // give
+        Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("txt");
+    }
+
+    @Test
+    public void getExtensionOnOtherMimeTypeResurnsUnknown() {
+
+        // give
+        Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[4];
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("unknown");
     }
 }
