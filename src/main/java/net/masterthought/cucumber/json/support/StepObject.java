@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json.support;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Util;
 
 /**
@@ -24,6 +25,9 @@ public class StepObject implements Comparable<StepObject> {
     private final StatusCounter statusCounter = new StatusCounter();
 
     public StepObject(String location) {
+        if (StringUtils.isEmpty(location)) {
+            throw new ValidationException("Location cannnot be null!");
+        }
         this.location = location;
     }
 
@@ -31,17 +35,17 @@ public class StepObject implements Comparable<StepObject> {
         return location;
     }
 
-    public void addDuration(long duration, String status) {
+    public void addDuration(long duration, Status status) {
         this.totalDuration += duration;
         this.totalOccurrences++;
-        this.statusCounter.incrementFor(Status.toStatus(status));
+        this.statusCounter.incrementFor(status);
     }
 
     public long getDurations() {
         return totalDuration;
     }
 
-    public String getTotalFormattedDuration() {
+    public String getFormattedTotalDuration() {
         return Util.formatDuration(totalDuration);
     }
 
@@ -49,7 +53,7 @@ public class StepObject implements Comparable<StepObject> {
         return totalDuration / totalOccurrences;
     }
 
-    public String getAverageFormattedDuration() {
+    public String getFormattedAverageDuration() {
         return Util.formatDuration(getAverageDuration());
     }
 
@@ -57,18 +61,15 @@ public class StepObject implements Comparable<StepObject> {
         return totalOccurrences;
     }
 
-    /** Returns in as percentage how many steps passed (PASSED / All) formatted to double decimal precision. */
+    /** Returns as percentage how many steps passed (PASSED / All) formatted to double decimal precision. */
     public String getPercentageResult() {
         int total = 0;
         for (Status status : Status.values()) {
             total += this.statusCounter.getValueFor(status);
         }
-        if (total == 0) {
-            return Util.PERCENT_FORMATTER.format(0);
-        } else {
-            // 1F is to force floating conversion instead of loosing decimal part
-            return Util.PERCENT_FORMATTER.format(1F * this.statusCounter.getValueFor(Status.PASSED) / total);
-        }
+
+        // value '1F' is to force floating conversion instead of loosing decimal part
+        return Util.PERCENT_FORMATTER.format(1F * this.statusCounter.getValueFor(Status.PASSED) / total);
     }
 
     public Status getStatus() {
@@ -77,12 +78,7 @@ public class StepObject implements Comparable<StepObject> {
 
     @Override
     public int compareTo(StepObject o) {
-        if (StringUtils.isEmpty(location)) {
-            return -1;
-        }
-        if (StringUtils.isEmpty(o.getLocation())) {
-            return 1;
-        }
+        // since there might be the only one StepObject with given location, compare by location only
         return Integer.signum(location.compareTo(o.getLocation()));
     }
 }

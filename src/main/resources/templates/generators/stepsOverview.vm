@@ -37,8 +37,8 @@
               <tr>
                 <td class="location">$step.getLocation()</td>
                 <td>$step.getTotalOccurrences()</td>
-                <td class="duration" data-value="$step.getDurations()">$step.getTotalFormattedDuration()</td>
-                <td class="duration" data-value="$step.getAverageDuration()">$step.getAverageFormattedDuration()</td>
+                <td class="duration" data-value="$step.getDurations()">$step.getFormattedTotalDuration()</td>
+                <td class="duration" data-value="$step.getAverageDuration()">$step.getFormattedAverageDuration()</td>
                 <td class="$step.getStatus().getRawName()">$step.getPercentageResult()</td>
               </tr>
             #end
