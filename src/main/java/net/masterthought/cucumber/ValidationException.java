@@ -10,4 +10,8 @@ public class ValidationException extends RuntimeException {
     public ValidationException(Exception e) {
         super(e);
     }
+
+    public ValidationException(String message) {
+        super(message);
+    }
 }

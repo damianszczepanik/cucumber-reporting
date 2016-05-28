@@ -152,11 +152,11 @@ public class ReportResult {
 
         // happens that report is not valid - does not contain information about result
         if (result != null) {
-            stepObject.addDuration(result.getDuration(), result.getStatus());
+            stepObject.addDuration(result.getDuration(), Status.toStatus(result.getStatus()));
         } else {
             // when result is not available it means that something really went wrong (report is incomplete)
             // and for this case FAILED status is used to avoid problems during parsing
-            stepObject.addDuration(0, Status.FAILED.name());
+            stepObject.addDuration(0, Status.FAILED);
         }
         allSteps.put(methodName, stepObject);
     }

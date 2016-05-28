@@ -111,19 +111,19 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231 ms", "Failed");
+        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231ms", "Failed");
         firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "checkout.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
+        secondRow.hasExactValues("@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229ms", "Passed");
         secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "229004778", "");
         secondRow.getReportLink().hasLabelAndAddress("@fast", "fast.html");
 
         TableRowAssertion lastRow = bodyRows[2];
-        lastRow.hasExactValues("@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229 ms", "Passed");
+        lastRow.hasExactValues("@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229ms", "Passed");
         lastRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
         lastRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "229004778", "");
         lastRow.getReportLink().hasLabelAndAddress("@featureTag", "featureTag.html");
@@ -143,7 +143,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
-        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689 ms", "Totals");
+        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689ms", "Totals");
     }
 
     @Test

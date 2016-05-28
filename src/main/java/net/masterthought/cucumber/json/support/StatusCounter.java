@@ -32,7 +32,7 @@ public class StatusCounter {
         this.counter.put(status, statusCounter);
         size++;
 
-        // if state was already set to FAILED, leave this state unchanged
+        // if state was already set to FAILED, leave the status unchanged
         if (finalStatus != Status.FAILED) {
             // if all statuses are the same
             if (statusCounter == size) {
