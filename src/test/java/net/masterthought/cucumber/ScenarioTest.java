@@ -1,9 +1,7 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +12,6 @@ import org.junit.Test;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
 public class ScenarioTest {
@@ -49,65 +46,62 @@ public class ScenarioTest {
     }
 
     @Test
-    public void shouldReturnSteps() throws IOException {
-        setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getSteps()[0], isA(Step.class));
-    }
-
-    @Test
     public void shouldReturnStatus() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
-        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
-        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(passingElement.getElementStatus()).isEqualTo(Status.PASSED);
+        assertThat(failingElement.getElementStatus()).isEqualTo(Status.FAILED);
+        assertThat(undefinedElement.getElementStatus()).isEqualTo(Status.PASSED);
+        assertThat(skippedElement.getElementStatus()).isEqualTo(Status.PASSED);
     }
 
     @Test
     public void shouldReturnId() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getId(), is((String) null));
-        assertThat(failingElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;1"));
-        assertThat(undefinedElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;2"));
-        assertThat(skippedElement.getId(), is("account-holder-withdraws-more-cash;account-has-sufficient-funds;;3"));
+        assertThat(passingElement.getId()).isNull();
+        assertThat(failingElement.getId())
+                .isEqualTo("account-holder-withdraws-more-cash;account-has-sufficient-funds;;1");
+        assertThat(undefinedElement.getId())
+                .isEqualTo("account-holder-withdraws-more-cash;account-has-sufficient-funds;;2");
+        assertThat(skippedElement.getId())
+                .isEqualTo("account-holder-withdraws-more-cash;account-has-sufficient-funds;;3");
     }
 
     @Test
     public void shouldReturnNameWhenConfigSkippedTurnedOn() throws IOException {
         setUpJsonReports(true, false, false, false);
 
-        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
-        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getElementStatus(), is(Status.PASSED));
-        assertThat(skippedElement.getElementStatus(), is(Status.FAILED));
+        assertThat(passingElement.getElementStatus()).isEqualTo(Status.PASSED);
+        assertThat(failingElement.getElementStatus()).isEqualTo(Status.FAILED);
+        assertThat(undefinedElement.getElementStatus()).isEqualTo(Status.PASSED);
+        assertThat(skippedElement.getElementStatus()).isEqualTo(Status.FAILED);
     }
 
     @Test
     public void shouldReturnNameWhenConfiUndefinedTurnedOn() throws IOException {
         setUpJsonReports(false, false, true, false);
 
-        assertThat(passingElement.getElementStatus(), is(Status.PASSED));
-        assertThat(failingElement.getElementStatus(), is(Status.FAILED));
-        assertThat(undefinedElement.getElementStatus(), is(Status.FAILED));
-        assertThat(skippedElement.getElementStatus(), is(Status.PASSED));
+        assertThat(passingElement.getElementStatus()).isEqualTo(Status.PASSED);
+        assertThat(failingElement.getElementStatus()).isEqualTo(Status.FAILED);
+        assertThat(undefinedElement.getElementStatus()).isEqualTo(Status.FAILED);
+        assertThat(skippedElement.getElementStatus()).isEqualTo(Status.PASSED);
     }
 
     @Test
     public void shouldReturnName() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getName(), is("Activate Credit Card"));
+        assertThat(passingElement.getName()).isEqualTo("Activate Credit Card");
     }
 
     @Test
     public void shouldReturnKeyword() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getKeyword(), is("Background"));
+        assertThat(passingElement.getKeyword()).isEqualTo("Background");
     }
 
     @Test
     public void shouldReturnType() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(passingElement.getType(), is("background"));
+        assertThat(passingElement.getType()).isEqualTo("background");
     }
 
     @Test
@@ -115,13 +109,13 @@ public class ScenarioTest {
         setUpJsonReports(false, false, false, false);
         String[] expectedList = { "@fast", "@super", "@checkout" };
         for (int i = 0; i < taggedElement.getTags().length; i++) {
-            assertThat(taggedElement.getTags()[i].getName(), is(expectedList[i]));
+            assertThat(taggedElement.getTags()[i].getName()).isEqualTo(expectedList[i]);
         }
     }
 
     @Test
     public void shouldKnowIfHasTags() throws IOException {
         setUpJsonReports(false, false, false, false);
-        assertThat(taggedElement.hasTags(), is(true));
+        assertThat(taggedElement.hasTags()).isTrue();
     }
 }

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.reports.Reportable;
@@ -12,7 +14,7 @@ import net.masterthought.cucumber.util.Util;
 
 public class TagObject implements Reportable, Comparable<TagObject> {
 
-    private final String name;
+    private final String tagName;
     private final List<Element> elements = new ArrayList<>();
 
     private final String reportFileName;
@@ -22,27 +24,26 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     private long totalDuration;
     private int totalSteps;
 
-    /** Status for current tag: {@link Status#PASSED} if all elements pass {@link Status#FAILED} otherwise. */
+    /** Default status for current tag: {@link Status#PASSED} if all elements pass {@link Status#FAILED} otherwise. */
     private Status status = Status.PASSED;
 
     public TagObject(String tagName) {
-        this.name = tagName;
+        if (StringUtils.isEmpty(tagName)) {
+            throw new ValidationException("TagName cannnot be null!");
+        }
+        this.tagName = tagName;
 
-        // eliminate characters that might be invalid as a file name
+        // eliminate characters that might be invalid as a file tagName
         this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
     }
 
     @Override
     public String getName() {
-        return name;
+        return tagName;
     }
 
     public String getReportFileName() {
         return reportFileName;
-    }
-
-    public List<Element> getElements() {
-        return elements;
     }
 
     public boolean addElement(Element element) {
@@ -69,6 +70,10 @@ public class TagObject implements Reportable, Comparable<TagObject> {
             totalSteps++;
         }
         return true;
+    }
+
+    public List<Element> getElements() {
+        return elements;
     }
 
     @Override
@@ -151,7 +156,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     @Override
     public int compareTo(TagObject o) {
-        // tag without name seems to be invalid
-        return Integer.signum(name.compareTo(o.getName()));
+        // since there might be the only one TagObject with given tagName, compare by location only
+        return Integer.signum(tagName.compareTo(o.getName()));
     }
 }
