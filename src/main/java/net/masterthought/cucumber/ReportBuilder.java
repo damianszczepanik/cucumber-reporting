@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.generators.ErrorPage;
+import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
@@ -107,6 +108,7 @@ public class ReportBuilder {
         }
 
         new StepsOverviewPage(reportResult, configuration).generatePage();
+        new FailuresOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void generateErrorPage(Exception exception) {

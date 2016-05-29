@@ -24,8 +24,11 @@
         <div class="description indention">$feature.getDescription()</div>
 
         <div class="elements inner-level">
-          #includeElements($feature.getElements(), false)
+          #foreach($element in $feature.getElements())
+            #includeElement($element, false)
+          #end
         </div>
+
       </div>
     </div>
   </div>

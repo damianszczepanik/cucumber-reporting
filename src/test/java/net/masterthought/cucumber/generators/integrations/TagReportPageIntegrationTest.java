@@ -69,7 +69,7 @@ public class TagReportPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        ElementAssertion[] elements = document.getElementsByTag();
+        ElementAssertion[] elements = document.getElements();
 
         assertThat(elements).hasSameSizeAs(tags.get(0).getElements());
     }
@@ -88,7 +88,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        BriefAssertion stepElement = document.getElementsByTag()[0].getStepsSection().getSteps()[3].getBrief();
+        BriefAssertion stepElement = document.getElements()[0].getStepsSection().getSteps()[3].getBrief();
         Step step = tag.getElements().get(0).getSteps()[3];
         assertThat(stepElement.getName()).hasSameSizeAs(step.getName());
     }

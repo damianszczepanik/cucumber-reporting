@@ -55,8 +55,9 @@ public class ReportParser {
             String jsonFile = jsonReportFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.info(String.format("File '%s' does not contain features", jsonFile));
+                LOG.info("File '{}' does not contain features", jsonFile);
             } else {
+                LOG.info("File '{}' contain {} features", jsonFile, features.length);
                 setMetadata(features, jsonFile, i);
                 featureResults.addAll(Arrays.asList(features));
             }
@@ -76,7 +77,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, Feature[].class);
         } catch (JsonMappingException e) {
-            LOG.info(String.format("File '%s' is not proper Cucumber-JVM report", jsonFile), e);
+            LOG.info("File '{}' is not proper Cucumber-JVM report", jsonFile, e);
             return new Feature[0];
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem

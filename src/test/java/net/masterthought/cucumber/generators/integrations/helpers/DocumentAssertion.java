@@ -35,7 +35,7 @@ public class DocumentAssertion extends ReportAssertion {
         return oneByClass("feature", FeatureAssertion.class);
     }
 
-    public ElementAssertion[] getElementsByTag() {
+    public ElementAssertion[] getElements() {
         return oneByClass("elements", WebAssertion.class).allByClass("element", ElementAssertion.class);
     }
 }
