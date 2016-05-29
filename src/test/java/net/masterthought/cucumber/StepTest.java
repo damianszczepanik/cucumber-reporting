@@ -1,9 +1,7 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 
@@ -40,29 +37,18 @@ public class StepTest {
     }
 
     @Test
-    public void shouldReturnRows() throws IOException {
-        List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
-        Feature feature = features.get(0);
-        Step step = feature.getElements()[0].getSteps()[0];
-
-        assertThat(step.getRows()[0], isA(Row.class));
-    }
-
-    @Test
     public void shouldKnowIfHasRows() {
-        assertThat(passingStep.hasRows(), is(false));
+        assertThat(passingStep.hasRows()).isFalse();
     }
 
     @Test
     public void shouldReturnStatus() {
-        assertThat(passingStep.getStatus(), is(Status.PASSED));
-        assertThat(failingStep.getStatus(), is(Status.FAILED));
+        assertThat(passingStep.getStatus()).isEqualTo(Status.PASSED);
+        assertThat(failingStep.getStatus()).isEqualTo(Status.FAILED);
     }
 
     @Test
     public void shouldReturnDuration() {
-        assertThat(passingStep.getDuration(), is(107447000L));
+        assertThat(passingStep.getDuration()).isEqualTo(107447000L);
     }
 }

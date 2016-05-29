@@ -1,15 +1,13 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.StringContains;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,85 +31,85 @@ public class TagsTest {
 
     @Test
     public void shouldGetTotalTagSteps() {
-        assertThat(reportResult.getTagReport().getSteps(), is(4));
+        assertThat(reportResult.getTagReport().getSteps()).isEqualTo(4);
     }
 
     @Test
     public void shouldGetTotalTagPasses() {
-        assertThat(reportResult.getTagReport().getPassedSteps(), is(2));
+        assertThat(reportResult.getTagReport().getPassedSteps()).isEqualTo(2);
     }
 
     @Test
     public void shouldGetTotalTagFails() {
-        assertThat(reportResult.getTagReport().getFailedSteps(), is(2));
+        assertThat(reportResult.getTagReport().getFailedSteps()).isEqualTo(2);
     }
 
     @Test
     public void shouldGetTotalTagSkipped() {
-        assertThat(reportResult.getTagReport().getSkippedSteps(), is(0));
+        assertThat(reportResult.getTagReport().getSkippedSteps()).isEqualTo(0);
     }
 
     @Test
     public void shouldGetTotalTagPending() {
-        assertThat(reportResult.getTagReport().getPendingSteps(), is(0));
+        assertThat(reportResult.getTagReport().getPendingSteps()).isEqualTo(0);
     }
 
     @Test
     public void shouldGetTotalTagScenarios() {
-        assertThat(reportResult.getTagReport().getScenarios(), is(4));
+        assertThat(reportResult.getTagReport().getScenarios()).isEqualTo(4);
     }
 
     @Test
     public void shouldgetTotalTagScenariosPassed() {
-        assertThat(reportResult.getTagReport().getPassedScenarios(), is(2));
+        assertThat(reportResult.getTagReport().getPassedScenarios()).isEqualTo(2);
     }
 
     @Test
     public void shouldgetTotalTagScenariosFailed() {
-        assertThat(reportResult.getTagReport().getFailedScenarios(), is(2));
+        assertThat(reportResult.getTagReport().getFailedScenarios()).isEqualTo(2);
     }
 
     @Test
     public void shouldGetTagInfoForTag1() {
         TagObject tagObject = reportResult.getAllTags().get(0);
-        assertThat(tagObject.getName(), is("@tag1"));
+        assertThat(tagObject.getName()).isEqualTo("@tag1");
     }
 
     @Test
     public void shouldGetTagInfoForTag2() {
         TagObject tagObject = reportResult.getAllTags().get(1);
-        assertThat(tagObject.getName(), is("@tag2"));
+        assertThat(tagObject.getName()).isEqualTo("@tag2");
     }
 
     @Test
     public void shouldGetTagScenariosForTag1() {
         List<Element> elements = reportResult.getAllTags().get(0).getElements();
-        assertThat(elements.size(), is(2));
+        assertThat(elements.size()).isEqualTo(2);
         Element firstElement = elements.get(0);
         Element secondElement = elements.get(1);
-        assertThat(firstElement.getRawName(), is("scenario1 for tag1"));
-        assertThat(secondElement.getRawName(), is("scenario2 for tag1"));
+        assertThat(firstElement.getRawName()).isEqualTo("scenario1 for tag1");
+        assertThat(secondElement.getRawName()).isEqualTo("scenario2 for tag1");
     }
 
     @Test
     public void shouldGetTagScenariosForTag2() {
         List<Element> elements = reportResult.getAllTags().get(1).getElements();
-        assertThat(elements.size(), is(2));
+        assertThat(elements.size()).isEqualTo(2);
         Element firstElement = elements.get(0);
         Element secondElement = elements.get(1);
-        assertThat(firstElement.getRawName(), is("scenario1 for tag2"));
-        assertThat(secondElement.getRawName(), is("scenario2 for tag2"));
+        assertThat(firstElement.getRawName()).isEqualTo("scenario1 for tag2");
+        assertThat(secondElement.getRawName()).isEqualTo("scenario2 for tag2");
     }
 
     @Test
     public void shouldGetDurations() {
         TagObject tag = reportResult.getAllTags().get(0);
-        assertThat(tag.getDurations(), is(1106277L));
+        assertThat(tag.getDurations()).isEqualTo(1106277L);
     }
 
     @Test
     public void shouldGetFormattedDurations() {
         TagObject tag = reportResult.getAllTags().get(0);
-        assertThat(tag.getFormattedDurations(), StringContains.containsString("ms"));
+        assertThat(tag.getFormattedDurations()).contains("ms");
     }
 }

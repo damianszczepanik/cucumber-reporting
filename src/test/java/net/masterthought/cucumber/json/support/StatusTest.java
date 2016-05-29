@@ -61,7 +61,7 @@ public class StatusTest {
     public void hasPassedReturnsTrueForPASSED() {
 
         // given
-        Status status = Status.PASSED;
+        Status status = PASSED;
 
         // when
         boolean isPassed = status.isPassed();
@@ -74,7 +74,7 @@ public class StatusTest {
     public void hasPassedReturnsFalseForNoPASSED() {
 
         // given
-        Status status = Status.MISSING;
+        Status status = MISSING;
 
         // when
         boolean isPassed = status.isPassed();

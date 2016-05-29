@@ -5,9 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +31,6 @@ public abstract class AbstractPage {
 
     private final VelocityEngine engine = new VelocityEngine();
     protected final VelocityContext context = new VelocityContext();
-    private Template template;
 
     /** Name of the HTML file which will be generated. */
     private final String templateFileName;
@@ -62,9 +61,9 @@ public abstract class AbstractPage {
     private void generateReport() {
         context.put("report_file", getWebPage());
 
-        template = engine.getTemplate("templates/generators/" + templateFileName);
+        Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(), getWebPage());
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), Charsets.UTF_8)) {
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
         } catch (IOException e) {
             throw new ValidationException(e);

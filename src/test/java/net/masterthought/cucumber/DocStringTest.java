@@ -1,8 +1,7 @@
 package net.masterthought.cucumber;
 
 import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +32,9 @@ public class DocStringTest {
 
     @Test
     public void shouldFormatDocString() {
-        assertThat(step.getDocString().getValue(),
-                is("X _ X\n"
-                 + "O X O\n"
-                 + "_ O X"));
+        assertThat(step.getDocString().getValue())
+                .isEqualTo("X _ X\n"
+                         + "O X O\n"
+                         + "_ O X");
     }
 }

@@ -1,9 +1,10 @@
 package net.masterthought.cucumber;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.support.TagObject;
@@ -17,14 +18,14 @@ public class ChartUtilTest {
         TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = ChartUtil.getTags(tagObjectList);
-        Assert.assertEquals("['TestTagName']", result);
+        assertThat("['TestTagName']").isEqualTo(result);
     }
 
     @Test
     public void testGetTags_withoutTags() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<>();
         String result = ChartUtil.getTags(tagObjectList);
-        Assert.assertEquals("[]", result);
+        assertThat("[]").isEqualTo(result);
     }
 
     @Test
@@ -33,13 +34,13 @@ public class ChartUtilTest {
         TagObject tag = new TagObject("TestTagName");
         tagObjectList.add(tag);
         String result = ChartUtil.generateTagChartDataForHighCharts(tagObjectList);
-        Assert.assertEquals("[[0, 0, 0, 0]]", result);
+        assertThat("[[0, 0, 0, 0]]").isEqualTo(result);
     }
 
     @Test
     public void testGenerateTagChartDataForHighCharts_withoutTags() throws Exception {
         List<TagObject> tagObjectList = new ArrayList<>();
         String result = ChartUtil.generateTagChartDataForHighCharts(tagObjectList);
-        Assert.assertEquals("[]", result);
+        assertThat("[]").isEqualTo(result);
     }
 }
