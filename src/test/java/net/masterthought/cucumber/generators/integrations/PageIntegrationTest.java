@@ -14,6 +14,8 @@ import net.masterthought.cucumber.generators.integrations.helpers.NavigationAsse
 import net.masterthought.cucumber.generators.integrations.helpers.NavigationItemAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Before;
+import java.util.Locale;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
