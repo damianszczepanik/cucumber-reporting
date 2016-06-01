@@ -154,6 +154,12 @@ table.step-arguments {
     margin-top: 3px;
 }
 
+table.step-docstring {
+    margin-bottom: 5px;
+    margin-left: 25px;
+    margin-top: 3px;
+}
+
 table.step-arguments th, table.step-arguments td {
     border: 1px solid gray;
     padding: 3px;

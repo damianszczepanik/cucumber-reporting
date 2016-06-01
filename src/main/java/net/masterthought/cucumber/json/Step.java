@@ -63,6 +63,9 @@ public class Step implements ResultsWithMatch {
     public boolean hasRows() {
         return ArrayUtils.isNotEmpty(rows);
     }
+    public boolean hasDocString() {
+        return doc_string!=null;
+    }
 
     @Override
     public Status getStatus() {

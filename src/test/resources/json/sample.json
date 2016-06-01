@@ -77,7 +77,12 @@
                                 ],
                                 "line":6
                             }
-                        ]
+                        ],
+                        "doc_string": {
+                            "content_type": "",
+                            "line": 7,
+                            "value": "Hello Doc String"
+                        }
                     },
                     {
                         "result":{
