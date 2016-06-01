@@ -19,7 +19,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("333");
         page = new StepsOverviewPage(reportResult, configuration);
@@ -40,7 +40,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesLead() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -60,7 +60,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableHeader() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -80,7 +80,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -106,7 +106,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableFooter() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         page = new StepsOverviewPage(reportResult, configuration);
 

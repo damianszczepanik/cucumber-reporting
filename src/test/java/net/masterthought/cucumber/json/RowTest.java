@@ -14,7 +14,7 @@ public class RowTest extends PageTest {
 
     @Before
     public void setUp() {
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
     }
 
     @Test

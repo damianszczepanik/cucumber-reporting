@@ -20,7 +20,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -41,7 +41,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesLead() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -59,7 +59,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesCharts() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -75,7 +75,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableHeader() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -99,7 +99,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
@@ -129,7 +129,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableFooter() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
