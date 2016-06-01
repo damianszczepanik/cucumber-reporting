@@ -35,7 +35,7 @@ public class ResultTest extends PageTest {
     public void getDuration_ReturnsDuration() {
 
         // give
-        Result result = features.get(0).getElements()[0].getSteps()[2].getResult();
+        Result result = features.get(0).getElements()[0].getSteps()[3].getResult();
 
         // when
         long duration = result.getDuration();
@@ -48,7 +48,7 @@ public class ResultTest extends PageTest {
     public void getFormattedDuration_ReturnsDurationAsString() {
 
         // give
-        Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
+        Result result = features.get(0).getElements()[0].getSteps()[2].getResult();
 
         // when
         String duration = result.getFormatedDuration();
