@@ -14,17 +14,23 @@ import net.masterthought.cucumber.generators.integrations.helpers.NavigationAsse
 import net.masterthought.cucumber.generators.integrations.helpers.NavigationItemAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Before;
+import java.util.Locale;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class PageIntegrationTest extends PageTest {
 
+    @Before
+    public void prepare() {
+        Locale.setDefault(Locale.UK);
+    }
     @Test
     public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBarfor() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -47,7 +53,7 @@ public class PageIntegrationTest extends PageTest {
     public void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBarfor() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
@@ -77,7 +83,7 @@ public class PageIntegrationTest extends PageTest {
     public void generatePage_onDefaultConfiguration_generatesSummaryTable() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -98,7 +104,7 @@ public class PageIntegrationTest extends PageTest {
     public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumber() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
@@ -123,7 +129,7 @@ public class PageIntegrationTest extends PageTest {
     public void generatePage_generatesFooter() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
 
         // when
