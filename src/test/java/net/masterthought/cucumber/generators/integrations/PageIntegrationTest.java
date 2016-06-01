@@ -20,6 +20,10 @@ import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
  */
 public class PageIntegrationTest extends PageTest {
 
+    @Before
+    public void prepare() {
+        Locale.setDefault(Locale.UK);
+    }
     @Test
     public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBarfor() {
 
