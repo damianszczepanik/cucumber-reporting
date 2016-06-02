@@ -20,7 +20,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
         final String titleValue = String.format("Cucumber-JVM Html Reports  - Tags Overview",
                 configuration.getBuildNumber());
@@ -39,7 +39,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesLead() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -57,7 +57,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesCharts() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -73,7 +73,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableHeader() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -97,7 +97,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         page = new TagsOverviewPage(reportResult, configuration);
 
@@ -133,7 +133,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableFooter() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         page = new TagsOverviewPage(reportResult, configuration);
 

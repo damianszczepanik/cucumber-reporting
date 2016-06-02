@@ -33,7 +33,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
         final String titleValue = String.format("Cucumber-JVM Html Reports  - Feature: %s", feature.getName());
@@ -52,7 +52,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
@@ -72,7 +72,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesFeatureDetails() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -99,7 +99,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesScenarioDetails() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -133,7 +133,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesHooks() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -166,7 +166,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesSteps() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -199,7 +199,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesArguments() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -226,7 +226,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesEmbedding() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 

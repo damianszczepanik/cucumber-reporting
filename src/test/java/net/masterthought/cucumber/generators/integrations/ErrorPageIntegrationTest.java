@@ -20,7 +20,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new ErrorPage(reportResult, configuration, cause, jsonReports);
         final String titleValue = String.format("Cucumber-JVM Html Reports  - Error Page");
 
@@ -38,7 +38,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     public void generatePage_generatesLead() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setBuildNumber("12");
         page = new ErrorPage(reportResult, configuration, cause, jsonReports);
 
@@ -58,7 +58,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     public void generatePage_generatesErrorMessage() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         page = new ErrorPage(reportResult, configuration, cause, jsonReports);
 
         // when

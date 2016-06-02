@@ -21,7 +21,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesTitle() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
         final String titleValue = String.format("Cucumber-JVM Html Reports  - Tag: %s", tag.getName());
@@ -40,7 +40,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesStatsTableBody() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         configuration.setStatusFlags(true, false, false, true);
         final TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
@@ -60,7 +60,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesTagsList() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
 
@@ -78,7 +78,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     public void generatePage_generatesSampleStep() {
 
         // given
-        setUpWithJson(SAMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(1);
         page = new TagReportPage(reportResult, configuration, tag);
 

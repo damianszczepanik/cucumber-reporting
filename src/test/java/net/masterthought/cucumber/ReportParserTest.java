@@ -24,7 +24,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResultsParsesAllFeatureFiles() throws IOException {
 
         // given
-        setUpWithJson(SAMPLE_JOSN, SIMPLE_JOSN);
+        setUpWithJson(SAMPLE_JSON, SIMPLE_JSON);
 
         // when
         List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
@@ -37,7 +37,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResultsSkipsInvalidJSONFiles() throws IOException {
 
         // given
-        setUpWithJson(INVALID_JSON, SIMPLE_JOSN);
+        setUpWithJson(INVALID_JSON, SIMPLE_JSON);
 
         // when
         List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
@@ -63,7 +63,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResultsSkipsInvalidReportFiles() throws IOException {
 
         // given
-        setUpWithJson(INVALID_REPORT_JSON, SIMPLE_JOSN);
+        setUpWithJson(INVALID_REPORT_JSON, SIMPLE_JSON);
 
         // when
         List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
