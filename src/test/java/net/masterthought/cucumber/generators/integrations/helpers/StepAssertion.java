@@ -13,8 +13,8 @@ public class StepAssertion extends ReportAssertion {
         return oneByClass("step-arguments", TableAssertion.class);
     }
 
-    public TableAssertion getDocStringTable() {
-        return oneByClass("step-docstring", TableAssertion.class);
+    public TableAssertion getDocString() {
+        return oneByClass("docstring", TableAssertion.class);
     }
 
     public EmbeddingAssertion[] getEmbedding() {

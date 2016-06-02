@@ -42,9 +42,9 @@
               #end
 
               #if ($step.hasDocString())
-                <table class="step-docstring">
+                <table class="docstring">
                   <tr>
-                    <td>$step.getDocString().getValueWithBreakingSpace()</td>
+                    <td>$step.getDocString().getValue()</td>
                   </tr>
                 </table>
               #end

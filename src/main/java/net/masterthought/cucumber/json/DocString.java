@@ -18,7 +18,4 @@ public class DocString {
         return value;
     }
 
-    public String getValueWithBreakingSpace() {
-        return value!=null?value.replaceAll("(\r\n|\r|\n|\n\r)", "<br/>"):value;
-    }
 }

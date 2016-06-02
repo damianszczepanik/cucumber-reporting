@@ -38,9 +38,4 @@ public class DocStringTest {
                          + "_ O X");
     }
 
-    @Test
-    public void shouldFormatDocStringWithBreakingSpace() {
-        assertThat(step.getDocString().getValueWithBreakingSpace())
-                .isEqualTo("X _ X<br/>O X O<br/>_ O X");
-    }
 }

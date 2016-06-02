@@ -63,8 +63,9 @@ public class Step implements ResultsWithMatch {
     public boolean hasRows() {
         return ArrayUtils.isNotEmpty(rows);
     }
+
     public boolean hasDocString() {
-        return doc_string!=null;
+        return doc_string != null && StringUtils.isNotEmpty(doc_string.getValue());
     }
 
     @Override
@@ -98,8 +99,7 @@ public class Step implements ResultsWithMatch {
                 while (iterator.hasNext()) {
                     list.add(elementToString(iterator.next()));
                 }
-            }
-            else            {
+            } else {
                 list.add(elementToString(element));
             }
         }
