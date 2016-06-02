@@ -220,6 +220,12 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
             assertThat(rowElement.getCellsValues()).isEqualTo(row.getCells());
         }
+
+        TableAssertion docStringTable = stepElement.getDocString();
+
+        TableRowAssertion rowDocStringElement = docStringTable.getBodyRows()[0];
+
+        assertThat(rowDocStringElement.getCellsValues()[0]).isEqualTo(step.getDocString().getValue());
     }
 
     @Test

@@ -37,4 +37,5 @@ public class DocStringTest {
                          + "O X O\n"
                          + "_ O X");
     }
+
 }
