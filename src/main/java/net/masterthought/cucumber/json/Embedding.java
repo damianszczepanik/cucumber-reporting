@@ -1,7 +1,10 @@
 package net.masterthought.cucumber.json;
 
-import org.apache.commons.io.Charsets;
+import java.nio.charset.StandardCharsets;
+
 import org.codehaus.plexus.util.Base64;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -9,12 +12,13 @@ import org.codehaus.plexus.util.Base64;
 public class Embedding {
 
     // Start: attributes from JSON file report
-    private final String mime_type = null;
+    @JsonProperty("mime_type")
+    private final String mimeType = null;
     private final String data = null;
     // End: attributes from JSON file report
 
     public String getMimeType() {
-        return mime_type;
+        return mimeType;
     }
 
     public String getData() {
@@ -22,17 +26,17 @@ public class Embedding {
     }
 
     public String getDecodedData() {
-        return new String(Base64.decodeBase64(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
+        return new String(Base64.decodeBase64(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
     }
 
     public String getExtension() {
-        switch (mime_type) {
+        switch (mimeType) {
         case "image/png":
         case "image/bmp":
         case "image/jpeg":
         case "text/html":
         case "application/json":
-            return mime_type.substring(mime_type.indexOf("/") + 1);
+            return mimeType.substring(mimeType.indexOf("/") + 1);
         case "text/plain":
             return "txt";
         default:

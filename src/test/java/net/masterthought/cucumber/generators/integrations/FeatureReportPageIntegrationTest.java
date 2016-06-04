@@ -12,6 +12,7 @@ import net.masterthought.cucumber.generators.integrations.helpers.EmbeddingAsser
 import net.masterthought.cucumber.generators.integrations.helpers.FeatureAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.HookAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.HooksAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.OutputAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.StepAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.StepsAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableAssertion;
@@ -21,6 +22,7 @@ import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
+import net.masterthought.cucumber.json.Output;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 
@@ -179,7 +181,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         ElementAssertion secondElement = document.getFeature().getElements()[0];
         Element element = feature.getElements()[0];
 
-        StepsAssertion stepsSection = secondElement.getSteps();
+        StepsAssertion stepsSection = secondElement.getStepsSection();
         stepsSection.getBrief().hasStatus(element.getStepsStatus());
         StepAssertion[] steps = stepsSection.getSteps();
         assertThat(steps).hasSameSizeAs(element.getSteps());
@@ -196,6 +198,44 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
+    public void generatePage_OnBiDimentionalArray_generatesOutput() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        Output outputElement = features.get(1).getElements()[0].getSteps()[7].getOutput();
+        OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[7].getOutput();
+        output.hasMessages(outputElement.getMessages());
+    }
+
+    @Test
+    public void generatePage_OnSingleArray_generatesOutput() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        Output outputElement = features.get(1).getElements()[0].getSteps()[8].getOutput();
+        OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[8].getOutput();
+        output.hasMessages(outputElement.getMessages());
+    }
+
+    @Test
     public void generatePage_generatesArguments() {
 
         // given
@@ -209,7 +249,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps().getSteps()[1];
+        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[1];
         TableAssertion argTable = stepElement.getArgumentsTable();
 
         Step step = feature.getElements()[0].getSteps()[1];
@@ -236,7 +276,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        StepAssertion stepElement = document.getFeature().getElements()[0].getSteps().getSteps()[5];
+        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[5];
         EmbeddingAssertion[] embeddingsElement = stepElement.getEmbedding();
 
         Step step = feature.getElements()[0].getSteps()[5];

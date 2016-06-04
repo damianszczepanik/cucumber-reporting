@@ -1,12 +1,15 @@
 package net.masterthought.cucumber.json;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import net.masterthought.cucumber.util.Util;
 
 public class Result {
 
     // Start: attributes from JSON file report
     private final String status = null;
-    private final String error_message = null;
+    @JsonProperty("error_message")
+    private final String errorMessage = null;
     private final Long duration = 0L;
     // End: attributes from JSON file report
 
@@ -23,6 +26,6 @@ public class Result {
     }
 
     public String getErrorMessage() {
-        return error_message;
+        return errorMessage;
     }
 }

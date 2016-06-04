@@ -17,3 +17,4 @@
 #parse("/templates/macros/report/hooks.vm")
 #parse("/templates/macros/report/duration.vm")
 #parse("/templates/macros/report/message.vm")
+#parse("/templates/macros/report/outputs.vm")

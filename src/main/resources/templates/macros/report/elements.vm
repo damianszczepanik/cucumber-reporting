@@ -41,7 +41,7 @@
                 </table>
               #end
 
-              #includeMessage("Output", $step.getOutput())
+              #includeOutput($step.getOutput())
               #includeEmbeddings($step.getEmbeddings())
             </div>
           #end

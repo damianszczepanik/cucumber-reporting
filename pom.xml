@@ -215,10 +215,10 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
          </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.6.2</version>
+         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>

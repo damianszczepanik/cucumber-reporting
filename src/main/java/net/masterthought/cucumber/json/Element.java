@@ -126,7 +126,7 @@ public class Element {
     public void setMedaData(Feature feature, Configuration configuration) {
         this.feature = feature;
         for (Step step : steps) {
-            step.setMedaData(this);
+            step.setMedaData();
         }
         calculateHooks(before);
         calculateHooks(after);

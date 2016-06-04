@@ -70,6 +70,10 @@ public class Feature implements Reportable, Comparable<Feature> {
         return StringUtils.defaultString(name);
     }
 
+    public String getUri() {
+        return uri;
+    }
+
     public String getKeyword() {
         return StringUtils.defaultString(keyword);
     }

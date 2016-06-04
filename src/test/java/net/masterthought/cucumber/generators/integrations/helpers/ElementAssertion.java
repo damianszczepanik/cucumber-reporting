@@ -23,7 +23,7 @@ public class ElementAssertion extends ReportAssertion {
         return oneByClass("hooks-after", HooksAssertion.class);
     }
 
-    public StepsAssertion getSteps() {
+    public StepsAssertion getStepsSection() {
         return oneByClass("steps", StepsAssertion.class);
     }
 
