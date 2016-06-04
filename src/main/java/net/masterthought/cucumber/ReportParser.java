@@ -4,29 +4,37 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.masterthought.cucumber.json.Feature;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class ReportParser {
 
     private static final Logger LOG = LogManager.getLogger(ReportParser.class);
 
-    private final Gson gson = new Gson();
+    private final ObjectMapper mapper = new ObjectMapper();
     private final Configuration configuration;
 
-    public ReportParser(Configuration configuration){
+    public ReportParser(Configuration configuration) {
         this.configuration = configuration;
+
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // this prevents printing eg. 2.20 as 2.2
+        mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
     }
 
     /**
@@ -61,11 +69,10 @@ public class ReportParser {
      * @return array of parsed features
      */
     private Feature[] parseForFeature(String jsonFile) {
-        try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), Charsets.UTF_8)) {
-            return gson.fromJson(reader, Feature[].class);
-        } catch (JsonSyntaxException e) {
-            // invalid JSON files are accepted, should be skipped
-            LOG.info("File '{}' could not be parsed properly", jsonFile, e);
+        try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
+            return mapper.readValue(reader, Feature[].class);
+        } catch (JsonMappingException e) {
+            LOG.warn(String.format("File '%s' is not proper Cucumber-JVM report", jsonFile));
             return new Feature[0];
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem

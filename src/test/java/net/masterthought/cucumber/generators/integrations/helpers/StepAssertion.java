@@ -16,4 +16,8 @@ public class StepAssertion extends ReportAssertion {
     public EmbeddingAssertion[] getEmbedding() {
         return oneByClass("embeddings", WebAssertion.class).allByClass("embedding", EmbeddingAssertion.class);
     }
+
+    public OutputAssertion getOutput() {
+        return oneByClass("outputs", OutputAssertion.class);
+    }
 }

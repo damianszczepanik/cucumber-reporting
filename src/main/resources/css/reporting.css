@@ -55,7 +55,7 @@ a:hover {
     background-color: beige;
 }
 
-.message, .embedding {
+.message, .output, .embedding {
     background-color: #dfdfdf;
     overflow: auto;
 }
