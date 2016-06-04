@@ -10,8 +10,6 @@ public class DocString {
 
     // Start: attributes from JSON file report
     private final String value = null;
-    private final String content_type = null;
-    private final Integer line = null;
     // End: attributes from JSON file report
 
     public String getValue() {

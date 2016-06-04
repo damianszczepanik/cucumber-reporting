@@ -2,15 +2,11 @@ package net.masterthought.cucumber;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.plexus.util.Base64;
 
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -18,10 +14,7 @@ import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportBuilder {
@@ -33,8 +26,6 @@ public class ReportBuilder {
      * {@link ErrorPage}.
      */
     public static final String HOME_PAGE = "feature-overview.html";
-
-    private static final String EMBEDDINGS_DIRECTORY = "embeddings";
 
     private ReportResult reportResult;
     private final ReportParser reportParser;
@@ -99,6 +90,9 @@ public class ReportBuilder {
     }
 
     private void generateAllPages() {
+        // create directory for embeddings before files are generated
+        createEmbeddingsDirectory();
+
         new FeaturesOverviewPage(reportResult, configuration).generatePage();
         for (Feature feature : reportResult.getAllFeatures()) {
             new FeatureReportPage(reportResult, configuration, feature).generatePage();
@@ -110,30 +104,10 @@ public class ReportBuilder {
         }
 
         new StepsOverviewPage(reportResult, configuration).generatePage();
-
-        try {
-            saveAttachments();
-        } catch (IOException e) {
-            new ValidationException(e);
-        }
     }
 
-    private void saveAttachments() throws IOException {
-        File path = new File(
-                configuration.getReportDirectory().getAbsolutePath(), EMBEDDINGS_DIRECTORY);
-        path.mkdirs();
-        for (Feature feature : reportResult.getAllFeatures()) {
-            for (Element element : feature.getElements()) {
-                for (Step step : element.getSteps()) {
-                    for (Embedding embedding : step.getEmbeddings()) {
-                        Path file = FileSystems.getDefault().getPath(
-                                path.getAbsolutePath(), embedding.hashCode() + "." + embedding.getExtension());
-                        Files.write(file, Base64.decodeBase64(embedding.getData().getBytes()));
-                    }
-                }
-            }
-        }
-
+    public void createEmbeddingsDirectory() {
+        configuration.getEmbeddingDirectory().mkdirs();
     }
 
     private void generateErrorPage(Exception exception) {

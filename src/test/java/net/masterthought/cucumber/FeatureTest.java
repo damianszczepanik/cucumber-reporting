@@ -47,11 +47,6 @@ public class FeatureTest {
     }
 
     @Test
-    public void shouldKnowIfTagsExists() {
-        assertThat(passingFeature.hasTags()).isTrue();
-    }
-
-    @Test
     public void shouldListTheTags() {
         String name = "@featureTag";
         assertThat(passingFeature.getTags()[0].getName()).isEqualTo(name);

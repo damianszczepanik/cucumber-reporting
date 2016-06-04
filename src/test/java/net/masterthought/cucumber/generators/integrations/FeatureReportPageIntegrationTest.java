@@ -2,6 +2,8 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -284,8 +286,11 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].hasImageContent(embeddings[0]);
+        asserEmbeddingFileExist(embeddings[0]);
         embeddingsElement[2].hasTextContent(embeddings[2].getData());
+        asserEmbeddingFileExist(embeddings[2]);
         embeddingsElement[3].hasHtmlContent(embeddings[3].getDecodedData());
+        asserEmbeddingFileExist(embeddings[3]);
     }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
@@ -306,4 +311,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         }
     }
 
+    private void asserEmbeddingFileExist(Embedding embedding) {
+        File file = new File(configuration.getEmbeddingDirectory(), embedding.getFileName());
+        assertThat(file).exists();
+    }
 }
