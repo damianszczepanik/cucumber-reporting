@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 
 public final class Configuration {
 
+    private static final String EMBEDDINGS_DIRECTORY = "embeddings";
+
     private boolean failsIfSkipped;
     private boolean failsIFPending;
     private boolean failsIfUndefined;
@@ -86,5 +88,10 @@ public final class Configuration {
 
     public String getProjectName() {
         return projectName;
+    }
+
+    public File getEmbeddingDirectory() {
+        return new File(getReportDirectory().getAbsolutePath(), Configuration.EMBEDDINGS_DIRECTORY);
+
     }
 }

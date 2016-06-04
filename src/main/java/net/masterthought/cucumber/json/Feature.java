@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
@@ -50,10 +49,6 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     public String getReportFileName() {
         return reportFileName;
-    }
-
-    public boolean hasTags() {
-        return ArrayUtils.isNotEmpty(tags);
     }
 
     public Tag[] getTags() {

@@ -48,6 +48,8 @@ public abstract class ReportGenerator {
             addReport(jsonFile);
 
         configuration = new Configuration(reportDirectory, projectName);
+
+        createEmbeddingsDirectory();
         createReportBuilder();
     }
 
@@ -69,5 +71,9 @@ public abstract class ReportGenerator {
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();
         steps = reportResult.getAllSteps();
+    }
+
+    private void createEmbeddingsDirectory() {
+        configuration.getEmbeddingDirectory().mkdirs();
     }
 }

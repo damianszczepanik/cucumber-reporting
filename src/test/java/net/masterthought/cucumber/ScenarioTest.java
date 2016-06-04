@@ -112,10 +112,4 @@ public class ScenarioTest {
             assertThat(taggedElement.getTags()[i].getName()).isEqualTo(expectedList[i]);
         }
     }
-
-    @Test
-    public void shouldKnowIfHasTags() throws IOException {
-        setUpJsonReports(false, false, false, false);
-        assertThat(taggedElement.hasTags()).isTrue();
-    }
 }

@@ -90,10 +90,6 @@ public class Element {
         return StringUtils.defaultString(StringEscapeUtils.escapeHtml(name));
     }
 
-    public boolean hasTags() {
-        return tags.length > 0;
-    }
-
     public boolean hasSteps() {
         return steps.length > 0;
     }
@@ -118,9 +114,14 @@ public class Element {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Element other = (Element) obj;
 
-        return id != null ? id.equals(other.id) : super.equals(obj);
+        Element other = (Element) obj;
+        // in case of parallel tests, element are the same when belong to the same feature
+        if (feature == other.feature) {
+            return id != null ? id.equals(other.id) : super.equals(obj);
+        } else {
+            return false;
+        }
     }
 
     public void setMedaData(Feature feature, Configuration configuration) {

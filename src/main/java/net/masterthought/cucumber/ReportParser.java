@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +36,9 @@ public class ReportParser {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // this prevents printing eg. 2.20 as 2.2
         mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
+        // pass configuration to deserializers
+        InjectableValues values = new InjectableValues.Std().addValue(Configuration.class, configuration);
+        mapper.setInjectableValues(values);
     }
 
     /**
@@ -51,7 +55,7 @@ public class ReportParser {
             String jsonFile = jsonReportFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.warn(String.format("File '%s' does not contain features", jsonFile));
+                LOG.info(String.format("File '%s' does not contain features", jsonFile));
             } else {
                 setMetadata(features, jsonFile, i);
                 featureResults.addAll(Arrays.asList(features));
@@ -72,7 +76,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, Feature[].class);
         } catch (JsonMappingException e) {
-            LOG.warn(String.format("File '%s' is not proper Cucumber-JVM report", jsonFile));
+            LOG.info(String.format("File '%s' is not proper Cucumber-JVM report", jsonFile), e);
             return new Feature[0];
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem

@@ -6,10 +6,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.Output;
 
 /**
@@ -17,10 +16,11 @@ import net.masterthought.cucumber.json.Output;
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OutputDeserializer extends JsonDeserializer<Output> {
+public class OutputDeserializer extends CucumberJsonDeserializer<Output> {
 
     @Override
-    public Output deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
+    public Output deserialize(JsonParser parser, Configuration configuration)
+            throws IOException, JsonProcessingException {
         JsonNode rootNode = parser.getCodec().readTree(parser);
         List<String> list = parseOutput(rootNode);
 
