@@ -20,6 +20,8 @@
           #if ($hook.getResult())
             #includeMessage("Error message", $hook.getResult().getErrorMessage())
           #end
+
+          #includeEmbeddings($hook.getEmbeddings())
         </div>
       #end
     </div>

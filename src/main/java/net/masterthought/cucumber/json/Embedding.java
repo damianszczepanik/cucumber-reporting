@@ -57,6 +57,9 @@ public class Embedding {
         case "text/html":
         case "application/json":
             return mimeType.substring(mimeType.indexOf("/") + 1);
+        // image stored remotely stored as link/url
+        case "image/url":
+            return "image";
         case "text/plain":
             return "txt";
         default:

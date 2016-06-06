@@ -281,8 +281,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[5];
         EmbeddingAssertion[] embeddingsElement = stepElement.getEmbedding();
 
-        Step step = feature.getElements()[0].getSteps()[5];
-        Embedding[] embeddings = step.getEmbeddings();
+        Embedding[] embeddings = feature.getElements()[0].getSteps()[5].getEmbeddings();
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].hasImageContent(embeddings[0]);
@@ -291,6 +290,29 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         asserEmbeddingFileExist(embeddings[2]);
         embeddingsElement[3].hasHtmlContent(embeddings[3].getDecodedData());
         asserEmbeddingFileExist(embeddings[3]);
+    }
+
+    @Test
+    public void generatePage_OnRubyFormat_ForAfterHook_generatesEmbedding() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        EmbeddingAssertion[] embeddingsElement = document.getFeature().getElements()[0].getAfter().getHooks()[0].getEmbedding();
+
+        Embedding[] embeddings = feature.getElements()[0].getAfter()[0].getEmbeddings();
+
+        assertThat(embeddingsElement).hasSameSizeAs(embeddings);
+        embeddingsElement[0].hasImageContent(embeddings[0]);
+        asserEmbeddingFileExist(embeddings[0]);
     }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {

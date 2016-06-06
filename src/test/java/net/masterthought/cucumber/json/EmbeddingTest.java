@@ -18,7 +18,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getMimeTypeReturnsMimeType() {
+    public void getMimeType_ReturnsMimeType() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[0];
@@ -31,7 +31,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getDataReturnsContent() {
+    public void getData_ReturnsContent() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
@@ -44,7 +44,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getDecodedDataReturnsgetDecodedContent() {
+    public void getDecodedData_ReturnsDecodedContent() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
@@ -57,7 +57,33 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtensionOnCommonMimeTypeResurnsFileExtension() {
+    public void getFileName_ReturnsFileName() {
+
+        // give
+        Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
+
+        // when
+        String fileName = embedding.getFileName();
+
+        // then
+        assertThat(fileName).isEqualTo("embedding_1947030670.html");
+    }
+
+    @Test
+    public void getDecodedData_OnRuby_ForAfterHook_ReturnsContent() {
+
+        // give
+        Embedding embedding = features.get(1).getElements()[0].getAfter()[0].getEmbeddings()[0];
+
+        // when
+        String content = embedding.getData();
+
+        // then
+        assertThat(content).isEqualTo("iVBORw0KGgoAAAANSUhEUgAAAHgAAAB2CAIAAACMDMD1AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMoSURBVHhe7dZBbttAEETRHCTL3CPbHD5XyRmcRlgRhDI57LHI6qZYH7XzNAW8lb99OEmGFmVoUYYWZWhRhhZlaFGGFmVoUYYWZWhRhhZlaFGGFmVoUYYWZWhRhhb1KvSf7z8GwyNnaFnnQsfw7vadDh3D03tnaFEK6Bhe3zgRdAwHd83Qol6FXiLTreH1LZNCx3Bwv46Bjgh0MBzcrMOgIwLdGl7frALoZbi5TUdCR6S5O5yd1s9fv7eGF6oOho6Icnc4OzQyXR2eqqqHjuHy5YhyPNyoOh46IsfMcPnVCDEzXKo6BToix8xwORnx5Yd7VWdBR+SYHI7TEV9+uFfVDjqG+70Ibnb4iqoToZcIMTkcDyO42eErqk6HXiLH/HC/FsFNDZ8QJoKOSDA/3D9FavnhviIddESC+eH+f8S3O5yVJoWOSDA/3E8q46ZBauiIBJPDcRoar9tUAL1EjpnFFWkOtvxKn8qgI3LcHVFuDV9vViV0RJSDkeZg+HSziqEfESuNKMfDF5vVBToi3MfIcTB8qGWNoCMijhHlePhKy3pBR2+pHDWFJsTMcN+1dtDElxyOG9cLmviSw3HvWkAT3NTwifbVQxPc1PCJK1QMTXBTwycuUiU0wU1t+ecEH7pCZdAEN7VF+VrWNdAEl98z8WP4aO/U0ASXH+HS8PXGSaHJLj9iXR1+o2utoZcrAh1sed8zHTQh7g5nM9Ax3PRLBE2Iu8PZv4hydzhrVkdo3DxFlLvDWacU0OQ4Hm4+RZTj4aZTp0OT43i42Yg0x8NNm7pA4/VepDkebnrUAhpPc5HmYDjo0fWgIwIdDAcNqofGu8kIdGt43aBiaDz6UmS6Ojxt0IWhI2JdHZ5WVwmNFy9EpqvD0+rKoPHnlyPWz8O76i4PHZEsDY+qOx1aEMnS8Ki6d4COCPd5eFGdoUUZWtSbQEfk+xj+XN37QDfP0KIMLcrQogwtytCiDC3K0KIMLcrQogwtytCiDC3K0KIMLcrQogwtytCiDC3K0KIMLcrQogwtytCiDC3K0KIMLcrQogwtytCiDC3K0KIMLcrQogwtytCSPj7+Av1TVHaIlvxNAAAAAElFTkSuQmCC");
+    }
+
+    @Test
+    public void getExtension_OnCommonMimeType_ResurnsFileExtension() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
@@ -70,7 +96,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtensionOnTextMimeTypeResurnsTxt() {
+    public void getExtension_OnTextMimeType_ResurnsTxt() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
@@ -83,7 +109,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtensionOnOtherMimeTypeResurnsUnknown() {
+    public void getExtension_OnOtherMimeType_ResurnsUnknown() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[4];
