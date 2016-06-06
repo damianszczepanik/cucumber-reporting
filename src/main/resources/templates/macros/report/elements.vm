@@ -18,35 +18,7 @@
     <div id="element-$element.hashCode()" class="collapse collapsable-details #if(!$element.getElementStatus().isPassed()) in #end">
       #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus())
 
-      <div class="steps inner-level">
-        <div data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$element.getSteps().hashCode()">
-          #includeBrief("Steps", $element.getStepsStatus(), "", true)
-        </div>
-
-        <div id="steps-$element.getSteps().hashCode()" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
-          #foreach($step in $element.getSteps())
-            <div class="step">
-              #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
-              #includeMessage("Error message", $step.getErrorMessage())
-
-              #if ($step.hasRows())
-                <table class="step-arguments">
-                  #foreach($row in $step.getRows())
-                    <tr>
-                      #foreach($cell in $row.getCells())
-                        <td>$cell</td>
-                      #end
-                    </tr>
-                  #end
-                </table>
-              #end
-
-              #includeOutput($step.getOutput())
-              #includeEmbeddings($step.getEmbeddings())
-            </div>
-          #end
-        </div>
-      </div>
+      #includeSteps($element.getSteps())
 
       #includeHooks("After", $element.getAfter(), $element.getAfterStatus())
     </div>
