@@ -66,8 +66,7 @@ public class ReportBuilder {
 
     private void copyStaticResources() {
         copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
-        copyResources("js", "jquery.min.js", "bootstrap.min.js", "jquery.tablesorter.min.js", "highcharts.js",
-                "highcharts-3d.js");
+        copyResources("js", "jquery.min.js", "jquery.tablesorter.min.js", "bootstrap.min.js", "Chart.min.js");
         copyResources("fonts", "FontAwesome.otf", "fontawesome-webfont.svg", "fontawesome-webfont.woff",
                 "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2",
                 "glyphicons-halflings-regular.eot", "glyphicons-halflings-regular.eot",
