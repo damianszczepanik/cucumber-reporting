@@ -5,104 +5,7 @@
   #includeTitle("Tags Overview")
 
   <script type="text/javascript">
-    jQuery(document).ready(function() {
-
-        var chartData = $chart_data,
-            chartCategory = $chart_categories,
-            formattedData = [
-                {
-                    name: "Passed",
-                    color: "#00B000",
-                    data: []
-                },
-                {
-                    name: "Failed",
-                    color: "#FF3030",
-                    data: []
-                },
-                {
-                    name: "Skipped",
-                    color: "#88AAFF",
-                    data: []
-                },
-                {
-                    name: "Pending",
-                    color: "#FFFF33",
-                    data: []
-                },
-                {
-                    name: "Undefined",
-                    color: "#FBB957",
-                    data: []
-                },
-                {
-                    name: "Missing",
-                    color: "#FBB9A7",
-                    data: []
-                }
-            ];
-
-            jQuery.each(chartCategory, function (i, categoryName) {
-                formattedData[0].data.push(chartData[i][0]);
-                formattedData[1].data.push(chartData[i][1]);
-                formattedData[2].data.push(chartData[i][2]);
-                formattedData[3].data.push(chartData[i][3]);
-                formattedData[4].data.push(chartData[i][4]);
-                formattedData[5].data.push(chartData[i][5]);
-            });
-
-            $('#stacked-graph').highcharts({
-            chart: {
-                type: 'column',
-                options3d: {
-                    enabled: true,
-                    alpha: 10,
-                    beta: 25,
-                    depth: 70
-                }
-            },
-            title: {
-                text: 'Tags',
-                y: 10,
-                style: {
-                    fontWeight: 'bold',
-                    fontSize: 'large'
-                }
-            },
-            xAxis: {
-                categories: $chart_categories
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ''
-                }
-            },
-            legend: {
-                align: 'left',
-                x: 0,
-                verticalAlign: 'bottom',
-                y: 0
-            },
-            tooltip: {
-                formatter: function() {
-                    return this.x +'<br/>'
-                           + this.series.name + ': '+ this.y + '<br/>'
-                           + 'Total: ' + this.point.stackTotal;
-                },
-                style: {
-                    fontWeight: 'bold',
-                    color: 'darkcyan'
-                }
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent'
-                }
-            },
-            series: formattedData
-        });
-    });
+  #parse("/templates/js/tags-chart.js")
   </script>
 </head>
 <body>
@@ -118,14 +21,13 @@
   <div class="container-fluid" id="charts">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <div id="stacked-graph"></div>
-        <br>
+        <canvas id="tags-chart" height="50"></canvas>
       </div>
     </div>
   </div>
 #end
 
-
+<br>
 <div class="container-fluid" id="summary">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
