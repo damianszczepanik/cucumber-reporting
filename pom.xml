@@ -4,7 +4,7 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>2.3.0-SNAPSHOT</version>
+    <version>2.4.0</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
@@ -15,7 +15,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
  
         <powermock.version>1.6.4</powermock.version>
-        <log4j.version>2.5</log4j.version>
+        <log4j.version>2.6.1</log4j.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
@@ -233,7 +233,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.9.3</version>
+            <version>2.9.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
