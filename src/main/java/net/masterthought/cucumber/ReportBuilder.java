@@ -44,6 +44,9 @@ public class ReportBuilder {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
 
+            // create directory for embeddings before files are generated
+            createEmbeddingsDirectory();
+
             List<Feature> features = reportParser.parseJsonResults(jsonFiles);
             reportResult = new ReportResult(features);
 
@@ -74,6 +77,10 @@ public class ReportBuilder {
                 "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg");
     }
 
+    public void createEmbeddingsDirectory() {
+        configuration.getEmbeddingDirectory().mkdirs();
+    }
+
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
@@ -89,9 +96,6 @@ public class ReportBuilder {
     }
 
     private void generateAllPages() {
-        // create directory for embeddings before files are generated
-        createEmbeddingsDirectory();
-
         new FeaturesOverviewPage(reportResult, configuration).generatePage();
         for (Feature feature : reportResult.getAllFeatures()) {
             new FeatureReportPage(reportResult, configuration, feature).generatePage();
@@ -103,10 +107,6 @@ public class ReportBuilder {
         }
 
         new StepsOverviewPage(reportResult, configuration).generatePage();
-    }
-
-    public void createEmbeddingsDirectory() {
-        configuration.getEmbeddingDirectory().mkdirs();
     }
 
     private void generateErrorPage(Exception exception) {
