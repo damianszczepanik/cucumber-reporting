@@ -21,7 +21,7 @@ public class FeaturesOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPageReturnsFeatureFileName() {
+    public void getWebPage_ReturnsFeatureFileName() {
 
         // give
         page = new FeaturesOverviewPage(reportResult, configuration);

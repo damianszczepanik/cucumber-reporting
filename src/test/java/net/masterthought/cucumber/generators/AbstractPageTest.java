@@ -37,7 +37,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildPropertiesReturnsProperties() {
+    public void buildProperties_ReturnsProperties() {
 
         // give
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -88,7 +88,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParametersOnErrorPageAddsExtraProperties() {
+    public void buildGeneralParameters_OnErrorPageAddsExtraProperties() {
 
         // give
         configuration.setBuildNumber("3@");
@@ -104,7 +104,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParametersOnInvalidBuildNumberDoesNotAddPreviousBuildNumberProperty() {
+    public void buildGeneralParameters_OnInvalidBuildNumberDoesNotAddPreviousBuildNumberProperty() {
 
         // give
         configuration.setBuildNumber("34");

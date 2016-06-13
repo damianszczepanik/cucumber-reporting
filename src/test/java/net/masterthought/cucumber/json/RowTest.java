@@ -18,7 +18,7 @@ public class RowTest extends PageTest {
     }
 
     @Test
-    public void getCellsReturnsCells() {
+    public void getCells_ReturnsCells() {
 
         // give
         Row[] rows = features.get(0).getElements()[0].getSteps()[1].getRows();

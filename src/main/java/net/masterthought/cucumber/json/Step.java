@@ -4,10 +4,10 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 
-public class Step implements ResultsWithMatch {
+public class Step implements Resultsable {
 
     // Start: attributes from JSON file report
     private String name = null;

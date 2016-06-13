@@ -18,7 +18,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void getNameReturnsFeatureTagName() {
+    public void getName_ReturnsFeatureTagName() {
 
         // give
         Tag tag = features.get(0).getTags()[0];
@@ -31,7 +31,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void getNameReturnsElementTagName() {
+    public void getName_ReturnsElementTagName() {
 
         // give
         Tag tag = features.get(0).getElements()[1].getTags()[2];
@@ -44,7 +44,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void getFileNameReturnsTagFileName() {
+    public void getFileName_ReturnsTagFileName() {
 
         // give
         Tag tag = features.get(1).getElements()[0].getTags()[0];

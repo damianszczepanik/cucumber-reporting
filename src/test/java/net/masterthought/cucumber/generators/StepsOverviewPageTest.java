@@ -22,7 +22,7 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPageReturnsFeatureFileName() {
+    public void getWebPage_ReturnsFeatureFileName() {
 
         // give
         page = new StepsOverviewPage(reportResult, configuration);

@@ -41,7 +41,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isParallelTestingReturnsParallelTesting() {
+    public void isParallelTesting_ReturnsParallelTesting() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -56,7 +56,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsBasePathOnSampleBathReturnsJenkinsPath() {
+    public void getJenkinsBasePath_OnSampleBath_ReturnsJenkinsPath() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -71,7 +71,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsBasePathOnEmptyPathReturnsJenkinsPath() {
+    public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -86,7 +86,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isRunWithJenkinsReturnsRunWithJenkins() {
+    public void isRunWithJenkins_ReturnsRunWithJenkins() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -101,7 +101,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getReportDirectoryReturnsOutputDirectory() {
+    public void getReportDirectory_ReturnsOutputDirectory() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -114,7 +114,7 @@ public class ConfigurationTest {
     }
     
     @Test
-    public void getBuildNumberReturnsBuildNumber() {
+    public void getBuildNumber_ReturnsBuildNumber() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -129,7 +129,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getProjectNameReturnsProjectName() {
+    public void getProjectName_ReturnsProjectName() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
