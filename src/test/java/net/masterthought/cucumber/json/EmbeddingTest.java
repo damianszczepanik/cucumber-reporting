@@ -70,7 +70,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getDecodedData_OnRuby_ForAfterHook_ReturnsContent() {
+    public void getDecodedData__OnRuby_ForAfterHook_ReturnsContent() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getAfter()[0].getEmbeddings()[0];
@@ -83,7 +83,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtension_OnCommonMimeType_ResurnsFileExtension() {
+    public void getExtension__OnCommonMimeType_ResurnsFileExtension() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
@@ -96,7 +96,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtension_OnTextMimeType_ResurnsTxt() {
+    public void getExtension__OnTextMimeType_ResurnsTxt() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
@@ -109,7 +109,7 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtension_OnOtherMimeType_ResurnsUnknown() {
+    public void getExtension__OnOtherMimeType_ResurnsUnknown() {
 
         // give
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[4];

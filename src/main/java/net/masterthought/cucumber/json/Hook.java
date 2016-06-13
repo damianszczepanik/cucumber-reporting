@@ -1,9 +1,9 @@
 package net.masterthought.cucumber.json;
 
-import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 
-public class Hook implements ResultsWithMatch {
+public class Hook implements Resultsable {
 
     // Start: attributes from JSON file report
     private final Result result = null;

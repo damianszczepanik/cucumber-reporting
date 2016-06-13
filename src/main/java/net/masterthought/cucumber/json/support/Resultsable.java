@@ -9,7 +9,7 @@ import net.masterthought.cucumber.json.Result;
  * @author Damian Szczepanik (damianszczepanik@github)
  *
  */
-public interface ResultsWithMatch {
+public interface Resultsable {
 
     Result getResult();
 

@@ -23,7 +23,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPageReturnsFeatureFileName() {
+    public void getWebPage_ReturnsFeatureFileName() {
 
         // give
         page = new TagsOverviewPage(reportResult, configuration);
@@ -55,7 +55,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void generateTagLabelsReturnsTags() {
+    public void generateTagLabels_ReturnsTags() {
 
         // give
         List<TagObject> allTags = this.tags;
@@ -68,7 +68,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void generateTagValuesReturnsTagValues() {
+    public void generateTagValues_ReturnsTagValues() {
 
         // give
         List<TagObject> allTags = this.tags;
@@ -87,7 +87,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void formatReturnsFormatedValue() {
+    public void format_ReturnsFormatedValue() {
 
         // give
         final int[][] values = { { 1, 3 }, { 2, 2 }, { 1, 5 }, { 0, 5 } };

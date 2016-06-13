@@ -19,7 +19,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getStatusReturnsStatus() {
+    public void getStatus_ReturnsStatus() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
@@ -32,7 +32,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getDurationReturnsDuration() {
+    public void getDuration_ReturnsDuration() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[2].getResult();
@@ -45,7 +45,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getFormattedDurationReturnsDurationAsString() {
+    public void getFormattedDuration_ReturnsDurationAsString() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
@@ -58,7 +58,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getErrorMessageReturnsMessage() {
+    public void getErrorMessage_ReturnsMessage() {
 
         // give
         Result result = features.get(0).getElements()[1].getAfter()[0].getResult();

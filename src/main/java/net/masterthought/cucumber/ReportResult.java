@@ -17,7 +17,7 @@ import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
-import net.masterthought.cucumber.json.support.ResultsWithMatch;
+import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -125,8 +125,8 @@ public class ReportResult {
         }
     }
 
-    private void countSteps(ResultsWithMatch[] steps) {
-        for (ResultsWithMatch step : steps) {
+    private void countSteps(Resultsable[] steps) {
+        for (Resultsable step : steps) {
 
             Match match = step.getMatch();
             // no match = could not find method that was matched to this step -> status is missing

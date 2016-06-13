@@ -21,7 +21,7 @@ public class ReportParserTest extends ReportGenerator {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseJsonResultsParsesAllFeatureFiles() throws IOException {
+    public void parseJsonResults_ReturnsParsedFeatureFiles() throws IOException {
 
         // given
         setUpWithJson(SAMPLE_JSON, SIMPLE_JSON);
@@ -34,7 +34,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResultsSkipsInvalidJSONFiles() throws IOException {
+    public void parseJsonResults_OnInvalidJSON_SkipFiles() throws IOException {
 
         // given
         setUpWithJson(INVALID_JSON, SIMPLE_JSON);
@@ -47,7 +47,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResultsSkipsEmptyJSONFiles() throws IOException {
+    public void parseJsonResults_OnEmptyJSON_SkipFiles() throws IOException {
 
         // given
         setUpWithJson(EMPTY_JSON);
@@ -60,7 +60,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResultsSkipsInvalidReportFiles() throws IOException {
+    public void parseJsonResults_OnInvalidReport_SkipsFiles() throws IOException {
 
         // given
         setUpWithJson(INVALID_REPORT_JSON, SIMPLE_JSON);
@@ -73,7 +73,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResultsFailsOnNoExistingFile() throws IOException {
+    public void parseJsonResultsFails_OnNoExistingFile_ThrowsException() throws IOException {
 
         // given
         final String invalidFile = "?no-existing%file.json";

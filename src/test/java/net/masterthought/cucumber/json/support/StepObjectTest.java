@@ -28,7 +28,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void StepObjectOnNullLocationThrowsException() {
+    public void StepObject_OnNullLocation_ThrowsException() {
         // given
         // nothing
 
@@ -38,7 +38,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getLocationReturnsLocation() {
+    public void getLocation_ReturnsLocation() {
 
         // given
         // from @Before
@@ -68,7 +68,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedTotalDurationReturnsFormattedSumDurations() {
+    public void getFormattedTotalDuration_ReturnsFormattedSumDurations() {
 
         // give
         // from @Before
@@ -81,20 +81,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedAverageDurationReturnsFormattedSumDurations() {
-
-        // give
-        // from @Before
-
-        // when
-        String duration = stepObject.getFormattedAverageDuration();
-
-        // then
-        assertThat(duration).isEqualTo("1s 167ms");
-    }
-
-    @Test
-    public void getAverageDurationsReturnsTime() {
+    public void getAverageDurations_ReturnsTime() {
 
         // given
         // from @Before
@@ -107,7 +94,20 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getPercentageResultReturns0Percent() {
+    public void getFormattedAverageDuration_ReturnsFormattedSumDurations() {
+
+        // given
+        // from @Before
+
+        // when
+        String duration = stepObject.getFormattedAverageDuration();
+
+        // then
+        assertThat(duration).isEqualTo("1s 167ms");
+    }
+
+    @Test
+    public void getPercentageResult_Returns0Percent() {
 
         // given
         // from @Before
@@ -120,7 +120,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getPercentageResultOnOnlyFailuresReturns0Percent() {
+    public void getPercentageResult_OnOnlyFailures_Returns0Percent() {
 
         // given
         StepObject step = new StepObject("Test step location");
@@ -135,7 +135,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void compareToOnDifferentLocationReturnsNoneZero() {
+    public void compareTo_OnDifferentLocation_ReturnsNoneZero() {
 
         // given
         StepObject step1 = new StepObject("one");
@@ -149,7 +149,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void compareToOnSameLocationReturnsZero() {
+    public void compareTo_OnSameLocation_ReturnsZero() {
 
         // given
         StepObject step1 = new StepObject("one");

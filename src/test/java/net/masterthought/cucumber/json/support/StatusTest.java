@@ -16,7 +16,7 @@ import org.junit.Test;
 public class StatusTest {
 
     @Test
-    public void valuesOfReturnsOrderedStatuses() {
+    public void valuesOf_ReturnsOrderedStatuses() {
 
         // given
         // tables displays result with following order
@@ -30,7 +30,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getNameReturnsNameAsLowerCase() {
+    public void getName_ReturnsNameAsLowerCase() {
 
         // given
         final Status status = PASSED;
@@ -44,7 +44,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getLabelReturnsNameStartingFromUpperCase() {
+    public void getLabel_ReturnsNameStartingFromUpperCase() {
 
         // given
         final Status status = UNDEFINED;
@@ -58,7 +58,7 @@ public class StatusTest {
     }
 
     @Test
-    public void hasPassedReturnsTrueForPASSED() {
+    public void hasPassed_ReturnsTrueForPASSED() {
 
         // given
         Status status = PASSED;
@@ -71,7 +71,7 @@ public class StatusTest {
     }
 
     @Test
-    public void hasPassedReturnsFalseForNoPASSED() {
+    public void hasPassed_ReturnsFalseForNoPASSED() {
 
         // given
         Status status = MISSING;

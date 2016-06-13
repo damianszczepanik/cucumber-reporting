@@ -21,7 +21,7 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPageReturnsFeatureFileName() {
+    public void getWebPage_ReturnsFeatureFileName() {
 
         // give
         Feature feature = features.get(1);
