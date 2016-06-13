@@ -10,11 +10,11 @@
     #elseif ($embedding.getMimeType() == "image/jpeg")
       #includeImageEmbedding($embedding, "jpeg", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/plain")
-      #includePlainTextEmbedding($embedding, $foreach.index)
+      #includeTextEmbedding($embedding, "Plain text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/html")
-      #includeMonochromeTextEmbedding($embedding, "HTML", $foreach.index)
+      #includeTextEmbedding($embedding, "HTML", $foreach.index)
     #elseif ($embedding.getMimeType() == "application/json")
-      #includeMonochromeTextEmbedding($embedding, "JSON", $foreach.index)
+      #includeTextEmbedding($embedding, "JSON", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/url")
       #includeImageReferenceEmbedding($embedding, $foreach.index)
     #else
@@ -38,13 +38,8 @@
   #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getData()${Quote}>", $index)
 #end
 
-#macro(includeMonochromeTextEmbedding, $embedding, $format, $index)
+#macro(includeTextEmbedding, $embedding, $format, $index)
   #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
-#end
-
-
-#macro(includePlainTextEmbedding, $embedding, $index)
-  #includeExpandableEmbedding($embedding "Text", $embedding.getDecodedData(), $index)
 #end
 
 
