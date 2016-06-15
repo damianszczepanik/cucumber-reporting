@@ -23,6 +23,7 @@
           </table>
         #end
 
+        #includeDocString($step.getDocString())
         #includeOutput($step.getOutput())
         #includeEmbeddings($step.getEmbeddings())
       </div>

@@ -98,7 +98,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         firstRow.hasExactDataValues("", "", "99107447000", "99107447000", "");
 
         // also verify the average durations is written to data-values correctly
-        TableRowAssertion secondRow = bodyRows[2];
+        TableRowAssertion secondRow = bodyRows[3];
         secondRow.hasExactDataValues("", "", "90000000", "45000000", "");
     }
 
@@ -117,7 +117,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("15", "22", "1m 39s 482ms", "4s 521ms", "Totals");
+        footerCells.hasExactValues("16", "23", "1m 39s 492ms", "4s 325ms", "Totals");
     }
 
     @Test

@@ -21,7 +21,7 @@ public class RowTest extends PageTest {
     public void getCells_ReturnsCells() {
 
         // give
-        Row[] rows = features.get(0).getElements()[0].getSteps()[1].getRows();
+        Row[] rows = features.get(0).getElements()[0].getSteps()[2].getRows();
 
         // when
         String[] cells = rows[0].getCells();

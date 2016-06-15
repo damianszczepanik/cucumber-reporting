@@ -68,7 +68,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion odyRow = document.getSummary().getTableStats().getBodyRow();
 
-        odyRow.hasExactValues(feature.getName(), "1", "1", "0", "10", "7", "0", "0", "2", "1", "0", "1m 39s 343ms", "Passed");
+        odyRow.hasExactValues(feature.getName(), "1", "1", "0", "11", "8", "0", "0", "2", "1", "0", "1m 39s 353ms", "Passed");
         odyRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
     }
 
@@ -251,7 +251,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[1];
+        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[2];
         TableAssertion argTable = stepElement.getArgumentsTable();
 
         Step step = feature.getElements()[0].getSteps()[1];
@@ -262,6 +262,26 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
             assertThat(rowElement.getCellsValues()).isEqualTo(row.getCells());
         }
+    }
+
+    @Test
+    public void generatePage_generatesDocString() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[1];
+        Step step = feature.getElements()[0].getSteps()[1];
+
+        stepElement.getDocString().hasDocString(step.getDocString());
     }
 
     @Test

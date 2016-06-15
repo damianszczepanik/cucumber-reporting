@@ -20,4 +20,8 @@ public class StepAssertion extends ReportAssertion {
     public OutputAssertion getOutput() {
         return oneByClass("outputs", OutputAssertion.class);
     }
+
+    public DocStringAssertion getDocString() {
+        return oneByClass("docstring", DocStringAssertion.class);
+    }
 }
