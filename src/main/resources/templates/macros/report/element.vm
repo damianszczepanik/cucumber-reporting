@@ -1,4 +1,4 @@
-#macro(includeElement, $elements, $linkToFeature)
+#macro(includeElement, $element, $linkToFeature)
 
 <div class="element">
   #if ($linkToFeature)
