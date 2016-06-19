@@ -1,16 +1,16 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-import java.util.Properties;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.util.Counter;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
+import java.io.File;
+import java.util.Properties;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -63,12 +63,17 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(5);
+        assertThat(context.getKeys()).hasSize(6);
         assertThat(context.get("jenkins_source")).isEqualTo(configuration.isRunWithJenkins());
         assertThat(context.get("jenkins_base")).isEqualTo(configuration.getJenkinsBasePath());
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
         assertThat(context.get("jenkins_source")).isNotNull();
+
+        Object obj = context.get("counter");
+        assertThat(obj).isInstanceOf(Counter.class);
+        Counter counter = (Counter) obj;
+        assertThat(counter.next()).isEqualTo(1);
     }
 
     @Test
@@ -83,7 +88,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(6);
+        assertThat(context.getKeys()).hasSize(7);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -99,7 +104,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(5);
+        assertThat(context.getKeys()).hasSize(6);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -115,7 +120,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(6);
+        assertThat(context.getKeys()).hasSize(7);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 }

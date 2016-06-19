@@ -2,11 +2,12 @@
 
 #if($hooks.size() > 0)
   <div class="inner-level hooks-$keyword.toLowerCase()">
-    <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hooks.hashCode()">
+    #set($hookId = $counter.next())
+    <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hookId">
       #includeBrief("Hooks", $status, "", true)
     </div>
 
-    <div id="$keyword.toLowerCase()-$hooks.hashCode()" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
+    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
       #foreach($hook in $hooks)
         <div class="hook">
           <div class="brief $hook.getResult().getStatus().getRawName()">
