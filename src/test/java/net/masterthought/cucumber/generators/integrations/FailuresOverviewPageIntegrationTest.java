@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -67,7 +66,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         SummaryAssertion summary = document.getSummary();
-        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no failed scenarios in your cucumber report");
+        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no failed scenarios in your Cucumber report");
     }
 
     @Test
@@ -83,8 +82,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         ElementAssertion[] elements = document.getElements();
-        assertThat(elements).hasSize(2);
+        assertThat(elements).hasSize(1);
         assertThat(elements[0].getBrief().getName()).isEqualTo(features.get(1).getElements()[0].getEscapedName());
-
     }
 }
