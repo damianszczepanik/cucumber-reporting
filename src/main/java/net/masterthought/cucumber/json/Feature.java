@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,14 +70,6 @@ public class Feature implements Reportable, Comparable<Feature> {
         return uri;
     }
 
-    public String getKeyword() {
-        return StringUtils.defaultString(keyword);
-    }
-
-    public String getRawStatus() {
-        return getStatus().toString().toLowerCase();
-    }
-
     public String getDescription() {
         return StringUtils.defaultString(description);
     }
@@ -143,7 +136,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     /** Sets additional information and calculates values which should be calculated during object creation. */
     public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
-        this.jsonFile = StringUtils.substringAfterLast(jsonFile, "/");
+        this.jsonFile = StringUtils.substringAfterLast(jsonFile, String.valueOf(File.separatorChar));
 
         for (Element element : elements) {
             element.setMedaData(this, configuration);
@@ -163,7 +156,7 @@ public class Feature implements Reportable, Comparable<Feature> {
     private void setDeviceName() {
         String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
         if (splitedJsonFile.length > 1) {
-            // file name without path and extension (usually path/{jsonfIle}.json)
+            // file name without path and extension (usually path/{jsonFile}.json)
             deviceName = splitedJsonFile[splitedJsonFile.length - 2];
         } else {
             // path name without special characters

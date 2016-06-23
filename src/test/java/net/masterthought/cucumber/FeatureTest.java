@@ -1,144 +1,207 @@
 package net.masterthought.cucumber;
 
-import static net.masterthought.cucumber.FileReaderUtil.getAbsolutePathFromResource;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.Status;
 
-public class FeatureTest {
-
-    private final Configuration configuration = new Configuration(new File(""), "testProject");
-
-    private Feature passingFeature;
-    private Feature failingFeature;
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
+public class FeatureTest extends PageTest {
 
     @Before
-    public void setUpJsonReports() throws IOException {
-        List<String> jsonReports = new ArrayList<>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
-        passingFeature = features.get(0);
-        failingFeature = features.get(1);
+    public void setUp() {
+        setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void shouldReturnManagedFileName() {
-        assertThat(passingFeature.getReportFileName()).isEqualTo("net-masterthought-example-s--ATM-local-feature.html");
+    public void getDeviceName_ReturnsDeviceName() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        String deviceName = feature.getDeviceName();
+
+        // when
+        assertThat(deviceName).isEqualTo("sample");
     }
 
     @Test
-    public void shouldGetDescription() {
-        assertThat(passingFeature.getDescription()).isEqualTo(
-                "As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed");
+    public void getId_ReturnsID() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        String id = feature.getId();
+
+        // then
+        assertThat(id).isEqualTo("account-holder-withdraws-more-cash");
     }
 
     @Test
-    public void shouldGetId() {
-        assertThat(passingFeature.getId()).isEqualTo("account-holder-withdraws-cash");
+    public void getElements_ReturnsElements() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        Element[] elements = feature.getElements();
+
+        // then
+        assertThat(elements).hasSize(2);
+        assertThat(elements[0].getName()).isEqualTo("Activate Credit Card");
     }
 
     @Test
-    public void shouldListTheTags() {
-        String name = "@featureTag";
-        assertThat(passingFeature.getTags()[0].getName()).isEqualTo(name);
+    public void getReportFileName_ReturnsFileName() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        String fileName = feature.getReportFileName();
+
+        // then
+        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
-    public void shouldGetStatus() {
-        assertThat(passingFeature.getStatus()).isEqualTo(Status.PASSED);
+    public void getTags_ReturnsTags() {
+
+        // given
+        Element element = features.get(1).getElements()[0];
+
+        // when
+        Tag[] tags = element.getTags();
+
+        // then
+        assertThat(tags).hasSize(1);
+        assertThat(tags[0].getName()).isEqualTo("@checkout");
     }
 
     @Test
-    public void shouldReturnName() {
-        assertThat(passingFeature.getName()).isEqualTo("Account Holder withdraws cash & <MyPlace>");
+    public void getStatus_ReturnsStatus() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        Status status = feature.getStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.FAILED);
     }
 
     @Test
-    public void shouldReturnEmptyName() {
-        assertThat(failingFeature.getName()).isEqualTo("");
+    public void getName_ReturnsName() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        String name = feature.getName();
+
+        // then
+        assertThat(name).isEqualTo("1st feature");
     }
 
     @Test
-    public void shouldReturnRawName() {
-        assertThat(passingFeature.getName()).isEqualTo("Account Holder withdraws cash & <MyPlace>");
+    public void getDescription_ReturnsDescription() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        String description = feature.getDescription();
+
+        // then
+        assertThat(description).isEqualTo("This is description of the feature");
     }
 
     @Test
-    public void shouldReturnEmptyRawName() {
-        assertThat(failingFeature.getName()).isEmpty();
+    public void getScenarios_ReturnsNumberOfScenarios() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        int scenarioCounter = feature.getScenarios();
+
+        // then
+        assertThat(scenarioCounter).isEqualTo(1);
+    }
+    @Test
+    public void getSteps_ReturnsNumberOfSteps() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        int stepsCounter = feature.getSteps();
+
+        // then
+        assertThat(stepsCounter).isEqualTo(11);
     }
 
     @Test
-    public void shouldReturnRawStatus() {
-        assertThat(passingFeature.getRawStatus()).isEqualTo("passed");
+    public void getXXXSteps_ReturnsStepsForStatus() {
+
+        // given
+        Feature feature1 = features.get(0);
+        Feature feature2 = features.get(1);
+
+        // then
+        assertThat(feature1.getPassedSteps()).isEqualTo(8);
+        assertThat(feature2.getFailedSteps()).isEqualTo(1);
+        assertThat(feature1.getPendingSteps()).isEqualTo(2);
+        assertThat(feature2.getSkippedSteps()).isEqualTo(3);
+        assertThat(feature2.getMissingSteps()).isEqualTo(1);
+        assertThat(feature1.getUndefinedSteps()).isEqualTo(1);
     }
 
     @Test
-    public void shouldGetNumberOfSteps() {
-        assertThat(passingFeature.getSteps()).isEqualTo(40);
+    public void getDuration_ReturnsDuration() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        long duration = feature.getDurations();
+
+        // then
+        assertThat(duration).isEqualTo(99353122889L);
     }
 
     @Test
-    public void shouldGetNumberOfPassingSteps() {
-        assertThat(passingFeature.getPassedSteps()).isEqualTo(40);
-        assertThat(failingFeature.getPassedSteps()).isEqualTo(5);
+    public void getFormattedDurations_ReturnsFormattedDurations() {
 
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        String formattedDuration = feature.getFormattedDurations();
+
+        // then
+        assertThat(formattedDuration).isEqualTo("002ms");
     }
 
     @Test
-    public void shouldGetNumberOfFailingSteps() {
-        assertThat(passingFeature.getFailedSteps()).isEqualTo(0);
-        assertThat(failingFeature.getFailedSteps()).isEqualTo(1);
-    }
+    public void getXXXScenarios_ReturnsScenariosForStatus() {
 
-    @Test
-    public void shouldGetNumberOfSkippedSteps() {
-        assertThat(passingFeature.getSkippedSteps()).isEqualTo(0);
-        assertThat(failingFeature.getSkippedSteps()).isEqualTo(3);
-    }
+        // given
+        Feature feature = features.get(1);
 
-    @Test
-    public void shouldGetNumberOfPendingSteps() {
-        assertThat(passingFeature.getPendingSteps()).isEqualTo(0);
+        // then
+        assertThat(feature.getPassedScenarios()).isEqualTo(0);
+        assertThat(feature.getFailedScenarios()).isEqualTo(1);
     }
-
-    @Test
-    public void shouldGetNumberOfMissingSteps() {
-        assertThat(passingFeature.getMissingSteps()).isEqualTo(0);
-    }
-
-    @Test
-    public void shouldGetDuration() {
-        assertThat(passingFeature.getDurations()).isEqualTo(112739000L);
-    }
-
-    @Test
-    public void shouldGetFormattedDurations() {
-        assertThat(passingFeature.getFormattedDurations()).contains("ms");
-    }
-
-    @Test
-    public void shouldGetNumberOScenarios() {
-        assertThat(passingFeature.getScenarios()).isEqualTo(4);
-    }
-
-    @Test
-    public void shouldGetNumberOfPassingScenarios() {
-        assertThat(passingFeature.getPassedScenarios()).isEqualTo(4);
-    }
-
-    @Test
-    public void shouldGetNumberOfFailingScenarios() {
-        assertThat(failingFeature.getFailedScenarios()).isEqualTo(1);
-    }
-
 }

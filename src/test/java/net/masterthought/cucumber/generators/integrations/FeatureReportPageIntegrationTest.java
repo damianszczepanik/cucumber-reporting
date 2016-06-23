@@ -88,7 +88,6 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         FeatureAssertion featureDetails = document.getFeature();
 
         BriefAssertion brief = featureDetails.getBrief();
-        assertThat(brief.getKeyword()).isEqualTo(feature.getKeyword());
         assertThat(brief.getName()).isEqualTo(feature.getName());
         brief.hasStatus(feature.getStatus());
 
