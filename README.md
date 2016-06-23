@@ -2,7 +2,7 @@
 [![Build Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting/master.svg?label=AppVeyor%20build)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![SonarQube coverage](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/coverage.svg?label=All%20tests%20coverage)](http://nemo.sonarqube.org/overview/coverage?id=net.masterthought%3Acucumber-reporting)
+[![SonarQube coverage](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/coverage.svg?label=UI%20tests%20coverage)](http://nemo.sonarqube.org/overview/coverage?id=net.masterthought%3Acucumber-reporting)
 [![SonarQube tech debt](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/tech_debt.svg?label=Sonarqube%20tech%20debt)](http://nemo.sonarqube.org/overview/debt?id=net.masterthought%3Acucumber-reporting)
 [![Coverity](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
