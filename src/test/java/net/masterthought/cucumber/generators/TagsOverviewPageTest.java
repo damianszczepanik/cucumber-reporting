@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.generators;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -52,6 +53,28 @@ public class TagsOverviewPageTest extends PageTest {
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
         assertThat(context.get("chart_categories")).isEqualTo(TagsOverviewPage.generateTagLabels(tags));
         assertThat(context.get("chart_data")).isEqualTo(TagsOverviewPage.generateTagValues(tags));
+    }
+
+    @Test
+    public void prepareReport_setTagsToExcludeFromChart_ReturnsFilteredTags() {
+
+        // give
+        page = new TagsOverviewPage(reportResult, configuration);
+        configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
+
+        //when
+        page.prepareReport();
+
+        // then
+        VelocityContext context = Deencapsulation.getField(page, "context");
+        assertThat(context.get("chart_categories")).isEqualTo("[\"@fast\"]");
+        assertThat(context.get("chart_data")).isEqualTo(asList(
+                "[57.14]",
+                "[0.00]",
+                "[0.00]",
+                "[28.57]",
+                "[14.29]",
+                "[0.00]"));
     }
 
     @Test
