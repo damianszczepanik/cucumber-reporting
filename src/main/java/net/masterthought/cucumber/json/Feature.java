@@ -1,10 +1,10 @@
 package net.masterthought.cucumber.json;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
@@ -134,9 +134,15 @@ public class Feature implements Reportable, Comparable<Feature> {
         return scenarioCounter.getValueFor(Status.FAILED);
     }
 
-    /** Sets additional information and calculates values which should be calculated during object creation. */
+    public String getJsonFile() {
+        return jsonFile;
+    }
+
+    /**
+     * Sets additional information and calculates values which should be calculated during object creation.
+     */
     public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
-        this.jsonFile = StringUtils.substringAfterLast(jsonFile, String.valueOf(File.separatorChar));
+        this.jsonFile = jsonFile;
 
         for (Element element : elements) {
             element.setMedaData(this, configuration);
@@ -209,8 +215,20 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
-    public int compareTo(Feature o) {
-        // feature without name seems to be invalid
-        return Integer.signum(name.compareTo(o.getName()));
+    public int compareTo(Feature feature) {
+        // order by the name so first compare by the name
+        int nameCompare = ObjectUtils.compare(name, feature.getName());
+        if (nameCompare != 0) {
+            return nameCompare;
+        }
+
+        // if names are the same, compare by the ID which should be unieque by JSON file
+        int idCompare = ObjectUtils.compare(id, feature.getId());
+        if (idCompare != 0) {
+            return idCompare;
+        }
+
+        // if ids are the same it means that feature exists in more than one JSON file so compare by JSON report
+        return ObjectUtils.compare(jsonFile, feature.getJsonFile());
     }
 }

@@ -5,11 +5,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
-import org.codehaus.plexus.util.Base64;
-
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.codehaus.plexus.util.Base64;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ValidationException;
@@ -24,7 +22,7 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
 
     @Override
     public Embedding deserialize(JsonParser parser, Configuration configuration)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         JsonNode rootNode = parser.getCodec().readTree(parser);
         String data = rootNode.get("data").asText();
         String mimeType = rootNode.get("mime_type").asText();
