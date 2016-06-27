@@ -32,7 +32,7 @@ public class ErrorPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
         assertThat(context.get("json_files")).isEqualTo(jsonReports);
     }

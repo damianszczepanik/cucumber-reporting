@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**
@@ -56,34 +55,64 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsBasePath_OnSampleBath_ReturnsJenkinsPath() {
+    public void getJenkinsBuildURL_OnSampleURL_ReturnsJenkinsBuildURL() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        String basePath = "abc321";
-        configuration.setJenkinsBasePath(basePath);
+        String jobPath = "http://localhost:8080/jobs/TEST/2/";
+        configuration.setJenkinsBuildURL(jobPath);
 
         // when
-        String path = configuration.getJenkinsBasePath();
+        String path = configuration.getJenkinsBuildURL();
 
         // then
-        assertThat(path).isEqualTo(basePath);
+        assertThat(path).isEqualTo(jobPath);
     }
 
     @Test
-    public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
+    public void getJenkinsPreviousBuildURL_OnSampleURL_ReturnsJenkinsPreviousBuildURL() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        String basePath = StringUtils.EMPTY;
-        configuration.setJenkinsBasePath(basePath);
+        String jobPath = "http://localhost:8080/jobs/FOLDER/jobs/TEST/1/";
+        configuration.setJenkinsPreviousBuildURL(jobPath);
 
         // when
-        String path = configuration.getJenkinsBasePath();
+        String path = configuration.getJenkinsPreviousBuildURL();
 
         // then
-        assertThat(path).isEqualTo("/");
+        assertThat(path).isEqualTo(jobPath);
     }
+
+    @Test
+    public void getJenkinsNextBuildURL_OnSampleURL_ReturnsJenkinsNextBuildURL() {
+
+        // give
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        String jobPath = "http://localhost:8080/jobs/TEST/3/";
+        configuration.setJenkinsNextBuildURL(jobPath);
+
+        // when
+        String path = configuration.getJenkinsNextBuildURL();
+
+        // then
+        assertThat(path).isEqualTo(jobPath);
+    }
+
+//    @Test
+//    public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
+//
+//        // give
+//        Configuration configuration = new Configuration(outputDirectory, projectName);
+//        String basePath = StringUtils.EMPTY;
+//        configuration.setJenkinsBasePath(basePath);
+//
+//        // when
+//        String path = configuration.getJenkinsBasePath();
+//
+//        // then
+//        assertThat(path).isEqualTo("/");
+//    }
 
     @Test
     public void isRunWithJenkins_ReturnsRunWithJenkins() {

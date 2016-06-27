@@ -12,13 +12,11 @@ public class NavigationItemAssertion extends LinkAssertion {
     }
 
     public void hasLinkToPreviousResult(Configuration configuration, String page) {
-        final Integer prevBuildNumber = Integer.parseInt(configuration.getBuildNumber()) - 1;
-        hasLabelAndAddress("Previous results", "/job/" + configuration.getProjectName() + "/" + prevBuildNumber
-                + "/cucumber-html-reports/" + page);
+        hasLabelAndAddress("Previous results", configuration.getJenkinsPreviousBuildURL() + "/cucumber-html-reports/" + page);
     }
 
-    public void hasLinkToLastResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Last results", "/job/" + configuration.getProjectName() + "/cucumber-html-reports/" + page);
+    public void hasLinkToNextResult(Configuration configuration, String page) {
+        hasLabelAndAddress("Next results", configuration.getJenkinsNextBuildURL() + "/cucumber-html-reports/" + page);
     }
 
     public void hasLinkToFeatures() {
