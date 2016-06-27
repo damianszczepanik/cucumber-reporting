@@ -17,13 +17,13 @@ import net.masterthought.cucumber.json.Element;
  */
 public class TagObjectTest extends PageTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Before
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void TagObject_OnNullTagName_ThrowsException() {

@@ -116,9 +116,9 @@ public class Element {
         }
 
         Element other = (Element) obj;
-        // in case of parallel tests, element are the same when belong to the same feature
+        // in case of parallel tests, elements are the same when belong to the same feature
         if (feature == other.feature) {
-            return id != null ? id.equals(other.id) : super.equals(obj);
+            return id != null ? id.equals(other.id) : super.equals(other);
         } else {
             return false;
         }
@@ -173,7 +173,7 @@ public class Element {
 
     /**
      * Evaluates the elementStatus according to the provided configuration.
-     * 
+     *
      * @param configuration
      *            configuration that keeps the information whether the not-passed elementStatus should fail the build
      * @return evaluated elementStatus

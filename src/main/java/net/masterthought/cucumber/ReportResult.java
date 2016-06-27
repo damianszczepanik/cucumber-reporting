@@ -47,15 +47,21 @@ public class ReportResult {
     }
 
     public List<Feature> getAllFeatures() {
-        return mapToSortedList(allFeatures);
+        return toSortedList(allFeatures);
     }
 
     public List<TagObject> getAllTags() {
-        return mapToSortedList(allTags.values());
+        return toSortedList(allTags.values());
     }
 
     public List<StepObject> getAllSteps() {
-        return mapToSortedList(allSteps.values());
+        return toSortedList(allSteps.values());
+    }
+
+    private static <T extends Comparable<? super T>> List<T> toSortedList(Collection<T> values) {
+        List<T> list = new ArrayList<T>(values);
+        Collections.sort(list);
+        return list;
     }
 
     public Reportable getFeatureReport() {
@@ -172,11 +178,5 @@ public class ReportResult {
 
     public static String getCurrentTime() {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm").format(new Date());
-    }
-
-    private static <T extends Comparable<? super T>> List<T> mapToSortedList(Collection<T> values) {
-        List<T> list = new ArrayList<T>(values);
-        Collections.sort(list);
-        return list;
     }
 }

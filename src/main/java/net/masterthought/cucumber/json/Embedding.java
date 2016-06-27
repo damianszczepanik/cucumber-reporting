@@ -2,9 +2,8 @@ package net.masterthought.cucumber.json;
 
 import java.nio.charset.StandardCharsets;
 
-import org.codehaus.plexus.util.Base64;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.codehaus.plexus.util.Base64;
 
 import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 
@@ -56,7 +55,7 @@ public class Embedding {
         case "image/jpeg":
         case "text/html":
         case "application/json":
-            return mimeType.substring(mimeType.indexOf("/") + 1);
+            return mimeType.substring(mimeType.indexOf('/') + 1);
         // image stored remotely stored as link/url
         case "image/url":
             return "image";
