@@ -9,7 +9,7 @@ public class FileReaderUtil {
         try {
             return new File(ReportInformationTest.class.getClassLoader().getResource(resource).toURI()).getAbsolutePath();
         } catch (URISyntaxException e) {
-            throw new RuntimeException("Could not read resource: " + resource, e);
+            throw new ValidationException("Could not read resource: " + resource, e);
         }
     }
 
