@@ -84,7 +84,7 @@ public abstract class AbstractPage {
 //        context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("jenkins_buildURL", configuration.getJenkinsBuildURL());
         context.put("jenkins_previous_buildURL", configuration.getJenkinsPreviousBuildURL());
-        context.put("jenkins_next_buildURL", configuration.getJenkinsNextBuildURL());
+        context.put("jenkins_projectURL", configuration.getJenkinsProjectURL());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
 

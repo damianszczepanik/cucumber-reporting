@@ -90,10 +90,10 @@ public class ConfigurationTest {
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
         String jobPath = "http://localhost:8080/jobs/TEST/3/";
-        configuration.setJenkinsNextBuildURL(jobPath);
+        configuration.setJenkinsProjectURL(jobPath);
 
         // when
-        String path = configuration.getJenkinsNextBuildURL();
+        String path = configuration.getJenkinsProjectURL();
 
         // then
         assertThat(path).isEqualTo(jobPath);

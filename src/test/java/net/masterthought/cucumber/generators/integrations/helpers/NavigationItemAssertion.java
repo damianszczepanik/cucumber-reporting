@@ -8,15 +8,15 @@ import net.masterthought.cucumber.Configuration;
 public class NavigationItemAssertion extends LinkAssertion {
 
     public void hasLinkToJenkins(Configuration configuration) {
-        hasLabelAndAddress("Jenkins", "/job/" + configuration.getProjectName() + "/" + configuration.getBuildNumber());
+        hasLabelAndAddress("Jenkins", configuration.getJenkinsBuildURL());
     }
 
     public void hasLinkToPreviousResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Previous results", configuration.getJenkinsPreviousBuildURL() + "/cucumber-html-reports/" + page);
+        hasLabelAndAddress("Previous results", configuration.getJenkinsPreviousBuildURL() + "cucumber-html-reports/" + page);
     }
 
-    public void hasLinkToNextResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Next results", configuration.getJenkinsNextBuildURL() + "/cucumber-html-reports/" + page);
+    public void hasLinkToLatestResult(Configuration configuration, String page) {
+        hasLabelAndAddress("Latest results", configuration.getJenkinsProjectURL() + "cucumber-html-reports/" + page);
     }
 
     public void hasLinkToFeatures() {

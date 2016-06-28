@@ -15,7 +15,7 @@ public final class Configuration {
     //private String jenkinsBasePath;
     private String jenkinsBuildURL;
     private String jenkinsPreviousBuildURL;
-    private String jenkinsNextBuildURL;
+    private String jenkinsProjectURL;
 
 
     private boolean runWithJenkins;
@@ -69,12 +69,12 @@ public final class Configuration {
 //        this.jenkinsBasePath = jenkinsBase;
 //    }
 
-    public String getJenkinsNextBuildURL() {
-        return jenkinsNextBuildURL;
+    public String getJenkinsProjectURL() {
+        return jenkinsProjectURL;
     }
 
-    public void setJenkinsNextBuildURL(String jenkinsNextBuildURL) {
-        this.jenkinsNextBuildURL = jenkinsNextBuildURL;
+    public void setJenkinsProjectURL(String jenkinsProjectURL) {
+        this.jenkinsProjectURL = jenkinsProjectURL;
     }
 
     public String getJenkinsBuildURL() {

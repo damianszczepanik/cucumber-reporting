@@ -67,7 +67,7 @@ public class AbstractPageTest extends PageTest {
         assertThat(context.get("jenkins_source")).isEqualTo(configuration.isRunWithJenkins());
 //        assertThat(context.get("jenkins_base")).isEqualTo(configuration.getJenkinsBasePath());
         assertThat(context.get("jenkins_buildURL")).isEqualTo(configuration.getJenkinsBuildURL());
-        assertThat(context.get("jenkins_next_buildURL")).isEqualTo(configuration.getJenkinsNextBuildURL());
+        assertThat(context.get("jenkins_next_buildURL")).isEqualTo(configuration.getJenkinsProjectURL());
         assertThat(context.get("jenkins_previous_buildURL")).isEqualTo(configuration.getJenkinsPreviousBuildURL());
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());

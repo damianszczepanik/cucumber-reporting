@@ -7,9 +7,9 @@
         #if($jenkins_source)
           <li role="presentation"><a href="${jenkins_buildURL}">Jenkins</a></li>
           #if($jenkins_previous_buildURL)
-            <li role="presentation"><a href="${jenkins_previous_buildURL}/cucumber-html-reports/$report_file">Previous results</a></li>
+            <li role="presentation"><a href="${jenkins_previous_buildURL}cucumber-html-reports/$report_file">Previous results</a></li>
           #end
-          <li role="presentation"><a href="${jenkins_next_buildURL}/cucumber-html-reports/$report_file">Next results</a></li>
+          <li role="presentation"><a href="${jenkins_projectURL}cucumber-html-reports/$report_file">Latest results</a></li>
         #end
         <li role="presentation" #if($active_tab == "features") class="active" #end><a href="feature-overview.html">Features</a></li>
         <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="tag-overview.html">Tags</a></li>
