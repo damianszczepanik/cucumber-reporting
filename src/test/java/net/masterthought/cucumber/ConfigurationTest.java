@@ -55,7 +55,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsBuildURL_OnSampleURL_ReturnsJenkinsBuildURL() {
+    public void getJenkinsBuildURL_ReturnsJenkinsBuildURL() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -70,7 +70,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsPreviousBuildURL_OnSampleURL_ReturnsJenkinsPreviousBuildURL() {
+    public void getJenkinsPreviousBuildURL_ReturnsJenkinsPreviousBuildURL() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -85,7 +85,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getJenkinsNextBuildURL_OnSampleURL_ReturnsJenkinsNextBuildURL() {
+    public void getJenkinsProjectURL_ReturnsJenkinsProjectURL() {
 
         // give
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -98,21 +98,6 @@ public class ConfigurationTest {
         // then
         assertThat(path).isEqualTo(jobPath);
     }
-
-//    @Test
-//    public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
-//
-//        // give
-//        Configuration configuration = new Configuration(outputDirectory, projectName);
-//        String basePath = StringUtils.EMPTY;
-//        configuration.setJenkinsBasePath(basePath);
-//
-//        // when
-//        String path = configuration.getJenkinsBasePath();
-//
-//        // then
-//        assertThat(path).isEqualTo("/");
-//    }
 
     @Test
     public void isRunWithJenkins_ReturnsRunWithJenkins() {

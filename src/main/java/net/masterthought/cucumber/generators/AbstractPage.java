@@ -81,7 +81,6 @@ public abstract class AbstractPage {
 
     private void buildGeneralParameters() {
         context.put("jenkins_source", configuration.isRunWithJenkins());
-//        context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("jenkins_buildURL", configuration.getJenkinsBuildURL());
         context.put("jenkins_previous_buildURL", configuration.getJenkinsPreviousBuildURL());
         context.put("jenkins_projectURL", configuration.getJenkinsProjectURL());
@@ -92,14 +91,5 @@ public abstract class AbstractPage {
         String formattedTime = report != null ? report.getBuildTime() : ReportResult.getCurrentTime();
         context.put("build_time", formattedTime);
 
-        // build number is not mandatory
-//        String buildNumber = configuration.getBuildNumber();
-//        if (buildNumber != null) {
-//            if (NumberUtils.isNumber(buildNumber)) {
-//                context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
-//            } else {
-//                LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
-//            }
-//        }
     }
 }
