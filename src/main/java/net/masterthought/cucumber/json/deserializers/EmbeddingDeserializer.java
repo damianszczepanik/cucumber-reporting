@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+import java.nio.charset.StandardCharsets;
 import org.codehaus.plexus.util.Base64;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -39,7 +39,7 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
         Path file = FileSystems.getDefault().getPath(configuration.getEmbeddingDirectory().getAbsolutePath(),
                 embedding.getFileId() + "." + embedding.getExtension());
         try {
-            Files.write(file, Base64.decodeBase64(embedding.getData().getBytes()));
+            Files.write(file, Base64.decodeBase64(embedding.getData().getBytes(StandardCharsets.UTF_8)));
         } catch (IOException e) {
             throw new ValidationException(e);
         }
