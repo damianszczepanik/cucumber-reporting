@@ -57,6 +57,9 @@ public class PageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
+        configuration.setJenkinsBuildURL("/job/test cucumberProject/123");
+        configuration.setJenkinsPreviousBuildURL("/job/test cucumberProject/122/");
+        configuration.setJenkinsProjectURL("/job/test cucumberProject/");
 
         page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
 
@@ -69,11 +72,12 @@ public class PageIntegrationTest extends PageTest {
         NavigationItemAssertion[] menuItems = navigation.getNaviBarLinks();
 
         navigation.hasPluginName();
+
         assertThat(navigation.getNaviBarLinks()).hasSize(7);
 
         menuItems[0].hasLinkToJenkins(configuration);
         menuItems[1].hasLinkToPreviousResult(configuration, page.getWebPage());
-        menuItems[2].hasLinkToLastResult(configuration, page.getWebPage());
+        menuItems[2].hasLinkToLatestResult(configuration, page.getWebPage());
 
         menuItems[3].hasLinkToFeatures();
         menuItems[4].hasLinkToTags();
@@ -120,6 +124,7 @@ public class PageIntegrationTest extends PageTest {
         BuildInfoAssertion buildInfo = document.getBuildInfo();
 
         TableRowAssertion headValues = buildInfo.getHeaderRow();
+        System.out.println(headValues.html());
         headValues.hasExactValues("Project", "Number", "Date");
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());

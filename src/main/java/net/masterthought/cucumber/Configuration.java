@@ -2,8 +2,6 @@ package net.masterthought.cucumber;
 
 import java.io.File;
 
-import org.apache.commons.lang.StringUtils;
-
 public final class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
@@ -14,7 +12,13 @@ public final class Configuration {
     private boolean failsIfMissing;
 
     private boolean parallelTesting;
-    private String jenkinsBasePath;
+
+
+    private String jenkinsBuildURL; //URL to the build this report is for
+    private String jenkinsPreviousBuildURL; //URL to the previous build
+    private String jenkinsProjectURL; //URL to the base jenkins project
+
+
     private boolean runWithJenkins;
 
     private File reportDirectory;
@@ -58,12 +62,26 @@ public final class Configuration {
         this.parallelTesting = parallelTesting;
     }
 
-    public String getJenkinsBasePath() {
-        return StringUtils.isEmpty(jenkinsBasePath) ? "/" : jenkinsBasePath;
+    public String getJenkinsProjectURL() { return jenkinsProjectURL; }
+
+    public void setJenkinsProjectURL(String jenkinsProjectURL) {
+        this.jenkinsProjectURL = jenkinsProjectURL;
     }
 
-    public void setJenkinsBasePath(String jenkinsBase) {
-        this.jenkinsBasePath = jenkinsBase;
+    public String getJenkinsBuildURL() {
+        return jenkinsBuildURL;
+    }
+
+    public void setJenkinsBuildURL(String jenkinsBuildURL) {
+        this.jenkinsBuildURL = jenkinsBuildURL;
+    }
+
+    public String getJenkinsPreviousBuildURL() {
+        return jenkinsPreviousBuildURL;
+    }
+
+    public void setJenkinsPreviousBuildURL(String jenkinsPreviousBuildURL) {
+        this.jenkinsPreviousBuildURL = jenkinsPreviousBuildURL;
     }
 
     public boolean isRunWithJenkins() {
