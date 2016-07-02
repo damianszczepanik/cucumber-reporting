@@ -2,11 +2,11 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.util.Util;
@@ -24,7 +24,7 @@ public class StepsOverviewPageTest extends PageTest {
     @Test
     public void getWebPage_ReturnsFeatureFileName() {
 
-        // give
+        // given
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -37,7 +37,7 @@ public class StepsOverviewPageTest extends PageTest {
     @Test
     public void prepareReportAddsCustomProperties() {
 
-        // give
+        // given
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when

@@ -2,11 +2,11 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.TagObject;
 
@@ -23,7 +23,7 @@ public class TagReportPageTest extends PageTest {
     @Test
     public void getWebPage_ReturnsFeatureFileName() {
 
-        // give
+        // given
         TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
 
@@ -37,7 +37,7 @@ public class TagReportPageTest extends PageTest {
     @Test
     public void prepareReportAddsCustomProperties() {
 
-        // give
+        // given
         TagObject tag = tags.get(1);
         page = new TagReportPage(reportResult, configuration, tag);
 

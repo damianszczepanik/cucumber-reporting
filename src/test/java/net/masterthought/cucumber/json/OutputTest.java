@@ -14,7 +14,7 @@ public class OutputTest extends PageTest {
     @Test
     public void getMessages_ReturnsMessages() {
 
-        // give
+        // given
         String[] messages = { "a", "b", "c", "a" };
 
         // when

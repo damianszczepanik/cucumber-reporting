@@ -4,11 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.TagObject;
 
@@ -25,7 +25,7 @@ public class TagsOverviewPageTest extends PageTest {
     @Test
     public void getWebPage_ReturnsFeatureFileName() {
 
-        // give
+        // given
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -38,7 +38,7 @@ public class TagsOverviewPageTest extends PageTest {
     @Test
     public void prepareReportAddsCustomProperties() {
 
-        // give
+        // given
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -57,7 +57,7 @@ public class TagsOverviewPageTest extends PageTest {
     @Test
     public void generateTagLabels_ReturnsTags() {
 
-        // give
+        // given
         List<TagObject> allTags = this.tags;
 
         // when
@@ -70,7 +70,7 @@ public class TagsOverviewPageTest extends PageTest {
     @Test
     public void generateTagValues_ReturnsTagValues() {
 
-        // give
+        // given
         List<TagObject> allTags = this.tags;
 
         // when
@@ -89,7 +89,7 @@ public class TagsOverviewPageTest extends PageTest {
     @Test
     public void format_ReturnsFormatedValue() {
 
-        // give
+        // given
         final int[][] values = { { 1, 3 }, { 2, 2 }, { 1, 5 }, { 0, 5 } };
         String[] formatted = { "33.33", "100.00", "20.00", "0.00" };
 

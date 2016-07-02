@@ -20,7 +20,7 @@ public class RowTest extends PageTest {
     @Test
     public void getCells_ReturnsCells() {
 
-        // give
+        // given
         Row[] rows = features.get(0).getElements()[0].getSteps()[2].getRows();
 
         // when
