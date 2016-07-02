@@ -20,7 +20,7 @@ public class TagTest extends PageTest {
     @Test
     public void getName_ReturnsFeatureTagName() {
 
-        // give
+        // given
         Tag tag = features.get(0).getTags()[0];
 
         // when
@@ -33,7 +33,7 @@ public class TagTest extends PageTest {
     @Test
     public void getName_ReturnsElementTagName() {
 
-        // give
+        // given
         Tag tag = features.get(0).getElements()[1].getTags()[2];
 
         // when
@@ -46,7 +46,7 @@ public class TagTest extends PageTest {
     @Test
     public void getFileName_ReturnsTagFileName() {
 
-        // give
+        // given
         Tag tag = features.get(1).getElements()[0].getTags()[0];
 
         // when

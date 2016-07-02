@@ -19,7 +19,7 @@ public class ConfigurationTest {
     @Test
     public void setStatusFlagsSetsFlags() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         boolean failsIfMissingIn = true;
         boolean failsIFPendingIn = false;
@@ -43,7 +43,7 @@ public class ConfigurationTest {
     @Test
     public void isParallelTesting_ReturnsParallelTesting() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         boolean parallelTesting = true;
         configuration.setParallelTesting(parallelTesting);
@@ -58,7 +58,7 @@ public class ConfigurationTest {
     @Test
     public void getJenkinsBasePath_OnSampleBath_ReturnsJenkinsPath() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         String basePath = "abc321";
         configuration.setJenkinsBasePath(basePath);
@@ -73,7 +73,7 @@ public class ConfigurationTest {
     @Test
     public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         String basePath = StringUtils.EMPTY;
         configuration.setJenkinsBasePath(basePath);
@@ -88,7 +88,7 @@ public class ConfigurationTest {
     @Test
     public void isRunWithJenkins_ReturnsRunWithJenkins() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         boolean runWithJenkins = true;
         configuration.setRunWithJenkins(runWithJenkins);
@@ -103,7 +103,7 @@ public class ConfigurationTest {
     @Test
     public void getReportDirectory_ReturnsOutputDirectory() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
         // when
@@ -116,7 +116,7 @@ public class ConfigurationTest {
     @Test
     public void getBuildNumber_ReturnsBuildNumber() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         String buildNumber = "123xyz";
         configuration.setBuildNumber(buildNumber);
@@ -131,7 +131,7 @@ public class ConfigurationTest {
     @Test
     public void getProjectName_ReturnsProjectName() {
 
-        // give
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
         // when

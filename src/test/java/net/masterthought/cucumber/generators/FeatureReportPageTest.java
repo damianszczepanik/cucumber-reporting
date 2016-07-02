@@ -2,11 +2,11 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
 
@@ -23,7 +23,7 @@ public class FeatureReportPageTest extends PageTest {
     @Test
     public void getWebPage_ReturnsFeatureFileName() {
 
-        // give
+        // given
         Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -37,7 +37,7 @@ public class FeatureReportPageTest extends PageTest {
     @Test
     public void prepareReportAddsCustomProperties() {
 
-        // give
+        // given
         Feature feature = features.get(1);
         page = new FeatureReportPage(reportResult, configuration, feature);
 

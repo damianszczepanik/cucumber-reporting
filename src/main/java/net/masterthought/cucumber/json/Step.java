@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import net.masterthought.cucumber.json.support.Resultsable;
@@ -54,36 +52,24 @@ public class Step implements Resultsable {
         return result;
     }
 
-    public boolean hasRows() {
-        return ArrayUtils.isNotEmpty(rows);
-    }
-
     @Override
     public Status getStatus() {
         return status;
     }
 
     public long getDuration() {
-        return result == null ? 0L : result.getDuration();
-    }
-
-    public String getErrorMessage() {
-        return result == null ? null : result.getErrorMessage();
+        return result.getDuration();
     }
 
     public DocString getDocString() {
         return docString;
     }
 
-    public void setMedaData() {
+    public void setMetaData() {
         calculateStatus();
     }
 
     private void calculateStatus() {
-        if (result == null) {
-            status = Status.MISSING;
-        } else {
-            status = Status.toStatus(result.getStatus());
-        }
+        status = Status.toStatus(result.getStatus());
     }
 }

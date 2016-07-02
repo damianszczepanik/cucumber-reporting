@@ -5,11 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.util.Properties;
 
+import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
@@ -25,7 +25,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void generateReportCreatesReportFile() {
 
-        // give
+        // given
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -39,7 +39,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void buildProperties_ReturnsProperties() {
 
-        // give
+        // given
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -55,7 +55,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void buildGeneralParametersAddsCommonProperties() {
 
-        // give
+        // given
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -74,7 +74,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void buildGeneralParametersWithBuildNumberAddsBuildPreviousNumberProperty() {
 
-        // give
+        // given
         configuration.setBuildNumber("12");
         page = new ErrorPage(null, configuration, null, jsonReports);
 
@@ -90,7 +90,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void buildGeneralParameters_OnErrorPageAddsExtraProperties() {
 
-        // give
+        // given
         configuration.setBuildNumber("3@");
         page = new ErrorPage(null, configuration, null, jsonReports);
 
@@ -106,7 +106,7 @@ public class AbstractPageTest extends PageTest {
     @Test
     public void buildGeneralParameters_OnInvalidBuildNumberDoesNotAddPreviousBuildNumberProperty() {
 
-        // give
+        // given
         configuration.setBuildNumber("34");
         page = new TagsOverviewPage(reportResult, configuration);
 

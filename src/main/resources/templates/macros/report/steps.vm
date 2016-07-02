@@ -9,9 +9,9 @@
     #foreach($step in $element.getSteps())
       <div class="step">
         #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
-        #includeMessage("Error message", $step.getErrorMessage())
+        #includeMessage("Error message", $step.getResult().getErrorMessage())
 
-        #if ($step.hasRows())
+        #if (!$step.getRows().isEmpty())
           <table class="step-arguments">
             #foreach($row in $step.getRows())
               <tr>
