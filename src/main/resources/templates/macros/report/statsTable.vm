@@ -1,35 +1,35 @@
-#macro(includeStatsTable, $table_key, $parallel, $elements, $report_summary)
+#macro(includeStatsTable, $table_key, $parallel, $items, $report_summary)
 
 <table id="tablesorter" class="stats-table table-hover">
   #includeReportHeader($table_key, $parallel)
 
   <tbody>
-    #foreach($element in $elements)
+    #foreach($item in $items)
       <tr>
-        <td class="tagname"><a href="$element.getReportFileName()">$element.getName()</a></td>
+        <td class="tagname"><a href="$item.getReportFileName()">$item.getName()</a></td>
         #if($parallel)
-          <td>$element.getDeviceName()</td>
+          <td>$item.getDeviceName()</td>
         #end
 
-        <td>$element.getScenarios()</td>
-        <td>$element.getPassedScenarios()</td>
-        <td #if($element.getFailedScenarios() > 0)  class="failed"  #end>$element.getFailedScenarios()</td>
-        <td>$element.getSteps()</td>
-        <td>$element.getPassedSteps()</td>
-        <td #if($element.getFailedSteps() > 0)    class="failed"    #end>$element.getFailedSteps()</td>
-        <td #if($element.getSkippedSteps() > 0)   class="skipped"   #end>$element.getSkippedSteps()</td>
-        <td #if($element.getPendingSteps() > 0)   class="pending"   #end>$element.getPendingSteps()</td>
-        <td #if($element.getUndefinedSteps() > 0) class="undefined" #end>$element.getUndefinedSteps()</td>
-        <td #if($element.getMissingSteps() > 0)   class="missing"   #end>$element.getMissingSteps()</td>
-        <td class="duration" data-value="$element.getDurations()">$element.getFormattedDurations()</td>
-        <td class="$element.getStatus().getRawName()">$element.getStatus().getLabel()</td>
+        <td>$item.getScenarios()</td>
+        <td>$item.getPassedScenarios()</td>
+        <td #if($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
+        <td>$item.getSteps()</td>
+        <td>$item.getPassedSteps()</td>
+        <td #if($item.getFailedSteps() > 0)     class="failed"    #end>$item.getFailedSteps()</td>
+        <td #if($item.getSkippedSteps() > 0)    class="skipped"   #end>$item.getSkippedSteps()</td>
+        <td #if($item.getPendingSteps() > 0)    class="pending"   #end>$item.getPendingSteps()</td>
+        <td #if($item.getUndefinedSteps() > 0)  class="undefined" #end>$item.getUndefinedSteps()</td>
+        <td #if($item.getMissingSteps() > 0)    class="missing"   #end>$item.getMissingSteps()</td>
+        <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
+        <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
       </tr>
     #end
   </tbody>
 
   <tfoot>
     <tr>
-      <td>$elements.size()</td>
+      <td>$items.size()</td>
       #if($parallel)
         <td>-</td>
       #end

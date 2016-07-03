@@ -10,7 +10,7 @@
   #includeTags($element.getTags())
 
   <span data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$element.hashCode()">
-    #includeBrief($element.getKeyword(), $element.getElementStatus(), $element.getName(), true)
+    #includeBrief($element.getKeyword(), $element.getElementStatus(), $element.getEscapedName(), true)
   </span>
   <div class="description indention">$element.getDescription()</div>
 

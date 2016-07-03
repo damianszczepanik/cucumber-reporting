@@ -119,9 +119,9 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "net-masterthought-example-s--ATM-local-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("Second feature", "1", "0", "1", "9", "4", "1", "3", "0", "0", "1", "002ms", "Failed");
-        secondRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "failed", "skipped", "", "", "missing", "duration", "failed");
-        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "2050000", "");
+        secondRow.hasExactValues("Second feature", "2", "1", "1", "10", "5", "0", "4", "0", "0", "1", "002ms", "Failed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "", "", "missing", "duration", "failed");
+        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "2610000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "net-masterthought-example-ATMK-feature.html");
     }
 
@@ -140,7 +140,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("2", "2", "1", "1", "20", "12", "1", "3", "2", "1", "1", "1m 39s 355ms", "Totals");
+        footerCells.hasExactValues("2", "3", "2", "1", "21", "13", "0", "4", "2", "1", "1", "1m 39s 355ms", "Totals");
     }
 
     @Test

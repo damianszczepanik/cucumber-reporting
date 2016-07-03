@@ -3,6 +3,7 @@ package net.masterthought.cucumber.json;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -17,6 +18,8 @@ public class Feature implements Reportable, Comparable<Feature> {
     // Start: attributes from JSON file report
     private final String id = null;
     private final String name = null;
+    // as long as this is private attribute without getter deserialization must be forced by annotation
+    @JsonProperty("uri")
     private final String uri = null;
     private final String description = null;
     private final String keyword = null;
@@ -66,8 +69,8 @@ public class Feature implements Reportable, Comparable<Feature> {
         return StringUtils.defaultString(name);
     }
 
-    public String getUri() {
-        return uri;
+    public String getKeyword() {
+        return StringUtils.defaultString(keyword);
     }
 
     public String getDescription() {
@@ -145,32 +148,32 @@ public class Feature implements Reportable, Comparable<Feature> {
         this.jsonFile = jsonFile;
 
         for (Element element : elements) {
-            element.setMedaData(this, configuration);
+            element.setMetaData(this, configuration);
 
             if (element.isScenario()) {
                 scenarios.add(element);
             }
         }
 
-        setDeviceName();
-        setReportFileName(jsonFileNo, configuration);
+        calculateDeviceName();
+        calculateReportFileName(jsonFileNo, configuration);
         calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private void setDeviceName() {
-        String[] splitedJsonFile = jsonFile.split("[^\\d\\w]");
-        if (splitedJsonFile.length > 1) {
+    private void calculateDeviceName() {
+        String[] splitJsonFile = jsonFile.split("[^\\d\\w]");
+        if (splitJsonFile.length > 1) {
             // file name without path and extension (usually path/{jsonFile}.json)
-            deviceName = splitedJsonFile[splitedJsonFile.length - 2];
+            deviceName = splitJsonFile[splitJsonFile.length - 2];
         } else {
             // path name without special characters
-            deviceName = splitedJsonFile[0];
+            deviceName = splitJsonFile[0];
         }
     }
 
-    private void setReportFileName(int jsonFileNo, Configuration configuration) {
+    private void calculateReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
         reportFileName = Util.toValidFileName(uri);
 
