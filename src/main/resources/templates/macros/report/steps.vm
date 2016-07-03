@@ -8,7 +8,7 @@
   <div id="steps-$element.getSteps().hashCode()" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
     #foreach($step in $element.getSteps())
       <div class="step">
-        #includeBrief($step.getKeyword(), $step.getStatus(), $step.getName(), false, $step.getResult())
+        #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())
         #includeMessage("Error message", $step.getResult().getErrorMessage())
 
         #if (!$step.getRows().isEmpty())

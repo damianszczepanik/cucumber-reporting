@@ -124,28 +124,17 @@ public class Element {
 
     public void setMetaData(Feature feature, Configuration configuration) {
         this.feature = feature;
-        for (Step step : steps) {
-            step.setMetaData();
-        }
 
-        calculateHooks(before);
-        calculateHooks(after);
         elementStatus = calculateStatus(configuration);
         beforeStatus = calculateHookStatus(before);
         afterStatus = calculateHookStatus(after);
         stepsStatus = calculateStepsStatus();
     }
 
-    private void calculateHooks(Hook[] hooks) {
-        for (Hook hook : hooks) {
-            hook.setMetaData();
-        }
-    }
-
     private Status calculateHookStatus(Hook[] hooks) {
         StatusCounter statusCounter = new StatusCounter();
         for (Hook hook : hooks) {
-            statusCounter.incrementFor(hook.getStatus());
+            statusCounter.incrementFor(hook.getResult().getStatus());
         }
 
         return statusCounter.getFinalStatus();
@@ -154,7 +143,7 @@ public class Element {
     private Status calculateStatus(Configuration configuration) {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getStatus());
+            statusCounter.incrementFor(step.getResult().getStatus());
         }
         calculateStatusForHook(statusCounter, before);
         calculateStatusForHook(statusCounter, after);
@@ -165,7 +154,7 @@ public class Element {
     private Status calculateStepsStatus() {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getStatus());
+            statusCounter.incrementFor(step.getResult().getStatus());
         }
         return statusCounter.getFinalStatus();
     }
@@ -203,7 +192,7 @@ public class Element {
 
     private void calculateStatusForHook(StatusCounter statusCounter, Hook[] hooks) {
         for (Hook hook : hooks) {
-            statusCounter.incrementFor(Status.toStatus(hook.getResult().getStatus()));
+            statusCounter.incrementFor(hook.getResult().getStatus());
         }
     }
 }

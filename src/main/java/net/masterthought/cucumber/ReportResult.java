@@ -11,6 +11,7 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Match;
@@ -22,8 +23,6 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.reports.OverviewReport;
-import net.masterthought.cucumber.reports.Reportable;
 
 public class ReportResult {
 
@@ -104,7 +103,7 @@ public class ReportResult {
 
             Step[] steps = element.getSteps();
             for (Step step : steps) {
-                featuresReport.incStepsFor(step.getStatus());
+                featuresReport.incStepsFor(step.getResult().getStatus());
                 featuresReport.incDurationBy(step.getDuration());
             }
             countSteps(steps);
@@ -125,7 +124,7 @@ public class ReportResult {
 
             Step[] steps = element.getSteps();
             for (Step step : steps) {
-                tagsReport.incStepsFor(step.getStatus());
+                tagsReport.incStepsFor(step.getResult().getStatus());
                 tagsReport.incDurationBy(step.getDuration());
             }
         }
@@ -157,13 +156,7 @@ public class ReportResult {
         }
 
         // happens that report is not valid - does not contain information about result
-        if (result != null) {
-            stepObject.addDuration(result.getDuration(), Status.toStatus(result.getStatus()));
-        } else {
-            // when result is not available it means that something really went wrong (report is incomplete)
-            // and for this case FAILED status is used to avoid problems during parsing
-            stepObject.addDuration(0, Status.FAILED);
-        }
+        stepObject.addDuration(result.getDuration(), result.getStatus());
         allSteps.put(methodName, stepObject);
     }
 

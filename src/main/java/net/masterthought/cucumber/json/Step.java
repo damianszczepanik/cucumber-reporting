@@ -3,7 +3,6 @@ package net.masterthought.cucumber.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import net.masterthought.cucumber.json.support.Resultsable;
-import net.masterthought.cucumber.json.support.Status;
 
 public class Step implements Resultsable {
 
@@ -18,8 +17,6 @@ public class Step implements Resultsable {
     @JsonProperty("doc_string")
     private final DocString docString = null;
     // End: attributes from JSON file report
-
-    private Status status;
 
     public Row[] getRows() {
         return rows;
@@ -52,24 +49,11 @@ public class Step implements Resultsable {
         return result;
     }
 
-    @Override
-    public Status getStatus() {
-        return status;
-    }
-
     public long getDuration() {
         return result.getDuration();
     }
 
     public DocString getDocString() {
         return docString;
-    }
-
-    public void setMetaData() {
-        calculateStatus();
-    }
-
-    private void calculateStatus() {
-        status = Status.toStatus(result.getStatus());
     }
 }

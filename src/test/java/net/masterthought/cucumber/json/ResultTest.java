@@ -25,10 +25,10 @@ public class ResultTest extends PageTest {
         Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
 
         // when
-        String status = result.getStatus();
+        Status status = result.getStatus();
 
         // then
-        assertThat(status).isEqualTo(Status.PASSED.getRawName());
+        assertThat(status).isEqualTo(Status.PASSED);
     }
 
     @Test

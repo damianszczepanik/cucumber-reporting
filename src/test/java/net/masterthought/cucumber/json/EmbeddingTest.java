@@ -20,7 +20,7 @@ public class EmbeddingTest extends PageTest {
     @Test
     public void getMimeType_ReturnsMimeType() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[0];
 
         // when
@@ -33,7 +33,7 @@ public class EmbeddingTest extends PageTest {
     @Test
     public void getData_ReturnsContent() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
 
         // when
@@ -46,7 +46,7 @@ public class EmbeddingTest extends PageTest {
     @Test
     public void getDecodedData_ReturnsDecodedContent() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
 
         // when
@@ -59,7 +59,7 @@ public class EmbeddingTest extends PageTest {
     @Test
     public void getFileName_ReturnsFileName() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
 
         // when
@@ -72,7 +72,7 @@ public class EmbeddingTest extends PageTest {
     @Test
     public void getDecodedData__OnRuby_ForAfterHook_ReturnsContent() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getAfter()[0].getEmbeddings()[0];
 
         // when
@@ -83,9 +83,9 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtension__OnCommonMimeType_ResurnsFileExtension() {
+    public void getExtension__OnCommonMimeType_ReturnsFileExtension() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[3];
 
         // when
@@ -96,9 +96,9 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
-    public void getExtension__OnTextMimeType_ResurnsTxt() {
+    public void getExtension__OnTextMimeType_ReturnsText() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[2];
 
         // when
@@ -109,9 +109,22 @@ public class EmbeddingTest extends PageTest {
     }
 
     @Test
+    public void getExtension__OnImageUrlMimeType_ReturnsTxt() {
+
+        // given
+        Embedding embedding = features.get(0).getElements()[0].getSteps()[0].getEmbeddings()[0];
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("image");
+    }
+
+    @Test
     public void getExtension__OnOtherMimeType_ResurnsUnknown() {
 
-        // give
+        // given
         Embedding embedding = features.get(1).getElements()[0].getSteps()[5].getEmbeddings()[4];
 
         // when
