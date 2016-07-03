@@ -34,15 +34,11 @@ public class Hook implements Resultsable {
         return embeddings;
     }
 
-    public void setMedaData() {
+    public void setMetaData() {
         calculateStatus();
     }
 
     private void calculateStatus() {
-        if (result == null) {
-            status = Status.MISSING;
-        } else {
-            status = Status.toStatus(result.getStatus());
-        }
+        status = Status.toStatus(result.getStatus());
     }
 }

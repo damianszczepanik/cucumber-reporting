@@ -128,7 +128,7 @@
                     }
                 ],
                 "description":"Account holder withdraws cash",
-                "name":"Account has \u0027sufficient funds\u0027",
+                "name": "Account has <sufficient funds>",
                 "keyword":"Scenario Outline",
                 "line":33,
                 "steps":[
@@ -413,7 +413,7 @@
                     {
                         "result":{
                             "duration":1933000,
-                            "status":"failed",
+                            "status": "skipped",
                             "error_message":"java.lang.AssertionError: \nExpected: is \u003c80\u003e\n     got: \u003c90\u003e\n\n\tat org.junit.Assert.assertThat(Assert.java:780)\n\tat org.junit.Assert.assertThat(Assert.java:738)\n\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)\n"
                         },
                         "name":"the account balance should be 90",
@@ -525,6 +525,24 @@
                         ]
                     }
                 ]
+            },
+            {
+                "id": "account-holder-withdraws-more-cash;clean-up",
+                "name": "Clean-up",
+                "keyword": "Scenario",
+                "line": 31,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 560000,
+                            "status": "passed"
+                        },
+                        "name": "Stream closing",
+                        "keyword": "Given ",
+                        "line": 32
+                    }
+                ],
+                "type": "scenario"
             }
         ],
         "uri":"net/masterthought/example/ATMK.feature"

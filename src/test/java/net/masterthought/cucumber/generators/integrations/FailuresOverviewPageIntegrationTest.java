@@ -83,8 +83,8 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         ElementAssertion[] elements = document.getElements();
-        assertThat(elements).hasSize(1);
-        assertThat(elements[0].getBrief().getName()).isEqualTo(features.get(1).getElements()[0].getName());
+        assertThat(elements).hasSize(2);
+        assertThat(elements[0].getBrief().getName()).isEqualTo(features.get(1).getElements()[0].getEscapedName());
 
     }
 }

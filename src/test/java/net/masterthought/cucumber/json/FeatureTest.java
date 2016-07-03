@@ -1,14 +1,12 @@
-package net.masterthought.cucumber;
+package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.Status;
 
 /**
@@ -58,7 +56,7 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(elements).hasSize(2);
-        assertThat(elements[0].getName()).isEqualTo("Activate Credit Card");
+        assertThat(elements[0].getEscapedName()).isEqualTo("Activate Credit Card");
     }
 
     @Test
@@ -139,6 +137,7 @@ public class FeatureTest extends PageTest {
         // then
         assertThat(scenarioCounter).isEqualTo(1);
     }
+
     @Test
     public void getSteps_ReturnsNumberOfSteps() {
 
@@ -161,9 +160,9 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(feature1.getPassedSteps()).isEqualTo(8);
-        assertThat(feature2.getFailedSteps()).isEqualTo(1);
+        assertThat(feature2.getFailedSteps()).isEqualTo(0);
         assertThat(feature1.getPendingSteps()).isEqualTo(2);
-        assertThat(feature2.getSkippedSteps()).isEqualTo(3);
+        assertThat(feature2.getSkippedSteps()).isEqualTo(4);
         assertThat(feature2.getMissingSteps()).isEqualTo(1);
         assertThat(feature1.getUndefinedSteps()).isEqualTo(1);
     }
@@ -201,7 +200,71 @@ public class FeatureTest extends PageTest {
         Feature feature = features.get(1);
 
         // then
-        assertThat(feature.getPassedScenarios()).isEqualTo(0);
+        assertThat(feature.getPassedScenarios()).isEqualTo(1);
         assertThat(feature.getFailedScenarios()).isEqualTo(1);
+    }
+
+    @Test
+    public void getJsonFile_ReturnsFileName() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        String fileName = feature.getJsonFile();
+
+        // then
+        assertThat(fileName).endsWith(SAMPLE_JSON);
+    }
+
+    @Test
+    public void compareTo_OnSameFeature_ReturnsZero() {
+
+        // given
+        Feature feature1 = features.get(0);
+        Feature feature2 = features.get(0);
+
+        // when
+        int result = feature1.compareTo(feature2);
+
+        // then
+        assertThat(result).isZero();
+    }
+
+    @Test
+    public void compareTo_OnSameName_ReturnsNotZero() {
+
+        // given
+        Feature feature1 = features.get(0);
+        Feature feature2 = buildFeature(feature1.getName(), "myId", "myFile.json");
+
+        // then
+        int result = feature1.compareTo(feature2);
+
+        // then
+        assertThat(result).isEqualTo(feature1.getId().compareTo(feature2.getId()));
+    }
+
+    @Test
+    public void compareTo_OnSameIDAndName_ReturnsNotZero() {
+
+        // given
+        Feature feature1 = features.get(0);
+        Feature feature2 = buildFeature(feature1.getName(), feature1.getId(), "myFile.json");
+
+        // then
+        int result = feature1.compareTo(feature2);
+
+        // then
+        assertThat(result).isEqualTo(feature1.getJsonFile().compareTo(feature2.getJsonFile()));
+    }
+
+    private static Feature buildFeature(final String name, final String id, final String jsonFile) {
+        Feature feature = new Feature();
+        Deencapsulation.setField(feature, "name", name);
+        Deencapsulation.setField(feature, "id", id);
+        Deencapsulation.setField(feature, "jsonFile", jsonFile);
+
+        return feature;
     }
 }

@@ -1,5 +1,8 @@
 package net.masterthought.cucumber.json;
 
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -10,6 +13,8 @@ import net.masterthought.cucumber.json.support.StatusCounter;
 public class Element {
 
     // Start: attributes from JSON file report
+    // as long as this is private attribute without getter deserialization must be forced by annotation
+    @JsonProperty("id")
     private final String id = null;
     private final String name = null;
     private final String type = null;
@@ -62,12 +67,12 @@ public class Element {
         return stepsStatus;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public String getRawName() {
-        return name;
+    public String getEscapedName() {
+        return StringUtils.defaultString(StringEscapeUtils.escapeHtml(name));
     }
 
     public String getKeyword() {
@@ -86,20 +91,13 @@ public class Element {
         return SCENARIO_TYPE.equals(type);
     }
 
-    public String getName() {
-        return StringUtils.defaultString(StringEscapeUtils.escapeHtml(name));
-    }
-
-    public boolean hasSteps() {
-        return steps.length > 0;
-    }
-
     public Feature getFeature() {
         return feature;
     }
 
     @Override
     public int hashCode() {
+        // background type does not define id
         return id != null ? id.hashCode() : super.hashCode();
     }
 
@@ -116,19 +114,20 @@ public class Element {
         }
 
         Element other = (Element) obj;
-        // in case of parallel tests, elements are the same when belong to the same feature
+        // in case of parallel tests, elements are the same when belong to different features
         if (feature == other.feature) {
-            return id != null ? id.equals(other.id) : super.equals(other);
+            return id != null ? Objects.equals(id, other.id) : super.equals(other);
         } else {
             return false;
         }
     }
 
-    public void setMedaData(Feature feature, Configuration configuration) {
+    public void setMetaData(Feature feature, Configuration configuration) {
         this.feature = feature;
         for (Step step : steps) {
             step.setMetaData();
         }
+
         calculateHooks(before);
         calculateHooks(after);
         elementStatus = calculateStatus(configuration);
@@ -139,7 +138,7 @@ public class Element {
 
     private void calculateHooks(Hook[] hooks) {
         for (Hook hook : hooks) {
-            hook.setMedaData();
+            hook.setMetaData();
         }
     }
 
@@ -204,10 +203,7 @@ public class Element {
 
     private void calculateStatusForHook(StatusCounter statusCounter, Hook[] hooks) {
         for (Hook hook : hooks) {
-            Result result = hook.getResult();
-            if (result != null) {
-                statusCounter.incrementFor(Status.toStatus(result.getStatus()));
-            }
+            statusCounter.incrementFor(Status.toStatus(hook.getResult().getStatus()));
         }
     }
 }

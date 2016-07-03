@@ -44,13 +44,16 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
-        for (String jsonFile : jsonFiles)
-            addReport(jsonFile);
-
-        configuration = new Configuration(reportDirectory, projectName);
-
+        if (jsonFiles != null) {
+            for (String jsonFile : jsonFiles)
+                addReport(jsonFile);
+        }
+        // may be already created so don't overwrite it
+        if (configuration == null) {
+            configuration = new Configuration(reportDirectory, projectName);
+        }
         createEmbeddingsDirectory();
-        createReportBuilder();
+        createReport();
     }
 
     private void addReport(String jsonReport) {
@@ -62,7 +65,7 @@ public abstract class ReportGenerator {
         }
     }
 
-    private void createReportBuilder() {
+    private void createReport() {
         ReportParser reportParser = new ReportParser(configuration);
 
         List<Feature> featuresFromJson = reportParser.parseJsonResults(jsonReports);

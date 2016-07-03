@@ -14,7 +14,9 @@ public enum Status {
     UNDEFINED,
     MISSING;
 
-    /** Returns name of the status as lower case characters. */
+    /**
+     * Returns name of the status converted to lower case characters.
+     */
     public String getRawName() {
         return name().toLowerCase();
     }

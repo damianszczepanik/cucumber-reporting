@@ -43,9 +43,9 @@
     </scm>
 
     <description>
-        This project provides pretty html reports for Cucumber. It works by generating html from the cucumber json
-        report formatter. So can be used anywhere a json report is generated. Current use is in the cucumber jenkins
-        plugin and a maven mojo to generate the same report from mvn command line when running locally.
+        Provides pretty html reports for Cucumber (Behaviour-Driven Development). It works by generating html from the
+        cucumber json report formatter. So can be used anywhere a json report is generated. Current use is in the
+        cucumber jenkins plugin and a maven mojo to generate the same report from mvn command line when running locally.
     </description>
 
     <licenses>

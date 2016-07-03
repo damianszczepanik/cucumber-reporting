@@ -111,8 +111,8 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "1", "3", "2", "1", "1", "231ms", "Failed");
-        firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "failed", "skipped", "pending", "undefined", "missing", "duration", "failed");
+        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "0", "4", "2", "1", "1", "231ms", "Failed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "pending", "undefined", "missing", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "checkout.html");
 
@@ -143,7 +143,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
-        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "1", "3", "6", "3", "1", "689ms", "Totals");
+        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "0", "4", "6", "3", "1", "689ms", "Totals");
     }
 
     @Test

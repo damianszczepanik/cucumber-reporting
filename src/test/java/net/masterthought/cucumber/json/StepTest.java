@@ -130,7 +130,7 @@ public class StepTest extends PageTest {
         Status status = step.getStatus();
 
         // then
-        assertThat(status).isEqualTo(Status.FAILED);
+        assertThat(status).isEqualTo(Status.SKIPPED);
     }
 
     @Test
