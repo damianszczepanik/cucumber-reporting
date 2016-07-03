@@ -8,9 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
-import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature implements Reportable, Comparable<Feature> {
@@ -211,7 +211,7 @@ public class Feature implements Reportable, Comparable<Feature> {
             totalSteps += element.getSteps().length;
 
             for (Step step : element.getSteps()) {
-                statusCounter.incrementFor(step.getStatus());
+                statusCounter.incrementFor(step.getResult().getStatus());
                 totalDuration += step.getDuration();
             }
         }

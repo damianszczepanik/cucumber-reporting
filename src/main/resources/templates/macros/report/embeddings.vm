@@ -35,7 +35,7 @@
 
 #macro(includeImageReferenceEmbedding, $embedding, $index)
   #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getData()${Quote}>", $index)
+  #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getDecodedData()${Quote}>", $index)
 #end
 
 #macro(includeTextEmbedding, $embedding, $format, $index)

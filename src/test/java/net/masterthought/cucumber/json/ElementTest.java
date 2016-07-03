@@ -100,7 +100,7 @@ public class ElementTest extends PageTest {
         Status status = element.getElementStatus();
 
         // then
-        assertThat(element.getSteps()[1].getStatus()).isEqualTo(Status.PENDING);
+        assertThat(element.getSteps()[1].getResult().getStatus()).isEqualTo(Status.PENDING);
         assertThat(status).isEqualTo(Status.FAILED);
     }
 
@@ -118,7 +118,7 @@ public class ElementTest extends PageTest {
         Status status = element.getElementStatus();
 
         // then
-        assertThat(element.getSteps()[6].getStatus()).isEqualTo(Status.UNDEFINED);
+        assertThat(element.getSteps()[6].getResult().getStatus()).isEqualTo(Status.UNDEFINED);
         assertThat(status).isEqualTo(Status.FAILED);
     }
 
@@ -299,13 +299,13 @@ public class ElementTest extends PageTest {
 
     private static void assertElementHasNoFailedStatus(Element element) {
         for (Step step : element.getSteps()) {
-            assertThat(step.getStatus()).isNotEqualTo(Status.FAILED);
+            assertThat(step.getResult().getStatus()).isNotEqualTo(Status.FAILED);
         }
         for (Hook hook : element.getBefore()) {
-            assertThat(hook.getStatus()).isNotEqualTo(Status.FAILED);
+            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
         }
         for (Hook hook : element.getAfter()) {
-            assertThat(hook.getStatus()).isNotEqualTo(Status.FAILED);
+            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
         }
     }
 }

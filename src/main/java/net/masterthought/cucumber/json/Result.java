@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
 public class Result {
@@ -13,8 +14,8 @@ public class Result {
     private final Long duration = 0L;
     // End: attributes from JSON file report
 
-    public String getStatus() {
-        return status;
+    public Status getStatus() {
+        return Status.toStatus(status);
     }
 
     public long getDuration() {

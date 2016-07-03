@@ -191,7 +191,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
             BriefAssertion brief = steps[i].getBrief();
             Step step = element.getSteps()[i];
 
-            brief.hasStatus(step.getStatus());
+            brief.hasStatus(step.getResult().getStatus());
             assertThat(brief.getKeyword()).isEqualTo(step.getKeyword());
             assertThat(brief.getName()).isEqualTo(step.getName());
             brief.hasDuration(step.getDuration());
@@ -338,7 +338,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         for (int i = 0; i < elements.length; i++) {
             BriefAssertion brief = elements[i].getBrief();
             assertThat(brief.getKeyword()).isEqualTo(hookName);
-            brief.hasStatus(hooks[i].getStatus());
+            brief.hasStatus(hooks[i].getResult().getStatus());
 
             if (hooks[i].getMatch() != null) {
                 assertThat(brief.getName()).isEqualTo(hooks[i].getMatch().getLocation());

@@ -17,7 +17,7 @@ public class ConfigurationTest {
     private final String projectName = "123";
 
     @Test
-    public void setStatusFlagsSetsFlags() {
+    public void setStatusFlags_SetsFlags() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -25,19 +25,15 @@ public class ConfigurationTest {
         boolean failsIFPendingIn = false;
         boolean failsIfSkippedIn = true;
         boolean failsIfUndefinedIn = false;
-        configuration.setStatusFlags(failsIfSkippedIn, failsIFPendingIn, failsIfUndefinedIn, failsIfMissingIn);
 
         // when
-        boolean failsIfSkippedOut = configuration.failsIfSkipped();
-        boolean failsIFPendingOut = configuration.failsIFPending();
-        boolean failsIfUndefinedOut = configuration.failsIfUndefined();
-        boolean failsIfMissingOut = configuration.failsIfMissing();
+        configuration.setStatusFlags(failsIfSkippedIn, failsIFPendingIn, failsIfUndefinedIn, failsIfMissingIn);
 
         // then
-        assertThat(failsIfSkippedOut).isEqualTo(failsIfSkippedIn);
-        assertThat(failsIFPendingOut).isEqualTo(failsIFPendingIn);
-        assertThat(failsIfUndefinedOut).isEqualTo(failsIfUndefinedIn);
-        assertThat(failsIfMissingOut).isEqualTo(failsIfMissingIn);
+        assertThat(configuration.failsIfSkipped()).isEqualTo(failsIfSkippedIn);
+        assertThat(configuration.failsIFPending()).isEqualTo(failsIFPendingIn);
+        assertThat(configuration.failsIfUndefined()).isEqualTo(failsIfUndefinedIn);
+        assertThat(configuration.failsIfMissing()).isEqualTo(failsIfMissingIn);
     }
 
     @Test

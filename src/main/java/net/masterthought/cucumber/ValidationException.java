@@ -1,7 +1,7 @@
 package net.masterthought.cucumber;
 
 /**
- * Notifies when report cannot be generated.
+ * Thrown when report cannot be generated.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
  */

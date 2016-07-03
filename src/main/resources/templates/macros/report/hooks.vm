@@ -9,7 +9,7 @@
     <div id="$keyword.toLowerCase()-$hooks.hashCode()" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
       #foreach($hook in $hooks)
         <div class="hook">
-          <div class="brief $hook.getStatus().getRawName()">
+          <div class="brief $hook.getResult().getStatus().getRawName()">
             <span class="keyword indention">$keyword</span>
             #if ($hook.getMatch())
               <span class="location name">$hook.getMatch().getLocation()</span>

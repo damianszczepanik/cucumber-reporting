@@ -28,7 +28,13 @@
                         "line":8,
                         "match":{
                             "location":"ATMScenario.I_have_a_new_credit_card()"
-                        }
+                        },
+                        "embeddings": [
+                            {
+                                "mime_type": "image/url",
+                                "data": "aHR0cDovL2xvY2FsaG9zdC9zdGF0aWMvbG9nby5wbmc="
+                            }
+                        ]
                     },
                     {
                         "result":{

@@ -127,7 +127,7 @@ public class StepTest extends PageTest {
         Step step = features.get(1).getElements()[0].getSteps()[5];
 
         // when
-        Status status = step.getStatus();
+        Status status = step.getResult().getStatus();
 
         // then
         assertThat(status).isEqualTo(Status.SKIPPED);

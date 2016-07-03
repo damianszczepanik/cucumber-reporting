@@ -13,7 +13,5 @@ public interface Resultsable {
 
     Result getResult();
 
-    Status getStatus();
-
     Match getMatch();
 }

@@ -1,7 +1,8 @@
-package net.masterthought.cucumber.reports;
+package net.masterthought.cucumber.generators;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
@@ -98,7 +99,7 @@ public class OverviewReport implements Reportable {
 
     @Override
     public String getName() {
-        return reportName;
+        throw new NotImplementedException();
     }
 
     @Override

@@ -113,6 +113,19 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getKeyword_ReturnsKeyword() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        String keyword = feature.getKeyword();
+
+        // then
+        assertThat(keyword).isEqualTo("Feature");
+    }
+
+    @Test
     public void getDescription_ReturnsDescription() {
 
         // given

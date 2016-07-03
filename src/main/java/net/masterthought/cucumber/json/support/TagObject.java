@@ -6,10 +6,10 @@ import java.util.List;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.reports.Reportable;
 import net.masterthought.cucumber.util.Util;
 
 public class TagObject implements Reportable, Comparable<TagObject> {
@@ -65,7 +65,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
         elementsStatusCounter.incrementFor(element.getElementStatus());
 
         for (Step step : element.getSteps()) {
-            stepsStatusCounter.incrementFor(step.getStatus());
+            stepsStatusCounter.incrementFor(step.getResult().getStatus());
             totalDuration += step.getDuration();
             totalSteps++;
         }
