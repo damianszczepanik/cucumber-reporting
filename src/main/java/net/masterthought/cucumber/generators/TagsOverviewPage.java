@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,8 +37,8 @@ public class TagsOverviewPage extends AbstractPage {
         context.put("all_tags", tags);
         context.put("report_summary", report.getTagReport());
 
-        context.put("chart_categories", generateTagLabels(tags));
-        context.put("chart_data", generateTagValues(tags));
+        context.put("chart_categories", generateTagLabels(filterExcludedTags(tags)));
+        context.put("chart_data", generateTagValues(filterExcludedTags(tags)));
     }
 
     static String generateTagLabels(List<TagObject> tagsObjectList) {
@@ -49,6 +50,26 @@ public class TagsOverviewPage extends AbstractPage {
         }
         return "[" + StringUtils.join(tagNames, ",") + "]";
     }
+
+	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
+		List<TagObject> filteredTags = new ArrayList<>();
+		for (TagObject tagObject : tagsObjectList) {
+			String tagName = tagObject.getName();
+			if (shouldIncludeTag(tagName)) {
+				filteredTags.add(tagObject);
+			}
+		}
+		return filteredTags;
+	}
+
+	private boolean shouldIncludeTag(String tagName) {
+		for (Pattern pattern : configuration.getTagsToExcludeFromChart()) {
+			if (tagName.matches(pattern.pattern())) {
+				return false;
+			}
+		}
+		return true;
+	}
 
     static List<String> generateTagValues(List<TagObject> tagsObjectList) {
         int tagsCount = tagsObjectList.size();

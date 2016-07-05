@@ -3,15 +3,21 @@ package net.masterthought.cucumber;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ConfigurationTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
     private static final File outputDirectory = new File("abc");
 
     private final String projectName = "123";
@@ -108,7 +114,7 @@ public class ConfigurationTest {
         // then
         assertThat(dir).isEqualTo(outputDirectory);
     }
-    
+
     @Test
     public void getBuildNumber_ReturnsBuildNumber() {
 
@@ -135,5 +141,42 @@ public class ConfigurationTest {
 
         // then
         assertThat(name).isEqualTo(projectName);
+    }
+
+    @Test
+    public void getTagsToExcludeFromChart_ReturnsEmptyList() {
+        // give
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        Collection<Pattern> patterns = configuration.getTagsToExcludeFromChart();
+
+        // then
+        assertThat(patterns).isEmpty();
+    }
+
+    @Test
+    public void getTagsToExcludeFromChart_addPatterns_ReturnsListWithAllPatterns() {
+        // give
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        String somePattern = "@specificTagNameToExclude";
+        String anotherPattern = "@some.Regex.Pattern";
+        configuration.setTagsToExcludeFromChart(somePattern, anotherPattern);
+
+        // when
+        Collection<Pattern> patterns = configuration.getTagsToExcludeFromChart();
+
+        // then
+        assertThat(patterns).extractingResultOf("pattern").containsOnly(somePattern, anotherPattern);
+    }
+
+    @Test
+    public void setTagsToExcludeFromChart_OnInvalidRegexPattern_ThrowsValidationException() {
+        // give
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        thrown.expect(ValidationException.class);
+
+        // when + then
+        configuration.setTagsToExcludeFromChart("\\invalid.regex\\");
     }
 }
