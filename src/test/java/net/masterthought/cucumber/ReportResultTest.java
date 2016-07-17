@@ -1,0 +1,87 @@
+package net.masterthought.cucumber;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
+public class ReportResultTest extends ReportGenerator {
+
+    @Before
+    public void setUp() {
+        setUpWithJson(SAMPLE_JSON);
+    }
+
+    @Test
+    public void getAllFeatures_ReturnsFeatures() {
+
+        // when
+        List<Feature> features = reportResult.getAllFeatures();
+
+        // then
+        assertThat(features).hasSize(2);
+    }
+
+    @Test
+    public void getTags_ReturnsTags() {
+
+        // when
+        List<TagObject> tags = reportResult.getAllTags();
+
+        // then
+        assertThat(tags).hasSize(3);
+    }
+
+    @Test
+    public void getAllSteps_ReturnsSteps() {
+
+        // given
+        List<StepObject> tags = reportResult.getAllSteps();
+
+        // then
+        assertThat(tags).hasSize(16);
+    }
+
+    @Test
+    public void getFeatureReport_ReturnsTagReport() {
+
+        // when
+        Reportable reportable = reportResult.getTagReport();
+
+        // then
+        assertThat(reportable.getDurations()).isEqualTo(689064334L);
+    }
+
+    @Test
+    public void getAllXXXFeatures_ReturnsFeaturesByStatus() {
+
+        // when
+        int passingFeatures = reportResult.getAllPassedFeatures();
+        int failedFeatures = reportResult.getAllFailedFeatures();
+
+        // then
+        assertThat(passingFeatures).isEqualTo(1);
+        assertThat(failedFeatures).isEqualTo(1);
+    }
+
+    @Test
+    public void getBuildTime_ReturnsFormattedBuildTime() {
+
+        // when
+        String time = reportResult.getBuildTime();
+
+        // then
+        // validate only format such as "17 lip 2016, 18:40"
+        assertThat(time).containsPattern(Pattern.compile("^\\d{0,2} \\w{3} \\d{4}, \\d{1,2}:\\d{1,2}$"));
+    }
+}

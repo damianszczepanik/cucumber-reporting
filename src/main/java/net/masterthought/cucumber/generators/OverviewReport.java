@@ -20,6 +20,10 @@ public class OverviewReport implements Reportable {
         this.reportName = reportName;
     }
 
+    public void incScenarioFor(Status status) {
+        this.scenariosCounter.incrementFor(status);
+    }
+
     @Override
     public int getScenarios() {
         return scenariosCounter.size();
@@ -35,8 +39,8 @@ public class OverviewReport implements Reportable {
         return scenariosCounter.getValueFor(Status.FAILED);
     }
 
-    public void incScenarioFor(Status status) {
-        this.scenariosCounter.incrementFor(status);
+    public void incStepsFor(Status status) {
+        this.stepsCounter.incrementFor(status);
     }
 
     @Override
@@ -74,8 +78,8 @@ public class OverviewReport implements Reportable {
         return stepsCounter.getValueFor(Status.PENDING);
     }
 
-    public void incStepsFor(Status status) {
-        this.stepsCounter.incrementFor(status);
+    public void incDurationBy(long duration) {
+        this.duration += duration;
     }
 
     @Override
@@ -86,10 +90,6 @@ public class OverviewReport implements Reportable {
     @Override
     public String getFormattedDurations() {
         return Util.formatDuration(getDurations());
-    }
-
-    public void incDurationBy(long duration) {
-        this.duration += duration;
     }
 
     @Override
