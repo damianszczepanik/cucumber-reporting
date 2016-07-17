@@ -73,6 +73,21 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getReportFileName_OnParallelTesting_ReturnsFileNameWithNumberPostfix() {
+
+        // given
+        configuration.setParallelTesting(true);
+        setUpWithJson(SAMPLE_JSON);
+        Feature feature = features.get(2);
+
+        // when
+        String fileName = feature.getReportFileName();
+
+        // then
+        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature_sample.html");
+    }
+
+    @Test
     public void getTags_ReturnsTags() {
 
         // given
