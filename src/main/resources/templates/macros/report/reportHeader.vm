@@ -1,7 +1,7 @@
 #macro(includeReportHeader, $table_key, $parallel)
 <thead>
   <tr class="header dont-sort">
-    #if($parallel)
+    #if ($parallel)
       <th></th>
     #end
     <th></th>
@@ -12,7 +12,7 @@
   </tr>
   <tr>
     <th>$table_key</th>
-    #if($parallel)
+    #if ($parallel)
       <th>Device</th>
     #end
     <th>Total</th>

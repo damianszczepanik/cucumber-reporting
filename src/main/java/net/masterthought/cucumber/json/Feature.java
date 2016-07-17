@@ -164,8 +164,9 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     private void calculateDeviceName() {
         String[] splitJsonFile = jsonFile.split("[^\\d\\w]");
+        // it should have at least two parts: file name and its extension (.json)
         if (splitJsonFile.length > 1) {
-            // file name without path and extension (usually path/{jsonFile}.json)
+            // file name without path and extension (usually path/jsonFile.json)
             deviceName = splitJsonFile[splitJsonFile.length - 2];
         } else {
             // path name without special characters
