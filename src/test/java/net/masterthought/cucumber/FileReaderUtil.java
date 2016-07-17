@@ -7,7 +7,7 @@ public class FileReaderUtil {
 
     public static String getAbsolutePathFromResource(String resource) {
         try {
-            return new File(ReportInformationTest.class.getClassLoader().getResource(resource).toURI()).getAbsolutePath();
+            return new File(FileReaderUtil.class.getClassLoader().getResource(resource).toURI()).getAbsolutePath();
         } catch (URISyntaxException e) {
             throw new ValidationException("Could not read resource: " + resource, e);
         }
