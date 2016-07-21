@@ -17,20 +17,12 @@
 <div class="container-fluid" id="summary">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      #if($all_features.isEmpty())
-        <p>You have no failed scenarios in your cucumber report</p>
+      #if($failures.isEmpty())
+        <p>You have no failed scenarios in your Cucumber report</p>
       #else
         <div class="elements">
-          #foreach($feature in $all_features)
-            #if(!$feature.getStatus().isPassed())
-
-              #foreach($element in $feature.getElements())
-                #if(!$element.getStatus().isPassed())
-                  #includeElement($element, true)
-                #end
-              #end
-
-            #end
+          #foreach($element in $failures)
+            #includeElement($element, true)
           #end
         </div>
       #end
