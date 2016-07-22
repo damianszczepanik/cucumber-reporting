@@ -9,16 +9,10 @@ import net.masterthought.cucumber.util.Util;
 
 public class OverviewReport implements Reportable {
 
-    private final String reportName;
-
     private long duration;
 
     private final StatusCounter scenariosCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
-
-    public OverviewReport(String reportName) {
-        this.reportName = reportName;
-    }
 
     public void incScenarioFor(Status status) {
         this.scenariosCounter.incrementFor(status);

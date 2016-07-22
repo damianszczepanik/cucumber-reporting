@@ -145,7 +145,8 @@ public class ConfigurationTest {
 
     @Test
     public void getTagsToExcludeFromChart_ReturnsEmptyList() {
-        // give
+
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
         // when
@@ -157,7 +158,8 @@ public class ConfigurationTest {
 
     @Test
     public void getTagsToExcludeFromChart_addPatterns_ReturnsListWithAllPatterns() {
-        // give
+
+        // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         String somePattern = "@specificTagNameToExclude";
         String anotherPattern = "@some.Regex.Pattern";
@@ -172,11 +174,12 @@ public class ConfigurationTest {
 
     @Test
     public void setTagsToExcludeFromChart_OnInvalidRegexPattern_ThrowsValidationException() {
-        // give
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        thrown.expect(ValidationException.class);
 
-        // when + then
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // then
+        thrown.expect(ValidationException.class);
         configuration.setTagsToExcludeFromChart("\\invalid.regex\\");
     }
 }

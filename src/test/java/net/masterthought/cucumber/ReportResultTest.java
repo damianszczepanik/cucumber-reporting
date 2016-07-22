@@ -25,6 +25,9 @@ public class ReportResultTest extends ReportGenerator {
     @Test
     public void getAllFeatures_ReturnsFeatures() {
 
+        // given
+        // from @Before
+
         // when
         List<Feature> features = reportResult.getAllFeatures();
 
@@ -34,6 +37,9 @@ public class ReportResultTest extends ReportGenerator {
 
     @Test
     public void getTags_ReturnsTags() {
+
+        // given
+        // from @Before
 
         // when
         List<TagObject> tags = reportResult.getAllTags();
@@ -46,6 +52,9 @@ public class ReportResultTest extends ReportGenerator {
     public void getAllSteps_ReturnsSteps() {
 
         // given
+        // from @Before
+
+        // when
         List<StepObject> tags = reportResult.getAllSteps();
 
         // then
@@ -54,6 +63,9 @@ public class ReportResultTest extends ReportGenerator {
 
     @Test
     public void getFeatureReport_ReturnsTagReport() {
+
+        // given
+        // from @Before
 
         // when
         Reportable reportable = reportResult.getTagReport();
@@ -64,6 +76,9 @@ public class ReportResultTest extends ReportGenerator {
 
     @Test
     public void getAllXXXFeatures_ReturnsFeaturesByStatus() {
+
+        // given
+        // from @Before
 
         // when
         int passingFeatures = reportResult.getAllPassedFeatures();
@@ -76,6 +91,9 @@ public class ReportResultTest extends ReportGenerator {
 
     @Test
     public void getBuildTime_ReturnsFormattedBuildTime() {
+
+        // given
+        // from @Before
 
         // when
         String time = reportResult.getBuildTime();

@@ -179,6 +179,20 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
+    public void getStatus_ReturnsStatus() {
+
+        // given
+        TagObject tag = new TagObject("hello");
+        tag.addElement(this.features.get(0).getElements()[0]);
+
+        // when
+        Status status = tag.getStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.PASSED);
+    }
+
+    @Test
     public void getRawStatus_ReturnsRawOfFinalStatus() {
 
         // given

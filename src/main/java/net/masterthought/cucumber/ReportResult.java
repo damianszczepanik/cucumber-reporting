@@ -34,8 +34,8 @@ public class ReportResult {
 
     private final String buildTime;
 
-    private final OverviewReport featuresReport = new OverviewReport("Features");
-    private final OverviewReport tagsReport = new OverviewReport("Tags");
+    private final OverviewReport featuresReport = new OverviewReport();
+    private final OverviewReport tagsReport = new OverviewReport();
 
     public ReportResult(List<Feature> features) {
         this.buildTime = getCurrentTime();

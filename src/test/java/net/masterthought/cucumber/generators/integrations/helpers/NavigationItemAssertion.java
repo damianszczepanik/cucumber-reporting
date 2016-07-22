@@ -18,7 +18,7 @@ public class NavigationItemAssertion extends LinkAssertion {
     }
 
     public void hasLinkToLastResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Last results", "/job/" + configuration.getProjectName() + "/cucumber-html-reports/" + page);
+        hasLabelAndAddress("Latest results", "/job/" + configuration.getProjectName() + "/cucumber-html-reports/" + page);
     }
 
     public void hasLinkToFeatures() {
