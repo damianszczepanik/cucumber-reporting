@@ -165,7 +165,7 @@ public class OverviewReportTest extends PageTest {
     }
 
     private static OverviewReport buildSampleReport() {
-        OverviewReport report = new OverviewReport("myReport");
+        OverviewReport report = new OverviewReport();
         report.incDurationBy(1234567L);
         report.incScenarioFor(Status.PASSED);
         report.incScenarioFor(Status.UNDEFINED);
