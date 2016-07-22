@@ -4,11 +4,12 @@
   <div class="outputs inner-level">
     #foreach($message in $output.getMessages())
       <div class="output indention">
-        <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$message.hashCode()">
+        #set($outputId = $counter.next())
+        <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$outputId">
           #set($index = $foreach.index + 1)
           <a>Output $index</a>
         </div>
-        <div id="msg-$message.hashCode()" class="collapse collapsable-details">
+        <div id="msg-$outputId" class="collapse collapsable-details">
           <pre>$message</pre>
         </div>
       </div>

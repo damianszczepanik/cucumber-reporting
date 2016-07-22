@@ -18,6 +18,7 @@ import org.apache.velocity.app.VelocityEngine;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.util.Counter;
 
 /**
  * Delivers common methods for page generation.
@@ -81,6 +82,8 @@ public abstract class AbstractPage {
     }
 
     private void buildGeneralParameters() {
+        // to provide unique ids for elements on each page
+        context.put("counter", new Counter());
         context.put("jenkins_source", configuration.isRunWithJenkins());
         context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("build_project_name", configuration.getProjectName());

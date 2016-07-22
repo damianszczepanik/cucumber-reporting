@@ -1,12 +1,14 @@
 #macro(includeMessage, $messageName, $message)
 
 #if ($message)
+  #set($msgId = $counter.next())
+
   <div class="inner-level">
     <div class="message indention">
-      <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$message.hashCode()">
+      <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$msgId">
           <a>$messageName</a>
       </div>
-      <div id="msg-$message.hashCode()" class="collapse collapsable-details">
+      <div id="msg-$msgId" class="collapse collapsable-details">
         <pre>$message</pre>
       </div>
     </div>
