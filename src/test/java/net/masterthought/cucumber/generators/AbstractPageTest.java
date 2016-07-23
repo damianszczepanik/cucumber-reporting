@@ -1,16 +1,18 @@
 package net.masterthought.cucumber.generators;
 
-import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.util.Counter;
-import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.util.Properties;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import mockit.Deencapsulation;
+import org.apache.velocity.VelocityContext;
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.util.Counter;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -32,7 +34,8 @@ public class AbstractPageTest extends PageTest {
         page.generatePage();
 
         // then
-        File reportFile = new File(configuration.getReportDirectory(), page.getWebPage());
+        File reportFile = new File(configuration.getReportDirectory(),
+                ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 

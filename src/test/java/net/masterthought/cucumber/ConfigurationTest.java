@@ -84,7 +84,7 @@ public class ConfigurationTest {
         String path = configuration.getJenkinsBasePath();
 
         // then
-        assertThat(path).isEqualTo("/");
+        assertThat(path).isEmpty();
     }
 
     @Test

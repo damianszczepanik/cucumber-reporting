@@ -65,7 +65,7 @@ public final class Configuration {
     }
 
     public String getJenkinsBasePath() {
-        return StringUtils.isEmpty(jenkinsBasePath) ? "/" : jenkinsBasePath;
+        return StringUtils.defaultString(jenkinsBasePath);
     }
 
     public void setJenkinsBasePath(String jenkinsBase) {
@@ -97,7 +97,8 @@ public final class Configuration {
     }
 
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), Configuration.EMBEDDINGS_DIRECTORY);
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
+                + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
 
     }
 

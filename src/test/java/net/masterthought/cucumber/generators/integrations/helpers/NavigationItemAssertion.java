@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -8,21 +9,21 @@ import net.masterthought.cucumber.Configuration;
 public class NavigationItemAssertion extends LinkAssertion {
 
     public void hasLinkToJenkins(Configuration configuration) {
-        hasLabelAndAddress("Jenkins", "/job/" + configuration.getProjectName() + "/" + configuration.getBuildNumber());
+        hasLabelAndAddress("Jenkins", "../" + configuration.getJenkinsBasePath());
     }
 
     public void hasLinkToPreviousResult(Configuration configuration, String page) {
         final Integer prevBuildNumber = Integer.parseInt(configuration.getBuildNumber()) - 1;
-        hasLabelAndAddress("Previous results", "/job/" + configuration.getProjectName() + "/" + prevBuildNumber
-                + "/cucumber-html-reports/" + page);
+        hasLabelAndAddress("Previous results", "../.." + configuration.getJenkinsBasePath() + "/" + prevBuildNumber
+                + "/" + ReportBuilder.BASE_DIRECTORY + "/" + page);
     }
 
     public void hasLinkToLastResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Latest results", "/job/" + configuration.getProjectName() + "/cucumber-html-reports/" + page);
+        hasLabelAndAddress("Latest results", "../../lastBuild/" + ReportBuilder.BASE_DIRECTORY + "/" + page);
     }
 
     public void hasLinkToFeatures() {
-        hasLabelAndAddress("Features", "feature-overview.html");
+        hasLabelAndAddress("Features", ReportBuilder.HOME_PAGE);
     }
 
     public void hasLinkToTags() {

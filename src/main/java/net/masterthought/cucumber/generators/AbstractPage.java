@@ -16,6 +16,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Counter;
@@ -63,7 +64,8 @@ public abstract class AbstractPage {
         context.put("report_file", getWebPage());
 
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
-        File reportFile = new File(configuration.getReportDirectory(), getWebPage());
+        File reportFile = new File(configuration.getReportDirectory(),
+                ReportBuilder.BASE_DIRECTORY + File.separatorChar + getWebPage());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
         } catch (IOException e) {
