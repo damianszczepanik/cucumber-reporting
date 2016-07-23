@@ -4,12 +4,12 @@
     <div class="collapse navbar-collapse">
       <p class="navbar-text navbar-left">Cucumber-JVM Report</p>
       <ul class="nav navbar-nav navbar-right">
-        #if($jenkins_source)
-          <li role="presentation"><a href="${jenkins_base}job/$build_project_name/$build_number">Jenkins</a></li>
-          #if($build_previous_number)
-            <li role="presentation"><a href="${jenkins_base}job/$build_project_name/$build_previous_number/cucumber-html-reports/$report_file">Previous results</a></li>
+        #if ($jenkins_source)
+          <li role="presentation"><a href="${jenkins_base}../">Jenkins</a></li>
+          #if ($build_previous_number)
+            <li role="presentation"><a href="${jenkins_base}../../$build_previous_number/cucumber-html-reports/$report_file">Previous results</a></li>
           #end
-          <li role="presentation"><a href="${jenkins_base}job/$build_project_name/cucumber-html-reports/$report_file">Latest results</a></li>
+          <li role="presentation"><a href="${jenkins_base}../../lastBuild/cucumber-html-reports/$report_file">Latest results</a></li>
         #end
         <li role="presentation" #if($active_tab == "features") class="active" #end><a href="feature-overview.html">Features</a></li>
         <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="tag-overview.html">Tags</a></li>

@@ -28,6 +28,11 @@ public class ReportBuilder {
      */
     public static final String HOME_PAGE = "feature-overview.html";
 
+    /**
+     * Subdirectory where the report will be created.
+     */
+    public static final String BASE_DIRECTORY = "cucumber-html-reports";
+
     private ReportResult reportResult;
     private final ReportParser reportParser;
 
@@ -85,7 +90,7 @@ public class ReportBuilder {
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
-                    resourceLocation + File.separatorChar + resource);
+                    BASE_DIRECTORY + File.separatorChar + resourceLocation + File.separatorChar + resource);
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(
