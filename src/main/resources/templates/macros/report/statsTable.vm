@@ -20,7 +20,6 @@
         <td #if ($item.getSkippedSteps() > 0)    class="skipped"   #end>$item.getSkippedSteps()</td>
         <td #if ($item.getPendingSteps() > 0)    class="pending"   #end>$item.getPendingSteps()</td>
         <td #if ($item.getUndefinedSteps() > 0)  class="undefined" #end>$item.getUndefinedSteps()</td>
-        <td #if ($item.getMissingSteps() > 0)    class="missing"   #end>$item.getMissingSteps()</td>
         <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
         <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
       </tr>
@@ -42,7 +41,6 @@
       <td>$report_summary.getSkippedSteps()</td>
       <td>$report_summary.getPendingSteps()</td>
       <td>$report_summary.getUndefinedSteps()</td>
-      <td>$report_summary.getMissingSteps()</td>
       <td class="duration">$report_summary.getFormattedDurations()</td>
       <td>Totals</td>
     </tr>

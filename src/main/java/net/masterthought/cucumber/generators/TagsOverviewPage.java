@@ -1,18 +1,17 @@
 package net.masterthought.cucumber.generators;
 
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.TagObject;
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.StringUtils;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagsOverviewPage extends AbstractPage {
 
@@ -82,7 +81,6 @@ public class TagsOverviewPage extends AbstractPage {
             values[2][i] = format(tagObject.getSkippedSteps(), allSteps);
             values[3][i] = format(tagObject.getPendingSteps(), allSteps);
             values[4][i] = format(tagObject.getUndefinedSteps(), allSteps);
-            values[5][i] = format(tagObject.getMissingSteps(), allSteps);
         }
 
         List<String> statuses = new ArrayList<>();

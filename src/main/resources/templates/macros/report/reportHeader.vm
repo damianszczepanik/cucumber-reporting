@@ -6,7 +6,7 @@
     #end
     <th></th>
     <th colspan="3">Scenarios</th>
-    <th colspan="7">Steps</th>
+    <th colspan="6">Steps</th>
     <th></th>
     <th></th>
   </tr>
@@ -24,7 +24,6 @@
     <th class="skipped">Skipped</th>
     <th class="pending">Pending</th>
     <th class="undefined">Undefined</th>
-    <th class="missing">Missing</th>
     <th>Duration</th>
     <th>Status</th>
   </tr>

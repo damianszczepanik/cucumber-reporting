@@ -21,7 +21,6 @@
           <td #if ($reportable.getSkippedSteps() != 0)   class="skipped"   #end>$reportable.getSkippedSteps()</td>
           <td #if ($reportable.getPendingSteps() != 0)   class="pending"   #end>$reportable.getPendingSteps()</td>
           <td #if ($reportable.getUndefinedSteps() != 0) class="undefined" #end>$reportable.getUndefinedSteps()</td>
-          <td #if ($reportable.getMissingSteps() != 0)   class="missing"   #end>$reportable.getMissingSteps()</td>
           <td class="duration" data-value="$reportable.getDurations()">$reportable.getFormattedDurations()</td>
           <td class="$reportable.getStatus().getRawName()">$reportable.getStatus().getLabel()</td>
         </tr>

@@ -27,11 +27,6 @@ $(document).ready(function() {
           label: 'Undefined',
           backgroundColor: "#F5B975",
           data: $chart_data.get(4)
-        },
-        {
-          label: 'Missing',
-          backgroundColor: "#FAB3E9",
-          data: $chart_data.get(5)
         }
       ]
   };

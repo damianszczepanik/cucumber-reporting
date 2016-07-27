@@ -1,16 +1,15 @@
 package net.masterthought.cucumber.json.support;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -175,7 +174,6 @@ public class TagObjectTest extends PageTest {
         assertThat(tag.getNumberOfStatus(Status.PASSED)).isEqualTo(8);
         assertThat(tag.getNumberOfStatus(Status.FAILED)).isEqualTo(0);
         assertThat(tag.getNumberOfStatus(Status.PENDING)).isEqualTo(2);
-        assertThat(tag.getNumberOfStatus(Status.MISSING)).isEqualTo(0);
     }
 
     @Test

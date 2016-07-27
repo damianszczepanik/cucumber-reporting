@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -191,7 +190,6 @@ public class FeatureTest extends PageTest {
         assertThat(feature2.getFailedSteps()).isEqualTo(0);
         assertThat(feature1.getPendingSteps()).isEqualTo(2);
         assertThat(feature2.getSkippedSteps()).isEqualTo(4);
-        assertThat(feature2.getMissingSteps()).isEqualTo(1);
         assertThat(feature1.getUndefinedSteps()).isEqualTo(1);
     }
 

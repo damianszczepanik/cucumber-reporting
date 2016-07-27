@@ -1,21 +1,20 @@
 package net.masterthought.cucumber;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.lang.StringUtils;
-
 public final class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
 
     private boolean failsIfSkipped;
-    private boolean failsIFPending;
+    private boolean failsIfPending;
     private boolean failsIfUndefined;
-    private boolean failsIfMissing;
 
     private boolean parallelTesting;
     private String jenkinsBasePath;
@@ -32,28 +31,22 @@ public final class Configuration {
         this.projectName = projectName;
     }
 
-    public void setStatusFlags(boolean failsIfSkipped, boolean failsIFPending, boolean failsIfUndefined,
-            boolean failsIfMissing) {
+    public void setStatusFlags(boolean failsIfSkipped, boolean failsIfPending, boolean failsIfUndefined) {
         this.failsIfSkipped = failsIfSkipped;
-        this.failsIFPending = failsIFPending;
+        this.failsIfPending = failsIfPending;
         this.failsIfUndefined = failsIfUndefined;
-        this.failsIfMissing = failsIfMissing;
     }
 
     public boolean failsIfSkipped() {
         return failsIfSkipped;
     }
 
-    public boolean failsIFPending() {
-        return failsIFPending;
+    public boolean failsIfPending() {
+        return failsIfPending;
     }
 
     public boolean failsIfUndefined() {
         return failsIfUndefined;
-    }
-
-    public boolean failsIfMissing() {
-        return failsIfMissing;
     }
 
     public boolean isParallelTesting() {

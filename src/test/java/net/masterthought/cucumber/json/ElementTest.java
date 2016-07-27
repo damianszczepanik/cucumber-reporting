@@ -1,12 +1,11 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -91,7 +90,7 @@ public class ElementTest extends PageTest {
     public void getElementStatus_OnFailsIfPending_ReturnsFailedStatus() {
 
         // given
-        configuration.setStatusFlags(false, true, false, false);
+        configuration.setStatusFlags(false, true, false);
         setUpWithJson(SAMPLE_JSON);
         Element element = features.get(0).getElements()[1];
         assertElementHasNoFailedStatus(element);
@@ -109,7 +108,7 @@ public class ElementTest extends PageTest {
 
         // given
         // TODO: add tests for test flags
-        configuration.setStatusFlags(false, false, true, false);
+        configuration.setStatusFlags(false, false, true);
         setUpWithJson();
         Element element = features.get(0).getElements()[1];
         assertElementHasNoFailedStatus(element);

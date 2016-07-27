@@ -324,7 +324,7 @@
                 "steps":[
                     {
                         "result":{
-                            "status":"missing"
+                            "status":"undefined"
                         },
                         "name":"the account balance is 100",
                         "keyword":"Given ",

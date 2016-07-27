@@ -1,15 +1,10 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.FeaturesOverviewPage;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.FeaturesOverviewPage;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -92,7 +87,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion secondRow = headerRows[1];
         secondRow.hasExactValues("Feature", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
-                "Pending", "Undefined", "Missing", "Duration", "Status");
+                "Pending", "Undefined", "Duration", "Status");
     }
 
     @Test
@@ -100,7 +95,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false, true);
+        configuration.setStatusFlags(true, false, false);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -113,15 +108,15 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(2);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("1st feature", "1", "1", "0", "11", "8", "0", "0", "2", "1", "0", "1m 39s 353ms", "Passed");
-        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
-        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "99353122889", "");
+        firstRow.hasExactValues("1st feature", "1", "1", "0", "11", "8", "0", "0", "2", "1", "1m 39s 353ms", "Passed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "duration", "passed");
+        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "99353122889", "");
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "net-masterthought-example-s--ATM-local-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("Second feature", "2", "1", "1", "10", "5", "0", "4", "0", "0", "1", "002ms", "Failed");
-        secondRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "", "", "missing", "duration", "failed");
-        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "2610000", "");
+        secondRow.hasExactValues("Second feature", "2", "1", "1", "10", "5", "0", "4", "0", "1", "002ms", "Failed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "", "undefined", "duration", "failed");
+        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "2610000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "net-masterthought-example-ATMK-feature.html");
     }
 
@@ -130,7 +125,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false, true);
+        configuration.setStatusFlags(true, false, false);
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
@@ -140,7 +135,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("2", "3", "2", "1", "21", "13", "0", "4", "2", "1", "1", "1m 39s 355ms", "Totals");
+        footerCells.hasExactValues("2", "3", "2", "1", "21", "13", "0", "4", "2", "2", "1m 39s 355ms", "Totals");
     }
 
     @Test

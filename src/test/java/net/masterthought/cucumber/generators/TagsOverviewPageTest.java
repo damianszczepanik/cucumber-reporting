@@ -1,17 +1,16 @@
 package net.masterthought.cucumber.generators;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.TagObject;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -73,8 +72,7 @@ public class TagsOverviewPageTest extends PageTest {
                 "[0.00]",
                 "[0.00]",
                 "[28.57]",
-                "[14.29]",
-                "[0.00]"));
+                "[14.29]"));
     }
 
     @Test
@@ -105,8 +103,7 @@ public class TagsOverviewPageTest extends PageTest {
                 "[0.00,0.00,0.00]",
                 "[25.00,0.00,0.00]",
                 "[12.50,28.57,28.57]",
-                "[6.25,14.29,14.29]",
-                "[6.25,0.00,0.00]");
+                "[12.50,14.29,14.29]");
     }
 
     @Test
