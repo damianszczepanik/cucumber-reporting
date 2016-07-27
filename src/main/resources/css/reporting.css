@@ -208,6 +208,7 @@ tr:hover {
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
+    color: #eee;
 }
 
 pre {
