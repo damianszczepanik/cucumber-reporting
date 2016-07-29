@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -41,7 +40,7 @@ public class OverviewReportTest extends PageTest {
         OverviewReport report = buildSampleReport();
 
         // then
-        assertThat(report.getScenarios()).isEqualTo(3);
+        assertThat(report.getScenarios()).isEqualTo(2);
     }
 
     @Test
@@ -93,7 +92,6 @@ public class OverviewReportTest extends PageTest {
         assertThat(report.getSkippedSteps()).isZero();
         assertThat(report.getPendingSteps()).isEqualTo(1);
         assertThat(report.getUndefinedSteps()).isZero();
-        assertThat(report.getMissingSteps()).isZero();
     }
 
     @Test
@@ -169,7 +167,6 @@ public class OverviewReportTest extends PageTest {
         report.incDurationBy(1234567L);
         report.incScenarioFor(Status.PASSED);
         report.incScenarioFor(Status.UNDEFINED);
-        report.incScenarioFor(Status.MISSING);
 
         report.incStepsFor(Status.FAILED);
         report.incStepsFor(Status.PENDING);

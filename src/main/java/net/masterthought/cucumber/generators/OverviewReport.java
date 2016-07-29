@@ -63,11 +63,6 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public int getMissingSteps() {
-        return stepsCounter.getValueFor(Status.MISSING);
-    }
-
-    @Override
     public int getPendingSteps() {
         return stepsCounter.getValueFor(Status.PENDING);
     }

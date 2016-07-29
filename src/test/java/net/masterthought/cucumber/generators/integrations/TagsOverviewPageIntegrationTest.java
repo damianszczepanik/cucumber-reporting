@@ -1,15 +1,10 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.TagsOverviewPage;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -90,7 +85,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion secondRow = headerRows[1];
         secondRow.hasExactValues("Tag", "Total", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped", "Pending",
-                "Undefined", "Missing", "Duration", "Status");
+                "Undefined", "Duration", "Status");
     }
 
     @Test
@@ -98,7 +93,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false, true);
+        configuration.setStatusFlags(true, false, false);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -111,21 +106,21 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "0", "4", "2", "1", "1", "231ms", "Failed");
-        firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "pending", "undefined", "missing", "duration", "failed");
-        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "231054778", "");
+        firstRow.hasExactValues("@checkout", "2", "1", "1", "16", "8", "0", "4", "2", "2", "231ms", "Failed");
+        firstRow.hasExactCSSClasses("tagname", "", "", "failed", "", "", "", "skipped", "pending", "undefined", "duration", "failed");
+        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "checkout.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229ms", "Passed");
-        secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
-        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "229004778", "");
+        secondRow.hasExactValues("@fast", "1", "1", "0", "7", "4", "0", "0", "2", "1", "229ms", "Passed");
+        secondRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "duration", "passed");
+        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "229004778", "");
         secondRow.getReportLink().hasLabelAndAddress("@fast", "fast.html");
 
         TableRowAssertion lastRow = bodyRows[2];
-        lastRow.hasExactValues("@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "0", "229ms", "Passed");
-        lastRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "", "duration", "passed");
-        lastRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "229004778", "");
+        lastRow.hasExactValues("@featureTag", "1", "1", "0", "7", "4", "0", "0", "2", "1", "229ms", "Passed");
+        lastRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "duration", "passed");
+        lastRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "229004778", "");
         lastRow.getReportLink().hasLabelAndAddress("@featureTag", "featureTag.html");
     }
 
@@ -134,7 +129,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false, true);
+        configuration.setStatusFlags(true, false, false);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -143,7 +138,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
-        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "0", "4", "6", "3", "1", "689ms", "Totals");
+        footerCells.hasExactValues("3", "4", "3", "1", "30", "16", "0", "4", "6", "4", "689ms", "Totals");
     }
 
     @Test

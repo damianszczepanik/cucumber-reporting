@@ -1,15 +1,15 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -27,19 +27,17 @@ public class ConfigurationTest {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        boolean failsIfMissingIn = true;
-        boolean failsIFPendingIn = false;
+        boolean failsIfPendingIn = false;
         boolean failsIfSkippedIn = true;
         boolean failsIfUndefinedIn = false;
 
         // when
-        configuration.setStatusFlags(failsIfSkippedIn, failsIFPendingIn, failsIfUndefinedIn, failsIfMissingIn);
+        configuration.setStatusFlags(failsIfSkippedIn, failsIfPendingIn, failsIfUndefinedIn);
 
         // then
         assertThat(configuration.failsIfSkipped()).isEqualTo(failsIfSkippedIn);
-        assertThat(configuration.failsIFPending()).isEqualTo(failsIFPendingIn);
+        assertThat(configuration.failsIfPending()).isEqualTo(failsIfPendingIn);
         assertThat(configuration.failsIfUndefined()).isEqualTo(failsIfUndefinedIn);
-        assertThat(configuration.failsIfMissing()).isEqualTo(failsIfMissingIn);
     }
 
     @Test

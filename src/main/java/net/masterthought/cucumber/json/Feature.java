@@ -1,17 +1,16 @@
 package net.masterthought.cucumber.json;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Feature implements Reportable, Comparable<Feature> {
 
@@ -105,11 +104,6 @@ public class Feature implements Reportable, Comparable<Feature> {
     @Override
     public int getSkippedSteps() {
         return statusCounter.getValueFor(Status.SKIPPED);
-    }
-
-    @Override
-    public int getMissingSteps() {
-        return statusCounter.getValueFor(Status.MISSING);
     }
 
     @Override

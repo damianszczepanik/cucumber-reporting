@@ -36,7 +36,7 @@ Read this if you need further [detailed install and configuration]
 (https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
-```java
+```Java
 File reportOutputDirectory = new File("target");
 List<String> jsonFiles = new ArrayList<>();
 jsonFiles.add("cucumber-report-1.json");
@@ -48,13 +48,12 @@ String projectName = "cucumber-jvm";
 boolean skippedFails = true;
 boolean pendingFails = false;
 boolean undefinedFails = true;
-boolean missingFails = true;
 boolean runWithJenkins = false;
 boolean parallelTesting = false;
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 // optionally only if you need
-configuration.setStatusFlags(skippedFails, pendingFails, undefinedFails, missingFails);
+configuration.setStatusFlags(skippedFails, pendingFails, undefinedFails);
 configuration.setParallelTesting(parallelTesting);
 configuration.setJenkinsBasePath(jenkinsBasePath);
 configuration.setRunWithJenkins(runWithJenkins);

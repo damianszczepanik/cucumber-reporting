@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.json;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Objects;
 
 public class Element {
 
@@ -175,15 +174,11 @@ public class Element {
             return Status.FAILED;
         }
 
-        if (configuration.failsIFPending() && statusCounter.getValueFor(Status.PENDING) > 0) {
+        if (configuration.failsIfPending() && statusCounter.getValueFor(Status.PENDING) > 0) {
             return Status.FAILED;
         }
 
         if (configuration.failsIfUndefined() && statusCounter.getValueFor(Status.UNDEFINED) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.failsIfMissing() && statusCounter.getValueFor(Status.MISSING) > 0) {
             return Status.FAILED;
         }
 

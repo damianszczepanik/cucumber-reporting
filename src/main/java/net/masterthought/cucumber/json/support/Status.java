@@ -11,8 +11,7 @@ public enum Status {
     FAILED,
     SKIPPED,
     PENDING,
-    UNDEFINED,
-    MISSING;
+    UNDEFINED;
 
     /**
      * Returns name of the status converted to lower case characters.

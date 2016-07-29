@@ -60,11 +60,6 @@ public interface Reportable {
     int getUndefinedSteps();
 
     /**
-     * Returns number of missing steps for this element.
-     */
-    int getMissingSteps();
-
-    /**
      * Returns number of pending steps for this element.
      */
     int getPendingSteps();

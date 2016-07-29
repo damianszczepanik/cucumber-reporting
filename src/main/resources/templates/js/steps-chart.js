@@ -7,16 +7,14 @@ $(document).ready(function() {
                   $report_summary.getFailedSteps(),
                   $report_summary.getSkippedSteps(),
                   $report_summary.getPendingSteps(),
-                  $report_summary.getUndefinedSteps(),
-                  $report_summary.getMissingSteps()
+                  $report_summary.getUndefinedSteps()
               ],
               backgroundColor: [
                   "#00B000",
                   "#FF3030",
                   "#88AAFF",
                   "#F5F28F",
-                  "#F5B975",
-                  "#FAB3E9"
+                  "#F5B975"
               ],
           }],
           labels: [
@@ -24,8 +22,7 @@ $(document).ready(function() {
               "Failed",
               "Skipped",
               "Pending",
-              "Undefined",
-              "Missing"
+              "Undefined"
           ]
       };
 
