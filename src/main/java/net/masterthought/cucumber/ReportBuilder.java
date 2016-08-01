@@ -81,6 +81,7 @@ public class ReportBuilder {
                 "glyphicons-halflings-regular.eot", "glyphicons-halflings-regular.eot",
                 "glyphicons-halflings-regular.woff2", "glyphicons-halflings-regular.woff",
                 "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg");
+        copyResources("images", "favicon.png");
     }
 
     public void createEmbeddingsDirectory() {
