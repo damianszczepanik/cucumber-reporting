@@ -1,13 +1,14 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
-import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -22,7 +23,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
         page = new FailuresOverviewPage(reportResult, configuration);
-        final String titleValue = String.format("Cucumber-JVM Html Reports (no %s) - Failures Overview",
+        final String titleValue = String.format("Cucumber-JVM Reports (no %s) - Failures Overview",
                 configuration.getBuildNumber());
 
         // when
