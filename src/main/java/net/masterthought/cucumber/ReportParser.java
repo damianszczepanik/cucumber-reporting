@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.json.Feature;
 
@@ -43,16 +42,16 @@ public class ReportParser {
 
     /**
      * Parsed passed files and extracts features files.
-     * 
-     * @param jsonReportFiles
+     *
+     * @param jsonFiles
      *            JSON files to read
      * @return array of parsed features
      */
-    public List<Feature> parseJsonResults(List<String> jsonReportFiles) {
+    public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         List<Feature> featureResults = new ArrayList<>();
 
-        for (int i = 0; i < jsonReportFiles.size(); i++) {
-            String jsonFile = jsonReportFiles.get(i);
+        for (int i = 0; i < jsonFiles.size(); i++) {
+            String jsonFile = jsonFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
             if (ArrayUtils.isEmpty(features)) {
                 LOG.info("File '{}' does not contain features", jsonFile);
