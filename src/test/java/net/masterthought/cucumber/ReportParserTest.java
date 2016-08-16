@@ -27,7 +27,7 @@ public class ReportParserTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON, SIMPLE_JSON);
 
         // when
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonFiles(jsonReports);
 
         // then
         assertThat(features).hasSize(3);
@@ -40,7 +40,7 @@ public class ReportParserTest extends ReportGenerator {
         setUpWithJson(INVALID_JSON, SIMPLE_JSON);
 
         // when
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonFiles(jsonReports);
 
         // then
         assertThat(features).hasSize(1);
@@ -53,7 +53,7 @@ public class ReportParserTest extends ReportGenerator {
         setUpWithJson(EMPTY_JSON);
 
         // when
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonFiles(jsonReports);
 
         // then
         assertThat(features).isEmpty();
@@ -66,14 +66,14 @@ public class ReportParserTest extends ReportGenerator {
         setUpWithJson(INVALID_REPORT_JSON, SIMPLE_JSON);
 
         // when
-        List<Feature> features = new ReportParser(configuration).parseJsonResults(jsonReports);
+        List<Feature> features = new ReportParser(configuration).parseJsonFiles(jsonReports);
 
         // then
         assertThat(features).hasSize(1);
     }
 
     @Test
-    public void parseJsonResultsFails_OnNoExistingFile_ThrowsException() throws IOException {
+    public void parseJsonResultsFails_OnNoExistingFile_ThrowsException() {
 
         // given
         final String invalidFile = "?no-existing%file.json";
@@ -83,6 +83,6 @@ public class ReportParserTest extends ReportGenerator {
         // then
         thrown.expect(ValidationException.class);
         thrown.expectMessage(containsString(invalidFile));
-        new ReportParser(configuration).parseJsonResults(jsonReports);
+        new ReportParser(configuration).parseJsonFiles(jsonReports);
     }
 }

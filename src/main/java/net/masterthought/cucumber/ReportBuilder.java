@@ -53,7 +53,7 @@ public class ReportBuilder {
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
 
-            List<Feature> features = reportParser.parseJsonResults(jsonFiles);
+            List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
             reportResult = new ReportResult(features);
 
             generateAllPages();
@@ -84,7 +84,7 @@ public class ReportBuilder {
         copyResources("images", "favicon.png");
     }
 
-    public void createEmbeddingsDirectory() {
+    private void createEmbeddingsDirectory() {
         configuration.getEmbeddingDirectory().mkdirs();
     }
 
@@ -97,6 +97,7 @@ public class ReportBuilder {
                 FileUtils.copyInputStreamToFile(
                         this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
             } catch (IOException e) {
+                // based on FileUtils implementation, should never happen even is declared
                 throw new ValidationException(e);
             }
         }

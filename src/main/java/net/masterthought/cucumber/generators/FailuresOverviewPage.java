@@ -1,14 +1,16 @@
 package net.masterthought.cucumber.generators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FailuresOverviewPage extends AbstractPage {
+
+    public static final String WEB_PAGE = "failures-overview.html";
 
     public FailuresOverviewPage(ReportResult reportResult, Configuration configuration) {
         super(reportResult, "failuresOverview.vm", configuration);
@@ -16,7 +18,7 @@ public class FailuresOverviewPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return "failures-overview.html";
+        return WEB_PAGE;
     }
 
     @Override
