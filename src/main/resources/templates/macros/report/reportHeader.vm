@@ -15,15 +15,15 @@
     #if ($parallel)
       <th>Device</th>
     #end
-    <th>Total</th>
-    <th>Passed</th>
-    <th>Failed</th>
-    <th>Total</th>
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="total">Total</th>
     <th class="passed">Passed</th>
     <th class="failed">Failed</th>
     <th class="skipped">Skipped</th>
     <th class="pending">Pending</th>
     <th class="undefined">Undefined</th>
+    <th class="total">Total</th>
     <th>Duration</th>
     <th>Status</th>
   </tr>
