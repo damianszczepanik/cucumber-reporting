@@ -35,11 +35,11 @@
 
 #macro(includeImageReferenceEmbedding, $embedding, $index)
   #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getDecodedData()${Quote}>", $index)
+  #includeExpandableEmbedding($embedding, "Step Screenshot", "<img src=${Quote}$embedding.getDecodedData()${Quote}>", $index)
 #end
 
 #macro(includeTextEmbedding, $embedding, $format, $index)
-  #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
+  #includeExpandableEmbedding($embedding, "API requests/responses log", "<pre>$embedding.getDecodedData()</pre>", $index)
 #end
 
 
@@ -53,7 +53,7 @@
   #set($index = $index + 1)
   <div class="embedding indention">
     <div data-toggle="collapse" data-target="#embedding_$embedding.getFileId()" class="collapsable-control">
-      <a>Attachment $index ($type)</a>
+      <a>$index: $type</a>
       <a href="embeddings/$embedding.getFileName()" target="_blank"><span class="download-button glyphicon glyphicon-download-alt"></span></a>
     </div>
     <div id="embedding_$embedding.getFileId()" class="collapse collapsable-detail">
