@@ -22,7 +22,7 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsStepsOverviewFileName() {
 
         // given
         page = new StepsOverviewPage(reportResult, configuration);
@@ -31,7 +31,7 @@ public class StepsOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo("step-overview.html");
+        assertThat(fileName).isEqualTo(StepsOverviewPage.WEB_PAGE);
     }
 
     @Test

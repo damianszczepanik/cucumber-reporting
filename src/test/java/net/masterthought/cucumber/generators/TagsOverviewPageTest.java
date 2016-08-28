@@ -1,16 +1,17 @@
 package net.masterthought.cucumber.generators;
 
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.TagObject;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -23,7 +24,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsTagOverviewReportFileName() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -32,7 +33,7 @@ public class TagsOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo("tag-overview.html");
+        assertThat(fileName).isEqualTo(TagsOverviewPage.WEB_PAGE);
     }
 
     @Test

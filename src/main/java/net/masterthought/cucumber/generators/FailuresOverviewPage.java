@@ -23,6 +23,10 @@ public class FailuresOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
+        context.put("failures", collectFailures());
+    }
+
+    private List<Element> collectFailures() {
         List<Element> failures = new ArrayList<>();
         for (Feature feature : report.getAllFeatures()) {
             if (feature.getStatus().isPassed()) continue;
@@ -33,7 +37,6 @@ public class FailuresOverviewPage extends AbstractPage {
                 }
             }
         }
-
-        context.put("failures", failures);
+        return failures;
     }
 }
