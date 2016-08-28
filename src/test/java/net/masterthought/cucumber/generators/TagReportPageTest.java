@@ -21,7 +21,7 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsTagReportFileName() {
 
         // given
         TagObject tag = tags.get(0);
