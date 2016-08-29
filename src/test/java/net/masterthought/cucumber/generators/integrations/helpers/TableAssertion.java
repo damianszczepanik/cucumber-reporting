@@ -24,4 +24,8 @@ public class TableAssertion extends ReportAssertion {
     public TableRowAssertion getFooterRow() {
         return oneBySelector("tfoot tr", TableRowAssertion.class);
     }
+
+    public TableRowAssertion[] getAllFooterRows() {
+        return allBySelector("tfoot tr", TableRowAssertion.class);
+    }
 }

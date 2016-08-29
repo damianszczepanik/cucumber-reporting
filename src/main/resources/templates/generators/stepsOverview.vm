@@ -44,7 +44,7 @@
             #end
           </tbody>
 
-          <tfoot>
+          <tfoot class="total">
             <tr>
               <td>$all_steps.size()</td>
               <td>$all_occurrences</td>

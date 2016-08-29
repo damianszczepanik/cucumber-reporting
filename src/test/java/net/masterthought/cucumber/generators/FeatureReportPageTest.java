@@ -46,7 +46,7 @@ public class FeatureReportPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("parallel")).isEqualTo(configuration.isParallelTesting());
         assertThat(context.get("feature")).isEqualTo(feature);
     }

@@ -68,8 +68,7 @@ public class StepObject implements Comparable<StepObject> {
             total += this.statusCounter.getValueFor(status);
         }
 
-        // value '1F' is to force floating conversion instead of loosing decimal part
-        return Util.PERCENT_FORMATTER.format(1F * this.statusCounter.getValueFor(Status.PASSED) / total);
+        return Util.formatAsPercentage(this.statusCounter.getValueFor(Status.PASSED), total);
     }
 
     public Status getStatus() {

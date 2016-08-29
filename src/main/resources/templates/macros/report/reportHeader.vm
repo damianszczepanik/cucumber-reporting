@@ -7,8 +7,7 @@
     <th></th>
     <th colspan="3">Scenarios</th>
     <th colspan="6">Steps</th>
-    <th></th>
-    <th></th>
+    <th colspan="2">Totals</th>
   </tr>
   <tr>
     <th>$table_key</th>
