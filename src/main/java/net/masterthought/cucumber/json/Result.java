@@ -8,14 +8,14 @@ import net.masterthought.cucumber.util.Util;
 public class Result {
 
     // Start: attributes from JSON file report
-    private final String status = null;
+    private final Status status = null;
     @JsonProperty("error_message")
     private final String errorMessage = null;
     private final Long duration = 0L;
     // End: attributes from JSON file report
 
     public Status getStatus() {
-        return Status.toStatus(status);
+        return status;
     }
 
     public long getDuration() {

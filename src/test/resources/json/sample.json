@@ -255,7 +255,7 @@
                     {
                         "result":{
                             "duration":90000000,
-                            "status":"undefined"
+                            "status":"ambiguous"
                         },
                         "name":"the card should be returned",
                         "keyword":"And ",
