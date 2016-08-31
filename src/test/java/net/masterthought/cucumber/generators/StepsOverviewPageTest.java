@@ -45,7 +45,7 @@ public class StepsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(10);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;

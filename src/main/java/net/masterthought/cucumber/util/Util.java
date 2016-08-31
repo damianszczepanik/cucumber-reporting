@@ -16,6 +16,11 @@ public final class Util {
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
     }
 
+    private Util() {
+    }
+
+    public static final Util INSTANCE = new Util();
+
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
             .appendDays()
             .appendSuffix("d")
@@ -36,6 +41,18 @@ public final class Util {
 
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
+    }
+
+    /**
+     * Returns value converted to percentage format.
+     *
+     * @param value value to convert
+     * @param sum   sum of all values
+     * @return converted values including '%' character
+     */
+    public static String formatAsPercentage(int value, int sum) {
+        // value '1F' is to force floating conversion instead of loosing decimal part
+        return PERCENT_FORMATTER.format(1F * value / sum);
     }
 
     /**

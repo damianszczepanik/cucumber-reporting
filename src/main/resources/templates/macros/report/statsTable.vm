@@ -29,20 +29,37 @@
   <tfoot class="total">
     <tr>
       <td>$items.size()</td>
-      #if($parallel)
+      #if ($parallel)
         <td>-</td>
       #end
       <td>$report_summary.getPassedScenarios()</td>
       <td>$report_summary.getFailedScenarios()</td>
-      <td class="total">$report_summary.getScenarios()</td>
+      <td>$report_summary.getScenarios()</td>
       <td>$report_summary.getPassedSteps()</td>
       <td>$report_summary.getFailedSteps()</td>
       <td>$report_summary.getSkippedSteps()</td>
       <td>$report_summary.getPendingSteps()</td>
       <td>$report_summary.getUndefinedSteps()</td>
-      <td class="total">$report_summary.getSteps()</td>
+      <td>$report_summary.getSteps()</td>
       <td class="duration">$report_summary.getFormattedDurations()</td>
-      <td class="total">Totals</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      #if ($parallel)
+        <td>-</td>
+      #end
+      <td>$util.formatAsPercentage($report_summary.getPassedScenarios(), $report_summary.getScenarios())</td>
+      <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
+      <td></td>
+      <td>$util.formatAsPercentage($report_summary.getPassedSteps(), $report_summary.getSteps())</td>
+      <td>$util.formatAsPercentage($report_summary.getFailedSteps(), $report_summary.getSteps())</td>
+      <td>$util.formatAsPercentage($report_summary.getSkippedSteps(), $report_summary.getSteps())</td>
+      <td>$util.formatAsPercentage($report_summary.getPendingSteps(), $report_summary.getSteps())</td>
+      <td>$util.formatAsPercentage($report_summary.getUndefinedSteps(), $report_summary.getSteps())</td>
+      <td></td>
+      <td></td>
+      <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
     </tr>
   </tfoot>
 </table>

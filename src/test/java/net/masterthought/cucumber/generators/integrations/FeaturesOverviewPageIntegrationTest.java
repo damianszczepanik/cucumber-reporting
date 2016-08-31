@@ -88,7 +88,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         assertThat(headerRows).hasSize(2);
 
         TableRowAssertion firstRow = headerRows[0];
-        firstRow.hasExactValues("", "Scenarios", "Steps", "", "");
+        firstRow.hasExactValues("", "Scenarios", "Steps", "Totals");
 
         TableRowAssertion secondRow = headerRows[1];
         secondRow.hasExactValues("Feature", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped",
@@ -138,9 +138,12 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
+        TableRowAssertion[] footerRows = document.getSummary().getTableStats().getAllFooterRows();
 
-        footerCells.hasExactValues("2", "2", "1", "3", "13", "0", "4", "2", "2", "21", "1m 39s 355ms", "Totals");
+        assertThat(footerRows).hasSize(2);
+        footerRows[0].hasExactValues("2", "2", "1", "3", "13", "0", "4", "2", "2", "21", "1m 39s 355ms", "");
+        footerRows[1].hasExactValues("", "66.67%", "33.33%", "", "61.90%", "0.00%", "19.05%", "9.52%", "9.52%", "", "", "33.33%");
+
     }
 
     @Test
