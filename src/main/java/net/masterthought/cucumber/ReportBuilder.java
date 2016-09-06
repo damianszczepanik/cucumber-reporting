@@ -64,15 +64,6 @@ public class ReportBuilder {
         }
     }
 
-    /**
-     * Checks if all features pass.
-     * 
-     * @return true if all feature pass otherwise false
-     */
-    public boolean hasBuildPassed() {
-        return reportResult != null && reportResult.getAllFailedFeatures() == 0;
-    }
-
     private void copyStaticResources() {
         copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "jquery.tablesorter.min.js", "bootstrap.min.js", "Chart.min.js");

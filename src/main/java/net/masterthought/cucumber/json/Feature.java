@@ -1,16 +1,17 @@
 package net.masterthought.cucumber.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Feature implements Reportable, Comparable<Feature> {
 
@@ -142,7 +143,7 @@ public class Feature implements Reportable, Comparable<Feature> {
         this.jsonFile = jsonFile;
 
         for (Element element : elements) {
-            element.setMetaData(this, configuration);
+            element.setMetaData(this);
 
             if (element.isScenario()) {
                 scenarios.add(element);

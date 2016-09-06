@@ -1,20 +1,16 @@
 package net.masterthought.cucumber;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
-
-    private boolean failsIfSkipped;
-    private boolean failsIfPending;
-    private boolean failsIfUndefined;
 
     private boolean parallelTesting;
     private String jenkinsBasePath;
@@ -29,24 +25,6 @@ public class Configuration {
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
         this.projectName = projectName;
-    }
-
-    public void setStatusFlags(boolean failsIfSkipped, boolean failsIfPending, boolean failsIfUndefined) {
-        this.failsIfSkipped = failsIfSkipped;
-        this.failsIfPending = failsIfPending;
-        this.failsIfUndefined = failsIfUndefined;
-    }
-
-    public boolean failsIfSkipped() {
-        return failsIfSkipped;
-    }
-
-    public boolean failsIfPending() {
-        return failsIfPending;
-    }
-
-    public boolean failsIfUndefined() {
-        return failsIfUndefined;
     }
 
     public boolean isParallelTesting() {
@@ -92,7 +70,6 @@ public class Configuration {
     public File getEmbeddingDirectory() {
         return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
-
     }
 
     /**

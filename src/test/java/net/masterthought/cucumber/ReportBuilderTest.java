@@ -21,7 +21,6 @@ import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -59,59 +58,6 @@ public class ReportBuilderTest {
 
         assertThat(assignedJsonReports).isSameAs(jsonFiles);
         assertThat(assignedConfiguration).isSameAs(configuration);
-    }
-
-    @Test
-    public void hasBuildPassed_OnNoExistingReport_ReturnsFalse() {
-
-        // given
-        ReportBuilder builder = new ReportBuilder(null, null);
-
-        // when
-        boolean result = builder.hasBuildPassed();
-
-        // then
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    public void hasBuildPassed_OnFailedFeatures_ReturnsFalse() {
-
-        // given
-        List<Feature> jsonFiles = Collections.emptyList();
-        ReportBuilder builder = new ReportBuilder(null, null);
-        ReportResult reportResult = new ReportResult(jsonFiles) {
-            public int getAllFailedFeatures() {
-                return 5;
-            }
-        };
-        Deencapsulation.setField(builder, "reportResult", reportResult);
-
-        // when
-        boolean result = builder.hasBuildPassed();
-
-        // then
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    public void hasBuildPassed_OnPassingFeatures_ReturnsTrue() {
-
-        // given
-        List<Feature> jsonFiles = Collections.emptyList();
-        ReportBuilder builder = new ReportBuilder(null, null);
-        ReportResult reportResult = new ReportResult(jsonFiles) {
-            public int getAllFailedFeatures() {
-                return 0;
-            }
-        };
-        Deencapsulation.setField(builder, "reportResult", reportResult);
-
-        // when
-        boolean result = builder.hasBuildPassed();
-
-        // then
-        assertThat(result).isTrue();
     }
 
     @Test

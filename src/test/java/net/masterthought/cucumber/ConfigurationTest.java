@@ -1,15 +1,15 @@
 package net.masterthought.cucumber;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -22,23 +22,6 @@ public class ConfigurationTest {
 
     private final String projectName = "123";
 
-    @Test
-    public void setStatusFlags_SetsFlags() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        boolean failsIfPendingIn = false;
-        boolean failsIfSkippedIn = true;
-        boolean failsIfUndefinedIn = false;
-
-        // when
-        configuration.setStatusFlags(failsIfSkippedIn, failsIfPendingIn, failsIfUndefinedIn);
-
-        // then
-        assertThat(configuration.failsIfSkipped()).isEqualTo(failsIfSkippedIn);
-        assertThat(configuration.failsIfPending()).isEqualTo(failsIfPendingIn);
-        assertThat(configuration.failsIfUndefined()).isEqualTo(failsIfUndefinedIn);
-    }
 
     @Test
     public void isParallelTesting_ReturnsParallelTesting() {

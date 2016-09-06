@@ -1,12 +1,13 @@
 package net.masterthought.cucumber.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -175,22 +176,23 @@ public class FeatureTest extends PageTest {
         int stepsCounter = feature.getSteps();
 
         // then
-        assertThat(stepsCounter).isEqualTo(11);
+        assertThat(stepsCounter).isEqualTo(10);
     }
 
     @Test
     public void getXXXSteps_ReturnsStepsForStatus() {
 
         // given
-        Feature feature1 = features.get(0);
+        Feature passingFeature = features.get(0);
         Feature feature2 = features.get(1);
 
         // then
-        assertThat(feature1.getPassedSteps()).isEqualTo(8);
-        assertThat(feature2.getFailedSteps()).isEqualTo(0);
-        assertThat(feature1.getPendingSteps()).isEqualTo(2);
-        assertThat(feature2.getSkippedSteps()).isEqualTo(4);
-        assertThat(feature1.getUndefinedSteps()).isEqualTo(1);
+        assertThat(passingFeature.getPassedSteps()).isEqualTo(10);
+
+        assertThat(feature2.getFailedSteps()).isEqualTo(1);
+        assertThat(feature2.getSkippedSteps()).isEqualTo(2);
+        assertThat(feature2.getPendingSteps()).isEqualTo(1);
+        assertThat(feature2.getUndefinedSteps()).isEqualTo(2);
     }
 
     @Test
@@ -203,7 +205,7 @@ public class FeatureTest extends PageTest {
         long duration = feature.getDurations();
 
         // then
-        assertThat(duration).isEqualTo(99353122889L);
+        assertThat(duration).isEqualTo(99263122889L);
     }
 
     @Test
@@ -216,7 +218,7 @@ public class FeatureTest extends PageTest {
         String formattedDuration = feature.getFormattedDurations();
 
         // then
-        assertThat(formattedDuration).isEqualTo("002ms");
+        assertThat(formattedDuration).isEqualTo("092ms");
     }
 
     @Test
