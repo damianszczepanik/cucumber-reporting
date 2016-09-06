@@ -1,15 +1,17 @@
 package net.masterthought.cucumber.json.support;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TagObject implements Reportable, Comparable<TagObject> {
 
@@ -28,12 +30,11 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     public TagObject(String tagName) {
         if (StringUtils.isEmpty(tagName)) {
-            throw new ValidationException("TagName cannnot be null!");
+            throw new ValidationException("TagName cannot be null!");
         }
         this.tagName = tagName;
 
-        // eliminate characters that might be invalid as a file tagName
-        this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
+        this.reportFileName = Tag.generateFileName(tagName);
     }
 
     @Override

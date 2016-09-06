@@ -30,7 +30,7 @@
 </div>
 <br>
 
-#include("/templates/footer.html")
+#include("/templates/footer.vm")
 
 </body>
 </html>

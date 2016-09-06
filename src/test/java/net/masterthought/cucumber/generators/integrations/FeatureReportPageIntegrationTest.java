@@ -92,7 +92,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         TagAssertion[] tags = featureDetails.getTags();
         assertThat(tags).hasSize(1);
-        tags[0].getLink().hasLabelAndAddress("@featureTag", "featureTag.html");
+        tags[0].getLink().hasLabelAndAddress("@featureTag", "report-tag_featureTag.html");
 
         assertThat(featureDetails.getDescription()).isEqualTo(feature.getDescription());
     }

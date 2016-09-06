@@ -15,7 +15,7 @@ public class ErrorPage extends AbstractPage {
 
     public ErrorPage(ReportResult reportResult, Configuration configuration, Exception exception,
             List<String> jsonFiles) {
-        super(reportResult, "errorPage.vm", configuration);
+        super(reportResult, "errorpage.vm", configuration);
         this.exception = exception;
         this.jsonFiles = jsonFiles;
     }

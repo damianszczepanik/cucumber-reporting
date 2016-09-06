@@ -53,6 +53,19 @@ public class TagTest extends PageTest {
         String fileName = tag.getFileName();
 
         // then
-        assertThat(fileName).isEqualTo("checkout.html");
+        assertThat(fileName).isEqualTo("report-tag_checkout.html");
+    }
+
+    @Test
+    public void generateFileName_OnInvalidTagName_ReturnsValidFileName() {
+
+        // given
+        final String[] tags = {"@up s", "?any", "9/3"};
+        final String[] names = {"up-s", "-any", "9-3"};
+
+        // then
+        for (int i = 0; i < tags.length; i++) {
+            assertThat(Tag.generateFileName(tags[i])).isEqualTo(String.format("report-tag_%s.html", names[i]));
+        }
     }
 }

@@ -59,7 +59,7 @@ public class TagObjectTest extends PageTest {
         String fileName = tag.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("client-output.html");
+        assertThat(fileName).isEqualTo("report-tag_client-output.html");
     }
 
     @Test

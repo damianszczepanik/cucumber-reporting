@@ -22,10 +22,10 @@ public class TagsOverviewPage extends AbstractPage {
         DECIMAL_FORMATTER.setMaximumFractionDigits(2);
     }
 
-    public static final String WEB_PAGE = "tag-overview.html";
+    public static final String WEB_PAGE = "overview-tags.html";
 
     public TagsOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagsOverview.vm", configuration);
+        super(reportResult, "overviewTags.vm", configuration);
     }
 
     @Override

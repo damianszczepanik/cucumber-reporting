@@ -186,7 +186,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     private void calculateReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
-        reportFileName = Util.toValidFileName(uri);
+        reportFileName = "report-feature_" + Util.toValidFileName(uri);
 
         // If we expect to have parallel executions, we add postfix to file name
         if (configuration.isParallelTesting()) {
