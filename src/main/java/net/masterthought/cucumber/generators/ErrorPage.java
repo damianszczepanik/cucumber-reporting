@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.masterthought.cucumber.Configuration;
@@ -27,7 +28,11 @@ public class ErrorPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        context.put("output_message", ExceptionUtils.getStackTrace(exception));
+        context.put("output_message", StringEscapeUtils.escapeHtml(outputStackTrace()));
         context.put("json_files", jsonFiles);
+    }
+
+    String outputStackTrace() {
+        return ExceptionUtils.getStackTrace(exception);
     }
 }
