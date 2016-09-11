@@ -13,7 +13,7 @@ import net.masterthought.cucumber.json.support.Status;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OverviewReportTest extends PageTest {
+public class OverviewReportTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

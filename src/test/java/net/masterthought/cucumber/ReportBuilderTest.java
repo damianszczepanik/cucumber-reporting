@@ -1,21 +1,25 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
@@ -29,11 +33,14 @@ public class ReportBuilderTest {
 
     final File reportDirectory = new File("target" + File.separatorChar + System.currentTimeMillis());
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Before
     public void setUp() {
         // random temp directory
         reportDirectory.mkdir();
-        // main report directory
+        // root report directory
         new File(reportDirectory, ReportBuilder.BASE_DIRECTORY).mkdir();
     }
 
@@ -92,6 +99,23 @@ public class ReportBuilderTest {
     }
 
     @Test
+    public void copyResources_OnInvalidPath_ThrowsException() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY);
+
+        // then
+        try {
+            Deencapsulation.invoke(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
+            fail("Copying should fail!");
+        } catch (ValidationException | NullPointerException e) {
+            // passed
+        }
+    }
+
+    @Test
     public void generateErrorPage_GeneratesErrorPage() {
 
         // given
@@ -102,16 +126,14 @@ public class ReportBuilderTest {
         Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
 
         // then
-        assertErrorPageExists(reportDirectory);
+        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
     }
 
     @Test
-    public void generateAllPages_GeneratesAllPages() throws URISyntaxException {
+    public void generateAllPages_GeneratesAllPages() {
 
         // given
-        List<String> jsonReports = new ArrayList<>();
-        URL path = ReportGenerator.class.getClassLoader().getResource(ReportGenerator.JSON_DIRECTORY + ReportGenerator.SAMPLE_JSON);
-        jsonReports.add(new File(path.toURI()).getAbsolutePath());
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
 
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         configuration.getEmbeddingDirectory().mkdirs();
@@ -138,12 +160,10 @@ public class ReportBuilderTest {
     }
 
     @Test
-    public void generateReports_OnException_GeneratesErrorPage() throws URISyntaxException {
+    public void generateReports_OnException_GeneratesErrorPage() {
 
         // given
-        List<String> jsonReports = new ArrayList<>();
-        URL path = ReportGenerator.class.getClassLoader().getResource(ReportGenerator.JSON_DIRECTORY + ReportGenerator.SAMPLE_JSON);
-        jsonReports.add(new File(path.toURI()).getAbsolutePath());
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
 
         final String errorMessage = "ups!";
         Configuration configuration = new Configuration(reportDirectory, "myProject") {
@@ -154,20 +174,38 @@ public class ReportBuilderTest {
         };
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
-        ReportParser reportParser = new ReportParser(configuration);
-        ReportResult reportResult = new ReportResult(reportParser.parseJsonFiles(jsonReports));
-        Deencapsulation.setField(builder, "reportResult", reportResult);
+        // when
+        builder.generateReports();
+
+        // then
+        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertThat(countHtmlFiles()).hasSize(1);
+    }
+
+    @Test
+    public void generateReports_GeneratesErrorPage() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
         builder.generateReports();
 
         // then
-        assertErrorPageExists(reportDirectory);
+        assertThat(countHtmlFiles()).hasSize(9);
     }
 
-    private static void assertErrorPageExists(File reportDirectory) {
-        File errorPage = new File(reportDirectory,
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + ReportBuilder.HOME_PAGE);
+    private File[] countHtmlFiles() {
+        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY);
+        return dir.listFiles(fileFilter);
+    }
+
+    private static void assertPageExists(File reportDirectory, String fileName) {
+        File errorPage = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + File.separatorChar + fileName);
         assertThat(errorPage).exists();
     }
 }
