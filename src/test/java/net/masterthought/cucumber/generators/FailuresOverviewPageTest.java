@@ -1,17 +1,18 @@
 package net.masterthought.cucumber.generators;
 
-import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Feature;
-import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import mockit.Deencapsulation;
+import org.apache.velocity.VelocityContext;
+import org.junit.Before;
+import org.junit.Test;
+
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -24,7 +25,7 @@ public class FailuresOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsFailureReportFileName() {
 
         // given
         page = new FailuresOverviewPage(reportResult, configuration);
@@ -33,7 +34,7 @@ public class FailuresOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo("failures-overview.html");
+        assertThat(fileName).isEqualTo(FailuresOverviewPage.WEB_PAGE);
     }
 
     @Test
@@ -61,7 +62,7 @@ public class FailuresOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(8);
         assertThat(context.get("failures")).isEqualTo(failures);
     }
 }

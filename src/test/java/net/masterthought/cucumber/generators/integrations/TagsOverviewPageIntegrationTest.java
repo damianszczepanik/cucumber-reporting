@@ -86,7 +86,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(headerRows).hasSize(2);
 
         TableRowAssertion firstRow = headerRows[0];
-        firstRow.hasExactValues("", "Scenarios", "Steps", "", "");
+        firstRow.hasExactValues("", "Scenarios", "Steps", "Totals");
 
         TableRowAssertion secondRow = headerRows[1];
         secondRow.hasExactValues("Tag", "Passed", "Failed", "Total", "Passed", "Failed", "Skipped", "Pending",
@@ -142,8 +142,11 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
-        footerCells.hasExactValues("3", "3", "1", "4", "16", "0", "4", "6", "4", "30", "689ms", "Totals");
+        TableRowAssertion[] footerRows = document.getSummary().getTableStats().getAllFooterRows();
+
+        assertThat(footerRows).hasSize(2);
+        footerRows[0].hasExactValues("3", "3", "1", "4", "16", "0", "4", "6", "4", "30", "689ms", "");
+        footerRows[1].hasExactValues("", "75.00%", "25.00%", "", "53.33%", "0.00%", "13.33%", "20.00%", "13.33%", "", "", "25.00%");
     }
 
     @Test

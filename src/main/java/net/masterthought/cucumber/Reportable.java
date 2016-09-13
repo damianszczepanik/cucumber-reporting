@@ -65,7 +65,7 @@ public interface Reportable {
     int getPendingSteps();
 
     /**
-     * Returns raw duration for this element.
+     * Returns duration as milliseconds for this element.
      */
     long getDurations();
 

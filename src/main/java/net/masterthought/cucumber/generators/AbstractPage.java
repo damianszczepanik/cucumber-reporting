@@ -20,6 +20,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Counter;
+import net.masterthought.cucumber.util.Util;
 
 /**
  * Delivers common methods for page generation.
@@ -86,6 +87,8 @@ public abstract class AbstractPage {
     private void buildGeneralParameters() {
         // to provide unique ids for elements on each page
         context.put("counter", new Counter());
+        context.put("util", Util.INSTANCE);
+
         context.put("jenkins_source", configuration.isRunWithJenkins());
         context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("build_project_name", configuration.getProjectName());

@@ -21,7 +21,7 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsTagReportFileName() {
 
         // given
         TagObject tag = tags.get(0);
@@ -46,7 +46,7 @@ public class TagReportPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(8);
         assertThat(context.get("tag")).isEqualTo(tag);
     }
 }

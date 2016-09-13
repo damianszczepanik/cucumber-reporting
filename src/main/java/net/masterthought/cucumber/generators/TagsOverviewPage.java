@@ -79,22 +79,22 @@ public class TagsOverviewPage extends AbstractPage {
         for (int i = 0; i < tagsCount; i++) {
             final TagObject tagObject = tagsObjectList.get(i);
             final int allSteps = tagObject.getSteps();
-            values[0][i] = format(tagObject.getPassedSteps(), allSteps);
-            values[1][i] = format(tagObject.getFailedSteps(), allSteps);
-            values[2][i] = format(tagObject.getSkippedSteps(), allSteps);
-            values[3][i] = format(tagObject.getPendingSteps(), allSteps);
-            values[4][i] = format(tagObject.getUndefinedSteps(), allSteps);
+            values[0][i] = formatAsPercentage(tagObject.getPassedSteps(), allSteps);
+            values[1][i] = formatAsPercentage(tagObject.getFailedSteps(), allSteps);
+            values[2][i] = formatAsPercentage(tagObject.getSkippedSteps(), allSteps);
+            values[3][i] = formatAsPercentage(tagObject.getPendingSteps(), allSteps);
+            values[4][i] = formatAsPercentage(tagObject.getUndefinedSteps(), allSteps);
         }
 
         List<String> statuses = new ArrayList<>();
         for (int i = 0; i < Status.values().length; i++) {
-            statuses.add("[" + StringUtils.join(values[i], ',') + "]");
+            statuses.add("[" + StringUtils.join(values[i], ", ") + "]");
         }
 
         return statuses;
     }
 
-    static String format(int value, int sum) {
+    static String formatAsPercentage(int value, int sum) {
         return DECIMAL_FORMATTER.format(100F * value / sum);
     }
 }
