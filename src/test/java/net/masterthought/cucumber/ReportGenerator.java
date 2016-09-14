@@ -1,28 +1,27 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.StepObject;
-import net.masterthought.cucumber.json.support.TagObject;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public abstract class ReportGenerator {
 
-    private final static String JSON_DIRECTORY = "json/";
+    public final static String JSON_DIRECTORY = "json/";
 
     protected static final String SAMPLE_JSON = "sample.json";
-    protected static final String SIMPLE_JSON = "simple.json";
+    public static final String SIMPLE_JSON = "simple.json";
     protected static final String EMPTY_JSON = "empty.json";
     protected static final String INVALID_JSON = "invalid.json";
     protected static final String INVALID_REPORT_JSON = "invalid-report.json";
-    protected static final String FAILURES_JSON = "failures.json";
 
     private final File reportDirectory;
 
@@ -69,7 +68,7 @@ public abstract class ReportGenerator {
     private void createReport() {
         ReportParser reportParser = new ReportParser(configuration);
 
-        List<Feature> featuresFromJson = reportParser.parseJsonResults(jsonReports);
+        List<Feature> featuresFromJson = reportParser.parseJsonFiles(jsonReports);
         reportResult = new ReportResult(featuresFromJson);
 
         features = reportResult.getAllFeatures();

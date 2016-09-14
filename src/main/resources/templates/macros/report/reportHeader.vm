@@ -7,23 +7,22 @@
     <th></th>
     <th colspan="3">Scenarios</th>
     <th colspan="6">Steps</th>
-    <th></th>
-    <th></th>
+    <th colspan="2">Totals</th>
   </tr>
   <tr>
     <th>$table_key</th>
     #if ($parallel)
       <th>Device</th>
     #end
-    <th>Total</th>
-    <th>Passed</th>
-    <th>Failed</th>
-    <th>Total</th>
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="total">Total</th>
     <th class="passed">Passed</th>
     <th class="failed">Failed</th>
     <th class="skipped">Skipped</th>
     <th class="pending">Pending</th>
     <th class="undefined">Undefined</th>
+    <th class="total">Total</th>
     <th>Duration</th>
     <th>Status</th>
   </tr>

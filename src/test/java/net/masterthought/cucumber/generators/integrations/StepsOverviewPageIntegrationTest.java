@@ -1,13 +1,14 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -22,7 +23,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("333");
         page = new StepsOverviewPage(reportResult, configuration);
-        final String titleValue = String.format("Cucumber-JVM Html Reports (no %s) - Steps Overview",
+        final String titleValue = String.format("Cucumber-JVM Reports (no %s) - Steps Overview",
                 configuration.getBuildNumber());
 
         // when

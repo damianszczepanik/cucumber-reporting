@@ -2,6 +2,9 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Locale;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
@@ -14,8 +17,6 @@ import net.masterthought.cucumber.generators.integrations.helpers.NavigationAsse
 import net.masterthought.cucumber.generators.integrations.helpers.NavigationItemAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
-import org.junit.Before;
-import java.util.Locale;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -142,9 +143,11 @@ public class PageIntegrationTest extends PageTest {
         WebAssertion footer = extractFooter(document);
         LinkAssertion[] footerLinks = extractFooterLinks(footer);
 
-        assertThat(footerLinks).hasSize(2);
+        assertThat(footerLinks).hasSize(4);
         footerLinks[0].hasLabelAndAddress("Jenkins Plugin", "https://github.com/jenkinsci/cucumber-reports-plugin");
-        footerLinks[1].hasLabelAndAddress("Cucumber-JVM Reports", "https://github.com/damianszczepanik/cucumber-reporting");
+        footerLinks[1].hasLabelAndAddress("Standalone", "https://github.com/damianszczepanik/cucumber-reporting");
+        footerLinks[2].hasLabelAndAddress("Sandwich", "https://github.com/damianszczepanik/cucumber-sandwich");
+        footerLinks[3].hasLabelAndAddress("Maven", "https://github.com/damianszczepanik/maven-cucumber-reporting");
     }
 
     private WebAssertion extractFooter(WebAssertion document) {

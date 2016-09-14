@@ -126,8 +126,11 @@ table.stats-table tr.header {
 }
 
 table.stats-table tfoot {
-    background-color: lightgray;
     font-weight: bold;
+}
+
+tfoot.total, td.total, th.total {
+    background-color: lightgray;
 }
 
 table.stats-table td.duration {

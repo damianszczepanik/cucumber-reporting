@@ -1,16 +1,17 @@
 package net.masterthought.cucumber.generators;
 
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.TagObject;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -23,7 +24,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsTagOverviewReportFileName() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -32,7 +33,7 @@ public class TagsOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo("tag-overview.html");
+        assertThat(fileName).isEqualTo(TagsOverviewPage.WEB_PAGE);
     }
 
     @Test
@@ -46,7 +47,7 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(10);
+        assertThat(context.getKeys()).hasSize(11);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
@@ -99,15 +100,15 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         assertThat(labels).containsExactly(
-                "[50.00,57.14,57.14]",
-                "[0.00,0.00,0.00]",
-                "[25.00,0.00,0.00]",
-                "[12.50,28.57,28.57]",
-                "[12.50,14.29,14.29]");
+                "[50.00, 57.14, 57.14]",
+                "[0.00, 0.00, 0.00]",
+                "[25.00, 0.00, 0.00]",
+                "[12.50, 28.57, 28.57]",
+                "[12.50, 14.29, 14.29]");
     }
 
     @Test
-    public void format_ReturnsFormatedValue() {
+    public void formatAsPercentage_ReturnsFormatedValue() {
 
         // given
         final int[][] values = { { 1, 3 }, { 2, 2 }, { 1, 5 }, { 0, 5 } };
@@ -115,7 +116,7 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         for (int i = 0; i < values.length; i++) {
-            assertThat(TagsOverviewPage.format(values[i][0], values[i][1])).isEqualTo(formatted[i]);
+            assertThat(TagsOverviewPage.formatAsPercentage(values[i][0], values[i][1])).isEqualTo(formatted[i]);
         }
     }
 }

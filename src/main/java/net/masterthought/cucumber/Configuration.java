@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public final class Configuration {
+public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
 
@@ -24,7 +24,7 @@ public final class Configuration {
     private String buildNumber;
     private String projectName;
 
-	private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
+    private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -98,23 +98,23 @@ public final class Configuration {
     /**
      * @return Patterns to be used to filter out tags in the 'Tags Overview' chart. Returns an empty list by default.
      */
-	public Collection<Pattern> getTagsToExcludeFromChart() {
-		return tagsToExcludeFromChart;
-	}
-	
-	/**
-	 * Stores the regex patterns to be used for filtering out tags from the 'Tags Overview' chart
-	 * @param patterns Regex patterns to match against tags
-	 * @throws ValidationException when any of the given strings is not a valid regex pattern.
-	 */
-	public void setTagsToExcludeFromChart(String... patterns) throws ValidationException {
-		for (String pattern : patterns) {
-			try {
-				tagsToExcludeFromChart.add(Pattern.compile(pattern));
-			}
-			catch (PatternSyntaxException e) {
-				throw new ValidationException(e);
-			}
-		}
-	}
+    public Collection<Pattern> getTagsToExcludeFromChart() {
+        return tagsToExcludeFromChart;
+    }
+
+    /**
+     * Stores the regex patterns to be used for filtering out tags from the 'Tags Overview' chart
+     *
+     * @param patterns Regex patterns to match against tags
+     * @throws ValidationException when any of the given strings is not a valid regex pattern.
+     */
+    public void setTagsToExcludeFromChart(String... patterns) throws ValidationException {
+        for (String pattern : patterns) {
+            try {
+                tagsToExcludeFromChart.add(Pattern.compile(pattern));
+            } catch (PatternSyntaxException e) {
+                throw new ValidationException(e);
+            }
+        }
+    }
 }

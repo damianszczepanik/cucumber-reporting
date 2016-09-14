@@ -1,13 +1,32 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.*;
-import net.masterthought.cucumber.json.*;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+
+import net.masterthought.cucumber.generators.FeatureReportPage;
+import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.EmbeddingAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.FeatureAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.HookAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.HooksAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.OutputAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.StepAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.StepsAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.TableAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.TagAssertion;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Embedding;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Hook;
+import net.masterthought.cucumber.json.Output;
+import net.masterthought.cucumber.json.Row;
+import net.masterthought.cucumber.json.Step;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -21,7 +40,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
-        final String titleValue = String.format("Cucumber-JVM Html Reports  - Feature: %s", feature.getName());
+        final String titleValue = String.format("Cucumber-JVM Reports  - Feature: %s", feature.getName());
 
         // when
         page.generatePage();
@@ -49,8 +68,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(feature.getName(), "1", "1", "0", "11", "8", "0", "0", "2", "1", "1m 39s 353ms", "Passed");
-        bodyRow.hasExactCSSClasses("tagname", "", "", "", "", "", "", "", "pending", "undefined", "duration", "passed");
+        bodyRow.hasExactValues(feature.getName(), "1", "0", "1", "8", "0", "0", "2", "1", "11", "1m 39s 353ms", "Passed");
+        bodyRow.hasExactCSSClasses("tagname", "passed", "", "total", "passed", "", "", "pending", "undefined", "total", "duration", "passed");
     }
 
     @Test

@@ -22,7 +22,7 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    public void getWebPage_ReturnsStepsOverviewFileName() {
 
         // given
         page = new StepsOverviewPage(reportResult, configuration);
@@ -31,7 +31,7 @@ public class StepsOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo("step-overview.html");
+        assertThat(fileName).isEqualTo(StepsOverviewPage.WEB_PAGE);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class StepsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(10);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;

@@ -1,17 +1,18 @@
 package net.masterthought.cucumber.generators;
 
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.json.support.TagObject;
-import org.apache.commons.lang3.StringUtils;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.TagObject;
 
 public class TagsOverviewPage extends AbstractPage {
 
@@ -21,13 +22,15 @@ public class TagsOverviewPage extends AbstractPage {
         DECIMAL_FORMATTER.setMaximumFractionDigits(2);
     }
 
+    public static final String WEB_PAGE = "tag-overview.html";
+
     public TagsOverviewPage(ReportResult reportResult, Configuration configuration) {
         super(reportResult, "tagsOverview.vm", configuration);
     }
 
     @Override
     public String getWebPage() {
-        return "tag-overview.html";
+        return WEB_PAGE;
     }
 
     @Override
@@ -76,22 +79,22 @@ public class TagsOverviewPage extends AbstractPage {
         for (int i = 0; i < tagsCount; i++) {
             final TagObject tagObject = tagsObjectList.get(i);
             final int allSteps = tagObject.getSteps();
-            values[0][i] = format(tagObject.getPassedSteps(), allSteps);
-            values[1][i] = format(tagObject.getFailedSteps(), allSteps);
-            values[2][i] = format(tagObject.getSkippedSteps(), allSteps);
-            values[3][i] = format(tagObject.getPendingSteps(), allSteps);
-            values[4][i] = format(tagObject.getUndefinedSteps(), allSteps);
+            values[0][i] = formatAsPercentage(tagObject.getPassedSteps(), allSteps);
+            values[1][i] = formatAsPercentage(tagObject.getFailedSteps(), allSteps);
+            values[2][i] = formatAsPercentage(tagObject.getSkippedSteps(), allSteps);
+            values[3][i] = formatAsPercentage(tagObject.getPendingSteps(), allSteps);
+            values[4][i] = formatAsPercentage(tagObject.getUndefinedSteps(), allSteps);
         }
 
         List<String> statuses = new ArrayList<>();
         for (int i = 0; i < Status.values().length; i++) {
-            statuses.add("[" + StringUtils.join(values[i], ',') + "]");
+            statuses.add("[" + StringUtils.join(values[i], ", ") + "]");
         }
 
         return statuses;
     }
 
-    static String format(int value, int sum) {
+    static String formatAsPercentage(int value, int sum) {
         return DECIMAL_FORMATTER.format(100F * value / sum);
     }
 }
