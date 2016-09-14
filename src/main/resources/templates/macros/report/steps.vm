@@ -25,7 +25,19 @@
         #end
 
         #includeDocString($step.getDocString())
-        #includeOutput($step.getOutput())
+
+        #set($combineOutputs = "true")
+        #foreach($output in $step.getOutput())
+          #if(${output.getMessages().size()} > 1)
+            #set($combineOutputs = "false")
+          #end
+        #end
+        #if($combineOutputs == "true")
+          #includeCombinedOutput($step.getOutput())
+        #else
+          #includeDifferentOutputs($step.getOutput())
+        #end
+
         #includeEmbeddings($step.getEmbeddings())
       </div>
     #end

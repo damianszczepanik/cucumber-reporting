@@ -3,6 +3,8 @@ package net.masterthought.cucumber.generators.integrations;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -212,9 +214,13 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        Output outputElement = features.get(1).getElements()[0].getSteps()[7].getOutput();
+        Output[] outputElements = features.get(1).getElements()[0].getSteps()[7].getOutput();
+        ArrayList<String> messages = new ArrayList<>();
+        for (Output outputElement : outputElements) {
+            messages.addAll(Arrays.asList(outputElement.getMessages()));
+        }
         OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[7].getOutput();
-        output.hasMessages(outputElement.getMessages());
+        output.hasMessages(messages.toArray(new String[messages.size()]));
     }
 
     @Test
@@ -231,9 +237,13 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        Output outputElement = features.get(1).getElements()[0].getSteps()[8].getOutput();
+        Output[] outputElements = features.get(1).getElements()[0].getSteps()[8].getOutput();
+        ArrayList<String> messages = new ArrayList<>();
+        for (Output outputElement : outputElements) {
+            messages.addAll(Arrays.asList(outputElement.getMessages()));
+        }
         OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[8].getOutput();
-        output.hasMessages(outputElement.getMessages());
+        output.hasMessages(messages.toArray(new String[messages.size()]));
     }
 
     @Test

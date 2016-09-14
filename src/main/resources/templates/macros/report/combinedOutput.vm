@@ -1,0 +1,9 @@
+#macro(includeCombinedOutput, $outputs)
+
+#if($outputs)
+  <div class="outputs inner-level">
+    <pre style="white-space: pre-wrap;">#foreach($output in $outputs)<span>$output.getMessages()[0]</span><br>#end</pre>
+  </div>
+#end
+
+#end
