@@ -2,7 +2,15 @@
 
 #if($outputs)
   <div class="outputs inner-level">
-    <pre style="white-space: pre-wrap;">#foreach($output in $outputs)<span>$output.getMessages()[0]</span><br>#end</pre>
+    <div class="output indention">
+      #set($outputId = $counter.next())
+      <div data-toggle="collapse" class="collapsable-control" data-target="#output-$outputId">
+        <a>Output</a>
+      </div>
+      <div id="output-$outputId" class="collapse collapsable-details">
+        <pre style="white-space: pre-wrap;">#foreach($output in $outputs)<span>$output.getMessages()[0]</span><br>#end</pre>
+      </div>
+    </div>
   </div>
 #end
 
