@@ -210,6 +210,14 @@ tr:hover {
     color: #eee;
 }
 
+.white-space-normal {
+    white-space: normal;
+}
+
+.white-space-pre-wrap {
+    white-space: pre-wrap;
+}
+
 pre {
     margin-left: 10px;
     margin-right: 10px;

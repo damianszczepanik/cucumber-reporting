@@ -1,0 +1,47 @@
+#macro(includeOutput, $outputs)
+
+#set($combineOutputs = "true")
+#foreach($output in $step.getOutput())
+  #if(${output.getMessages().size()} > 1)
+    #set($combineOutputs = "false")
+  #end
+#end
+
+#if($combineOutputs == "true")
+  <div class="outputs inner-level">
+    <div class="output indention">
+      #set($outputId = $counter.next())
+      <div data-toggle="collapse" class="collapsable-control" data-target="#output-$outputId">
+        <a>Output</a>
+      </div>
+      <div id="output-$outputId" class="collapse collapsable-details">
+        <pre class="white-space-normal">
+          #foreach($output in $outputs)
+            <span>$output.getMessages()[0]</span><br>
+          #end
+        </pre>
+      </div>
+    </div>
+  </div>
+#else
+  #foreach($output in $outputs)
+    <div class="outputs inner-level">
+      <div class="output indention">
+        #set($outputId = $counter.next())
+        <div data-toggle="collapse" class="collapsable-control" data-target="#output-$outputId">
+          #set($index = $foreach.index + 1)
+          <a>Output $index</a>
+        </div>
+        <div id="output-$outputId" class="collapse collapsable-details">
+          <pre class="white-space-normal">
+            #foreach($message in $output.getMessages())
+              <span>$message</span><br>
+            #end
+          </pre>
+        </div>
+      </div>
+    </div>
+  #end
+#end
+
+#end

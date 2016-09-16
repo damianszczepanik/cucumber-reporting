@@ -6,10 +6,10 @@
   <div class="inner-level">
     <div class="message indention">
       <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$msgId" aria-expanded="true">
-          <a>$messageName: $message.split("\r\n|\r|\n")[0]</a>
+          <a>$messageName</a>
       </div>
       <div id="msg-$msgId" class="collapse in collapsable-details" aria-expanded="true">
-        <pre style="white-space: pre-wrap;">$message</pre>
+        <pre class="white-space-pre-wrap">$message</pre>
       </div>
     </div>
   </div>

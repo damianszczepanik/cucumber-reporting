@@ -2,9 +2,6 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,13 +66,9 @@ public class StepTest extends PageTest {
 
         // when
         Output[] outputs = step.getOutput();
-        ArrayList<String> messages = new ArrayList<>();
-        for(Output output : outputs) {
-            messages.addAll(Arrays.asList(output.getMessages()));
-        }
 
         // then
-        assertThat(messages.toArray(new String[messages.size()])).containsOnlyOnce(
+        assertThat(getMessages(outputs)).containsOnlyOnce(
                 "Could not connect to the server @Rocky@",
                 "Could not connect to the server @Mike@");
     }

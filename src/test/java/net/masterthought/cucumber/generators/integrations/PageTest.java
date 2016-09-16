@@ -3,6 +3,9 @@ package net.masterthought.cucumber.generators.integrations;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
@@ -13,6 +16,7 @@ import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
+import net.masterthought.cucumber.json.Output;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -41,5 +45,13 @@ public abstract class PageTest extends ReportGenerator {
         } catch (IOException e) {
             throw new ValidationException(e);
         }
+    }
+
+    protected String[] getMessages(Output[] outputs) {
+        List<String> messages = new ArrayList<>();
+        for (Output outputElement : outputs) {
+            messages.addAll(Arrays.asList(outputElement.getMessages()));
+        }
+        return messages.toArray(new String[messages.size()]);
     }
 }

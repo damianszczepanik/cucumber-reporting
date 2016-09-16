@@ -19,5 +19,4 @@
 #parse("/templates/macros/report/duration.vm")
 #parse("/templates/macros/report/message.vm")
 #parse("/templates/macros/report/docstring.vm")
-#parse("/templates/macros/report/combinedOutput.vm")
-#parse("/templates/macros/report/differentOutputs.vm")
+#parse("/templates/macros/report/output.vm")

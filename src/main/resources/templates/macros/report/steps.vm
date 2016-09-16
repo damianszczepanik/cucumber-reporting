@@ -10,7 +10,7 @@
     #foreach($step in $element.getSteps())
       <div class="step">
         #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())
-        #includeMessage("Error message", $step.getResult().getErrorMessage())
+        #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage())
 
         #if (!$step.getRows().isEmpty())
           <table class="step-arguments">
@@ -25,19 +25,7 @@
         #end
 
         #includeDocString($step.getDocString())
-
-        #set($combineOutputs = "true")
-        #foreach($output in $step.getOutput())
-          #if(${output.getMessages().size()} > 1)
-            #set($combineOutputs = "false")
-          #end
-        #end
-        #if($combineOutputs == "true")
-          #includeCombinedOutput($step.getOutput())
-        #else
-          #includeDifferentOutputs($step.getOutput())
-        #end
-
+        #includeOutput($step.getOutput())
         #includeEmbeddings($step.getEmbeddings())
       </div>
     #end
