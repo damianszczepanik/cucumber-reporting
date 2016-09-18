@@ -13,10 +13,11 @@ public class StatusCounter {
     private EnumMap<Status, Integer> counter = new EnumMap<>(Status.class);
 
     /**
-     * Set to {@link Status#FAILED} when at least counted status is not {@link Status#PASSED},
+     * Is equal to {@link Status#FAILED} when at least counted status is not {@link Status#PASSED},
      * otherwise set to {@link Status#PASSED}.
      */
     private Status finalStatus = Status.PASSED;
+
     private int size = 0;
 
     public StatusCounter() {

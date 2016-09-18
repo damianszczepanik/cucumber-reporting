@@ -69,11 +69,11 @@ public class TagsOverviewPageTest extends PageTest {
         VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.get("chart_categories")).isEqualTo("[\"@fast\"]");
         assertThat(context.get("chart_data")).isEqualTo(asList(
-                "[57.14]",
+                "[100.00]",
                 "[0.00]",
                 "[0.00]",
-                "[28.57]",
-                "[14.29]"));
+                "[0.00]",
+                "[0.00]"));
     }
 
     @Test
@@ -100,11 +100,11 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         assertThat(labels).containsExactly(
-                "[50.00, 57.14, 57.14]",
-                "[0.00, 0.00, 0.00]",
-                "[25.00, 0.00, 0.00]",
-                "[12.50, 28.57, 28.57]",
-                "[12.50, 14.29, 14.29]");
+                "[62.50, 100.00, 100.00]",
+                "[6.25, 0.00, 0.00]",
+                "[12.50, 0.00, 0.00]",
+                "[6.25, 0.00, 0.00]",
+                "[12.50, 0.00, 0.00]");
     }
 
     @Test

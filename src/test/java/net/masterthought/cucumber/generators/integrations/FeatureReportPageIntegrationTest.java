@@ -57,7 +57,6 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -68,8 +67,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(feature.getName(), "1", "0", "1", "8", "0", "0", "2", "1", "11", "1m 39s 353ms", "Passed");
-        bodyRow.hasExactCSSClasses("tagname", "passed", "", "total", "passed", "", "", "pending", "undefined", "total", "duration", "passed");
+        bodyRow.hasExactValues(feature.getName(), "1", "0", "1", "10", "0", "0", "0", "0", "10", "1m 39s 263ms", "Passed");
+        bodyRow.hasExactCSSClasses("tagname", "passed", "", "total", "passed", "", "", "", "", "total", "duration", "passed");
     }
 
     @Test

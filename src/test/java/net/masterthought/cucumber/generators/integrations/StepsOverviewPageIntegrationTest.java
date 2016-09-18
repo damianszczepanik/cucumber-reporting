@@ -107,7 +107,6 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
