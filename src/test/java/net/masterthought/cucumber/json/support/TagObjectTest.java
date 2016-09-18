@@ -79,6 +79,39 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
+    public void getFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getFeatures();
+    }
+
+    @Test
+    public void getPassedFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getPassedFeatures();
+    }
+
+    @Test
+    public void getFAiledFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getFailedFeatures();
+    }
+
+    @Test
     public void getScenarios_ReturnsSumOfScenarios() {
 
         // given
@@ -209,6 +242,7 @@ public class TagObjectTest extends PageTest {
 
     @Test
     public void getDeviceName_ThrowsException() {
+
         // given
         TagObject tag = new TagObject("@checkout");
 

@@ -44,11 +44,9 @@ public class FeaturesOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(10);
 
         assertThat(context.get("all_features")).isEqualTo(features);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
-        assertThat(context.get("all_features_passed")).isEqualTo(reportResult.getAllPassedFeatures());
-        assertThat(context.get("all_features_failed")).isEqualTo(reportResult.getAllFailedFeatures());
     }
 }

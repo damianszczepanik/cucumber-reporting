@@ -9,73 +9,54 @@ import net.masterthought.cucumber.json.support.Status;
  */
 public interface Reportable {
 
-    /**
-     * Returns name of the element that will be displayed to user.
-     */
+    /** Returns name of the element that will be displayed to user. */
     String getName();
 
-    /**
-     * In case of running the same tests on many devices it displays name of the device.
-     */
+    /** In case of running the same tests on many devices it displays name of the device. */
     String getDeviceName();
 
-    /**
-     * Returns number of scenarios related to this element.
-     */
+    /** Returns number of features for this element. */
+    int getFeatures();
+
+    /** Returns number of passed features for this element. */
+    int getPassedFeatures();
+
+    /** Returns number of failed features for this element. */
+    int getFailedFeatures();
+
+    /** Returns number of scenarios for this element. */
     int getScenarios();
 
-    /**
-     * Returns number of passed scenarios for this element.
-     */
+    /** Returns number of passed scenarios for this element. */
     int getPassedScenarios();
 
-    /**
-     * Returns number of failed scenarios for this element.
-     */
+    /** Returns number of failed scenarios for this element. */
     int getFailedScenarios();
 
-    /**
-     * Returns number of all steps for this element.
-     */
+    /** Returns number of all steps for this element. */
     int getSteps();
 
-    /**
-     * Returns number of passed steps for this element.
-     */
+    /** Returns number of passed steps for this element. */
     int getPassedSteps();
 
-    /**
-     * Returns number of failed steps for this element.
-     */
+    /** Returns number of failed steps for this element. */
     int getFailedSteps();
 
-    /**
-     * Returns number of skipped steps for this element.
-     */
+    /** Returns number of skipped steps for this element. */
     int getSkippedSteps();
 
-    /**
-     * Returns number of undefined steps for this element.
-     */
+    /** Returns number of undefined steps for this element. */
     int getUndefinedSteps();
 
-    /**
-     * Returns number of pending steps for this element.
-     */
+    /** Returns number of pending steps for this element. */
     int getPendingSteps();
 
-    /**
-     * Returns duration as milliseconds for this element.
-     */
+    /** Returns duration as milliseconds for this element. */
     long getDurations();
 
-    /**
-     * Returns formatted duration for this element.
-     */
+    /** Returns formatted duration for this element. */
     String getFormattedDurations();
 
-    /**
-     * Returns status for this element.
-     */
+    /** Returns status for this element. */
     Status getStatus();
 }

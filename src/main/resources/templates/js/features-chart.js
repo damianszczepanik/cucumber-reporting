@@ -3,8 +3,8 @@ $(document).ready(function() {
     var chartData = {
         datasets: [{
             data: [
-                   $all_features_passed,
-                   $all_features_failed
+                   $report_summary.getPassedFeatures(),
+                   $report_summary.getFailedFeatures()
                ],
                backgroundColor: [
                 "#00B000",

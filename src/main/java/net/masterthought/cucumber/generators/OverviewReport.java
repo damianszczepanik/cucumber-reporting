@@ -11,8 +11,28 @@ public class OverviewReport implements Reportable {
 
     private long duration;
 
+    private final StatusCounter featuresCounter = new StatusCounter();
     private final StatusCounter scenariosCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
+
+    public void incFeaturesFor(Status status) {
+        this.featuresCounter.incrementFor(status);
+    }
+
+    @Override
+    public int getFeatures() {
+        return featuresCounter.size();
+    }
+
+    @Override
+    public int getPassedFeatures() {
+        return featuresCounter.getValueFor(Status.PASSED);
+    }
+
+    @Override
+    public int getFailedFeatures() {
+        return featuresCounter.getValueFor(Status.FAILED);
+    }
 
     public void incScenarioFor(Status status) {
         this.scenariosCounter.incrementFor(status);

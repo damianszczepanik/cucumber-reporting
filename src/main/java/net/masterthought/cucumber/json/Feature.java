@@ -33,10 +33,10 @@ public class Feature implements Reportable, Comparable<Feature> {
     private String deviceName;
     private final List<Element> scenarios = new ArrayList<>();
     private final StatusCounter scenarioCounter = new StatusCounter();
+    private final StatusCounter stepsCounter = new StatusCounter();
+
     private Status featureStatus;
-    private final StatusCounter statusCounter = new StatusCounter();
     private long totalDuration;
-    private int totalSteps;
 
     @Override
     public String getDeviceName() {
@@ -78,38 +78,53 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
+    public int getFeatures() {
+        return 1;
+    }
+
+    @Override
+    public int getPassedFeatures() {
+        return getStatus().isPassed() ? 1 : 0;
+    }
+
+    @Override
+    public int getFailedFeatures() {
+        return getStatus().isPassed() ? 0 : 1;
+    }
+
+    @Override
     public int getScenarios() {
         return scenarios.size();
     }
 
     @Override
     public int getSteps() {
-        return totalSteps;
+        return stepsCounter.size();
     }
 
     @Override
     public int getPassedSteps() {
-        return statusCounter.getValueFor(Status.PASSED);
+        return stepsCounter.getValueFor(Status.PASSED);
     }
 
     @Override
     public int getFailedSteps() {
-        return statusCounter.getValueFor(Status.FAILED);
+        return stepsCounter.getValueFor(Status.FAILED);
     }
 
     @Override
     public int getPendingSteps() {
-        return statusCounter.getValueFor(Status.PENDING);
+        return stepsCounter.getValueFor(Status.PENDING);
     }
 
     @Override
     public int getSkippedSteps() {
-        return statusCounter.getValueFor(Status.SKIPPED);
+        return stepsCounter.getValueFor(Status.SKIPPED);
     }
 
     @Override
     public int getUndefinedSteps() {
-        return statusCounter.getValueFor(Status.UNDEFINED);
+        return stepsCounter.getValueFor(Status.UNDEFINED);
     }
 
     @Override
@@ -204,10 +219,8 @@ public class Feature implements Reportable, Comparable<Feature> {
                 scenarioCounter.incrementFor(element.getElementStatus());
             }
 
-            totalSteps += element.getSteps().length;
-
             for (Step step : element.getSteps()) {
-                statusCounter.incrementFor(step.getResult().getStatus());
+                stepsCounter.incrementFor(step.getResult().getStatus());
                 totalDuration += step.getDuration();
             }
         }
