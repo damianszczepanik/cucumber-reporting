@@ -154,6 +154,41 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getFeatures_ReturnsOne() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        int featureCounter = feature.getFeatures();
+
+        // then
+        assertThat(featureCounter).isEqualTo(1);
+    }
+
+    @Test
+    public void getXXXFeatures_OnPassedFeature_ReturnsFeaturesForStatus() {
+
+        // given
+        Feature passedFeature = features.get(0);
+
+        // then
+        assertThat(passedFeature.getPassedFeatures()).isEqualTo(1);
+        assertThat(passedFeature.getFailedFeatures()).isEqualTo(0);
+    }
+
+    @Test
+    public void getXXXFeatures_OnFAiledFeature_ReturnsFeaturesForStatus() {
+
+        // given
+        Feature failedFeature = features.get(1);
+
+        // then
+        assertThat(failedFeature.getPassedFeatures()).isEqualTo(0);
+        assertThat(failedFeature.getFailedFeatures()).isEqualTo(1);
+    }
+
+    @Test
     public void getScenarios_ReturnsNumberOfScenarios() {
 
         // given
@@ -164,6 +199,17 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(scenarioCounter).isEqualTo(1);
+    }
+
+    @Test
+    public void getXXXScenarios_ReturnsScenariosForStatus() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // then
+        assertThat(feature.getPassedScenarios()).isEqualTo(1);
+        assertThat(feature.getFailedScenarios()).isEqualTo(1);
     }
 
     @Test
@@ -219,17 +265,6 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(formattedDuration).isEqualTo("092ms");
-    }
-
-    @Test
-    public void getXXXScenarios_ReturnsScenariosForStatus() {
-
-        // given
-        Feature feature = features.get(1);
-
-        // then
-        assertThat(feature.getPassedScenarios()).isEqualTo(1);
-        assertThat(feature.getFailedScenarios()).isEqualTo(1);
     }
 
     @Test

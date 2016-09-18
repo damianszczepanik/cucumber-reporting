@@ -76,6 +76,21 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     @Override
+    public int getFeatures() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public int getPassedFeatures() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public int getFailedFeatures() {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public int getScenarios() {
         return scenarioCounter;
     }

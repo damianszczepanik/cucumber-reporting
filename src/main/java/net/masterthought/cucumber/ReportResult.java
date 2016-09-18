@@ -20,7 +20,6 @@ import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 
@@ -29,8 +28,6 @@ public class ReportResult {
     private final List<Feature> allFeatures = new ArrayList<>();
     private final Map<String, TagObject> allTags = new TreeMap<>();
     private final Map<String, StepObject> allSteps = new TreeMap<>();
-
-    private final StatusCounter featureCounter = new StatusCounter();
 
     private final String buildTime;
 
@@ -72,11 +69,11 @@ public class ReportResult {
     }
 
     public int getAllPassedFeatures() {
-        return featureCounter.getValueFor(Status.PASSED);
+        return featuresReport.getPassedFeatures();
     }
 
     public int getAllFailedFeatures() {
-        return featureCounter.getValueFor(Status.FAILED);
+        return featuresReport.getFailedFeatures();
     }
 
     public String getBuildTime() {
@@ -111,7 +108,7 @@ public class ReportResult {
             countSteps(element.getBefore());
             countSteps(element.getAfter());
         }
-        featureCounter.incrementFor(feature.getStatus());
+        featuresReport.incFeaturesFor(feature.getStatus());
     }
 
     private void processTag(Tag tag, Element element, Status status) {

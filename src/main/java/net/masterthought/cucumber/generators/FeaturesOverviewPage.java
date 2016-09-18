@@ -21,8 +21,6 @@ public class FeaturesOverviewPage extends AbstractPage {
     public void prepareReport() {
         context.put("all_features", report.getAllFeatures());
         context.put("report_summary", report.getFeatureReport());
-        context.put("all_features_passed", report.getAllPassedFeatures());
-        context.put("all_features_failed", report.getAllFailedFeatures());
 
         context.put("parallel", configuration.isParallelTesting());
     }
