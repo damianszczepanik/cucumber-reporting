@@ -8,26 +8,32 @@
 
   <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
     #foreach($step in $element.getSteps())
-      <div class="step">
-        #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())
+      #set($stepId = $counter.next())
+      #set($hasEmbeddings = !$step.getEmbeddings().isEmpty())
+      #set($hasExtendedInfo = $hasEmbeddings || !$step.getRows().isEmpty())
+      <div data-toggle="collapse" class="step #if ($step.getResult().getStatus().isPassed()) collapsed #end #if ($hasEmbeddings) collapsable-control #end" data-target="#step-$stepId">
+        #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), $hasEmbeddings, $step.getResult())
         #includeMessage("Error message", $step.getResult().getErrorMessage())
-
-        #if (!$step.getRows().isEmpty())
-          <table class="step-arguments">
-            #foreach($row in $step.getRows())
-              <tr>
-                #foreach($cell in $row.getCells())
-                  <td>$cell</td>
-                #end
-              </tr>
-            #end
-          </table>
-        #end
-
-        #includeDocString($step.getDocString())
-        #includeOutput($step.getOutput())
-        #includeEmbeddings($step.getEmbeddings())
       </div>
+      #if ($hasExtendedInfo)
+        <div id="step-$stepId" class="inner-level collapse collapsable-details #if (!$step.getResult().getStatus().isPassed()) in #end">
+          #if (!$step.getRows().isEmpty())
+            <table class="step-arguments">
+              #foreach($row in $step.getRows())
+                <tr>
+                  #foreach($cell in $row.getCells())
+                    <td>$cell</td>
+                  #end
+                </tr>
+              #end
+            </table>
+          #end
+
+          #includeDocString($step.getDocString())
+          #includeOutput($step.getOutput())
+          #includeEmbeddings($step.getEmbeddings())
+        </div>
+      #end
     #end
   </div>
 </div>
