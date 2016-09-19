@@ -17,6 +17,8 @@
       #includeTextEmbedding($embedding, "JSON", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/url")
       #includeImageReferenceEmbedding($embedding, $foreach.index)
+    #elseif ($embedding.getMimeType() == "video/url")
+      #includeVideoReferenceEmbedding($embedding, $foreach.index)
     #else
       #includeUnknownEmbedding($embedding, $foreach.index)
     #end
@@ -38,6 +40,11 @@
   #includeExpandableEmbedding($embedding, "Step Screenshot", "<img src=${Quote}$embedding.getDecodedData()${Quote}>", $index)
 #end
 
+#macro(includeVideoReferenceEmbedding, $embedding, $index)
+  #set($VideoBlock = "<embed src=${embedding.getDecodedData()} type='application/x-vlc-plugin' width='600' height='800'>")
+  #includeExpandableEmbedding($embedding, "Scenario Video", "${VideoBlock}", $index)
+#end
+
 #macro(includeTextEmbedding, $embedding, $format, $index)
   #includeExpandableEmbedding($embedding, "API requests/responses log", "<pre>$embedding.getDecodedData()</pre>", $index)
 #end
@@ -54,7 +61,7 @@
   <div class="embedding indention">
     <div data-toggle="collapse" data-target="#embedding_$embedding.getFileId()" class="collapsable-control">
       <a>$index: $type</a>
-      <a href="embeddings/$embedding.getFileName()" target="_blank"><span class="download-button glyphicon glyphicon-download-alt"></span></a>
+      <a href="$embedding.getDecodedData()" target="_blank" download><span class="download-button glyphicon glyphicon-download-alt"></span></a>
     </div>
     <div id="embedding_$embedding.getFileId()" class="collapse collapsable-detail">
       <span class="embedding-content">$content</span>
