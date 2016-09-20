@@ -69,7 +69,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature.html");
+        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
@@ -84,7 +84,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature_sample.html");
+        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature_sample.html");
     }
 
     @Test

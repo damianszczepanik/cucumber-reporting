@@ -9,7 +9,7 @@ public class FeatureReportPage extends AbstractPage {
     private final Feature feature;
 
     public FeatureReportPage(ReportResult reportResult, Configuration configuration, Feature feature) {
-        super(reportResult, "featureReport.vm", configuration);
+        super(reportResult, "reportFeature.vm", configuration);
         this.feature = feature;
     }
 

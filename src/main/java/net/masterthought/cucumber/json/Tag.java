@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.json;
 
+import net.masterthought.cucumber.util.Util;
+
 public class Tag {
 
     // Start: attributes from JSON file report
@@ -11,6 +13,11 @@ public class Tag {
     }
 
     public String getFileName() {
-        return name.replace("@", "").trim() + ".html";
+        return generateFileName(name);
+    }
+
+    public static String generateFileName(String tagName) {
+        // TODO: the file name should be unique
+        return String.format("report-tag_%s.html", Util.toValidFileName(tagName.replace("@", "")).trim());
     }
 }

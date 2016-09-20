@@ -10,10 +10,10 @@ import net.masterthought.cucumber.json.Feature;
 
 public class FailuresOverviewPage extends AbstractPage {
 
-    public static final String WEB_PAGE = "failures-overview.html";
+    public static final String WEB_PAGE = "overview-failures.html";
 
     public FailuresOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "failuresOverview.vm", configuration);
+        super(reportResult, "overviewFailures.vm", configuration);
     }
 
     @Override
