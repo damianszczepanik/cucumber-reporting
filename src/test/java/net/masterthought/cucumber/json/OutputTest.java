@@ -4,12 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OutputTest extends PageTest {
+public class OutputTest {
 
     @Test
     public void getMessages_ReturnsMessages() {

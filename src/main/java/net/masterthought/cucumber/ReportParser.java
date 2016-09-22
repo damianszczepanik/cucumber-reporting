@@ -48,18 +48,22 @@ public class ReportParser {
      * @return array of parsed features
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
-        List<Feature> featureResults = new ArrayList<>();
+        if (jsonFiles.isEmpty()) {
+            throw new ValidationException("None report file was added!");
+        }
 
+        List<Feature> featureResults = new ArrayList<>();
         for (int i = 0; i < jsonFiles.size(); i++) {
             String jsonFile = jsonFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
-            if (ArrayUtils.isEmpty(features)) {
-                LOG.info("File '{}' does not contain features", jsonFile);
-            } else {
-                LOG.info("File '{}' contain {} features", jsonFile, features.length);
-                setMetadata(features, jsonFile, i);
-                featureResults.addAll(Arrays.asList(features));
-            }
+            LOG.info("File '{}' contain {} features", jsonFile, features.length);
+            setMetadata(features, jsonFile, i);
+            featureResults.addAll(Arrays.asList(features));
+        }
+
+        // report that has no features seems to be not valid
+        if (featureResults.isEmpty()) {
+            throw new ValidationException(String.format("Passed reports have no features!"));
         }
 
         return featureResults;
@@ -74,10 +78,13 @@ public class ReportParser {
      */
     private Feature[] parseForFeature(String jsonFile) {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
-            return mapper.readValue(reader, Feature[].class);
+            Feature[] features = mapper.readValue(reader, Feature[].class);
+            if (ArrayUtils.isEmpty(features)) {
+                LOG.info("File '{}' does not contain features", jsonFile);
+            }
+            return features;
         } catch (JsonMappingException e) {
-            LOG.info("File '{}' is not proper Cucumber-JVM report", jsonFile, e);
-            return new Feature[0];
+            throw new ValidationException(String.format("File '%s' is not proper Cucumber report!", jsonFile), e);
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);

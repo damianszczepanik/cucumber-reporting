@@ -44,22 +44,28 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
+        initWithJSon(jsonFiles);
+
+        createReport();
+    }
+
+    protected void initWithJSon(String... jsonFiles) {
         if (jsonFiles != null) {
             for (String jsonFile : jsonFiles)
-                addReport(jsonFile);
+                jsonReports.add(reportFromResource(jsonFile));
         }
+
         // may be already created so don't overwrite it
         if (configuration == null) {
             configuration = new Configuration(reportDirectory, projectName);
         }
         createEmbeddingsDirectory();
-        createReport();
     }
 
-    private void addReport(String jsonReport) {
+    public static String reportFromResource(String jsonReport) {
         try {
             URL path = ReportGenerator.class.getClassLoader().getResource(JSON_DIRECTORY + jsonReport);
-            jsonReports.add(new File(path.toURI()).getAbsolutePath());
+            return new File(path.toURI()).getAbsolutePath();
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
         }
