@@ -281,6 +281,36 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void calculateDeviceName_ReturnsDeviceName() {
+
+        // given
+        Feature feature = new Feature();
+        final String jsonFileName = "json_filename_without_extension";
+        Deencapsulation.setField(feature, "jsonFile", jsonFileName + ".json");
+
+        // when
+        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
+
+        // then
+        assertThat(deviceName).isEqualTo(jsonFileName);
+    }
+
+    @Test
+    public void calculateDeviceName_OnFileWithoutExtension_ReturnsDeviceName() {
+
+        // given
+        Feature feature = new Feature();
+        final String jsonFileName = "json_filename_without_extension";
+        Deencapsulation.setField(feature, "jsonFile", jsonFileName);
+
+        // when
+        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
+
+        // then
+        assertThat(deviceName).isEqualTo(jsonFileName);
+    }
+
+    @Test
     public void compareTo_OnSameFeature_ReturnsZero() {
 
         // given

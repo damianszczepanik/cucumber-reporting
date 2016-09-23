@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Element;
@@ -85,7 +86,7 @@ public class ReportResult {
 
         for (Element element : feature.getElements()) {
             if (element.isScenario()) {
-                featuresReport.incScenarioFor(element.getElementStatus());
+                featuresReport.incScenarioFor(element.getStatus());
 
                 // all feature tags should be linked with scenario
                 for (Tag tag : feature.getTags()) {
@@ -95,7 +96,10 @@ public class ReportResult {
 
             // all element tags should be linked with element
             for (Tag tag : element.getTags()) {
-                processTag(tag, element, element.getElementStatus());
+                // don't count tag for feature if was already counted for element
+                if (!ArrayUtils.contains(feature.getTags(), tag)) {
+                    processTag(tag, element, element.getStatus());
+                }
             }
 
             Step[] steps = element.getSteps();

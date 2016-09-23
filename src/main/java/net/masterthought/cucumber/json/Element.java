@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +48,7 @@ public class Element {
         return tags;
     }
 
-    public Status getElementStatus() {
+    public Status getStatus() {
         return elementStatus;
     }
 
@@ -92,33 +90,6 @@ public class Element {
 
     public Feature getFeature() {
         return feature;
-    }
-
-    @Override
-    public int hashCode() {
-        // background type does not define id
-        return id != null ? id.hashCode() : super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Element other = (Element) obj;
-        // in case of parallel tests, elements are the same when belong to different features
-        if (feature == other.feature) {
-            return id != null ? Objects.equals(id, other.id) : super.equals(other);
-        } else {
-            return false;
-        }
     }
 
     public void setMetaData(Feature feature) {

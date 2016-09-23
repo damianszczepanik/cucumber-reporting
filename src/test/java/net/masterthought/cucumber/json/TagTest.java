@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,5 +68,54 @@ public class TagTest extends PageTest {
         for (int i = 0; i < tags.length; i++) {
             assertThat(Tag.generateFileName(tags[i])).isEqualTo(String.format("report-tag_%s.html", names[i]));
         }
+    }
+
+    @Test
+    public void hashCode_OnSameName_ReturnsHashCode() {
+
+        // given
+        final String tagName = "@superTaggggg";
+        Tag tag = new Tag();
+        Deencapsulation.setField(tag, "name", tagName);
+
+        // when
+        int hashCode = tag.hashCode();
+
+        // then
+        assertThat(hashCode).isEqualTo(tagName.hashCode());
+    }
+
+    @Test
+    public void equals_OnSameName_ReturnsTrue() {
+
+        // given
+        final String tagName = "@superTaggggg";
+        Tag tag1 = new Tag();
+        Deencapsulation.setField(tag1, "name", tagName);
+        Tag tag2 = new Tag();
+        Deencapsulation.setField(tag2, "name", tagName);
+
+        // when
+        boolean isSame = tag1.equals(tag2);
+
+        // then
+        assertThat(isSame).isTrue();
+    }
+
+    @Test
+    public void equals_OnDifferentName_ReturnsFalse() {
+
+        // given
+        final String tagName = "@superTaggggg";
+        Tag tag1 = new Tag();
+        Deencapsulation.setField(tag1, "name", tagName);
+        Tag tag2 = new Tag();
+        Deencapsulation.setField(tag2, "name", tagName + tagName);
+
+        // when
+        boolean isSame = tag1.equals(tag2);
+
+        // then
+        assertThat(isSame).isFalse();
     }
 }

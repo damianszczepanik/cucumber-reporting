@@ -32,7 +32,7 @@ public class Feature implements Reportable, Comparable<Feature> {
     private String reportFileName;
     private String deviceName;
     private final List<Element> scenarios = new ArrayList<>();
-    private final StatusCounter scenarioCounter = new StatusCounter();
+    private final StatusCounter elementsCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
 
     private Status featureStatus;
@@ -139,12 +139,12 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     @Override
     public int getPassedScenarios() {
-        return scenarioCounter.getValueFor(Status.PASSED);
+        return elementsCounter.getValueFor(Status.PASSED);
     }
 
     @Override
     public int getFailedScenarios() {
-        return scenarioCounter.getValueFor(Status.FAILED);
+        return elementsCounter.getValueFor(Status.FAILED);
     }
 
     public String getJsonFile() {
@@ -165,22 +165,22 @@ public class Feature implements Reportable, Comparable<Feature> {
             }
         }
 
-        calculateDeviceName();
+        deviceName = calculateDeviceName();
         calculateReportFileName(jsonFileNo, configuration);
-        calculateFeatureStatus();
+        featureStatus = calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private void calculateDeviceName() {
+    private String calculateDeviceName() {
         String[] splitJsonFile = jsonFile.split("[^\\d\\w]");
         // it should have at least two parts: file name and its extension (.json)
         if (splitJsonFile.length > 1) {
             // file name without path and extension (usually path/jsonFile.json)
-            deviceName = splitJsonFile[splitJsonFile.length - 2];
+            return splitJsonFile[splitJsonFile.length - 2];
         } else {
             // path name without special characters
-            deviceName = splitJsonFile[0];
+            return splitJsonFile[0];
         }
     }
 
@@ -203,20 +203,18 @@ public class Feature implements Reportable, Comparable<Feature> {
         reportFileName += ".html";
     }
 
-    private void calculateFeatureStatus() {
+    private Status calculateFeatureStatus() {
+        StatusCounter statusCounter = new StatusCounter();
         for (Element element : elements) {
-            if (element.getElementStatus() != Status.PASSED) {
-                featureStatus = Status.FAILED;
-                return;
-            }
+            statusCounter.incrementFor(element.getStatus());
         }
-        featureStatus = Status.PASSED;
+        return statusCounter.getFinalStatus();
     }
 
     private void calculateSteps() {
         for (Element element : elements) {
             if (element.isScenario()) {
-                scenarioCounter.incrementFor(element.getElementStatus());
+                elementsCounter.incrementFor(element.getStatus());
             }
 
             for (Step step : element.getSteps()) {

@@ -63,6 +63,8 @@ public class FailuresOverviewPageTest extends PageTest {
         // then
         VelocityContext context = Deencapsulation.getField(page, "context");
         assertThat(context.getKeys()).hasSize(8);
-        assertThat(context.get("failures")).isEqualTo(failures);
+
+        List<Element> elements = (List<Element>) context.get("failures");
+        assertThat(elements).hasSameElementsAs(failures);
     }
 }

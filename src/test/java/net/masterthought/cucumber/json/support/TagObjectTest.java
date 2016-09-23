@@ -2,6 +2,8 @@ package net.masterthought.cucumber.json.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -75,7 +77,7 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getElements()).containsExactly(elements);
+        assertThat(tag.getElements().toArray()).hasSameElementsAs(Arrays.asList(elements));
     }
 
     @Test

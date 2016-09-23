@@ -110,6 +110,7 @@ public class ReportBuilderTest {
         try {
             Deencapsulation.invoke(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
             fail("Copying should fail!");
+            // exception depends of operating system
         } catch (ValidationException | NullPointerException e) {
             // passed
         }
