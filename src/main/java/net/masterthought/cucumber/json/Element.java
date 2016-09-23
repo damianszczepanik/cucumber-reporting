@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -10,9 +9,6 @@ import net.masterthought.cucumber.json.support.StatusCounter;
 public class Element {
 
     // Start: attributes from JSON file report
-    // as long as this is private attribute without getter deserialization must be forced by annotation
-    @JsonProperty("id")
-    private final String id = null;
     private final String name = null;
     private final String type = null;
     private final String description = null;

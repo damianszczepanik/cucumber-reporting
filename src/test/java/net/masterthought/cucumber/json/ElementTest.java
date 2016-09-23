@@ -262,16 +262,4 @@ public class ElementTest extends PageTest {
         // then
         assertThat(feature.getId()).isEqualTo("account-holder-withdraws-cash");
     }
-
-    private static void assertElementHasNoFailedStatus(Element element) {
-        for (Step step : element.getSteps()) {
-            assertThat(step.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
-        for (Hook hook : element.getBefore()) {
-            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
-        for (Hook hook : element.getAfter()) {
-            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
-    }
 }
