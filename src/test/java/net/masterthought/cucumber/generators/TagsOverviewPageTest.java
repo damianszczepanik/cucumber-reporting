@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,8 +45,8 @@ public class TagsOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(11);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(12);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
@@ -66,7 +65,7 @@ public class TagsOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
+        VelocityContext context = page.context;
         assertThat(context.get("chart_categories")).isEqualTo("[\"@fast\"]");
         assertThat(context.get("chart_data")).isEqualTo(asList(
                 "[100.00]",

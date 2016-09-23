@@ -34,6 +34,10 @@ public class NavigationItemAssertion extends LinkAssertion {
         hasLabelAndAddress("Steps", "overview-steps.html");
     }
 
+    public void hasLinkToTrends() {
+        hasLabelAndAddress("Trends", "overview-trends.html");
+    }
+
     public void hasLinkToFailures() {
         hasLabelAndAddress("Failures", "overview-failures.html");
     }

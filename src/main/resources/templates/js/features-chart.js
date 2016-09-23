@@ -17,8 +17,8 @@ $(document).ready(function() {
         ]
     };
 
-    var ctx = document.getElementById("features-chart");
-    window.myBar = new Chart(ctx, {
+    var context = document.getElementById("features-chart");
+    window.myBar = new Chart(context, {
         type: "pie",
         data: chartData,
         options: {

@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,8 +60,8 @@ public class FailuresOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(8);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(9);
 
         List<Element> elements = (List<Element>) context.get("failures");
         assertThat(elements).hasSameElementsAs(failures);
