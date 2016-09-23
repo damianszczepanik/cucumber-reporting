@@ -20,4 +20,15 @@ public class Tag {
         // TODO: the file name should be unique
         return String.format("report-tag_%s.html", Util.toValidFileName(tagName.replace("@", "")).trim());
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object tag) {
+        // not fully implemented but I don't expect to have different objects here
+        return ((Tag) tag).name.equals(name);
+    }
 }

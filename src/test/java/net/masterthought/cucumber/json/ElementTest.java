@@ -75,13 +75,13 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getElementStatus_ReturnsStatus() {
+    public void getStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
 
         // when
-        Status status = element.getElementStatus();
+        Status status = element.getStatus();
 
         // then
         assertThat(status).isEqualTo(Status.FAILED);

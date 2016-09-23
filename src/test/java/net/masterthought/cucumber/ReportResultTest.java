@@ -62,7 +62,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getFeatureReport_ReturnsTagReport() {
+    public void getTagReport_ReturnsTagReport() {
 
         // given
         // from @Before

@@ -47,14 +47,9 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     public boolean addElement(Element element) {
-        // don't process if this element was already linked with this tag
-        if (elements.contains(element)) {
-            return false;
-        }
-
         elements.add(element);
 
-        if (status != Status.FAILED && element.getElementStatus() != Status.PASSED) {
+        if (status != Status.FAILED && element.getStatus() != Status.PASSED) {
             status = Status.FAILED;
         }
 
@@ -62,7 +57,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
             scenarioCounter++;
         }
 
-        elementsStatusCounter.incrementFor(element.getElementStatus());
+        elementsStatusCounter.incrementFor(element.getStatus());
 
         for (Step step : element.getSteps()) {
             stepsStatusCounter.incrementFor(step.getResult().getStatus());
