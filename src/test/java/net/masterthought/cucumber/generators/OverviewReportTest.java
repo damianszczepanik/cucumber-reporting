@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 
 /**

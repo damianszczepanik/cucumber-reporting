@@ -16,9 +16,6 @@ public final class Util {
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
     }
 
-    private Util() {
-    }
-
     public static final Util INSTANCE = new Util();
 
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
@@ -38,6 +35,9 @@ public final class Util {
             .appendMillis()
             .appendSuffix("ms")
             .toFormatter();
+
+    private Util() {
+    }
 
     public static String formatDuration(long duration) {
         return TIME_FORMATTER.print(new Period(0, duration / 1000000));
