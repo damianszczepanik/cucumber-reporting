@@ -19,13 +19,13 @@ $(document).ready(function() {
 
     var ctx = document.getElementById("scenarios-chart");
     window.myBar = new Chart(ctx, {
-        type: 'doughnut',
+        type: "doughnut",
         data: chartData,
         options: {
             title: {
                 display: true,
                 fontSize: 20,
-                text: 'Scenarios'
+                text: "Scenarios"
             },
             circumference: Math.PI,
             rotation: Math.PI,
@@ -41,7 +41,7 @@ $(document).ready(function() {
                         var tooltipLabel = data.labels[tooltipItem.index];
                         var tooltipData = allData[tooltipItem.index];
                         var tooltipPercentage = Math.round(10000 * tooltipData / $report_summary.getScenarios()) / 100;
-                        return tooltipLabel + ': ' + tooltipData + ' (' + tooltipPercentage + '%)';
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
                     }
                 }
             }
