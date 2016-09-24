@@ -17,8 +17,8 @@ $(document).ready(function() {
         ]
     };
 
-    var ctx = document.getElementById("scenarios-chart");
-    window.myBar = new Chart(ctx, {
+    var context = document.getElementById("scenarios-chart");
+    window.myBar = new Chart(context, {
         type: "doughnut",
         data: chartData,
         options: {

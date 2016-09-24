@@ -26,8 +26,8 @@ $(document).ready(function() {
         ]
     };
 
-    var ctx = document.getElementById("steps-chart");
-    window.myBar = new Chart(ctx, {
+    var context = document.getElementById("steps-chart");
+    window.myBar = new Chart(context, {
         type: "doughnut",
         data: chartData,
         options: {

@@ -31,8 +31,8 @@ $(document).ready(function() {
         ]
     };
 
-    var ctx = document.getElementById("tags-chart");
-    window.myBar = new Chart(ctx, {
+    var context = document.getElementById("tags-chart");
+    window.myBar = new Chart(context, {
         type: "bar",
         data: chartData,
         options: {

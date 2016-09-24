@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +44,8 @@ public class FeatureReportPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(9);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("parallel")).isEqualTo(configuration.isParallelTesting());
         assertThat(context.get("feature")).isEqualTo(feature);
     }

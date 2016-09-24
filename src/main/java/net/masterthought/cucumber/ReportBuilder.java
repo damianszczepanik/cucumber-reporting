@@ -15,6 +15,7 @@ import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.TagsOverviewPage;
+import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
 
@@ -65,7 +66,7 @@ public class ReportBuilder {
     }
 
     private void copyStaticResources() {
-        copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
+        copyResources("css", "cucumber.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "jquery.tablesorter.min.js", "bootstrap.min.js", "Chart.min.js");
         copyResources("fonts", "FontAwesome.otf", "fontawesome-webfont.svg", "fontawesome-webfont.woff",
                 "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2",
@@ -107,6 +108,7 @@ public class ReportBuilder {
 
         new StepsOverviewPage(reportResult, configuration).generatePage();
         new FailuresOverviewPage(reportResult, configuration).generatePage();
+        new TrendsOverviewPage(reportResult, configuration).generatePage();
     }
 
     private void generateErrorPage(Exception exception) {

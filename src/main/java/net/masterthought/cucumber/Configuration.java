@@ -17,6 +17,8 @@ public class Configuration {
     private boolean runWithJenkins;
 
     private File reportDirectory;
+
+    private File trendsStatsFile;
     private String buildNumber;
     private String projectName;
 
@@ -53,6 +55,14 @@ public class Configuration {
 
     public File getReportDirectory() {
         return reportDirectory;
+    }
+
+    public File getTrendsStatsFile() {
+        return trendsStatsFile;
+    }
+
+    public void setTrendsStatsFile(File trendsStatsFile) {
+        this.trendsStatsFile = trendsStatsFile;
     }
 
     public String getBuildNumber() {

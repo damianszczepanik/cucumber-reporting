@@ -196,7 +196,7 @@ public class ReportBuilderTest {
         builder.generateReports();
 
         // then
-        assertThat(countHtmlFiles()).hasSize(9);
+        assertThat(countHtmlFiles()).hasSize(10);
     }
 
     private File[] countHtmlFiles() {

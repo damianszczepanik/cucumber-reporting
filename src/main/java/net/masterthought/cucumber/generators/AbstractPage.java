@@ -90,6 +90,7 @@ public abstract class AbstractPage {
         context.put("util", Util.INSTANCE);
 
         context.put("jenkins_source", configuration.isRunWithJenkins());
+        context.put("trends_present", configuration.getTrendsStatsFile() != null);
         context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
