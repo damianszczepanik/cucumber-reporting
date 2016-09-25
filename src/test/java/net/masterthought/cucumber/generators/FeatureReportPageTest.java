@@ -34,7 +34,7 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         Feature feature = features.get(1);

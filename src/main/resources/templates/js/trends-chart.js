@@ -1,15 +1,15 @@
 $(document).ready(function() {
 
-    var buildLabels = ["Build no 5", "Build no 6", "Build no 7", "Build no 8", "Build no 10"];
-    var failedFeatures = [0, 59, 1, 0, 4];
-    var totalFeatures = [65, 59, 56, 0, 40];
-    var failedScenarios = [0, 59, 1, 0, 4];
-    var totalScenarios = [6, 90, 6, 0, 40];
-    var failedSteps = [0, 590, 10, 20, 40];
-    var totalSteps = [650, 590, 560, 0, 20];
+    var buildNumbers = $buildNumbers;
+    var failedFeatures = $failedFeatures;
+    var totalFeatures = $totalFeatures;
+    var failedScenarios = $failedScenarios;
+    var totalScenarios = $totalScenarios;
+    var failedSteps = $failedSteps;
+    var totalSteps = $totalSteps;
 
     var chartFeaturesData = {
-        labels: buildLabels,
+        labels: buildNumbers,
         datasets: [
             {
                 label: "Failed",
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
 
     var chartScenariosData = {
-        labels: buildLabels,
+        labels: buildNumbers,
         datasets: [
             {
                 label: "Failed",
@@ -123,7 +123,7 @@ $(document).ready(function() {
 
 
     var chartStepsData = {
-        labels: buildLabels,
+        labels: buildNumbers,
         datasets: [
             {
                 label: "Failed",

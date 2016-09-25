@@ -2,8 +2,11 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.junit.Test;
 
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
@@ -19,7 +22,8 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TrendsOverviewPage(reportResult, configuration);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
         final String titleValue = String.format("Cucumber-JVM Reports  - Trends Overview",
                 configuration.getBuildNumber());
 
@@ -38,7 +42,8 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TrendsOverviewPage(reportResult, configuration);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when
         page.generatePage();
@@ -56,7 +61,8 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TrendsOverviewPage(reportResult, configuration);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when
         page.generatePage();

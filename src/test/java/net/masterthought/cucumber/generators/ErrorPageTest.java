@@ -20,7 +20,7 @@ public class ErrorPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // give
         Exception exception = new Exception();

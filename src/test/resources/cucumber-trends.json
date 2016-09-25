@@ -1,0 +1,23 @@
+{
+    "buildNumbers": [
+        "01_first", "other build", "05last"
+    ],
+    "failedFeatures": [
+        1, 2, 5
+    ],
+    "totalFeatures": [
+        10, 20, 30
+    ],
+    "failedScenarios": [
+        10, 20, 20
+    ],
+    "totalScenarios": [
+        10, 2, 5
+    ],
+    "failedSteps": [
+        100, 20, 30
+    ],
+    "totalSteps": [
+        150, 200, 300
+    ]
+}
