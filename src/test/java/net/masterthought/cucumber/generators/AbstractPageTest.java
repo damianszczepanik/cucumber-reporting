@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.Util;
@@ -135,8 +136,9 @@ public class AbstractPageTest extends PageTest {
     public void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() {
 
         // given
-        configuration.setTrendsStatsFile(new File("."));
-        page = new TrendsOverviewPage(reportResult, configuration);
+        configuration.setTrendsStatsFile(TRENDS_FILE);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when
         boolean hasTrends = (Boolean) page.context.get("trends_present");

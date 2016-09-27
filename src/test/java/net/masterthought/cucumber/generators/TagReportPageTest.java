@@ -34,7 +34,7 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         TagObject tag = tags.get(1);

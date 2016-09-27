@@ -37,7 +37,7 @@ public class FailuresOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         page = new FailuresOverviewPage(reportResult, configuration);

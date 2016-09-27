@@ -28,7 +28,7 @@ public class FailuresOverviewPage extends AbstractPage {
 
     private List<Element> collectFailures() {
         List<Element> failures = new ArrayList<>();
-        for (Feature feature : report.getAllFeatures()) {
+        for (Feature feature : reportResult.getAllFeatures()) {
             if (feature.getStatus().isPassed()) continue;
 
             for (Element element : feature.getElements()) {

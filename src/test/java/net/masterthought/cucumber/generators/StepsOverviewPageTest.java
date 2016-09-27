@@ -34,7 +34,7 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         page = new StepsOverviewPage(reportResult, configuration);
