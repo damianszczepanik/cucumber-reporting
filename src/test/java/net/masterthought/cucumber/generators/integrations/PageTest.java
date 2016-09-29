@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.junit.After;
@@ -28,13 +29,8 @@ public abstract class PageTest extends ReportGenerator {
     @After
     public void cleanUp() {
         // delete report file if was already created by any of test
-        if (page != null) {
-            File report = new File(configuration.getReportDirectory(), page.getWebPage());
-            if (report.exists()) {
-                report.delete();
-            }
-            page = null;
-        }
+        File report = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        FileUtils.deleteQuietly(report);
     }
 
     protected DocumentAssertion documentFrom(String pageName) {

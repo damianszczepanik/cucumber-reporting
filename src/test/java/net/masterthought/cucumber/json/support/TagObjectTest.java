@@ -1,15 +1,18 @@
 package net.masterthought.cucumber.json.support;
 
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Arrays;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -58,7 +61,7 @@ public class TagObjectTest extends PageTest {
         String fileName = tag.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("client-output.html");
+        assertThat(fileName).isEqualTo("report-tag_client-output.html");
     }
 
     @Test
@@ -74,7 +77,40 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getElements()).containsExactly(elements);
+        assertThat(tag.getElements().toArray()).hasSameElementsAs(Arrays.asList(elements));
+    }
+
+    @Test
+    public void getFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getFeatures();
+    }
+
+    @Test
+    public void getPassedFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getPassedFeatures();
+    }
+
+    @Test
+    public void getFAiledFeatures_ThrowsException() {
+
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getFailedFeatures();
     }
 
     @Test
@@ -138,8 +174,8 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getDurations()).isEqualTo(99353122889L);
-        assertThat(tag.getFormattedDurations()).isEqualTo("1m 39s 353ms");
+        assertThat(tag.getDurations()).isEqualTo(99263122889L);
+        assertThat(tag.getFormattedDurations()).isEqualTo("1m 39s 263ms");
     }
 
     @Test
@@ -155,7 +191,7 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getSteps()).isEqualTo(11);
+        assertThat(tag.getSteps()).isEqualTo(10);
     }
 
     @Test
@@ -171,9 +207,9 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getNumberOfStatus(Status.PASSED)).isEqualTo(8);
+        assertThat(tag.getNumberOfStatus(Status.PASSED)).isEqualTo(10);
         assertThat(tag.getNumberOfStatus(Status.FAILED)).isEqualTo(0);
-        assertThat(tag.getNumberOfStatus(Status.PENDING)).isEqualTo(2);
+        assertThat(tag.getNumberOfStatus(Status.PENDING)).isEqualTo(0);
     }
 
     @Test
@@ -208,6 +244,7 @@ public class TagObjectTest extends PageTest {
 
     @Test
     public void getDeviceName_ThrowsException() {
+
         // given
         TagObject tag = new TagObject("@checkout");
 

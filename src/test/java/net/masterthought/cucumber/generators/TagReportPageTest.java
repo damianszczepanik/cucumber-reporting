@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         TagObject tag = tags.get(1);
@@ -45,8 +44,8 @@ public class TagReportPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(8);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("tag")).isEqualTo(tag);
     }
 }

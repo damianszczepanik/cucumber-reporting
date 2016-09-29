@@ -28,7 +28,7 @@ public class ElementTest extends PageTest {
         Step[] steps = element.getSteps();
 
         // then
-        assertThat(steps).hasSize(7);
+        assertThat(steps).hasSize(6);
         assertThat(steps[0].getName()).isEqualTo("the account balance is 100");
     }
 
@@ -75,52 +75,18 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getElementStatus_ReturnsStatus() {
+    public void getStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
 
         // when
-        Status status = element.getElementStatus();
+        Status status = element.getStatus();
 
         // then
         assertThat(status).isEqualTo(Status.FAILED);
     }
 
-    @Test
-    public void getElementStatus_OnFailsIfPending_ReturnsFailedStatus() {
-
-        // given
-        configuration.setStatusFlags(false, true, false);
-        setUpWithJson(SAMPLE_JSON);
-        Element element = features.get(0).getElements()[1];
-        assertElementHasNoFailedStatus(element);
-
-        // when
-        Status status = element.getElementStatus();
-
-        // then
-        assertThat(element.getSteps()[1].getResult().getStatus()).isEqualTo(Status.PENDING);
-        assertThat(status).isEqualTo(Status.FAILED);
-    }
-
-    @Test
-    public void getElementStatus_OnFailsIfUndefined_ReturnsFailedStatus() {
-
-        // given
-        // TODO: add tests for test flags
-        configuration.setStatusFlags(false, false, true);
-        setUpWithJson();
-        Element element = features.get(0).getElements()[1];
-        assertElementHasNoFailedStatus(element);
-
-        // when
-        Status status = element.getElementStatus();
-
-        // then
-        assertThat(element.getSteps()[6].getResult().getStatus()).isEqualTo(Status.UNDEFINED);
-        assertThat(status).isEqualTo(Status.FAILED);
-    }
 
     @Test
     public void getBeforeStatus_ReturnsStatus() {
@@ -295,17 +261,5 @@ public class ElementTest extends PageTest {
 
         // then
         assertThat(feature.getId()).isEqualTo("account-holder-withdraws-cash");
-    }
-
-    private static void assertElementHasNoFailedStatus(Element element) {
-        for (Step step : element.getSteps()) {
-            assertThat(step.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
-        for (Hook hook : element.getBefore()) {
-            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
-        for (Hook hook : element.getAfter()) {
-            assertThat(hook.getResult().getStatus()).isNotEqualTo(Status.FAILED);
-        }
     }
 }

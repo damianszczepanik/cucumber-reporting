@@ -9,7 +9,7 @@ public class TagReportPage extends AbstractPage {
     private final TagObject tagObject;
 
     public TagReportPage(ReportResult reportResult, Configuration configuration, TagObject tagObject) {
-        super(reportResult, "tagReport.vm", configuration);
+        super(reportResult, "reportTag.vm", configuration);
         this.tagObject = tagObject;
     }
 

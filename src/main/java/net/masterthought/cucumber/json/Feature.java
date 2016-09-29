@@ -1,16 +1,17 @@
 package net.masterthought.cucumber.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Feature implements Reportable, Comparable<Feature> {
 
@@ -31,11 +32,11 @@ public class Feature implements Reportable, Comparable<Feature> {
     private String reportFileName;
     private String deviceName;
     private final List<Element> scenarios = new ArrayList<>();
-    private final StatusCounter scenarioCounter = new StatusCounter();
+    private final StatusCounter elementsCounter = new StatusCounter();
+    private final StatusCounter stepsCounter = new StatusCounter();
+
     private Status featureStatus;
-    private final StatusCounter statusCounter = new StatusCounter();
     private long totalDuration;
-    private int totalSteps;
 
     @Override
     public String getDeviceName() {
@@ -77,38 +78,53 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
+    public int getFeatures() {
+        return 1;
+    }
+
+    @Override
+    public int getPassedFeatures() {
+        return getStatus().isPassed() ? 1 : 0;
+    }
+
+    @Override
+    public int getFailedFeatures() {
+        return getStatus().isPassed() ? 0 : 1;
+    }
+
+    @Override
     public int getScenarios() {
         return scenarios.size();
     }
 
     @Override
     public int getSteps() {
-        return totalSteps;
+        return stepsCounter.size();
     }
 
     @Override
     public int getPassedSteps() {
-        return statusCounter.getValueFor(Status.PASSED);
+        return stepsCounter.getValueFor(Status.PASSED);
     }
 
     @Override
     public int getFailedSteps() {
-        return statusCounter.getValueFor(Status.FAILED);
+        return stepsCounter.getValueFor(Status.FAILED);
     }
 
     @Override
     public int getPendingSteps() {
-        return statusCounter.getValueFor(Status.PENDING);
+        return stepsCounter.getValueFor(Status.PENDING);
     }
 
     @Override
     public int getSkippedSteps() {
-        return statusCounter.getValueFor(Status.SKIPPED);
+        return stepsCounter.getValueFor(Status.SKIPPED);
     }
 
     @Override
     public int getUndefinedSteps() {
-        return statusCounter.getValueFor(Status.UNDEFINED);
+        return stepsCounter.getValueFor(Status.UNDEFINED);
     }
 
     @Override
@@ -123,12 +139,12 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     @Override
     public int getPassedScenarios() {
-        return scenarioCounter.getValueFor(Status.PASSED);
+        return elementsCounter.getValueFor(Status.PASSED);
     }
 
     @Override
     public int getFailedScenarios() {
-        return scenarioCounter.getValueFor(Status.FAILED);
+        return elementsCounter.getValueFor(Status.FAILED);
     }
 
     public String getJsonFile() {
@@ -142,35 +158,35 @@ public class Feature implements Reportable, Comparable<Feature> {
         this.jsonFile = jsonFile;
 
         for (Element element : elements) {
-            element.setMetaData(this, configuration);
+            element.setMetaData(this);
 
             if (element.isScenario()) {
                 scenarios.add(element);
             }
         }
 
-        calculateDeviceName();
+        deviceName = calculateDeviceName();
         calculateReportFileName(jsonFileNo, configuration);
-        calculateFeatureStatus();
+        featureStatus = calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private void calculateDeviceName() {
+    private String calculateDeviceName() {
         String[] splitJsonFile = jsonFile.split("[^\\d\\w]");
         // it should have at least two parts: file name and its extension (.json)
         if (splitJsonFile.length > 1) {
             // file name without path and extension (usually path/jsonFile.json)
-            deviceName = splitJsonFile[splitJsonFile.length - 2];
+            return splitJsonFile[splitJsonFile.length - 2];
         } else {
             // path name without special characters
-            deviceName = splitJsonFile[0];
+            return splitJsonFile[0];
         }
     }
 
     private void calculateReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
-        reportFileName = Util.toValidFileName(uri);
+        reportFileName = "report-feature_" + Util.toValidFileName(uri);
 
         // If we expect to have parallel executions, we add postfix to file name
         if (configuration.isParallelTesting()) {
@@ -187,26 +203,22 @@ public class Feature implements Reportable, Comparable<Feature> {
         reportFileName += ".html";
     }
 
-    private void calculateFeatureStatus() {
+    private Status calculateFeatureStatus() {
+        StatusCounter statusCounter = new StatusCounter();
         for (Element element : elements) {
-            if (element.getElementStatus() != Status.PASSED) {
-                featureStatus = Status.FAILED;
-                return;
-            }
+            statusCounter.incrementFor(element.getStatus());
         }
-        featureStatus = Status.PASSED;
+        return statusCounter.getFinalStatus();
     }
 
     private void calculateSteps() {
         for (Element element : elements) {
             if (element.isScenario()) {
-                scenarioCounter.incrementFor(element.getElementStatus());
+                elementsCounter.incrementFor(element.getStatus());
             }
 
-            totalSteps += element.getSteps().length;
-
             for (Step step : element.getSteps()) {
-                statusCounter.incrementFor(step.getResult().getStatus());
+                stepsCounter.incrementFor(step.getResult().getStatus());
                 totalDuration += step.getDuration();
             }
         }

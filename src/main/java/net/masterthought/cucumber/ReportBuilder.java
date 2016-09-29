@@ -1,13 +1,26 @@
 package net.masterthought.cucumber;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -15,6 +28,7 @@ import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.TagsOverviewPage;
+import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
 
@@ -26,12 +40,14 @@ public class ReportBuilder {
      * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
      * {@link ErrorPage}.
      */
-    public static final String HOME_PAGE = "feature-overview.html";
+    public static final String HOME_PAGE = "overview-features.html";
 
     /**
      * Subdirectory where the report will be created.
      */
     public static final String BASE_DIRECTORY = "cucumber-html-reports";
+
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     private ReportResult reportResult;
     private final ReportParser reportParser;
@@ -45,6 +61,10 @@ public class ReportBuilder {
         reportParser = new ReportParser(configuration);
     }
 
+    /**
+     * Parses provided files and generates whole report. When generating process fails
+     * report with information about error is provided.
+     */
     public void generateReports() {
         try {
             // first copy static resources so ErrorPage is displayed properly
@@ -56,7 +76,8 @@ public class ReportBuilder {
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
             reportResult = new ReportResult(features);
 
-            generateAllPages();
+            List<AbstractPage> pages = collectPages();
+            generatePages(pages);
 
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
@@ -64,17 +85,8 @@ public class ReportBuilder {
         }
     }
 
-    /**
-     * Checks if all features pass.
-     * 
-     * @return true if all feature pass otherwise false
-     */
-    public boolean hasBuildPassed() {
-        return reportResult != null && reportResult.getAllFailedFeatures() == 0;
-    }
-
     private void copyStaticResources() {
-        copyResources("css", "reporting.css", "bootstrap.min.css", "font-awesome.min.css");
+        copyResources("css", "cucumber.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "jquery.tablesorter.min.js", "bootstrap.min.js", "Chart.min.js");
         copyResources("fonts", "FontAwesome.otf", "fontawesome-webfont.svg", "fontawesome-webfont.woff",
                 "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2",
@@ -103,19 +115,71 @@ public class ReportBuilder {
         }
     }
 
-    private void generateAllPages() {
-        new FeaturesOverviewPage(reportResult, configuration).generatePage();
+    private List<AbstractPage> collectPages() {
+        List<AbstractPage> pages = new ArrayList<>();
+
+        pages.add(new FeaturesOverviewPage(reportResult, configuration));
         for (Feature feature : reportResult.getAllFeatures()) {
-            new FeatureReportPage(reportResult, configuration, feature).generatePage();
+            pages.add(new FeatureReportPage(reportResult, configuration, feature));
         }
 
-        new TagsOverviewPage(reportResult, configuration).generatePage();
+        pages.add(new TagsOverviewPage(reportResult, configuration));
         for (TagObject tagObject : reportResult.getAllTags()) {
-            new TagReportPage(reportResult, configuration, tagObject).generatePage();
+            pages.add(new TagReportPage(reportResult, configuration, tagObject));
         }
 
-        new StepsOverviewPage(reportResult, configuration).generatePage();
-        new FailuresOverviewPage(reportResult, configuration).generatePage();
+        pages.add(new StepsOverviewPage(reportResult, configuration));
+        pages.add(new FailuresOverviewPage(reportResult, configuration));
+        if (configuration.getTrendsStatsFile() != null) {
+            Trends trends = updateAndGenerateTrends(configuration.getTrendsStatsFile());
+            pages.add(new TrendsOverviewPage(reportResult, configuration, trends));
+        }
+
+        return pages;
+    }
+
+    private void generatePages(List<AbstractPage> pages) {
+        for (AbstractPage page : pages) {
+            page.generatePage();
+        }
+    }
+
+    private Trends updateAndGenerateTrends(File trendsFile) {
+        Trends trends = loadTrends(trendsFile);
+        appendCurrentReport(trends);
+        saveTrends(trends, trendsFile);
+
+        return trends;
+    }
+
+    private void appendCurrentReport(Trends trends) {
+        Reportable result = reportResult.getFeatureReport();
+        trends.addBuild(configuration.getBuildNumber(), result.getFeatures(), result.getFailedFeatures(),
+                result.getFailedScenarios(), result.getScenarios(), result.getFailedSteps(), result.getSteps());
+    }
+
+    private static Trends loadTrends(File file) {
+        if (!file.exists()) {
+            return new Trends();
+        }
+
+        try (Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
+            return mapper.readValue(reader, Trends.class);
+        } catch (JsonMappingException e) {
+            throw new ValidationException(String.format("File '%s' could not be parsed as file with trends!", file), e);
+        } catch (IOException e) {
+            // IO problem - stop generating and re-throw the problem
+            throw new ValidationException(e);
+        }
+    }
+
+    private void saveTrends(Trends trends, File file) {
+        ObjectWriter objectWriter = mapper.writer().with(SerializationFeature.INDENT_OUTPUT);
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+            objectWriter.writeValue(writer, trends);
+        } catch (IOException e) {
+            throw new ValidationException("Could not save updated trends in file: " + file.getAbsolutePath(), e);
+        }
     }
 
     private void generateErrorPage(Exception exception) {

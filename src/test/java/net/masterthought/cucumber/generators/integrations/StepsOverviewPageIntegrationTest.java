@@ -7,7 +7,6 @@ import org.junit.Test;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 
 /**
@@ -107,7 +106,6 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false);
         page = new StepsOverviewPage(reportResult, configuration);
 
         // when
@@ -118,21 +116,5 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
 
         footerCells.hasExactValues("16", "23", "1m 39s 492ms", "4s 325ms", "Totals");
-    }
-
-    @Test
-    public void generatePage_onEmptyJsons_generatesProperMessage() {
-
-        // given
-        setUpWithJson(EMPTY_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
-
-        // when
-        page.generatePage();
-
-        // then
-        DocumentAssertion document = documentFrom(page.getWebPage());
-        SummaryAssertion summary = document.getSummary();
-        assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no features in your cucumber report");
     }
 }

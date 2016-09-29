@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -46,8 +45,8 @@ public class TagsOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(11);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(12);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
@@ -66,14 +65,14 @@ public class TagsOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
+        VelocityContext context = page.context;
         assertThat(context.get("chart_categories")).isEqualTo("[\"@fast\"]");
         assertThat(context.get("chart_data")).isEqualTo(asList(
-                "[57.14]",
+                "[100.00]",
                 "[0.00]",
                 "[0.00]",
-                "[28.57]",
-                "[14.29]"));
+                "[0.00]",
+                "[0.00]"));
     }
 
     @Test
@@ -100,11 +99,11 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         assertThat(labels).containsExactly(
-                "[50.00, 57.14, 57.14]",
-                "[0.00, 0.00, 0.00]",
-                "[25.00, 0.00, 0.00]",
-                "[12.50, 28.57, 28.57]",
-                "[12.50, 14.29, 14.29]");
+                "[62.50, 100.00, 100.00]",
+                "[6.25, 0.00, 0.00]",
+                "[12.50, 0.00, 0.00]",
+                "[6.25, 0.00, 0.00]",
+                "[12.50, 0.00, 0.00]");
     }
 
     @Test

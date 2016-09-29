@@ -2,11 +2,11 @@
 
 <div class="steps inner-level">
   #set($stepsId = $counter.next())
-  <div data-toggle="collapse" class="#if ($element.getElementStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$stepsId">
+  <div data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$stepsId">
     #includeBrief("Steps", $element.getStepsStatus(), "", true)
   </div>
 
-  <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getElementStatus().isPassed()) in #end">
+  <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed()) in #end">
     #foreach($step in $element.getSteps())
       <div class="step">
         #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())

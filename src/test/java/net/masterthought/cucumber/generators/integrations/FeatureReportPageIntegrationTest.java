@@ -57,7 +57,6 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
 
@@ -68,8 +67,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(feature.getName(), "1", "0", "1", "8", "0", "0", "2", "1", "11", "1m 39s 353ms", "Passed");
-        bodyRow.hasExactCSSClasses("tagname", "passed", "", "total", "passed", "", "", "pending", "undefined", "total", "duration", "passed");
+        bodyRow.hasExactValues(feature.getName(), "10", "0", "0", "0", "0", "10", "1", "0", "1", "1m 39s 263ms", "Passed");
+        bodyRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
     }
 
     @Test
@@ -93,7 +92,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         TagAssertion[] tags = featureDetails.getTags();
         assertThat(tags).hasSize(1);
-        tags[0].getLink().hasLabelAndAddress("@featureTag", "featureTag.html");
+        tags[0].getLink().hasLabelAndAddress("@featureTag", "report-tag_featureTag.html");
 
         assertThat(featureDetails.getDescription()).isEqualTo(feature.getDescription());
     }
@@ -127,7 +126,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         BriefAssertion brief = firstElement.getBrief();
         assertThat(brief.getKeyword()).isEqualTo(scenario.getKeyword());
         assertThat(brief.getName()).isEqualTo(scenario.getName());
-        brief.hasStatus(scenario.getElementStatus());
+        brief.hasStatus(scenario.getStatus());
 
         assertThat(firstElement.getDescription()).isEqualTo(scenario.getDescription());
     }

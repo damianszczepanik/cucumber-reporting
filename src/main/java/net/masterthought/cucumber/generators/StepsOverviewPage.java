@@ -12,10 +12,10 @@ import net.masterthought.cucumber.util.Util;
  */
 public class StepsOverviewPage extends AbstractPage {
 
-    public static final String WEB_PAGE = "step-overview.html";
+    public static final String WEB_PAGE = "overview-steps.html";
 
     public StepsOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "stepsOverview.vm", configuration);
+        super(reportResult, "overviewSteps.vm", configuration);
     }
 
     @Override
@@ -25,11 +25,11 @@ public class StepsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        context.put("all_steps", report.getAllSteps());
+        context.put("all_steps", reportResult.getAllSteps());
 
         int allOccurrences = 0;
         long allDurations = 0;
-        for (StepObject stepObject : report.getAllSteps()) {
+        for (StepObject stepObject : reportResult.getAllSteps()) {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getDurations();
         }

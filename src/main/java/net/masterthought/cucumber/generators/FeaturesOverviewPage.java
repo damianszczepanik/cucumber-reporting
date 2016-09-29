@@ -9,7 +9,7 @@ public class FeaturesOverviewPage extends AbstractPage {
     public static final String WEB_PAGE = ReportBuilder.HOME_PAGE;
 
     public FeaturesOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "featuresOverview.vm", configuration);
+        super(reportResult, "overviewFeatures.vm", configuration);
     }
 
     @Override
@@ -19,10 +19,8 @@ public class FeaturesOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        context.put("all_features", report.getAllFeatures());
-        context.put("report_summary", report.getFeatureReport());
-        context.put("all_features_passed", report.getAllPassedFeatures());
-        context.put("all_features_failed", report.getAllFailedFeatures());
+        context.put("all_features", reportResult.getAllFeatures());
+        context.put("report_summary", reportResult.getFeatureReport());
 
         context.put("parallel", configuration.isParallelTesting());
     }

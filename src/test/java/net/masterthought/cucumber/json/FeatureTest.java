@@ -1,12 +1,13 @@
 package net.masterthought.cucumber.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -68,7 +69,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature.html");
+        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
@@ -83,7 +84,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("net-masterthought-example-ATMK-feature_sample.html");
+        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature_sample.html");
     }
 
     @Test
@@ -153,6 +154,41 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getFeatures_ReturnsOne() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        int featureCounter = feature.getFeatures();
+
+        // then
+        assertThat(featureCounter).isEqualTo(1);
+    }
+
+    @Test
+    public void getXXXFeatures_OnPassedFeature_ReturnsFeaturesForStatus() {
+
+        // given
+        Feature passedFeature = features.get(0);
+
+        // then
+        assertThat(passedFeature.getPassedFeatures()).isEqualTo(1);
+        assertThat(passedFeature.getFailedFeatures()).isEqualTo(0);
+    }
+
+    @Test
+    public void getXXXFeatures_OnFAiledFeature_ReturnsFeaturesForStatus() {
+
+        // given
+        Feature failedFeature = features.get(1);
+
+        // then
+        assertThat(failedFeature.getPassedFeatures()).isEqualTo(0);
+        assertThat(failedFeature.getFailedFeatures()).isEqualTo(1);
+    }
+
+    @Test
     public void getScenarios_ReturnsNumberOfScenarios() {
 
         // given
@@ -163,60 +199,6 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(scenarioCounter).isEqualTo(1);
-    }
-
-    @Test
-    public void getSteps_ReturnsNumberOfSteps() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        int stepsCounter = feature.getSteps();
-
-        // then
-        assertThat(stepsCounter).isEqualTo(11);
-    }
-
-    @Test
-    public void getXXXSteps_ReturnsStepsForStatus() {
-
-        // given
-        Feature feature1 = features.get(0);
-        Feature feature2 = features.get(1);
-
-        // then
-        assertThat(feature1.getPassedSteps()).isEqualTo(8);
-        assertThat(feature2.getFailedSteps()).isEqualTo(0);
-        assertThat(feature1.getPendingSteps()).isEqualTo(2);
-        assertThat(feature2.getSkippedSteps()).isEqualTo(4);
-        assertThat(feature1.getUndefinedSteps()).isEqualTo(1);
-    }
-
-    @Test
-    public void getDuration_ReturnsDuration() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        long duration = feature.getDurations();
-
-        // then
-        assertThat(duration).isEqualTo(99353122889L);
-    }
-
-    @Test
-    public void getFormattedDurations_ReturnsFormattedDurations() {
-
-        // given
-        Feature feature = features.get(1);
-
-        // when
-        String formattedDuration = feature.getFormattedDurations();
-
-        // then
-        assertThat(formattedDuration).isEqualTo("002ms");
     }
 
     @Test
@@ -231,6 +213,61 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getSteps_ReturnsNumberOfSteps() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        int stepsCounter = feature.getSteps();
+
+        // then
+        assertThat(stepsCounter).isEqualTo(10);
+    }
+
+    @Test
+    public void getXXXSteps_ReturnsStepsForStatus() {
+
+        // given
+        Feature passingFeature = features.get(0);
+        Feature feature2 = features.get(1);
+
+        // then
+        assertThat(passingFeature.getPassedSteps()).isEqualTo(10);
+
+        assertThat(feature2.getFailedSteps()).isEqualTo(1);
+        assertThat(feature2.getSkippedSteps()).isEqualTo(2);
+        assertThat(feature2.getPendingSteps()).isEqualTo(1);
+        assertThat(feature2.getUndefinedSteps()).isEqualTo(2);
+    }
+
+    @Test
+    public void getDuration_ReturnsDuration() {
+
+        // given
+        Feature feature = features.get(0);
+
+        // when
+        long duration = feature.getDurations();
+
+        // then
+        assertThat(duration).isEqualTo(99263122889L);
+    }
+
+    @Test
+    public void getFormattedDurations_ReturnsFormattedDurations() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        String formattedDuration = feature.getFormattedDurations();
+
+        // then
+        assertThat(formattedDuration).isEqualTo("092ms");
+    }
+
+    @Test
     public void getJsonFile_ReturnsFileName() {
 
         // given
@@ -241,6 +278,36 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(fileName).endsWith(SAMPLE_JSON);
+    }
+
+    @Test
+    public void calculateDeviceName_ReturnsDeviceName() {
+
+        // given
+        Feature feature = new Feature();
+        final String jsonFileName = "json_filename_without_extension";
+        Deencapsulation.setField(feature, "jsonFile", jsonFileName + ".json");
+
+        // when
+        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
+
+        // then
+        assertThat(deviceName).isEqualTo(jsonFileName);
+    }
+
+    @Test
+    public void calculateDeviceName_OnFileWithoutExtension_ReturnsDeviceName() {
+
+        // given
+        Feature feature = new Feature();
+        final String jsonFileName = "json_filename_without_extension";
+        Deencapsulation.setField(feature, "jsonFile", jsonFileName);
+
+        // when
+        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
+
+        // then
+        assertThat(deviceName).isEqualTo(jsonFileName);
     }
 
     @Test

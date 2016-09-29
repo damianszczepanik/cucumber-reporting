@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.Util;
@@ -26,7 +27,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void generateReportCreatesReportFile() {
+    public void generateReport_CreatesReportFile() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -57,7 +58,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParametersAddsCommonProperties() {
+    public void buildGeneralParameters_AddsCommonProperties() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -66,8 +67,8 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(7);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(8);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -84,7 +85,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParametersWithBuildNumberAddsBuildPreviousNumberProperty() {
+    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
 
         // given
         configuration.setBuildNumber("12");
@@ -94,13 +95,13 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(8);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("build_time")).isNotNull();
     }
 
     @Test
-    public void buildGeneralParameters_OnErrorPageAddsExtraProperties() {
+    public void buildGeneralParameters_OnErrorPage_AddsExtraProperties() {
 
         // given
         configuration.setBuildNumber("3@");
@@ -110,13 +111,13 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(7);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(8);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
     @Test
-    public void buildGeneralParameters_OnInvalidBuildNumberDoesNotAddPreviousBuildNumberProperty() {
+    public void buildGeneralParameters_OnInvalidBuildNumber_DoesNotAddPreviousBuildNumberProperty() {
 
         // given
         configuration.setBuildNumber("34");
@@ -126,8 +127,23 @@ public class AbstractPageTest extends PageTest {
         // buildGeneralParameters() already called by constructor
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(8);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
+    }
+
+    @Test
+    public void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() {
+
+        // given
+        configuration.setTrendsStatsFile(TRENDS_FILE);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
+
+        // when
+        boolean hasTrends = (Boolean) page.context.get("trends_present");
+
+        // then
+        assertThat(hasTrends).isTrue();
     }
 }

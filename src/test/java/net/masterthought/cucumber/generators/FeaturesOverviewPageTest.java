@@ -2,7 +2,6 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,7 @@ public class FeaturesOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReportAddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -43,12 +42,10 @@ public class FeaturesOverviewPageTest extends PageTest {
         page.prepareReport();
 
         // then
-        VelocityContext context = Deencapsulation.getField(page, "context");
-        assertThat(context.getKeys()).hasSize(12);
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(11);
 
         assertThat(context.get("all_features")).isEqualTo(features);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
-        assertThat(context.get("all_features_passed")).isEqualTo(reportResult.getAllPassedFeatures());
-        assertThat(context.get("all_features_failed")).isEqualTo(reportResult.getAllFailedFeatures());
     }
 }

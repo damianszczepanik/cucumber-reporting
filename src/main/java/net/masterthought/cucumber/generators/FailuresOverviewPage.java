@@ -10,10 +10,10 @@ import net.masterthought.cucumber.json.Feature;
 
 public class FailuresOverviewPage extends AbstractPage {
 
-    public static final String WEB_PAGE = "failures-overview.html";
+    public static final String WEB_PAGE = "overview-failures.html";
 
     public FailuresOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "failuresOverview.vm", configuration);
+        super(reportResult, "overviewFailures.vm", configuration);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FailuresOverviewPage extends AbstractPage {
 
     private List<Element> collectFailures() {
         List<Element> failures = new ArrayList<>();
-        for (Feature feature : report.getAllFeatures()) {
+        for (Feature feature : reportResult.getAllFeatures()) {
             if (feature.getStatus().isPassed()) continue;
 
             for (Element element : feature.getElements()) {

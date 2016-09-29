@@ -1,20 +1,14 @@
 package net.masterthought.cucumber.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.json.support.StatusCounter;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Objects;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
 
 public class Element {
 
     // Start: attributes from JSON file report
-    // as long as this is private attribute without getter deserialization must be forced by annotation
-    @JsonProperty("id")
-    private final String id = null;
     private final String name = null;
     private final String type = null;
     private final String description = null;
@@ -50,7 +44,7 @@ public class Element {
         return tags;
     }
 
-    public Status getElementStatus() {
+    public Status getStatus() {
         return elementStatus;
     }
 
@@ -94,40 +88,13 @@ public class Element {
         return feature;
     }
 
-    @Override
-    public int hashCode() {
-        // background type does not define id
-        return id != null ? id.hashCode() : super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Element other = (Element) obj;
-        // in case of parallel tests, elements are the same when belong to different features
-        if (feature == other.feature) {
-            return id != null ? Objects.equals(id, other.id) : super.equals(other);
-        } else {
-            return false;
-        }
-    }
-
-    public void setMetaData(Feature feature, Configuration configuration) {
+    public void setMetaData(Feature feature) {
         this.feature = feature;
 
-        elementStatus = calculateStatus(configuration);
         beforeStatus = calculateHookStatus(before);
         afterStatus = calculateHookStatus(after);
         stepsStatus = calculateStepsStatus();
+        elementStatus = calculateElementStatus();
     }
 
     private Status calculateHookStatus(Hook[] hooks) {
@@ -139,15 +106,12 @@ public class Element {
         return statusCounter.getFinalStatus();
     }
 
-    private Status calculateStatus(Configuration configuration) {
+    private Status calculateElementStatus() {
         StatusCounter statusCounter = new StatusCounter();
-        for (Step step : steps) {
-            statusCounter.incrementFor(step.getResult().getStatus());
-        }
-        calculateStatusForHook(statusCounter, before);
-        calculateStatusForHook(statusCounter, after);
-
-        return getStatusForConfiguration(statusCounter, configuration);
+        statusCounter.incrementFor(stepsStatus);
+        statusCounter.incrementFor(beforeStatus);
+        statusCounter.incrementFor(afterStatus);
+        return statusCounter.getFinalStatus();
     }
 
     private Status calculateStepsStatus() {
@@ -156,38 +120,5 @@ public class Element {
             statusCounter.incrementFor(step.getResult().getStatus());
         }
         return statusCounter.getFinalStatus();
-    }
-
-    /**
-     * Evaluates the elementStatus according to the provided configuration.
-     *
-     * @param configuration
-     *            configuration that keeps the information whether the not-passed elementStatus should fail the build
-     * @return evaluated elementStatus
-     */
-    private Status getStatusForConfiguration(StatusCounter statusCounter, Configuration configuration) {
-        if (statusCounter.getValueFor(Status.FAILED) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.failsIfSkipped() && statusCounter.getValueFor(Status.SKIPPED) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.failsIfPending() && statusCounter.getValueFor(Status.PENDING) > 0) {
-            return Status.FAILED;
-        }
-
-        if (configuration.failsIfUndefined() && statusCounter.getValueFor(Status.UNDEFINED) > 0) {
-            return Status.FAILED;
-        }
-
-        return Status.PASSED;
-    }
-
-    private void calculateStatusForHook(StatusCounter statusCounter, Hook[] hooks) {
-        for (Hook hook : hooks) {
-            statusCounter.incrementFor(hook.getResult().getStatus());
-        }
     }
 }

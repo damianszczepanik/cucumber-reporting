@@ -2,11 +2,13 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
 import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
@@ -27,8 +29,9 @@ public class PageIntegrationTest extends PageTest {
     public void prepare() {
         Locale.setDefault(Locale.UK);
     }
+
     @Test
-    public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBarfor() {
+    public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBar() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -52,7 +55,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBarfor() {
+    public void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBar() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -75,11 +78,29 @@ public class PageIntegrationTest extends PageTest {
         menuItems[0].hasLinkToJenkins(configuration);
         menuItems[1].hasLinkToPreviousResult(configuration, page.getWebPage());
         menuItems[2].hasLinkToLastResult(configuration, page.getWebPage());
+    }
 
-        menuItems[3].hasLinkToFeatures();
-        menuItems[4].hasLinkToTags();
-        menuItems[5].hasLinkToSteps();
-        menuItems[6].hasLinkToFailures();
+    @Test
+    public void generatePage_onTrendsStatsFile_generatesAllItemsInNaviBar() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        configuration.setTrendsStatsFile(new File("someTmpFile"));
+
+        page = new FailuresOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        NavigationAssertion navigation = document.getNavigation();
+        NavigationItemAssertion[] menuItems = navigation.getNaviBarLinks();
+
+        navigation.hasPluginName();
+        assertThat(navigation.getNaviBarLinks()).hasSize(5);
+
+        menuItems[3].hasLinkToTrends();
     }
 
     @Test

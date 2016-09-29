@@ -3,8 +3,8 @@ $(document).ready(function() {
     var chartData = {
         datasets: [{
             data: [
-                   $all_features_passed,
-                   $all_features_failed
+                   $report_summary.getPassedFeatures(),
+                   $report_summary.getFailedFeatures()
                ],
                backgroundColor: [
                 "#00B000",
@@ -17,15 +17,15 @@ $(document).ready(function() {
         ]
     };
 
-    var ctx = document.getElementById("features-chart");
-    window.myBar = new Chart(ctx, {
-        type: 'pie',
+    var context = document.getElementById("features-chart");
+    window.myBar = new Chart(context, {
+        type: "pie",
         data: chartData,
         options: {
             title: {
                 display: true,
                 fontSize: 20,
-                text: 'Features'
+                text: "Features"
             },
             responsive: true,
             legend: {
@@ -38,7 +38,7 @@ $(document).ready(function() {
                         var tooltipLabel = data.labels[tooltipItem.index];
                         var tooltipData = allData[tooltipItem.index];
                         var tooltipPercentage = Math.round(10000 * tooltipData / $all_features.size()) / 100;
-                        return tooltipLabel + ': ' + tooltipData + ' (' + tooltipPercentage + '%)';
+                        return tooltipLabel + ": " + tooltipData + " (" + tooltipPercentage + "%)";
                     }
                 }
             }

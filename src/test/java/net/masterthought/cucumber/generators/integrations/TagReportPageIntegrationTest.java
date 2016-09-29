@@ -41,7 +41,6 @@ public class TagReportPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setStatusFlags(true, false, false);
         final TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
 
@@ -52,8 +51,8 @@ public class TagReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(tag.getName(), "1", "1", "2", "8", "0", "4", "2", "2", "16", "231ms", "Failed");
-        bodyRow.hasExactCSSClasses("tagname", "passed", "failed", "total", "passed", "", "skipped", "pending", "undefined", "total", "duration", "failed");
+        bodyRow.hasExactValues(tag.getName(), "10", "1", "2", "1", "2", "16", "1", "1", "2", "231ms", "Failed");
+        bodyRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
     }
 
     @Test

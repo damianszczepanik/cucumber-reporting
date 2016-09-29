@@ -1,15 +1,17 @@
 package net.masterthought.cucumber.json.support;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TagObject implements Reportable, Comparable<TagObject> {
 
@@ -28,12 +30,11 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     public TagObject(String tagName) {
         if (StringUtils.isEmpty(tagName)) {
-            throw new ValidationException("TagName cannnot be null!");
+            throw new ValidationException("TagName cannot be null!");
         }
         this.tagName = tagName;
 
-        // eliminate characters that might be invalid as a file tagName
-        this.reportFileName = tagName.replace("@", "").replaceAll(":", "-").trim() + ".html";
+        this.reportFileName = Tag.generateFileName(tagName);
     }
 
     @Override
@@ -46,14 +47,9 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     public boolean addElement(Element element) {
-        // don't process if this element was already linked with this tag
-        if (elements.contains(element)) {
-            return false;
-        }
-
         elements.add(element);
 
-        if (status != Status.FAILED && element.getElementStatus() != Status.PASSED) {
+        if (status != Status.FAILED && element.getStatus() != Status.PASSED) {
             status = Status.FAILED;
         }
 
@@ -61,7 +57,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
             scenarioCounter++;
         }
 
-        elementsStatusCounter.incrementFor(element.getElementStatus());
+        elementsStatusCounter.incrementFor(element.getStatus());
 
         for (Step step : element.getSteps()) {
             stepsStatusCounter.incrementFor(step.getResult().getStatus());
@@ -73,6 +69,21 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     public List<Element> getElements() {
         return elements;
+    }
+
+    @Override
+    public int getFeatures() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public int getPassedFeatures() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public int getFailedFeatures() {
+        throw new NotImplementedException();
     }
 
     @Override

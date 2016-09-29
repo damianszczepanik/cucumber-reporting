@@ -14,6 +14,9 @@ import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class TagsOverviewPage extends AbstractPage {
 
     private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.US);
@@ -22,10 +25,10 @@ public class TagsOverviewPage extends AbstractPage {
         DECIMAL_FORMATTER.setMaximumFractionDigits(2);
     }
 
-    public static final String WEB_PAGE = "tag-overview.html";
+    public static final String WEB_PAGE = "overview-tags.html";
 
     public TagsOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "tagsOverview.vm", configuration);
+        super(reportResult, "overviewTags.vm", configuration);
     }
 
     @Override
@@ -35,9 +38,9 @@ public class TagsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        List<TagObject> tags = report.getAllTags();
+        List<TagObject> tags = reportResult.getAllTags();
         context.put("all_tags", tags);
-        context.put("report_summary", report.getTagReport());
+        context.put("report_summary", reportResult.getTagReport());
 
         context.put("chart_categories", generateTagLabels(filterExcludedTags(tags)));
         context.put("chart_data", generateTagValues(filterExcludedTags(tags)));

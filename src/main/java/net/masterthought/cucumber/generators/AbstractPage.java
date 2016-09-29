@@ -26,7 +26,6 @@ import net.masterthought.cucumber.util.Util;
  * Delivers common methods for page generation.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
- *
  */
 public abstract class AbstractPage {
 
@@ -38,20 +37,20 @@ public abstract class AbstractPage {
     /** Name of the HTML file which will be generated. */
     private final String templateFileName;
     /** Results of the report. */
-    protected final ReportResult report;
+    protected final ReportResult reportResult;
     /** Configuration used for this report execution. */
     protected final Configuration configuration;
 
     protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration) {
         this.templateFileName = templateFileName;
-        this.report = reportResult;
+        this.reportResult = reportResult;
         this.configuration = configuration;
 
         this.engine.init(buildProperties());
         buildGeneralParameters();
     }
 
-    public final void generatePage() {
+    public void generatePage() {
         prepareReport();
         generateReport();
     }
@@ -90,12 +89,13 @@ public abstract class AbstractPage {
         context.put("util", Util.INSTANCE);
 
         context.put("jenkins_source", configuration.isRunWithJenkins());
+        context.put("trends_present", configuration.getTrendsStatsFile() != null);
         context.put("jenkins_base", configuration.getJenkinsBasePath());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
 
         // if report generation fails then report is null
-        String formattedTime = report != null ? report.getBuildTime() : ReportResult.getCurrentTime();
+        String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
         context.put("build_time", formattedTime);
 
         // build number is not mandatory

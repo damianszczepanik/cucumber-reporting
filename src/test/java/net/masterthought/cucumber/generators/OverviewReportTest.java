@@ -1,21 +1,37 @@
 package net.masterthought.cucumber.generators;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OverviewReportTest extends PageTest {
+public class OverviewReportTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void incFeaturesFor_AddsFeatures() {
+
+        // given
+        OverviewReport refReport = buildSampleReport();
+        OverviewReport report = buildSampleReport();
+
+        // then
+        report.incFeaturesFor(Status.FAILED);
+
+        // then
+        assertThat(report.getFeatures()).isEqualTo(refReport.getFeatures() + 1);
+        assertThat(report.getPassedFeatures()).isEqualTo(refReport.getPassedFeatures());
+        assertThat(report.getFailedFeatures()).isEqualTo(refReport.getFailedFeatures() + 1);
+    }
 
     @Test
     public void incScenarioFor_AddsScenario() {
@@ -32,6 +48,44 @@ public class OverviewReportTest extends PageTest {
         assertThat(report.getPassedScenarios()).isEqualTo(refReport.getPassedScenarios());
         assertThat(report.getFailedScenarios()).isEqualTo(refReport.getFailedScenarios() + 1);
     }
+
+    @Test
+    public void getFeatures_ReturnsFeaturesCount() {
+
+        // given
+        OverviewReport report = buildSampleReport();
+
+        // when
+        int featuresSize = report.getFeatures();
+
+        assertThat(featuresSize).isEqualTo(1);
+    }
+
+    @Test
+    public void getPassedFeatures_ReturnsPassedFeaturesCount() {
+
+        // given
+        OverviewReport report = buildSampleReport();
+
+        // when
+        int featuresSize = report.getPassedFeatures();
+
+        assertThat(featuresSize).isEqualTo(0);
+    }
+
+
+    @Test
+    public void getFailedFeatures_ReturnsFAiledFeaturesCount() {
+
+        // given
+        OverviewReport report = buildSampleReport();
+
+        // when
+        int featuresSize = report.getFailedFeatures();
+
+        assertThat(featuresSize).isEqualTo(1);
+    }
+
 
     @Test
     public void getScenarios_ReturnsNumberOfScenarios() {
@@ -165,6 +219,9 @@ public class OverviewReportTest extends PageTest {
     private static OverviewReport buildSampleReport() {
         OverviewReport report = new OverviewReport();
         report.incDurationBy(1234567L);
+
+        report.incFeaturesFor(Status.FAILED);
+
         report.incScenarioFor(Status.PASSED);
         report.incScenarioFor(Status.UNDEFINED);
 

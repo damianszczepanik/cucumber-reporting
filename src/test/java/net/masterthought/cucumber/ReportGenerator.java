@@ -23,6 +23,8 @@ public abstract class ReportGenerator {
     protected static final String INVALID_JSON = "invalid.json";
     protected static final String INVALID_REPORT_JSON = "invalid-report.json";
 
+    protected static final File TRENDS_FILE = new File(pathToTestFile("cucumber-trends.json"));
+
     private final File reportDirectory;
 
     protected Configuration configuration;
@@ -44,22 +46,32 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
+        initWithJSon(jsonFiles);
+
+        createReport();
+    }
+
+    protected void initWithJSon(String... jsonFiles) {
         if (jsonFiles != null) {
             for (String jsonFile : jsonFiles)
-                addReport(jsonFile);
+                jsonReports.add(reportFromResource(jsonFile));
         }
+
         // may be already created so don't overwrite it
         if (configuration == null) {
             configuration = new Configuration(reportDirectory, projectName);
         }
         createEmbeddingsDirectory();
-        createReport();
     }
 
-    private void addReport(String jsonReport) {
+    public static String reportFromResource(String jsonReport) {
+        return pathToTestFile(JSON_DIRECTORY + jsonReport);
+    }
+
+    protected static String pathToTestFile(String fileName) {
         try {
-            URL path = ReportGenerator.class.getClassLoader().getResource(JSON_DIRECTORY + jsonReport);
-            jsonReports.add(new File(path.toURI()).getAbsolutePath());
+            URL path = ReportGenerator.class.getClassLoader().getResource(fileName);
+            return new File(path.toURI()).getAbsolutePath();
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
         }

@@ -27,14 +27,18 @@ public class NavigationItemAssertion extends LinkAssertion {
     }
 
     public void hasLinkToTags() {
-        hasLabelAndAddress("Tags", "tag-overview.html");
+        hasLabelAndAddress("Tags", "overview-tags.html");
     }
 
     public void hasLinkToSteps() {
-        hasLabelAndAddress("Steps", "step-overview.html");
+        hasLabelAndAddress("Steps", "overview-steps.html");
+    }
+
+    public void hasLinkToTrends() {
+        hasLabelAndAddress("Trends", "overview-trends.html");
     }
 
     public void hasLinkToFailures() {
-        hasLabelAndAddress("Failures", "failures-overview.html");
+        hasLabelAndAddress("Failures", "overview-failures.html");
     }
 }
