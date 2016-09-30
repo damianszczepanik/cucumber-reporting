@@ -65,7 +65,7 @@ public class ReportBuilder {
      * Parses provided files and generates whole report. When generating process fails
      * report with information about error is provided.
      */
-    public void generateReports() {
+    public Reportable generateReports() {
         try {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
@@ -79,9 +79,13 @@ public class ReportBuilder {
             List<AbstractPage> pages = collectPages();
             generatePages(pages);
 
+            return reportResult.getFeatureReport();
+
             // whatever happens we want to provide at least error page instead of empty report
         } catch (Exception e) {
             generateErrorPage(e);
+            // something went wrong, don't pass result that might be incomplete
+            return null;
         }
     }
 

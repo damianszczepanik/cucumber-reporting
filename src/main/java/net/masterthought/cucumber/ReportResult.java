@@ -69,14 +69,6 @@ public class ReportResult {
         return tagsReport;
     }
 
-    public int getAllPassedFeatures() {
-        return featuresReport.getPassedFeatures();
-    }
-
-    public int getAllFailedFeatures() {
-        return featuresReport.getFailedFeatures();
-    }
-
     public String getBuildTime() {
         return buildTime;
     }

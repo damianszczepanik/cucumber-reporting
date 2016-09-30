@@ -81,8 +81,8 @@ public class ReportResultTest extends ReportGenerator {
         // from @Before
 
         // when
-        int passingFeatures = reportResult.getAllPassedFeatures();
-        int failedFeatures = reportResult.getAllFailedFeatures();
+        int passingFeatures = reportResult.getFeatureReport().getPassedFeatures();
+        int failedFeatures = reportResult.getFeatureReport().getFailedFeatures();
 
         // then
         assertThat(passingFeatures).isEqualTo(1);
@@ -99,7 +99,7 @@ public class ReportResultTest extends ReportGenerator {
         String time = reportResult.getBuildTime();
 
         // then
-        // validate only format such as "17 lip 2016, 18:40"
-        assertThat(time).containsPattern(Pattern.compile("^\\d{0,2} \\w{3} \\d{4}, \\d{1,2}:\\d{1,2}$"));
+        // validate only format such as "17 lip 2016, 18:40" (dot for month because it can have local no ASCII characters
+        assertThat(time).containsPattern(Pattern.compile("^\\d{0,2} .{3} \\d{4}, \\d{1,2}:\\d{1,2}$"));
     }
 }
