@@ -314,11 +314,12 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
-        builder.generateReports();
+        Reportable result = builder.generateReports();
 
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
+        assertThat(result).isNull();
     }
 
     @Test
@@ -331,10 +332,11 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
-        builder.generateReports();
+        Reportable result = builder.generateReports();
 
         // then
         assertThat(countHtmlFiles()).hasSize(9);
+        assertThat(result).isNotNull();
     }
 
     private File[] countHtmlFiles() {
