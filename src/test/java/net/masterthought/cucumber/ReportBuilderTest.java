@@ -186,7 +186,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
             @Override
             protected void prepareReport() {
-
+                // only to satisfy abstract class contract
             }
 
             @Override

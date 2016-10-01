@@ -58,8 +58,8 @@ $(document).ready(function() {
         ]
     };
 
-    var context = document.getElementById("trends-features-chart");
-    window.myBar = new Chart(context, {
+    var featuresContext = document.getElementById("trends-features-chart");
+    window.myBar = new Chart(featuresContext, {
         type: "line",
         data: chartFeaturesData
     });
@@ -115,8 +115,8 @@ $(document).ready(function() {
         ]
     };
 
-    var context = document.getElementById("trends-scenarios-chart");
-    window.myBar = new Chart(context, {
+    var scenariosContext = document.getElementById("trends-scenarios-chart");
+    window.myBar = new Chart(scenariosContext, {
         type: "line",
         data: chartScenariosData
     });
@@ -172,8 +172,8 @@ $(document).ready(function() {
         ]
     };
 
-    var context = document.getElementById("trends-steps-chart");
-    window.myBar = new Chart(context, {
+    var stepsContext = document.getElementById("trends-steps-chart");
+    window.myBar = new Chart(stepsContext, {
         type: "line",
         data: chartStepsData
     });

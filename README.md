@@ -19,7 +19,7 @@ This is a Java report publisher primarily created to publish cucumber reports on
 
 Cucumber is a test automation tool following the principles of Behavioural Driven Design and living documentation. Specifications are written in a concise human readable form and executed in continuous integration.
 
-This project allows you to publish the results of a cucumber run as pretty html reports. In order for this to work you must generate a cucumber json report. The project converts the json report into an overview html linking to separate feature file htmls with stats and results.
+This project allows you to publish the results of a cucumber run as pretty html reports. In order for this to work you must generate a cucumber json report. The project converts the json report into an overview html linking to separate feature files with stats and results.
 
 ## Install
 
@@ -45,26 +45,21 @@ jsonFiles.add("cucumber-report-2.json");
 String jenkinsBasePath = "";
 String buildNumber = "1";
 String projectName = "cucumber-jvm";
-boolean skippedFails = true;
-boolean pendingFails = false;
-boolean undefinedFails = true;
 boolean runWithJenkins = false;
 boolean parallelTesting = false;
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-// optionally only if you need
-configuration.setStatusFlags(skippedFails, pendingFails, undefinedFails);
+// optional configuration
 configuration.setParallelTesting(parallelTesting);
 configuration.setJenkinsBasePath(jenkinsBasePath);
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
 
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-reportBuilder.generateReports();
+Reportable result = reportBuilder.generateReports();
+// and here validate 'result' to decide what to do
+// if report has failed features, undefined steps etc
 ```
-`skippedFails` means the build will be failed if any steps are in skipped status and similar happens for other flags. This only applies when running with Jenkins.
-runWithJenkins means put in the links back to Jenkins in the report.
-
 There is a feature overview page:
 
 ![feature overview page]
@@ -89,6 +84,9 @@ And you can drill down into tag specific reports:
 
 ![Tag report]
 (https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/report-tag.png)
+
+![Trends report]
+(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/trends.png)
 
 
 ## Code quality
