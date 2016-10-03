@@ -18,7 +18,8 @@ public class Configuration {
 
     private File reportDirectory;
 
-    private File trendsStatsFile;
+    private File trendsFile;
+    private int trendsLimit;
     private String buildNumber;
     private String projectName;
 
@@ -58,11 +59,30 @@ public class Configuration {
     }
 
     public File getTrendsStatsFile() {
-        return trendsStatsFile;
+        return trendsFile;
     }
 
-    public void setTrendsStatsFile(File trendsStatsFile) {
-        this.trendsStatsFile = trendsStatsFile;
+    /**
+     * @see #setTrends(File, int)
+     */
+    @Deprecated
+    public void setTrendsStatsFile(File trendsFile) {
+        this.trendsFile = trendsFile;
+    }
+
+    public int getTrendsLimit() {
+        return trendsLimit;
+    }
+
+    /**
+     * Sets configuration for trends. When the limit is set to 0 then all items will be displayed.
+     *
+     * @param trendsFile  file where information about previous builds is stored
+     * @param trendsLimit number of builds that should be presented (older builds are skipped)
+     */
+    public void setTrends(File trendsFile, int trendsLimit) {
+        this.trendsFile = trendsFile;
+        this.trendsLimit = trendsLimit;
     }
 
     public String getBuildNumber() {
