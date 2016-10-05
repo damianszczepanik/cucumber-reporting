@@ -63,7 +63,7 @@
       <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
       <td></td>
       <td></td>
-      <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
+      <td>$util.formatAsPercentage($report_summary.getPassedFeatures(), $report_summary.getFeatures())</td>
     </tr>
   </tfoot>
 </table>
