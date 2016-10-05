@@ -58,16 +58,23 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getErrorMessage_ReturnsMessage() {
+    public void getErrorMessage_ReturnEscapedErrorMessage() {
 
-        // give
-        Result result = features.get(0).getElements()[1].getAfter()[0].getResult();
+        // given
+        Result result = features.get(1).getElements()[0].getSteps()[5].getResult();
 
         // when
-        String message = result.getErrorMessage();
+        String errorMessage = result.getErrorMessage();
 
         // then
-        assertThat(message).isEqualTo("Completed");
+        assertThat(errorMessage).isEqualTo("java.lang.AssertionError: \n" +
+                "Expected: is &lt;80&gt;\n" +
+                "     got: &lt;90&gt;\n" +
+                "\n" +
+                "\tat org.junit.Assert.assertThat(Assert.java:780)\n" +
+                "\tat org.junit.Assert.assertThat(Assert.java:738)\n" +
+                "\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
+                "\tat &#10045;.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)\n");
     }
 
 }
