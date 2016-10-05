@@ -139,7 +139,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         assertThat(footerRows).hasSize(2);
         footerRows[0].hasExactValues("2", "15", "1", "2", "1", "2", "21", "2", "1", "3", "1m 39s 355ms", "");
-        footerRows[1].hasExactValues("", "71.43%", "4.76%", "9.52%", "4.76%", "9.52%", "", "66.67%", "33.33%", "", "", "33.33%");
+        footerRows[1].hasExactValues("", "71.43%", "4.76%", "9.52%", "4.76%", "9.52%", "", "66.67%", "33.33%", "", "", "50.00%");
 
     }
 }

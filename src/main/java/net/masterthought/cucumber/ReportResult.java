@@ -104,7 +104,9 @@ public class ReportResult {
             countSteps(element.getBefore());
             countSteps(element.getAfter());
         }
+
         featuresReport.incFeaturesFor(feature.getStatus());
+        tagsReport.incFeaturesFor(feature.getStatus());
     }
 
     private void processTag(Tag tag, Element element, Status status) {

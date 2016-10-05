@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
@@ -26,16 +27,17 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
         String mimeType = rootNode.get("mime_type").asText();
 
         Embedding embedding = new Embedding(mimeType, data);
-        storeEmbedding(embedding, configuration);
+        storeEmbedding(embedding, configuration.getEmbeddingDirectory());
 
         return embedding;
     }
 
-    private void storeEmbedding(Embedding embedding, Configuration configuration) {
-        Path file = FileSystems.getDefault().getPath(configuration.getEmbeddingDirectory().getAbsolutePath(),
+    private void storeEmbedding(Embedding embedding, File embeddingDirectory) {
+        Path file = FileSystems.getDefault().getPath(embeddingDirectory.getAbsolutePath(),
                 embedding.getFileId() + "." + embedding.getExtension());
+        byte[] decodedData = Base64.decodeBase64(embedding.getData().getBytes(StandardCharsets.UTF_8));
         try {
-            Files.write(file, Base64.decodeBase64(embedding.getData().getBytes(StandardCharsets.UTF_8)));
+            Files.write(file, decodedData);
         } catch (IOException e) {
             throw new ValidationException(e);
         }
