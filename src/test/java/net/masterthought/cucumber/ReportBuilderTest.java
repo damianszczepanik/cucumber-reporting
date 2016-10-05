@@ -26,6 +26,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.generators.AbstractPage;
+import net.masterthought.cucumber.generators.OverviewReport;
+import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -173,7 +175,7 @@ public class ReportBuilderTest extends ReportGenerator {
     @Test
     public void generatePages_CallsGeneratePagesOverPassedPages() {
 
-        // given00
+        // given
         Configuration configuration = new Configuration(null, null);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
@@ -221,6 +223,70 @@ public class ReportBuilderTest extends ReportGenerator {
         assertThat(trends.getBuildNumbers()).endsWith(buildNumber);
         assertThat(trends.getFailedScenarios()).hasSize(4);
         assertThat(trends.getFailedScenarios()).endsWith(reportResult.getFeatureReport().getFailedScenarios());
+    }
+
+    @Test
+    public void appendCurrentReport_AppendsDataToTrends() {
+
+        // given
+        final String buildNumber = "1";
+        final int failedFeature = 1;
+        final int totalFeature = 2;
+        final int failedScenario = 3;
+        final int totalScenario = 4;
+        final int failedStep = 5;
+        final int totalStep = 6;
+        configuration = new Configuration(null, null);
+        configuration.setBuildNumber(buildNumber);
+
+        final Reportable reportable = new OverviewReport() {
+            public int getFailedFeatures() {
+                return failedFeature;
+            }
+
+            public int getFeatures() {
+                return totalFeature;
+            }
+
+            public int getFailedScenarios() {
+                return failedScenario;
+            }
+
+            public int getScenarios() {
+                return totalScenario;
+            }
+
+            public int getFailedSteps() {
+                return failedStep;
+            }
+
+            public int getSteps() {
+                return totalStep;
+            }
+        };
+
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList()) {
+            @Override
+            public Reportable getFeatureReport() {
+                return reportable;
+            }
+        };
+
+        ReportBuilder reportBuilder = new ReportBuilder(null, configuration);
+        Deencapsulation.setField(reportBuilder, "reportResult", reportResult);
+        Trends trends = new Trends();
+
+        // when
+        Deencapsulation.invoke(reportBuilder, "appendCurrentReport", trends);
+
+        // then
+        assertThat(trends.getBuildNumbers()).containsExactly(buildNumber);
+        assertThat(trends.getFailedFeatures()).containsExactly(failedFeature);
+        assertThat(trends.getTotalFeatures()).containsExactly(totalFeature);
+        assertThat(trends.getFailedScenarios()).containsExactly(failedScenario);
+        assertThat(trends.getTotalScenarios()).containsExactly(totalScenario);
+        assertThat(trends.getFailedSteps()).containsExactly(failedStep);
+        assertThat(trends.getTotalSteps()).containsExactly(totalStep);
     }
 
     @Test
@@ -337,6 +403,21 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertThat(countHtmlFiles()).hasSize(9);
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
+
+        // given
+        Trends trends = new Trends();
+        trends.addBuild("buildNumber", 10, 5, 1, 2, 3, 4);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+
+        // when
+        Deencapsulation.invoke(builder, "applyPatchForFeatures", trends);
+
+        // then
+        assertThat(trends.getTotalFeatures()[0]).isGreaterThan(trends.getFailedFeatures()[0]);
     }
 
     private File[] countHtmlFiles() {
