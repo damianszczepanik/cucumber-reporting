@@ -153,15 +153,14 @@ public class ReportBuilder {
         appendCurrentReport(trends);
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures(trends);
+        // save updated trends so it contains all history...
         saveTrends(trends, trendsFile);
+        // ...but display only last n items - don't skip items if limit is not defined
+        if (configuration.getTrendsLimit() != 0) {
+            trends.limitItems(configuration.getTrendsLimit());
+        }
 
         return trends;
-    }
-
-    private void appendCurrentReport(Trends trends) {
-        Reportable result = reportResult.getFeatureReport();
-        trends.addBuild(configuration.getBuildNumber(), result.getFailedFeatures(), result.getFeatures(),
-                result.getFailedScenarios(), result.getScenarios(), result.getFailedSteps(), result.getSteps());
     }
 
     private static Trends loadTrends(File file) {
@@ -177,6 +176,12 @@ public class ReportBuilder {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
         }
+    }
+
+    private void appendCurrentReport(Trends trends) {
+        Reportable result = reportResult.getFeatureReport();
+        trends.addBuild(configuration.getBuildNumber(), result.getFailedFeatures(), result.getFeatures(),
+                result.getFailedScenarios(), result.getScenarios(), result.getFailedSteps(), result.getSteps());
     }
 
     private void saveTrends(Trends trends, File file) {

@@ -206,7 +206,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void updateAndGenerateTrends_StoresUpdatedFile() {
+    public void updateAndGenerateTrends_ReturnsUpdatedTrends() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -223,6 +223,88 @@ public class ReportBuilderTest extends ReportGenerator {
         assertThat(trends.getBuildNumbers()).endsWith(buildNumber);
         assertThat(trends.getFailedScenarios()).hasSize(4);
         assertThat(trends.getFailedScenarios()).endsWith(reportResult.getFeatureReport().getFailedScenarios());
+    }
+
+    @Test
+    public void updateAndGenerateTrends_OnTrendsLimit_ReturnsUpdatedTrends() {
+
+        // given
+        final int trendsLimit = 2;
+        setUpWithJson(SAMPLE_JSON);
+        final String buildNumber = "my build";
+        configuration.setBuildNumber(buildNumber);
+        configuration.setTrends(TRENDS_TMP_FILE, trendsLimit);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        Deencapsulation.setField(builder, "reportResult", reportResult);
+
+        // when
+        Trends trends = Deencapsulation.invoke(builder, "updateAndGenerateTrends", TRENDS_TMP_FILE);
+
+        // then
+        assertThat(trends.getBuildNumbers()).hasSize(trendsLimit);
+        assertThat(trends.getBuildNumbers()).endsWith(buildNumber);
+        assertThat(trends.getFailedScenarios()).hasSize(trendsLimit);
+        assertThat(trends.getFailedScenarios()).endsWith(reportResult.getFeatureReport().getFailedScenarios());
+    }
+
+    @Test
+    public void loadTrends_ReturnsTrends() {
+
+        // when
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+
+        // then
+        assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
+        assertThat(trends.getFailedFeatures()).containsExactly(1, 2, 5);
+        assertThat(trends.getTotalFeatures()).containsExactly(10, 20, 30);
+        assertThat(trends.getFailedScenarios()).containsExactly(10, 20, 20);
+        assertThat(trends.getTotalScenarios()).containsExactly(10, 2, 5);
+        assertThat(trends.getFailedSteps()).containsExactly(100, 20, 30);
+        assertThat(trends.getTotalSteps()).containsExactly(150, 200, 300);
+    }
+
+    @Test
+    public void loadTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
+
+        // given
+        File noExistingTrendsFile = new File("anyNoExisting?File");
+
+        // when
+        Trends trend = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
+
+        // then
+        assertThat(trend).isNotNull();
+        assertThat(trend.getBuildNumbers()).isEmpty();
+        assertThat(trend.getFailedFeatures()).isEmpty();
+        assertThat(trend.getTotalFeatures()).isEmpty();
+        assertThat(trend.getFailedScenarios()).isEmpty();
+        assertThat(trend.getTotalScenarios()).isEmpty();
+        assertThat(trend.getFailedSteps()).isEmpty();
+        assertThat(trend.getTotalSteps()).isEmpty();
+    }
+
+    @Test
+    public void loadTrends_OnInvalidTrendsFormatFile_ThrowsExceptions() {
+
+        // given
+        File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
+
+        // then
+        thrown.expect(ValidationException.class);
+        thrown.expectMessage(endsWith("could not be parsed as file with trends!"));
+        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", notTrendJsonFile);
+    }
+
+    @Test
+    public void loadTrends_OnInvalidTrendsFile_ThrowsExceptions() {
+
+        // given
+        File directoryFile = new File(".");
+
+        // then
+        thrown.expect(ValidationException.class);
+        thrown.expectMessage(containsString("java.io.FileNotFoundException"));
+        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", directoryFile);
     }
 
     @Test
@@ -287,66 +369,6 @@ public class ReportBuilderTest extends ReportGenerator {
         assertThat(trends.getTotalScenarios()).containsExactly(totalScenario);
         assertThat(trends.getFailedSteps()).containsExactly(failedStep);
         assertThat(trends.getTotalSteps()).containsExactly(totalStep);
-    }
-
-    @Test
-    public void loadTrends_ReturnsTrends() {
-
-        // when
-        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
-
-        // then
-        assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
-        assertThat(trends.getFailedFeatures()).containsExactly(1, 2, 5);
-        assertThat(trends.getTotalFeatures()).containsExactly(10, 20, 30);
-        assertThat(trends.getFailedScenarios()).containsExactly(10, 20, 20);
-        assertThat(trends.getTotalScenarios()).containsExactly(10, 2, 5);
-        assertThat(trends.getFailedSteps()).containsExactly(100, 20, 30);
-        assertThat(trends.getTotalSteps()).containsExactly(150, 200, 300);
-    }
-
-    @Test
-    public void loadTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
-
-        // given
-        File noExistingTrendsFile = new File("anyNoExisting?File");
-
-        // when
-        Trends trend = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
-
-        // then
-        assertThat(trend).isNotNull();
-        assertThat(trend.getBuildNumbers()).isEmpty();
-        assertThat(trend.getFailedFeatures()).isEmpty();
-        assertThat(trend.getTotalFeatures()).isEmpty();
-        assertThat(trend.getFailedScenarios()).isEmpty();
-        assertThat(trend.getTotalScenarios()).isEmpty();
-        assertThat(trend.getFailedSteps()).isEmpty();
-        assertThat(trend.getTotalSteps()).isEmpty();
-    }
-
-    @Test
-    public void loadTrends_OnInvalidTrendsFormatFile_ThrowsExceptions() {
-
-        // given
-        File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
-
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(endsWith("could not be parsed as file with trends!"));
-        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", notTrendJsonFile);
-    }
-
-    @Test
-    public void loadTrends_OnInvalidTrendsFile_ThrowsExceptions() {
-
-        // given
-        File directoryFile = new File(".");
-
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(containsString("java.io.FileNotFoundException"));
-        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", directoryFile);
     }
 
     @Test
