@@ -63,11 +63,10 @@ public class Configuration {
     }
 
     /**
-     * @see #setTrends(File, int)
+     * Calls {@link }#setTrends(File, int)} with zero limit.
      */
-    @Deprecated
     public void setTrendsStatsFile(File trendsFile) {
-        this.trendsFile = trendsFile;
+        setTrends(trendsFile, 0);
     }
 
     public int getTrendsLimit() {

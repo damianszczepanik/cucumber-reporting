@@ -255,12 +255,21 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
+
+        assertThat(trends.getPassedFeatures()).containsExactly(9, 18, 25);
         assertThat(trends.getFailedFeatures()).containsExactly(1, 2, 5);
         assertThat(trends.getTotalFeatures()).containsExactly(10, 20, 30);
+
+        assertThat(trends.getPassedScenarios()).containsExactly(10, 20, 20);
         assertThat(trends.getFailedScenarios()).containsExactly(10, 20, 20);
         assertThat(trends.getTotalScenarios()).containsExactly(10, 2, 5);
-        assertThat(trends.getFailedSteps()).containsExactly(100, 20, 30);
-        assertThat(trends.getTotalSteps()).containsExactly(150, 200, 300);
+
+        assertThat(trends.getPassedFeatures()).containsExactly(9, 18, 25);
+        assertThat(trends.getFailedSteps()).containsExactly(10, 30, 50);
+        assertThat(trends.getSkippedSteps()).containsExactly(100, 300, 500);
+        assertThat(trends.getPendingSteps()).containsExactly(1000, 3000, 5000);
+        assertThat(trends.getUndefinedSteps()).containsExactly(10000, 30000, 50000);
+        assertThat(trends.getTotalSteps()).containsExactly(100000, 300000, 500000);
     }
 
     @Test
@@ -425,21 +434,6 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertThat(countHtmlFiles()).hasSize(9);
         assertThat(result).isNotNull();
-    }
-
-    @Test
-    public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
-
-        // given
-        Trends trends = new Trends();
-        trends.addBuild("buildNumber", 10, 5, 1, 2, 3, 4);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        // when
-        Deencapsulation.invoke(builder, "applyPatchForFeatures", trends);
-
-        // then
-        assertThat(trends.getTotalFeatures()[0]).isGreaterThan(trends.getFailedFeatures()[0]);
     }
 
     private File[] countHtmlFiles() {
