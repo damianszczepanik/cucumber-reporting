@@ -64,15 +64,20 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(15);
+        assertThat(context.getKeys()).hasSize(18);
 
         assertThat(context.get("buildNumbers")).isEqualTo("[\"01_first\",\"other build\",\"05last\"]");
         assertThat(context.get("failedFeatures")).isEqualTo("[1,2,5]");
         assertThat(context.get("totalFeatures")).isEqualTo("[10,20,30]");
+
         assertThat(context.get("failedScenarios")).isEqualTo("[10,20,20]");
         assertThat(context.get("totalScenarios")).isEqualTo("[10,2,5]");
-        assertThat(context.get("failedSteps")).isEqualTo("[100,20,30]");
-        assertThat(context.get("totalSteps")).isEqualTo("[150,200,300]");
+
+        assertThat(context.get("passedSteps")).isEqualTo("[1,3,5]");
+        assertThat(context.get("failedSteps")).isEqualTo("[10,30,50]");
+        assertThat(context.get("skippedSteps")).isEqualTo("[100,300,500]");
+        assertThat(context.get("pendingSteps")).isEqualTo("[1000,3000,5000]");
+        assertThat(context.get("undefinedSteps")).isEqualTo("[10000,30000,50000]");
     }
 
     @Test

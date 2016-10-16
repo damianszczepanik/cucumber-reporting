@@ -14,7 +14,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
-        <log4j.version>2.6.2</log4j.version>
+        <log4j.version>2.7</log4j.version>
         <powermock.version>1.6.5</powermock.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>

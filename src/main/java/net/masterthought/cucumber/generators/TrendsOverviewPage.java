@@ -28,12 +28,17 @@ public class TrendsOverviewPage extends AbstractPage {
     @Override
     public void prepareReport() {
         context.put("buildNumbers", toJavaScriptArray(trends.getBuildNumbers()));
+
         context.put("failedFeatures", toJavaScriptArray(trends.getFailedFeatures()));
         context.put("totalFeatures", toJavaScriptArray(trends.getTotalFeatures()));
         context.put("failedScenarios", toJavaScriptArray(trends.getFailedScenarios()));
         context.put("totalScenarios", toJavaScriptArray(trends.getTotalScenarios()));
+
+        context.put("passedSteps", toJavaScriptArray(trends.getPassedSteps()));
         context.put("failedSteps", toJavaScriptArray(trends.getFailedSteps()));
-        context.put("totalSteps", toJavaScriptArray(trends.getTotalSteps()));
+        context.put("skippedSteps", toJavaScriptArray(trends.getSkippedSteps()));
+        context.put("pendingSteps", toJavaScriptArray(trends.getPendingSteps()));
+        context.put("undefinedSteps", toJavaScriptArray(trends.getUndefinedSteps()));
     }
 
     private static String toJavaScriptArray(String[] array) {
