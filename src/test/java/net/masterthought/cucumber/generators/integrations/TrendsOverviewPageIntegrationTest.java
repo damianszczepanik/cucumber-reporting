@@ -24,7 +24,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
         page = new TrendsOverviewPage(reportResult, configuration, trends);
-        final String titleValue = String.format("Cucumber-JVM Reports  - Trends Overview",
+        final String titleValue = String.format("Cucumber Reports  - Trends Overview",
                 configuration.getBuildNumber());
 
         // when

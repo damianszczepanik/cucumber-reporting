@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.masterthought.cucumber.json.deserializers.StatusDeserializer;
 
 /**
- * Defines all possible statuses provided by cucumber-jvm library.
+ * Defines all possible statuses provided by cucumber library.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
  */

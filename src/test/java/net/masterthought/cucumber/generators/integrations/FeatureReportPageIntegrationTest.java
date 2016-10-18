@@ -40,7 +40,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
-        final String titleValue = String.format("Cucumber-JVM Reports  - Feature: %s", feature.getName());
+        final String titleValue = String.format("Cucumber Reports  - Feature: %s", feature.getName());
 
         // when
         page.generatePage();

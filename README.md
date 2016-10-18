@@ -44,7 +44,7 @@ jsonFiles.add("cucumber-report-2.json");
 
 String jenkinsBasePath = "";
 String buildNumber = "1";
-String projectName = "cucumber-jvm";
+String projectName = "cucumberProject";
 boolean runWithJenkins = false;
 boolean parallelTesting = false;
 
