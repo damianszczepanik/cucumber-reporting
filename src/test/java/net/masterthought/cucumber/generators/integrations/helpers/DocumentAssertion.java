@@ -27,8 +27,8 @@ public class DocumentAssertion extends ReportAssertion {
         return byId("build-info", BuildInfoAssertion.class);
     }
 
-    public SummaryAssertion getSummary() {
-        return byId("summary", SummaryAssertion.class);
+    public SummaryAssertion getReport() {
+        return byId("report", SummaryAssertion.class);
     }
 
     public FeatureAssertion getFeature() {

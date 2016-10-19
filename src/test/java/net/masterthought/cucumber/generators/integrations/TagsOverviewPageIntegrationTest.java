@@ -81,7 +81,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion[] headerRows = document.getSummary().getTableStats().getHeaderRows();
+        TableRowAssertion[] headerRows = document.getReport().getTableStats().getHeaderRows();
 
         assertThat(headerRows).hasSize(2);
 
@@ -105,7 +105,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
+        TableRowAssertion[] bodyRows = document.getReport().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSize(3);
 
@@ -140,7 +140,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion[] footerRows = document.getSummary().getTableStats().getAllFooterRows();
+        TableRowAssertion[] footerRows = document.getReport().getTableStats().getAllFooterRows();
 
         assertThat(footerRows).hasSize(2);
         footerRows[0].hasExactValues("3", "22", "1", "2", "1", "2", "28", "3", "1", "4", "509ms", "");
@@ -159,7 +159,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        SummaryAssertion summary = document.getSummary();
+        SummaryAssertion summary = document.getReport();
         assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no tags in your cucumber report");
     }
 }

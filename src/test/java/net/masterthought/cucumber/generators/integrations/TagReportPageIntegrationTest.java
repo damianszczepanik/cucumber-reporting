@@ -49,7 +49,7 @@ public class TagReportPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
+        TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
 
         bodyRow.hasExactValues(tag.getName(), "10", "1", "2", "1", "2", "16", "1", "1", "2", "231ms", "Failed");
         bodyRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");

@@ -66,7 +66,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        SummaryAssertion summary = document.getSummary();
+        SummaryAssertion summary = document.getReport();
         assertThat(summary.getEmptyReportMessage()).isEqualTo("You have no failed scenarios in your Cucumber report");
     }
 
