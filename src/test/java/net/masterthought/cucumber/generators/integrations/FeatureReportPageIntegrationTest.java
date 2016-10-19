@@ -65,7 +65,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion bodyRow = document.getSummary().getTableStats().getBodyRow();
+        TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
 
         bodyRow.hasExactValues(feature.getName(), "10", "0", "0", "0", "0", "10", "1", "0", "1", "1m 39s 263ms", "Passed");
         bodyRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");

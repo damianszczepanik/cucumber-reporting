@@ -5,6 +5,7 @@
 #parse("/templates/macros/page/lead.vm")
 #parse("/templates/macros/page/navigation.vm")
 #parse("/templates/macros/page/title.vm")
+#parse("/templates/macros/page/expandAllButtons.vm")
 
 #parse("/templates/macros/report/brief.vm")
 #parse("/templates/macros/report/docstring.vm")

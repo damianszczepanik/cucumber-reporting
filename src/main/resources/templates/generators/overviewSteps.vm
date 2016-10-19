@@ -14,7 +14,7 @@
  step does not provide information about result then is not listed below.
  Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
 
-<div class="container-fluid" id="summary">
+<div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <table id="tablesorter" class="stats-table table-hover">
