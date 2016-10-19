@@ -4,6 +4,6 @@
 #if($jenkins_source)
   #set($buildNo = "(no $build_number)")
 #end
-<title>Cucumber-JVM Reports $buildNo - $reportName</title>
+<title>Cucumber Reports $buildNo - $reportName</title>
 
 #end

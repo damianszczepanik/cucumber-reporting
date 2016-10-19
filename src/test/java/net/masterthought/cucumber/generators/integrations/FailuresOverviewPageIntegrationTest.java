@@ -23,7 +23,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
         page = new FailuresOverviewPage(reportResult, configuration);
-        final String titleValue = String.format("Cucumber-JVM Reports (no %s) - Failures Overview",
+        final String titleValue = String.format("Cucumber Reports (no %s) - Failures Overview",
                 configuration.getBuildNumber());
 
         // when
