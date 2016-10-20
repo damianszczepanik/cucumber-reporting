@@ -19,7 +19,7 @@ public class NavigationItemAssertion extends LinkAssertion {
     }
 
     public void hasLinkToLastResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Latest results", "../../lastBuild/" + ReportBuilder.BASE_DIRECTORY + "/" + page);
+        hasLabelAndAddress("Latest results", "../../lastCompletedBuild/" + ReportBuilder.BASE_DIRECTORY + "/" + page);
     }
 
     public void hasLinkToFeatures() {
