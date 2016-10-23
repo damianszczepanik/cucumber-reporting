@@ -67,7 +67,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion[] headerRows = document.getSummary().getTableStats().getHeaderRows();
+        TableRowAssertion[] headerRows = document.getReport().getTableStats().getHeaderRows();
 
         assertThat(headerRows).hasSize(1);
 
@@ -87,7 +87,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion[] bodyRows = document.getSummary().getTableStats().getBodyRows();
+        TableRowAssertion[] bodyRows = document.getReport().getTableStats().getBodyRows();
 
         assertThat(bodyRows).hasSameSizeAs(steps);
 
@@ -113,7 +113,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        TableRowAssertion footerCells = document.getSummary().getTableStats().getFooterRow();
+        TableRowAssertion footerCells = document.getReport().getTableStats().getFooterRow();
 
         footerCells.hasExactValues("16", "23", "1m 39s 492ms", "4s 325ms", "Totals");
     }
