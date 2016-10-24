@@ -10,6 +10,9 @@ env:
    # via the "travis encrypt" command using the project repo's public key
    - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
 
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 
 # Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
 # See https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
@@ -48,4 +51,4 @@ addons:
     # The command that will be added as an argument to "cov-build" to compile your project for analysis,
     build_command:   "mvn -DskipTests=true compile"
     # Pattern to match selecting branches that will run analysis.
-    branch_pattern: master
+    branch_pattern: coverity_scan
