@@ -4,9 +4,9 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-10">
       <i class="fa fa-chevron-circle-down fa-2x collapsable-control"
-        onClick="javascript:$('#summary .collapsable-details').collapse('show')"></i>
+        onClick="javascript:$('#report .collapsable-details').collapse('show')"></i>
       <i class="fa fa-chevron-circle-up fa-2x collapsable-control"
-        onClick="javascript:$('#summary .collapsable-details').collapse('hide')"></i>
+        onClick="javascript:$('#report .collapsable-details').collapse('hide')"></i>
     </div>
   </div>
 </div>
