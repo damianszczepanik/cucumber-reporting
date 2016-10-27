@@ -3,6 +3,7 @@ package net.masterthought.cucumber.json;
 import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.codehaus.plexus.util.Base64;
 
 import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
@@ -39,6 +40,11 @@ public class Embedding {
         return new String(Base64.decodeBase64(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
     }
 
+    /** Returns encoded and escaped data so it is ready to display in HTML page. */
+    public String getEscapedDecodedData() {
+        return StringEscapeUtils.escapeHtml(getDecodedData());
+    }
+
     public String getFileName() {
         return fileId + "." + getExtension();
     }
@@ -54,7 +60,9 @@ public class Embedding {
         case "image/bmp":
         case "image/jpeg":
         case "text/html":
+        case "text/xml":
         case "application/json":
+        case "application/xml":
             return mimeType.substring(mimeType.indexOf('/') + 1);
         // image available remotely stored as link/url
         case "image/url":

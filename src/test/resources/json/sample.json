@@ -443,8 +443,12 @@
                                 "data": "PGk+SGVsbG88L2k+IDxiPldvcmxkITwvYj4="
                             },
                             {
-                                "mime_type": "unknown",
-                                "data": "test"
+                                "mime_type": "text/xml",
+                                "data": "PD94bWwgdmVyc2lvbj0iMS4wIj8+DQo8eG1sPg0KICA8c29tZU5vZGUgYXR0cj0idmFsdWUiIC8+DQo8L3htbD4="
+                            },
+                            {
+                                "mime_type": "js",
+                                "data": "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsNCiAgY29uc29sZS5sb2cobWVzc2FnZSk7DQp9"
                             }
                         ]
                     },
