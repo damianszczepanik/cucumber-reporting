@@ -9,6 +9,8 @@
       #includeImageEmbedding($embedding, "bmp", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/jpeg")
       #includeImageEmbedding($embedding, "jpeg", $foreach.index)
+    #elseif ($embedding.getMimeType() == "text/xml")
+      #includeEscapedTextEmbedding($embedding, "XML text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/plain")
       #includeTextEmbedding($embedding, "Plain text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/html")
@@ -42,21 +44,25 @@
   #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
 #end
 
+#macro(includeEscapedTextEmbedding, $embedding, $format, $index)
+  #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getEscapedDecodedData()</pre>", $index)
+#end
 
 #macro(includeUnknownEmbedding, $embedding, $index)
   #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, $embedding.getMimeType(), "File the <a href=${Quote}https://github.com/damianszczepanik/cucumber-reporting/issues${Quote}>bug</a> so support for this mimetype can be added.", $index)
+  #includeExpandableEmbedding($embedding, $embedding.getMimeType(), "This file cannot be displayed. Use download button to get the content as file.", $index)
 #end
 
 
 #macro(includeExpandableEmbedding, $embedding, $type, $content, $index)
   #set($index = $index + 1)
   <div class="embedding indention">
-    <div data-toggle="collapse" data-target="#embedding_$embedding.getFileId()" class="collapsable-control">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
       <a>Attachment $index ($type)</a>
       <a href="embeddings/$embedding.getFileName()" target="_blank"><span class="download-button glyphicon glyphicon-download-alt"></span></a>
     </div>
-    <div id="embedding_$embedding.getFileId()" class="collapse collapsable-detail">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details">
       <span class="embedding-content">$content</span>
     </div>
   </div>
