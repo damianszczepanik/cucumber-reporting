@@ -105,17 +105,4 @@ public class TagsOverviewPageTest extends PageTest {
                 "[6.25, 0.00, 0.00]",
                 "[12.50, 0.00, 0.00]");
     }
-
-    @Test
-    public void formatAsPercentage_ReturnsFormatedValue() {
-
-        // given
-        final int[][] values = { { 1, 3 }, { 2, 2 }, { 1, 5 }, { 0, 5 } };
-        String[] formatted = { "33.33", "100.00", "20.00", "0.00" };
-
-        // then
-        for (int i = 0; i < values.length; i++) {
-            assertThat(TagsOverviewPage.formatAsPercentage(values[i][0], values[i][1])).isEqualTo(formatted[i]);
-        }
-    }
 }
