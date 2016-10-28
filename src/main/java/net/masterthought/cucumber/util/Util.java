@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.util;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -14,6 +15,13 @@ public final class Util {
     static {
         PERCENT_FORMATTER.setMinimumFractionDigits(2);
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
+    }
+
+    private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.US);
+
+    static {
+        DECIMAL_FORMATTER.setMinimumFractionDigits(2);
+        DECIMAL_FORMATTER.setMaximumFractionDigits(2);
     }
 
     public static final Util INSTANCE = new Util();
@@ -47,12 +55,18 @@ public final class Util {
      * Returns value converted to percentage format.
      *
      * @param value value to convert
-     * @param sum   sum of all values
+     * @param total sum of all values
      * @return converted values including '%' character
      */
-    public static String formatAsPercentage(int value, int sum) {
+    public static String formatAsPercentage(int value, int total) {
         // value '1F' is to force floating conversion instead of loosing decimal part
-        return PERCENT_FORMATTER.format(1F * value / sum);
+        float average = total == 0 ? 0 : 1F * value / total;
+        return PERCENT_FORMATTER.format(average);
+    }
+
+    public static String formatAsDecimal(int value, int total) {
+        float average = total == 0 ? 0 : 100F * value / total;
+        return DECIMAL_FORMATTER.format(average);
     }
 
     /**

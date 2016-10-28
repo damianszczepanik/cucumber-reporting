@@ -1,10 +1,7 @@
 package net.masterthought.cucumber.generators;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,17 +10,12 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.util.Util;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class TagsOverviewPage extends AbstractPage {
-
-    private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.US);
-    static {
-        DECIMAL_FORMATTER.setMinimumFractionDigits(2);
-        DECIMAL_FORMATTER.setMaximumFractionDigits(2);
-    }
 
     public static final String WEB_PAGE = "overview-tags.html";
 
@@ -82,11 +74,11 @@ public class TagsOverviewPage extends AbstractPage {
         for (int i = 0; i < tagsCount; i++) {
             final TagObject tagObject = tagsObjectList.get(i);
             final int allSteps = tagObject.getSteps();
-            values[0][i] = formatAsPercentage(tagObject.getPassedSteps(), allSteps);
-            values[1][i] = formatAsPercentage(tagObject.getFailedSteps(), allSteps);
-            values[2][i] = formatAsPercentage(tagObject.getSkippedSteps(), allSteps);
-            values[3][i] = formatAsPercentage(tagObject.getPendingSteps(), allSteps);
-            values[4][i] = formatAsPercentage(tagObject.getUndefinedSteps(), allSteps);
+            values[0][i] = Util.formatAsDecimal(tagObject.getPassedSteps(), allSteps);
+            values[1][i] = Util.formatAsDecimal(tagObject.getFailedSteps(), allSteps);
+            values[2][i] = Util.formatAsDecimal(tagObject.getSkippedSteps(), allSteps);
+            values[3][i] = Util.formatAsDecimal(tagObject.getPendingSteps(), allSteps);
+            values[4][i] = Util.formatAsDecimal(tagObject.getUndefinedSteps(), allSteps);
         }
 
         List<String> statuses = new ArrayList<>();
@@ -95,9 +87,5 @@ public class TagsOverviewPage extends AbstractPage {
         }
 
         return statuses;
-    }
-
-    static String formatAsPercentage(int value, int sum) {
-        return DECIMAL_FORMATTER.format(100F * value / sum);
     }
 }
