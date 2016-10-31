@@ -65,10 +65,10 @@ public class StepTest extends PageTest {
         Step step = features.get(1).getElements()[0].getSteps()[7];
 
         // when
-        Output output = step.getOutput();
+        Output[] outputs = step.getOutput();
 
         // then
-        assertThat(output.getMessages()).containsOnlyOnce(
+        assertThat(getMessages(outputs)).containsOnlyOnce(
                 "Could not connect to the server @Rocky@",
                 "Could not connect to the server @Mike@");
     }

@@ -211,9 +211,9 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        Output outputElement = features.get(1).getElements()[0].getSteps()[7].getOutput();
+        Output[] outputElements = features.get(1).getElements()[0].getSteps()[7].getOutput();
         OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[7].getOutput();
-        output.hasMessages(outputElement.getMessages());
+        output.hasMessages(getMessages(outputElements));
     }
 
     @Test
@@ -230,9 +230,9 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
 
-        Output outputElement = features.get(1).getElements()[0].getSteps()[8].getOutput();
+        Output[] outputElements = features.get(1).getElements()[0].getSteps()[8].getOutput();
         OutputAssertion output = document.getFeature().getElements()[0].getStepsSection().getSteps()[8].getOutput();
-        output.hasMessages(outputElement.getMessages());
+        output.hasMessages(getMessages(outputElements));
     }
 
     @Test

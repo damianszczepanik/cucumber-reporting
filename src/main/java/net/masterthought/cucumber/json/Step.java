@@ -13,7 +13,7 @@ public class Step implements Resultsable {
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedding[] embeddings = new Embedding[0];
-    private final Output output = null;
+    private final Output[] output = null;
     @JsonProperty("doc_string")
     private final DocString docString = null;
     // End: attributes from JSON file report
@@ -31,7 +31,7 @@ public class Step implements Resultsable {
         return keyword.trim();
     }
 
-    public Output getOutput() {
+    public Output[] getOutput() {
         return output;
     }
 

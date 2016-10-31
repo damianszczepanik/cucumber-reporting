@@ -31,4 +31,9 @@ public class Result {
     public String getErrorMessage() {
         return StringEscapeUtils.escapeHtml(errorMessage);
     }
+
+    // method used in Velocity templating library
+    public String getErrorMessageTitle() {
+        return errorMessage.split("\\r\\n|\\r|\\n")[0];
+    }
 }
