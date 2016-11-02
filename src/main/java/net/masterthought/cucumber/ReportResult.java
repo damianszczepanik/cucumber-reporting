@@ -56,7 +56,7 @@ public class ReportResult {
     }
 
     private static <T extends Comparable<? super T>> List<T> toSortedList(Collection<T> values) {
-        List<T> list = new ArrayList<T>(values);
+        List<T> list = new ArrayList<>(values);
         Collections.sort(list);
         return list;
     }
@@ -130,16 +130,13 @@ public class ReportResult {
 
             Match match = step.getMatch();
             // no match = could not find method that was matched to this step -> status is missing
-            if (match == null) {
-                continue;
+            if (match != null) {
+                String methodName = match.getLocation();
+                // location is missing so there is no way to identify step
+                if (StringUtils.isNotEmpty(methodName)) {
+                    addNewStep(step.getResult(), methodName);
+                }
             }
-
-            String methodName = match.getLocation();
-            // location is missing so there is no way to identify step
-            if (StringUtils.isEmpty(methodName)) {
-                continue;
-            }
-            addNewStep(step.getResult(), methodName);
         }
     }
 
