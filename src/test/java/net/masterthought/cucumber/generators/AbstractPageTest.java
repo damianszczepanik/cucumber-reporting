@@ -68,7 +68,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(7);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -78,7 +78,6 @@ public class AbstractPageTest extends PageTest {
         assertThat(context.get("util")).isInstanceOf(Util.class);
 
         assertThat(context.get("jenkins_source")).isEqualTo(configuration.isRunWithJenkins());
-        assertThat(context.get("jenkins_base")).isEqualTo(configuration.getJenkinsBasePath());
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
         assertThat(context.get("jenkins_source")).isNotNull();
@@ -96,7 +95,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(8);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -112,7 +111,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(7);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -128,7 +127,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(8);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 

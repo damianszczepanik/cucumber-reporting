@@ -6,14 +6,11 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.lang.StringUtils;
-
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
 
     private boolean parallelTesting;
-    private String jenkinsBasePath;
     private boolean runWithJenkins;
 
     private File reportDirectory;
@@ -36,14 +33,6 @@ public class Configuration {
 
     public void setParallelTesting(boolean parallelTesting) {
         this.parallelTesting = parallelTesting;
-    }
-
-    public String getJenkinsBasePath() {
-        return StringUtils.defaultString(jenkinsBasePath);
-    }
-
-    public void setJenkinsBasePath(String jenkinsBase) {
-        this.jenkinsBasePath = jenkinsBase;
     }
 
     public boolean isRunWithJenkins() {
