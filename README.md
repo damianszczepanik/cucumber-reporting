@@ -42,7 +42,6 @@ List<String> jsonFiles = new ArrayList<>();
 jsonFiles.add("cucumber-report-1.json");
 jsonFiles.add("cucumber-report-2.json");
 
-String jenkinsBasePath = "";
 String buildNumber = "1";
 String projectName = "cucumberProject";
 boolean runWithJenkins = false;
@@ -51,7 +50,6 @@ boolean parallelTesting = false;
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 // optional configuration
 configuration.setParallelTesting(parallelTesting);
-configuration.setJenkinsBasePath(jenkinsBasePath);
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
 

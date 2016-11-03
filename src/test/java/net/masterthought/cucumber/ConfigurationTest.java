@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -36,36 +35,6 @@ public class ConfigurationTest {
 
         // then
         assertThat(parallel).isEqualTo(parallelTesting);
-    }
-
-    @Test
-    public void getJenkinsBasePath_OnSampleBath_ReturnsJenkinsPath() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        String basePath = "abc321";
-        configuration.setJenkinsBasePath(basePath);
-
-        // when
-        String path = configuration.getJenkinsBasePath();
-
-        // then
-        assertThat(path).isEqualTo(basePath);
-    }
-
-    @Test
-    public void getJenkinsBasePath_OnEmptyPath_ReturnsJenkinsPath() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        String basePath = StringUtils.EMPTY;
-        configuration.setJenkinsBasePath(basePath);
-
-        // when
-        String path = configuration.getJenkinsBasePath();
-
-        // then
-        assertThat(path).isEmpty();
     }
 
     @Test

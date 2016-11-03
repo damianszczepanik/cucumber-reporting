@@ -5,11 +5,11 @@
       <p class="navbar-text navbar-left">Cucumber Report</p>
       <ul class="nav navbar-nav navbar-right">
         #if ($jenkins_source)
-          <li role="presentation"><a href="${jenkins_base}../">Jenkins</a></li>
+          <li role="presentation"><a href="../">Jenkins</a></li>
           #if ($build_previous_number)
-            <li role="presentation"><a href="${jenkins_base}../../$build_previous_number/cucumber-html-reports/$report_file">Previous results</a></li>
+            <li role="presentation"><a href="../../$build_previous_number/cucumber-html-reports/$report_file">Previous results</a></li>
           #end
-          <li role="presentation"><a href="${jenkins_base}../../lastCompletedBuild/cucumber-html-reports/$report_file">Latest results</a></li>
+          <li role="presentation"><a href="../../lastCompletedBuild/cucumber-html-reports/$report_file">Latest results</a></li>
         #end
         <li role="presentation" #if($active_tab == "features") class="active" #end><a href="overview-features.html">Features</a></li>
         <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="overview-tags.html">Tags</a></li>
