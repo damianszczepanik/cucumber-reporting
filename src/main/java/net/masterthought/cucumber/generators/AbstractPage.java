@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,6 +63,7 @@ public abstract class AbstractPage {
 
     private void generateReport() {
         context.put("report_file", getWebPage());
+        context.put("escHtml", StringEscapeUtils.ESCAPE_HTML4);
 
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(),

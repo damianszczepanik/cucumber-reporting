@@ -8,7 +8,7 @@
           <a>Doc string</a>
       </div>
       <div id="msg-$docStringId" class="collapse collapsable-details">
-        <pre>$docString.getValue()</pre>
+        <pre>$escHtml.translate($docString.getValue())</pre>
       </div>
     </div>
   </div>
