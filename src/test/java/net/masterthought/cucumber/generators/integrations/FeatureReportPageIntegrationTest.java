@@ -281,6 +281,27 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         stepElement.getDocString().hasDocString(step.getDocString());
     }
+    
+    @Test
+    public void generatePage_generatesEscapedDocString() {
+
+        // given
+        setUpWithJson(SAMPLE_XML_JSON);
+        final Feature feature = features.get(0);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepElement = document.getFeature().getElements()[0].getStepsSection().getSteps()[3];
+        Step step = feature.getElements()[0].getSteps()[3];
+
+        stepElement.getDocString().hasDocString(step.getDocString());
+    }
+
 
     @Test
     public void generatePage_generatesEmbedding() {
