@@ -8,6 +8,7 @@ import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.LinkAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -56,6 +57,25 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
+    public void generatePage_generatesFeatureNames() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final TagObject tag = tags.get(1);
+        page = new TagReportPage(reportResult, configuration, tag);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        ElementAssertion[] elements = document.getElements();
+
+        LinkAssertion featureName = elements[0].getFeatureName();
+        featureName.hasLabelAndAddress(features.get(0).getName(), features.get(0).getReportFileName());
+    }
+
+    @Test
     public void generatePage_generatesTagsList() {
 
         // given
@@ -74,7 +94,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesSampleStep() {
+    public void generatePage_generatesSteps() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
