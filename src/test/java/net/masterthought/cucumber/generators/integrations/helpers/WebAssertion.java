@@ -93,6 +93,11 @@ public class WebAssertion {
 
     public <T extends WebAssertion> T[] allBySelector(String selector, Class<T> clazz) {
         Elements inner = element.select(selector);
+        // when current element is <abc> selector and querying is by the same selector
+        // then at the first position is current element what is not desirable
+        if (this.element.equals(inner.get(0))) {
+            inner.remove(0);
+        }
         assertNotEmpty(inner, selector);
 
         return toArray(inner, clazz);
@@ -146,5 +151,10 @@ public class WebAssertion {
 
     public String attr(String attributeKey) {
         return element.attr(attributeKey);
+    }
+
+    @Override
+    public String toString() {
+        return html();
     }
 }

@@ -5,6 +5,12 @@ package net.masterthought.cucumber.generators.integrations.helpers;
  */
 public class ElementAssertion extends ReportAssertion {
 
+    public LinkAssertion getFeatureName() {
+        WebAssertion[] webs = allBySelector("div", WebAssertion.class);
+        // get the first nested <div> which has no its class but contains the feature name
+        return webs[0].oneBySelector("a", LinkAssertion.class);
+    }
+
     @Override
     public TagAssertion[] getTags() {
         return super.getTags();
