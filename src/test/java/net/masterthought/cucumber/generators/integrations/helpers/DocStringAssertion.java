@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.json.DocString;
+
 import org.apache.commons.lang3.text.translate.AggregateTranslator;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
-
-import net.masterthought.cucumber.json.DocString;
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Fang Yuan (fayndee@github)
