@@ -53,6 +53,7 @@ a:hover {
 .description {
     font-style: italic;
     background-color: beige;
+    white-space: pre;
 }
 
 .message, .output, .embedding {
