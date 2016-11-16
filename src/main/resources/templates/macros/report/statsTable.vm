@@ -10,6 +10,9 @@
         #if ($parallel)
           <td>$item.getDeviceName()</td>
         #end
+        <td #if ($item.getPassedScenarios() > 0) class="passed"    #end>$item.getPassedScenarios()</td>
+        <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
+        <td class="total">$item.getScenarios()</td>
 
         <td #if ($item.getPassedSteps() > 0)     class="passed"    #end>$item.getPassedSteps()</td>
         <td #if ($item.getFailedSteps() > 0)     class="failed"    #end>$item.getFailedSteps()</td>
@@ -17,10 +20,6 @@
         <td #if ($item.getPendingSteps() > 0)    class="pending"   #end>$item.getPendingSteps()</td>
         <td #if ($item.getUndefinedSteps() > 0)  class="undefined" #end>$item.getUndefinedSteps()</td>
         <td class="total">$item.getSteps()</td>
-
-        <td #if ($item.getPassedScenarios() > 0) class="passed"    #end>$item.getPassedScenarios()</td>
-        <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
-        <td class="total">$item.getScenarios()</td>
 
         <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
         <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
@@ -34,6 +33,10 @@
       #if ($parallel)
         <td>-</td>
       #end
+      <td>$report_summary.getPassedScenarios()</td>
+      <td>$report_summary.getFailedScenarios()</td>
+      <td>$report_summary.getScenarios()</td>
+
       <td>$report_summary.getPassedSteps()</td>
       <td>$report_summary.getFailedSteps()</td>
       <td>$report_summary.getSkippedSteps()</td>
@@ -41,9 +44,7 @@
       <td>$report_summary.getUndefinedSteps()</td>
       <td>$report_summary.getSteps()</td>
 
-      <td>$report_summary.getPassedScenarios()</td>
-      <td>$report_summary.getFailedScenarios()</td>
-      <td>$report_summary.getScenarios()</td>
+
 
       <td class="duration">$report_summary.getFormattedDurations()</td>
       <td></td>
@@ -53,14 +54,14 @@
       #if ($parallel)
         <td>-</td>
       #end
+      <td>$util.formatAsPercentage($report_summary.getPassedScenarios(), $report_summary.getScenarios())</td>
+      <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
+      <td></td>
       <td>$util.formatAsPercentage($report_summary.getPassedSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getFailedSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getSkippedSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getPendingSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getUndefinedSteps(), $report_summary.getSteps())</td>
-      <td></td>
-      <td>$util.formatAsPercentage($report_summary.getPassedScenarios(), $report_summary.getScenarios())</td>
-      <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
       <td></td>
       <td></td>
       <td>$util.formatAsPercentage($report_summary.getPassedFeatures(), $report_summary.getFeatures())</td>
