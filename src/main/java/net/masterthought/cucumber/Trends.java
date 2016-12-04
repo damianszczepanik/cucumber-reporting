@@ -1,5 +1,7 @@
 package net.masterthought.cucumber;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang.ArrayUtils;
 
 /**
@@ -25,6 +27,8 @@ public class Trends {
     private int[] pendingSteps = new int[0];
     private int[] undefinedSteps = new int[0];
     private int[] totalSteps = new int[0];
+
+    private long[] durations = new long[0];
 
     public String[] getBuildNumbers() {
         return buildNumbers;
@@ -78,6 +82,10 @@ public class Trends {
         return totalSteps;
     }
 
+    public long[] getDurations() {
+        return durations;
+    }
+
     /**
      * Adds build into the trends.
      */
@@ -100,10 +108,15 @@ public class Trends {
         undefinedSteps = ArrayUtils.add(undefinedSteps, reportable.getUndefinedSteps());
         totalSteps = ArrayUtils.add(totalSteps, reportable.getSteps());
 
+        durations = ArrayUtils.add(durations, reportable.getDurations());
+
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();
         if (pendingSteps.length < buildNumbers.length) {
             fillMissingSteps();
+        }
+        if (durations.length < buildNumbers.length) {
+            fillMissingDurations();
         }
     }
 
@@ -130,6 +143,8 @@ public class Trends {
         pendingSteps = copyLastElements(pendingSteps, limit);
         undefinedSteps = copyLastElements(undefinedSteps, limit);
         totalSteps = copyLastElements(totalSteps, limit);
+
+        durations = copyLastElements(durations, limit);
     }
 
     private static int[] copyLastElements(int[] srcArray, int copyingLimit) {
@@ -139,6 +154,18 @@ public class Trends {
         }
 
         int[] dest = new int[copyingLimit];
+        System.arraycopy(srcArray, srcArray.length - copyingLimit, dest, 0, copyingLimit);
+
+        return dest;
+    }
+
+    private static long[] copyLastElements(long[] srcArray, int copyingLimit) {
+        // if there is less elements than the limit then return array unchanged
+        if (srcArray.length <= copyingLimit) {
+            return srcArray;
+        }
+
+        long[] dest = new long[copyingLimit];
         System.arraycopy(srcArray, srcArray.length - copyingLimit, dest, 0, copyingLimit);
 
         return dest;
@@ -157,7 +184,7 @@ public class Trends {
     }
 
     /**
-     * Due to the error with parameters in {@link #appendCurrentReport(Trends)} where total features
+     * Due to the error with old implementation where total features
      * were passed instead of failures (and vice versa) following correction must be applied for trends generated
      * between release 3.0.0 and 3.1.0.
      */
@@ -176,7 +203,7 @@ public class Trends {
 
     /**
      * Since pending and undefined steps were added later
-     * there is need to fill missing dadta for those statuses
+     * there is need to fill missing data for those statuses.
      */
     private void fillMissingSteps() {
         // correct only pending and undefined steps
@@ -193,5 +220,15 @@ public class Trends {
         int[] extendedArray = new int[buildNumbers.length];
         System.arraycopy(arrayToExtend, 0, extendedArray, buildNumbers.length - arrayToExtend.length, arrayToExtend.length);
         return extendedArray;
+    }
+
+    /**
+     * Since durations were added later there is need to fill missing data for those statuses.
+     */
+    private void fillMissingDurations() {
+        long[] extendedArray = new long[buildNumbers.length];
+        Arrays.fill(extendedArray, -1);
+        System.arraycopy(durations, 0, extendedArray, buildNumbers.length - durations.length, durations.length);
+        durations = extendedArray;
     }
 }

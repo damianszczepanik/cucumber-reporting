@@ -64,7 +64,7 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(17);
+        assertThat(context.getKeys()).hasSize(18);
 
         assertThat(context.get("buildNumbers")).isEqualTo("[\"01_first\",\"other build\",\"05last\"]");
         assertThat(context.get("failedFeatures")).isEqualTo("[1,2,5]");
@@ -78,6 +78,8 @@ public class TrendsOverviewPageTest extends PageTest {
         assertThat(context.get("skippedSteps")).isEqualTo("[100,300,500]");
         assertThat(context.get("pendingSteps")).isEqualTo("[1000,3000,5000]");
         assertThat(context.get("undefinedSteps")).isEqualTo("[10000,30000,50000]");
+
+        assertThat(context.get("durations")).isEqualTo("[3206126182398,3206126182399,3206126182310]");
     }
 
     @Test
@@ -102,6 +104,20 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // when
         Class<?>[] types = {int[].class};
+        String converted = Deencapsulation.invoke(TrendsOverviewPage.class, "toJavaScriptArray", types, toConvert);
+
+        // then
+        assertThat(converted).isEqualTo("[10,20,50]");
+    }
+
+    @Test
+    public void toJavaScriptArray_ReturnsLongArraysAsString() {
+
+        // given
+        final Object toConvert = new long[]{10, 20, 50};
+
+        // when
+        Class<?>[] types = {long[].class};
         String converted = Deencapsulation.invoke(TrendsOverviewPage.class, "toJavaScriptArray", types, toConvert);
 
         // then

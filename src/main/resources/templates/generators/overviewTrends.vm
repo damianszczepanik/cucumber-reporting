@@ -29,6 +29,10 @@
 
       <h4>Steps:</h4>
       <canvas id="trends-steps-chart" height="50"></canvas>
+      <br>
+
+      <h4>Durations:</h4>
+      <canvas id="trends-durations-chart" height="50"></canvas>
     </div>
   </div>
 </div>

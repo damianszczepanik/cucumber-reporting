@@ -52,7 +52,7 @@ public class Configuration {
     }
 
     /**
-     * Calls {@link }#setTrends(File, int)} with zero limit.
+     * Calls {@link #setTrends(File, int)} with zero limit.
      */
     public void setTrendsStatsFile(File trendsFile) {
         setTrends(trendsFile, 0);

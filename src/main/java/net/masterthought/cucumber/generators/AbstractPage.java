@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
@@ -76,8 +77,7 @@ public abstract class AbstractPage {
     private Properties buildProperties() {
         Properties props = new Properties();
         props.setProperty("resource.loader", "class");
-        props.setProperty("class.resource.loader.class",
-                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        props.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
         props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
 
         return props;
