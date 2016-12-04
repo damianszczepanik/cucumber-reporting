@@ -6,12 +6,16 @@ import java.io.File;
 import java.util.Properties;
 
 import mockit.Deencapsulation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
+import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.Util;
@@ -20,6 +24,9 @@ import net.masterthought.cucumber.util.Util;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class AbstractPageTest extends PageTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -39,6 +46,23 @@ public class AbstractPageTest extends PageTest {
         File reportFile = new File(configuration.getReportDirectory(),
                 ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
+    }
+
+    @Test
+    public void generateReport_OnInvalidPath_ThrowsException() {
+
+        // given
+        page = new FeaturesOverviewPage(reportResult, configuration) {
+            @Override
+            public String getWebPage() {
+                // invalid file path
+                return StringUtils.EMPTY;
+            }
+        };
+
+        // when
+        thrown.expect(ValidationException.class);
+        Deencapsulation.invoke(page, "generatePage");
     }
 
     @Test

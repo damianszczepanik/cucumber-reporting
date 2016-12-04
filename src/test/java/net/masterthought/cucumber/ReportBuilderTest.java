@@ -104,7 +104,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         Collection<File> files = FileUtils.listFiles(reportDirectory, null, true);
-        assertThat(files).hasSize(19);
+        assertThat(files).hasSize(20);
     }
 
     @Test

@@ -26,10 +26,12 @@ public class ReportableBuilder implements Reportable {
     protected int undefinedSteps;
     protected int totalSteps;
 
+    protected long duration;
 
     public ReportableBuilder(int passedFeatures, int failedFeatures, int totalFeatures,
                              int passedScenarios, int failedScenarios, int totalScenarios,
-                             int passedSteps, int failedSteps, int skippedSteps, int pendingSteps, int undefinedSteps, int totalSteps) {
+                             int passedSteps, int failedSteps, int skippedSteps, int pendingSteps, int undefinedSteps, int totalSteps,
+                             long duration) {
 
         this.passedFeatures = passedFeatures;
         this.failedFeatures = failedFeatures;
@@ -45,11 +47,13 @@ public class ReportableBuilder implements Reportable {
         this.pendingSteps = pendingSteps;
         this.undefinedSteps = undefinedSteps;
         this.totalSteps = totalSteps;
+
+        this.duration = duration;
     }
 
     public static Reportable buildSample() {
         // only prime numbers
-        return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37);
+        return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 3206126182390L);
     }
 
     @Override
@@ -124,7 +128,7 @@ public class ReportableBuilder implements Reportable {
 
     @Override
     public long getDurations() {
-        throw new IllegalStateException("Not implemented!");
+        return duration;
     }
 
     @Override

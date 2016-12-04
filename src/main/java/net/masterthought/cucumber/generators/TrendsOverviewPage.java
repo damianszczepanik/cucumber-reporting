@@ -39,6 +39,8 @@ public class TrendsOverviewPage extends AbstractPage {
         context.put("skippedSteps", toJavaScriptArray(trends.getSkippedSteps()));
         context.put("pendingSteps", toJavaScriptArray(trends.getPendingSteps()));
         context.put("undefinedSteps", toJavaScriptArray(trends.getUndefinedSteps()));
+
+        context.put("durations", toJavaScriptArray(trends.getDurations()));
     }
 
     private static String toJavaScriptArray(String[] array) {
@@ -52,6 +54,10 @@ public class TrendsOverviewPage extends AbstractPage {
     }
 
     private static String toJavaScriptArray(int[] array) {
+        return "[" + StringUtils.join(array, ',') + "]";
+    }
+
+    private static String toJavaScriptArray(long[] array) {
         return "[" + StringUtils.join(array, ',') + "]";
     }
 }

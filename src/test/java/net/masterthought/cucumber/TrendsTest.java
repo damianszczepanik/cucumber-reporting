@@ -41,6 +41,8 @@ public class TrendsTest {
         assertThat(trends.getPendingSteps()).hasSize(2).endsWith(result.getPendingSteps());
         assertThat(trends.getUndefinedSteps()).hasSize(2).endsWith(result.getUndefinedSteps());
         assertThat(trends.getTotalSteps()).hasSize(2).endsWith(result.getSteps());
+
+        assertThat(trends.getDurations()).hasSize(2).endsWith(3206126182390L);
     }
 
     @Test
@@ -68,6 +70,8 @@ public class TrendsTest {
         assertThat(trends.getSkippedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 23, 23);
         assertThat(trends.getPendingSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 29, 29);
         assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
+
+        assertThat(trends.getDurations()).hasSize(buildNumbers.length + 1).containsExactly(-1L, -1L, 3206126182390L, 3206126182390L);
     }
 
     @Test
@@ -103,6 +107,8 @@ public class TrendsTest {
         assertThat(trends.getSkippedSteps()).hasSize(limit).containsExactly(result.getSkippedSteps());
         assertThat(trends.getUndefinedSteps()).hasSize(limit).containsExactly(result.getUndefinedSteps());
         assertThat(trends.getTotalSteps()).hasSize(limit).containsExactly(result.getSteps());
+
+        assertThat(trends.getDurations()).hasSize(limit).containsExactly(result.getDurations());
     }
 
     @Test
@@ -114,6 +120,20 @@ public class TrendsTest {
 
         // when
         int[] limitedArray = Deencapsulation.invoke(Trends.class, "copyLastElements", array, limit);
+
+        // then
+        assertThat(limitedArray).isSameAs(array);
+    }
+
+    @Test
+    public void copyLastElements_OnBigLimit_ReturnsPassedLongArray() {
+
+        // given
+        final long[] array = new long[]{3, 4, 5, 6, 7, 8};
+        final int limit = array.length + 1;
+
+        // when
+        long[] limitedArray = Deencapsulation.invoke(Trends.class, "copyLastElements", array, limit);
 
         // then
         assertThat(limitedArray).isSameAs(array);
@@ -140,7 +160,7 @@ public class TrendsTest {
         final int totalFeatures = 1000;
         final int failedFeatures = totalFeatures + 1;
         Trends trends = new Trends();
-        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
         trends.addBuild("buildNumber", result);
 
         // when

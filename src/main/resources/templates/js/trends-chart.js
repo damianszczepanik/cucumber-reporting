@@ -14,6 +14,10 @@ $(document).ready(function() {
     var pendingSteps = $pendingSteps;
     var undefinedSteps = $undefinedSteps;
 
+    var durations = $durations;
+
+
+
     var chartFeaturesData = {
         labels: buildNumbers,
         datasets: [
@@ -24,10 +28,10 @@ $(document).ready(function() {
                 lineTension: 0.1,
                 backgroundColor: "#F2928C", // same as failed class in css file
                 borderColor: "rgba(192,0,0,1)",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -48,10 +52,10 @@ $(document).ready(function() {
                 lineTension: 0.1,
                 backgroundColor: "#92DD96", // same as passed class in css file
                 borderColor: "rgba(0,192,192,1)",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -73,6 +77,7 @@ $(document).ready(function() {
     });
 
 
+
     var chartScenariosData = {
         labels: buildNumbers,
         datasets: [
@@ -83,10 +88,10 @@ $(document).ready(function() {
                 lineTension: 0.1,
                 backgroundColor: "#F2928C", // same as failed class in css file
                 borderColor: "rgba(192,0,0,1)",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -107,10 +112,10 @@ $(document).ready(function() {
                 lineTension: 0.1,
                 backgroundColor: "#92DD96", // same as passed class in css file
                 borderColor: "rgba(0,192,192,1)",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -132,6 +137,7 @@ $(document).ready(function() {
     });
 
 
+
     var chartStepsData = {
         labels: buildNumbers,
         datasets: [
@@ -141,10 +147,10 @@ $(document).ready(function() {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "#F2928C",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -162,10 +168,10 @@ $(document).ready(function() {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "#8AF",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -183,10 +189,10 @@ $(document).ready(function() {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "#F5F28F",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -204,10 +210,10 @@ $(document).ready(function() {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "#F5B975",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -225,10 +231,10 @@ $(document).ready(function() {
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "#92DD96",
-                borderCapStyle: 'butt',
+                borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
+                borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 5,
@@ -258,4 +264,60 @@ $(document).ready(function() {
             }
         }
     });
+
+
+
+    var chartDurationsData = {
+      labels: buildNumbers,
+      datasets: [
+        {
+          label: "Duration",
+          data: durations,
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: "#C0C0C0",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: "rgba(0,0,0,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 5,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          spanGaps: false
+        }
+      ]
+    };
+
+  function formatDuration(duration) {
+    // gets in nanosecs, outs in secs
+    return moment.duration(duration / 1000000).humanize();
+  }
+
+  var durationsContext = document.getElementById("trends-durations-chart");
+  new Chart(durationsContext, {
+    type: "line",
+    data: chartDurationsData,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            userCallback: function(value) { return formatDuration(value); }
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return data.datasets[tooltipItem.datasetIndex].label + ": " + formatDuration(tooltipItem.yLabel);
+          }
+        }
+      }
+    }
+  });
 });
