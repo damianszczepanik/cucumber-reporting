@@ -1,7 +1,9 @@
+# Configuration for shippable.com 
 language: java
 
 jdk:
   - openjdk7
+  - oraclejdk7
   - oraclejdk8
 
 build:
@@ -10,4 +12,4 @@ build:
     - /root/.m2
 
   ci:
-- mvn clean verify
+    - mvn clean verify
