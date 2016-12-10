@@ -1,0 +1,14 @@
+#macro(includeReportInfo)
+
+<div class="container-fluid">
+  <div class="col-md-5 col-md-offset-1">
+    #includeBuildInfo()
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+    #if ($classifications && !$classifications.isEmpty())
+      #includeClassifications()
+    #end
+  </div>
+</div>
+
+#end

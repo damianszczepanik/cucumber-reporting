@@ -22,6 +22,7 @@ public class FeaturesOverviewPage extends AbstractPage {
         context.put("all_features", reportResult.getAllFeatures());
         context.put("report_summary", reportResult.getFeatureReport());
 
+        context.put("classifications", configuration.getClassifications());
         context.put("parallel", configuration.isParallelTesting());
     }
 }

@@ -9,7 +9,7 @@
 
 #includeNavigation("failures")
 
-#includeBuildInfo()
+#includeReportInfo()
 
 #includeLead("Failures Overview", "The following summary displays scenarios that failed.")
 

@@ -1,0 +1,14 @@
+#macro(includeClassifications)
+
+<table class="table table-bordered" id="classifications">
+  <tbody>
+  #foreach($c in $classifications)
+    <tr class="info">
+      <th>$c.getKey()</th>
+      <td>$c.getValue()</td>
+    </tr>
+  #end
+  </tbody>
+</table>
+
+#end

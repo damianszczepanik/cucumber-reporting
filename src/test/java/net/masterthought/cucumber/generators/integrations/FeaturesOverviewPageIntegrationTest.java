@@ -55,6 +55,32 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
+    public void generatePage_generatesClassifications() {
+
+        // given
+        final String[] names = {"Platform", "Browser", "Branch"};
+        final String[] values = {"Win", "Opera", "master"};
+        setUpWithJson(SAMPLE_JSON);
+        for (int i = 0; i < names.length; i++) {
+            configuration.addClassifications(names[i], values[i]);
+        }
+        page = new FeaturesOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] classifications = document.getClassifications();
+
+        assertThat(classifications).hasSize(names.length);
+        for (int i = 0; i < names.length; i++) {
+            String[] cells = classifications[i].getCellsValues();
+            assertThat(cells).containsExactly(names[i], values[i]);
+        }
+    }
+
+    @Test
     public void generatePage_generatesCharts() {
 
         // given

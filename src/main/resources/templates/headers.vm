@@ -2,8 +2,10 @@
 #include("/templates/head.vm")
 
 #parse("/templates/macros/page/buildinfo.vm")
+#parse("/templates/macros/page/classifications.vm")
 #parse("/templates/macros/page/lead.vm")
 #parse("/templates/macros/page/navigation.vm")
+#parse("/templates/macros/page/reportInfo.vm")
 #parse("/templates/macros/page/title.vm")
 
 #parse("/templates/macros/report/expandAllButtons.vm")

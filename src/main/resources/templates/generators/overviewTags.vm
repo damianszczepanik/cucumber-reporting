@@ -12,7 +12,7 @@
 
 #includeNavigation("tags")
 
-#includeBuildInfo()
+#includeReportInfo()
 
 #includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags")
 

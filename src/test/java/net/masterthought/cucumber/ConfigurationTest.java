@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.junit.Rule;
@@ -131,5 +132,23 @@ public class ConfigurationTest {
         // then
         thrown.expect(ValidationException.class);
         configuration.setTagsToExcludeFromChart("\\invalid.regex\\");
+    }
+
+    @Test
+    public void addClassifications_AddsClassification() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        final String classificationName = "Browser";
+        final String classificationValue = "Firefox 1.0";
+
+        // when
+        configuration.addClassifications(classificationName, classificationValue);
+
+        // then
+        assertThat(configuration.getClassifications()).hasSize(1);
+        Map.Entry<String, String> classification = configuration.getClassifications().get(0);
+        assertThat(classification.getKey()).isEqualTo(classificationName);
+        assertThat(classification.getValue()).isEqualTo(classificationValue);
     }
 }
