@@ -1,29 +1,27 @@
 #macro(includeBuildInfo)
 
 <div class="container-fluid" id="build-info">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-1">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Project</th>
-            #if($build_number)
-              <th>Number</th>
-            #end
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="info">
-            <td>$build_project_name</td>
-            #if($build_number)
-              <td>$build_number</td>
-            #end
-            <td>$build_time</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="col-md-5 col-md-offset-1">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Project</th>
+          #if($build_number)
+            <th>Number</th>
+          #end
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="info">
+          <td>$build_project_name</td>
+          #if($build_number)
+            <td>$build_number</td>
+          #end
+          <td>$build_time</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
