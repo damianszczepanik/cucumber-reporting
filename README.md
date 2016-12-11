@@ -14,7 +14,8 @@
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 
-This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server. It publishes pretty html reports showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful.
+This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server.
+It publishes pretty html reports with charts showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful. Generated report has no dependency so can be viewed offline.
 
 ## Background
 
@@ -53,6 +54,10 @@ Configuration configuration = new Configuration(reportOutputDirectory, projectNa
 configuration.setParallelTesting(parallelTesting);
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
+// addidtional metadata presented on main page
+configuration.addClassifications("Platform", "Windows");
+configuration.addClassifications("Browser", "Firefox");
+configuration.addClassifications("Branch", "release/1.0");
 
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 Reportable result = reportBuilder.generateReports();

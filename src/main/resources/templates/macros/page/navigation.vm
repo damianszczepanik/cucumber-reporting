@@ -4,7 +4,7 @@
     <div class="collapse navbar-collapse">
       <p class="navbar-text navbar-left">Cucumber Report</p>
       <ul class="nav navbar-nav navbar-right">
-        #if ($jenkins_source)
+        #if ($run_with_jenkins)
           <li role="presentation"><a href="../">Jenkins</a></li>
           #if ($build_previous_number)
             <li role="presentation"><a href="../../$build_previous_number/cucumber-html-reports/$report_file">Previous results</a></li>
