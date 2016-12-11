@@ -1,0 +1,69 @@
+[
+  {
+    "id": "export-as-xml",
+    "tags": [
+      {
+        "name": "@report",
+        "line": 1
+      }
+    ],
+    "description": "",
+    "name": "Export as xml",
+    "keyword": "Feature",
+    "line": 2,
+    "elements": [
+      {
+        "id": "export-as-xml;get-credit-card-momevents",
+        "description": "",
+        "name": "Get credit card momevents",
+        "keyword": "Scenario",
+        "line": 4,
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "name": "I\u0027m an user",
+            "keyword": "Given ",
+            "line": 5,
+            "match": {}
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "name": "have a credit card with movements",
+            "keyword": "And ",
+            "line": 6,
+            "match": {}
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "name": "download movements as xml",
+            "keyword": "When ",
+            "line": 7,
+            "match": {}
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "name": "I should receive a file with content",
+            "keyword": "Then ",
+            "line": 8,
+            "doc_string": {
+              "value": "\u003c?xml version\u003d\"1.0\" encoding\u003d\"ISO-8859-1\"?\u003e\r\n   \u003cmovements\u003e\r\n     \u003cmovement date\u003d\"11-04-2016\"\u003e\r\n       \u003camount\u003e3.00 $\u003c/amount\u003e\r\n    \u003cconcept\u003ePurchase at Starbucks\u003c/concept\u003e\r\n     \u003c/movement\u003e\r\n   \u003c/movements\u003e",
+              "line": 9,
+              "content_type": ""
+            },
+            "match": {}
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "uri": "features/reporting.feature"
+  }
+]
