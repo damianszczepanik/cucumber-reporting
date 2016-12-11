@@ -101,10 +101,9 @@ public class AbstractPageTest extends PageTest {
 
         assertThat(context.get("util")).isInstanceOf(Util.class);
 
-        assertThat(context.get("jenkins_source")).isEqualTo(configuration.isRunWithJenkins());
+        assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.isRunWithJenkins());
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
-        assertThat(context.get("jenkins_source")).isNotNull();
     }
 
     @Test

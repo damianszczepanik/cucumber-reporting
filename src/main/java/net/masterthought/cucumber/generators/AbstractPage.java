@@ -25,7 +25,7 @@ import net.masterthought.cucumber.util.Util;
 
 /**
  * Delivers common methods for page generation.
- * 
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public abstract class AbstractPage {
@@ -88,7 +88,7 @@ public abstract class AbstractPage {
         context.put("counter", new Counter());
         context.put("util", Util.INSTANCE);
 
-        context.put("jenkins_source", configuration.isRunWithJenkins());
+        context.put("run_with_jenkins", configuration.isRunWithJenkins());
         context.put("trends_present", configuration.getTrendsStatsFile() != null);
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
@@ -100,7 +100,7 @@ public abstract class AbstractPage {
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
         if (buildNumber != null) {
-            if (NumberUtils.isNumber(buildNumber)) {
+            if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
                 LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
