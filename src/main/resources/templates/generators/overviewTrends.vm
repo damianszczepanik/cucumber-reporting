@@ -12,7 +12,7 @@
 
 #includeNavigation("trends")
 
-#includeBuildInfo()
+#includeReportInfo()
 
 #includeLead("Trends Statistics", "The following graph shows features, scenarios and steps for a period of time.")
 

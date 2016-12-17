@@ -27,6 +27,10 @@ public class DocumentAssertion extends ReportAssertion {
         return byId("build-info", BuildInfoAssertion.class);
     }
 
+    public TableRowAssertion[] getClassifications() {
+        return byId("classifications", WebAssertion.class).allBySelector("tbody tr", TableRowAssertion.class);
+    }
+
     public SummaryAssertion getReport() {
         return byId("report", SummaryAssertion.class);
     }
