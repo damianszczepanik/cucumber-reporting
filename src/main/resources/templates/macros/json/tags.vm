@@ -1,7 +1,7 @@
 #macro(includeTags, $tags)
 
 <div class="tags indention">
-  #if ($tags)
+  #if (!$tags.isEmpty())
     <b>Tags:</b>
     #foreach($tag in $tags)
        <a href="$tag.getFileName()">$tag.getName()</a>
