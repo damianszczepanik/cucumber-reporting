@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -86,7 +86,24 @@ public class EmbeddingTest {
         String fileName = embedding.getFileName();
 
         // then
-        assertThat(fileName).isEqualTo("embedding_-642587818.xml");
+        assertThat(fileName).startsWith("embedding_-642587818");
+        assertThat(fileName).endsWith(".xml");
+    }
+
+
+    @Test
+    public void getFileName_isAlwaysUnique() {
+
+        // given
+        Embedding embedding1 = new Embedding("text/plain", "some data");
+        Embedding embedding2 = new Embedding("text/plain", "some data");
+
+        // when
+        String fileName1 = embedding1.getFileName();
+        String fileName2 = embedding2.getFileName();
+
+        // then
+        assertThat(fileName1).isNotEqualTo(fileName2);
     }
 
     @Test
