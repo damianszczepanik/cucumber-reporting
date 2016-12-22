@@ -1,18 +1,20 @@
 package net.masterthought.cucumber.json;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.codehaus.plexus.util.Base64;
 
-import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @JsonDeserialize(using = EmbeddingDeserializer.class)
 public class Embedding {
+
+    private static final SecureRandom salt = new SecureRandom();
 
     // Start: attributes from JSON file report
     private final String mimeType;
@@ -25,7 +27,7 @@ public class Embedding {
         this.mimeType = mimeType;
         this.data = data;
 
-        this.fileId = "embedding_" + data.hashCode();
+        this.fileId = "embedding_" + data.hashCode() + "_" + salt.nextInt(999999999);
     }
 
     public String getMimeType() {
