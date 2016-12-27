@@ -17,6 +17,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.Util;
 
@@ -46,6 +47,33 @@ public class AbstractPageTest extends PageTest {
         File reportFile = new File(configuration.getReportDirectory(),
                 ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
+    }
+
+
+    @Test
+    public void generateReport_DisplaysContentAsEscapedText() {
+
+        // given
+        page = new FeatureReportPage(reportResult, configuration, features.get(1));
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        assertThat(document.getFeature().getDescription())
+                .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
+                .isEqualTo("Attachment 4 (HTML) <i>Hello</i> <b>World!</b>");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
+                .isEqualTo("Error message java.lang.AssertionError: \n" +
+                        "Expected: is <80>\n" +
+                        "     got: <90>\n" +
+                        "\n" +
+                        "\tat org.junit.Assert.assertThat(Assert.java:780)\n" +
+                        "\tat org.junit.Assert.assertThat(Assert.java:738)\n" +
+                        "\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
+                        "\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
     }
 
     @Test

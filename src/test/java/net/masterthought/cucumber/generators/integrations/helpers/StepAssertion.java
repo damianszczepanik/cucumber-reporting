@@ -24,4 +24,8 @@ public class StepAssertion extends ReportAssertion {
     public DocStringAssertion getDocString() {
         return oneByClass("docstring", DocStringAssertion.class);
     }
+
+    public WebAssertion getMessage() {
+        return oneByClass("message", WebAssertion.class);
+    }
 }

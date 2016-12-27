@@ -19,7 +19,8 @@ public class EmbeddingAssertion extends ReportAssertion {
     }
 
     public void hasTextContent(String content) {
-        assertThat(getBox().oneBySelector("pre", WebAssertion.class).html()).isEqualTo(getDecodedData(content));
+        assertThat(getBox().oneBySelector("pre", WebAssertion.class).text())
+                .isEqualTo(getDecodedData(content));
     }
 
     private WebAssertion getBox() {

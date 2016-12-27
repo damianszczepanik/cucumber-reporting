@@ -17,7 +17,7 @@
 
 #includeNavigation()
 
-#includeLead("Error", "Something went wrong with project <i>$build_project_name</i>, build $build_number")
+#includeLead("Error", "Something went wrong with project $build_project_name, build $build_number")
 
 <div class="container-fluid" id="report">
   <div class="row">

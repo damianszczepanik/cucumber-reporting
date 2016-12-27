@@ -1,8 +1,8 @@
 #macro(includeEmbeddings, $embeddings)
 
-#if (!$embeddings.isEmpty())
+  #if (!$embeddings.isEmpty())
   <div class="embeddings inner-level">
-  #foreach($embedding in $embeddings)
+    #foreach($embedding in $embeddings)
     #if ($embedding.getMimeType() == "image/png")
       #includeImageEmbedding($embedding, "png", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/bmp")
@@ -10,7 +10,7 @@
     #elseif ($embedding.getMimeType() == "image/jpeg")
       #includeImageEmbedding($embedding, "jpeg", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/xml")
-      #includeEscapedTextEmbedding($embedding, "XML text", $foreach.index)
+      #includeTextEmbedding($embedding, "XML text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/plain")
       #includeTextEmbedding($embedding, "Plain text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/html")
@@ -24,46 +24,78 @@
     #end
   #end
   </div>
-#end
+  #end
 
 #end
 
 
 
 #macro(includeImageEmbedding, $embedding, $image_type, $index)
-  #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, $image_type, "<img src=${Quote}embeddings/$embedding.getFileName()${Quote}>", $index)
-#end
-
-#macro(includeImageReferenceEmbedding, $embedding, $index)
-  #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, "Image", "<img src=${Quote}$embedding.getDecodedData()${Quote}>", $index)
-#end
-
-#macro(includeTextEmbedding, $embedding, $format, $index)
-  #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getDecodedData()</pre>", $index)
-#end
-
-#macro(includeEscapedTextEmbedding, $embedding, $format, $index)
-  #includeExpandableEmbedding($embedding, $format, "<pre>$embedding.getEscapedDecodedData()</pre>", $index)
-#end
-
-#macro(includeUnknownEmbedding, $embedding, $index)
-  #set($Quote = '"')
-  #includeExpandableEmbedding($embedding, $embedding.getMimeType(), "This file cannot be displayed. Use download button to get the content as file.", $index)
-#end
-
-
-#macro(includeExpandableEmbedding, $embedding, $type, $content, $index)
   #set($index = $index + 1)
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($type)</a>
-      <a href="embeddings/$embedding.getFileName()" target="_blank"><span class="download-button glyphicon glyphicon-download-alt"></span></a>
+      <a>Attachment $index ($image_type)</a>
+      <a href="embeddings/$embedding.getFileName()" target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
     </div>
     <div id="embedding-$embeddingId" class="collapse collapsable-details">
-      <span class="embedding-content">$content</span>
+      <span class="embedding-content">
+        <img src="embeddings/$embedding.getFileName()">
+      </span>
+    </div>
+  </div>
+#end
+
+#macro(includeImageReferenceEmbedding, $embedding, $index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
+      <a>Attachment $index (Image)</a>
+      <a href="embeddings/$embedding.getFileName()" target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
+    </div>
+    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+      1<span class="embedding-content">
+        <img src="$embedding.getDecodedData()">
+      </span>
+    </div>
+  </div>
+#end
+
+#macro(includeTextEmbedding, $embedding, $format, $index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
+      <a>Attachment $index ($format)</a>
+      <a href="embeddings/$embedding.getFileName()" target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
+    </div>
+    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+      <span class="embedding-content">
+        <pre>$embedding.getDecodedData()</pre>
+      </span>
+    </div>
+  </div>
+#end
+
+#macro(includeUnknownEmbedding, $embedding, $index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
+      <a>Attachment $index ($embedding.getMimeType())</a>
+      <a href="embeddings/$embedding.getFileName()" target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
+    </div>
+    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+        <span class="embedding-content">This file cannot be displayed. Use download button to get the content as file.</span>
     </div>
   </div>
 #end

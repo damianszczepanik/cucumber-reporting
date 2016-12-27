@@ -12,7 +12,7 @@
 
   #set($elementId = $counter.next())
   <span data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$elementId">
-    #includeBrief($element.getKeyword(), $element.getStatus(), $element.getEscapedName(), true)
+    #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName(), true)
   </span>
   <div class="description indention">$element.getDescription()</div>
 

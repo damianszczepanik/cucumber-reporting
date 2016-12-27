@@ -50,31 +50,6 @@ public class EmbeddingTest {
         assertThat(content).isEqualTo("function logger(message) {  }");
     }
 
-    @Test
-    public void getEscapedDecodedData_OnXMLText_ReturnsEspacedData() {
-
-        // given
-        Embedding embedding = new Embedding("mimeType", "PHhtbD48c29tZU5vZGUgYXR0cj0idmFsdWUiIC8+PC94bWw+");
-
-        // when
-        String data = embedding.getEscapedDecodedData();
-
-        // then
-        assertThat(data).isEqualTo("&lt;xml&gt;&lt;someNode attr=&quot;value&quot; /&gt;&lt;/xml&gt;");
-    }
-
-    @Test
-    public void getEscapedDecodedData_OnPlainText_ReturnsData() {
-
-        // given
-        Embedding embedding = new Embedding("mimeType", "b25lLCB0d28sIHRocmVlIQ==");
-
-        // when
-        String data = embedding.getEscapedDecodedData();
-
-        // then
-        assertThat(data).isEqualTo("one, two, three!");
-    }
 
     @Test
     public void getFileName_ReturnsFileName() {

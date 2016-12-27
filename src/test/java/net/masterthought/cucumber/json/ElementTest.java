@@ -169,21 +169,6 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getEscapedName_ReturnsNameAsPlainText() {
-
-        // given
-        Element element = features.get(0).getElements()[1];
-
-        // when
-        String name = element.getEscapedName();
-
-        // then
-        // test only this name which has escaped characters
-        assertThat(name).isNotEqualTo(element.getName());
-        assertThat(name).isEqualTo("Account has &lt;sufficient funds&gt;");
-    }
-
-    @Test
     public void getKeyword_ReturnsName() {
 
         // given
