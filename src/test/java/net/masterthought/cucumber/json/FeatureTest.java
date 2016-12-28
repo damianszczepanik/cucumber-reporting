@@ -56,7 +56,7 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(elements).hasSize(2);
-        assertThat(elements[0].getEscapedName()).isEqualTo("Activate Credit Card");
+        assertThat(elements[0].getName()).isEqualTo("Activate Credit Card");
     }
 
     @Test

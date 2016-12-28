@@ -1,8 +1,6 @@
 package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringEscapeUtils;
-
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
@@ -27,8 +25,7 @@ public class Result {
         return Util.formatDuration(duration);
     }
 
-    /** Returns error message escaped so it is properly displayed as HTML. */
     public String getErrorMessage() {
-        return StringEscapeUtils.escapeHtml(errorMessage);
+        return errorMessage;
     }
 }

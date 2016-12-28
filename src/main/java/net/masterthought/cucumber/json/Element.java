@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.json.support.Status;
@@ -62,10 +61,6 @@ public class Element {
 
     public String getName() {
         return name;
-    }
-
-    public String getEscapedName() {
-        return StringUtils.defaultString(StringEscapeUtils.escapeHtml(name));
     }
 
     public String getKeyword() {
