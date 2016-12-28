@@ -13,7 +13,9 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
-        <log4j.version>2.7</log4j.version>
+        <!-- require log4j 2.6, until 2.8 released with fix for
+             https://issues.apache.org/jira/browse/LOG4J2-1642 -->
+        <log4j.version>2.6</log4j.version>
         <powermock.version>1.6.6</powermock.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
