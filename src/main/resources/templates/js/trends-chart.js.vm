@@ -1,20 +1,20 @@
 $(document).ready(function() {
 
-    var buildNumbers = $buildNumbers;
+    var buildNumbers = #stringArray($buildNumbers);
 
-    var failedFeatures = $failedFeatures;
-    var totalFeatures = $totalFeatures;
+    var failedFeatures = #numberArray($failedFeatures);
+    var totalFeatures = #numberArray($totalFeatures);
 
-    var failedScenarios = $failedScenarios;
-    var totalScenarios = $totalScenarios;
+    var failedScenarios = #numberArray($failedScenarios);
+    var totalScenarios = #numberArray($totalScenarios);
 
-    var passedSteps = $passedSteps;
-    var failedSteps = $failedSteps;
-    var skippedSteps = $skippedSteps;
-    var pendingSteps = $pendingSteps;
-    var undefinedSteps = $undefinedSteps;
+    var passedSteps = #numberArray($passedSteps);
+    var failedSteps = #numberArray($failedSteps);
+    var skippedSteps = #numberArray($skippedSteps);
+    var pendingSteps = #numberArray($pendingSteps);
+    var undefinedSteps = #numberArray($undefinedSteps);
 
-    var durations = $durations;
+    var durations = #numberArray($durations);
 
 
 

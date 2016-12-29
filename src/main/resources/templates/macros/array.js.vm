@@ -1,0 +1,2 @@
+#macro(stringArray $array) [#foreach($element in $array) "$element", #end] #end
+#macro(numberArray $array) [#foreach($element in $array) $element, #end] #end

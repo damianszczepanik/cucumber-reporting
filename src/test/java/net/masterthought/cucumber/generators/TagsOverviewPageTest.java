@@ -66,13 +66,14 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.get("chart_categories")).isEqualTo("[\"@fast\"]");
-        assertThat(context.get("chart_data")).isEqualTo(asList(
-                "[100.00]",
-                "[0.00]",
-                "[0.00]",
-                "[0.00]",
-                "[0.00]"));
+        assertThat(context.get("chart_categories")).isEqualTo(new String[]{"@fast"});
+        assertThat(context.get("chart_data")).isEqualTo(new String[][]{
+                {"100.00"},
+                {"0.00"},
+                {"0.00"},
+                {"0.00"},
+                {"0.00"}
+        });
     }
 
     @Test
@@ -82,10 +83,10 @@ public class TagsOverviewPageTest extends PageTest {
         List<TagObject> allTags = this.tags;
 
         // when
-        String labels = TagsOverviewPage.generateTagLabels(allTags);
+        String[] labels = TagsOverviewPage.generateTagLabels(allTags);
 
         // then
-        assertThat(labels).isEqualTo("[\"@checkout\",\"@fast\",\"@featureTag\"]");
+        assertThat(labels).isEqualTo(new String[]{"@checkout","@fast","@featureTag"});
     }
 
     @Test
@@ -95,14 +96,15 @@ public class TagsOverviewPageTest extends PageTest {
         List<TagObject> allTags = this.tags;
 
         // when
-        List<String> labels = TagsOverviewPage.generateTagValues(allTags);
+        String[][] labels = TagsOverviewPage.generateTagValues(allTags);
 
         // then
-        assertThat(labels).containsExactly(
-                "[62.50, 100.00, 100.00]",
-                "[6.25, 0.00, 0.00]",
-                "[12.50, 0.00, 0.00]",
-                "[6.25, 0.00, 0.00]",
-                "[12.50, 0.00, 0.00]");
+        assertThat(labels).isEqualTo(new String[][]{
+                {"62.50", "100.00", "100.00"},
+                {"6.25", "0.00", "0.00"},
+                {"12.50", "0.00", "0.00"},
+                {"6.25", "0.00", "0.00"},
+                {"12.50", "0.00", "0.00"}
+        });
     }
 }

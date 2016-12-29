@@ -75,4 +75,33 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         assertThat(document.byId("trends-scenarios-chart", WebAssertion.class)).isNotNull();
         assertThat(document.byId("trends-steps-chart", WebAssertion.class)).isNotNull();
     }
+
+    @Test
+    public void generatePage_insertsChartData() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        page = new TrendsOverviewPage(reportResult, configuration, trends);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        // check that data used by the charts is correctly inserted into the script section
+        assertThat(document.html()).contains("var buildNumbers =  [ \"01_first\",  \"other build\",  \"05last\", ] ;");
+        assertThat(document.html()).contains("var failedFeatures =  [ 1,  2,  5, ] ;");
+        assertThat(document.html()).contains("var totalFeatures =  [ 10,  20,  30, ] ;");
+        assertThat(document.html()).contains("var failedScenarios =  [ 10,  20,  20, ] ;");
+        assertThat(document.html()).contains("var totalScenarios =  [ 10,  2,  5, ] ;");
+        assertThat(document.html()).contains("var passedSteps =  [ 1,  3,  5, ] ;");
+        assertThat(document.html()).contains("var failedSteps =  [ 10,  30,  50, ] ;");
+        assertThat(document.html()).contains("var skippedSteps =  [ 100,  300,  500, ] ;");
+        assertThat(document.html()).contains("var pendingSteps =  [ 1000,  3000,  5000, ] ;");
+        assertThat(document.html()).contains("var undefinedSteps =  [ 10000,  30000,  50000, ] ;");
+        assertThat(document.html()).contains("var durations =  [ 3206126182398,  3206126182399,  3206126182310, ] ;");
+
+    }
 }
