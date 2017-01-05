@@ -5,7 +5,7 @@
   #includeTitle("Tags Overview")
 
   <script type="text/javascript">
-  #parse("/templates/js/tags-chart.js")
+  #parse("/templates/js/tags-chart.js.vm")
   </script>
 </head>
 <body>

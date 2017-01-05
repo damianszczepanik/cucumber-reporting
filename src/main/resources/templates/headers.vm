@@ -1,6 +1,8 @@
 
 #include("/templates/head.vm")
 
+#parse("/templates/macros/array.js.vm")
+
 #parse("/templates/macros/page/buildinfo.vm")
 #parse("/templates/macros/page/classifications.vm")
 #parse("/templates/macros/page/lead.vm")

@@ -70,6 +70,30 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
+    public void generatePage_insertsChartData() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        page = new TagsOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        // check that data used by the charts is correctly inserted into the script section
+
+        assertThat(document.html()).contains("labels:  [ \"@checkout\",  \"@fast\",  \"@featureTag\", ]");
+        assertThat(document.html()).contains("data:  [ 62.50,  100.00,  100.00, ]");
+        assertThat(document.html()).contains("data:  [ 6.25,  0.00,  0.00, ]");
+        assertThat(document.html()).contains("data:  [ 12.50,  0.00,  0.00, ]");
+        assertThat(document.html()).contains("data:  [ 6.25,  0.00,  0.00, ]");
+        assertThat(document.html()).contains("data:  [ 12.50,  0.00,  0.00, ]");
+
+    }
+
+    @Test
     public void generatePage_generatesStatsTableHeader() {
 
         // given

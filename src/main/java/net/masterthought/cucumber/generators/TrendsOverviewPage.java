@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.Trends;
@@ -27,37 +25,20 @@ public class TrendsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        context.put("buildNumbers", toJavaScriptArray(trends.getBuildNumbers()));
+        context.put("buildNumbers", trends.getBuildNumbers());
 
-        context.put("failedFeatures", toJavaScriptArray(trends.getFailedFeatures()));
-        context.put("totalFeatures", toJavaScriptArray(trends.getTotalFeatures()));
-        context.put("failedScenarios", toJavaScriptArray(trends.getFailedScenarios()));
-        context.put("totalScenarios", toJavaScriptArray(trends.getTotalScenarios()));
+        context.put("failedFeatures", trends.getFailedFeatures());
+        context.put("totalFeatures", trends.getTotalFeatures());
+        context.put("failedScenarios", trends.getFailedScenarios());
+        context.put("totalScenarios", trends.getTotalScenarios());
 
-        context.put("passedSteps", toJavaScriptArray(trends.getPassedSteps()));
-        context.put("failedSteps", toJavaScriptArray(trends.getFailedSteps()));
-        context.put("skippedSteps", toJavaScriptArray(trends.getSkippedSteps()));
-        context.put("pendingSteps", toJavaScriptArray(trends.getPendingSteps()));
-        context.put("undefinedSteps", toJavaScriptArray(trends.getUndefinedSteps()));
+        context.put("passedSteps", trends.getPassedSteps());
+        context.put("failedSteps", trends.getFailedSteps());
+        context.put("skippedSteps", trends.getSkippedSteps());
+        context.put("pendingSteps", trends.getPendingSteps());
+        context.put("undefinedSteps", trends.getUndefinedSteps());
 
-        context.put("durations", toJavaScriptArray(trends.getDurations()));
+        context.put("durations", trends.getDurations());
     }
 
-    private static String toJavaScriptArray(String[] array) {
-        int itemCount = array.length;
-        String[] names = new String[itemCount];
-
-        for (int i = 0; i < itemCount; i++) {
-            names[i] = StringUtils.wrap(array[i], "\"");
-        }
-        return "[" + StringUtils.join(names, ",") + "]";
-    }
-
-    private static String toJavaScriptArray(int[] array) {
-        return "[" + StringUtils.join(array, ',') + "]";
-    }
-
-    private static String toJavaScriptArray(long[] array) {
-        return "[" + StringUtils.join(array, ',') + "]";
-    }
 }

@@ -5,9 +5,9 @@
   #includeTitle("Features Overview")
 
   <script type="text/javascript">
-  #parse("/templates/js/steps-chart.js")
-  #parse("/templates/js/scenarios-chart.js")
-  #parse("/templates/js/features-chart.js")
+  #parse("/templates/js/steps-chart.js.vm")
+  #parse("/templates/js/scenarios-chart.js.vm")
+  #parse("/templates/js/features-chart.js.vm")
   </script>
 </head>
 

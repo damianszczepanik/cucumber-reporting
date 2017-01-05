@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.Status;
@@ -38,14 +36,14 @@ public class TagsOverviewPage extends AbstractPage {
         context.put("chart_data", generateTagValues(filterExcludedTags(tags)));
     }
 
-    static String generateTagLabels(List<TagObject> tagsObjectList) {
+    static String[] generateTagLabels(List<TagObject> tagsObjectList) {
         int tagCount = tagsObjectList.size();
         String[] tagNames = new String[tagCount];
 
         for (int i = 0; i < tagCount; i++) {
-            tagNames[i] = StringUtils.wrap(tagsObjectList.get(i).getName(), "\"");
+            tagNames[i] = tagsObjectList.get(i).getName();
         }
-        return "[" + StringUtils.join(tagNames, ",") + "]";
+        return tagNames;
     }
 
 	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
@@ -68,7 +66,7 @@ public class TagsOverviewPage extends AbstractPage {
 		return true;
 	}
 
-    static List<String> generateTagValues(List<TagObject> tagsObjectList) {
+    static String[][] generateTagValues(List<TagObject> tagsObjectList) {
         int tagsCount = tagsObjectList.size();
         String[][] values = new String[Status.values().length][tagsCount];
         for (int i = 0; i < tagsCount; i++) {
@@ -81,11 +79,6 @@ public class TagsOverviewPage extends AbstractPage {
             values[4][i] = Util.formatAsDecimal(tagObject.getUndefinedSteps(), allSteps);
         }
 
-        List<String> statuses = new ArrayList<>();
-        for (int i = 0; i < Status.values().length; i++) {
-            statuses.add("[" + StringUtils.join(values[i], ", ") + "]");
-        }
-
-        return statuses;
+        return values;
     }
 }

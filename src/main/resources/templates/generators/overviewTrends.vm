@@ -5,7 +5,7 @@
   #includeTitle("Trends Overview")
 
   <script type="text/javascript">
-  #parse("/templates/js/trends-chart.js")
+  #parse("/templates/js/trends-chart.js.vm")
   </script>
 </head>
 <body>

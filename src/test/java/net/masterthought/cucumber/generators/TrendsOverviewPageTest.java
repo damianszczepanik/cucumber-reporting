@@ -66,61 +66,19 @@ public class TrendsOverviewPageTest extends PageTest {
         VelocityContext context = page.context;
         assertThat(context.getKeys()).hasSize(18);
 
-        assertThat(context.get("buildNumbers")).isEqualTo("[\"01_first\",\"other build\",\"05last\"]");
-        assertThat(context.get("failedFeatures")).isEqualTo("[1,2,5]");
-        assertThat(context.get("totalFeatures")).isEqualTo("[10,20,30]");
+        assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first","other build","05last"});
+        assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1,2,5});
+        assertThat(context.get("totalFeatures")).isEqualTo(new int[]{10,20,30});
 
-        assertThat(context.get("failedScenarios")).isEqualTo("[10,20,20]");
-        assertThat(context.get("totalScenarios")).isEqualTo("[10,2,5]");
+        assertThat(context.get("failedScenarios")).isEqualTo(new int[]{10,20,20});
+        assertThat(context.get("totalScenarios")).isEqualTo(new int[]{10,2,5});
 
-        assertThat(context.get("passedSteps")).isEqualTo("[1,3,5]");
-        assertThat(context.get("failedSteps")).isEqualTo("[10,30,50]");
-        assertThat(context.get("skippedSteps")).isEqualTo("[100,300,500]");
-        assertThat(context.get("pendingSteps")).isEqualTo("[1000,3000,5000]");
-        assertThat(context.get("undefinedSteps")).isEqualTo("[10000,30000,50000]");
+        assertThat(context.get("passedSteps")).isEqualTo(new int[]{1,3,5});
+        assertThat(context.get("failedSteps")).isEqualTo(new int[]{10,30,50});
+        assertThat(context.get("skippedSteps")).isEqualTo(new int[]{100,300,500});
+        assertThat(context.get("pendingSteps")).isEqualTo(new int[]{1000,3000,5000});
+        assertThat(context.get("undefinedSteps")).isEqualTo(new int[]{10000,30000,50000});
 
-        assertThat(context.get("durations")).isEqualTo("[3206126182398,3206126182399,3206126182310]");
-    }
-
-    @Test
-    public void toJavaScriptArray_ReturnsStringArraysAsString() {
-
-        // given
-        final Object toConvert = new String[]{"1", "2", "5"};
-
-        // when
-        Class<?>[] types = {String[].class};
-        String converted = Deencapsulation.invoke(TrendsOverviewPage.class, "toJavaScriptArray", types, toConvert);
-
-        // then
-        assertThat(converted).isEqualTo("[\"1\",\"2\",\"5\"]");
-    }
-
-    @Test
-    public void toJavaScriptArray_ReturnsIntArraysAsString() {
-
-        // given
-        final Object toConvert = new int[]{10, 20, 50};
-
-        // when
-        Class<?>[] types = {int[].class};
-        String converted = Deencapsulation.invoke(TrendsOverviewPage.class, "toJavaScriptArray", types, toConvert);
-
-        // then
-        assertThat(converted).isEqualTo("[10,20,50]");
-    }
-
-    @Test
-    public void toJavaScriptArray_ReturnsLongArraysAsString() {
-
-        // given
-        final Object toConvert = new long[]{10, 20, 50};
-
-        // when
-        Class<?>[] types = {long[].class};
-        String converted = Deencapsulation.invoke(TrendsOverviewPage.class, "toJavaScriptArray", types, toConvert);
-
-        // then
-        assertThat(converted).isEqualTo("[10,20,50]");
+        assertThat(context.get("durations")).isEqualTo(new long[]{3206126182398L, 3206126182399L, 3206126182310L});
     }
 }
