@@ -55,6 +55,13 @@ public class ReportBuilder {
     private Configuration configuration;
     private List<String> jsonFiles;
 
+    /**
+     * Flag used to detect if the file with updated trends is saved.
+     * If the report crashes and the trends was not saved then it tries to save trends again with empty data
+     * to mark that the build crashed.
+     */
+    private boolean wasTrendsFileSaved = false;
+
     public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
         this.jsonFiles = jsonFiles;
         this.configuration = configuration;
@@ -66,6 +73,8 @@ public class ReportBuilder {
      * report with information about error is provided.
      */
     public Reportable generateReports() {
+        Trends trends = null;
+
         try {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
@@ -73,17 +82,33 @@ public class ReportBuilder {
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
 
+            // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
             reportResult = new ReportResult(features);
+            Reportable reportable = reportResult.getFeatureReport();
 
-            List<AbstractPage> pages = collectPages();
+            if (configuration.isTrendsStatsFile()) {
+                // prepare data required by generators, collect generators and generate pages
+                trends = updateAndSaveTrends(reportable);
+            }
+
+            List<AbstractPage> pages = collectPages(trends);
             generatePages(pages);
 
-            return reportResult.getFeatureReport();
+            return reportable;
 
-            // whatever happens we want to provide at least error page instead of empty report
+            // whatever happens we want to provide at least error page instead of incomplete report or exception
         } catch (Exception e) {
             generateErrorPage(e);
+            // update trends so there is information in history that the build failed
+
+            // if trends was not created then something went wrong
+            // and information about build failure should be saved
+            if (!wasTrendsFileSaved && configuration.isTrendsStatsFile()) {
+                Reportable reportable = new EmptyReportable();
+                updateAndSaveTrends(reportable);
+            }
+
             // something went wrong, don't pass result that might be incomplete
             return null;
         }
@@ -120,7 +145,7 @@ public class ReportBuilder {
         }
     }
 
-    private List<AbstractPage> collectPages() {
+    private List<AbstractPage> collectPages(Trends trends) {
         List<AbstractPage> pages = new ArrayList<>();
 
         pages.add(new FeaturesOverviewPage(reportResult, configuration));
@@ -135,8 +160,8 @@ public class ReportBuilder {
 
         pages.add(new StepsOverviewPage(reportResult, configuration));
         pages.add(new FailuresOverviewPage(reportResult, configuration));
-        if (configuration.getTrendsStatsFile() != null) {
-            Trends trends = updateAndGenerateTrends(configuration.getTrendsStatsFile());
+
+        if (configuration.isTrendsStatsFile()) {
             pages.add(new TrendsOverviewPage(reportResult, configuration, trends));
         }
 
@@ -149,13 +174,14 @@ public class ReportBuilder {
         }
     }
 
-    private Trends updateAndGenerateTrends(File trendsFile) {
-        Trends trends = loadTrends(trendsFile);
-        appendCurrentReport(trends);
+    private Trends updateAndSaveTrends(Reportable reportable) {
+        Trends trends = loadOrCreateTrends();
+        appendToTrends(trends, reportable);
 
-        // save updated trends so it contains all history...
-        saveTrends(trends, trendsFile);
-        // ...but display only last n items - don't skip items if limit is not defined
+        // save updated trends so it contains all history
+        saveTrends(trends, configuration.getTrendsStatsFile());
+
+        // display only last n items - don't skip items if limit is not defined
         if (configuration.getTrendsLimit() > 0) {
             trends.limitItems(configuration.getTrendsLimit());
         }
@@ -163,11 +189,16 @@ public class ReportBuilder {
         return trends;
     }
 
-    private static Trends loadTrends(File file) {
-        if (!file.exists()) {
+    private Trends loadOrCreateTrends() {
+        File trendsFile = configuration.getTrendsStatsFile();
+        if (trendsFile != null && trendsFile.exists()) {
+            return loadTrends(trendsFile);
+        } else {
             return new Trends();
         }
+    }
 
+    private static Trends loadTrends(File file) {
         try (Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
             return mapper.readValue(reader, Trends.class);
         } catch (JsonMappingException e) {
@@ -178,8 +209,7 @@ public class ReportBuilder {
         }
     }
 
-    private void appendCurrentReport(Trends trends) {
-        Reportable result = reportResult.getFeatureReport();
+    private void appendToTrends(Trends trends, Reportable result) {
         trends.addBuild(configuration.getBuildNumber(), result);
     }
 
@@ -187,7 +217,9 @@ public class ReportBuilder {
         ObjectWriter objectWriter = mapper.writer().with(SerializationFeature.INDENT_OUTPUT);
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
             objectWriter.writeValue(writer, trends);
+            wasTrendsFileSaved = true;
         } catch (IOException e) {
+            wasTrendsFileSaved = false;
             throw new ValidationException("Could not save updated trends in file: " + file.getAbsolutePath(), e);
         }
     }
@@ -197,5 +229,4 @@ public class ReportBuilder {
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }
-
 }

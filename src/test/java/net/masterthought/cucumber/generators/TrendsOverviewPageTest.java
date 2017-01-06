@@ -23,7 +23,7 @@ import net.masterthought.cucumber.generators.integrations.PageTest;
  */
 public class TrendsOverviewPageTest extends PageTest {
 
-    private final String TRENDS_FILE = pathToTestFile("cucumber-trends.json");
+    private final String TRENDS_FILE = pathToSampleFile("cucumber-trends.json");
     private final String TRENDS_TMP_FILE = TRENDS_FILE + "-tmp";
 
     @Rule

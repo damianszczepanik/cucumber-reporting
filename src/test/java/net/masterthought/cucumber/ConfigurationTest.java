@@ -67,6 +67,48 @@ public class ConfigurationTest {
     }
 
     @Test
+    public void getTrendsStatsFile_ReturnsTrendsFile() {
+
+        // given
+        File file = new File("ble");
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrendsStatsFile(file);
+
+        // then
+        assertThat(configuration.getTrendsStatsFile()).isEqualTo(file);
+    }
+
+    @Test
+    public void isTrendsStatsFile_ChecksIfTrendsFileWasSet() {
+
+        // given
+        File file = new File("ble");
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrendsStatsFile(file);
+
+        // then
+        assertThat(configuration.isTrendsStatsFile()).isTrue();
+    }
+
+    @Test
+    public void getTrendsLimit_ReturnsLimitForTrends() {
+
+        // given
+        final int limit = 123;
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrends(null, limit);
+
+        // then
+        assertThat(configuration.getTrendsLimit()).isEqualTo(limit);
+    }
+
+    @Test
     public void getBuildNumber_ReturnsBuildNumber() {
 
         // given
