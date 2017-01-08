@@ -114,7 +114,7 @@ public class Configuration {
      * @param patterns Regex patterns to match against tags
      * @throws ValidationException when any of the given strings is not a valid regex pattern.
      */
-    public void setTagsToExcludeFromChart(String... patterns) throws ValidationException {
+    public void setTagsToExcludeFromChart(String... patterns) {
         for (String pattern : patterns) {
             try {
                 tagsToExcludeFromChart.add(Pattern.compile(pattern));

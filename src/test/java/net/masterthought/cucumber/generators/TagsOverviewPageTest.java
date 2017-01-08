@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -86,7 +85,7 @@ public class TagsOverviewPageTest extends PageTest {
         String[] labels = TagsOverviewPage.generateTagLabels(allTags);
 
         // then
-        assertThat(labels).isEqualTo(new String[]{"@checkout","@fast","@featureTag"});
+        assertThat(labels).isEqualTo(new String[]{"@checkout", "@fast", "@featureTag"});
     }
 
     @Test

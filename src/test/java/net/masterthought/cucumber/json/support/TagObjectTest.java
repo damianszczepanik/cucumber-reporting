@@ -103,7 +103,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getFAiledFeatures_ThrowsException() {
+    public void getFailedFeatures_ThrowsException() {
 
         // given
         TagObject tag = new TagObject("@checkout");
