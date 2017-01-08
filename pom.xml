@@ -43,6 +43,10 @@
         <developerConnection>scm:git:git@github.com:damianszczepanik/cucumber-reporting.git</developerConnection>
         <url>git@github.com:damianszczepanik/cucumber-reporting.git</url>
     </scm>
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.org/damianszczepanik/cucumber-reporting</url>
+    </ciManagement>
 
     <description>
         Provides pretty html reports for Cucumber (Behaviour-Driven Development). It works by generating html from the
