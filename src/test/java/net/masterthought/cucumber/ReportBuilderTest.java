@@ -129,7 +129,7 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         // when
-        Reportable result = reportBuilder.generateReports();
+        reportBuilder.generateReports();
 
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
@@ -347,14 +347,14 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
+    public void loadTrends_OnMissingTrendsFile_ThrowsException() {
 
         // given
         File noExistingTrendsFile = new File("anyNoExisting?File");
 
         // when
         thrown.expect(ValidationException.class);
-        Trends trend = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
+        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
     }
 
     @Test
