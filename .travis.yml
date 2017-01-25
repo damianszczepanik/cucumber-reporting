@@ -25,17 +25,20 @@ matrix:
   include:
     - jdk: oraclejdk7
       script: mvn clean test
+
     - jdk: openjdk7
       # use 'verify' phrase to execute integration tests
       script: mvn clean verify
+
     - jdk: oraclejdk8
       script: mvn clean verify
+
     - jdk: oraclejdk8
       # tests and Sonar without storing results on the server
       script: ./sonar.sh
 
 after_success:
-  # push reprot to codecov server
+  # push report to codecov server
   bash <(curl -s https://codecov.io/bash)
 
 addons:
