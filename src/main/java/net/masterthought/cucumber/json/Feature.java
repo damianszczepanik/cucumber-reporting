@@ -1,9 +1,12 @@
 package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -37,6 +40,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     private Status featureStatus;
     private long totalDuration;
+
 
     @Override
     public String getDeviceName() {
@@ -240,5 +244,55 @@ public class Feature implements Reportable, Comparable<Feature> {
 
         // if ids are the same it means that feature exists in more than one JSON file so compare by JSON report
         return ObjectUtils.compare(jsonFile, feature.getJsonFile());
+    }
+
+    @Override
+    public Map<String, String[]> getFailedScenariosCause() {
+        HashMap<String,String[]> failures = new HashMap<>();
+        int failedCount = 0;
+        for(Element element : elements)
+        {
+            if(element.isScenario() && (!element.getStatus().isPassed()))
+            {
+                for(Step step : element.getSteps())
+                {
+                    if(step.getResult().getStatus().equals(Status.FAILED))
+                    {
+                        String errorMessage = step.getResult().getErrorMessage();
+                        String[] info = {
+                                element.getName(),
+                                errorMessage == null ? "Error message not found." : errorMessage
+                        };
+                        failures.put(String.valueOf(failedCount++), info);
+                    }
+                }
+            }
+        }
+        return failures;
+    }
+
+    @Override
+    public Map<String, String[]> getFailedStepsCause() {
+        HashMap<String,String[]> failures = new HashMap<>();
+        int failedCount = 0;
+        for(Element element : elements)
+        {
+            if(element.isScenario() && (!element.getStatus().isPassed()))
+            {
+                for(Step step : element.getSteps())
+                {
+                    if(step.getResult().getStatus().equals(Status.FAILED))
+                    {
+                        String errorMessage = step.getResult().getErrorMessage();
+                        String[] info = {
+                                step.getName(),
+                                errorMessage == null ? "Error message not found." : errorMessage
+                        };
+                        failures.put(String.valueOf(failedCount++), info);
+                    }
+                }
+            }
+        }
+        return failures;
     }
 }

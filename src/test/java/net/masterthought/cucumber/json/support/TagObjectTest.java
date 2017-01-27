@@ -3,8 +3,12 @@ package net.masterthought.cucumber.json.support;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.lang.NotImplementedException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -279,5 +283,89 @@ public class TagObjectTest extends PageTest {
 
         // then
         assertThat(result).isEqualTo(0);
+    }
+
+    @Test
+    public void getFailedScenariosCause_ReturnsScenarioFailuresMap() {
+
+        String expectedFailedScenarioName = "Account may not have sufficient funds";
+        String expectedFailedStepResultErrorMessage = "Error message not found.";
+        String[] expectedFailureData = {expectedFailedScenarioName, expectedFailedStepResultErrorMessage};
+        Map<String, String[]> expectedFailedScenariosMap = new HashMap<>(1);
+        expectedFailedScenariosMap.put("0", expectedFailureData);
+
+        // given
+        TagObject failedTag = new TagObject("@checkout");
+        Element[] elements = this.features.get(1).getElements();
+
+        // when
+        for (Element element : elements) {
+            failedTag.addElement(element);
+        }
+
+        Map<String, String[]> returnedFailedScenariosMap = failedTag.getFailedScenariosCause();
+
+        // first validate that both expected and returned maps are the same size
+        Assert.assertEquals(returnedFailedScenariosMap.size(), expectedFailedScenariosMap.size());
+
+        String[] expectedFailedScenariosMapKeys = new String[expectedFailedScenariosMap.size()];
+        expectedFailedScenariosMap.keySet().toArray(expectedFailedScenariosMapKeys);
+
+        String[] returnedFailedScenariosMapKeys = new String[returnedFailedScenariosMap.size()];
+        returnedFailedScenariosMap.keySet().toArray(returnedFailedScenariosMapKeys);
+
+        // then validate that the expected and returned map keys are equal
+        Assert.assertArrayEquals(returnedFailedScenariosMapKeys, expectedFailedScenariosMapKeys);
+
+        String[][] expectedFailedScenariosMapValues = new String[expectedFailedScenariosMap.values().size()][2];
+        expectedFailedScenariosMap.values().toArray(expectedFailedScenariosMapValues);
+
+        String[][] returnedFailedScenariosMapValues = new String[returnedFailedScenariosMap.values().size()][2];
+        returnedFailedScenariosMap.values().toArray(returnedFailedScenariosMapValues);
+
+        // finally validate that the expected and returned map values are equal
+        Assert.assertArrayEquals(returnedFailedScenariosMapValues, expectedFailedScenariosMapValues);
+    }
+
+    @Test
+    public void getFailedStepsCause_ReturnsStepFailuresMap() {
+
+        String expectedFailedStepName = "the card is valid";
+        String expectedFailedStepResultErrorMessage = "Error message not found.";
+        String[] expectedFailureData = {expectedFailedStepName, expectedFailedStepResultErrorMessage};
+        Map<String, String[]> expectedFailedStepsMap = new HashMap<>(1);
+        expectedFailedStepsMap.put("0", expectedFailureData);
+
+        // given
+        TagObject failedTag = new TagObject("@checkout");
+        Element[] elements = this.features.get(1).getElements();
+
+        // when
+        for (Element element : elements) {
+            failedTag.addElement(element);
+        }
+
+        Map<String, String[]> returnedFailedStepsMap = failedTag.getFailedStepsCause();
+
+        // first validate that both expected and returned maps are the same size
+        Assert.assertEquals(returnedFailedStepsMap.size(), expectedFailedStepsMap.size());
+
+        String[] expectedFailedStepsMapKeys = new String[expectedFailedStepsMap.size()];
+        expectedFailedStepsMap.keySet().toArray(expectedFailedStepsMapKeys);
+
+        String[] returnedFailedStepsMapKeys = new String[returnedFailedStepsMap.size()];
+        returnedFailedStepsMap.keySet().toArray(returnedFailedStepsMapKeys);
+
+        // then validate that the expected and returned map keys are equal
+        Assert.assertArrayEquals(returnedFailedStepsMapKeys, expectedFailedStepsMapKeys);
+
+        String[][]expectedFailedStepsMapValues = new String[expectedFailedStepsMap.values().size()][2];
+        expectedFailedStepsMap.values().toArray(expectedFailedStepsMapValues);
+
+        String[][] returnedFailedStepsMapValues = new String[returnedFailedStepsMap.values().size()][2];
+        returnedFailedStepsMap.values().toArray(returnedFailedStepsMapValues);
+
+        // finally validate that the expected and returned map values are equal
+        Assert.assertArrayEquals(returnedFailedStepsMapValues, expectedFailedStepsMapValues);
     }
 }

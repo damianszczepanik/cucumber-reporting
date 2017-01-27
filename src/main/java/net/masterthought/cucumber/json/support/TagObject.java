@@ -1,7 +1,9 @@
 package net.masterthought.cucumber.json.support;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
@@ -150,6 +152,56 @@ public class TagObject implements Reportable, Comparable<TagObject> {
         return status;
     }
 
+    @Override
+    public Map<String, String[]> getFailedScenariosCause() {
+        HashMap<String,String[]> failures = new HashMap<>();
+        int failedCount = 0;
+        for(Element element : elements)
+        {
+            if(element.isScenario() && (!element.getStatus().isPassed()))
+            {
+                for(Step step : element.getSteps())
+                {
+                    if(step.getResult().getStatus().equals(Status.FAILED))
+                    {
+                        String errorMessage = step.getResult().getErrorMessage();
+                        String[] info = {
+                                element.getName(),
+                                errorMessage == null ? "Error message not found." : errorMessage
+                        };
+                        failures.put(String.valueOf(failedCount++), info);
+                    }
+                }
+            }
+        }
+        return failures;
+    }
+
+    @Override
+    public Map<String, String[]> getFailedStepsCause() {
+        HashMap<String,String[]> failures = new HashMap<>();
+        int failedCount = 0;
+        for(Element element : elements)
+        {
+            if(element.isScenario() && (!element.getStatus().isPassed()))
+            {
+                for(Step step : element.getSteps())
+                {
+                    if(step.getResult().getStatus().equals(Status.FAILED))
+                    {
+                        String errorMessage = step.getResult().getErrorMessage();
+                        String[] info = {
+                                step.getName(),
+                                errorMessage == null ? "Error message not found." : errorMessage
+                        };
+                        failures.put(String.valueOf(failedCount++), info);
+                    }
+                }
+            }
+        }
+        return failures;
+    }
+
     public String getRawStatus() {
         return status.name().toLowerCase();
     }
@@ -164,4 +216,6 @@ public class TagObject implements Reportable, Comparable<TagObject> {
         // since there might be the only one TagObject with given tagName, compare by location only
         return Integer.signum(tagName.compareTo(o.getName()));
     }
+
+
 }

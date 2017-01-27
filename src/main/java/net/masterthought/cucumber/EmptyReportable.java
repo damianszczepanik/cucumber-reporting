@@ -2,6 +2,8 @@ package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.support.Status;
 
+import java.util.Map;
+
 /**
  * Defines empty reportable that is usded when the build fails.
  *
@@ -93,4 +95,10 @@ public class EmptyReportable implements Reportable {
     public Status getStatus() {
         return null;
     }
+
+    @Override
+    public Map<String, String[]> getFailedScenariosCause() {return null;}
+
+    @Override
+    public Map<String, String[]> getFailedStepsCause() {return null;}
 }

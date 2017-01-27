@@ -7,6 +7,8 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
+import java.util.Map;
+
 public class OverviewReport implements Reportable {
 
     private long duration;
@@ -114,5 +116,15 @@ public class OverviewReport implements Reportable {
     @Override
     public Status getStatus() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public Map<String, String[]> getFailedScenariosCause(){
+        throw new NotImplementedException("Not implemented!");
+    }
+
+    @Override
+    public Map<String, String[]> getFailedStepsCause(){
+        throw new NotImplementedException("Not implemented!");
     }
 }

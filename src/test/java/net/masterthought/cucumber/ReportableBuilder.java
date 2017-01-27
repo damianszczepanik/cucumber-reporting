@@ -2,6 +2,9 @@ package net.masterthought.cucumber;
 
 
 import net.masterthought.cucumber.json.support.Status;
+import org.apache.commons.lang.NotImplementedException;
+
+import java.util.Map;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -140,4 +143,10 @@ public class ReportableBuilder implements Reportable {
     public Status getStatus() {
         throw new IllegalStateException("Not implemented!");
     }
+
+    @Override
+    public Map<String, String[]> getFailedScenariosCause() {throw new NotImplementedException("Not implemented!");}
+
+    @Override
+    public Map<String, String[]> getFailedStepsCause() {throw new NotImplementedException("Not implemented!");}
 }
