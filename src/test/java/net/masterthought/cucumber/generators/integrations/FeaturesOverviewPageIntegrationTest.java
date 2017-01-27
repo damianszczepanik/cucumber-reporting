@@ -143,7 +143,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_net-masterthought-example-s--ATM-local-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("Second feature", "5", "1", "2", "1", "2", "11", "1", "1", "2", "092ms", "Failed");
+        secondRow.hasExactValues("Second feature", "5", "1 the card is valid $stepErrorMessage", "2", "1", "2", "11", "1", "1 Account may not have sufficient funds $scenarioStepErrorMessage", "2", "092ms", "Failed");
         secondRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "92610000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "report-feature_net-masterthought-example-ATMK-feature.html");
