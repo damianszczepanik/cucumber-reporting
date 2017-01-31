@@ -10,7 +10,8 @@
     #foreach($step in $element.getSteps())
       <div class="step">
         #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())
-        #includeMessage("Error message", $step.getResult().getErrorMessage())
+        #set($isPassed = $step.getResult().getStatus().isPassed())
+        #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)
 
         #if (!$step.getRows().isEmpty())
           <table class="step-arguments">
@@ -25,7 +26,7 @@
         #end
 
         #includeDocString($step.getDocString())
-        #includeOutput($step.getOutput())
+        #includeOutput($step.getOutputs(), $isPassed)
         #includeEmbeddings($step.getEmbeddings())
       </div>
     #end
