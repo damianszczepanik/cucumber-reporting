@@ -64,7 +64,7 @@ public class AbstractPageTest extends PageTest {
         assertThat(document.getFeature().getDescription())
                 .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
-                .isEqualTo("Attachment 4 (HTML) <i>Hello</i> <b>World!</b>");
+                .isEqualTo("Attachment 4 (HTML)");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
                 .isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" +
                         "Expected: is <80>\n" +

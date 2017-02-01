@@ -64,7 +64,7 @@ a:hover {
 /* same as <pre> from bootstrap library */
 .embedding-content {
     display: block;
-    padding: 9.5px;
+    padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -75,6 +75,23 @@ a:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     white-space: nowrap;
+}
+
+.html-content {
+    position: relative;
+    /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+    padding: 0 0 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.html-content iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border:none;
 }
 
 .download-button {
