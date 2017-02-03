@@ -154,51 +154,15 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     @Override
     public Map<String, String[]> getFailedScenariosCause() {
-        HashMap<String,String[]> failures = new HashMap<>();
-        int failedCount = 0;
-        for(Element element : elements)
-        {
-            if(element.isScenario() && (!element.getStatus().isPassed()))
-            {
-                for(Step step : element.getSteps())
-                {
-                    if(step.getResult().getStatus().equals(Status.FAILED))
-                    {
-                        String errorMessage = step.getResult().getErrorMessage();
-                        String[] info = {
-                                element.getName(),
-                                errorMessage == null ? "Error message not found." : errorMessage
-                        };
-                        failures.put(String.valueOf(failedCount++), info);
-                    }
-                }
-            }
-        }
+        HashMap<String,String[]> failures =
+                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]), Util.Failed.Scenario);
         return failures;
     }
 
     @Override
     public Map<String, String[]> getFailedStepsCause() {
-        HashMap<String,String[]> failures = new HashMap<>();
-        int failedCount = 0;
-        for(Element element : elements)
-        {
-            if(element.isScenario() && (!element.getStatus().isPassed()))
-            {
-                for(Step step : element.getSteps())
-                {
-                    if(step.getResult().getStatus().equals(Status.FAILED))
-                    {
-                        String errorMessage = step.getResult().getErrorMessage();
-                        String[] info = {
-                                step.getName(),
-                                errorMessage == null ? "Error message not found." : errorMessage
-                        };
-                        failures.put(String.valueOf(failedCount++), info);
-                    }
-                }
-            }
-        }
+        HashMap<String,String[]> failures =
+                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]), Util.Failed.Step);
         return failures;
     }
 

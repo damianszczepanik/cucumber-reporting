@@ -2,13 +2,22 @@ package net.masterthought.cucumber.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
 
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.support.Status;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
 public final class Util {
+
+    public enum Failed {
+        Scenario,
+        Step
+    }
 
     // provide Locale so tests can validate . (instead of ,) separator
     public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
@@ -79,5 +88,44 @@ public final class Util {
      */
     public static String toValidFileName(String value) {
         return value.replaceAll("[^\\d\\w]", "-");
+    }
+
+    /**
+     *
+     * @param elements the array of elements containing the scenario and step data
+     * @param failedContext the enum sentinel that determines the
+     * @return {@code failedMap} object containing the failure information
+     */
+    public static HashMap<String, String[]> getFailedCauseMap(Element[] elements, Failed failedContext) {
+        HashMap<String, String[]> failedMap = new HashMap<>();
+        int failedCount = 0;
+        for(Element element : elements) {
+            if(element.isScenario() && (!element.getStatus().isPassed())) {
+                Element scenario = element;
+                for(Step step : scenario.getSteps()) {
+                    if(step.getResult().getStatus().equals(Status.FAILED)) {
+                        String failedName;
+                        if(failedContext.equals(Failed.Scenario)){
+                            failedName = scenario.getName();
+                        }
+                        else if(failedContext.equals(Failed.Step)){
+                            failedName = step.getName();
+                        }
+                        else {
+                            throw new IllegalArgumentException(
+                                    String.format("Failed argument was not %s or %s", Failed.Scenario, Failed.Step)
+                            );
+                        }
+                        String errorMessage = step.getResult().getErrorMessage();
+                        String[] info = {
+                                failedName,
+                                errorMessage == null ? "Error message not found." : errorMessage
+                        };
+                        failedMap.put(String.valueOf(failedCount++), info);
+                    }
+                }
+            }
+        }
+        return failedMap;
     }
 }
