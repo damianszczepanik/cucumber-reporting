@@ -134,7 +134,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "10", "1 the card is valid $stepErrorMessage", "2", "1", "2", "16", "1", "1 Account may not have sufficient funds $scenarioStepErrorMessage", "2", "231ms", "Failed");
+        firstRow.hasExactValues("@checkout", "10", "1 the card is valid Error message not found.", "2", "1", "2", "16", "1", "1 Account may not have sufficient funds Error message not found.", "2", "231ms", "Failed");
         firstRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "report-tag_checkout.html");
