@@ -1,5 +1,7 @@
 language: java
 
+dist: trusty
+
 cache:
   directories:
   - ~/.m2
@@ -10,9 +12,6 @@ env:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    # via the "travis encrypt" command using the project repo's public key
    - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
-
-before_install:
-  - chmod +x ./sonar.sh
 
 # Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
 # See https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
@@ -25,17 +24,21 @@ matrix:
   include:
     - jdk: oraclejdk7
       script: mvn clean test
+
     - jdk: openjdk7
       # use 'verify' phrase to execute integration tests
       script: mvn clean verify
+
     - jdk: oraclejdk8
       script: mvn clean verify
+
     - jdk: oraclejdk8
-      # tests and Sonar without storing results on the server
-      script: ./sonar.sh
+      script:
+        - mvn clean package
+        - sonar-scanner
 
 after_success:
-  # push reprot to codecov server
+  # push report to codecov server
   bash <(curl -s https://codecov.io/bash)
 
 addons:
@@ -51,3 +54,9 @@ addons:
     build_command: "mvn -DskipTests=true compile"
     # Pattern to match selecting branches that will run analysis.
     branch_pattern: master
+
+  sonarqube:
+    token:
+      secure: $SONAR_TOKEN
+  branches:
+    - master
