@@ -153,16 +153,9 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     @Override
-    public Map<String, String[]> getFailedScenariosCause() {
+    public Map<String, String[]> getFailedCause() {
         HashMap<String,String[]> failures =
-                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]), Util.Failed.Scenario);
-        return failures;
-    }
-
-    @Override
-    public Map<String, String[]> getFailedStepsCause() {
-        HashMap<String,String[]> failures =
-                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]), Util.Failed.Step);
+                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]));
         return failures;
     }
 

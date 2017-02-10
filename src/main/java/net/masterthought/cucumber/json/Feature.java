@@ -246,14 +246,8 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
-    public Map<String, String[]> getFailedScenariosCause() {
-        HashMap<String,String[]> failures = Util.getFailedCauseMap(this.elements, Util.Failed.Scenario);
-        return failures;
-    }
-
-    @Override
-    public Map<String, String[]> getFailedStepsCause() {
-        HashMap<String,String[]> failures = Util.getFailedCauseMap(this.elements, Util.Failed.Step);
+    public Map<String, String[]> getFailedCause() {
+        HashMap<String,String[]> failures = Util.getFailedCauseMap(this.elements);
         return failures;
     }
 }

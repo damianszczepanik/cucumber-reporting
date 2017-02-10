@@ -119,12 +119,7 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedScenariosCause(){
-        throw new NotImplementedException("Not implemented!");
-    }
-
-    @Override
-    public Map<String, String[]> getFailedStepsCause(){
+    public Map<String, String[]> getFailedCause(){
         throw new NotImplementedException("Not implemented!");
     }
 }

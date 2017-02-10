@@ -62,9 +62,6 @@ public interface Reportable {
     /** Returns status for this element. */
     Status getStatus();
 
-    /** Returns Map containing scenario names and error messages for this element. */
-    Map<String, String[]> getFailedScenariosCause();
-
-    /** Returns Map containing step names and error messages for this element. */
-    Map<String, String[]> getFailedStepsCause();
+    /** Returns Map containing scenario names with the corresponding failed step and error messages for this element. */
+    Map<String, String[]> getFailedCause();
 }

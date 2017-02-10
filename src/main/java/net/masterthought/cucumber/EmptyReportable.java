@@ -97,8 +97,5 @@ public class EmptyReportable implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedScenariosCause() {return null;}
-
-    @Override
-    public Map<String, String[]> getFailedStepsCause() {return null;}
+    public Map<String, String[]> getFailedCause() {return null;}
 }

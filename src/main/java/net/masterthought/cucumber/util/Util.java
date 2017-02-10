@@ -14,11 +14,6 @@ import org.joda.time.format.PeriodFormatterBuilder;
 
 public final class Util {
 
-    public enum Failed {
-        Scenario,
-        Step
-    }
-
     // provide Locale so tests can validate . (instead of ,) separator
     public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
     static {
@@ -93,10 +88,9 @@ public final class Util {
     /**
      *
      * @param elements the array of elements containing the scenario and step data
-     * @param failedContext the enum sentinel that determines the
      * @return {@code failedMap} object containing the failure information
      */
-    public static HashMap<String, String[]> getFailedCauseMap(Element[] elements, Failed failedContext) {
+    public static HashMap<String, String[]> getFailedCauseMap(Element[] elements) {
         HashMap<String, String[]> failedMap = new HashMap<>();
         int failedCount = 0;
         for(Element element : elements) {
@@ -104,21 +98,10 @@ public final class Util {
                 Element scenario = element;
                 for(Step step : scenario.getSteps()) {
                     if(step.getResult().getStatus().equals(Status.FAILED)) {
-                        String failedName;
-                        if(failedContext.equals(Failed.Scenario)){
-                            failedName = scenario.getName();
-                        }
-                        else if(failedContext.equals(Failed.Step)){
-                            failedName = step.getName();
-                        }
-                        else {
-                            throw new IllegalArgumentException(
-                                    String.format("Failed argument was not %s or %s", Failed.Scenario, Failed.Step)
-                            );
-                        }
                         String errorMessage = step.getResult().getErrorMessage();
                         String[] info = {
-                                failedName,
+                                scenario.getName(),
+                                step.getName(),
                                 errorMessage == null ? "Error message not found." : errorMessage
                         };
                         failedMap.put(String.valueOf(failedCount++), info);

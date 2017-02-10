@@ -145,8 +145,5 @@ public class ReportableBuilder implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedScenariosCause() {throw new NotImplementedException("Not implemented!");}
-
-    @Override
-    public Map<String, String[]> getFailedStepsCause() {throw new NotImplementedException("Not implemented!");}
+    public Map<String, String[]> getFailedCause() {throw new NotImplementedException("Not implemented!");}
 }
