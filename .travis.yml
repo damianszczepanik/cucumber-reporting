@@ -1,6 +1,6 @@
 language: java
 
-dist: trusty
+dist: precise
 
 cache:
   directories:
