@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -78,6 +79,6 @@ public final class Util {
      * @return converted string
      */
     public static String toValidFileName(String value) {
-        return value.replaceAll("[^\\d\\w]", "-");
+        return StringEscapeUtils.escapeJava(value).replaceAll("[^\\d\\w]", "-");
     }
 }
