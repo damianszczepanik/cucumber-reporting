@@ -5,6 +5,8 @@
     #foreach($embedding in $embeddings)
     #if ($embedding.getMimeType() == "image/png")
       #includeImageEmbedding($embedding, "png", $foreach.index)
+    #elseif ($embedding.getMimeType() == "image/gif")
+      #includeImageEmbedding($embedding, "gif", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/bmp")
       #includeImageEmbedding($embedding, "bmp", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/jpeg")
