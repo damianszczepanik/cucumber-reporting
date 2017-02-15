@@ -34,8 +34,7 @@ matrix:
 
     - jdk: oraclejdk8
       script:
-        - mvn clean package
-        - sonar-scanner
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 
 after_success:
   # push report to codecov server
