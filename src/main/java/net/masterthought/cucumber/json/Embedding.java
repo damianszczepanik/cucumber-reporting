@@ -51,6 +51,7 @@ public class Embedding {
     public String getExtension() {
         switch (mimeType) {
         case "image/png":
+        case "image/gif":
         case "image/bmp":
         case "image/jpeg":
         case "text/html":
