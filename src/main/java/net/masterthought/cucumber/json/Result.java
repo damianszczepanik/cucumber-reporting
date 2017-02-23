@@ -28,4 +28,8 @@ public class Result {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    public final String getErrorMessageTitle() {
+        return errorMessage.split("[\\r\\n]+")[0];
+    }
 }
