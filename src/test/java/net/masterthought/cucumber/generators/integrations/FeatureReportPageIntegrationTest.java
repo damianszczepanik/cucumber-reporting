@@ -306,7 +306,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         asserEmbeddingFileExist(embeddings[0]);
         embeddingsElement[2].hasTextContent(embeddings[2].getData());
         asserEmbeddingFileExist(embeddings[2]);
-        embeddingsElement[3].hasTextContent(embeddings[3].getData());
+        embeddingsElement[3].hasSrcDocContent(embeddings[3].getData());
         asserEmbeddingFileExist(embeddings[3]);
     }
 
