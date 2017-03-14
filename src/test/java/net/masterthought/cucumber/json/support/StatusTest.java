@@ -15,7 +15,7 @@ public class StatusTest {
 
         // given
         // tables displays result with following order
-        final Status[] reference = { PASSED, FAILED, SKIPPED, PENDING, UNDEFINED };
+        final Status[] reference = { SKIPPED, PASSED, PENDING, UNDEFINED, FAILED };
 
         // when
         Status[] orderedStatuses = Status.values();

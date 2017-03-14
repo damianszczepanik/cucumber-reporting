@@ -87,6 +87,14 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     }
 
     @Override
+    public int getPendingFeatures() { throw new NotImplementedException();
+    }
+
+    @Override
+    public int getUndefinedFeatures() { throw new NotImplementedException();
+    }
+
+    @Override
     public int getScenarios() {
         return scenarioCounter;
     }
@@ -100,6 +108,12 @@ public class TagObject implements Reportable, Comparable<TagObject> {
     public int getFailedScenarios() {
         return elementsStatusCounter.getValueFor(Status.FAILED);
     }
+
+    @Override
+    public int getPendingScenarios() { return elementsStatusCounter.getValueFor(Status.PENDING); }
+
+    @Override
+    public int getUndefinedScenarios() { return elementsStatusCounter.getValueFor(Status.UNDEFINED); }
 
     @Override
     public long getDurations() {

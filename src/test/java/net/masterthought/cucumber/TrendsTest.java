@@ -64,12 +64,12 @@ public class TrendsTest {
 
         assertThat(trends.getPassedFeatures()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 2, 2);
 
-        assertThat(trends.getPassedScenarios()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 7, 7);
+        assertThat(trends.getPassedScenarios()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 13, 13);
 
-        assertThat(trends.getPassedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 17, 17);
-        assertThat(trends.getSkippedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 23, 23);
-        assertThat(trends.getPendingSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 29, 29);
-        assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
+        assertThat(trends.getPassedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
+        assertThat(trends.getSkippedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 41, 41);
+        assertThat(trends.getPendingSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 73, 73);
+        assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 79, 79);
 
         assertThat(trends.getDurations()).hasSize(buildNumbers.length + 1).containsExactly(-1L, -1L, 3206126182390L, 3206126182390L);
     }
@@ -160,7 +160,9 @@ public class TrendsTest {
         final int totalFeatures = 1000;
         final int failedFeatures = totalFeatures + 1;
         Trends trends = new Trends();
-        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
+        int pendingFeatures = 0;
+        int undefinedFeatures = 0;
+        Reportable result = new ReportableBuilder(0, failedFeatures, pendingFeatures, undefinedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
         trends.addBuild("buildNumber", result);
 
         // when

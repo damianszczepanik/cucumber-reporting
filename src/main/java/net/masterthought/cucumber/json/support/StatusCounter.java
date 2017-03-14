@@ -37,8 +37,11 @@ public class StatusCounter {
         this.counter.put(status, statusCounter);
         size++;
 
-        if (finalStatus == Status.PASSED && status != Status.PASSED) {
-            finalStatus = Status.FAILED;
+        // finalStatus is the highest priority of all the statuses that we see for a given
+        // container. SKIPPED is lowest priority, then PASSED, PENDING, UNDEFINED, and
+        // finally FAILED.
+        if (status.priority > finalStatus.priority) {
+            finalStatus = status;
         }
     }
 

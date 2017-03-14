@@ -20,8 +20,10 @@
           <td #if ($reportable.getUndefinedSteps() != 0)  class="undefined" #end>$reportable.getUndefinedSteps()</td>
           <td class="total">$reportable.getSteps()</td>
 
-          <td #if ($reportable.getPassedScenarios() != 0) class="passed"    #end>$reportable.getPassedScenarios()</td>
-          <td #if ($reportable.getFailedScenarios() != 0) class="failed"    #end>$reportable.getFailedScenarios()</td>
+          <td #if ($reportable.getPassedScenarios() != 0)    class="passed"    #end>$reportable.getPassedScenarios()</td>
+          <td #if ($reportable.getFailedScenarios() != 0)    class="failed"    #end>$reportable.getFailedScenarios()</td>
+          <td #if ($reportable.getPendingScenarios() != 0)   class="pending"   #end>$reportable.getPendingScenarios()</td>
+          <td #if ($reportable.getUndefinedScenarios() != 0) class="undefined" #end>$reportable.getUndefinedScenarios()</td>
           <td class="total">$reportable.getScenarios()</td>
 
           <td class="duration" data-value="$reportable.getDurations()">$reportable.getFormattedDurations()</td>

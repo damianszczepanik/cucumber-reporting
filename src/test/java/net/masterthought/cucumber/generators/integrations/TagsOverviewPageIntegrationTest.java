@@ -114,7 +114,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion secondRow = headerRows[1];
         secondRow.hasExactValues("Tag", "Passed", "Failed", "Skipped", "Pending", "Undefined", "Total",
-                "Passed", "Failed", "Total", "Duration", "Status");
+                "Passed", "Failed", "Pending", "Undefined", "Total", "Duration", "Status");
     }
 
     @Test

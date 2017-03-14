@@ -125,7 +125,7 @@ public class ElementTest extends PageTest {
         Status status = element.getAfterStatus();
 
         // then
-        assertThat(status).isEqualTo(Status.FAILED);
+        assertThat(status).isEqualTo(Status.UNDEFINED);
     }
 
     @Test
