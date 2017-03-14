@@ -18,8 +18,10 @@
         <td #if ($item.getUndefinedSteps() > 0)  class="undefined" #end>$item.getUndefinedSteps()</td>
         <td class="total">$item.getSteps()</td>
 
-        <td #if ($item.getPassedScenarios() > 0) class="passed"    #end>$item.getPassedScenarios()</td>
-        <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
+        <td #if ($item.getPassedScenarios() > 0)    class="passed"    #end>$item.getPassedScenarios()</td>
+        <td #if ($item.getFailedScenarios() > 0)    class="failed"    #end>$item.getFailedScenarios()</td>
+        <td #if ($item.getPendingScenarios() > 0)   class="pending"   #end>$item.getPendingScenarios()</td>
+        <td #if ($item.getUndefinedScenarios() > 0) class="undefined" #end>$item.getUndefinedScenarios()</td>
         <td class="total">$item.getScenarios()</td>
 
         <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
@@ -43,6 +45,8 @@
 
       <td>$report_summary.getPassedScenarios()</td>
       <td>$report_summary.getFailedScenarios()</td>
+      <td>$report_summary.getPendingScenarios()</td>
+      <td>$report_summary.getUndefinedScenarios()</td>
       <td>$report_summary.getScenarios()</td>
 
       <td class="duration">$report_summary.getFormattedDurations()</td>
@@ -61,6 +65,8 @@
       <td></td>
       <td>$util.formatAsPercentage($report_summary.getPassedScenarios(), $report_summary.getScenarios())</td>
       <td>$util.formatAsPercentage($report_summary.getFailedScenarios(), $report_summary.getScenarios())</td>
+      <td>$util.formatAsPercentage($report_summary.getPendingScenarios(), $report_summary.getScenarios())</td>
+      <td>$util.formatAsPercentage($report_summary.getUndefinedScenarios(), $report_summary.getScenarios())</td>
       <td></td>
       <td></td>
       <td>$util.formatAsPercentage($report_summary.getPassedFeatures(), $report_summary.getFeatures())</td>

@@ -64,7 +64,7 @@ public class StepObjectTest {
         // then
         assertThat(step.getDurations()).isEqualTo(725L);
         assertThat(step.getTotalOccurrences()).isEqualTo(3);
-        assertThat(step.getStatus()).isEqualTo(Status.FAILED);
+        assertThat(step.getStatus()).isEqualTo(Status.UNDEFINED);
     }
 
     @Test

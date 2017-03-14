@@ -47,13 +47,14 @@ public class TagReportPageIntegrationTest extends PageTest {
 
         // when
         page.generatePage();
+        String html = page.getWebPage();
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(tag.getName(), "10", "1", "2", "1", "2", "16", "1", "1", "2", "231ms", "Failed");
-        bodyRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
+        bodyRow.hasExactValues(tag.getName(), "10", "1", "2", "1", "2", "16", "1", "1", "0", "0", "2", "231ms", "Failed");
+        bodyRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "", "", "total", "duration", "failed");
     }
 
     @Test

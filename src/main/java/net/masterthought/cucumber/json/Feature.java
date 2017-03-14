@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.masterthought.cucumber.ReportParser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -12,8 +13,11 @@ import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Feature implements Reportable, Comparable<Feature> {
+    private static final Logger LOG = LogManager.getLogger(Feature.class);
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -89,8 +93,14 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     @Override
     public int getFailedFeatures() {
-        return getStatus().isPassed() ? 0 : 1;
+        return getStatus().isFailed() ? 1 : 0;
     }
+
+    @Override
+    public int getPendingFeatures() { return getStatus().isPending() ? 1 : 0; }
+
+    @Override
+    public int getUndefinedFeatures() { return getStatus().isUndefined() ? 1 : 0; }
 
     @Override
     public int getScenarios() {
@@ -146,6 +156,12 @@ public class Feature implements Reportable, Comparable<Feature> {
     public int getFailedScenarios() {
         return elementsCounter.getValueFor(Status.FAILED);
     }
+
+    @Override
+    public int getPendingScenarios() { return elementsCounter.getValueFor(Status.PENDING); }
+
+    @Override
+    public int getUndefinedScenarios() { return elementsCounter.getValueFor(Status.UNDEFINED); }
 
     public String getJsonFile() {
         return jsonFile;
@@ -204,11 +220,14 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     private Status calculateFeatureStatus() {
+        LOG.debug("calculating feature status for '" + this.name + "'");
         StatusCounter statusCounter = new StatusCounter();
         for (Element element : elements) {
             statusCounter.incrementFor(element.getStatus());
         }
-        return statusCounter.getFinalStatus();
+        Status finalStatus = statusCounter.getFinalStatus();
+        LOG.debug ("  final feature status is " + finalStatus);
+        return finalStatus;
     }
 
     private void calculateSteps() {

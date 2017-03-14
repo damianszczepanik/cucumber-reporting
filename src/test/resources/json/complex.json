@@ -1,0 +1,2160 @@
+[
+  {
+    "uri": "features/reporting_all_passing.feature",
+    "id": "all-these-scenarios-pass-(reporting_all_passing)",
+    "keyword": "Feature",
+    "name": "all these scenarios pass (reporting_all_passing)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "all-these-scenarios-pass-(reporting_all_passing);this-one-passes",
+        "keyword": "Scenario",
+        "name": "This one passes",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21419677
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15651834
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2767629
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38120733
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1444436
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 810481
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2323188
+            }
+          }
+        ]
+      },
+      {
+        "id": "all-these-scenarios-pass-(reporting_all_passing);this-one-also-passes",
+        "keyword": "Scenario",
+        "name": "This one also passes",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6556705
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11243181
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 948317
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5462057
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108006
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 123057
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 182995
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/reporting_one_failure.feature",
+    "id": "one-of-these-scenarios-fails-(reporting_one_failure)",
+    "keyword": "Feature",
+    "name": "one of these scenarios fails (reporting_one_failure)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "one-of-these-scenarios-fails-(reporting_one_failure);this-one-passes-in-the-failure-feature",
+        "keyword": "Scenario",
+        "name": "This one passes in the failure feature",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4825629
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9522548
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1227459
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42354803
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 336594
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 498934
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 163692
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-fails-(reporting_one_failure);this-one-also-passes-in-the-failure-feature",
+        "keyword": "Scenario",
+        "name": "This one also passes in the failure feature",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11982743
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18247538
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13000020
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1740054
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 209044
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 151740
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 116253
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-fails-(reporting_one_failure);this-one-fails",
+        "keyword": "Scenario",
+        "name": "This one fails",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10289197
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14650677
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2724665
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 16,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 17
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4101823
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"whisky\"",
+            "line": 20,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "expected \"There is no bar here\" to have file content: /whisky/ (RSpec::Expectations::ExpectationNotMetError)\nfeatures/reporting_one_failure.feature:20:in `Then the file \"bar.txt\" should contain \"whisky\"'",
+              "duration": 84336418
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42639171
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 238509
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 754141
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/reporting_one_pending.feature",
+    "id": "one-of-these-scenarios-is-pending,-rest-are-passing-(reporting_one_pending)",
+    "keyword": "Feature",
+    "name": "one of these scenarios is pending, rest are passing (reporting_one_pending)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "one-of-these-scenarios-is-pending,-rest-are-passing-(reporting_one_pending);this-one-passes-in-the-pendingfeature",
+        "keyword": "Scenario",
+        "name": "This one passes in the pendingfeature",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7434500
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7520039
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3990536
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38814334
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 375464
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 184935
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 210287
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-pending,-rest-are-passing-(reporting_one_pending);this-one-also-passes-in-the-pending-feature",
+        "keyword": "Scenario",
+        "name": "This one also passes in the pending feature",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10104489
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16630089
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1733571
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1233856
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 278514
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 148031
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 384317
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-pending,-rest-are-passing-(reporting_one_pending);this-one-is-pending",
+        "keyword": "Scenario",
+        "name": "This one is pending",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13056749
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9679359
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1018712
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 16,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 17
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1564132
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 20,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3067113
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is always pending",
+            "line": 21,
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:1175"
+            },
+            "result": {
+              "status": "pending",
+              "error_message": "TODO (Cucumber::Pending)\n./features/step_definitions/hammer_steps.rb:1176:in `/^this step is always pending$/'\nfeatures/reporting_one_pending.feature:21:in `And this step is always pending'",
+              "duration": 4009446
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 22,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129864
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 260073
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 232127
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/reporting_one_undefined.feature",
+    "id": "one-of-these-scenarios-is-undefined,-rest-are-passing-(reporting_one_undefined)",
+    "keyword": "Feature",
+    "name": "one of these scenarios is undefined, rest are passing (reporting_one_undefined)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "one-of-these-scenarios-is-undefined,-rest-are-passing-(reporting_one_undefined);this-one-passes-in-the-undefined-feature",
+        "keyword": "Scenario",
+        "name": "This one passes in the undefined feature",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5446049
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7800187
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1467250
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40672064
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 263883
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 191617
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108791
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-undefined,-rest-are-passing-(reporting_one_undefined);this-one-also-passes-in-the-undefined-feature",
+        "keyword": "Scenario",
+        "name": "This one also passes in the undefined feature",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5569360
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18174630
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2692599
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1273646
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 142386
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 135144
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 166791
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-undefined,-rest-are-passing-(reporting_one_undefined);this-one-is-undefined",
+        "keyword": "Scenario",
+        "name": "This one is undefined",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4996525
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4519197
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 778877
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 16,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 17
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1169114
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 20,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2630338
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is undefined",
+            "line": 21,
+            "match": {
+              "location": "features/reporting_one_undefined.feature:21"
+            },
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 22,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 196888
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 495057
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 227338
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/reporting_pending_and_undefined.feature",
+    "id": "one-of-these-scenarios-is-pending,-one-is-undefined,-rest-are-passing-(reporting_pending_and_undefined)",
+    "keyword": "Feature",
+    "name": "one of these scenarios is pending, one is undefined, rest are passing (reporting_pending_and_undefined)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "one-of-these-scenarios-is-pending,-one-is-undefined,-rest-are-passing-(reporting_pending_and_undefined);this-one-passes-in-the-pending-and-undefined-feature",
+        "keyword": "Scenario",
+        "name": "This one passes in the pending and undefined feature",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16253729
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10822220
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 993298
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104344901
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 184488
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 160435
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 155574
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-pending,-one-is-undefined,-rest-are-passing-(reporting_pending_and_undefined);this-one-also-passes-in-the-pending-and-undefined-feature",
+        "keyword": "Scenario",
+        "name": "This one also passes in the pending and undefined feature",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5672313
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 12860694
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 953990
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1329152
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120586
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 113577
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 106622
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-pending,-one-is-undefined,-rest-are-passing-(reporting_pending_and_undefined);this-one-is-undefined",
+        "keyword": "Scenario",
+        "name": "This one is undefined",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10234447
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4492646
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 975481
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 16,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 17
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2182220
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 20,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3033967
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is undefined",
+            "line": 21,
+            "match": {
+              "location": "features/reporting_pending_and_undefined.feature:21"
+            },
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 22,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 95109
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 167705
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 121457
+            }
+          }
+        ]
+      },
+      {
+        "id": "one-of-these-scenarios-is-pending,-one-is-undefined,-rest-are-passing-(reporting_pending_and_undefined);this-one-is-pending",
+        "keyword": "Scenario",
+        "name": "This one is pending",
+        "description": "",
+        "line": 24,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6528840
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5341323
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1891226
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 25,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 26
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1265176
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 29,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2975928
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is always pending",
+            "line": 30,
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:1175"
+            },
+            "result": {
+              "status": "pending",
+              "error_message": "TODO (Cucumber::Pending)\n./features/step_definitions/hammer_steps.rb:1176:in `/^this step is always pending$/'\nfeatures/reporting_pending_and_undefined.feature:30:in `And this step is always pending'",
+              "duration": 1540385
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 31,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 112415
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 148786
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 125856
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uri": "features/reporting_smorgasbord.feature",
+    "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord)",
+    "keyword": "Feature",
+    "name": "This feature has scenarios that pass, that fail, that are pending, and that are undefined. (reporting_smorgasbord)",
+    "description": "",
+    "line": 2,
+    "tags": [
+      {
+        "name": "@reporting_test",
+        "line": 1
+      }
+    ],
+    "elements": [
+      {
+        "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord);this-one-passes-in-the-smorgasbord",
+        "keyword": "Scenario",
+        "name": "This one passes in the smorgasbord",
+        "description": "",
+        "line": 4,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4402207
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6137764
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1119994
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a disk database at latest revision.",
+            "line": 5,
+            "output": [
+              "Setting up project from template 'deployableH2disklatest' in directory '/home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest' not preserving the changelog",
+              "copying drivers from /home/steve/work/CLI-Common/drivers/. to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/drivers",
+              "properties file /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties does not exist",
+              "appended '\ndrivers=../drivers' to /home/steve/work/DaticalDB-CLI-tests/tmp/aruba/deployableH2disklatest/daticaldb.properties"
+            ],
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35448383
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 163450
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 176675
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129455
+            }
+          }
+        ]
+      },
+      {
+        "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord);this-one-also-passes-in-the-smorgasbord",
+        "keyword": "Scenario",
+        "name": "This one also passes in the smorgasbord",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3684386
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 14432210
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 840603
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"foo.txt\" with:",
+            "line": 9,
+            "doc_string": {
+              "value": "here is some text\n",
+              "content_type": "",
+              "line": 10
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 964969
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122689
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 428080
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 232527
+            }
+          }
+        ]
+      },
+      {
+        "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord);this-one-is-undefined-in-the-smorgasbord",
+        "keyword": "Scenario",
+        "name": "This one is undefined in the smorgasbord",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7052332
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4649962
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1729532
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 16,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 17
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1302171
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 20,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2461246
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is undefined",
+            "line": 21,
+            "match": {
+              "location": "features/reporting_smorgasbord.feature:21"
+            },
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 22,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 272299
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 327106
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 252939
+            }
+          }
+        ]
+      },
+      {
+        "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord);this-one-is-pending-in-the-smorgasbord",
+        "keyword": "Scenario",
+        "name": "This one is pending in the smorgasbord",
+        "description": "",
+        "line": 24,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4995191
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3681475
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1158112
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 25,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 26
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5129555
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"bar\"",
+            "line": 29,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4496686
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "this step is always pending",
+            "line": 30,
+            "match": {
+              "location": "features/step_definitions/hammer_steps.rb:1175"
+            },
+            "result": {
+              "status": "pending",
+              "error_message": "TODO (Cucumber::Pending)\n./features/step_definitions/hammer_steps.rb:1176:in `/^this step is always pending$/'\nfeatures/reporting_smorgasbord.feature:30:in `And this step is always pending'",
+              "duration": 1584229
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "the file \"bar.txt\" should contain \"whisky, but this step is always skipped\"",
+            "line": 31,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101245
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 94455
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108028
+            }
+          }
+        ]
+      },
+      {
+        "id": "this-feature-has-scenarios-that-pass,-that-fail,-that-are-pending,-and-that-are-undefined.-(reporting_smorgasbord);this-one-fails-in-the-smorgasbord",
+        "keyword": "Scenario",
+        "name": "This one fails in the smorgasbord",
+        "description": "",
+        "line": 33,
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@reporting_test",
+            "line": 1
+          }
+        ],
+        "before": [
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4319764
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4817627
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3494762
+            }
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a file \"bar.txt\" with:",
+            "line": 34,
+            "doc_string": {
+              "value": "There is no bar here",
+              "content_type": "",
+              "line": 35
+            },
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1986795
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the file \"bar.txt\" should contain \"whisky\"",
+            "line": 38,
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber.rb:385"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "expected \"There is no bar here\" to have file content: /whisky/ (RSpec::Expectations::ExpectationNotMetError)\nfeatures/reporting_smorgasbord.feature:38:in `Then the file \"bar.txt\" should contain \"whisky\"'",
+              "duration": 11011451
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": "/home/steve/work/CLI-Common/lib/common_hooks.rb:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17432861
+            }
+          },
+          {
+            "match": {
+              "location": "features/support/hooks.rb:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 88859
+            }
+          },
+          {
+            "match": {
+              "location": "aruba-0.8.1/lib/aruba/cucumber/hooks.rb:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 88868
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,25 +1,25 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.StepObject;
-import net.masterthought.cucumber.json.support.TagObject;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Damian Szczepanik (damianszczepanik@github)
+ * @author Steve Donie
+ * based on ReportResultTest, but uses more complex json file
  */
-public class ReportResultTest extends ReportGenerator {
+public class ReportResultComplexTest extends ReportGenerator {
 
     @Before
     public void setUp() {
-        setUpWithJson(SAMPLE_JSON);
+        setUpWithJson(COMPLEX_JSON);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ReportResultTest extends ReportGenerator {
         List<Feature> features = reportResult.getAllFeatures();
 
         // then
-        assertThat(features).hasSize(2);
+        assertThat(features).hasSize(6);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ReportResultTest extends ReportGenerator {
         List<TagObject> tags = reportResult.getAllTags();
 
         // then
-        assertThat(tags).hasSize(3);
+        assertThat(tags).hasSize(1);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ReportResultTest extends ReportGenerator {
         List<StepObject> tags = reportResult.getAllSteps();
 
         // then
-        assertThat(tags).hasSize(16);
+        assertThat(tags).hasSize(13);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ReportResultTest extends ReportGenerator {
         Reportable reportable = reportResult.getTagReport();
 
         // then
-        assertThat(reportable.getDurations()).isEqualTo(509064334L);
+        assertThat(reportable.getDurations()).isEqualTo(451607145L);
     }
 
     @Test
@@ -87,10 +87,13 @@ public class ReportResultTest extends ReportGenerator {
         int undefinedFeatures = reportResult.getFeatureReport().getUndefinedFeatures();
 
         // then
+        // there are 6 features here. 2 failed, 1 passing, 1 pending, 2 undefined
+        // when a feature has both pending and undefined, undefined is higher priority,
+        // so it gets a status of undefined.
         assertThat(passingFeatures).isEqualTo(1);
-        assertThat(failedFeatures).isEqualTo(1);
-        assertThat(pendingFeatures).isEqualTo(0);
-        assertThat(undefinedFeatures).isEqualTo(0);
+        assertThat(failedFeatures).isEqualTo(2);
+        assertThat(pendingFeatures).isEqualTo(1);
+        assertThat(undefinedFeatures).isEqualTo(2);
     }
 
     @Test

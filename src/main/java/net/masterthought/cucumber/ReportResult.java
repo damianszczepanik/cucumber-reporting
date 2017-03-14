@@ -96,7 +96,9 @@ public class ReportResult {
 
             Step[] steps = element.getSteps();
             for (Step step : steps) {
-                featuresReport.incStepsFor(step.getResult().getStatus());
+                Result result = step.getResult();
+                Status status = result.getStatus();
+                featuresReport.incStepsFor(status);
                 featuresReport.incDurationBy(step.getDuration());
             }
             countSteps(steps);

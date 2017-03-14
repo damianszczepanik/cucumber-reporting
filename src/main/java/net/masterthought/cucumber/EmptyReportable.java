@@ -35,6 +35,12 @@ public class EmptyReportable implements Reportable {
     }
 
     @Override
+    public int getPendingFeatures() { return 0; }
+
+    @Override
+    public int getUndefinedFeatures() { return 0; }
+
+    @Override
     public int getScenarios() {
         return 0;
     }
@@ -48,6 +54,12 @@ public class EmptyReportable implements Reportable {
     public int getFailedScenarios() {
         return 0;
     }
+
+    @Override
+    public int getPendingScenarios() { return 0; }
+
+    @Override
+    public int getUndefinedScenarios() { return 0; }
 
     @Override
     public int getSteps() {

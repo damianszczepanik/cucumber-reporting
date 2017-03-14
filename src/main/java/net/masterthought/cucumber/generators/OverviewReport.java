@@ -34,6 +34,12 @@ public class OverviewReport implements Reportable {
         return featuresCounter.getValueFor(Status.FAILED);
     }
 
+    @Override
+    public int getPendingFeatures() { return featuresCounter.getValueFor(Status.PENDING); }
+
+    @Override
+    public int getUndefinedFeatures() { return featuresCounter.getValueFor(Status.UNDEFINED); }
+
     public void incScenarioFor(Status status) {
         this.scenariosCounter.incrementFor(status);
     }
@@ -52,6 +58,12 @@ public class OverviewReport implements Reportable {
     public int getFailedScenarios() {
         return scenariosCounter.getValueFor(Status.FAILED);
     }
+
+    @Override
+    public int getPendingScenarios() { return scenariosCounter.getValueFor(Status.PENDING); }
+
+    @Override
+    public int getUndefinedScenarios() { return scenariosCounter.getValueFor(Status.UNDEFINED); }
 
     public void incStepsFor(Status status) {
         this.stepsCounter.incrementFor(status);

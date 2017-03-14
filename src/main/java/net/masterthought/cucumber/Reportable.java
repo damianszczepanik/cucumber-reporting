@@ -18,11 +18,19 @@ public interface Reportable {
     /** Returns number of features for this element. */
     int getFeatures();
 
-    /** Returns number of passed features for this element. */
+    /** Returns number of passed features for this element.
+     * a feature is considered passed if all scenarios passed */
     int getPassedFeatures();
 
-    /** Returns number of failed features for this element. */
+    /** Returns number of failed features for this element.
+     * a feature is considered failed if there is at least one failed scenario */
     int getFailedFeatures();
+
+    /** A feature that has 0 or more passing, 1 or more pending, but no failures */
+    int getPendingFeatures();
+
+    /** A feature that has 0 or more passing, 1 or more undefined, but no failures */
+    int getUndefinedFeatures();
 
     /** Returns number of scenarios for this element. */
     int getScenarios();
@@ -32,6 +40,12 @@ public interface Reportable {
 
     /** Returns number of failed scenarios for this element. */
     int getFailedScenarios();
+
+    /** Returns number of scenarios that have pending steps for this element */
+    int getPendingScenarios();
+
+    /** Returns number of scenarios that have undefined steps for this element */
+    int getUndefinedScenarios();
 
     /** Returns number of all steps for this element. */
     int getSteps();
@@ -59,4 +73,5 @@ public interface Reportable {
 
     /** Returns status for this element. */
     Status getStatus();
+
 }
