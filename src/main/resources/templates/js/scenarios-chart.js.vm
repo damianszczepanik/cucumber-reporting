@@ -4,16 +4,22 @@ $(document).ready(function() {
         datasets: [{
             data: [
                 $report_summary.getPassedScenarios(),
-                $report_summary.getFailedScenarios()
+                $report_summary.getFailedScenarios(),
+                $report_summary.getPendingScenarios(),
+                $report_summary.getUndefinedScenarios()
             ],
             backgroundColor: [
                 "#00B000",
-                "#FF3030"
+                "#FF3030",
+                "#F5F28F",
+                "#F5B975"
             ]
         }],
         labels: [
             "Passed",
-            "Failed"
+            "Failed",
+            "Pending",
+            "Undefined"
         ]
     };
 
