@@ -25,7 +25,7 @@
     <th class="passed">Passed</th>
     <th class="failed">Failed</th>
     <th class="pending">Pending</th>
-    <th class="Undefined">Undefined</th>
+    <th class="undefined">Undefined</th>
     <th class="total">Total</th>
 
     <th>Duration</th>
