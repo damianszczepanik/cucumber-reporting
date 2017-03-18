@@ -58,8 +58,8 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesClassifications() {
 
         // given
-        final String[] names = {"Platform", "Browser", "Branch"};
-        final String[] values = {"Win", "Opera", "master"};
+        final String[] names = {"Platform", "Browser", "Branch", "Repository"};
+        final String[] values = {"Win", "Opera", "master", "<a href=\"example.com\" rel=\"nofollow noopener noreferrer\">Example Repository</a>"};
         setUpWithJson(SAMPLE_JSON);
         for (int i = 0; i < names.length; i++) {
             configuration.addClassifications(names[i], values[i]);
@@ -75,7 +75,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         assertThat(classifications).hasSize(names.length);
         for (int i = 0; i < names.length; i++) {
-            String[] cells = classifications[i].getCellsValues();
+            String[] cells = classifications[i].getCellsHtml();
             assertThat(cells).containsExactly(names[i], values[i]);
         }
     }

@@ -262,6 +262,16 @@
             <artifactId>jsoup</artifactId>
             <version>1.10.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+            <version>20160924.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
         <!-- for testing -->
         <dependency>
             <groupId>junit</groupId>
