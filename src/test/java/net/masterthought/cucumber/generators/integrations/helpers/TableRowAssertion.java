@@ -26,6 +26,16 @@ public class TableRowAssertion extends ReportAssertion {
         return values;
     }
 
+    public String[] getCellsHtml() {
+        WebAssertion[] cells = getCells();
+        String[] values = new String[cells.length];
+        for (int i = 0; i < cells.length; i++) {
+            values[i] = cells[i].html();
+        }
+        return values;
+    }
+
+
     /**
      * Validates the row cells' text match the given passed values.
      * 
