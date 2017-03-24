@@ -268,7 +268,7 @@
                 ]
             }
         ],
-        "uri": "net/masterthought/example(s)/ATM:local.feature"
+        "uri": "net/masterthought/example(s)/ATM:東京.feature"
     },
     {
         "id": "account-holder-withdraws-more-cash",
@@ -440,7 +440,7 @@
                             },
                             {
                                 "mime_type": "text/html",
-                                "data": "PGk+SGVsbG88L2k+IDxiPldvcmxkITwvYj4="
+                                "data": "PGh0bWw+PGhlYWQ+PC9oZWFkPjxib2R5PjxwPjxpPkhlbGxvPC9pPiA8Yj5Xb3JsZCE8L2I+PC9wPjxwPlRoZSB3aWtpcGVkaWEgbG9nbyBzaG91bGQgYXBwZWFyIGJlbG93PC9wPjxpbWcgc3JjPSJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvc3RhdGljL2ltYWdlcy9wcm9qZWN0LWxvZ29zL2Vud2lraS5wbmciPjwvYm9keT48L2h0bWw+"
                             },
                             {
                                 "mime_type": "text/xml",

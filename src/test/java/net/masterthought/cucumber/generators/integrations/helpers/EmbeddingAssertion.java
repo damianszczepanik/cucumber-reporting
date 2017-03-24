@@ -18,6 +18,11 @@ public class EmbeddingAssertion extends ReportAssertion {
         assertThat(src).endsWith(embedding.getFileName());
     }
 
+    public void hasSrcDocContent(String content) {
+        assertThat(getBox().oneBySelector("iframe", WebAssertion.class).attr("srcDoc"))
+                .isEqualTo(getDecodedData(content));
+    }
+
     public void hasTextContent(String content) {
         assertThat(getBox().oneBySelector("pre", WebAssertion.class).text())
                 .isEqualTo(getDecodedData(content));

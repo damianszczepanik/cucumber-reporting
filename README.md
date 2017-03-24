@@ -3,8 +3,8 @@
 [![Shippable Status](https://img.shields.io/shippable/5844689c9d1f3e0f0057631a/master.svg?label=Shippable%20build)](https://app.shippable.com/projects/5844689c9d1f3e0f0057631a)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![Sonarqube coverage](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/coverage.svg?label=UI%20tests%20coverage)](https://sonarqube.com/component_measures/domain/Coverage?id=net.masterthought%3Acucumber-reporting)
-[![Sonarqube tech debt](https://img.shields.io/sonar/http/nemo.sonarqube.org/net.masterthought:cucumber-reporting/tech_debt.svg?label=Sonarqube%20tech%20debt)](https://sonarqube.com/dashboard/index?id=net.masterthought%3Acucumber-reporting)
+[![Sonarqube coverage](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=coverage)](https://sonarqube.com/component_measures/domain/Coverage?id=net.masterthought%3Acucumber-reporting)
+[![Sonarqube tech debt](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=sqale_debt_ratio)](https://sonarqube.com/component_measures/domain/Maintainability?id=net.masterthought%3Acucumber-reporting)
 [![Coverity](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
 [![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)

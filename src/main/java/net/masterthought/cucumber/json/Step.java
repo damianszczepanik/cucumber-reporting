@@ -1,7 +1,9 @@
 package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Resultsable;
 
 public class Step implements Resultsable {
@@ -13,7 +15,9 @@ public class Step implements Resultsable {
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedding[] embeddings = new Embedding[0];
-    private final Output output = null;
+    @JsonDeserialize(using = OutputsDeserializer.class)
+    @JsonProperty("output")
+    private final Output[] outputs = new Output[0];
     @JsonProperty("doc_string")
     private final DocString docString = null;
     // End: attributes from JSON file report
@@ -31,8 +35,8 @@ public class Step implements Resultsable {
         return keyword.trim();
     }
 
-    public Output getOutput() {
-        return output;
+    public Output[] getOutputs() {
+        return outputs;
     }
 
     @Override
