@@ -366,17 +366,22 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getFailedScenariosCause_ReturnsScenarioFailuresMap() {
+    public void getFailedCause_ReturnsFailuresMap() {
 
         String expectedFailedScenarioName = "Account may not have sufficient funds";
+        String expectedFailedStepName = "the card is valid";
         String expectedFailedStepResultErrorMessage = "Error message not found.";
-        String[] expectedFailureData = {expectedFailedScenarioName, expectedFailedStepResultErrorMessage};
+        String[] expectedFailureData = {
+                expectedFailedScenarioName,
+                expectedFailedStepName,
+                expectedFailedStepResultErrorMessage
+        };
         Map<String, String[]> expectedFailedScenariosMap = new HashMap<>(1);
         expectedFailedScenariosMap.put("0", expectedFailureData);
 
         // given
         Feature failedFeature = features.get(1);
-        Map<String, String[]> returnedFailedScenariosMap = failedFeature.getFailedScenariosCause();
+        Map<String, String[]> returnedFailedScenariosMap = failedFeature.getFailedCause();
 
         // first validate that both expected and returned maps are the same size
         Assert.assertEquals(returnedFailedScenariosMap.size(), expectedFailedScenariosMap.size());
@@ -398,40 +403,5 @@ public class FeatureTest extends PageTest {
 
         // finally validate that the expected and returned map values are equal
         Assert.assertArrayEquals(returnedFailedScenariosMapValues, expectedFailedScenariosMapValues);
-    }
-
-    @Test
-    public void getFailedStepsCause_ReturnsStepFailuresMap() {
-
-        String expectedFailedStepName = "the card is valid";
-        String expectedFailedStepResultErrorMessage = "Error message not found.";
-        String[] expectedFailureData = {expectedFailedStepName, expectedFailedStepResultErrorMessage};
-        Map<String, String[]> expectedFailedStepsMap = new HashMap<>(1);
-        expectedFailedStepsMap.put("0", expectedFailureData);
-
-        // given
-        Feature failedFeature = features.get(1);
-        Map<String, String[]> returnedFailedStepsMap = failedFeature.getFailedStepsCause();
-
-        // first validate that both expected and returned maps are the same size
-        Assert.assertEquals(returnedFailedStepsMap.size(), expectedFailedStepsMap.size());
-
-        String[] expectedFailedStepsMapKeys = new String[expectedFailedStepsMap.size()];
-        expectedFailedStepsMap.keySet().toArray(expectedFailedStepsMapKeys);
-
-        String[] returnedFailedStepsMapKeys = new String[returnedFailedStepsMap.size()];
-        returnedFailedStepsMap.keySet().toArray(returnedFailedStepsMapKeys);
-
-        // then validate that the expected and returned map keys are equal
-        Assert.assertArrayEquals(returnedFailedStepsMapKeys, expectedFailedStepsMapKeys);
-
-        String[][]expectedFailedStepsMapValues = new String[expectedFailedStepsMap.values().size()][2];
-        expectedFailedStepsMap.values().toArray(expectedFailedStepsMapValues);
-
-        String[][] returnedFailedStepsMapValues = new String[returnedFailedStepsMap.values().size()][2];
-        returnedFailedStepsMap.values().toArray(returnedFailedStepsMapValues);
-
-        // finally validate that the expected and returned map values are equal
-        Assert.assertArrayEquals(returnedFailedStepsMapValues, expectedFailedStepsMapValues);
     }
 }
