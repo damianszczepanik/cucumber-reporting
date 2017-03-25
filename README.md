@@ -35,8 +35,7 @@ Add a maven dependency to your pom
 </dependency>
 ```
 
-Read this if you need further [detailed install and configuration]
-(https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+Read this if you need further [detailed install and configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 ```Java
@@ -67,31 +66,25 @@ Reportable result = reportBuilder.generateReports();
 ```
 There is a feature overview page:
 
-![feature overview page]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-overview.png)
+![feature overview page](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-overview.png)
 
 And there are also feature specific results pages:
 
-![feature specific page passing]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-passed.png)
+![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-passed.png)
 
 And useful information for failures:
 
-![feature specific page passing]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-failed.png)
+![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-failed.png)
 
 If you have tags in your cucumber features you can see a tag overview:
 
-![Tag overview]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-overview.png)
+![Tag overview](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-overview.png)
 
 And you can drill down into tag specific reports:
 
-![Tag report]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
+![Tag report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
 
-![Trends report]
-(https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/trends.png)
+![Trends report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/trends.png)
 
 
 ## Code quality
@@ -103,5 +96,4 @@ Once you developed your new feature or improvement you should test it by providi
 
 ## Contribution
 
-Interested in contributing to the cucumber-reporting?  Great!  Start [here]
-(https://github.com/damianszczepanik/cucumber-reporting).
+Interested in contributing to the cucumber-reporting?  Great!  Start [here](https://github.com/damianszczepanik/cucumber-reporting).
