@@ -1,7 +1,6 @@
 package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -247,7 +246,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
     @Override
     public Map<String, String[]> getFailedCause() {
-        HashMap<String,String[]> failures = Util.getFailedCauseMap(this.elements);
+        Map<String,String[]> failures = Util.getFailedCauseMap(this.elements);
         return failures;
     }
 }

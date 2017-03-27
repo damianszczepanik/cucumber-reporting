@@ -1,7 +1,6 @@
 package net.masterthought.cucumber.json.support;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -154,7 +153,7 @@ public class TagObject implements Reportable, Comparable<TagObject> {
 
     @Override
     public Map<String, String[]> getFailedCause() {
-        HashMap<String,String[]> failures =
+        Map<String,String[]> failures =
                 Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]));
         return failures;
     }

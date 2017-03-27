@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import net.masterthought.cucumber.json.Element;
@@ -89,10 +90,10 @@ public final class Util {
     /**
      *
      * @param elements the array of elements containing the scenario and step data
-     * @return {@code failedMap} object containing the failure information
+     * @return a Map object containing the failure information
      */
-    public static HashMap<String, String[]> getFailedCauseMap(Element[] elements) {
-        HashMap<String, String[]> failedMap = new HashMap<>();
+    public static Map<String, String[]> getFailedCauseMap(Element[] elements) {
+        Map<String, String[]> failedMap = new HashMap<>();
         int failedCount = 0;
         for(Element element : elements) {
             if(element.isScenario() && (!element.getStatus().isPassed())) {
