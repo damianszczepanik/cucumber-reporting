@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
@@ -82,7 +83,7 @@ public final class Util {
      * @return converted string
      */
     public static String toValidFileName(String value) {
-        return value.replaceAll("[^\\d\\w]", "-");
+        return StringEscapeUtils.escapeJava(value).replaceAll("[^\\d\\w]", "-");
     }
 
     /**

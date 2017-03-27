@@ -1,16 +1,21 @@
-#macro(includeOutput, $output)
+#macro(includeOutput, $outputs, $isPassed)
 
-#if ($output)
+#if($outputs)
   <div class="outputs inner-level">
-    #foreach($message in $output.getMessages())
+    #foreach($output in $outputs)
+      #set($outputId = $counter.next())
+      #set($index = $foreach.index + 1)
       <div class="output indention">
-        #set($outputId = $counter.next())
-        <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$outputId">
-          #set($index = $foreach.index + 1)
-          <a>Output $index</a>
+        <div data-toggle="collapse" class="#if ($isPassed) collapsed #end collapsable-control" data-target="#output-$outputId">
+          Output $index
+          <i class="chevron fa fa-fw"></i>
         </div>
-        <div id="msg-$outputId" class="collapse collapsable-details">
-          <pre>$message</pre>
+        <div id="output-$outputId" class="collapse collapsable-details #if (!$isPassed) in #end" #if (!$isPassed) aria-expanded="true" #end>
+          <pre class="white-space-normal">
+            #foreach($message in $output.getMessages())
+              <span>$message</span><br>
+            #end
+          </pre>
         </div>
       </div>
     #end
