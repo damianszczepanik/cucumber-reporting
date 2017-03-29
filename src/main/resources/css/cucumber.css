@@ -232,14 +232,6 @@ tr:hover {
     color: #eee;
 }
 
-.white-space-normal {
-    white-space: normal;
-}
-
-.white-space-pre-wrap {
-    white-space: pre-wrap;
-}
-
 pre {
     margin: 10px;
 }
