@@ -1,6 +1,6 @@
-#macro(includeHooks, $keyword, $hooks, $status)
+#macro(includeHooks $keyword, $hooks, $status)
 
-#if($hooks.size() > 0)
+#if(!$hooks.isEmpty())
   <div class="inner-level hooks-$keyword.toLowerCase()">
     #set($hookId = $counter.next())
     <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hookId">

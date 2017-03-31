@@ -1,6 +1,6 @@
-#macro(includeOutput, $outputs, $isPassed)
+#macro(includeOutput $outputs, $isPassed)
 
-#if($outputs)
+#if(!$outputs.isEmpty())
   <div class="outputs inner-level">
     #foreach($output in $outputs)
       #set($outputId = $counter.next())
@@ -11,11 +11,10 @@
           <i class="chevron fa fa-fw"></i>
         </div>
         <div id="output-$outputId" class="collapse collapsable-details #if (!$isPassed) in #end" #if (!$isPassed) aria-expanded="true" #end>
-          <pre class="white-space-normal">
-            #foreach($message in $output.getMessages())
-              <span>$message</span><br>
-            #end
-          </pre>
+          #**
+           * DO NOT format the line below. Whitespace nodes are significant in a pre-block.
+           *#
+          <pre>#foreach($message in $output.getMessages())<p>$message</p>#end</pre>
         </div>
       </div>
     #end
