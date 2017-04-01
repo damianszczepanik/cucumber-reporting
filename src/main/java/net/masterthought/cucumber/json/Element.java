@@ -2,10 +2,12 @@ package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.util.Util;
 
-public class Element {
+public class Element implements Durationable {
 
     // Start: attributes from JSON file report
     private final String name = null;
@@ -26,6 +28,7 @@ public class Element {
     private Status stepsStatus;
 
     private Feature feature;
+    private long duration;
 
     public Step[] getSteps() {
         return steps;
@@ -83,6 +86,16 @@ public class Element {
         return feature;
     }
 
+    @Override
+    public long getDuration() {
+        return duration;
+    }
+
+    @Override
+    public String getFormattedDuration() {
+        return Util.formatDuration(duration);
+    }
+
     public void setMetaData(Feature feature) {
         this.feature = feature;
 
@@ -112,7 +125,9 @@ public class Element {
     private Status calculateStepsStatus() {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getResult().getStatus());
+            Result result = step.getResult();
+            statusCounter.incrementFor(result.getStatus());
+            duration += result.getDuration();
         }
         return statusCounter.getFinalStatus();
     }

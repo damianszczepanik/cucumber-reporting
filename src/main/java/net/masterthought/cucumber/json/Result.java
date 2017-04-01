@@ -1,10 +1,12 @@
 package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
 
-public class Result {
+public class Result implements Durationable {
 
     // Start: attributes from JSON file report
     private final Status status = null;
@@ -17,11 +19,13 @@ public class Result {
         return status;
     }
 
+    @Override
     public long getDuration() {
         return duration;
     }
 
-    public String getFormatedDuration() {
+    @Override
+    public String getFormattedDuration() {
         return Util.formatDuration(duration);
     }
 

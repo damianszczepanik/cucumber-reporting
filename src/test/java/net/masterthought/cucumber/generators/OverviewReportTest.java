@@ -160,27 +160,27 @@ public class OverviewReportTest {
         report.incDurationBy(offset);
 
         // then
-        assertThat(report.getDurations()).isEqualTo(RefReport.getDurations() + offset);
+        assertThat(report.getDuration()).isEqualTo(RefReport.getDuration() + offset);
     }
 
     @Test
-    public void getDurations_ReturnsDuration() {
+    public void getDuration_ReturnsDuration() {
 
         // given
         OverviewReport report = buildSampleReport();
 
         // then
-        assertThat(report.getDurations()).isEqualTo(1234567L);
+        assertThat(report.getDuration()).isEqualTo(1234567L);
     }
 
     @Test
-    public void getFormattedDurations_ReturnsFormattedDuration() {
+    public void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         OverviewReport report = buildSampleReport();
 
         // then
-        assertThat(report.getFormattedDurations()).isEqualTo("001ms");
+        assertThat(report.getFormattedDuration()).isEqualTo("001ms");
     }
 
     @Test

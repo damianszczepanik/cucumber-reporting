@@ -108,7 +108,7 @@ public class Trends {
         undefinedSteps = ArrayUtils.add(undefinedSteps, reportable.getUndefinedSteps());
         totalSteps = ArrayUtils.add(totalSteps, reportable.getSteps());
 
-        durations = ArrayUtils.add(durations, reportable.getDurations());
+        durations = ArrayUtils.add(durations, reportable.getDuration());
 
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();
