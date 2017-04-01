@@ -248,20 +248,20 @@ public class FeatureTest extends PageTest {
         Feature feature = features.get(0);
 
         // when
-        long duration = feature.getDurations();
+        long duration = feature.getDuration();
 
         // then
         assertThat(duration).isEqualTo(99263122889L);
     }
 
     @Test
-    public void getFormattedDurations_ReturnsFormattedDurations() {
+    public void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         Feature feature = features.get(1);
 
         // when
-        String formattedDuration = feature.getFormattedDurations();
+        String formattedDuration = feature.getFormattedDuration();
 
         // then
         assertThat(formattedDuration).isEqualTo("092ms");

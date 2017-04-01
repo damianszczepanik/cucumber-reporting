@@ -51,7 +51,7 @@ public class StepsOverviewPageTest extends PageTest {
         long allDurations = 0;
         for (StepObject stepObject : reportResult.getAllSteps()) {
             allOccurrences += stepObject.getTotalOccurrences();
-            allDurations += stepObject.getDurations();
+            allDurations += stepObject.getDuration();
         }
         assertThat(context.get("all_occurrences")).isEqualTo(allOccurrences);
         assertThat(context.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));

@@ -41,7 +41,7 @@ public class StepObject implements Comparable<StepObject> {
         this.statusCounter.incrementFor(status);
     }
 
-    public long getDurations() {
+    public long getDuration() {
         return totalDuration;
     }
 

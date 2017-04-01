@@ -162,7 +162,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getDurations_ReturnsDurations() {
+    public void getDuration_ReturnsDuration() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -174,8 +174,8 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getDurations()).isEqualTo(99263122889L);
-        assertThat(tag.getFormattedDurations()).isEqualTo("1m 39s 263ms");
+        assertThat(tag.getDuration()).isEqualTo(99263122889L);
+        assertThat(tag.getFormattedDuration()).isEqualTo("1m 39s 263ms");
     }
 
     @Test

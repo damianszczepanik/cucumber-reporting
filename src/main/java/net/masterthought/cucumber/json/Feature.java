@@ -9,11 +9,12 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
+import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-public class Feature implements Reportable, Comparable<Feature> {
+public class Feature implements Reportable, Durationable, Comparable<Feature> {
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -36,7 +37,7 @@ public class Feature implements Reportable, Comparable<Feature> {
     private final StatusCounter stepsCounter = new StatusCounter();
 
     private Status featureStatus;
-    private long totalDuration;
+    private long duration;
 
     @Override
     public String getDeviceName() {
@@ -128,13 +129,13 @@ public class Feature implements Reportable, Comparable<Feature> {
     }
 
     @Override
-    public long getDurations() {
-        return totalDuration;
+    public long getDuration() {
+        return duration;
     }
 
     @Override
-    public String getFormattedDurations() {
-        return Util.formatDuration(getDurations());
+    public String getFormattedDuration() {
+        return Util.formatDuration(duration);
     }
 
     @Override
@@ -219,7 +220,7 @@ public class Feature implements Reportable, Comparable<Feature> {
 
             for (Step step : element.getSteps()) {
                 stepsCounter.incrementFor(step.getResult().getStatus());
-                totalDuration += step.getDuration();
+                duration += step.getDuration();
             }
         }
     }

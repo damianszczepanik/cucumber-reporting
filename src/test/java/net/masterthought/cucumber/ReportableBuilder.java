@@ -127,12 +127,12 @@ public class ReportableBuilder implements Reportable {
     }
 
     @Override
-    public long getDurations() {
+    public long getDuration() {
         return duration;
     }
 
     @Override
-    public String getFormattedDurations() {
+    public String getFormattedDuration() {
         throw new IllegalStateException("Not implemented!");
     }
 
