@@ -88,6 +88,8 @@ public class Trends {
 
     /**
      * Adds build into the trends.
+     * @param buildNumber number of the build
+     * @param reportable stats for the generated report
      */
     public void addBuild(String buildNumber, Reportable reportable) {
 
