@@ -57,13 +57,18 @@ public class Configuration {
         return trendsFile;
     }
 
-    /** Checks if the file for the trends was set. */
+    /**
+     * Checks if the file for the trends was set.
+     *
+     * @return <code>true</code> if the file location was provided, otherwise <code>false</code>
+     */
     public boolean isTrendsStatsFile() {
         return trendsFile != null;
     }
 
     /**
      * Calls {@link #setTrends(File, int)} with zero limit.
+     * @param trendsFile file with trends
      */
     public void setTrendsStatsFile(File trendsFile) {
         setTrends(trendsFile, 0);

@@ -61,7 +61,11 @@ public class StepObject implements Comparable<StepObject> {
         return totalOccurrences;
     }
 
-    /** Returns as percentage how many steps passed (PASSED / All) formatted to double decimal precision. */
+    /**
+     * Gets percentage how many steps passed (PASSED / All) formatted to double decimal precision.
+     *
+     * @return percentage of passed statuses
+     */
     public String getPercentageResult() {
         int total = 0;
         for (Status status : Status.values()) {

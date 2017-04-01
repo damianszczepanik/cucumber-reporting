@@ -154,6 +154,9 @@ public class Feature implements Reportable, Durationable, Comparable<Feature> {
 
     /**
      * Sets additional information and calculates values which should be calculated during object creation.
+     * @param jsonFile JSON file name
+     * @param jsonFileNo index of the JSON file
+     * @param configuration configuration for the report
      */
     public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
         this.jsonFile = jsonFile;

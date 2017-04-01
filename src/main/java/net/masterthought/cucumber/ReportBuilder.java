@@ -69,8 +69,9 @@ public class ReportBuilder {
     }
 
     /**
-     * Parses provided files and generates whole report. When generating process fails
+     * Parses provided files and generates the report. When generating process fails
      * report with information about error is provided.
+     * @return stats for the generated report
      */
     public Reportable generateReports() {
         Trends trends = null;
