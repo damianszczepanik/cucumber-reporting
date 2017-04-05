@@ -1,0 +1,246 @@
+[
+    {
+        "line": 2,
+        "elements": [
+            {
+                "examples": [
+                    {
+                        "line": 9,
+                        "name": "",
+                        "description": "",
+                        "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;",
+                        "rows": [
+                            {
+                                "cells": [
+                                    "endpoint"
+                                ],
+                                "line": 10,
+                                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;;1"
+                            },
+                            {
+                                "cells": [
+                                    "http://localhost:9999/endpoint"
+                                ],
+                                "line": 11,
+                                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;;2"
+                            },
+                            {
+                                "cells": [
+                                    "http://localhost:9999/endpoint/array"
+                                ],
+                                "line": 12,
+                                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;;3"
+                            }
+                        ],
+                        "keyword": "Examples"
+                    }
+                ],
+                "line": 5,
+                "name": "Test that reports are generated for each example",
+                "description": "",
+                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example",
+                "type": "scenario_outline",
+                "keyword": "Scenario Outline",
+                "steps": [
+                    {
+                        "line": 6,
+                        "name": "I execute a get call to \"\u003cendpoint\u003e\"",
+                        "keyword": "Given "
+                    },
+                    {
+                        "line": 7,
+                        "name": "the request was successful",
+                        "keyword": "Then "
+                    }
+                ],
+                "tags": [
+                    {
+                        "line": 4,
+                        "name": "@full"
+                    }
+                ]
+            },
+            {
+                "before": [
+                    {
+                        "result": {
+                            "duration": 604299523,
+                            "status": "passed"
+                        },
+                        "match": {
+                            "location": "GenericHooks.addScenario(Scenario)"
+                        }
+                    }
+                ],
+                "line": 11,
+                "name": "Test that reports are generated for each example",
+                "description": "",
+                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;;2",
+                "after": [
+                    {
+                        "result": {
+                            "duration": 50071,
+                            "status": "passed"
+                        },
+                        "match": {
+                            "location": "GenericHooks.afterScenario()"
+                        }
+                    }
+                ],
+                "type": "scenario",
+                "keyword": "Scenario Outline",
+                "steps": [
+                    {
+                        "output": [
+                            "Request method:\tGET\nRequest URI:\thttp://localhost:9999/endpoint\nProxy:\t\t\t\u003cnone\u003e\nRequest params:\t\u003cnone\u003e\nQuery params:\t\u003cnone\u003e\nForm params:\t\u003cnone\u003e\nPath params:\t\u003cnone\u003e\nMultiparts:\t\t\u003cnone\u003e\nHeaders:\t\tAccept\u003d*/*\n\t\t\t\tContent-Type\u003dapplication/x-www-form-urlencoded; charset\u003dISO-8859-1\nCookies:\t\t\u003cnone\u003e\nBody:",
+                            "HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Encoding: gzip\nVary: Accept-Encoding, User-Agent\nTransfer-Encoding: chunked\nServer: Jetty(9.2.z-SNAPSHOT)\n\n{\n    \"test\": \"Value\"\n}"
+                        ],
+                        "result": {
+                            "duration": 840298002,
+                            "status": "passed"
+                        },
+                        "line": 6,
+                        "name": "I execute a get call to \"http://localhost:9999/endpoint\"",
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "http://localhost:9999/endpoint",
+                                    "offset": 25
+                                }
+                            ],
+                            "location": "ServiceExecutorStepDefs.iExecuteAGetCallTo(String)"
+                        },
+                        "matchedColumns": [
+                            0
+                        ],
+                        "keyword": "Given "
+                    },
+                    {
+                        "result": {
+                            "duration": 5007098,
+                            "status": "passed"
+                        },
+                        "line": 7,
+                        "name": "the request was successful",
+                        "match": {
+                            "location": "GenericStepDefs.theRequestWasSuccessful()"
+                        },
+                        "keyword": "Then "
+                    }
+                ],
+                "tags": [
+                    {
+                        "line": 1,
+                        "name": "@mock"
+                    },
+                    {
+                        "line": 1,
+                        "name": "@outline"
+                    },
+                    {
+                        "line": 4,
+                        "name": "@full"
+                    }
+                ]
+            },
+            {
+                "before": [
+                    {
+                        "result": {
+                            "duration": 15594856,
+                            "status": "passed"
+                        },
+                        "match": {
+                            "location": "GenericHooks.addScenario(Scenario)"
+                        }
+                    }
+                ],
+                "line": 12,
+                "name": "Test that reports are generated for each example",
+                "description": "",
+                "id": "verify-that-scenario-outlines-work;test-that-reports-are-generated-for-each-example;;3",
+                "after": [
+                    {
+                        "result": {
+                            "duration": 48731,
+                            "status": "passed"
+                        },
+                        "match": {
+                            "location": "GenericHooks.afterScenario()"
+                        }
+                    }
+                ],
+                "type": "scenario",
+                "keyword": "Scenario Outline",
+                "steps": [
+                    {
+                        "output": [
+                            "Request method:\tGET\nRequest URI:\thttp://localhost:9999/endpoint/array\nProxy:\t\t\t\u003cnone\u003e\nRequest params:\t\u003cnone\u003e\nQuery params:\t\u003cnone\u003e\nForm params:\t\u003cnone\u003e\nPath params:\t\u003cnone\u003e\nMultiparts:\t\t\u003cnone\u003e\nHeaders:\t\tAccept\u003d*/*\n\t\t\t\tContent-Type\u003dapplication/x-www-form-urlencoded; charset\u003dISO-8859-1\nCookies:\t\t\u003cnone\u003e\nBody:",
+                            "HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Encoding: gzip\nVary: Accept-Encoding, User-Agent\nTransfer-Encoding: chunked\nServer: Jetty(9.2.z-SNAPSHOT)\n\n[\n    {\n        \"test\": \"Value\"\n    },\n    {\n        \"test\": \"NotValue\"\n    }\n]"
+                        ],
+                        "result": {
+                            "duration": 28032198,
+                            "status": "passed"
+                        },
+                        "line": 6,
+                        "name": "I execute a get call to \"http://localhost:9999/endpoint/array\"",
+                        "match": {
+                            "arguments": [
+                                {
+                                    "val": "http://localhost:9999/endpoint/array",
+                                    "offset": 25
+                                }
+                            ],
+                            "location": "ServiceExecutorStepDefs.iExecuteAGetCallTo(String)"
+                        },
+                        "matchedColumns": [
+                            0
+                        ],
+                        "keyword": "Given "
+                    },
+                    {
+                        "result": {
+                            "duration": 750527,
+                            "status": "passed"
+                        },
+                        "line": 7,
+                        "name": "the request was successful",
+                        "match": {
+                            "location": "GenericStepDefs.theRequestWasSuccessful()"
+                        },
+                        "keyword": "Then "
+                    }
+                ],
+                "tags": [
+                    {
+                        "line": 1,
+                        "name": "@mock"
+                    },
+                    {
+                        "line": 1,
+                        "name": "@outline"
+                    },
+                    {
+                        "line": 4,
+                        "name": "@full"
+                    }
+                ]
+            }
+        ],
+        "name": "Verify that scenario outlines work",
+        "description": "",
+        "id": "verify-that-scenario-outlines-work",
+        "keyword": "Feature",
+        "uri": "/features/scenario_outline.feature",
+        "tags": [
+            {
+                "line": 1,
+                "name": "@mock"
+            },
+            {
+                "line": 1,
+                "name": "@outline"
+            }
+        ]
+    }
+]

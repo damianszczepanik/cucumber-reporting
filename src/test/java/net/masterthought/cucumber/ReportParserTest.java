@@ -20,6 +20,21 @@ public class ReportParserTest extends ReportGenerator {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+
+    @Test
+    public void parseJsonResults_ParsesScenarioOutlines() {
+
+        // given
+        initWithJSon(SCENARIO_OUTLINE);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(1);
+    }
+
     @Test
     public void parseJsonResults_ReturnsFeatureFiles() {
 

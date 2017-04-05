@@ -222,6 +222,9 @@ public class Feature implements Reportable, Durationable, Comparable<Feature> {
             }
 
             for (Step step : element.getSteps()) {
+                if(step.getResult() == null){
+                    break;
+                }
                 stepsCounter.incrementFor(step.getResult().getStatus());
                 duration += step.getDuration();
             }
