@@ -12,17 +12,17 @@ import org.owasp.html.PolicyFactory;
  */
 final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
 
-    private static final PolicyFactory LINKS = new HtmlPolicyBuilder()
-            .allowStandardUrlProtocols().allowElements("a").allowAttributes("href")
-            .onElements("a").requireRelNofollowOnLinks().requireRelsOnLinks("noopener", "noreferrer")
+    private static final PolicyFactory TAGS = new HtmlPolicyBuilder()
+            .allowStandardUrlProtocols().allowElements("a", "span", "img").allowAttributes("href", "onclick", "src", "id", "style")
+            .onElements("a", "span", "img").requireRelNofollowOnLinks().requireRelsOnLinks("noopener", "noreferrer")
             .toFactory();
 
     @Override
     public Object referenceInsert(String reference, Object value) {
         if (value == null) {
             return null;
-        } else if(reference.startsWith("$_sanitize_")) {
-            return LINKS.sanitize(value.toString());
+        } else if(reference.contains("$_sanitize_")) {
+            return TAGS.sanitize(value.toString());
         } else {
             return StringEscapeUtils.escapeHtml(value.toString());
         }
