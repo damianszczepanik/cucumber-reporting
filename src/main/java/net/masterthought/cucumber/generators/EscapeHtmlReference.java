@@ -21,7 +21,7 @@ final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
     public Object referenceInsert(String reference, Object value) {
         if (value == null) {
             return null;
-        } else if(reference.contains("$_sanitize_")) {
+        } else if(reference.startsWith("$_sanitize_")) {
             return TAGS.sanitize(value.toString());
         } else {
             return StringEscapeUtils.escapeHtml(value.toString());
