@@ -11,7 +11,9 @@ public class Step implements Resultsable {
     // Start: attributes from JSON file report
     private String name = null;
     private final String keyword = null;
-    private final Result result = null;
+    // create empty Result for all cases where step has no result
+    // - happens for old or different cucumber implementation of the library
+    private final Result result = new Result();
     private final Row[] rows = new Row[0];
     private final Match match = null;
     private final Embedding[] embeddings = new Embedding[0];

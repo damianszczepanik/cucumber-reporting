@@ -43,7 +43,7 @@ public class ReportParserTest extends ReportGenerator {
 
         // when
         thrown.expect(ValidationException.class);
-        thrown.expectMessage("Passed reports have no features!");
+        thrown.expectMessage("Passed files have no features!");
         reportParser.parseJsonFiles(jsonReports);
     }
 
