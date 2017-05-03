@@ -63,7 +63,7 @@ public class ReportParser {
 
         // report that has no features seems to be not valid
         if (featureResults.isEmpty()) {
-            throw new ValidationException(String.format("Passed reports have no features!"));
+            throw new ValidationException("Passed files have no features!");
         }
 
         return featureResults;
@@ -71,7 +71,7 @@ public class ReportParser {
 
     /**
      * Reads passed file and returns parsed features.
-     * 
+     *
      * @param jsonFile
      *            JSON file that should be read
      * @return array of parsed features

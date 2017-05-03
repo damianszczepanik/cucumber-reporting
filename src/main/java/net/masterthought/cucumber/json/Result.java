@@ -9,7 +9,10 @@ import net.masterthought.cucumber.util.Util;
 public class Result implements Durationable {
 
     // Start: attributes from JSON file report
-    private final Status status = null;
+
+    // by default set UNDEFINED status
+    // for all cases where Result is not present or completed
+    private final Status status = Status.UNDEFINED;
     @JsonProperty("error_message")
     private final String errorMessage = null;
     private final Long duration = 0L;

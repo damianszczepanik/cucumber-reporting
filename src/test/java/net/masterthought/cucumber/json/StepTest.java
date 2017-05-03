@@ -151,4 +151,19 @@ public class StepTest extends PageTest {
         // then
         assertThat(duration).isZero();
     }
+
+    @Test
+    public void getResult_OnMissingResult_ReturnsEmptyResult() {
+
+        // given
+        Step step = features.get(1).getElements()[2].getSteps()[0];
+
+        // when
+        Result result = step.getResult();
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(Status.UNDEFINED);
+        assertThat(result.getDuration()).isEqualTo(0L);
+        assertThat(result.getErrorMessage()).isNull();
+    }
 }
