@@ -1,0 +1,211 @@
+[
+  {
+    "uri": "features/selenium.feature",
+    "id": "test",
+    "keyword": "Feature",
+    "name": "test",
+    "description": "",
+    "line": 1,
+    "elements": [
+      {
+        "id": "test;test1",
+        "keyword": "Scenario",
+        "name": "test1",
+        "description": "",
+        "line": 2,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "We are using selenium to test with chrome",
+            "line": 3,
+            "match": {
+              "location": {
+                "filepath": {
+                  "filename": "features/step_definitions/selenium/selenium.rb"
+                },
+                "lines": {
+                  "data": [
+                    "5"
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1717150000
+            }
+          },
+          {
+            "keyword": "And ",
+            "name": "Something",
+            "line": 4,
+            "match": {
+              "location": {
+                "filepath": {
+                  "filename": "features/step_definitions/selenium/selenium.rb"
+                },
+                "lines": {
+                  "data": [
+                    "5",
+                    "7",
+                    "8"
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1717150000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "Something else",
+            "line": 5,
+            "match": {
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1717150000
+            }
+          },
+
+          {
+            "keyword": "And ",
+            "name": "blabla",
+            "line": 6,
+            "match": {
+              "location": "cucumber.rb:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1717150000
+            }
+          }
+        ],
+        "after": [
+          {
+            "match": {
+              "location": {
+                "filepath": {
+                  "filename": "json_spec-1.1.4/lib/json_spec/cucumber.rb"
+                },
+                "lines": {
+                  "data": [
+                    "5",
+                    "6",
+                    "7"
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "passed",
+              "duration": 0
+            }
+          },
+          {
+            "match": {
+              "location": {
+                "file": "ruby/core/support/hooks.rb",
+                "lines": {
+                  "data": [
+                    19
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          },
+          {
+            "match": {
+              "location": {
+                "file": 5,
+                "lines": {
+                  "data": [
+                    19
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          },
+          {
+            "match": {
+              "location": {
+                "filepath": {
+                  "filename": 5
+                },
+                "lines": {
+                  "data": [
+                    19
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          },
+          {
+            "match": {
+              "location": {
+                "file": "cucumber.rb:12",
+                "lines": {
+                  "data": [
+                    "x"
+                  ]
+                }
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          },
+          {
+            "match": {
+              "location": {
+                "file": "cucumber.rb:12",
+                "lines": {
+                  "data": 5
+                }
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          },
+
+          {
+            "match": {
+              "location": {
+                "file": "cucumber.rb:12"
+              }
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "undefined method `cookies' for nil:NilClass (NoMethodError)",
+              "duration": 128000
+            }
+          }
+
+        ]
+      }
+    ]
+  }
+]
