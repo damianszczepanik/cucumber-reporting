@@ -11,7 +11,7 @@ import net.masterthought.cucumber.util.Util;
  * @author Damian Szczepanik (damianszczepanik@github)
  *
  */
-public class StepObject implements Comparable<StepObject> {
+public class StepObject {
 
     /** Name of the method / step implementation. This value is unique, there are no two steps with the same locations. */
     public final String location;
@@ -77,11 +77,5 @@ public class StepObject implements Comparable<StepObject> {
 
     public Status getStatus() {
         return statusCounter.getFinalStatus();
-    }
-
-    @Override
-    public int compareTo(StepObject o) {
-        // since there might be the only one StepObject with given location, compare by location only
-        return Integer.signum(location.compareTo(o.getLocation()));
     }
 }

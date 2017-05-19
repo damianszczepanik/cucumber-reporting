@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.sorting.SoringMethod;
 
 public class Configuration {
 
@@ -27,6 +28,7 @@ public class Configuration {
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
+    private SoringMethod soringMethod = SoringMethod.NATURAL;
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -145,5 +147,21 @@ public class Configuration {
      */
     public List<Map.Entry<String, String>> getClassifications() {
         return classifications;
+    }
+
+    /**
+     * Configure how items will be sorted in the report by default.
+     *
+     * @param soringMethod how the items should be sorted
+     */
+    public void setSortingMethod(SoringMethod soringMethod) {
+        this.soringMethod = soringMethod;
+    }
+
+    /**
+     * Returns the default sorting method.
+     */
+    public SoringMethod getSoringMethod() {
+        return this.soringMethod;
     }
 }

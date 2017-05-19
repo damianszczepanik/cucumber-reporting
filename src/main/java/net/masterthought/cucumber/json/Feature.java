@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
@@ -14,7 +13,7 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-public class Feature implements Reportable, Durationable, Comparable<Feature> {
+public class Feature implements Reportable, Durationable {
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -226,23 +225,5 @@ public class Feature implements Reportable, Durationable, Comparable<Feature> {
                 duration += step.getDuration();
             }
         }
-    }
-
-    @Override
-    public int compareTo(Feature feature) {
-        // order by the name so first compare by the name
-        int nameCompare = ObjectUtils.compare(name, feature.getName());
-        if (nameCompare != 0) {
-            return nameCompare;
-        }
-
-        // if names are the same, compare by the ID which should be unieque by JSON file
-        int idCompare = ObjectUtils.compare(id, feature.getId());
-        if (idCompare != 0) {
-            return idCompare;
-        }
-
-        // if ids are the same it means that feature exists in more than one JSON file so compare by JSON report
-        return ObjectUtils.compare(jsonFile, feature.getJsonFile());
     }
 }

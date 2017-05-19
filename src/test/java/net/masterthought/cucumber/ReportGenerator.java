@@ -9,6 +9,7 @@ import java.util.List;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.sorting.SoringMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -61,6 +62,7 @@ public abstract class ReportGenerator {
         if (configuration == null) {
             configuration = new Configuration(reportDirectory, projectName);
         }
+        configuration.setSortingMethod(SoringMethod.ALPHABETICAL);
         createEmbeddingsDirectory();
     }
 
@@ -81,7 +83,7 @@ public abstract class ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         List<Feature> featuresFromJson = reportParser.parseJsonFiles(jsonReports);
-        reportResult = new ReportResult(featuresFromJson);
+        reportResult = new ReportResult(featuresFromJson, configuration.getSoringMethod());
 
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();

@@ -133,32 +133,4 @@ public class StepObjectTest {
         // then
         assertThat(percentage).isEqualTo("0.00%");
     }
-
-    @Test
-    public void compareTo_OnDifferentLocation_ReturnsNoneZero() {
-
-        // given
-        StepObject step1 = new StepObject("one");
-        StepObject step2 = new StepObject("two");
-
-        // when
-        int result = step1.compareTo(step2);
-
-        // then
-        assertThat(result).isNotEqualTo(0);
-    }
-
-    @Test
-    public void compareTo_OnSameLocation_ReturnsZero() {
-
-        // given
-        StepObject step1 = new StepObject("one");
-        StepObject step2 = new StepObject("one");
-
-        // when
-        int result = step1.compareTo(step2);
-
-        // then
-        assertThat(result).isEqualTo(0);
-    }
 }
