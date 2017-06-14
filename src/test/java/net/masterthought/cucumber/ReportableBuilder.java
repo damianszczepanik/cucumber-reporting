@@ -11,57 +11,26 @@ public class ReportableBuilder implements Reportable {
     protected String name;
     protected String deviceName;
 
-    protected int passedFeatures;
-    protected int failedFeatures;
-    protected int pendingFeatures;
-    protected int undefinedFeatures;
-    protected int totalFeatures;
-
-    protected int passedScenarios;
-    protected int failedScenarios;
-    protected int undefinedScenarios;
-    protected int pendingScenarios;
-    protected int totalScenarios;
-
-    protected int passedSteps;
-    protected int failedSteps;
-    protected int skippedSteps;
-    protected int pendingSteps;
-    protected int undefinedSteps;
-    protected int totalSteps;
+    protected ReportCounts featureCounts;
+    protected ReportCounts scenarioCounts;
+    protected ReportCounts stepCounts;
 
     protected long duration;
 
-    public ReportableBuilder(int passedFeatures, int failedFeatures, int pendingFeatures, int undefinedFeatures, int totalFeatures,
-                             int passedScenarios, int failedScenarios, int pendingScenarios, int undefinedScenarios, int totalScenarios,
-                             int passedSteps, int failedSteps, int skippedSteps, int pendingSteps, int undefinedSteps, int totalSteps,
-                             long duration) {
+    public ReportableBuilder(ReportCounts featureCounts, ReportCounts scenarioCounts, ReportCounts stepCounts, long duration) {
 
-        this.passedFeatures = passedFeatures;
-        this.failedFeatures = failedFeatures;
-        this.pendingFeatures = pendingFeatures;
-        this.undefinedFeatures = undefinedFeatures;
-        this.totalFeatures = totalFeatures;
-
-        this.passedScenarios = passedScenarios;
-        this.failedScenarios = failedScenarios;
-        this.pendingScenarios = pendingScenarios;
-        this.undefinedScenarios = undefinedScenarios;
-        this.totalScenarios = totalScenarios;
-
-        this.passedSteps = passedSteps;
-        this.failedSteps = failedSteps;
-        this.skippedSteps = skippedSteps;
-        this.pendingSteps = pendingSteps;
-        this.undefinedSteps = undefinedSteps;
-        this.totalSteps = totalSteps;
-
+        this.featureCounts = featureCounts;
+        this.scenarioCounts = scenarioCounts;
+        this.stepCounts = stepCounts;
         this.duration = duration;
     }
 
     public static Reportable buildSample() {
-        // only prime numbers
-        return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 73, 79, 83, 3206126182390L);
+        // only prime numbers. Totals should add up.
+        ReportCounts featureCounts = new ReportCounts(2, 3, 5, 7, 11, 28);
+        ReportCounts scenarioCounts = new ReportCounts(13, 17, 19, 23, 29, 101);
+        ReportCounts stepCounts = new ReportCounts(31, 37, 41, 73,79, 261);
+        return new ReportableBuilder(featureCounts, scenarioCounts, stepCounts, 3206126182390L);
     }
 
     @Override
@@ -76,74 +45,74 @@ public class ReportableBuilder implements Reportable {
 
     @Override
     public int getPassedFeatures() {
-        return passedFeatures;
+        return featureCounts.passed;
     }
 
     @Override
     public int getFailedFeatures() {
-        return failedFeatures;
+        return featureCounts.failed;
     }
 
     @Override
-    public int getPendingFeatures() { return pendingFeatures; }
+    public int getPendingFeatures() { return featureCounts.pending; }
 
     @Override
-    public int getUndefinedFeatures() { return undefinedFeatures; }
+    public int getUndefinedFeatures() { return featureCounts.undefined; }
 
     @Override
     public int getFeatures() {
-        return totalFeatures;
+        return featureCounts.total;
     }
 
     @Override
     public int getPassedScenarios() {
-        return passedScenarios;
+        return scenarioCounts.passed;
     }
 
     @Override
     public int getFailedScenarios() {
-        return failedScenarios;
+        return scenarioCounts.failed;
     }
 
     @Override
-    public int getPendingScenarios() { return pendingScenarios; }
+    public int getPendingScenarios() { return scenarioCounts.pending; }
 
     @Override
-    public int getUndefinedScenarios() { return undefinedScenarios; }
+    public int getUndefinedScenarios() { return scenarioCounts.undefined; }
 
     @Override
     public int getScenarios() {
-        return totalScenarios;
+        return scenarioCounts.total;
     }
 
     @Override
     public int getPassedSteps() {
-        return passedSteps;
+        return stepCounts.passed;
     }
 
     @Override
     public int getFailedSteps() {
-        return failedSteps;
+        return stepCounts.failed;
     }
 
     @Override
     public int getSkippedSteps() {
-        return skippedSteps;
+        return stepCounts.skipped;
     }
 
     @Override
     public int getUndefinedSteps() {
-        return undefinedSteps;
+        return stepCounts.undefined;
     }
 
     @Override
     public int getPendingSteps() {
-        return pendingSteps;
+        return stepCounts.pending;
     }
 
     @Override
     public int getSteps() {
-        return totalSteps;
+        return stepCounts.total;
     }
 
     @Override

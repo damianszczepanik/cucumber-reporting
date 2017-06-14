@@ -50,7 +50,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         String html = page.getWebPage();
 
         // then
-        DocumentAssertion document = documentFrom(page.getWebPage());
+        DocumentAssertion document = documentFrom(html);
         TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
 
         bodyRow.hasExactValues(tag.getName(), "10", "1", "2", "1", "2", "16", "1", "1", "0", "0", "2", "231ms", "Failed");

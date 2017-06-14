@@ -67,9 +67,9 @@ public class TrendsTest {
         assertThat(trends.getPassedScenarios()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 13, 13);
 
         assertThat(trends.getPassedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
-        assertThat(trends.getSkippedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 41, 41);
-        assertThat(trends.getPendingSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 73, 73);
-        assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 79, 79);
+        assertThat(trends.getSkippedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 79, 79);
+        assertThat(trends.getPendingSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 41, 41);
+        assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 73, 73);
 
         assertThat(trends.getDurations()).hasSize(buildNumbers.length + 1).containsExactly(-1L, -1L, 3206126182390L, 3206126182390L);
     }
@@ -162,7 +162,13 @@ public class TrendsTest {
         Trends trends = new Trends();
         int pendingFeatures = 0;
         int undefinedFeatures = 0;
-        Reportable result = new ReportableBuilder(0, failedFeatures, pendingFeatures, undefinedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
+
+        ReportCounts featureCounts = new ReportCounts(0,failedFeatures,pendingFeatures,undefinedFeatures,0,totalFeatures);
+        ReportCounts scenarioCounts = new ReportCounts(0,0,0,0,0,0);
+        ReportCounts stepCounts = new ReportCounts(0,0,0,0,0,0);
+
+        long duration = 3206126182398L;
+        ReportableBuilder result = new ReportableBuilder(featureCounts, scenarioCounts, stepCounts, duration);
         trends.addBuild("buildNumber", result);
 
         // when
