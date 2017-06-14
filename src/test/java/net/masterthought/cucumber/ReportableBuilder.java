@@ -4,6 +4,8 @@ package net.masterthought.cucumber;
 import net.masterthought.cucumber.json.support.Status;
 
 /**
+ * A class that implements Reportable designed for use in tests.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ReportableBuilder implements Reportable {

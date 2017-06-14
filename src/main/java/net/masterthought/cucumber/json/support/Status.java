@@ -7,7 +7,8 @@ import net.masterthought.cucumber.json.deserializers.StatusDeserializer;
 /**
  * Defines all possible statuses provided by cucumber library. The ordering
  * of these is important, as it determines priority. A scenario is only
- * considered passing if all of its steps are passing.
+ * considered passing if all of its steps are passing. A feature is only
+ * considered passing if all of its scenarios are passing.
  * 
  * @author Damian Szczepanik (damianszczepanik@github)
  */

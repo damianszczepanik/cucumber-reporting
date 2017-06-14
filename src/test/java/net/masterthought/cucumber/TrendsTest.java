@@ -157,15 +157,15 @@ public class TrendsTest {
     public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
 
         // given
+        int pendingFeatures = 0;
+        int undefinedFeatures = 0;
         final int totalFeatures = 1000;
         final int failedFeatures = totalFeatures + 1;
         Trends trends = new Trends();
-        int pendingFeatures = 0;
-        int undefinedFeatures = 0;
 
         ReportCounts featureCounts = new ReportCounts(0,failedFeatures,pendingFeatures,undefinedFeatures,0,totalFeatures);
-        ReportCounts scenarioCounts = new ReportCounts(0,0,0,0,0,0);
-        ReportCounts stepCounts = new ReportCounts(0,0,0,0,0,0);
+        ReportCounts scenarioCounts = new ReportCounts();
+        ReportCounts stepCounts = new ReportCounts();
 
         long duration = 3206126182398L;
         ReportableBuilder result = new ReportableBuilder(featureCounts, scenarioCounts, stepCounts, duration);

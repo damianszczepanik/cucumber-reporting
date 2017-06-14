@@ -3,7 +3,7 @@ package net.masterthought.cucumber;
 import net.masterthought.cucumber.json.support.Status;
 
 /**
- * Defines empty reportable that is usded when the build fails.
+ * Defines empty reportable that is used when the build fails.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
