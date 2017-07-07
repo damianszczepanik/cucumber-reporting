@@ -58,6 +58,8 @@ public class SortingFactoryTest extends PageTest {
     public void sortFeatures_OnINVALID_ThrowsException() {
 
         // given
+        // INVALID is available only for test profile and the reason of this shadow Enum in test profile is
+        // to be able to test default: block which throws an exception for unsupported values
         SortingFactory sortingFactory = new SortingFactory(SoringMethod.INVALID);
 
         // when
@@ -142,8 +144,6 @@ public class SortingFactoryTest extends PageTest {
     public void sortSteps_OnINVALID_ThrowsException() {
 
         // given
-        // INVALID is available only for test profile and the reason of this shadow Enum in test profile is
-        // to be able to test default: block which throws an exception for unsupported values
         SoringMethod soringMethod = SoringMethod.INVALID;
         SortingFactory sortingFactory = new SortingFactory(soringMethod);
 
