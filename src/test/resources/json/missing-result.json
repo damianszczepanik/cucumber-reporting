@@ -1,0 +1,34 @@
+[
+    {
+        "id":"missingResultId",
+        "name":"Missing result feature",
+        "keyword":"Feature",
+        "elements":[
+            {
+                "keyword":"Scenario",
+                "steps":[
+                    {
+                        "result":{
+                            "duration":123456789,
+                            "status":"passed"
+                        },
+                        "name":"First step name",
+                        "keyword":"Given ",
+                        "match":{
+                            "location":"simple.location()"
+                        }
+                    },
+                    {
+                        "name":"Second step name",
+                        "keyword":"Given ",
+                        "match":{
+                            "location":"simple.location()"
+                        }
+                    }
+                ],
+                "type":"scenario"
+            }
+        ],
+        "uri":"simple:uri"
+    }
+]

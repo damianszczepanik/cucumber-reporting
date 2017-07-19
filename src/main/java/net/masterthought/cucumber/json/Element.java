@@ -126,6 +126,9 @@ public class Element implements Durationable {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
             Result result = step.getResult();
+            if (result == null) {
+                result = new Result();
+            }
             statusCounter.incrementFor(result.getStatus());
             duration += result.getDuration();
         }
