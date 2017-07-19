@@ -20,6 +20,7 @@ public abstract class ReportGenerator {
 
     protected static final String SAMPLE_JSON = "sample.json";
     public static final String SIMPLE_JSON = "simple.json";
+    public static final String MISSING_RESULT_JSON = "missing-result.json";
     protected static final String EMPTY_JSON = "empty.json";
     protected static final String INVALID_JSON = "invalid.json";
     protected static final String INVALID_REPORT_JSON = "invalid-report.json";

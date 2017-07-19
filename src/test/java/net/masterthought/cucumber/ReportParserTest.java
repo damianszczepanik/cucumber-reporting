@@ -6,6 +6,8 @@ import static org.hamcrest.core.StringEndsWith.endsWith;
 
 import java.util.List;
 
+import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -33,6 +35,27 @@ public class ReportParserTest extends ReportGenerator {
         // then
         assertThat(features).hasSize(3);
     }
+
+    @Test
+    public void parseJsonResults_OnMissingResultInStep_ReturnsFeatureFile() {
+
+        // given
+        initWithJSon(MISSING_RESULT_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(1);
+        Feature firstFeature = features.get(0);
+        assertThat(firstFeature.getSteps()).isEqualTo(2);
+        assertThat(firstFeature.getElements().length).isEqualTo(1);
+        Step[] steps = firstFeature.getElements()[0].getSteps();
+        assertThat(steps.length).isEqualTo(2);
+        assertThat(steps[1].getResult().getStatus()).isEqualTo(Status.UNDEFINED);
+    }
+
 
     @Test
     public void parseJsonResults_OnNoFeatures_ThrowsException() {
