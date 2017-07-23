@@ -21,8 +21,8 @@ import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.sorting.SoringMethod;
 import net.masterthought.cucumber.sorting.SortingFactory;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class ReportResult {
 
@@ -39,9 +39,9 @@ public class ReportResult {
     private final OverviewReport featuresReport = new OverviewReport();
     private final OverviewReport tagsReport = new OverviewReport();
 
-    public ReportResult(List<Feature> features, SoringMethod soringMethod) {
+    public ReportResult(List<Feature> features, SortingMethod sortingMethod) {
         this.buildTime = getCurrentTime();
-        this.sortingFactory = new SortingFactory(soringMethod);
+        this.sortingFactory = new SortingFactory(sortingMethod);
 
         for (Feature feature : features) {
             processFeature(feature);

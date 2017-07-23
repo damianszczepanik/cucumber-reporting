@@ -17,42 +17,42 @@ import net.masterthought.cucumber.json.support.TagObject;
  */
 public final class SortingFactory {
 
-    private final SoringMethod soringMethod;
+    private final SortingMethod sortingMethod;
 
-    public SortingFactory(SoringMethod soringMethod) {
-        this.soringMethod = soringMethod;
+    public SortingFactory(SortingMethod sortingMethod) {
+        this.sortingMethod = sortingMethod;
     }
 
     public List<Feature> sortFeatures(Collection<Feature> features) {
-        switch (soringMethod) {
+        switch (sortingMethod) {
             case NATURAL:
                 return new ArrayList(features);
             case ALPHABETICAL:
                 return toSortedList(features, new FeaturesAlphabeticalComparator());
             default:
-                throw createUnknownMethodException(soringMethod);
+                throw createUnknownMethodException(sortingMethod);
         }
     }
 
     public List<TagObject> sortTags(Collection<TagObject> tags) {
-        switch (soringMethod) {
+        switch (sortingMethod) {
             case NATURAL:
                 return new ArrayList(tags);
             case ALPHABETICAL:
                 return toSortedList(tags, new TagObjectAlphabeticalComparator());
             default:
-                throw createUnknownMethodException(soringMethod);
+                throw createUnknownMethodException(sortingMethod);
         }
     }
 
     public List<StepObject> sortSteps(Collection<StepObject> steps) {
-        switch (soringMethod) {
+        switch (sortingMethod) {
             case NATURAL:
                 return new ArrayList(steps);
             case ALPHABETICAL:
                 return toSortedList(steps, new StepObjectAlphabeticalComparator());
             default:
-                throw createUnknownMethodException(soringMethod);
+                throw createUnknownMethodException(sortingMethod);
         }
     }
 
@@ -62,7 +62,7 @@ public final class SortingFactory {
         return list;
     }
 
-    private RuntimeException createUnknownMethodException(SoringMethod soringMethod) {
-        return new IllegalArgumentException("Unsupported sorting method: " + soringMethod);
+    private RuntimeException createUnknownMethodException(SortingMethod sortingMethod) {
+        return new IllegalArgumentException("Unsupported sorting method: " + sortingMethod);
     }
 }

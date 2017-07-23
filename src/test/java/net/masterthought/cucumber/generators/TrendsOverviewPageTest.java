@@ -57,7 +57,7 @@ public class TrendsOverviewPageTest extends PageTest {
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSoringMethod()));
+        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
         page.prepareReport();

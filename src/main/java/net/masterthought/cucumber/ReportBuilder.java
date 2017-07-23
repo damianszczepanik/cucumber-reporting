@@ -85,7 +85,7 @@ public class ReportBuilder {
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
-            reportResult = new ReportResult(features, configuration.getSoringMethod());
+            reportResult = new ReportResult(features, configuration.getSortingMethod());
             Reportable reportable = reportResult.getFeatureReport();
 
             if (configuration.isTrendsStatsFile()) {
