@@ -5,7 +5,7 @@ package net.masterthought.cucumber.sorting;
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public enum SoringMethod {
+public enum SortingMethod {
 
     /**
      * Same order as in JSON file.

@@ -32,7 +32,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortFeatures_OnNATURAL_ReturnsSameList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.NATURAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.NATURAL);
 
         // when
         List<Feature> featureList = sortingFactory.sortFeatures(features);
@@ -45,7 +45,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortFeatures_OnALPHABETICAL_ReturnsSortedList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.ALPHABETICAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
 
         // when
         List<Feature> featureList = sortingFactory.sortFeatures(features);
@@ -60,7 +60,7 @@ public class SortingFactoryTest extends PageTest {
         // given
         // INVALID is available only for test profile and the reason of this shadow Enum in test profile is
         // to be able to test default: block which throws an exception for unsupported values
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.INVALID);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
 
         // when
         // then
@@ -73,7 +73,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortTags_OnNATURAL_ReturnsSameList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.NATURAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.NATURAL);
 
         // when
         List<TagObject> tagObjects = sortingFactory.sortTags(tags);
@@ -87,7 +87,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortTags_OnALPHABETICAL_ReturnsSameList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.ALPHABETICAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
 
         // when
         List<TagObject> tagObjects = sortingFactory.sortTags(tags);
@@ -100,7 +100,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortTags_OnINVALID_ThrowsException() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.INVALID);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
 
         // when
         // then
@@ -113,7 +113,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortSteps_OnNATURAL_ReturnsSameList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.NATURAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.NATURAL);
 
         // when
         List<StepObject> stepObjects = sortingFactory.sortSteps(steps);
@@ -128,7 +128,7 @@ public class SortingFactoryTest extends PageTest {
     public void sortSteps_OnALPHABETICAL_ReturnsSameList() {
 
         // given
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.ALPHABETICAL);
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
 
         // when
         List<StepObject> stepObjects = sortingFactory.sortSteps(steps);
@@ -144,8 +144,8 @@ public class SortingFactoryTest extends PageTest {
     public void sortSteps_OnINVALID_ThrowsException() {
 
         // given
-        SoringMethod soringMethod = SoringMethod.INVALID;
-        SortingFactory sortingFactory = new SortingFactory(soringMethod);
+        SortingMethod sortingMethod = SortingMethod.INVALID;
+        SortingFactory sortingFactory = new SortingFactory(sortingMethod);
 
         // when
         // then
@@ -158,8 +158,8 @@ public class SortingFactoryTest extends PageTest {
     public void createUnknownMethodException_CreatesException() {
 
         // given
-        SoringMethod invalidSorthingMethod = SoringMethod.ALPHABETICAL;
-        SortingFactory sortingFactory = new SortingFactory(SoringMethod.ALPHABETICAL);
+        SortingMethod invalidSorthingMethod = SortingMethod.ALPHABETICAL;
+        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
 
         // when
         Exception e = Deencapsulation.invoke(sortingFactory, "createUnknownMethodException", invalidSorthingMethod);
@@ -169,6 +169,6 @@ public class SortingFactoryTest extends PageTest {
     }
 
     private String buildErrorMessage() {
-        return "Unsupported sorting method: " + SoringMethod.INVALID;
+        return "Unsupported sorting method: " + SortingMethod.INVALID;
     }
 }
