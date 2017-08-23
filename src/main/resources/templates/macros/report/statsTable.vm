@@ -21,22 +21,18 @@
             <td class="total">$item.getSteps()</td>
 
             <td #if ($item.getPassedScenarios() > 0) class="passed"    #end>$item.getPassedScenarios()</td>
-            <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
-            <td class="total">$item.getScenarios()</td>
-
-            <td class="duration" data-value="$item.getDuration()">$item.getFormattedDuration()</td>
-            <td class="$item.getStatus().getRawName()">
+            <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>
                 #if ($item.getFailedSteps() > 0)
                     <div class="dropup">
                         <button class="btn btn-danger dropdown-toggle" type="button" id="failed-cause-dropdown"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="caret"></span>
-                            $item.getStatus().getLabel()
+                            $item.getFailedScenarios()
                         </button>
-                            <div class="dropdown-menu dropdown-menu-right"
-                                 aria-labelledby="failed-cause-dropdown"
-                                 style="height: auto; max-height: 200px; overflow-x: hidden; background-color: #737373"
-                            >
+                        <div class="dropdown-menu dropdown-menu-right"
+                             aria-labelledby="failed-cause-dropdown"
+                             style="height: auto; max-height: 200px; overflow-x: hidden; background-color: #737373"
+                        >
                             #set ($failedCauseMap = $item.getFailedCause())
                             #foreach($key in $failedCauseMap.keySet())
                                 #set ($failedCauseData = $failedCauseMap.get($key))
@@ -45,16 +41,20 @@
                                 #set ($errorMessage = $failedCauseData[2])
                                 <div class="bs-callout bs-callout-danger" style="background-color: white">
                                     <h4>$scenarioName</h4>
-                                    <b>$stepName</b>
+                                    <strong>$stepName</strong>
                                     <samp>$errorMessage</samp>
                                 </div>
                             #end
                         </div>
                     </div>
                 #else
-                    $item.getStatus().getLabel()
+                    $item.getFailedScenarios()
                 #end
             </td>
+            <td class="total">$item.getScenarios()</td>
+
+            <td class="duration" data-value="$item.getDuration()">$item.getFormattedDuration()</td>
+            <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
         </tr>
         #end
     </tbody>
