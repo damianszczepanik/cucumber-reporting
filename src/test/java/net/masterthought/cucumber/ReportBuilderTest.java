@@ -219,7 +219,7 @@ public class ReportBuilderTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
         List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
@@ -236,7 +236,7 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
         List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
@@ -440,32 +440,38 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setBuildNumber(buildNumber);
 
         final Reportable reportable = new OverviewReport() {
+            @Override
             public int getFailedFeatures() {
                 return failedFeature;
             }
 
+            @Override
             public int getFeatures() {
                 return totalFeature;
             }
 
+            @Override
             public int getFailedScenarios() {
                 return failedScenario;
             }
 
+            @Override
             public int getScenarios() {
                 return totalScenario;
             }
 
+            @Override
             public int getFailedSteps() {
                 return failedStep;
             }
 
+            @Override
             public int getSteps() {
                 return totalStep;
             }
         };
 
-        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList()) {
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration.getSortingMethod()) {
             @Override
             public Reportable getFeatureReport() {
                 return reportable;

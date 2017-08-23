@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
 
@@ -27,6 +28,7 @@ public class Configuration {
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
+    private SortingMethod sortingMethod = SortingMethod.NATURAL;
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -57,13 +59,18 @@ public class Configuration {
         return trendsFile;
     }
 
-    /** Checks if the file for the trends was set. */
+    /**
+     * Checks if the file for the trends was set.
+     *
+     * @return <code>true</code> if the file location was provided, otherwise <code>false</code>
+     */
     public boolean isTrendsStatsFile() {
         return trendsFile != null;
     }
 
     /**
      * Calls {@link #setTrends(File, int)} with zero limit.
+     * @param trendsFile file with trends
      */
     public void setTrendsStatsFile(File trendsFile) {
         setTrends(trendsFile, 0);
@@ -140,5 +147,21 @@ public class Configuration {
      */
     public List<Map.Entry<String, String>> getClassifications() {
         return classifications;
+    }
+
+    /**
+     * Configure how items will be sorted in the report by default.
+     *
+     * @param sortingMethod how the items should be sorted
+     */
+    public void setSortingMethod(SortingMethod sortingMethod) {
+        this.sortingMethod = sortingMethod;
+    }
+
+    /**
+     * Returns the default sorting method.
+     */
+    public SortingMethod getSortingMethod() {
+        return this.sortingMethod;
     }
 }

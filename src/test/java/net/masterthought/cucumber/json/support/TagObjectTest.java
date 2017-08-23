@@ -166,7 +166,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getDurations_ReturnsDurations() {
+    public void getDuration_ReturnsDuration() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -178,8 +178,8 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getDurations()).isEqualTo(99263122889L);
-        assertThat(tag.getFormattedDurations()).isEqualTo("1m 39s 263ms");
+        assertThat(tag.getDuration()).isEqualTo(99263122889L);
+        assertThat(tag.getFormattedDuration()).isEqualTo("1m 39s 263ms");
     }
 
     @Test
@@ -255,34 +255,6 @@ public class TagObjectTest extends PageTest {
         // then
         thrown.expect(NotImplementedException.class);
         tag.getDeviceName();
-    }
-
-    @Test
-    public void compareTo_OnDifferentTagName_ReturnsNoneZero() {
-
-        // given
-        TagObject tag1 = new TagObject("one");
-        TagObject tag2 = new TagObject("two");
-
-        // when
-        int result = tag1.compareTo(tag2);
-
-        // then
-        assertThat(result).isNotEqualTo(0);
-    }
-
-    @Test
-    public void compareTo_OnSameLocation_ReturnsZero() {
-
-        // given
-        TagObject tag1 = new TagObject("one");
-        TagObject tag2 = new TagObject("one");
-
-        // when
-        int result = tag1.compareTo(tag2);
-
-        // then
-        assertThat(result).isEqualTo(0);
     }
 
     @Test

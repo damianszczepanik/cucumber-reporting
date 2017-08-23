@@ -61,9 +61,11 @@ a:hover {
     overflow: auto;
 }
 
-/* same as <pre> from bootstrap library */
+/*
+   same as <pre> from bootstrap library.
+   padding and overflow-x added.
+*/
 .embedding-content {
-    display: block;
     padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -71,10 +73,12 @@ a:hover {
     font-size: 13px;
     overflow-x: auto;
     line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 4px;
-    white-space: nowrap;
 }
 
 .html-content {
@@ -227,15 +231,6 @@ tr:hover {
     background-image: none;
     color: #eee;
 }
-
-.white-space-normal {
-    white-space: normal;
-}
-
-.white-space-pre-wrap {
-    white-space: pre-wrap;
-}
-
 /*Adding Bootstrap callout styles*/
 .bs-callout {
     padding: 20px;
@@ -299,10 +294,6 @@ tr:hover {
 }
 .bs-callout-info h4 {
     color: #5bc0de;
-}
-/*Responsive design - Ensure that the padding and border are included in the total width and height of the elements*/
-* {
-    box-sizing: border-box;
 }
 
 pre {

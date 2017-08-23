@@ -69,8 +69,9 @@ public class ReportBuilder {
     }
 
     /**
-     * Parses provided files and generates whole report. When generating process fails
+     * Parses provided files and generates the report. When generating process fails
      * report with information about error is provided.
+     * @return stats for the generated report
      */
     public Reportable generateReports() {
         Trends trends = null;
@@ -84,7 +85,7 @@ public class ReportBuilder {
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
-            reportResult = new ReportResult(features);
+            reportResult = new ReportResult(features, configuration.getSortingMethod());
             Reportable reportable = reportResult.getFeatureReport();
 
             if (configuration.isTrendsStatsFile()) {

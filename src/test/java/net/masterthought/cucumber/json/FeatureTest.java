@@ -213,7 +213,7 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(feature.getPassedScenarios()).isEqualTo(1);
-        assertThat(feature.getFailedScenarios()).isEqualTo(1);
+        assertThat(feature.getFailedScenarios()).isEqualTo(2);
     }
 
     @Test
@@ -242,7 +242,7 @@ public class FeatureTest extends PageTest {
         assertThat(feature2.getFailedSteps()).isEqualTo(1);
         assertThat(feature2.getSkippedSteps()).isEqualTo(2);
         assertThat(feature2.getPendingSteps()).isEqualTo(1);
-        assertThat(feature2.getUndefinedSteps()).isEqualTo(2);
+        assertThat(feature2.getUndefinedSteps()).isEqualTo(3);
     }
 
     @Test
@@ -252,20 +252,20 @@ public class FeatureTest extends PageTest {
         Feature feature = features.get(0);
 
         // when
-        long duration = feature.getDurations();
+        long duration = feature.getDuration();
 
         // then
         assertThat(duration).isEqualTo(99263122889L);
     }
 
     @Test
-    public void getFormattedDurations_ReturnsFormattedDurations() {
+    public void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         Feature feature = features.get(1);
 
         // when
-        String formattedDuration = feature.getFormattedDurations();
+        String formattedDuration = feature.getFormattedDuration();
 
         // then
         assertThat(formattedDuration).isEqualTo("092ms");
@@ -312,57 +312,6 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(deviceName).isEqualTo(jsonFileName);
-    }
-
-    @Test
-    public void compareTo_OnSameFeature_ReturnsZero() {
-
-        // given
-        Feature feature1 = features.get(0);
-        Feature feature2 = features.get(0);
-
-        // when
-        int result = feature1.compareTo(feature2);
-
-        // then
-        assertThat(result).isZero();
-    }
-
-    @Test
-    public void compareTo_OnSameName_ReturnsNotZero() {
-
-        // given
-        Feature feature1 = features.get(0);
-        Feature feature2 = buildFeature(feature1.getName(), "myId", "myFile.json");
-
-        // then
-        int result = feature1.compareTo(feature2);
-
-        // then
-        assertThat(result).isEqualTo(feature1.getId().compareTo(feature2.getId()));
-    }
-
-    @Test
-    public void compareTo_OnSameIDAndName_ReturnsNotZero() {
-
-        // given
-        Feature feature1 = features.get(0);
-        Feature feature2 = buildFeature(feature1.getName(), feature1.getId(), "myFile.json");
-
-        // then
-        int result = feature1.compareTo(feature2);
-
-        // then
-        assertThat(result).isEqualTo(feature1.getJsonFile().compareTo(feature2.getJsonFile()));
-    }
-
-    private static Feature buildFeature(final String name, final String id, final String jsonFile) {
-        Feature feature = new Feature();
-        Deencapsulation.setField(feature, "name", name);
-        Deencapsulation.setField(feature, "id", id);
-        Deencapsulation.setField(feature, "jsonFile", jsonFile);
-
-        return feature;
     }
 
     @Test

@@ -54,10 +54,10 @@ public interface Reportable {
     int getPendingSteps();
 
     /** Returns duration as milliseconds for this element. */
-    long getDurations();
+    long getDuration();
 
     /** Returns formatted duration for this element. */
-    String getFormattedDurations();
+    String getFormattedDuration();
 
     /** Returns status for this element. */
     Status getStatus();

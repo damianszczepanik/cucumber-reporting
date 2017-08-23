@@ -20,17 +20,26 @@ public enum Status {
 
     /**
      * Returns name of the status converted to lower case characters.
+     * @return status name as lowercase
      */
     public String getRawName() {
         return name().toLowerCase();
     }
 
-    /** Returns name of the status changing first letter to upper case character. */
+    /**
+     * Returns name of the status formatted with first letter to uppercase.
+     *
+     * @return status formatted with first letter to uppercase
+     */
     public String getLabel() {
         return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
     }
 
-    /** Returns true if status is equal to {@link #PASSED}. */
+    /**
+     * Returns true if status is equal to {@link #PASSED}.
+     *
+     * @return <code>true</code> if the status is <code>PASSED</code>, otherwise <code>false</code>
+     */
     public boolean isPassed() {
         return this == PASSED;
     }

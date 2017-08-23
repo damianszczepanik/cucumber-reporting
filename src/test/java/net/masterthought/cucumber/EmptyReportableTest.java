@@ -31,8 +31,8 @@ public class EmptyReportableTest {
         assertThat(reportable.getUndefinedSteps()).isZero();
         assertThat(reportable.getPendingSteps()).isZero();
         assertThat(reportable.getUndefinedSteps()).isZero();
-        assertThat(reportable.getDurations()).isZero();
-        assertThat(reportable.getFormattedDurations()).isNull();
+        assertThat(reportable.getDuration()).isZero();
+        assertThat(reportable.getFormattedDuration()).isNull();
         assertThat(reportable.getStatus()).isNull();
     }
 }

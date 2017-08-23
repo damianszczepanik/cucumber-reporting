@@ -43,7 +43,11 @@ public class Embedding {
         return fileId + "." + getExtension();
     }
 
-    /** Returns file name without extension. */
+    /**
+     * Returns unique file ID.
+     *
+     * @return ID of the file
+     */
     public String getFileId() {
         return fileId;
     }

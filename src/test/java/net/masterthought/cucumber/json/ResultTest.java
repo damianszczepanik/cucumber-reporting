@@ -51,7 +51,7 @@ public class ResultTest extends PageTest {
         Result result = features.get(0).getElements()[0].getSteps()[2].getResult();
 
         // when
-        String duration = result.getFormatedDuration();
+        String duration = result.getFormattedDuration();
 
         // then
         assertThat(duration).isEqualTo("007ms");
