@@ -2,8 +2,6 @@ package net.masterthought.cucumber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +21,8 @@ import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.sorting.SortingFactory;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class ReportResult {
 
@@ -30,13 +30,18 @@ public class ReportResult {
     private final Map<String, TagObject> allTags = new TreeMap<>();
     private final Map<String, StepObject> allSteps = new TreeMap<>();
 
+    /**
+     * Time when this report was created.
+     */
     private final String buildTime;
+    private final SortingFactory sortingFactory;
 
     private final OverviewReport featuresReport = new OverviewReport();
     private final OverviewReport tagsReport = new OverviewReport();
 
-    public ReportResult(List<Feature> features) {
+    public ReportResult(List<Feature> features, SortingMethod sortingMethod) {
         this.buildTime = getCurrentTime();
+        this.sortingFactory = new SortingFactory(sortingMethod);
 
         for (Feature feature : features) {
             processFeature(feature);
@@ -44,21 +49,15 @@ public class ReportResult {
     }
 
     public List<Feature> getAllFeatures() {
-        return toSortedList(allFeatures);
+        return sortingFactory.sortFeatures(allFeatures);
     }
 
     public List<TagObject> getAllTags() {
-        return toSortedList(allTags.values());
+        return sortingFactory.sortTags(allTags.values());
     }
 
     public List<StepObject> getAllSteps() {
-        return toSortedList(allSteps.values());
-    }
-
-    private static <T extends Comparable<? super T>> List<T> toSortedList(Collection<T> values) {
-        List<T> list = new ArrayList<>(values);
-        Collections.sort(list);
-        return list;
+        return sortingFactory.sortSteps(allSteps.values());
     }
 
     public Reportable getFeatureReport() {

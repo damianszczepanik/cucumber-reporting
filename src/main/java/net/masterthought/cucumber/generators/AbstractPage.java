@@ -57,7 +57,11 @@ public abstract class AbstractPage {
         generateReport();
     }
 
-    /** Returns HTML file name (with extension) for this report. */
+    /**
+     * Returns HTML file name (with extension) for this report.
+     *
+     * @return HTML file for the report
+     */
     public abstract String getWebPage();
 
     protected abstract void prepareReport();

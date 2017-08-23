@@ -22,7 +22,7 @@
         <td #if ($item.getFailedScenarios() > 0) class="failed"    #end>$item.getFailedScenarios()</td>
         <td class="total">$item.getScenarios()</td>
 
-        <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
+        <td class="duration" data-value="$item.getDuration()">$item.getFormattedDuration()</td>
         <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
       </tr>
     #end
@@ -45,7 +45,7 @@
       <td>$report_summary.getFailedScenarios()</td>
       <td>$report_summary.getScenarios()</td>
 
-      <td class="duration">$report_summary.getFormattedDurations()</td>
+      <td class="duration">$report_summary.getFormattedDuration()</td>
       <td></td>
     </tr>
     <tr>

@@ -80,12 +80,12 @@ public class EmptyReportable implements Reportable {
     }
 
     @Override
-    public long getDurations() {
+    public long getDuration() {
         return 0;
     }
 
     @Override
-    public String getFormattedDurations() {
+    public String getFormattedDuration() {
         return null;
     }
 

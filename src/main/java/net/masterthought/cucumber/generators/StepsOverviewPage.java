@@ -31,7 +31,7 @@ public class StepsOverviewPage extends AbstractPage {
         long allDurations = 0;
         for (StepObject stepObject : reportResult.getAllSteps()) {
             allOccurrences += stepObject.getTotalOccurrences();
-            allDurations += stepObject.getDurations();
+            allDurations += stepObject.getDuration();
         }
         context.put("all_occurrences", allOccurrences);
         context.put("all_durations", Util.formatDuration(allDurations));
