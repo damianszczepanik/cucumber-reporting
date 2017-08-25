@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -101,6 +101,19 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("image");
+    }
+
+    @Test
+    public void getExtension__OnApplicationPdfMimeType_ReturnsPdf() {
+
+        // given
+        Embedding embedding = new Embedding("application/pdf", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("pdf");
     }
 
     @Test
