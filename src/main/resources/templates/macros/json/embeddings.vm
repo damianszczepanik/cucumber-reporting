@@ -99,7 +99,7 @@
       </a>
     </div>
     <div id="embedding-$embeddingId" class="collapse collapsable-details">
-      <pre class="embedding-content">$embedding.getDecodedData()</pre>
+      <pre class="embedding-content">$embedding.getData()</pre>
     </div>
   </div>
 #end
