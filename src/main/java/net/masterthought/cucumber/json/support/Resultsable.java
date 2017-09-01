@@ -14,4 +14,6 @@ public interface Resultsable {
     Result getResult();
 
     Match getMatch();
+
+    String getId();
 }

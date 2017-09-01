@@ -190,6 +190,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
             BriefAssertion brief = steps[i].getBrief();
             Step step = element.getSteps()[i];
 
+            String stepId = steps[i].attr("id");
+            assertThat(stepId).isEqualTo(step.getId());
             brief.hasStatus(step.getResult().getStatus());
             assertThat(brief.getKeyword()).isEqualTo(step.getKeyword());
             assertThat(brief.getName()).isEqualTo(step.getName());

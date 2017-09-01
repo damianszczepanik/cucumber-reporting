@@ -121,15 +121,10 @@ public class WebAssertion {
         return elements.toArray(array);
     }
 
-    public <T extends WebAssertion> T oneBySelector(String selector, Class<T> clazz) {
+    public <T extends WebAssertion> T firstBySelector(String selector, Class<T> clazz) {
         Elements inner = element.select(selector);
 
         assertNotEmpty(inner, selector);
-        if (inner.size() > 1) {
-            throw new IllegalArgumentException(
-                    String.format("Found %d elements with selector '%s': %s", inner.size(), selector, element.html()));
-        }
-
         return toAssertion(inner.first(), clazz);
     }
 

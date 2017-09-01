@@ -11,6 +11,6 @@ public class DocStringAssertion extends ReportAssertion {
 
     public void hasDocString(DocString docString) {
         assertThat(docString).isNotNull();
-        assertThat(oneBySelector("pre", WebAssertion.class).text()).isEqualTo(docString.getValue());
+        assertThat(firstBySelector("pre", WebAssertion.class).text()).isEqualTo(docString.getValue());
     }
 }

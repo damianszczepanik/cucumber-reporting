@@ -262,10 +262,12 @@ public class TagObjectTest extends PageTest {
 
         String expectedFailedScenarioName = "Account may not have sufficient funds";
         String expectedFailedStepName = "the card is valid";
+        String stepId = "0-15";
         String expectedFailedStepResultErrorMessage = "Error message not found.";
         String[] expectedFailureData = {
                 expectedFailedScenarioName,
                 expectedFailedStepName,
+                stepId,
                 expectedFailedStepResultErrorMessage
         };
         Map<String, String[]> expectedFailedScenariosMap = new HashMap<>(1);

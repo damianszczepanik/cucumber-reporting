@@ -12,7 +12,7 @@ public class DocumentAssertion extends ReportAssertion {
     }
 
     public HeadAssertion getHead() {
-        return oneBySelector("head", HeadAssertion.class);
+        return firstBySelector("head", HeadAssertion.class);
     }
 
     public NavigationAssertion getNavigation() {

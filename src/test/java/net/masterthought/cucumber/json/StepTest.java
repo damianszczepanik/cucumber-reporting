@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
@@ -165,5 +166,22 @@ public class StepTest extends PageTest {
         assertThat(result.getStatus()).isEqualTo(Status.UNDEFINED);
         assertThat(result.getDuration()).isEqualTo(0L);
         assertThat(result.getErrorMessage()).isNull();
+    }
+
+    @Test
+    public void getLine_ReturnLineNumber() {
+        Step step = features.get(0).getElements()[0].getSteps()[0];
+        Assert.assertNotNull(step.getLine());
+    }
+
+    @Test
+    public void getId_ReturnCompositeId() {
+        int scenarioIndex = 0;
+        int stepIndex = 0;
+        int stepLine = 8;
+        String expectedId = String.format("%d-%d", scenarioIndex, stepLine);
+
+        Step step = features.get(0).getElements()[scenarioIndex].getSteps()[stepIndex];
+        Assert.assertTrue(expectedId.equals(step.getId()));
     }
 }

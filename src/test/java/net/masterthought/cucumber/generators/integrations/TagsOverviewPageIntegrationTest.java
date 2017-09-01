@@ -134,8 +134,9 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "10", "1", "2", "1", "2", "16", "1", "1", "2", "231ms",
-                "Failed Account may not have sufficient funds the card is valid Error message not found.");
+        firstRow.hasExactValues("@checkout", "10", "1", "2", "1", "2", "16", "1",
+                "1 Account may not have sufficient funds the card is valid Error message not found.", "2", "231ms",
+                "Failed");
         firstRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed",
                 "failed", "total", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "231054778", "");

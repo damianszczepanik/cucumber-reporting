@@ -14,17 +14,17 @@ import net.masterthought.cucumber.json.Embedding;
 public class EmbeddingAssertion extends ReportAssertion {
 
     public void hasImageContent(Embedding embedding) {
-        String src = getBox().oneBySelector("img", WebAssertion.class).attr("src");
+        String src = getBox().firstBySelector("img", WebAssertion.class).attr("src");
         assertThat(src).endsWith(embedding.getFileName());
     }
 
     public void hasSrcDocContent(String content) {
-        assertThat(getBox().oneBySelector("iframe", WebAssertion.class).attr("srcDoc"))
+        assertThat(getBox().firstBySelector("iframe", WebAssertion.class).attr("srcDoc"))
                 .isEqualTo(getDecodedData(content));
     }
 
     public void hasTextContent(String content) {
-        assertThat(getBox().oneBySelector("pre", WebAssertion.class).text())
+        assertThat(getBox().firstBySelector("pre", WebAssertion.class).text())
                 .isEqualTo(getDecodedData(content));
     }
 

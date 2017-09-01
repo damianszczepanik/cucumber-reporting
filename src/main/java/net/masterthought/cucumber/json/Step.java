@@ -8,6 +8,7 @@ import net.masterthought.cucumber.json.support.Resultsable;
 
 public class Step implements Resultsable {
 
+    private String id = null;
     // Start: attributes from JSON file report
     private String name = null;
     private final String keyword = null;
@@ -22,6 +23,7 @@ public class Step implements Resultsable {
     private final Output[] outputs = new Output[0];
     @JsonProperty("doc_string")
     private final DocString docString = null;
+    private final Integer line = null;
     // End: attributes from JSON file report
 
     public Row[] getRows() {
@@ -62,4 +64,12 @@ public class Step implements Resultsable {
     public DocString getDocString() {
         return docString;
     }
+
+    public Integer getLine() { return this.line ;}
+
+    public String getId() { return this.id; }
+
+    public void setId(String id) { this.id = id; }
+
+    String generateId(String parentElementIndex) { return parentElementIndex + "-" + this.line; }
 }

@@ -104,6 +104,7 @@ public final class Util {
                         String[] info = {
                                 scenario.getName(),
                                 step.getName(),
+                                step.getId(),
                                 errorMessage == null ? "Error message not found." : errorMessage
                         };
                         failedMap.put(String.valueOf(failedCount++), info);

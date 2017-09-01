@@ -9,6 +9,7 @@ import net.masterthought.cucumber.util.Util;
 
 public class Element implements Durationable {
 
+    private String index = null;
     // Start: attributes from JSON file report
     private final String name = null;
     private final String type = null;
@@ -96,6 +97,10 @@ public class Element implements Durationable {
         return Util.formatDuration(duration);
     }
 
+    public String getIndex() { return this.index; }
+
+    public void setIndex(Integer index) { this.index = index.toString(); }
+
     public void setMetaData(Feature feature) {
         this.feature = feature;
 
@@ -103,6 +108,7 @@ public class Element implements Durationable {
         afterStatus = calculateHookStatus(after);
         stepsStatus = calculateStepsStatus();
         elementStatus = calculateElementStatus();
+        for(Step step : steps) { step.setId(step.generateId(this.index)); }
     }
 
     private Status calculateHookStatus(Hook[] hooks) {

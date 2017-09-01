@@ -10,7 +10,7 @@ public class TableAssertion extends ReportAssertion {
     }
 
     public TableRowAssertion getHeaderRow() {
-        return oneBySelector("thead tr", TableRowAssertion.class);
+        return firstBySelector("thead tr", TableRowAssertion.class);
     }
 
     public TableRowAssertion[] getBodyRows() {
@@ -18,11 +18,11 @@ public class TableAssertion extends ReportAssertion {
     }
 
     public TableRowAssertion getBodyRow() {
-        return oneBySelector("tbody tr", TableRowAssertion.class);
+        return firstBySelector("tbody tr", TableRowAssertion.class);
     }
 
     public TableRowAssertion getFooterRow() {
-        return oneBySelector("tfoot tr", TableRowAssertion.class);
+        return firstBySelector("tfoot tr", TableRowAssertion.class);
     }
 
     public TableRowAssertion[] getAllFooterRows() {

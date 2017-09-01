@@ -4,6 +4,7 @@ import net.masterthought.cucumber.json.support.Resultsable;
 
 public class Hook implements Resultsable {
 
+    private String id = null;
     // Start: attributes from JSON file report
     private final Result result = null;
     private final Match match = null;
@@ -25,4 +26,6 @@ public class Hook implements Resultsable {
     public Embedding[] getEmbeddings() {
         return embeddings;
     }
+
+    public String getId() {return this.id;}
 }

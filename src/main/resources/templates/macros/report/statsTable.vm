@@ -26,22 +26,24 @@
                     <div class="dropup">
                         <button class="btn btn-danger dropdown-toggle" type="button" id="failed-cause-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="caret"></span>
                             $item.getFailedScenarios()
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"
                              aria-labelledby="failed-cause-dropdown"
-                             style="height: auto; max-height: 200px; overflow-x: hidden; background-color: #737373"
+                             style="height: auto; max-height: 200px; overflow-x: hidden; background-color: #D3D3D3"
                         >
                             #set ($failedCauseMap = $item.getFailedCause())
                             #foreach($key in $failedCauseMap.keySet())
                                 #set ($failedCauseData = $failedCauseMap.get($key))
                                 #set ($scenarioName = $failedCauseData[0])
                                 #set ($stepName = $failedCauseData[1])
-                                #set ($errorMessage = $failedCauseData[2])
+                                #set ($stepId = $failedCauseData[2])
+                                #set ($errorMessage = $failedCauseData[3])
                                 <div class="bs-callout bs-callout-danger" style="background-color: white">
                                     <h4>$scenarioName</h4>
-                                    <strong>$stepName</strong>
+                                    <strong>
+                                        <a class="step-name" href="$item.getReportFileName()#$stepId">$stepName</a>
+                                    </strong>
                                     <samp>$errorMessage</samp>
                                 </div>
                             #end

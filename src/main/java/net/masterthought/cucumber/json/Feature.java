@@ -161,7 +161,9 @@ public class Feature implements Reportable, Durationable {
     public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
         this.jsonFile = jsonFile;
 
-        for (Element element : elements) {
+        for(int i = 0; i < elements.length; i ++) {
+            Element element = elements[i];
+            element.setIndex(i);
             element.setMetaData(this);
 
             if (element.isScenario()) {

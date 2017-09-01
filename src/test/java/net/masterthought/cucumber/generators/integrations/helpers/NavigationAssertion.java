@@ -12,7 +12,7 @@ public class NavigationAssertion extends ReportAssertion {
     }
 
     public void hasPluginName() {
-        String pluginName = oneBySelector("p", WebAssertion.class).text();
+        String pluginName = firstBySelector("p", WebAssertion.class).text();
         assertThat(pluginName).isEqualTo("Cucumber Report");
     }
 

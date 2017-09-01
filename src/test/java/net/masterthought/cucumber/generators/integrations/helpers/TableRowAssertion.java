@@ -17,6 +17,8 @@ public class TableRowAssertion extends ReportAssertion {
         return allBySelector("td,th", WebAssertion.class);
     }
 
+    public DropupAssertion getDropup() { return oneByClass("dropup", DropupAssertion.class); }
+
     public String[] getCellsValues() {
         WebAssertion[] cells = getCells();
         String[] values = new String[cells.length];
