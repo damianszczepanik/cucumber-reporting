@@ -30,7 +30,7 @@
 
   <tfoot class="total">
     <tr>
-      <td>$items.size()</td>
+      <td></td>
       #if ($parallel)
         <td>-</td>
       #end
@@ -46,7 +46,7 @@
       <td>$report_summary.getScenarios()</td>
 
       <td class="duration">$report_summary.getFormattedDuration()</td>
-      <td></td>
+      <td>$items.size()</td>
     </tr>
     <tr>
       <td></td>
