@@ -349,11 +349,16 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         
         Output[] beforeOutputElements = feature.getElements()[0].getBefore()[0].getOutputs();
         OutputAssertion beforeOutput = document.getFeature().getElements()[0].getBefore().getHooks()[0].getOutput();
-        beforeOutput.hasMessages(getMessages(beforeOutputElements));
+        assertOutuput(beforeOutput, beforeOutputElements);
 
         Output[] afterOutputElements = feature.getElements()[0].getAfter()[0].getOutputs();
         OutputAssertion afterOutput = document.getFeature().getElements()[0].getAfter().getHooks()[0].getOutput();
-        afterOutput.hasMessages(getMessages(afterOutputElements));
+        assertOutuput(afterOutput, afterOutputElements);
+      
+    }
+    
+    private void assertOutuput(OutputAssertion outputAssertion, Output[] outputElements) {
+    	outputAssertion.hasMessages(getMessages(outputElements));
     }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {

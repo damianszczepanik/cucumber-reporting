@@ -1,0 +1,73 @@
+[
+    {
+        "id":"simpleId",
+        "name":"Simple feature",
+        "keyword":"Feature",
+        "elements":[
+            {
+                "keyword":"Scenario",
+                "name": "Simple Scenario",
+                "before": [
+		        	{
+		        		"output": [
+		        			"System version 43.6.6"
+		        		],
+		            	"match": {
+		              		"location": "simple.beforeHook()"
+		            	},
+		            	"result": {
+		              		"status": "passed",
+		              		"duration": 128149
+		            	}
+		        	}
+		        ],
+                "steps":[
+                    {
+                        "result":{
+                            "duration":123456789,
+                            "status":"passed"
+                        },
+                        "name":"Simple step name",
+                        "keyword":"Given ",
+                        "match":{
+                            "location":"simple.location()"
+                        },
+                        "output": [
+				        			"Execution command: simple"
+				        ],
+                        "after": [
+                        	{
+                        		"output": [
+				        			"bash: simple:  not found"
+				        		],
+				            	"match": {
+				              		"location": "simple.afterStepHook()"
+				            	},
+				            	"result": {
+				              		"status": "passed",
+				              		"duration": 128149
+				            	}
+                        	}
+                        ]
+                    }
+                ],
+                "after": [
+		        	{
+		        		"output": [
+		        			"Commands executed: simple"
+		        		],
+		            	"match": {
+		              		"location": "simple.afterHook()"
+		            	},
+		            	"result": {
+		              		"status": "passed",
+		              		"duration": 128149
+		            	}
+		        	}
+		        ],
+                "type":"scenario"
+            }
+        ],
+        "uri":"simple:uri"
+    }
+]
