@@ -216,6 +216,17 @@ public class OverviewReportTest {
         report.getStatus();
     }
 
+    @Test
+    public void getFailedCause_ThrowsException() {
+
+        // given
+        OverviewReport report = buildSampleReport();
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        report.getFailedCause();
+    }
+
     private static OverviewReport buildSampleReport() {
         OverviewReport report = new OverviewReport();
         report.incDurationBy(1234567L);

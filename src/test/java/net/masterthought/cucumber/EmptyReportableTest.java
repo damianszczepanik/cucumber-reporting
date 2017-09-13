@@ -34,5 +34,6 @@ public class EmptyReportableTest {
         assertThat(reportable.getDuration()).isZero();
         assertThat(reportable.getFormattedDuration()).isNull();
         assertThat(reportable.getStatus()).isNull();
+        assertThat(reportable.getFailedCause()).isNull();
     }
 }

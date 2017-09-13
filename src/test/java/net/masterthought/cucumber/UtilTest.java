@@ -79,6 +79,64 @@ public class UtilTest extends ReportGenerator {
     }
 
     @Test
+    public void getFailedCauseList_ReturnsEmptyList() throws Exception {
+        setUpWithJson(SAMPLE_JSON);
+        Element[] elements = this.features.get(0).getElements();
+        List<String[]> expectedFailedCauseList = new ArrayList<>();
+        List<String[]> failedCauseList = Util.getFailedCauseList(elements);
+        assertThat(failedCauseList).
+                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+    }
+
+    @Test
+    public void getFailedCauseList_ReturnsEmptyList_NotScenarioType() throws Exception {
+        setUpWithJson(SAMPLE_JSON);
+        Element element = this.features.get(0).getElements()[0];
+        Element[] elements = new Element[] {element};
+        List<String[]> expectedFailedCauseList = new ArrayList<>();
+        List<String[]> failedCauseList = Util.getFailedCauseList(elements);
+        assertThat(failedCauseList).
+                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+    }
+
+    @Test
+    public void getFailedCauseList_ReturnsEmptyList_ScenarioPassed() throws Exception {
+        setUpWithJson(SAMPLE_JSON);
+        Element element = this.features.get(0).getElements()[1];
+        Element[] elements = new Element[] {element};
+        List<String[]> expectedFailedCauseList = new ArrayList<>();
+        List<String[]> failedCauseList = Util.getFailedCauseList(elements);
+        assertThat(failedCauseList).
+                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+    }
+
+    @Test
+    public void getFailedCauseList_ReturnsFailedCauseList_WithNonDefaultErrorMessage() throws Exception {
+        setUpWithJson(SAMPLE_JSON);
+        Element[] elements = this.features.get(1).getElements();
+        Result result = elements[0].getBefore()[1].getResult();
+        TestUtils.setFieldViaReflection("errorMessage", "this hook failed", result);
+        result = elements[0].getSteps()[8].getResult();
+        TestUtils.setFieldViaReflection("errorMessage", "this step failed", result);
+        List<String[]> expectedFailedCauseList = new ArrayList<>();
+        expectedFailedCauseList.add(new String[] {
+                "Account may not have sufficient funds",
+                "MachineFactory.wait()",
+                "0-hook-1500995314",
+                "this hook failed"
+        });
+        expectedFailedCauseList.add(new String[] {
+                "Account may not have sufficient funds",
+                "the card is valid",
+                "0-step-15",
+                "this step failed"
+        });
+        List<String[]> failedCauseList = Util.getFailedCauseList(elements);
+        assertThat(failedCauseList).
+                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+    }
+
+    @Test
     public void joinResultables_ReturnsJoinedResultablesArray() throws Exception {
         setUpWithJson(SAMPLE_JSON);
         Element[] elements = this.features.get(1).getElements();
