@@ -160,10 +160,10 @@ public class Feature implements Reportable, Durationable {
      */
     public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
         this.jsonFile = jsonFile;
-
+        // using indexed for-loop versus enhanced for-loop to capture the index value of each element
         for(int i = 0; i < elements.length; i ++) {
             Element element = elements[i];
-            element.setIndex(i);
+            element.setIndex(i); // index to be used later when creating IDs for Resultable implementations
             element.setMetaData(this);
 
             if (element.isScenario()) {
@@ -231,8 +231,8 @@ public class Feature implements Reportable, Durationable {
     }
 
     @Override
-    public Map<String, String[]> getFailedCause() {
-        Map<String,String[]> failures = Util.getFailedCauseMap(this.elements);
+    public List<String[]> getFailedCause() {
+        List<String[]> failures = Util.getFailedCauseList(this.elements);
         return failures;
     }
 }

@@ -2,14 +2,10 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.masterthought.cucumber.generators.integrations.helpers.*;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -134,13 +130,20 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSize(3);
 
         TableRowAssertion firstRow = bodyRows[0];
-        firstRow.hasExactValues("@checkout", "10", "1", "2", "1", "2", "16", "1",
-                "1 Account may not have sufficient funds the card is valid Error message not found.", "2", "231ms",
-                "Failed");
+        firstRow.hasExactValues("@checkout", "10", "1", "2", "1", "2", "16", "1", "1", "2", "231ms", "Failed");
         firstRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed",
                 "failed", "total", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "231054778", "");
         firstRow.getReportLink().hasLabelAndAddress("@checkout", "report-tag_checkout.html");
+
+        CalloutAssertion[] secondRowCallouts = firstRow.getDropup().getCallouts();
+        assertThat(secondRowCallouts).hasSize(2);
+        secondRowCallouts[0].hasExactScenarioValue("Account may not have sufficient funds");
+        secondRowCallouts[0].getScenarioStepLink().hasLabelAndAddress("MachineFactory.wait()", "report-tag_checkout.html#0-hook-1500995314");
+        secondRowCallouts[0].hasExactErrorValue("Error message not found.");
+        secondRowCallouts[1].hasExactScenarioValue("Account may not have sufficient funds");
+        secondRowCallouts[1].getScenarioStepLink().hasLabelAndAddress("the card is valid", "report-tag_checkout.html#0-step-15");
+        secondRowCallouts[1].hasExactErrorValue("Error message not found.");
 
         TableRowAssertion secondRow = bodyRows[1];
         secondRow.hasExactValues("@fast", "6", "0", "0", "0", "0", "6", "1", "0", "1", "139ms", "Passed");

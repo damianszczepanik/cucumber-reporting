@@ -2,13 +2,11 @@ package net.masterthought.cucumber.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
+import net.masterthought.cucumber.json.support.Resultsable;
 import org.apache.commons.lang3.StringEscapeUtils;
 import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
@@ -88,30 +86,55 @@ public final class Util {
     }
 
     /**
-     *
-     * @param elements the array of elements containing the scenario and step data
+     * Searches the given Element array for scenarios that failed and returns a Map containing
+     * "error" arrays holding information--scenario name, step/hook name/match.location,
+     * (HTML element) ID, and error message--about the failures.
+     * @param elements the array of elements containing the scenario and the Resultable
+     *                 implementation (step, hook) data
      * @return a Map object containing the failure information
      */
-    public static Map<String, String[]> getFailedCauseMap(Element[] elements) {
-        Map<String, String[]> failedMap = new HashMap<>();
-        int failedCount = 0;
+    public static List<String[]> getFailedCauseList(Element[] elements) {
+        List<String[]> failedList = new ArrayList<>();
         for(Element element : elements) {
             if(element.isScenario() && (!element.getStatus().isPassed())) {
-                Element scenario = element;
-                for(Step step : scenario.getSteps()) {
-                    if(step.getResult().getStatus().equals(Status.FAILED)) {
-                        String errorMessage = step.getResult().getErrorMessage();
+                Resultsable[] resultsables =
+                        joinResultables(element.getBefore(), element.getSteps(), element.getAfter());
+                for(Resultsable resultsable : resultsables) {
+                    if(resultsable.getResult().getStatus().equals(Status.FAILED)) {
+                        String errorMessage = resultsable.getResult().getErrorMessage();
                         String[] info = {
-                                scenario.getName(),
-                                step.getName(),
-                                step.getId(),
+                                element.getName(),
+                                resultsable.getResultableName(),
+                                resultsable.getId(),
                                 errorMessage == null ? "Error message not found." : errorMessage
                         };
-                        failedMap.put(String.valueOf(failedCount++), info);
+                        failedList.add(info);
                     }
                 }
             }
         }
-        return failedMap;
+        return failedList;
+    }
+
+    /**
+     * Combines all elements contained within a Resultable array from the given
+     * Resultable arrays into one singular array.
+     * @param resultsables the Resultable arrays to join
+     * @return a single Resultable array containing all elements of the given
+     * Resultable arrays
+     */
+    public static Resultsable[] joinResultables(Resultsable[]... resultsables) {
+        Resultsable[] resultsablesArr;
+        int resultablesArrLength = 0;
+        for(Resultsable[] r : resultsables) {
+            resultablesArrLength += r.length;
+        }
+        resultsablesArr = new Resultsable[resultablesArrLength];
+        int currentIndex = 0;
+        for(Resultsable[] r : resultsables) {
+            System.arraycopy(r, 0, resultsablesArr, currentIndex, r.length);
+            currentIndex += r.length;
+        }
+        return resultsablesArr;
     }
 }

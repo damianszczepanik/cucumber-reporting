@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
-
 /**
  * @author Sean Bucholtz (sean.bucholtz@gmail.com)
  */

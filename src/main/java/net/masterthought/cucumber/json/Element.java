@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import net.masterthought.cucumber.json.support.Resultsable;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.json.support.Durationable;
@@ -97,8 +98,18 @@ public class Element implements Durationable {
         return Util.formatDuration(duration);
     }
 
+    /**
+     * Retrieves the index value for which this current instance maps to
+     * in the Elements array contained within the 'feature' class-member.
+     * @return the index value
+     */
     public String getIndex() { return this.index; }
 
+    /**
+     * Sets the index value for which this current instance maps to
+     * in the Elements array contained within the 'feature' class-member.
+     * @param index the index value
+     */
     public void setIndex(Integer index) { this.index = index.toString(); }
 
     public void setMetaData(Feature feature) {
@@ -108,7 +119,8 @@ public class Element implements Durationable {
         afterStatus = calculateHookStatus(after);
         stepsStatus = calculateStepsStatus();
         elementStatus = calculateElementStatus();
-        for(Step step : steps) { step.setId(step.generateId(this.index)); }
+        Resultsable[] resultsables = Util.joinResultables(before, steps, after);
+        for(Resultsable resultsable : resultsables) { resultsable.setId(resultsable.generateId(this)); }
     }
 
     private Status calculateHookStatus(Hook[] hooks) {

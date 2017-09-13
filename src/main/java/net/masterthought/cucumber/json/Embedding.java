@@ -2,6 +2,8 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.codehaus.plexus.util.Base64;
 
 import java.nio.charset.StandardCharsets;
@@ -72,5 +74,20 @@ public class Embedding {
         default:
             return "unknown";
         }
+    }
+
+    @Override
+    public int hashCode() { return new HashCodeBuilder().append(mimeType).append(data).append(fileId).toHashCode(); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Embedding)) { return false; }
+        if(obj == this) { return true; }
+        Embedding embedding = (Embedding) obj;
+        return new EqualsBuilder().
+                append(this.mimeType, embedding.mimeType).
+                append(this.data, embedding.data).
+                append(this.fileId, embedding.fileId).
+                isEquals();
     }
 }

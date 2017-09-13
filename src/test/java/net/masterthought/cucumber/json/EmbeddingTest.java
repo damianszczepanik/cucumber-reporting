@@ -3,6 +3,7 @@ package net.masterthought.cucumber.json;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -117,6 +118,110 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnImagePngMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("image/png", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("png");
+    }
+
+    @Test
+    public void getExtension__OnImageGifMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("image/gif", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("gif");
+    }
+
+    @Test
+    public void getExtension__OnImageBmpMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("image/bmp", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("bmp");
+    }
+
+    @Test
+    public void getExtension__OnImageJpegMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("image/jpeg", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("jpeg");
+    }
+
+    @Test
+    public void getExtension__OnTextHtmlMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("text/html", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("html");
+    }
+
+    @Test
+    public void getExtension__OnTextXmlMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("text/xml", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xml");
+    }
+
+    @Test
+    public void getExtension__OnApplicationJsonMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("application/json", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("json");
+    }
+
+    @Test
+    public void getExtension__OnApplicationXmlMimeType_ReturnsPng() {
+
+        // given
+        Embedding embedding = new Embedding("application/xml", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xml");
+    }
+
+    @Test
     public void getExtension__OnUnknownType_ResurnsUnknown() {
 
         // given
@@ -127,5 +232,38 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("unknown");
+    }
+
+    @Test
+    public void hashCode_ReturnHashCode() {
+        Embedding embedding = new Embedding("js", "");
+        assertEquals(-630454186, embedding.hashCode());
+    }
+
+    @Test
+    public void equals_ReturnTrueSameInstance() throws Exception {
+        Embedding embedding1 = new Embedding("js", "");
+        Embedding embedding2 = embedding1;
+        assertTrue(embedding1.equals(embedding2));
+    }
+
+    @Test
+    public void equals_ReturnFalseNotSameValue() throws Exception {
+        Embedding embedding1 = new Embedding("js", "");
+        Embedding embedding2 = new Embedding("js", "var pupper = \"good boy\";");
+        assertFalse(embedding1.equals(embedding2));
+    }
+
+    @Test
+    public void equals_ReturnTrueSameValue() throws Exception {
+        Embedding embedding1 = new Embedding("js", "");
+        Embedding embedding2 = new Embedding("js", "");
+        assertTrue(embedding1.equals(embedding2));
+    }
+
+    @Test
+    public void equals_ReturnFalseNotAnInstanceOf() throws Exception {
+        Embedding embedding = new Embedding("js", "");
+        assertFalse(embedding.equals(new Step()));
     }
 }

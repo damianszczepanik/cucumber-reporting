@@ -140,15 +140,19 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_net-masterthought-example-s--ATM--u6771-u4EAC-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("Second feature", "5", "1", "2", "1", "3", "12", "1", "2 Account may not have sufficient funds the card is valid Error message not found.", "3", "092ms", "Failed");
+        secondRow.hasExactValues("Second feature", "5", "1", "2", "1", "3", "12", "1", "2", "3", "092ms", "Failed");
         secondRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "92610000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "report-feature_net-masterthought-example-ATMK-feature.html");
 
-        CalloutAssertion secondRowCallout = secondRow.getDropup().getCallouts()[0];
-        secondRowCallout.hasExactScenarioValue("Account may not have sufficient funds");
-        secondRowCallout.getScenarioStepLink().hasLabelAndAddress("the card is valid", "report-feature_net-masterthought-example-ATMK-feature.html#0-15");
-        secondRowCallout.hasExactErrorValue("Error message not found.");
+        CalloutAssertion[] secondRowCallouts = secondRow.getDropup().getCallouts();
+        assertThat(secondRowCallouts).hasSize(2);
+        secondRowCallouts[0].hasExactScenarioValue("Account may not have sufficient funds");
+        secondRowCallouts[0].getScenarioStepLink().hasLabelAndAddress("MachineFactory.wait()", "report-feature_net-masterthought-example-ATMK-feature.html#0-hook-1500995314");
+        secondRowCallouts[0].hasExactErrorValue("Error message not found.");
+        secondRowCallouts[1].hasExactScenarioValue("Account may not have sufficient funds");
+        secondRowCallouts[1].getScenarioStepLink().hasLabelAndAddress("the card is valid", "report-feature_net-masterthought-example-ATMK-feature.html#0-step-15");
+        secondRowCallouts[1].hasExactErrorValue("Error message not found.");
     }
 
     @Test

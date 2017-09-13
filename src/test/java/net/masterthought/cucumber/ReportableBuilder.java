@@ -4,7 +4,7 @@ package net.masterthought.cucumber;
 import net.masterthought.cucumber.json.support.Status;
 import org.apache.commons.lang.NotImplementedException;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -145,5 +145,5 @@ public class ReportableBuilder implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedCause() {throw new NotImplementedException("Not implemented!");}
+    public List<String[]> getFailedCause() {throw new NotImplementedException("Not implemented!");}
 }

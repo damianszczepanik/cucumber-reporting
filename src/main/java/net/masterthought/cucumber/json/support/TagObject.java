@@ -152,10 +152,8 @@ public class TagObject implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedCause() {
-        Map<String,String[]> failures =
-                Util.getFailedCauseMap(this.elements.toArray(new Element[this.elements.size()]));
-        return failures;
+    public List<String[]> getFailedCause() {
+        return Util.getFailedCauseList(this.elements.toArray(new Element[this.elements.size()]));
     }
 
     public String getRawStatus() {

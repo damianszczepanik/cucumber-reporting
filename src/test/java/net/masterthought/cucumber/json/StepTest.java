@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
+
+import static org.junit.Assert.*;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
@@ -171,17 +172,90 @@ public class StepTest extends PageTest {
     @Test
     public void getLine_ReturnLineNumber() {
         Step step = features.get(0).getElements()[0].getSteps()[0];
-        Assert.assertNotNull(step.getLine());
+        assertNotNull(step.getLine());
     }
 
     @Test
     public void getId_ReturnCompositeId() {
-        int scenarioIndex = 0;
-        int stepIndex = 0;
-        int stepLine = 8;
-        String expectedId = String.format("%d-%d", scenarioIndex, stepLine);
+        Step step = features.get(0).getElements()[0].getSteps()[0];
+        assertEquals("0-step-8", step.getId());
+    }
 
-        Step step = features.get(0).getElements()[scenarioIndex].getSteps()[stepIndex];
-        Assert.assertTrue(expectedId.equals(step.getId()));
+    @Test
+    public void setId_NewCompositeId() {
+        Step step = features.get(0).getElements()[0].getSteps()[0];
+        String newId = "puppies";
+        step.setId(newId);
+        assertEquals(newId, step.getId());
+    }
+
+    @Test
+    public void generateId_ReturnGeneratedId() {
+        Element parentElement = features.get(0).getElements()[0];
+        Step step = parentElement.getSteps()[0];
+        assertEquals("0-step-8", step.generateId(parentElement));
+    }
+
+    @Test
+    public void getResultableName_ReturnResultableName() {
+        Step step = features.get(0).getElements()[0].getSteps()[0];
+        assertEquals("I have a new credit card", step.getResultableName());
+    }
+
+    @Test
+    public void hashCode_ReturnHashCode() throws Exception {
+        Step step = this.features.get(1).getElements()[0].getSteps()[0];
+        assertEquals(1085087885, step.hashCode());
+    }
+
+    @Test
+    public void equals_ReturnTrueSameInstance() throws Exception {
+        Step step1 = this.features.get(1).getElements()[0].getSteps()[0];
+        Step step2 = this.features.get(1).getElements()[0].getSteps()[0];
+        assertTrue(step1.equals(step2));
+    }
+
+    @Test
+    public void equals_ReturnTrueSameValue() throws Exception {
+        Step step1 = this.features.get(1).getElements()[0].getSteps()[0];
+
+        Step step2 = new Step();
+        step2.setId("0-step-7");
+        TestUtils.setFieldViaReflection("name", "the account balance is 100", step2);
+        TestUtils.setFieldViaReflection("keyword","Given ", step2);
+        Result result = new Result();
+        TestUtils.setFieldViaReflection("status", Status.UNDEFINED, result);
+        TestUtils.setFieldViaReflection("duration", 0l, result);
+        TestUtils.setFieldViaReflection("result", result, step2);
+        Match match = new Match();
+        TestUtils.setFieldViaReflection("match", match, step2);
+        TestUtils.setFieldViaReflection("line", 7 , step2);
+
+        assertTrue(step1.equals(step2));
+    }
+
+    @Test
+    public void equals_ReturnFalseNotSameValue() throws Exception {
+        Step step1 = this.features.get(1).getElements()[0].getSteps()[0];
+
+        Step step2 = new Step();
+        step2.setId("0-step-9999");
+        TestUtils.setFieldViaReflection("name", "the account balance is 1,000,000", step2);
+        TestUtils.setFieldViaReflection("keyword","And ", step2);
+        Result result = new Result();
+        TestUtils.setFieldViaReflection("status", Status.PENDING, result);
+        TestUtils.setFieldViaReflection("duration", 9999l, result);
+        TestUtils.setFieldViaReflection("result", result, step2);
+        Match match = new Match();
+        TestUtils.setFieldViaReflection("match", match, step2);
+        TestUtils.setFieldViaReflection("line", 7 , step2);
+
+        assertFalse(step1.equals(step2));
+    }
+
+    @Test
+    public void equals_ReturnFalseNotAnInstanceOf() throws Exception {
+        Step step = this.features.get(1).getElements()[0].getSteps()[0];
+        assertFalse(step.equals(new Hook()));
     }
 }

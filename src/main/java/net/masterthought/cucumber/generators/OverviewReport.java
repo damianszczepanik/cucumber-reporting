@@ -7,7 +7,7 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-import java.util.Map;
+import java.util.List;
 
 public class OverviewReport implements Reportable {
 
@@ -119,7 +119,7 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public Map<String, String[]> getFailedCause(){
+    public List<String[]> getFailedCause(){
         throw new NotImplementedException("Not implemented!");
     }
 }

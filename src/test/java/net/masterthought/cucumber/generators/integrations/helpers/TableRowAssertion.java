@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -50,8 +52,40 @@ public class TableRowAssertion extends ReportAssertion {
         assertThat(array.length).isEqualTo(values.length);
 
         for (int i = 0; i < values.length; i++) {
-            assertThat(array[i].text()).describedAs("Invalid value at index %d", i).isEqualTo(values[i]);
+            WebAssertion cell = array[i];
+            assertThat((containsDropup(cell)) ? textWithoutDropup(cell) : cell.text()).
+                    describedAs("Invalid value at index %d", i).isEqualTo(values[i]);
         }
+    }
+
+    /**
+     * Checks if the row cell contains a dropup element.
+     * @param cell the row cell
+     * @return true if the cell contains a dropup element; otherwise, false
+     */
+    private boolean containsDropup(WebAssertion cell) {
+        try {
+            cell.allByClass("dropup", DropupAssertion.class);
+            return true;
+        }
+        catch (Throwable t) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the text within the given cell minus any text contained within
+     * elements specific to the dropup menu.
+     * @param cell the row cell
+     * @return the text contents of the cell minus the text contained within the dropup
+     */
+    private String textWithoutDropup(WebAssertion cell) {
+        String cellText = cell.text();
+        DropupAssertion[] dropupAssertions = cell.allByClass("dropdown-menu", DropupAssertion.class);
+        StringBuilder dropupText = new StringBuilder();
+        for(DropupAssertion dropupAssertion : dropupAssertions) { dropupText.append(dropupAssertion.text()); }
+        String diff = StringUtils.difference(cellText, dropupText.toString());
+        return StringUtils.removeEnd(cellText, diff).trim();
     }
 
     /**

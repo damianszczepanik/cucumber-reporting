@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class Result implements Durationable {
 
@@ -38,5 +40,22 @@ public class Result implements Durationable {
 
     public final String getErrorMessageTitle() {
         return errorMessage.split("[\\r\\n]+")[0];
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(status.toString()).append(errorMessage).append(duration).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Result)) { return false; }
+        if(obj == this) { return true; }
+        Result result = (Result) obj;
+        return new EqualsBuilder().
+                append(this.status.toString(), result.status.toString()).
+                append(this.errorMessage, result.errorMessage).
+                append(this.duration, result.duration).
+                isEquals();
     }
 }

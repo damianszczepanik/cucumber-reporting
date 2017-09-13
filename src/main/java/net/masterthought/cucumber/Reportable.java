@@ -2,7 +2,7 @@ package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.support.Status;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Defines methods required to generate single report. Implementations of this interface are used by Velocity template.
@@ -63,5 +63,5 @@ public interface Reportable {
     Status getStatus();
 
     /** Returns Map containing scenario names with the corresponding failed step and error messages for this element. */
-    Map<String, String[]> getFailedCause();
+    List<String[]> getFailedCause();
 }

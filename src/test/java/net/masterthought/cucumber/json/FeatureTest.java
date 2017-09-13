@@ -10,7 +10,9 @@ import org.junit.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -315,44 +317,37 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getFailedCause_ReturnsFailuresMap() {
-
+    public void getFailedCause_ReturnsFailuresList() {
+        List<String[]> expectedFailedScenariosList = new ArrayList<>(2);
         String expectedFailedScenarioName = "Account may not have sufficient funds";
-        String expectedFailedStepName = "the card is valid";
-        String stepId = "0-15";
         String expectedFailedStepResultErrorMessage = "Error message not found.";
-        String[] expectedFailureData = {
+        expectedFailedScenariosList.add(new String[]{
                 expectedFailedScenarioName,
-                expectedFailedStepName,
-                stepId,
+                "MachineFactory.wait()",
+                "0-hook-1500995314",
                 expectedFailedStepResultErrorMessage
-        };
-        Map<String, String[]> expectedFailedScenariosMap = new HashMap<>(1);
-        expectedFailedScenariosMap.put("0", expectedFailureData);
+        });
+        expectedFailedScenariosList.add(new String[]{
+                expectedFailedScenarioName,
+                "the card is valid",
+                "0-step-15",
+                expectedFailedStepResultErrorMessage
+        });
 
         // given
         Feature failedFeature = features.get(1);
-        Map<String, String[]> returnedFailedScenariosMap = failedFeature.getFailedCause();
+        List<String[]> returnedFailedScenariosList = failedFeature.getFailedCause();
 
         // first validate that both expected and returned maps are the same size
-        Assert.assertEquals(returnedFailedScenariosMap.size(), expectedFailedScenariosMap.size());
+        Assert.assertEquals(returnedFailedScenariosList.size(), expectedFailedScenariosList.size());
 
-        String[] expectedFailedScenariosMapKeys = new String[expectedFailedScenariosMap.size()];
-        expectedFailedScenariosMap.keySet().toArray(expectedFailedScenariosMapKeys);
+        String[][] expectedFailedScenariosListArr = new String[expectedFailedScenariosList.size()][2];
+        expectedFailedScenariosList.toArray(expectedFailedScenariosListArr);
 
-        String[] returnedFailedScenariosMapKeys = new String[returnedFailedScenariosMap.size()];
-        returnedFailedScenariosMap.keySet().toArray(returnedFailedScenariosMapKeys);
-
-        // then validate that the expected and returned map keys are equal
-        Assert.assertArrayEquals(returnedFailedScenariosMapKeys, expectedFailedScenariosMapKeys);
-
-        String[][] expectedFailedScenariosMapValues = new String[expectedFailedScenariosMap.values().size()][2];
-        expectedFailedScenariosMap.values().toArray(expectedFailedScenariosMapValues);
-
-        String[][] returnedFailedScenariosMapValues = new String[returnedFailedScenariosMap.values().size()][2];
-        returnedFailedScenariosMap.values().toArray(returnedFailedScenariosMapValues);
+        String[][] returnedFailedScenariosListArr = new String[returnedFailedScenariosList.size()][2];
+        returnedFailedScenariosList.toArray(returnedFailedScenariosListArr);
 
         // finally validate that the expected and returned map values are equal
-        Assert.assertArrayEquals(returnedFailedScenariosMapValues, expectedFailedScenariosMapValues);
+        Assert.assertArrayEquals(expectedFailedScenariosListArr, returnedFailedScenariosListArr);
     }
 }

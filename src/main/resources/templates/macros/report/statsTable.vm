@@ -30,11 +30,12 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"
                              aria-labelledby="failed-cause-dropdown"
-                             style="height: auto; max-height: 200px; overflow-x: hidden; background-color: #D3D3D3"
+                             style="max-height: 25vh; overflow-x: hidden;
+                             min-width: 20vw; max-width: 40vw;
+                             background-color: #D3D3D3"
                         >
-                            #set ($failedCauseMap = $item.getFailedCause())
-                            #foreach($key in $failedCauseMap.keySet())
-                                #set ($failedCauseData = $failedCauseMap.get($key))
+                            #set ($failedCauseList = $item.getFailedCause())
+                            #foreach($failedCauseData in $failedCauseList)
                                 #set ($scenarioName = $failedCauseData[0])
                                 #set ($stepName = $failedCauseData[1])
                                 #set ($stepId = $failedCauseData[2])
@@ -44,6 +45,7 @@
                                     <strong>
                                         <a class="step-name" href="$item.getReportFileName()#$stepId">$stepName</a>
                                     </strong>
+                                    <br>
                                     <samp>$errorMessage</samp>
                                 </div>
                             #end

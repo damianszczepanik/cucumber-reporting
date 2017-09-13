@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Resultsable;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class Step implements Resultsable {
 
@@ -65,11 +67,51 @@ public class Step implements Resultsable {
         return docString;
     }
 
-    public Integer getLine() { return this.line ;}
+    public Integer getLine() { return line ;}
 
-    public String getId() { return this.id; }
+    @Override
+    public String getId() { return id; }
 
+    @Override
     public void setId(String id) { this.id = id; }
 
-    String generateId(String parentElementIndex) { return parentElementIndex + "-" + this.line; }
+    @Override
+    public String generateId(Element parentElement) { return parentElement.getIndex() + "-step-" + getLine(); }
+
+    @Override
+    public String getResultableName() { return getName(); }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().
+                append(id).
+                append(name).
+                append(keyword).
+                append(result).
+                append(rows).append(match).
+                append(embeddings).
+                append(outputs).
+                append(docString).
+                append(line).
+                toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Step)) { return false; }
+        if(obj == this) { return true; }
+        Step step = (Step) obj;
+        return new EqualsBuilder().
+                append(this.id, step.id).
+                append(this.rows, step.rows).
+                append(this.name, step.name).
+                append(this.keyword, step.keyword).
+                append(this.outputs, step.outputs).
+                append(this.match, step.match).
+                append(this.embeddings, step.embeddings).
+                append(this.result, step.result).
+                append(this.docString, step.docString).
+                append(this.line, step.line).
+                isEquals();
+    }
 }
