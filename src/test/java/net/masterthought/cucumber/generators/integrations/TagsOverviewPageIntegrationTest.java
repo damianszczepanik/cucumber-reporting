@@ -173,7 +173,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         TableRowAssertion[] footerRows = document.getReport().getTableStats().getAllFooterRows();
 
         assertThat(footerRows).hasSize(2);
-        footerRows[0].hasExactValues("3", "22", "1", "2", "1", "2", "28", "3", "1", "4", "509ms", "");
+        footerRows[0].hasExactValues("", "22", "1", "2", "1", "2", "28", "3", "1", "4", "509ms", "3");
         footerRows[1].hasExactValues("", "78.57%", "3.57%", "7.14%", "3.57%", "7.14%", "", "75.00%", "25.00%", "", "", "50.00%");
     }
 

@@ -81,7 +81,7 @@ public class Element implements Durationable {
     }
 
     public boolean isScenario() {
-        return SCENARIO_TYPE.equals(type);
+        return SCENARIO_TYPE.equalsIgnoreCase(type);
     }
 
     public Feature getFeature() {
