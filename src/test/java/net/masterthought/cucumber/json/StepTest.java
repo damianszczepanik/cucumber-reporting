@@ -61,6 +61,19 @@ public class StepTest extends PageTest {
     }
 
     @Test
+    public void getKeyword_ReturnsNull() {
+
+        // given
+        Step step = new Step();
+
+        // when
+        String keyword = step.getKeyword();
+
+        // then
+        assertThat(keyword).isEqualTo(null);
+    }
+
+    @Test
     public void getOutput_ReturnsOutput() {
 
         // given
@@ -225,7 +238,7 @@ public class StepTest extends PageTest {
         TestUtils.setFieldViaReflection("keyword","Given ", step2);
         Result result = new Result();
         TestUtils.setFieldViaReflection("status", Status.UNDEFINED, result);
-        TestUtils.setFieldViaReflection("duration", 0l, result);
+        TestUtils.setFieldViaReflection("duration", 0L, result);
         TestUtils.setFieldViaReflection("result", result, step2);
         Match match = new Match();
         TestUtils.setFieldViaReflection("match", match, step2);
@@ -244,7 +257,7 @@ public class StepTest extends PageTest {
         TestUtils.setFieldViaReflection("keyword","And ", step2);
         Result result = new Result();
         TestUtils.setFieldViaReflection("status", Status.PENDING, result);
-        TestUtils.setFieldViaReflection("duration", 9999l, result);
+        TestUtils.setFieldViaReflection("duration", 9999L, result);
         TestUtils.setFieldViaReflection("result", result, step2);
         Match match = new Match();
         TestUtils.setFieldViaReflection("match", match, step2);

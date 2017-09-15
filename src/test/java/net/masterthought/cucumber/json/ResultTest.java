@@ -94,6 +94,19 @@ public class ResultTest extends PageTest {
     }
 
     @Test
+    public void getErrorMessageTitle_ReturnsNull() {
+
+        // given
+        Result result = features.get(0).getElements()[0].getSteps()[0].getResult();
+
+        // when
+        String errorMessageTitle = result.getErrorMessageTitle();
+
+        // then
+        assertThat(errorMessageTitle).isEqualTo(null);
+    }
+
+    @Test
     public void hashCode_ReturnHashCode() throws Exception {
         Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
         assertEquals(-73678307, result.hashCode());
@@ -101,9 +114,8 @@ public class ResultTest extends PageTest {
 
     @Test
     public void equals_ReturnTrueSameInstance() throws Exception {
-        Result result1 = features.get(0).getElements()[0].getSteps()[1].getResult();
-        Result result2 = result1;
-        assertTrue(result1.equals(result2));
+        Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
+        assertTrue(result.equals(result));
     }
 
     @Test
@@ -111,7 +123,7 @@ public class ResultTest extends PageTest {
         Result result1 = features.get(0).getElements()[0].getSteps()[1].getResult();
         Result result2 = new Result();
         TestUtils.setFieldViaReflection("status", Status.PASSED, result2);
-        TestUtils.setFieldViaReflection("duration", 9520000l, result2);
+        TestUtils.setFieldViaReflection("duration", 9520000L, result2);
         assertTrue(result1.equals(result2));
     }
 
@@ -120,7 +132,7 @@ public class ResultTest extends PageTest {
         Result result1 = features.get(0).getElements()[0].getSteps()[1].getResult();
         Result result2 = new Result();
         TestUtils.setFieldViaReflection("status", Status.FAILED, result2);
-        TestUtils.setFieldViaReflection("duration", 9520666l, result2);
+        TestUtils.setFieldViaReflection("duration", 9520666L, result2);
         assertFalse(result1.equals(result2));
     }
 

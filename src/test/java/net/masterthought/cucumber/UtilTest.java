@@ -38,8 +38,8 @@ public class UtilTest extends ReportGenerator {
         final int[] values = {1, 2, 0};
 
         // then
-        for (int i = 0; i < values.length; i++) {
-            assertThat(Util.formatAsPercentage(values[i], 0)).isEqualTo("0.00%");
+        for(int value : values) {
+            assertThat(Util.formatAsPercentage(value, 0)).isEqualTo("0.00%");
         }
     }
 
@@ -82,10 +82,8 @@ public class UtilTest extends ReportGenerator {
     public void getFailedCauseList_ReturnsEmptyList() throws Exception {
         setUpWithJson(SAMPLE_JSON);
         Element[] elements = this.features.get(0).getElements();
-        List<String[]> expectedFailedCauseList = new ArrayList<>();
         List<String[]> failedCauseList = Util.getFailedCauseList(elements);
-        assertThat(failedCauseList).
-                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+        assertThat(failedCauseList).containsExactly();
     }
 
     @Test
@@ -93,10 +91,8 @@ public class UtilTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
         Element element = this.features.get(0).getElements()[0];
         Element[] elements = new Element[] {element};
-        List<String[]> expectedFailedCauseList = new ArrayList<>();
         List<String[]> failedCauseList = Util.getFailedCauseList(elements);
-        assertThat(failedCauseList).
-                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+        assertThat(failedCauseList).containsExactly();
     }
 
     @Test
@@ -104,10 +100,8 @@ public class UtilTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
         Element element = this.features.get(0).getElements()[1];
         Element[] elements = new Element[] {element};
-        List<String[]> expectedFailedCauseList = new ArrayList<>();
         List<String[]> failedCauseList = Util.getFailedCauseList(elements);
-        assertThat(failedCauseList).
-                containsExactly(expectedFailedCauseList.toArray(new String[expectedFailedCauseList.size()][4]));
+        assertThat(failedCauseList).containsExactly();
     }
 
     @Test
@@ -145,7 +139,7 @@ public class UtilTest extends ReportGenerator {
         TestUtils.setFieldViaReflection("id", "0-hook-1528844036", hook);
         Result result = new Result();
         TestUtils.setFieldViaReflection("status", Status.PASSED, result);
-        TestUtils.setFieldViaReflection("duration", 10744700l, result);
+        TestUtils.setFieldViaReflection("duration", 10744700L, result);
         TestUtils.setFieldViaReflection("result", result, hook);
         Match match = new Match();
         TestUtils.setFieldViaReflection("location", "MachineFactory.findCachMachine()", match);
@@ -157,7 +151,7 @@ public class UtilTest extends ReportGenerator {
         TestUtils.setFieldViaReflection("id", "0-hook-1500995314", hook);
         result = new Result();
         TestUtils.setFieldViaReflection("status", Status.FAILED, result);
-        TestUtils.setFieldViaReflection("duration", 1000001l, result);
+        TestUtils.setFieldViaReflection("duration", 1000001L, result);
         TestUtils.setFieldViaReflection("result", result, hook);
         match = new Match();
         TestUtils.setFieldViaReflection("location", "MachineFactory.wait()", match);
@@ -345,7 +339,7 @@ public class UtilTest extends ReportGenerator {
         result = new Result();
         TestUtils.setFieldViaReflection("status", Status.UNDEFINED, result);
         TestUtils.setFieldViaReflection("errorMessage", "Undefined step", result);
-        TestUtils.setFieldViaReflection("duration", 64700000l, result);
+        TestUtils.setFieldViaReflection("duration", 64700000L, result);
         TestUtils.setFieldViaReflection("result", result, hook);
         match = new Match();
         TestUtils.setFieldViaReflection("location", "any.error()", match);

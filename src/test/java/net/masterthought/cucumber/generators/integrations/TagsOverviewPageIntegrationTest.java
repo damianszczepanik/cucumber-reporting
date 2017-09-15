@@ -18,8 +18,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         page = new TagsOverviewPage(reportResult, configuration);
-        final String titleValue = String.format("Cucumber Reports  - Tags Overview",
-                configuration.getBuildNumber());
+        final String titleValue = "Cucumber Reports  - Tags Overview";
 
         // when
         page.generatePage();

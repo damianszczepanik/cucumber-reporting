@@ -101,7 +101,7 @@ public class HookTest extends PageTest {
         // hook2.result initialization
         Result result = new Result();
         TestUtils.setFieldViaReflection("status", Status.PASSED, result);
-        TestUtils.setFieldViaReflection("duration", 10744700l, result);
+        TestUtils.setFieldViaReflection("duration", 10744700L, result);
         TestUtils.setFieldViaReflection("result", result, hook2);
         // hook2.match initialization
         Match match = new Match();
@@ -120,7 +120,7 @@ public class HookTest extends PageTest {
         // hook2.result initialization
         Result result = new Result();
         TestUtils.setFieldViaReflection("status", Status.FAILED, result);
-        TestUtils.setFieldViaReflection("duration", 10244700l, result);
+        TestUtils.setFieldViaReflection("duration", 10244700L, result);
         TestUtils.setFieldViaReflection("result", result, hook2);
         // hook2.match initialization
         Match match = new Match();
@@ -133,6 +133,7 @@ public class HookTest extends PageTest {
     @Test
     public void equals_ReturnFalseNotAnInstanceOf() throws Exception {
         Hook hook = this.features.get(1).getElements()[0].getBefore()[0];
+        //noinspection EqualsBetweenInconvertibleTypes
         assertFalse(hook.equals(new Step()));
     }
 

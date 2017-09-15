@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.*;
 
-import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Assert;
 import org.junit.Before;

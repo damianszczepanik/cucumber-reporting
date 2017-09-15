@@ -29,9 +29,8 @@ public class MatchTest extends PageTest{
 
     @Test
     public void equals_ReturnTrueSameInstance() throws Exception {
-        Match match1 = this.features.get(1).getElements()[0].getBefore()[0].getMatch();
-        Match match2 = match1;
-        assertTrue(match1.equals(match2));
+        Match match = this.features.get(1).getElements()[0].getBefore()[0].getMatch();
+        assertTrue(match.equals(match));
     }
 
     @Test

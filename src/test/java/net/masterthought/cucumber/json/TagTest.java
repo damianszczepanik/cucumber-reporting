@@ -82,7 +82,7 @@ public class TagTest extends PageTest {
         int hashCode = tag.hashCode();
 
         // then
-        assertThat(hashCode).isEqualTo(tagName.hashCode());
+        assertThat(hashCode).isEqualTo(-899072236);
     }
 
     @Test
@@ -95,11 +95,19 @@ public class TagTest extends PageTest {
         Tag tag2 = new Tag();
         Deencapsulation.setField(tag2, "name", tagName);
 
-        // when
-        boolean isSame = tag1.equals(tag2);
+        // then
+        assertThat(tag1.equals(tag2)).isTrue();
+    }
+
+    @Test
+    public void equals_OnSameInstance_ReturnsTrue() throws Exception {
+        // given
+        final String tagName = "@superTaggggg";
+        Tag tag = new Tag();
+        Deencapsulation.setField(tag, "name", tagName);
 
         // then
-        assertThat(isSame).isTrue();
+        assertThat(tag.equals(tag)).isTrue();
     }
 
     @Test
@@ -117,5 +125,17 @@ public class TagTest extends PageTest {
 
         // then
         assertThat(isSame).isFalse();
+    }
+
+    @Test
+    public void equals_OnType_ReturnsFalse() {
+
+        // given
+        final String tagName = "@superTaggggg";
+        Tag tag = new Tag();
+        Deencapsulation.setField(tag, "name", tagName);
+
+        // then
+        assertThat(tag.equals(new Step())).isFalse();
     }
 }

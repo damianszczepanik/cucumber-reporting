@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Arrays;
-
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */

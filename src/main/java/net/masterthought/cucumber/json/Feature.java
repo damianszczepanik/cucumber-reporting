@@ -2,7 +2,6 @@ package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
@@ -231,8 +230,5 @@ public class Feature implements Reportable, Durationable {
     }
 
     @Override
-    public List<String[]> getFailedCause() {
-        List<String[]> failures = Util.getFailedCauseList(this.elements);
-        return failures;
-    }
+    public List<String[]> getFailedCause() { return Util.getFailedCauseList(this.elements); }
 }

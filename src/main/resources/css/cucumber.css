@@ -242,7 +242,7 @@ tr:hover {
 
 *.bs-callout:empty {
     padding: 20px;
-    margin: 0px;
+    margin: 0;
     border: none;
 }
 

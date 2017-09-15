@@ -39,7 +39,7 @@ public class Result implements Durationable {
     }
 
     public final String getErrorMessageTitle() {
-        return errorMessage.split("[\\r\\n]+")[0];
+        return (errorMessage != null) ? errorMessage.split("[\\r\\n]+")[0] : null;
     }
 
     @Override

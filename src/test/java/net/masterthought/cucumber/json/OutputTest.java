@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -37,6 +34,7 @@ public class OutputTest {
     @Test
     public void equals_ReturnTrueSameInstance() throws Exception {
         Output output1 = new Output(new String[] {"Test string"});
+        //noinspection EqualsWithItself
         assertTrue(output1.equals(output1));
     }
 
@@ -58,6 +56,7 @@ public class OutputTest {
     @Test
     public void equals_ReturnFalseNotAnInstanceOf() throws Exception {
         Output output = new Output(new String[] {"Test string"});
+        //noinspection EqualsBetweenInconvertibleTypes
         assertFalse(output.equals(new Hook()));
     }
 

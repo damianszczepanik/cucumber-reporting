@@ -242,9 +242,8 @@ public class EmbeddingTest {
 
     @Test
     public void equals_ReturnTrueSameInstance() throws Exception {
-        Embedding embedding1 = new Embedding("js", "");
-        Embedding embedding2 = embedding1;
-        assertTrue(embedding1.equals(embedding2));
+        Embedding embedding = new Embedding("js", "");
+        assertTrue(embedding.equals(embedding));
     }
 
     @Test

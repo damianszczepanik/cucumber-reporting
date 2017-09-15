@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.util.*;
 
 import net.masterthought.cucumber.json.support.Resultsable;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.support.Status;
 import org.joda.time.Period;
