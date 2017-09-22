@@ -91,10 +91,20 @@ public class Configuration {
         this.trendsLimit = trendsLimit;
     }
 
+    /**
+     * Returns build number or <code>null</code> if not available.
+     * @return build number
+     */
     public String getBuildNumber() {
         return buildNumber;
     }
 
+    /**
+     * Sets number of the build. If the {{@link #setRunWithJenkins(boolean)} executed on Jenkins}, this should be
+     * integer value so the number of previous build can be calculated properly.
+     *
+     * @param buildNumber number of the build
+     */
     public void setBuildNumber(String buildNumber) {
         this.buildNumber = buildNumber;
     }
