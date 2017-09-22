@@ -95,6 +95,12 @@ public class Configuration {
         return buildNumber;
     }
 
+    /**
+     * Sets number of the build. If the {{@link #setRunWithJenkins(boolean)} executed on Jenkins}, this should be
+     * integer value so the number of previous build can be calculated properly.
+     *
+     * @param buildNumber number of the build
+     */
     public void setBuildNumber(String buildNumber) {
         this.buildNumber = buildNumber;
     }
