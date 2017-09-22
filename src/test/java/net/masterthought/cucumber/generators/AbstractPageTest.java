@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.util.Properties;
 
+import mockit.Deencapsulation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
@@ -12,7 +13,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.ValidationException;
@@ -135,10 +135,11 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
+    public void buildGeneralParameters_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
 
         // given
-        configuration.setBuildNumber("12");
+        configuration.setBuildNumber("notAnumber");
+        configuration.setRunWithJenkins(true);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -146,7 +147,24 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.get("build_time")).isNotNull();
+    }
+
+    @Test
+    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
+
+        // given
+        configuration.setBuildNumber("12");
+        configuration.setRunWithJenkins(false);
+        page = new ErrorPage(null, configuration, null, jsonReports);
+
+        // when
+        // buildGeneralParameters() already called by constructor
+
+        // then
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(7);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -171,6 +189,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("34");
+        configuration.setRunWithJenkins(true);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

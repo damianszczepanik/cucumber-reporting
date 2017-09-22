@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -109,7 +110,7 @@ public abstract class AbstractPage {
 
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
-        if (buildNumber != null) {
+        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
