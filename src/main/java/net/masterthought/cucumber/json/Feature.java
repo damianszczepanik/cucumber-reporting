@@ -221,6 +221,9 @@ public class Feature implements Reportable, Durationable {
             }
 
             for (Step step : element.getSteps()) {
+                if(step.getResult() == null){
+                    break;
+                }
                 stepsCounter.incrementFor(step.getResult().getStatus());
                 duration += step.getDuration();
             }

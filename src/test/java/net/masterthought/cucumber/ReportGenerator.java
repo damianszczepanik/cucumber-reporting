@@ -19,6 +19,7 @@ public abstract class ReportGenerator {
     public final static String JSON_DIRECTORY = "json/";
 
     protected static final String SAMPLE_JSON = "sample.json";
+    protected static final String SCENARIO_OUTLINE = "scenario-outline.json";
     public static final String SIMPLE_JSON = "simple.json";
     protected static final String EMPTY_JSON = "empty.json";
     protected static final String INVALID_JSON = "invalid.json";
