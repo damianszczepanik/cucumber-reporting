@@ -64,7 +64,7 @@
     </div>
     <div id="embedding-$embeddingId" class="collapse collapsable-details">
       <div class="embedding-content">
-        <img src="embeddings/$embedding.getFileName()">
+        <img src="$embedding.getDecodedData()">
       </div>
     </div>
   </div>
