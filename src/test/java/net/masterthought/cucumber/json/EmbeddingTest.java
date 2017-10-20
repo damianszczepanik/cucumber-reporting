@@ -65,6 +65,19 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getFileName_ReturnsFileNameForSVG() {
+
+        // given
+        Embedding embedding = new Embedding("image/svg+xml", "some data");
+
+        // when
+        String fileName = embedding.getFileName();
+
+        // then
+        assertThat(fileName).isEqualTo("embedding_-642587818.svg");
+    }
+
+    @Test
     public void getExtension__OnCommonMimeType_ReturnsFileExtension() {
 
         // given
