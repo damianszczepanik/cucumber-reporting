@@ -65,6 +65,8 @@ public class Embedding {
         // image available remotely stored as link/url
         case "image/url":
             return "image";
+        case "image/svg+xml":
+            return "svg";
         case "text/plain":
             return "txt";
         case "application/pdf":
