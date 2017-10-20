@@ -11,6 +11,8 @@
       #includeImageEmbedding($embedding, "bmp", $foreach.index)
     #elseif ($embedding.getMimeType() == "image/jpeg")
       #includeImageEmbedding($embedding, "jpeg", $foreach.index)
+    #elseif ($embedding.getMimeType() == "image/svg+xml")
+      #includeImageEmbedding($embedding, "svg", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/xml")
       #includeTextEmbedding($embedding, "XML text", $foreach.index)
     #elseif ($embedding.getMimeType() == "text/plain")
