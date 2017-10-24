@@ -54,11 +54,20 @@ configuration.setParallelTesting(parallelTesting);
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
 // addidtional metadata presented on main page
-configuration.addClassifications("Platform", "Windows");
-configuration.addClassifications("Browser", "Firefox");
 configuration.addClassifications("Branch", "release/1.0");
+configuration.addClassifications("Browser", "Firefox");
+configuration.addClassifications("Platform", "Windows");
 
-ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+List<String> propertiesFiles = new ArrayList<>();
+// properties-1 contains...
+// AutUiVersion=1.25.3
+// AutApiVersion=1.25.0.7
+propertiesFiles.add("properties-1.properties");
+// properties-2 contains...
+// NodeJsVersion=8.5.0
+// NpmVersion=5.3.0
+propertiesFiles.add("properties-2.properties");
+ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration, propertiesFiles);
 Reportable result = reportBuilder.generateReports();
 // and here validate 'result' to decide what to do
 // if report has failed features, undefined steps etc

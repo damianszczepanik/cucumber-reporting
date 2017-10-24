@@ -1,10 +1,12 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -88,4 +90,119 @@ public class ReportParserTest extends ReportGenerator {
 
         reportParser.parseJsonFiles(jsonReports);
     }
+
+    @Test
+    public void parsePropertyFiles_EmptyProperties() {
+
+        // given
+        initWithProperties(EMPTY_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        // then
+        assertThat(configuration.getClassifications()).hasSize(0);
+    }
+
+    @Test
+    public void parsePropertyFiles_Populate_One_File() {
+
+        // given
+        initWithProperties(SAMPLE_ONE_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        // then
+        assertThat(configuration.getClassifications()).hasSize(5);
+    }
+
+    @Test
+    public void parsePropertyFiles_Populate_Two_Files() {
+
+        // given
+        initWithProperties(SAMPLE_ONE_PROPERTIES, SAMPLE_TWO_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        // then
+        assertThat(configuration.getClassifications()).hasSize(8);
+    }
+
+    @Test
+    public void parsePropertyFiles_Populate_Check_Contents_Integrity() {
+
+        // given
+        initWithProperties(SAMPLE_TWO_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+
+        // then
+        assertThat(classifications).hasSize(3);
+        assertThat(classifications).contains(entry("NodeJsVersion","8.5.0"),entry("Proxy", "http=//172.22.240.68:18717"),entry("NpmVersion", "5.3.0"));
+    }
+
+    @Test
+    public void parsePropertyFiles_Populate_Check_Contents_Order() {
+
+        // given
+        initWithProperties(SAMPLE_TWO_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+
+        // then
+        assertThat(classifications).hasSize(3);
+        assertThat(classifications.get(0).getKey()).isEqualTo("NodeJsVersion");
+        assertThat(classifications.get(1).getKey()).isEqualTo("Proxy");
+        assertThat(classifications.get(2).getKey()).isEqualTo("NpmVersion");
+
+    }
+
+    @Test
+    public void parsePropertyFiles_Populate_Check_Duplicates() {
+
+        // given
+        initWithProperties(DUPLICATE_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+
+        // then
+        assertThat(classifications).hasSize(1);
+        assertThat(classifications.get(0).getKey()).isEqualTo("BaseUrl_QA");
+        assertThat(classifications.get(0).getValue()).isEqualTo("[Internal=https://internal.test.com, External=https://external.test.com]");
+
+    }
+
+    @Test
+    public void parsePropertyFiles_OnInvalidFilePath_ThrowsException() {
+
+        // given
+        final String invalidFile = "?on-invalid-file-path.properties";
+        initWithProperties(EMPTY_PROPERTIES);
+        propertyReports.add(invalidFile);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // then
+        thrown.expect(ValidationException.class);
+        thrown.expectMessage(containsString(invalidFile));
+
+        reportParser.parsePropertiesFiles(propertyReports);
+    }
+
 }

@@ -54,6 +54,7 @@ public class ReportBuilder {
 
     private Configuration configuration;
     private List<String> jsonFiles;
+    private List<String> propertyFiles;
 
     /**
      * Flag used to detect if the file with updated trends is saved.
@@ -62,9 +63,10 @@ public class ReportBuilder {
      */
     private boolean wasTrendsFileSaved = false;
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
+    public ReportBuilder(List<String> jsonFiles, Configuration configuration, List<String> propertyFiles) {
         this.jsonFiles = jsonFiles;
         this.configuration = configuration;
+        this.propertyFiles = propertyFiles;
         reportParser = new ReportParser(configuration);
     }
 
@@ -82,6 +84,9 @@ public class ReportBuilder {
 
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
+
+            // add metadata info sourced from files
+            reportParser.parsePropertiesFiles(propertyFiles);
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);

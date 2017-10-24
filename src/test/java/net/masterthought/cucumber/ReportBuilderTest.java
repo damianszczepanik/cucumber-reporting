@@ -66,9 +66,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         final List<String> jsonFiles = new ArrayList<>();
         final Configuration configuration = new Configuration(null, null);
+        final List<String> propertyFiles = new ArrayList<>();
 
         // when
-        ReportBuilder builder = new ReportBuilder(jsonFiles, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonFiles, configuration, propertyFiles);
 
         // then
         List<String> assignedJsonReports = Deencapsulation.getField(builder, "jsonFiles");
@@ -76,16 +77,17 @@ public class ReportBuilderTest extends ReportGenerator {
 
         assertThat(assignedJsonReports).isSameAs(jsonFiles);
         assertThat(assignedConfiguration).isSameAs(configuration);
+        assertThat(propertyFiles).isSameAs(propertyFiles);
     }
 
     @Test
     public void generateReports_GeneratesPages() {
 
         // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResourceJson(ReportGenerator.SAMPLE_JSON));
 
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
 
         // when
         Reportable result = builder.generateReports();
@@ -99,10 +101,10 @@ public class ReportBuilderTest extends ReportGenerator {
     public void generateReports_WithTrendsFile_GeneratesPages() {
 
         // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResourceJson(ReportGenerator.SAMPLE_JSON));
 
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         // when
@@ -117,7 +119,7 @@ public class ReportBuilderTest extends ReportGenerator {
     public void generateReports_OnException_AppendsBuildToTrends() {
 
         // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResourceJson(ReportGenerator.SAMPLE_JSON));
 
         Configuration configuration = new Configuration(reportDirectory, "myProject") {
             @Override
@@ -125,7 +127,7 @@ public class ReportBuilderTest extends ReportGenerator {
                 throw new IllegalStateException();
             }
         };
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         // when
@@ -143,7 +145,7 @@ public class ReportBuilderTest extends ReportGenerator {
     public void generateReports_OnException_StoresEmptyTrendsFile() {
 
         // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResourceJson(ReportGenerator.SAMPLE_JSON));
 
         Configuration configuration = new Configuration(reportDirectory, "myProject") {
             @Override
@@ -151,7 +153,7 @@ public class ReportBuilderTest extends ReportGenerator {
                 throw new IllegalStateException();
             }
         };
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         // when
@@ -168,7 +170,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration, Collections.<String>emptyList());
 
         // when
         Deencapsulation.invoke(builder, "copyStaticResources");
@@ -185,7 +187,7 @@ public class ReportBuilderTest extends ReportGenerator {
         File subDirectory = new File(reportDirectory, "sub");
 
         Configuration configuration = new Configuration(subDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration, Collections.<String>emptyList());
 
         // when
         Deencapsulation.invoke(builder, "createEmbeddingsDirectory");
@@ -199,7 +201,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration, Collections.<String>emptyList());
         File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY);
 
         // then
@@ -218,7 +220,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         setUpWithJson(SAMPLE_JSON);
 
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
@@ -235,7 +237,7 @@ public class ReportBuilderTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
         configuration.setTrendsStatsFile(trendsFileTmp);
 
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
@@ -250,7 +252,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(null, null);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
 
         final MutableInt counter = new MutableInt();
         AbstractPage page = new AbstractPage(null, null, configuration) {
@@ -286,7 +288,7 @@ public class ReportBuilderTest extends ReportGenerator {
         final String buildNumber = "my build";
         configuration.setBuildNumber(buildNumber);
         configuration.setTrendsStatsFile(trendsFileTmp);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         Deencapsulation.setField(builder, "reportResult", reportResult);
 
         // when
@@ -308,7 +310,7 @@ public class ReportBuilderTest extends ReportGenerator {
         final String buildNumber = "my build";
         configuration.setBuildNumber(buildNumber);
         configuration.setTrends(trendsFileTmp, trendsLimit);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         Deencapsulation.setField(builder, "reportResult", reportResult);
 
         // when
@@ -363,7 +365,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         configuration.setTrendsStatsFile(trendsFileTmp);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
 
         // when
         Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
@@ -377,7 +379,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
         configuration.setTrendsStatsFile(new File("missing?file"));
 
         // when
@@ -392,7 +394,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
 
         // when
         Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
@@ -405,7 +407,7 @@ public class ReportBuilderTest extends ReportGenerator {
     public void loadTrends_OnInvalidTrendsFormatFile_ThrowsExceptions() {
 
         // given
-        File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
+        File notTrendJsonFile = new File(reportFromResourceJson(SAMPLE_JSON));
 
         // then
         thrown.expect(ValidationException.class);
@@ -478,7 +480,7 @@ public class ReportBuilderTest extends ReportGenerator {
             }
         };
 
-        ReportBuilder reportBuilder = new ReportBuilder(null, configuration);
+        ReportBuilder reportBuilder = new ReportBuilder(null, configuration, Collections.<String>emptyList());
         Deencapsulation.setField(reportBuilder, "reportResult", reportResult);
         Trends trends = new Trends();
 
@@ -499,7 +501,7 @@ public class ReportBuilderTest extends ReportGenerator {
     public void saveTrends_OnInvalidFile_ThrowsException() {
 
         // given
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration, Collections.<String>emptyList());
 
         Trends trends = new Trends();
         File directoryFile = new File(".");
@@ -515,7 +517,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration, Collections.<String>emptyList());
 
         // when
         Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
