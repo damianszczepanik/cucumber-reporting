@@ -332,6 +332,34 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         embeddingsElement[0].hasImageContent(embeddings[0]);
         asserEmbeddingFileExist(embeddings[0]);
     }
+    
+    @Test
+    public void generatePage_ForHook_generatesOutput() {
+
+        // given
+        setUpWithJson(SAMPLE_HOOKS_JSON);
+        final Feature feature = features.get(0);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        
+        Output[] beforeOutputElements = feature.getElements()[0].getBefore()[0].getOutputs();
+        OutputAssertion beforeOutput = document.getFeature().getElements()[0].getBefore().getHooks()[0].getOutput();
+        assertOutuput(beforeOutput, beforeOutputElements);
+
+        Output[] afterOutputElements = feature.getElements()[0].getAfter()[0].getOutputs();
+        OutputAssertion afterOutput = document.getFeature().getElements()[0].getAfter().getHooks()[0].getOutput();
+        assertOutuput(afterOutput, afterOutputElements);
+      
+    }
+    
+    private void assertOutuput(OutputAssertion outputAssertion, Output[] outputElements) {
+    	outputAssertion.hasMessages(getMessages(outputElements));
+    }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
         for (int i = 0; i < elements.length; i++) {
