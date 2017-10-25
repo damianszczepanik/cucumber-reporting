@@ -56,7 +56,7 @@ public class ReportParserTest extends ReportGenerator {
 
         // then
         thrown.expect(ValidationException.class);
-        thrown.expectMessage("None report file was added!");
+        thrown.expectMessage("No report file was added!");
         reportParser.parseJsonFiles(jsonReports);
     }
 

@@ -49,7 +49,7 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("None report file was added!");
+            throw new ValidationException("No report file was added!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
