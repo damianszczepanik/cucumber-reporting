@@ -125,7 +125,6 @@ public class ReportParser {
                 this.configuration.addClassifications(key, value);
             }
         } catch (ConfigurationException e) {
-            // Path Not Found
             throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
         }
     }
