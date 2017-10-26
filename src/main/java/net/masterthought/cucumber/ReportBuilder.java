@@ -47,6 +47,8 @@ public class ReportBuilder {
      */
     public static final String BASE_DIRECTORY = "cucumber-html-reports";
 
+    public List<String> propertyFiles;
+
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private ReportResult reportResult;
@@ -54,7 +56,6 @@ public class ReportBuilder {
 
     private Configuration configuration;
     private List<String> jsonFiles;
-    private List<String> propertyFiles;
 
     /**
      * Flag used to detect if the file with updated trends is saved.
@@ -63,10 +64,13 @@ public class ReportBuilder {
      */
     private boolean wasTrendsFileSaved = false;
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration, List<String> propertyFiles) {
+    public void setPropertyFiles(List<String> propertyFiles) {
+        this.propertyFiles = propertyFiles;
+    }
+
+    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
         this.jsonFiles = jsonFiles;
         this.configuration = configuration;
-        this.propertyFiles = propertyFiles;
         reportParser = new ReportParser(configuration);
     }
 

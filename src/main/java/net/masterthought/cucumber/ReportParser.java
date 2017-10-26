@@ -1,8 +1,14 @@
 package net.masterthought.cucumber;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
@@ -96,55 +102,32 @@ public class ReportParser {
     }
 
     /**
-     * Parses passed properties files and adds metadata to overview-features page
+     * Parses passed properties files and adds metadata to overview-features page.
      *
      * @param propertiesFiles
      *            property files to read
      */
     public void parsePropertiesFiles(List<String> propertiesFiles) {
-
-        if (propertiesFiles.isEmpty()) {
-
-            return;
-
+        if (propertiesFiles != null) {
+            for (String propertyFile : propertiesFiles) {
+                processClassificationFile(propertyFile);
+            }
         }
-
-        for (String propertyFile : propertiesFiles) {
-
-            LOG.info("Processing MetadataFile - %s", propertyFile);
-
-            processMetaDataFile(propertyFile);
-
-        }
-
     }
 
-    private void processMetaDataFile(String file){
-
+    private void processClassificationFile(String file){
         try {
-
             PropertiesConfiguration config = new PropertiesConfiguration(file);
-
             Iterator<String> keys = config.getKeys();
-
             while (keys.hasNext()) {
-
                 String key = keys.next();
-
                 String value = config.getProperty(key).toString();
-
-                LOG.info("Adding classification - %s%s sourced from properties file - %s", key, value, file);
-
                 this.configuration.addClassifications(key, value);
             }
-
         } catch (ConfigurationException e) {
-
             // Path Not Found
-            throw new ValidationException(e);
-
+            throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
         }
-
     }
 
 }

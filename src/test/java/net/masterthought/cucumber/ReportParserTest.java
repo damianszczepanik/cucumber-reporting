@@ -102,7 +102,7 @@ public class ReportParserTest extends ReportGenerator {
         reportParser.parsePropertiesFiles(propertyReports);
 
         // then
-        assertThat(configuration.getClassifications()).hasSize(0);
+        assertThat(configuration.getClassifications()).isEmpty();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ReportParserTest extends ReportGenerator {
 
         // then
         assertThat(classifications).hasSize(3);
-        assertThat(classifications).contains(entry("NodeJsVersion","8.5.0"),entry("Proxy", "http=//172.22.240.68:18717"),entry("NpmVersion", "5.3.0"));
+        assertThat(classifications).containsExactly(entry("NodeJsVersion","8.5.0"),entry("Proxy", "http=//172.22.240.68:18717"),entry("NpmVersion", "5.3.0"));
     }
 
     @Test
@@ -190,6 +190,31 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
+    public void parsePropertyFiles_Populate_Check_Special_Characters() {
+
+        // given
+        initWithProperties(SPECIAL_CHARACTERS_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        reportParser.parsePropertiesFiles(propertyReports);
+
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+
+        // then
+        assertThat(classifications).hasSize(6);
+        assertThat(classifications).containsExactly(
+                entry("website","https://en.wikipedia.org/"),
+                entry("language", "English"),
+                entry("message", "Welcome to Wikipedia!"),
+                entry("key with spaces", "This is the value that could be looked up with the key \"key with spaces\"."),
+                entry("tab", "\t"),
+                entry("path", "c:\\wiki\\templates")
+        );
+
+    }
+
+    @Test
     public void parsePropertyFiles_OnInvalidFilePath_ThrowsException() {
 
         // given
@@ -201,6 +226,7 @@ public class ReportParserTest extends ReportGenerator {
         // then
         thrown.expect(ValidationException.class);
         thrown.expectMessage(containsString(invalidFile));
+        thrown.expectMessage(endsWith("doesn't exist or the properties file is invalid!"));
 
         reportParser.parsePropertiesFiles(propertyReports);
     }

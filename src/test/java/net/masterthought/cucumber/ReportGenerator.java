@@ -29,6 +29,7 @@ public abstract class ReportGenerator {
     protected static final String SAMPLE_ONE_PROPERTIES = "sample_one.properties";
     protected static final String SAMPLE_TWO_PROPERTIES = "sample_two.properties";
     protected static final String DUPLICATE_PROPERTIES = "duplicate.properties";
+    protected static final String SPECIAL_CHARACTERS_PROPERTIES = "special_characters.properties";
 
 
     protected static final File TRENDS_FILE = new File(pathToSampleFile("cucumber-trends.json"));
@@ -63,7 +64,7 @@ public abstract class ReportGenerator {
     protected void initWithJSon(String... jsonFiles) {
         if (jsonFiles != null) {
             for (String jsonFile : jsonFiles)
-                jsonReports.add(reportFromResourceJson(jsonFile));
+                jsonReports.add(reportFromResource(jsonFile));
         }
 
         // may be already created so don't overwrite it
@@ -88,7 +89,7 @@ public abstract class ReportGenerator {
         createEmbeddingsDirectory();
     }
 
-    public static String reportFromResourceJson(String jsonReport) {
+    public static String reportFromResource(String jsonReport) {
         return pathToSampleFile(JSON_DIRECTORY + jsonReport);
     }
 
