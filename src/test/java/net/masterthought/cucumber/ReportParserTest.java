@@ -141,6 +141,24 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
+    public void parsePropertyFiles_Populates_Two_Files_One_Empty() {
+
+        // given
+        initWithProperties(SAMPLE_ONE_PROPERTIES);
+        ReportParser reportParser = new ReportParser(configuration);
+        propertyFiles.add("");
+
+        // when
+        reportParser.parseClassificationsFiles(propertyFiles);
+
+        // then
+        List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
+        assertThat(returnedClassifications).hasSize(5);
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1));
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
+    }
+
+    @Test
     public void parsePropertyFiles_Populates_Check_Content_Integrity_And_Order() {
 
         // given
