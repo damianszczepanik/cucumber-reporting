@@ -39,7 +39,7 @@ public abstract class ReportGenerator {
     protected Configuration configuration;
     private final String projectName = "test cucumberProject";
     protected final List<String> jsonReports = new ArrayList<>();
-    protected final List<String> propertyReports = new ArrayList<>();
+    protected final List<String> propertyFiles = new ArrayList<>();
     protected ReportResult reportResult;
 
     protected List<Feature> features;
@@ -76,10 +76,8 @@ public abstract class ReportGenerator {
     }
 
     protected void initWithProperties(String... propertyFiles) {
-        if (propertyFiles != null) {
-            for (String propertyFile : propertyFiles)
-                propertyReports.add(reportFromResourceProperties(propertyFile));
-        }
+        for (String propertyFile : propertyFiles)
+           this.propertyFiles.add(reportFromResourceProperties(propertyFile));
 
         // may be already created so don't overwrite it
         if (configuration == null) {

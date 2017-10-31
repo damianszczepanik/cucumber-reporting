@@ -5,9 +5,11 @@ import static org.assertj.core.data.MapEntry.entry;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import org.assertj.core.data.Index;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -99,109 +101,95 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
         assertThat(configuration.getClassifications()).isEmpty();
     }
 
     @Test
-    public void parsePropertyFiles_Populate_One_File() {
+    public void parsePropertyFiles_Populates_One_File() {
 
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
         assertThat(configuration.getClassifications()).hasSize(5);
     }
 
     @Test
-    public void parsePropertyFiles_Populate_Two_Files() {
+    public void parsePropertyFiles_Populates_Two_Files() {
 
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES, SAMPLE_TWO_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
-        assertThat(configuration.getClassifications()).hasSize(8);
+        List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
+        assertThat(returnedClassifications).hasSize(8);
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1));
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("Proxy", "http=//172.22.240.68:18717"), Index.atIndex(6));
+        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("NpmVersion", "5.3.0"), Index.atIndex(7));
     }
 
     @Test
-    public void parsePropertyFiles_Populate_Check_Contents_Integrity() {
+    public void parsePropertyFiles_Populates_Check_Content_Integrity_And_Order() {
 
         // given
         initWithProperties(SAMPLE_TWO_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
-
-        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(3);
-        assertThat(classifications).containsExactly(entry("NodeJsVersion","8.5.0"),entry("Proxy", "http=//172.22.240.68:18717"),entry("NpmVersion", "5.3.0"));
+        assertThat(classifications).containsExactly(
+                entry("NodeJsVersion","8.5.0"),
+                entry("Proxy", "http=//172.22.240.68:18717"),
+                entry("NpmVersion", "5.3.0")
+        );
     }
 
     @Test
-    public void parsePropertyFiles_Populate_Check_Contents_Order() {
-
-        // given
-        initWithProperties(SAMPLE_TWO_PROPERTIES);
-        ReportParser reportParser = new ReportParser(configuration);
-
-        // when
-        reportParser.parsePropertiesFiles(propertyReports);
-
-        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
-
-        // then
-        assertThat(classifications).hasSize(3);
-        assertThat(classifications.get(0).getKey()).isEqualTo("NodeJsVersion");
-        assertThat(classifications.get(1).getKey()).isEqualTo("Proxy");
-        assertThat(classifications.get(2).getKey()).isEqualTo("NpmVersion");
-
-    }
-
-    @Test
-    public void parsePropertyFiles_Populate_Check_Duplicates() {
+    public void parsePropertyFiles_Populates_Check_Duplicates() {
 
         // given
         initWithProperties(DUPLICATE_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
-
-        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(1);
-        assertThat(classifications.get(0).getKey()).isEqualTo("BaseUrl_QA");
-        assertThat(classifications.get(0).getValue()).isEqualTo("[Internal=https://internal.test.com, External=https://external.test.com]");
-
+        assertThat(classifications).containsExactly(
+                entry("BaseUrl_QA","[Internal=https://internal.test.com, External=https://external.test.com]")
+        );
     }
 
     @Test
-    public void parsePropertyFiles_Populate_Check_Special_Characters() {
+    public void parsePropertyFiles_Populates_Check_Special_Characters() {
 
         // given
         initWithProperties(SPECIAL_CHARACTERS_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parsePropertiesFiles(propertyReports);
-
-        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
+        reportParser.parseClassificationsFiles(propertyFiles);
 
         // then
+        List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(6);
         assertThat(classifications).containsExactly(
                 entry("website","https://en.wikipedia.org/"),
@@ -211,7 +199,6 @@ public class ReportParserTest extends ReportGenerator {
                 entry("tab", "\t"),
                 entry("path", "c:\\wiki\\templates")
         );
-
     }
 
     @Test
@@ -220,15 +207,14 @@ public class ReportParserTest extends ReportGenerator {
         // given
         final String invalidFile = "?on-invalid-file-path.properties";
         initWithProperties(EMPTY_PROPERTIES);
-        propertyReports.add(invalidFile);
+        propertyFiles.add(invalidFile);
         ReportParser reportParser = new ReportParser(configuration);
 
         // then
         thrown.expect(ValidationException.class);
         thrown.expectMessage(containsString(invalidFile));
         thrown.expectMessage(endsWith("doesn't exist or the properties file is invalid!"));
-
-        reportParser.parsePropertiesFiles(propertyReports);
+        reportParser.parseClassificationsFiles(propertyFiles);
     }
 
 }

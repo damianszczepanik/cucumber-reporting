@@ -47,8 +47,6 @@ public class ReportBuilder {
      */
     public static final String BASE_DIRECTORY = "cucumber-html-reports";
 
-    public List<String> propertyFiles;
-
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private ReportResult reportResult;
@@ -63,10 +61,6 @@ public class ReportBuilder {
      * to mark that the build crashed.
      */
     private boolean wasTrendsFileSaved = false;
-
-    public void setPropertyFiles(List<String> propertyFiles) {
-        this.propertyFiles = propertyFiles;
-    }
 
     public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
         this.jsonFiles = jsonFiles;
@@ -90,7 +84,7 @@ public class ReportBuilder {
             createEmbeddingsDirectory();
 
             // add metadata info sourced from files
-            reportParser.parsePropertiesFiles(propertyFiles);
+            reportParser.parseClassificationsFiles(configuration.getPropertiesFiles());
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);

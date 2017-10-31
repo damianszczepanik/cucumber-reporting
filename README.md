@@ -62,9 +62,9 @@ configuration.addClassifications("Branch", "release/1.0");
 List<String> propertiesFiles = new ArrayList<>();
 propertiesFiles.add("properties-1.properties");
 propertiesFiles.add("properties-2.properties");
+configuration.addPropertiesFiles(propertiesFiles);
 
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-reportBuilder.setPropertyFiles(propertiesFiles);
 Reportable result = reportBuilder.generateReports();
 // and here validate 'result' to decide what to do
 // if report has failed features, undefined steps etc

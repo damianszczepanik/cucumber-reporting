@@ -70,16 +70,13 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // when
         ReportBuilder builder = new ReportBuilder(jsonFiles, configuration);
-        builder.setPropertyFiles(propertiesFiles);
 
         // then
         List<String> assignedJsonReports = Deencapsulation.getField(builder, "jsonFiles");
         Configuration assignedConfiguration = Deencapsulation.getField(builder, "configuration");
-        List<String> assignedPropertiesFiles = Deencapsulation.getField(builder, "propertyFiles");
 
         assertThat(assignedJsonReports).isSameAs(jsonFiles);
         assertThat(assignedConfiguration).isSameAs(configuration);
-        assertThat(assignedPropertiesFiles).isSameAs(propertiesFiles);
     }
 
     @Test
