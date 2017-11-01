@@ -47,12 +47,12 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
-        initWithJSon(jsonFiles);
+        initWithJson(jsonFiles);
 
         createReport();
     }
 
-    protected void initWithJSon(String... jsonFiles) {
+    protected void initWithJson(String... jsonFiles) {
         if (jsonFiles != null) {
             for (String jsonFile : jsonFiles)
                 jsonReports.add(reportFromResource(jsonFile));
