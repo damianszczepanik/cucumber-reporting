@@ -66,7 +66,6 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         final List<String> jsonFiles = new ArrayList<>();
         final Configuration configuration = new Configuration(null, null);
-        final List<String> propertiesFiles = new ArrayList<>();
 
         // when
         ReportBuilder builder = new ReportBuilder(jsonFiles, configuration);
