@@ -22,6 +22,8 @@
             #includeMessage("Error message", $hook.getResult().getErrorMessage())
           #end
 
+          #set($isPassed = $hook.getResult().getStatus().isPassed())
+          #includeOutput($hook.getOutputs(), $isPassed)
           #includeEmbeddings($hook.getEmbeddings())
         </div>
       #end

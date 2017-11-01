@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json.support;
 
 import net.masterthought.cucumber.json.Match;
+import net.masterthought.cucumber.json.Output;
 import net.masterthought.cucumber.json.Result;
 
 /**
@@ -14,4 +15,6 @@ public interface Resultsable {
     Result getResult();
 
     Match getMatch();
+
+    Output[] getOutputs();
 }

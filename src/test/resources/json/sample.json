@@ -287,12 +287,15 @@
                 ],
                 "before": [
                     {
+                        "output": [
+                            "System version: beta3"
+                        ],
                         "result": {
                             "duration": 10744700,
                             "status": "passed"
                         },
                         "match": {
-                            "location": "MachineFactory.findCachMachine()"
+                            "location": "MachineFactory.findCashMachine()"
                         }
                     },
                     {
