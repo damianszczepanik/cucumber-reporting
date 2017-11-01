@@ -24,7 +24,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResults_ReturnsFeatureFiles() {
 
         // given
-        initWithJSon(SAMPLE_JSON, SIMPLE_JSON);
+        initWithJson(SAMPLE_JSON, SIMPLE_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
@@ -38,7 +38,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResults_OnNoFeatures_ThrowsException() {
 
         // given
-        initWithJSon(EMPTY_JSON);
+        initWithJson(EMPTY_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
@@ -51,7 +51,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResults_OnNoReport_ThrowsException() {
 
         // given
-        initWithJSon();
+        initWithJson();
         ReportParser reportParser = new ReportParser(configuration);
 
         // then
@@ -64,7 +64,7 @@ public class ReportParserTest extends ReportGenerator {
     public void parseJsonResults_OnInvalidReport_ThrowsException() {
 
         // given
-        initWithJSon(INVALID_REPORT_JSON);
+        initWithJson(INVALID_REPORT_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
@@ -78,7 +78,7 @@ public class ReportParserTest extends ReportGenerator {
 
         // given
         final String invalidFile = "?no-existing%file.json";
-        initWithJSon(EMPTY_JSON);
+        initWithJson(EMPTY_JSON);
         jsonReports.add(invalidFile);
         ReportParser reportParser = new ReportParser(configuration);
 
