@@ -206,10 +206,10 @@ public class ConfigurationTest {
         propertiesFiles.add("properties-2.properties");
 
         // when
-        configuration.addPropertiesFiles(propertiesFiles);
+        configuration.addClassificationFiles(propertiesFiles);
 
         // then
-        List<String> returnedPropertiesFiles = configuration.getPropertiesFiles();
+        List<String> returnedPropertiesFiles = configuration.getClassificationFiles();
         assertThat(returnedPropertiesFiles).hasSize(2);
         assertThat(returnedPropertiesFiles).containsExactly(
                 ("properties-1.properties"),

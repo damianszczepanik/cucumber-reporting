@@ -101,7 +101,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         assertThat(configuration.getClassifications()).isEmpty();
@@ -115,7 +115,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         assertThat(configuration.getClassifications()).hasSize(5);
@@ -129,7 +129,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
@@ -146,10 +146,10 @@ public class ReportParserTest extends ReportGenerator {
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES);
         ReportParser reportParser = new ReportParser(configuration);
-        propertyFiles.add("");
+        classificationFiles.add("");
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
@@ -166,7 +166,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
@@ -186,7 +186,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
@@ -204,7 +204,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
@@ -225,14 +225,14 @@ public class ReportParserTest extends ReportGenerator {
         // given
         final String invalidFile = "?on-invalid-file-path.properties";
         initWithProperties(EMPTY_PROPERTIES);
-        propertyFiles.add(invalidFile);
+        classificationFiles.add(invalidFile);
         ReportParser reportParser = new ReportParser(configuration);
 
         // then
         thrown.expect(ValidationException.class);
         thrown.expectMessage(containsString(invalidFile));
         thrown.expectMessage(endsWith("doesn't exist or the properties file is invalid!"));
-        reportParser.parseClassificationsFiles(propertyFiles);
+        reportParser.parseClassificationsFiles(classificationFiles);
     }
 
 }

@@ -118,7 +118,7 @@ public class ReportParser {
         }
     }
 
-    private void processClassificationFile(String file){
+    private void processClassificationFile(String file) {
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(file);
             Iterator<String> keys = config.getKeys();

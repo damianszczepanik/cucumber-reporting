@@ -29,7 +29,7 @@ public class Configuration {
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
-    private List<String> propertyFiles;
+    private List<String> classificationFiles;
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -176,17 +176,15 @@ public class Configuration {
      * Adds properties files which house classifications in key value pairings. When these properties files get
      * processed these classifications get displayed on the main page of the report as metadata in the order in which
      * they appear within the file.
-     *
      */
-    public void addPropertiesFiles(List<String> propertyFiles) {
-        this.propertyFiles = propertyFiles;
+    public void addClassificationFiles(List<String> classificationFiles) {
+        this.classificationFiles = classificationFiles;
     }
 
     /**
      * Returns the list of properties files.
-     *
      */
-    public List<String> getPropertiesFiles() {
-        return this.propertyFiles;
+    public List<String> getClassificationFiles() {
+        return this.classificationFiles;
     }
 }

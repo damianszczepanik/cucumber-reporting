@@ -17,7 +17,7 @@ import net.masterthought.cucumber.sorting.SortingMethod;
 public abstract class ReportGenerator {
 
     public final static String JSON_DIRECTORY = "json/";
-    public final static String PROPERTY_DIRECTORY = "properties/";
+    public final static String CLASSIFICATIONS_DIRECTORY = "classifications/";
 
     protected static final String SAMPLE_JSON = "sample.json";
     public static final String SIMPLE_JSON = "simple.json";
@@ -39,7 +39,7 @@ public abstract class ReportGenerator {
     protected Configuration configuration;
     private final String projectName = "test cucumberProject";
     protected final List<String> jsonReports = new ArrayList<>();
-    protected final List<String> propertyFiles = new ArrayList<>();
+    protected final List<String> classificationFiles = new ArrayList<>();
     protected ReportResult reportResult;
 
     protected List<Feature> features;
@@ -77,7 +77,7 @@ public abstract class ReportGenerator {
 
     protected void initWithProperties(String... propertyFiles) {
         for (String propertyFile : propertyFiles)
-           this.propertyFiles.add(reportFromResourceProperties(propertyFile));
+           this.classificationFiles.add(reportFromResourceProperties(propertyFile));
 
         // may be already created so don't overwrite it
         if (configuration == null) {
@@ -92,7 +92,7 @@ public abstract class ReportGenerator {
     }
 
     public static String reportFromResourceProperties(String propertyFile) {
-        return pathToSampleFile(PROPERTY_DIRECTORY + propertyFile);
+        return pathToSampleFile(CLASSIFICATIONS_DIRECTORY + propertyFile);
     }
 
     protected static String pathToSampleFile(String fileName) {
