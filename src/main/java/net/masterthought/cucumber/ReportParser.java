@@ -7,17 +7,20 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import net.masterthought.cucumber.json.Feature;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -97,4 +100,36 @@ public class ReportParser {
             feature.setMetaData(jsonFile, jsonFileNo, configuration);
         }
     }
+
+    /**
+     * Parses passed properties files for classifications. These classifications within each file get added to the overview-features page as metadata.
+     * File and metadata order within the individual files are preserved when classifications are added.
+     *
+     * @param propertiesFiles
+     *            property files to read
+     */
+    public void parseClassificationsFiles(List<String> propertiesFiles) {
+        if (isNotEmpty(propertiesFiles)) {
+            for (String propertyFile : propertiesFiles) {
+                if (StringUtils.isNotEmpty(propertyFile)) {
+                    processClassificationFile(propertyFile);
+                }
+            }
+        }
+    }
+
+    private void processClassificationFile(String file) {
+        try {
+            PropertiesConfiguration config = new PropertiesConfiguration(file);
+            Iterator<String> keys = config.getKeys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = config.getProperty(key).toString();
+                this.configuration.addClassifications(key, value);
+            }
+        } catch (ConfigurationException e) {
+            throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
+        }
+    }
+
 }

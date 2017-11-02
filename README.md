@@ -58,6 +58,12 @@ configuration.addClassifications("Platform", "Windows");
 configuration.addClassifications("Browser", "Firefox");
 configuration.addClassifications("Branch", "release/1.0");
 
+// optionally add metadata presented on main page via properties file
+List<String> classificationFiles = new ArrayList<>();
+classificationFiles.add("properties-1.properties");
+classificationFiles.add("properties-2.properties");
+configuration.addClassificationFiles(classificationFiles);
+
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 Reportable result = reportBuilder.generateReports();
 // and here validate 'result' to decide what to do

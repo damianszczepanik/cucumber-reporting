@@ -83,6 +83,9 @@ public class ReportBuilder {
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
 
+            // add metadata info sourced from files
+            reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
+
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
             reportResult = new ReportResult(features, configuration.getSortingMethod());
