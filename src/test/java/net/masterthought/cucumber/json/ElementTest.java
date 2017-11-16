@@ -271,6 +271,6 @@ public class ElementTest extends PageTest {
         String duration = element.getFormattedDuration();
 
         // then
-        assertThat(duration).isEqualTo("1m 39s 124ms");
+        assertThat(duration).isEqualTo("1:39.124");
     }
 }

@@ -28,21 +28,15 @@ public final class Util {
     public static final Util INSTANCE = new Util();
 
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
-            .appendDays()
-            .appendSuffix("d")
-            .appendSeparator(" ")
             .appendHours()
-            .appendSuffix("h")
-            .appendSeparator(" ")
+            .appendSeparator(":")
             .appendMinutes()
-            .appendSuffix("m")
-            .appendSeparator(" ")
+            .appendSeparator(":")
+            .printZeroAlways()
             .appendSeconds()
-            .appendSuffix("s")
-            .appendSeparator(" ")
+            .appendSeparator(".")
             .minimumPrintedDigits(3)
             .appendMillis()
-            .appendSuffix("ms")
             .toFormatter();
 
     private Util() {

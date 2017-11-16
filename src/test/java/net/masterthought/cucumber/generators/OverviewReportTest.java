@@ -180,7 +180,7 @@ public class OverviewReportTest {
         OverviewReport report = buildSampleReport();
 
         // then
-        assertThat(report.getFormattedDuration()).isEqualTo("001ms");
+        assertThat(report.getFormattedDuration()).isEqualTo("0.001");
     }
 
     @Test

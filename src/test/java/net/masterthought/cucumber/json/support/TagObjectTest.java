@@ -175,7 +175,7 @@ public class TagObjectTest extends PageTest {
 
         // then
         assertThat(tag.getDuration()).isEqualTo(99263122889L);
-        assertThat(tag.getFormattedDuration()).isEqualTo("1m 39s 263ms");
+        assertThat(tag.getFormattedDuration()).isEqualTo("1:39.263");
     }
 
     @Test
