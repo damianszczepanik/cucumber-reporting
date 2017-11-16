@@ -30,8 +30,14 @@ public class Trends {
 
     private long[] durations = new long[0];
 
+    private String [] featuresDetail = new String[0];
+
     public String[] getBuildNumbers() {
         return buildNumbers;
+    }
+
+    public String[] getFeaturesDetail() {
+        return featuresDetail;
     }
 
     public int[] getFailedFeatures() {

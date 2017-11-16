@@ -1,0 +1,37 @@
+#macro(includeFeaturesScenarioTable, $table_key, $parallel, $items, $report_summary)
+
+<table id="tablesorter" class="stats-table table-hover">
+  #includeReportHeader($table_key, $parallel)
+
+  <tbody>
+    #foreach($item in $items)
+      <tr>
+        <td class="tagname"><a href="$item.getReportFileName()">$item.getName()</a></td>
+        #if ($parallel)
+          <td>$item.getDeviceName()</td>
+        #end
+
+
+      </tr>
+    #end
+  </tbody>
+
+  <tfoot class="total">
+    <tr>
+      <td></td>
+      #if ($parallel)
+        <td>-</td>
+      #end
+
+    </tr>
+    <tr>
+      <td></td>
+      #if ($parallel)
+        <td>-</td>
+      #end
+
+    </tr>
+  </tfoot>
+</table>
+
+#end

@@ -5,6 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import mockit.Deencapsulation;
 import org.junit.Test;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -171,5 +175,32 @@ public class TrendsTest {
         // check if the values were reversed
         assertThat(trends.getTotalFeatures()).containsExactly(failedFeatures);
         assertThat(trends.getFailedFeatures()).containsExactly(totalFeatures);
+    }
+
+    @Test
+    public void testYael(){
+        File reportOutputDirectory = new File("target");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("resource/cucumber.json");
+        //jsonFiles.add("resource/cucumber-trends.json");
+
+        String buildNumber = "7";
+        String projectName = "cucumberProject";
+        boolean runWithJenkins = false;
+        boolean parallelTesting = false;
+
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        // optional configuration
+        configuration.setParallelTesting(parallelTesting);
+        configuration.setRunWithJenkins(runWithJenkins);
+        configuration.setBuildNumber(buildNumber);
+        // addidtional metadata presented on main page
+        configuration.addClassifications("Platform", "Windows");
+        configuration.addClassifications("Browser", "Firefox");
+        configuration.addClassifications("Branch", "release/1.0");
+        configuration.setTrends(new File("resource", "cucumber-trends.json"), 5);
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+        Reportable result = reportBuilder.generateReports();
     }
 }
