@@ -115,4 +115,10 @@ public class OverviewReport implements Reportable {
     public Status getStatus() {
         throw new NotImplementedException();
     }
+
+    @Override
+    public String getFeatureDetails() {
+        //get all feature & scenario name
+        return "test";
+    }
 }

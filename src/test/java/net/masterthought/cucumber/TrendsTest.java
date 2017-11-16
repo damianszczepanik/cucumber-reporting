@@ -24,6 +24,7 @@ public class TrendsTest {
         // when
         trends.addBuild(buildNumber, result);
 
+
         // then
         assertThat(trends.getBuildNumbers()).hasSize(2).endsWith(buildNumber);
 
@@ -160,7 +161,7 @@ public class TrendsTest {
         final int totalFeatures = 1000;
         final int failedFeatures = totalFeatures + 1;
         Trends trends = new Trends();
-        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
+        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L,"");
         trends.addBuild("buildNumber", result);
 
         // when

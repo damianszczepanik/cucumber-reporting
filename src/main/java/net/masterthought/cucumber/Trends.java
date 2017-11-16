@@ -30,6 +30,8 @@ public class Trends {
 
     private long[] durations = new long[0];
 
+    private String[] featureDetails = new String[0];
+
     public String[] getBuildNumbers() {
         return buildNumbers;
     }
@@ -86,6 +88,10 @@ public class Trends {
         return durations;
     }
 
+    public String[] getFeatureDetails(){
+        return featureDetails;
+    }
+
     /**
      * Adds build into the trends.
      * @param buildNumber number of the build
@@ -111,6 +117,8 @@ public class Trends {
         totalSteps = ArrayUtils.add(totalSteps, reportable.getSteps());
 
         durations = ArrayUtils.add(durations, reportable.getDuration());
+
+        featureDetails = (String[]) ArrayUtils.add(featureDetails, reportable.getFeatureDetails());
 
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();

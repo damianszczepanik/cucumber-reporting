@@ -150,6 +150,11 @@ public class TagObject implements Reportable {
         return status;
     }
 
+    @Override
+    public String getFeatureDetails() {
+        return "tag feature details";
+    }
+
     public String getRawStatus() {
         return status.name().toLowerCase();
     }

@@ -39,6 +39,8 @@ public class TrendsOverviewPage extends AbstractPage {
         context.put("undefinedSteps", trends.getUndefinedSteps());
 
         context.put("durations", trends.getDurations());
+
+        context.put("featureDetails", trends.getFeatureDetails());
     }
 
 }

@@ -65,6 +65,11 @@ public class Feature implements Reportable, Durationable {
     }
 
     @Override
+    public String getFeatureDetails() {
+        return "test Feature";
+    }
+
+    @Override
     public String getName() {
         return StringUtils.defaultString(name);
     }
