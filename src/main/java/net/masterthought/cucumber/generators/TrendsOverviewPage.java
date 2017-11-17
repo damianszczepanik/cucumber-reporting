@@ -40,7 +40,7 @@ public class TrendsOverviewPage extends AbstractPage {
 
         context.put("durations", trends.getDurations());
 
-        context.put("featureDetails", trends.getFeatureDetails());
+        context.put("featuresDetail", trends.getFeaturesDetail());
     }
 
 }

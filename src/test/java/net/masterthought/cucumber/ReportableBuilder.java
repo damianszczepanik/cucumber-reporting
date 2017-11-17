@@ -1,7 +1,10 @@
 package net.masterthought.cucumber;
 
 
+import net.masterthought.cucumber.json.TrendFeatures;
 import net.masterthought.cucumber.json.support.Status;
+
+import java.util.ArrayList;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -28,12 +31,12 @@ public class ReportableBuilder implements Reportable {
 
     protected long duration;
 
-    protected String featureDetails;
+    protected String[] featureDetails;
 
     public ReportableBuilder(int passedFeatures, int failedFeatures, int totalFeatures,
                              int passedScenarios, int failedScenarios, int totalScenarios,
                              int passedSteps, int failedSteps, int skippedSteps, int pendingSteps, int undefinedSteps, int totalSteps,
-                             long duration, String featureDetails) {
+                             long duration, String[] featureDetails) {
 
         this.passedFeatures = passedFeatures;
         this.failedFeatures = failedFeatures;
@@ -58,7 +61,7 @@ public class ReportableBuilder implements Reportable {
     public static Reportable buildSample() {
         // only prime numbers
         return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
-                3206126182390L, "Feature 1");
+                3206126182390L, null);
     }
 
     @Override
@@ -147,7 +150,7 @@ public class ReportableBuilder implements Reportable {
     }
 
     @Override
-    public String getFeatureDetails() {
+    public String[] getFeatureDetails() {
         return featureDetails;
     }
 }

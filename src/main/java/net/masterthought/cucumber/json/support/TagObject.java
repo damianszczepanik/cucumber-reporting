@@ -3,6 +3,7 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.masterthought.cucumber.json.TrendFeatures;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 
@@ -151,8 +152,8 @@ public class TagObject implements Reportable {
     }
 
     @Override
-    public String getFeatureDetails() {
-        return "tag feature details";
+    public String[] getFeatureDetails() {
+        return null;
     }
 
     public String getRawStatus() {

@@ -38,6 +38,15 @@
 </div>
 <br>
 
+Yaelito
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      #includeFeaturesScenarioTable("Feature", $parallel, $featuresDetail,  $buildNumbers)
+    </div>
+  </div>
+</div>
+
 #include("/templates/footer.vm")
 
 </body>

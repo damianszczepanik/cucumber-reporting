@@ -53,7 +53,7 @@ public class QaIntegrationTest {
         configuration.addClassifications("Platform", "Windows");
         configuration.addClassifications("Browser", "Firefox");
         configuration.addClassifications("Branch", "release/1.0");
-        configuration.setTrends(new File("resource", "cucumber-trends.json"), 5);
+        configuration.setTrends(new File("resource", "cucumber-trends_3.json"), 5);
 
 // optionally add metadata presented on main page via properties file
 /*      List<String> classificationFiles = new ArrayList<>();
@@ -232,8 +232,8 @@ public class QaIntegrationTest {
             System.out.println(reportable.getFeatures());
             //for (int f = 0; f < features.get(i).; f++) {
             //    System.out.println(feature);
-            //}
-            */
+            //}*/
+
         }
     }
 

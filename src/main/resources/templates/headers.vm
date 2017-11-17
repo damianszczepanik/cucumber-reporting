@@ -14,6 +14,7 @@
 #parse("/templates/macros/report/reportTable.vm")
 #parse("/templates/macros/report/reportHeader.vm")
 #parse("/templates/macros/report/statsTable.vm")
+#parse("/templates/macros/report/featuresScenarioTable.vm")
 
 #parse("/templates/macros/json/brief.vm")
 #parse("/templates/macros/json/docstring.vm")

@@ -7,6 +7,7 @@ $(document).ready(function() {
 
     var failedScenarios = #numberArray($failedScenarios);
     var totalScenarios = #numberArray($totalScenarios);
+    var featuresDetail = #stringArray($featuresDetail);
 
     var passedSteps = #numberArray($passedSteps);
     var failedSteps = #numberArray($failedSteps);
@@ -130,10 +131,62 @@ $(document).ready(function() {
         ]
     };
 
+    var chartScenariosDataDetail = {
+            labels: buildNumbers,
+            datasets: [
+                {
+                    label: "Failed",
+                    data: featuresDetail,
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "#F2928C", // same as failed class in css file
+                    borderColor: "rgba(192,0,0,1)",
+                    borderCapStyle: "butt",
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: "miter",
+                    pointBorderColor: "rgba(0,0,0,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    spanGaps: false,
+                },
+                {
+                    label: "Passed",
+                    // TODO: since the first version stored total, not passed values this is displayed with total as not stacked
+                    // later should use passedFeatures values with stacked mode
+                    data: totalScenarios,
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "#92DD96", // same as passed class in css file
+                    borderColor: "rgba(0,192,192,1)",
+                    borderCapStyle: "butt",
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: "miter",
+                    pointBorderColor: "rgba(0,0,0,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    spanGaps: false
+                }
+            ]
+        };
+
     var scenariosContext = document.getElementById("trends-scenarios-chart");
     window.myBar = new Chart(scenariosContext, {
         type: "line",
-        data: chartScenariosData
+        data: chartScenariosDataDetail
     });
 
 
