@@ -2,11 +2,12 @@ package net.masterthought.cucumber.json.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import net.masterthought.cucumber.ValidationException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import net.masterthought.cucumber.ValidationException;
 
 /**
  * @author Sam Park (midopa@github)

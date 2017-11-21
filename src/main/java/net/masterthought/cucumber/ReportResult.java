@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
@@ -18,8 +21,6 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.sorting.SortingFactory;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class ReportResult {
 

@@ -3,8 +3,9 @@ package net.masterthought.cucumber.sorting;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Comparator;
-import net.masterthought.cucumber.json.support.StepObject;
 import org.junit.Test;
+
+import net.masterthought.cucumber.json.support.StepObject;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

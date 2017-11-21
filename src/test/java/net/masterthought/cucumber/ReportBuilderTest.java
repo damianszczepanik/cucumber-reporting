@@ -15,9 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.AbstractPage;
-import net.masterthought.cucumber.generators.OverviewReport;
-import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -26,6 +23,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import net.masterthought.cucumber.generators.AbstractPage;
+import net.masterthought.cucumber.generators.OverviewReport;
+import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

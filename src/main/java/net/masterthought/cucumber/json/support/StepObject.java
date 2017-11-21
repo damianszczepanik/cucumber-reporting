@@ -1,8 +1,9 @@
 package net.masterthought.cucumber.json.support;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Keeps information about steps statistics.

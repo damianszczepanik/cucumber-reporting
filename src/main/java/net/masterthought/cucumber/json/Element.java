@@ -1,10 +1,11 @@
 package net.masterthought.cucumber.json;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang.StringUtils;
 
 public class Element implements Durationable {
 
