@@ -1,8 +1,9 @@
 package net.masterthought.cucumber.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.Configuration;

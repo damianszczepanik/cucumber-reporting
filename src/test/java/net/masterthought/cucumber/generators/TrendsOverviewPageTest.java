@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
+
 import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
