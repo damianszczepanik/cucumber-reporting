@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
@@ -17,6 +16,7 @@ public class Configuration {
 
     private boolean parallelTesting;
     private boolean runWithJenkins;
+    private boolean strict = true;
 
     private File reportDirectory;
 
@@ -30,6 +30,7 @@ public class Configuration {
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
     private List<String> classificationFiles;
+
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -79,6 +80,20 @@ public class Configuration {
 
     public int getTrendsLimit() {
         return trendsLimit;
+    }
+
+    /**
+     * Sets whether to treat pending and undefined steps as failed.
+     * 
+     * @param strict
+     *            true if pending and undefined steps should be classed as failed.
+     */
+    public void setStrict(boolean strict) {
+        this.strict = strict;
+    }
+
+    public boolean isStrict() {
+        return strict;
     }
 
     /**

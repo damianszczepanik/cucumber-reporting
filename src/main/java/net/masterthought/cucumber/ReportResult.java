@@ -6,10 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
@@ -22,7 +18,8 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.sorting.SortingFactory;
-import net.masterthought.cucumber.sorting.SortingMethod;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class ReportResult {
 
@@ -38,10 +35,12 @@ public class ReportResult {
 
     private final OverviewReport featuresReport = new OverviewReport();
     private final OverviewReport tagsReport = new OverviewReport();
+    private boolean strict;
 
-    public ReportResult(List<Feature> features, SortingMethod sortingMethod) {
+    public ReportResult(List<Feature> features, Configuration configuration) {
         this.buildTime = getCurrentTime();
-        this.sortingFactory = new SortingFactory(sortingMethod);
+        this.sortingFactory = new SortingFactory(configuration.getSortingMethod());
+        this.strict = configuration.isStrict();
 
         for (Feature feature : features) {
             processFeature(feature);
@@ -143,7 +142,7 @@ public class ReportResult {
         StepObject stepObject = allSteps.get(methodName);
         // if first occurrence of this location add element to the map
         if (stepObject == null) {
-            stepObject = new StepObject(methodName);
+            stepObject = new StepObject(methodName, strict);
         }
 
         // happens that report is not valid - does not contain information about result

@@ -1,17 +1,15 @@
 package net.masterthought.cucumber.json;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
 
 public class Feature implements Reportable, Durationable {
 
@@ -161,7 +159,7 @@ public class Feature implements Reportable, Durationable {
         this.jsonFile = jsonFile;
 
         for (Element element : elements) {
-            element.setMetaData(this);
+            element.setMetaData(this, configuration.isStrict());
 
             if (element.isScenario()) {
                 scenarios.add(element);
@@ -170,7 +168,7 @@ public class Feature implements Reportable, Durationable {
 
         deviceName = calculateDeviceName();
         calculateReportFileName(jsonFileNo, configuration);
-        featureStatus = calculateFeatureStatus();
+        featureStatus = calculateFeatureStatus(configuration);
 
         calculateSteps();
     }
@@ -206,12 +204,12 @@ public class Feature implements Reportable, Durationable {
         reportFileName += ".html";
     }
 
-    private Status calculateFeatureStatus() {
+    private Status calculateFeatureStatus(Configuration configuration) {
         StatusCounter statusCounter = new StatusCounter();
         for (Element element : elements) {
             statusCounter.incrementFor(element.getStatus());
         }
-        return statusCounter.getFinalStatus();
+        return statusCounter.getFinalStatus(configuration.isStrict());
     }
 
     private void calculateSteps() {

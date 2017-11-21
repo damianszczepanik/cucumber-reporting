@@ -4,19 +4,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.Trends;
+import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.Trends;
-import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -57,7 +55,7 @@ public class TrendsOverviewPageTest extends PageTest {
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration));
 
         // when
         page.prepareReport();

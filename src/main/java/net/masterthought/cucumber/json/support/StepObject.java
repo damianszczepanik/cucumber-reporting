@@ -1,9 +1,8 @@
 package net.masterthought.cucumber.json.support;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Keeps information about steps statistics.
@@ -24,7 +23,10 @@ public class StepObject {
 
     private final StatusCounter statusCounter = new StatusCounter();
 
-    public StepObject(String location) {
+    private boolean strict;
+
+    public StepObject(String location, boolean strict) {
+        this.strict = strict;
         if (StringUtils.isEmpty(location)) {
             throw new ValidationException("Location cannnot be null!");
         }
@@ -76,6 +78,6 @@ public class StepObject {
     }
 
     public Status getStatus() {
-        return statusCounter.getFinalStatus();
+        return statusCounter.getFinalStatus(strict);
     }
 }

@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.json;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
 
 public class Element implements Durationable {
 
@@ -96,39 +95,39 @@ public class Element implements Durationable {
         return Util.formatDuration(duration);
     }
 
-    public void setMetaData(Feature feature) {
+    public void setMetaData(Feature feature, boolean strict) {
         this.feature = feature;
 
-        beforeStatus = calculateHookStatus(before);
-        afterStatus = calculateHookStatus(after);
-        stepsStatus = calculateStepsStatus();
-        elementStatus = calculateElementStatus();
+        beforeStatus = calculateHookStatus(before, strict);
+        afterStatus = calculateHookStatus(after, strict);
+        stepsStatus = calculateStepsStatus(strict);
+        elementStatus = calculateElementStatus(strict);
     }
 
-    private Status calculateHookStatus(Hook[] hooks) {
+    private Status calculateHookStatus(Hook[] hooks, boolean strict) {
         StatusCounter statusCounter = new StatusCounter();
         for (Hook hook : hooks) {
             statusCounter.incrementFor(hook.getResult().getStatus());
         }
 
-        return statusCounter.getFinalStatus();
+        return statusCounter.getFinalStatus(strict);
     }
 
-    private Status calculateElementStatus() {
+    private Status calculateElementStatus(boolean strict) {
         StatusCounter statusCounter = new StatusCounter();
         statusCounter.incrementFor(stepsStatus);
         statusCounter.incrementFor(beforeStatus);
         statusCounter.incrementFor(afterStatus);
-        return statusCounter.getFinalStatus();
+        return statusCounter.getFinalStatus(strict);
     }
 
-    private Status calculateStepsStatus() {
+    private Status calculateStepsStatus(boolean strict) {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
             Result result = step.getResult();
             statusCounter.incrementFor(result.getStatus());
             duration += result.getDuration();
         }
-        return statusCounter.getFinalStatus();
+        return statusCounter.getFinalStatus(strict);
     }
 }

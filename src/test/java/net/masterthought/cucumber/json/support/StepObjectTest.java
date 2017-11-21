@@ -2,12 +2,11 @@ package net.masterthought.cucumber.json.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.masterthought.cucumber.ValidationException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import net.masterthought.cucumber.ValidationException;
 
 /**
  * @author Sam Park (midopa@github)
@@ -21,7 +20,7 @@ public class StepObjectTest {
 
     @Before
     public void setUp() {
-        stepObject = new StepObject("Test step location");
+        stepObject = new StepObject("Test step location", true);
         stepObject.addDuration(1000000000L, Status.PASSED);
         stepObject.addDuration(2200000000L, Status.FAILED);
         stepObject.addDuration( 303000000L, Status.UNDEFINED);
@@ -34,7 +33,7 @@ public class StepObjectTest {
 
         // then
         thrown.expect(ValidationException.class);
-        new StepObject(null);
+        new StepObject(null, true);
     }
 
     @Test
@@ -54,7 +53,7 @@ public class StepObjectTest {
     public void addDurationSumsDurations() {
 
         // give
-        StepObject step = new StepObject("ble bla ble");
+        StepObject step = new StepObject("ble bla ble", true);
 
         // when
         step.addDuration(20L, Status.PASSED);
@@ -123,7 +122,7 @@ public class StepObjectTest {
     public void getPercentageResult_OnOnlyFailures_Returns0Percent() {
 
         // given
-        StepObject step = new StepObject("Test step location");
+        StepObject step = new StepObject("Test step location", true);
         step.addDuration(2200000000L, Status.FAILED);
         step.addDuration(303000000L, Status.UNDEFINED);
 

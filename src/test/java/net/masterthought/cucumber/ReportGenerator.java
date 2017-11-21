@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -63,8 +62,9 @@ public abstract class ReportGenerator {
 
     protected void initWithJson(String... jsonFiles) {
         if (jsonFiles != null) {
-            for (String jsonFile : jsonFiles)
+            for (String jsonFile : jsonFiles) {
                 jsonReports.add(reportFromResource(jsonFile));
+            }
         }
 
         // may be already created so don't overwrite it
@@ -76,8 +76,9 @@ public abstract class ReportGenerator {
     }
 
     protected void initWithProperties(String... propertyFiles) {
-        for (String propertyFile : propertyFiles)
-           this.classificationFiles.add(reportFromResourceProperties(propertyFile));
+        for (String propertyFile : propertyFiles) {
+            this.classificationFiles.add(reportFromResourceProperties(propertyFile));
+        }
 
         // may be already created so don't overwrite it
         if (configuration == null) {
@@ -108,7 +109,7 @@ public abstract class ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         List<Feature> featuresFromJson = reportParser.parseJsonFiles(jsonReports);
-        reportResult = new ReportResult(featuresFromJson, configuration.getSortingMethod());
+        reportResult = new ReportResult(featuresFromJson, configuration);
 
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();

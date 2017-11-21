@@ -12,12 +12,6 @@ public class StatusCounter {
 
     private EnumMap<Status, Integer> counter = new EnumMap<>(Status.class);
 
-    /**
-     * Is equal to {@link Status#FAILED} when at least counted status is not {@link Status#PASSED},
-     * otherwise set to {@link Status#PASSED}.
-     */
-    private Status finalStatus = Status.PASSED;
-
     private int size = 0;
 
     public StatusCounter() {
@@ -36,10 +30,6 @@ public class StatusCounter {
         final int statusCounter = getValueFor(status) + 1;
         this.counter.put(status, statusCounter);
         size++;
-
-        if (finalStatus == Status.PASSED && status != Status.PASSED) {
-            finalStatus = Status.FAILED;
-        }
     }
 
     /**
@@ -66,7 +56,10 @@ public class StatusCounter {
      *
      * @return final status for this counter
      */
-    public Status getFinalStatus() {
-        return finalStatus;
+    public Status getFinalStatus(boolean strict) {
+        if (strict) {
+            return counter.get(Status.PASSED) == size() ? Status.PASSED : Status.FAILED;
+        }
+        return Status.PASSED;
     }
 }

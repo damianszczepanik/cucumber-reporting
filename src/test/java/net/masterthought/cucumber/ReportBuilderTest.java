@@ -14,8 +14,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.AbstractPage;
+import net.masterthought.cucumber.generators.OverviewReport;
+import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -24,10 +26,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import net.masterthought.cucumber.generators.AbstractPage;
-import net.masterthought.cucumber.generators.OverviewReport;
-import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -219,7 +217,7 @@ public class ReportBuilderTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
         List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
@@ -236,7 +234,7 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
         List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
@@ -471,7 +469,7 @@ public class ReportBuilderTest extends ReportGenerator {
             }
         };
 
-        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration.getSortingMethod()) {
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration) {
             @Override
             public Reportable getFeatureReport() {
                 return reportable;
