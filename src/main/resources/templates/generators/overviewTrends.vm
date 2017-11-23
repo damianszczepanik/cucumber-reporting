@@ -40,7 +40,9 @@
 
 <div class="container-fluid" id="report">
   <div class="row">
+
     <div class="col-md-10 col-md-offset-1">
+       <h4>Trend Scenario Table:</h4>
       #includeFeaturesScenarioTable("Feature", $featuresDetail, $buildNumbers)
     </div>
   </div>

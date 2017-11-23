@@ -202,7 +202,7 @@ public class TrendsTest {
         configuration.addClassifications("Platform", "Windows");
         configuration.addClassifications("Browser", "Firefox");
         configuration.addClassifications("Branch", "release/1.0");
-        configuration.setTrends(new File("resource", "cucumber-trends_3.json"), 5);
+        configuration.setTrends(new File("resource", "cucumber-trends_3.json"), 7);
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();

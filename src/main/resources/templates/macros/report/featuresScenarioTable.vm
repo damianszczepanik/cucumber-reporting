@@ -20,7 +20,7 @@
             <td class="tagname">$item.getFeatureName()</td>
             <td class="tagname">$item.getScenarioName()</td>
             #foreach($status in $item.getStatuses())
-                            <td class="">$status</td>
+                            <td class="#if ($status=='PASSED') passed #elseif($status=='FAILED') failed #elseif($status=='SKIPPED')skipped #end">$status</td>
 
             #end
         </tr>
@@ -28,10 +28,5 @@
   </tbody>
 
 </table>
-
-table#tableTrend thead  tr th {
-    background-color: black;
-    color: white;
-}
 
 #end
