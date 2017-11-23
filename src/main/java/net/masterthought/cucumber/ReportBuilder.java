@@ -11,14 +11,14 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.ErrorPage;
@@ -34,7 +34,7 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportBuilder {
 
-    private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
+    private static final Logger LOG = Logger.getLogger(ReportBuilder.class.getName());
 
     /**
      * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
@@ -229,7 +229,7 @@ public class ReportBuilder {
     }
 
     private void generateErrorPage(Exception exception) {
-        LOG.info(exception);
+        LOG.log(Level.INFO, "Unexpected error", exception);
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }

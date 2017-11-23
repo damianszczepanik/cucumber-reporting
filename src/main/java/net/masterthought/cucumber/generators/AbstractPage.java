@@ -1,5 +1,19 @@
 package net.masterthought.cucumber.generators;
 
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.util.Counter;
+import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.app.event.EventCartridge;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,23 +21,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.app.event.EventCartridge;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.util.Counter;
-import net.masterthought.cucumber.util.Util;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Delivers common methods for page generation.
@@ -32,7 +31,7 @@ import net.masterthought.cucumber.util.Util;
  */
 public abstract class AbstractPage {
 
-    private static final Logger LOG = LogManager.getLogger(AbstractPage.class);
+    private static final Logger LOG = Logger.getLogger(AbstractPage.class.getName());
 
     private final VelocityEngine engine = new VelocityEngine();
     protected final VelocityContext context = new VelocityContext();
@@ -114,7 +113,7 @@ public abstract class AbstractPage {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
+                LOG.log(Level.INFO, "Could not parse build number: {0}.", configuration.getBuildNumber());
             }
         }
     }
