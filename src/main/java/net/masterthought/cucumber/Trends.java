@@ -1,11 +1,13 @@
 package net.masterthought.cucumber;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 
 /**
- * Contains historical information about all and failed features, scenarios and steps.
+ * Contains historical information about all and failed features, trendTableRows and steps.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -30,14 +32,101 @@ public class Trends {
 
     private long[] durations = new long[0];
 
-    private String [][] featuresDetail = new String[0][];
+    private String [][] featuresDetail = new String[0][0];
 
     public String[] getBuildNumbers() {
         return buildNumbers;
     }
 
-    public String[][] getFeaturesDetail() {
-        return featuresDetail;
+    public String [][] getFeaturesDetail() {
+    return featuresDetail;
+    }
+
+    public ArrayList<TrendTableRow> collectTrendFeatureScenario() {
+
+        /*int i = 0;
+        for (String bn : buildNumbers) {
+            TrendTableRow feature = featuresDetail[i];
+
+            TrendTableRow ttr = null;
+            for (TrendTableRow scenario: trendTableRows) {
+                if (feature.id == scenario.getId()){
+                    ttr = scenario;
+                    scenario.setStatus(featuresDetail[i].getStatus(), i);
+                    ttr = scenario;
+                    break;
+                    // you found the scenario
+                }
+            }
+
+            if (ttr != null){
+                trendTableRows.add(ttr);
+            }
+        }*/
+
+        ArrayList<TrendTableRow> trendTableRows = new ArrayList<>();
+
+        for (int i = 0 ; i < buildNumbers.length;i++){
+            for (int j=0;j<featuresDetail[i].length;j++){
+                String[] featureScenario = featuresDetail[i][j].split(";");
+                TrendTableRow trendTableRow = new TrendTableRow(featureScenario[0], featureScenario[1]);
+                if(!isAlreadyInTrenTableRows(trendTableRow,trendTableRows)){
+                    trendTableRows.add(trendTableRow);
+                }
+            }
+        }
+
+        for (int i = 0 ; i < buildNumbers.length;i++){
+            String [] featureScenarioPerBuild = featuresDetail[i];
+            for (TrendTableRow trendTableRow: trendTableRows) {
+                if (getStatus(trendTableRow, featureScenarioPerBuild)!=null){
+                    trendTableRow.setStatus(getStatus(trendTableRow, featureScenarioPerBuild));
+                }else {
+                    trendTableRow.setStatus("-");
+                }
+            }
+        }
+
+
+
+
+
+
+        /*TrendTableRow t1 = new TrendTableRow("1", featuresDetail[0][1]);
+        t1.setStatus("pass", 1);
+        t1.setStatus("fail", 2);
+        trendTableRows.add(t1);
+
+        TrendTableRow t2 = new TrendTableRow("1", featuresDetail[0][2]);
+        t2.setStatus("pass", 1);
+        t2.setStatus("pass", 2);
+        trendTableRows.add(t2);*/
+
+        return trendTableRows;
+    }
+
+    private boolean isAlreadyInTrenTableRows(TrendTableRow trendTableRow, ArrayList<TrendTableRow> TrendTableRows){
+        boolean found = false;
+        for (TrendTableRow ttr: TrendTableRows) {
+            if(ttr.getScenarioName().equals(trendTableRow.getScenarioName()) && ttr.getFeatureName().equals(trendTableRow.getFeatureName())){
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    private String getStatus(TrendTableRow trendTableRow, String[] featureScenarios){
+        boolean found = false;
+        for (int i=0; i < featureScenarios.length ; i++){
+            String [] ScenarioDetails = featureScenarios[i].split(";");
+            if (trendTableRow.getFeatureName().equals(ScenarioDetails[0]) && trendTableRow.getScenarioName().equals(ScenarioDetails[1])){
+                return ScenarioDetails[2];
+            }
+        }
+
+        return null;
     }
 
     public int[] getFailedFeatures() {

@@ -5,7 +5,6 @@ import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.TrendFeatures;
-import net.masterthought.cucumber.json.TrendScenarios;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
@@ -154,35 +153,6 @@ public class OverviewReport implements Reportable {
             }
         }
 
-        //TrendFeatureScenario = (String[]) ArrayUtils.add(TrendFeatureScenario,"feature1;scenario2;failed");
-        //TrendFeatureScenario = (String[]) ArrayUtils.add(TrendFeatureScenario,"feature2;scenario2.1;failed");
-
-
-
-
-        /*File file = new File("resource/scenario.json");
-        String features = null;
-        try {
-            features = FileUtils.readFileToString(file,"utf-8");
-            JSONObject jsonObject = new JSONObject(features);
-            JSONArray jsonArray = jsonObject.getJSONArray("featuresDetail");
-
-            for (int i =0; i < jsonArray.length(); i++){
-                String feature = jsonArray.getJSONObject(0).getString("feature");
-                JSONArray scenario = jsonArray.getJSONObject(0).getJSONArray("scenarios");
-                String a = scenario.getJSONObject(0).getString("scenario");
-                TrendScenarios trendScenarios = new TrendScenarios(scenario.getJSONObject(0).getString("scenario"),scenario.getJSONObject(1).getString("scenario"));
-                //String name = trendScenarios.getScenarioName();
-                //String status = trendScenarios.getStatus();
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return features;*/
         return TrendFeatureScenario;
     }
 }

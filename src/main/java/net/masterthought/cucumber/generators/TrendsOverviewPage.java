@@ -2,7 +2,11 @@ package net.masterthought.cucumber.generators;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.TrendTableRow;
 import net.masterthought.cucumber.Trends;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -40,7 +44,22 @@ public class TrendsOverviewPage extends AbstractPage {
 
         context.put("durations", trends.getDurations());
 
-        context.put("featuresDetail", trends.getFeaturesDetail());
+        List<TrendTableRow> ttr = trends.collectTrendFeatureScenario();
+
+
+        context.put("featuresDetail", trends.collectTrendFeatureScenario());
+
+
+        /*String[][] featuresDetail = trends.getFeaturesDetail();
+
+        int size = featuresDetail.length;
+
+
+        for (int i=0; i < size ; i++){
+            for (int j = 0; j < featuresDetail[i].length; j++){
+
+            }
+        }*/
     }
 
 }

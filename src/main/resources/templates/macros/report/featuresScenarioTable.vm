@@ -1,37 +1,37 @@
-#macro(includeFeaturesScenarioTable, $table_key, $parallel, $items, $report_summary, $build_numbers)
+#macro(includeFeaturesScenarioTable, $table_key, $items, $buildNumbers)
 
-<table id="tablesorter" class="stats-table table-hover">
-  #includeReportHeader($table_key, $parallel)
+<table id="tableTrend" class="stats-table table-hover">
+  <thead>
+    <tr>
+        <th rowspan="2">Feature</th>
+        <th rowspan="2">Scenario</th>
+        <th colspan=$buildNumbers.size()>Build Number</th>
+    </tr>
+    <tr>
+        #foreach($buildNumber in $buildNumbers)
 
-  <tbody>
-    #foreach($item in $items)
-      <tr>
-        <td class="tagname"><a href="$item.getReportFileName()">$item</a></td>
-        #if ($parallel)
-          <td>$item.getDeviceName()</td>
+            <th>$buildNumber</th>
         #end
+    </tr>
+  </thead>
+  <tbody>
+  #foreach($item in $items)
+        <tr>
+            <td class="tagname">$item.getFeatureName()</td>
+            <td class="tagname">$item.getScenarioName()</td>
+            #foreach($status in $item.getStatuses())
+                            <td class="">$status</td>
 
-
-      </tr>
-    #end
+            #end
+        </tr>
+         #end
   </tbody>
 
-  <tfoot class="total">
-    <tr>
-      <td></td>
-      #if ($parallel)
-        <td>-</td>
-      #end
-
-    </tr>
-    <tr>
-      <td></td>
-      #if ($parallel)
-        <td>-</td>
-      #end
-
-    </tr>
-  </tfoot>
 </table>
+
+table#tableTrend thead  tr th {
+    background-color: black;
+    color: white;
+}
 
 #end

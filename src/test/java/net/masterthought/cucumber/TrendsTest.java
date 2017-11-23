@@ -192,11 +192,13 @@ public class TrendsTest {
         boolean parallelTesting = false;
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+
         // optional configuration
         configuration.setParallelTesting(parallelTesting);
         configuration.setRunWithJenkins(runWithJenkins);
         configuration.setBuildNumber(buildNumber);
         // addidtional metadata presented on main page
+
         configuration.addClassifications("Platform", "Windows");
         configuration.addClassifications("Browser", "Firefox");
         configuration.addClassifications("Branch", "release/1.0");
