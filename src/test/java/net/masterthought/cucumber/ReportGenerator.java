@@ -118,7 +118,7 @@ public abstract class ReportGenerator {
     private void createEmbeddingsDirectory() {
         final File embeddingDirectory = configuration.getEmbeddingDirectory();
         if(!embeddingDirectory.exists() && !embeddingDirectory.mkdirs()){
-            throw new RuntimeException("Failed to create: " + embeddingDirectory);
+            throw new ValidationException("Failed to create: " + embeddingDirectory);
         }
     }
 }
