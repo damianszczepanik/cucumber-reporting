@@ -2,6 +2,9 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Embedding;
+import net.masterthought.cucumber.json.Step;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,5 +51,33 @@ public class FeatureReportPageTest extends PageTest {
         assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("parallel")).isEqualTo(configuration.isParallelTesting());
         assertThat(context.get("feature")).isEqualTo(feature);
+    }
+
+    @Test
+    public void getMimeType_OnEmbeddingFromV2CucumberReportFile_SupportsScreenshots() {
+        // given
+        Feature feature = features.get(0);
+        Element element = feature.getElements()[0];
+        Step step = element.getSteps()[0];
+
+        // when
+        Embedding[] embeddings = step.getEmbeddings();
+
+        // then
+        assertThat(embeddings[0].getMimeType()).isEqualTo("image/url");
+    }
+
+    @Test
+    public void getMimeType_OnEmbeddingFromV3CucumberReportFile_SupportsScreenshots() {
+        // given
+        Feature feature = features.get(0);
+        Element element = feature.getElements()[0];
+        Step step = element.getSteps()[0];
+
+        // when
+        Embedding[] embeddings = step.getEmbeddings();
+
+        // then
+        assertThat(embeddings[1].getMimeType()).isEqualTo("text/plain");
     }
 }
