@@ -113,7 +113,7 @@ public abstract class AbstractPage {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.log(Level.INFO, "Could not parse build number: {0}.", configuration.getBuildNumber());
+                LOG.log(Level.INFO, String.format("Could not parse build number: %1$s.", configuration.getBuildNumber()));
             }
         }
     }

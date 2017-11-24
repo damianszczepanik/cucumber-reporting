@@ -131,7 +131,10 @@ public class ReportBuilder {
     }
 
     private void createEmbeddingsDirectory() {
-        configuration.getEmbeddingDirectory().mkdirs();
+        final File embeddingDirectory = configuration.getEmbeddingDirectory();
+        if(!embeddingDirectory.exists() && !embeddingDirectory.mkdirs()){
+            throw new RuntimeException("Failed to create: " + embeddingDirectory);
+        }
     }
 
     private void copyResources(String resourceLocation, String... resources) {
