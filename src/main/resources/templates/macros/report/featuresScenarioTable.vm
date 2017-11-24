@@ -20,7 +20,12 @@
             <td class="tagname">$item.getFeatureName()</td>
             <td class="tagname">$item.getScenarioName()</td>
             #foreach($status in $item.getStatuses())
-                            <td class="#if ($status=='P') passed #elseif($status=='F') failed #elseif($status=='S')skipped #end">$status</td>
+                 #if($buildNumbers.size()>15)
+                 #set ($status_table=$status.charAt(0))
+                 #else
+                 #set ($status_table=$status)
+                 #end
+                 <td class="#if ($status=='PASSED') passed #elseif($status=='FAILED') failed #elseif($status=='SKIPPED')skipped #end">$status_table</td>
 
             #end
         </tr>
