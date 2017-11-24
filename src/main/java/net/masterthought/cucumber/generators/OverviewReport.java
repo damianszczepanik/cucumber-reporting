@@ -147,7 +147,7 @@ public class OverviewReport implements Reportable {
             for (Element scenario : scenarios){
                 if(scenario.isScenario()){
                     String scenarioName = scenario.getName();
-                    String scenarioStatus = scenario.getStatus().toString();
+                    String scenarioStatus = scenario.getStatus().toString().charAt(0)+"";
                     TrendFeatureScenario = (String[]) ArrayUtils.add(TrendFeatureScenario,featureName+";"+scenarioName+";"+scenarioStatus);
                 }
             }
