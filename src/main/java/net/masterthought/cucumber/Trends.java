@@ -36,8 +36,6 @@ public class Trends {
 
     private  FeatureScenario[][] featuresDetail = new FeatureScenario[0][0];
 
-    private ArrayList<FeatureScenario> featureDetails2 = new ArrayList<>();
-
     public String[] getBuildNumbers() {
         return buildNumbers;
     }
@@ -51,6 +49,7 @@ public class Trends {
         ArrayList<TrendTableRow> trendTableRows = new ArrayList<>();
 
         for (int i = 0 ; i < buildNumbers.length;i++){
+
             for (int j=0;j<featuresDetail[i].length;j++){
                 FeatureScenario featureScenario = featuresDetail[i][j];
                 TrendTableRow trendTableRow = new TrendTableRow(featureScenario.getFeatureName(), featureScenario.getScenarioName());
@@ -188,6 +187,9 @@ public class Trends {
         if (durations.length < buildNumbers.length) {
             fillMissingDurations();
         }
+        if (featuresDetail.length < buildNumbers.length){
+            fillMissingFeaturesDetail();
+        }
     }
 
     /**
@@ -300,5 +302,14 @@ public class Trends {
         Arrays.fill(extendedArray, -1);
         System.arraycopy(durations, 0, extendedArray, buildNumbers.length - durations.length, durations.length);
         durations = extendedArray;
+    }
+
+    private void fillMissingFeaturesDetail(){
+        FeatureScenario[][] featuresDetail_ = new FeatureScenario[buildNumbers.length][];
+        FeatureScenario[] featureScenarios = new FeatureScenario[0];
+
+        Arrays.fill(featuresDetail_, featureScenarios);
+        System.arraycopy(featuresDetail, 0, featuresDetail_, buildNumbers.length - featuresDetail.length, featuresDetail.length);
+        featuresDetail = featuresDetail_;
     }
 }

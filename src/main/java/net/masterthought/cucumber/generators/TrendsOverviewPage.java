@@ -44,22 +44,7 @@ public class TrendsOverviewPage extends AbstractPage {
 
         context.put("durations", trends.getDurations());
 
-        List<TrendTableRow> ttr = trends.collectTrendFeatureScenario();
-
-
         context.put("featuresDetail", trends.collectTrendFeatureScenario());
-
-
-        /*String[][] featuresDetail = trends.getFeaturesDetail();
-
-        int size = featuresDetail.length;
-
-
-        for (int i=0; i < size ; i++){
-            for (int j = 0; j < featuresDetail[i].length; j++){
-
-            }
-        }*/
     }
 
 }

@@ -45,8 +45,32 @@
         3206126182398, 3206126182399, 3206126182310
     ],
     "featuresDetail": [
-        [ "Facebook login;Login with an existent Facebook account;PASSED"],
-        [ "Facebook login;Login with an existent Facebook account;PASSED", "Search;Search for ads by keyword;PASSED"],
-        [ "Facebook login;Login with an existent Facebook account;PASSED", "Search;Search for ads by keyword;PASSED", "Search;Search using suggested topics;PASSED"]
+        [ {
+            "featureName" : "Initial setup",
+            "scenarioName" : "Open app and activate location",
+            "status" : "PASSED"
+        }, {
+            "featureName" : "Test facebook login",
+            "scenarioName" : "Login with an existent Facebook account",
+            "status" : "PASSED"
+        }],
+        [ {
+            "featureName" : "Initial setup",
+            "scenarioName" : "Open app and activate location",
+            "status" : "PASSED"
+        }, {
+            "featureName" : "Test facebook login",
+            "scenarioName" : "Login with an existent Facebook account",
+            "status" : "PASSED"
+        }],
+        [ {
+            "featureName" : "Initial setup",
+            "scenarioName" : "Open app and activate location",
+            "status" : "PASSED"
+        }, {
+            "featureName" : "Test facebook login",
+            "scenarioName" : "Login with an existent Facebook account",
+            "status" : "PASSED"
+        }]
     ]
 }
