@@ -1,9 +1,7 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.TrendFeatures;
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import net.masterthought.cucumber.json.support.Status;
-
-import java.util.ArrayList;
 
 /**
  * Defines methods required to generate single report. Implementations of this interface are used by Velocity template.
@@ -63,5 +61,5 @@ public interface Reportable {
     /** Returns status for this element. */
     Status getStatus();
 
-    String[] getFeatureDetails();
+    FeatureScenario[] getFeatureDetails();
 }

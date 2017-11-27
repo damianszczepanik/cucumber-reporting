@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.generators;
 
-import net.masterthought.cucumber.ReportParser;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.TrendFeatures;
-import org.apache.commons.io.FileUtils;
+import net.masterthought.cucumber.json.Features;
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -13,14 +12,7 @@ import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.velocity.texen.util.FileUtil;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +23,6 @@ public class OverviewReport implements Reportable {
     private final StatusCounter featuresCounter = new StatusCounter();
     private final StatusCounter scenariosCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
-    private final TrendFeatures features = new TrendFeatures();
-    private ReportResult reportResult;
 
     public void incFeaturesFor(Status status) {
         this.featuresCounter.incrementFor(status);
@@ -136,10 +126,10 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public String[] getFeatureDetails() {
+    public FeatureScenario[] getFeatureDetails() {
         //get all feature & scenario name
-        List<Feature> features = TrendFeatures.getFeatures();
-        String[] TrendFeatureScenario = new String[0];
+        List<Feature> features = Features.getFeatures();
+        FeatureScenario[] list_tfs = new FeatureScenario[0];
 
         for (Feature feature : features){
             String featureName = feature.getName();
@@ -148,11 +138,13 @@ public class OverviewReport implements Reportable {
                 if(scenario.isScenario()){
                     String scenarioName = scenario.getName();
                     String scenarioStatus = scenario.getStatus().toString();
-                    TrendFeatureScenario = (String[]) ArrayUtils.add(TrendFeatureScenario,featureName+";"+scenarioName+";"+scenarioStatus);
+
+                    FeatureScenario trendFeatureScenario = new FeatureScenario(featureName, scenarioName, scenarioStatus);
+                    list_tfs = (FeatureScenario[]) ArrayUtils.add(list_tfs, trendFeatureScenario);
                 }
             }
         }
 
-        return TrendFeatureScenario;
+        return list_tfs;
     }
 }

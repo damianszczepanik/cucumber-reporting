@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.Configuration;
@@ -65,7 +66,7 @@ public class Feature implements Reportable, Durationable {
     }
 
     @Override
-    public String[] getFeatureDetails() {
+    public FeatureScenario[] getFeatureDetails() {
         return null;
     }
 

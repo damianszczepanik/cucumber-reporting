@@ -1,9 +1,11 @@
 package net.masterthought.cucumber;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.lang.ArrayUtils;
 
 /**
@@ -32,44 +34,26 @@ public class Trends {
 
     private long[] durations = new long[0];
 
-    private String [][] featuresDetail = new String[0][0];
+    private  FeatureScenario[][] featuresDetail = new FeatureScenario[0][0];
+
+    private ArrayList<FeatureScenario> featureDetails2 = new ArrayList<>();
 
     public String[] getBuildNumbers() {
         return buildNumbers;
     }
 
-    public String [][] getFeaturesDetail() {
+    public FeatureScenario[][] getFeaturesDetail() {
     return featuresDetail;
     }
 
     public ArrayList<TrendTableRow> collectTrendFeatureScenario() {
 
-        /*int i = 0;
-        for (String bn : buildNumbers) {
-            TrendTableRow feature = featuresDetail[i];
-
-            TrendTableRow ttr = null;
-            for (TrendTableRow scenario: trendTableRows) {
-                if (feature.id == scenario.getId()){
-                    ttr = scenario;
-                    scenario.setStatus(featuresDetail[i].getStatus(), i);
-                    ttr = scenario;
-                    break;
-                    // you found the scenario
-                }
-            }
-
-            if (ttr != null){
-                trendTableRows.add(ttr);
-            }
-        }*/
-
         ArrayList<TrendTableRow> trendTableRows = new ArrayList<>();
 
         for (int i = 0 ; i < buildNumbers.length;i++){
             for (int j=0;j<featuresDetail[i].length;j++){
-                String[] featureScenario = featuresDetail[i][j].split(";");
-                TrendTableRow trendTableRow = new TrendTableRow(featureScenario[0], featureScenario[1]);
+                FeatureScenario featureScenario = featuresDetail[i][j];
+                TrendTableRow trendTableRow = new TrendTableRow(featureScenario.getFeatureName(), featureScenario.getScenarioName());
                 if(!isAlreadyInTrenTableRows(trendTableRow,trendTableRows)){
                     trendTableRows.add(trendTableRow);
                 }
@@ -77,7 +61,7 @@ public class Trends {
         }
 
         for (int i = 0 ; i < buildNumbers.length;i++){
-            String [] featureScenarioPerBuild = featuresDetail[i];
+            FeatureScenario[] featureScenarioPerBuild = featuresDetail[i];
             for (TrendTableRow trendTableRow: trendTableRows) {
                 if (getStatus(trendTableRow, featureScenarioPerBuild)!=null){
                     trendTableRow.setStatus(getStatus(trendTableRow, featureScenarioPerBuild));
@@ -86,21 +70,6 @@ public class Trends {
                 }
             }
         }
-
-
-
-
-
-
-        /*TrendTableRow t1 = new TrendTableRow("1", featuresDetail[0][1]);
-        t1.setStatus("pass", 1);
-        t1.setStatus("fail", 2);
-        trendTableRows.add(t1);
-
-        TrendTableRow t2 = new TrendTableRow("1", featuresDetail[0][2]);
-        t2.setStatus("pass", 1);
-        t2.setStatus("pass", 2);
-        trendTableRows.add(t2);*/
 
         return trendTableRows;
     }
@@ -117,12 +86,13 @@ public class Trends {
         return found;
     }
 
-    private String getStatus(TrendTableRow trendTableRow, String[] featureScenarios){
-        boolean found = false;
+    private String getStatus(TrendTableRow trendTableRow, FeatureScenario[] featureScenarios){
         for (int i=0; i < featureScenarios.length ; i++){
-            String [] ScenarioDetails = featureScenarios[i].split(";");
-            if (trendTableRow.getFeatureName().equals(ScenarioDetails[0]) && trendTableRow.getScenarioName().equals(ScenarioDetails[1])){
-                return ScenarioDetails[2];
+            String featureName =  featureScenarios[i].getFeatureName();
+            String scenarioName = featureScenarios[i].getScenarioName();
+            String status = featureScenarios[i].getStatus();
+            if (trendTableRow.getFeatureName().equals(featureName) && trendTableRow.getScenarioName().equals(scenarioName)){
+                return status;
             }
         }
 
@@ -207,7 +177,8 @@ public class Trends {
 
         durations = ArrayUtils.add(durations, reportable.getDuration());
 
-        featuresDetail = (String[][]) ArrayUtils.add(featuresDetail, reportable.getFeatureDetails());
+        featuresDetail = (FeatureScenario[][]) ArrayUtils.add(featuresDetail, reportable.getFeatureDetails());
+
 
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();

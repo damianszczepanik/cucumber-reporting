@@ -1,9 +1,7 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.TrendFeatures;
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import net.masterthought.cucumber.json.support.Status;
-
-import java.util.ArrayList;
 
 /**
  * Defines empty reportable that is usded when the build fails.
@@ -98,7 +96,7 @@ public class EmptyReportable implements Reportable {
     }
 
     @Override
-    public String[] getFeatureDetails() {
+    public FeatureScenario[] getFeatureDetails() {
         return null;
     }
 }
