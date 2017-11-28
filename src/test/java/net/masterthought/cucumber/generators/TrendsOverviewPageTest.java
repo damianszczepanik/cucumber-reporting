@@ -4,8 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.TrendTableRow;
+import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
@@ -64,7 +67,7 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(19);
+        assertThat(context.getKeys()).hasSize(20);
 
         assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first","other build","05last"});
         assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1,2,5});
@@ -80,5 +83,8 @@ public class TrendsOverviewPageTest extends PageTest {
         assertThat(context.get("undefinedSteps")).isEqualTo(new int[]{10000,30000,50000});
 
         assertThat(context.get("durations")).isEqualTo(new long[]{3206126182398L, 3206126182399L, 3206126182310L});
+
+        assertThat(context.get("featuresDetail")).isNotNull();
+
     }
 }

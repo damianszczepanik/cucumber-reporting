@@ -46,31 +46,37 @@
     ],
     "featuresDetail": [
         [ {
-            "featureName" : "Initial setup",
-            "scenarioName" : "Open app and activate location",
-            "status" : "PASSED"
-        }, {
-            "featureName" : "Test facebook login",
-            "scenarioName" : "Login with an existent Facebook account",
-            "status" : "PASSED"
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.1",
+            "status" : "PASSED",
+            "deviceName":"device 1"
+        },{
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.2",
+            "status" : "PASSED",
+            "deviceName":"device 1"
         }],
         [ {
-            "featureName" : "Initial setup",
-            "scenarioName" : "Open app and activate location",
-            "status" : "PASSED"
-        }, {
-            "featureName" : "Test facebook login",
-            "scenarioName" : "Login with an existent Facebook account",
-            "status" : "PASSED"
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.1",
+            "status" : "PASSED",
+            "deviceName":"device 1"
+        },{
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.2",
+            "status" : "PASSED",
+            "deviceName":"device 1"
         }],
         [ {
-            "featureName" : "Initial setup",
-            "scenarioName" : "Open app and activate location",
-            "status" : "PASSED"
-        }, {
-            "featureName" : "Test facebook login",
-            "scenarioName" : "Login with an existent Facebook account",
-            "status" : "PASSED"
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.1",
+            "status" : "PASSED",
+            "deviceName":"device 1"
+        },{
+            "featureName" : "feature 1",
+            "scenarioName" : "Scenario 1.2",
+            "status" : "PASSED",
+            "deviceName":"device 1"
         }]
     ]
 }
