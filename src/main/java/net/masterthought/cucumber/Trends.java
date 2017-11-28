@@ -52,7 +52,7 @@ public class Trends {
 
             for (int j=0;j<featuresDetail[i].length;j++){
                 FeatureScenario featureScenario = featuresDetail[i][j];
-                TrendTableRow trendTableRow = new TrendTableRow(featureScenario.getFeatureName(), featureScenario.getScenarioName());
+                TrendTableRow trendTableRow = new TrendTableRow(featureScenario.getDeviceName(), featureScenario.getFeatureName(), featureScenario.getScenarioName());
                 if(!isAlreadyInTrenTableRows(trendTableRow,trendTableRows)){
                     trendTableRows.add(trendTableRow);
                 }
@@ -76,7 +76,8 @@ public class Trends {
     private boolean isAlreadyInTrenTableRows(TrendTableRow trendTableRow, ArrayList<TrendTableRow> TrendTableRows){
         boolean found = false;
         for (TrendTableRow ttr: TrendTableRows) {
-            if(ttr.getScenarioName().equals(trendTableRow.getScenarioName()) && ttr.getFeatureName().equals(trendTableRow.getFeatureName())){
+            if(ttr.getScenarioName().equals(trendTableRow.getScenarioName()) && ttr.getFeatureName().equals(trendTableRow.getFeatureName())
+                    && ttr.getDeviceName().equals(trendTableRow.getDeviceName())){
                 found = true;
                 break;
             }
@@ -89,8 +90,10 @@ public class Trends {
         for (int i=0; i < featureScenarios.length ; i++){
             String featureName =  featureScenarios[i].getFeatureName();
             String scenarioName = featureScenarios[i].getScenarioName();
+            String deviceName = featureScenarios[i].getDeviceName();
             String status = featureScenarios[i].getStatus();
-            if (trendTableRow.getFeatureName().equals(featureName) && trendTableRow.getScenarioName().equals(scenarioName)){
+            if (trendTableRow.getFeatureName().equals(featureName) && trendTableRow.getScenarioName().equals(scenarioName)
+                    && trendTableRow.getDeviceName().equals(deviceName)){
                 return status;
             }
         }

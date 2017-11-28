@@ -8,11 +8,13 @@ import java.util.List;
  */
 public class TrendTableRow {
 
+    private String deviceName;
     private String featureName;
     private String scenarioName;
     private ArrayList<String> statuses;
 
-    public TrendTableRow(String featureName, String scenarioName){
+    public TrendTableRow(String deviceName, String featureName, String scenarioName){
+        this.deviceName = deviceName;
         this.featureName = featureName;
         this.scenarioName = scenarioName;
         this.statuses = new ArrayList<>();
@@ -32,6 +34,10 @@ public class TrendTableRow {
 
     public String getFeatureName(){
         return featureName;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
     }
 
 }

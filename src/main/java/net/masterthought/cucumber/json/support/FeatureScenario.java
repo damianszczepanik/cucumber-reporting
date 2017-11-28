@@ -8,14 +8,17 @@ public class FeatureScenario {
     private String featureName;
     private String scenarioName;
     private String status;
+    private String deviceName;
 
     public FeatureScenario(){
         super();
     }
 
-    public FeatureScenario(String featureName, String scenarioName, String status){
+    public FeatureScenario(String deviceName, String featureName, String scenarioName, String status){
+        this.deviceName = deviceName;
         this.featureName = featureName;
         this.scenarioName = scenarioName;
+
         this.status = status;
     }
 
@@ -30,5 +33,9 @@ public class FeatureScenario {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getDeviceName(){
+        return deviceName;
     }
 }

@@ -133,13 +133,14 @@ public class OverviewReport implements Reportable {
 
         for (Feature feature : features){
             String featureName = feature.getName();
+            String deviceName = feature.getDeviceName();
             Element[] scenarios = feature.getElements();
             for (Element scenario : scenarios){
                 if(scenario.isScenario()){
                     String scenarioName = scenario.getName();
                     String scenarioStatus = scenario.getStatus().toString();
 
-                    FeatureScenario trendFeatureScenario = new FeatureScenario(featureName, scenarioName, scenarioStatus);
+                    FeatureScenario trendFeatureScenario = new FeatureScenario(deviceName, featureName, scenarioName, scenarioStatus);
                     list_tfs = (FeatureScenario[]) ArrayUtils.add(list_tfs, trendFeatureScenario);
                 }
             }

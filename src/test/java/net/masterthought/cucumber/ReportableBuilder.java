@@ -57,8 +57,8 @@ public class ReportableBuilder implements Reportable {
     }
 
     public static Reportable buildSample() {
-        FeatureScenario fs1 = new FeatureScenario("feature 1", "scenario 1", "PASSED");
-        FeatureScenario fs2 = new FeatureScenario("feature 2", "scenario 2", "FAILED");
+        FeatureScenario fs1 = new FeatureScenario("device1","feature 1", "scenario 1", "PASSED");
+        FeatureScenario fs2 = new FeatureScenario("device2","feature 2", "scenario 2", "FAILED");
         FeatureScenario[] featureScenarios = new FeatureScenario[2];
         featureScenarios[0] = fs1;
         featureScenarios[1] = fs2;

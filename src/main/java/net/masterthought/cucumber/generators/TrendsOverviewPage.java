@@ -44,6 +44,7 @@ public class TrendsOverviewPage extends AbstractPage {
 
         context.put("durations", trends.getDurations());
 
+        context.put("parallel", configuration.isParallelTesting());
         context.put("featuresDetail", trends.collectTrendFeatureScenario());
     }
 
