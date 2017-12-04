@@ -33,6 +33,12 @@
                             {
                                 "mime_type": "image/url",
                                 "data": "aHR0cDovL2xvY2FsaG9zdC9zdGF0aWMvbG9nby5wbmc="
+                            },
+                            {
+                                "data":"file:///path/to/index.html",
+                                "media":{
+                                    "type":"text/plain"
+                                }
                             }
                         ]
                     },
