@@ -179,40 +179,5 @@ public class TrendsTest {
         assertThat(trends.getFailedFeatures()).containsExactly(totalFeatures);
     }
 
-    @Test
-    public void testYael(){
-        File reportOutputDirectory = new File("target");
-        List<String> jsonFiles = new ArrayList<>();
-        jsonFiles.add("resource/cucumber5.json");
-        jsonFiles.add("resource/cucumber4.json");
-        //jsonFiles.add("resource/cucumber-trends.json");
 
-        String buildNumber = "10";
-        String projectName = "cucumberProject";
-        boolean runWithJenkins = false;
-        boolean parallelTesting = true;
-
-        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-
-        // optional configuration
-        configuration.setParallelTesting(parallelTesting);
-        configuration.setRunWithJenkins(runWithJenkins);
-        configuration.setBuildNumber(buildNumber);
-        // addidtional metadata presented on main page
-
-        configuration.addClassifications("Platform", "Windows");
-        configuration.addClassifications("Browser", "Firefox");
-        configuration.addClassifications("Branch", "release/1.0");
-        configuration.setTrends(new File("resource", "cucumber-trends_1.json"), 50);
-
-        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-        Reportable result = reportBuilder.generateReports();
-    }
-
-    @Test
-    public void testTrendRepeatly(){
-        for (int i=0; i < 5;i++){
-            testYael();
-        }
-    }
 }
