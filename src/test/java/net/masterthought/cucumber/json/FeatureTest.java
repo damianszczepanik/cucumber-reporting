@@ -264,7 +264,7 @@ public class FeatureTest extends PageTest {
         String formattedDuration = feature.getFormattedDuration();
 
         // then
-        assertThat(formattedDuration).isEqualTo("092ms");
+        assertThat(formattedDuration).isEqualTo("0.092");
     }
 
     @Test

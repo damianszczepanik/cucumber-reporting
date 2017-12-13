@@ -92,7 +92,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         assertThat(bodyRows).hasSameSizeAs(steps);
 
         TableRowAssertion firstRow = bodyRows[1];
-        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "1m 39s 107ms", "1m 39s 107ms", "100.00%");
+        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "1:39.107", "1:39.107", "100.00%");
         firstRow.hasExactCSSClasses("location", "", "duration", "duration", "passed");
         firstRow.hasExactDataValues("", "", "99107447000", "99107447000", "");
 
@@ -115,6 +115,6 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getReport().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("16", "23", "1m 39s 492ms", "4s 325ms", "Totals");
+        footerCells.hasExactValues("16", "23", "1:39.492", "4.325", "Totals");
     }
 }
