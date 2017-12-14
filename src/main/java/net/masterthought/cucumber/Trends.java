@@ -220,6 +220,19 @@ public class Trends {
         totalSteps = copyLastElements(totalSteps, limit);
 
         durations = copyLastElements(durations, limit);
+
+        featuresDetail = copyLastElements(featuresDetail,limit);
+    }
+
+    private static FeatureScenario[][] copyLastElements(FeatureScenario[][] srcArray, int copyingLimit){
+        if (srcArray.length <= copyingLimit) {
+            return srcArray;
+        }
+
+        FeatureScenario[][] featureScenarios = new FeatureScenario[copyingLimit][];
+        System.arraycopy(srcArray,srcArray.length-copyingLimit,featureScenarios,0,copyingLimit);
+
+        return featureScenarios;
     }
 
     private static int[] copyLastElements(int[] srcArray, int copyingLimit) {
