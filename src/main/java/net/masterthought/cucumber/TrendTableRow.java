@@ -12,12 +12,14 @@ public class TrendTableRow {
     private String featureName;
     private String scenarioName;
     private ArrayList<String> statuses;
+    private String id;
 
-    public TrendTableRow(String deviceName, String featureName, String scenarioName){
+    public TrendTableRow(String deviceName, String featureName, String scenarioName, String id){
         this.deviceName = deviceName;
         this.featureName = featureName;
         this.scenarioName = scenarioName;
         this.statuses = new ArrayList<>();
+        this.id = id;
     }
 
     public String getScenarioName() {
@@ -38,6 +40,10 @@ public class TrendTableRow {
 
     public String getDeviceName() {
         return deviceName;
+    }
+
+    public String getId(){
+        return  id;
     }
 
 }

@@ -18,6 +18,7 @@ public class Element implements Durationable {
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
     private final Tag[] tags = new Tag[0];
+    private final String line = null;
     // End: attributes from JSON file report
 
     private static final String SCENARIO_TYPE = "scenario";
@@ -84,6 +85,10 @@ public class Element implements Durationable {
 
     public Feature getFeature() {
         return feature;
+    }
+
+    public String getLine(){
+        return line;
     }
 
     @Override

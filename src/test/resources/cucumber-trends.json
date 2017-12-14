@@ -49,34 +49,40 @@
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.1",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id":"3"
         },{
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.2",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id" : "8"
         }],
         [ {
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.1",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id" : "15"
         },{
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.2",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id" : "18"
         }],
         [ {
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.1",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id" : "22"
         },{
             "featureName" : "feature 1",
             "scenarioName" : "Scenario 1.2",
             "status" : "PASSED",
-            "deviceName":"device 1"
+            "deviceName":"device 1",
+            "id":"30"
         }]
     ]
 }

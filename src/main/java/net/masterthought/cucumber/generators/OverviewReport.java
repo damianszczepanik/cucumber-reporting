@@ -139,8 +139,9 @@ public class OverviewReport implements Reportable {
                 if(scenario.isScenario()){
                     String scenarioName = scenario.getName();
                     String scenarioStatus = scenario.getStatus().toString();
+                    String line = scenario.getLine();
 
-                    FeatureScenario trendFeatureScenario = new FeatureScenario(deviceName, featureName, scenarioName, scenarioStatus);
+                    FeatureScenario trendFeatureScenario = new FeatureScenario(deviceName, featureName, scenarioName, scenarioStatus,line);
                     list_tfs = (FeatureScenario[]) ArrayUtils.add(list_tfs, trendFeatureScenario);
                 }
             }
