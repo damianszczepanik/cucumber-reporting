@@ -3,12 +3,8 @@ package net.masterthought.cucumber;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.json.Feature;
 import org.junit.Test;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -20,14 +16,18 @@ public class TrendsTest {
 
         // given
         Trends trends = new Trends();
+        FeatureScenario[][] featuresDetail = new FeatureScenario[2][];
+
         // make sure that there is some data added already
         Reportable result = ReportableBuilder.buildSample();
         trends.addBuild("buildName", result);
+        featuresDetail[0] = result.getFeatureDetails();
 
         final String buildNumber = "this is the build!";
 
         // when
         trends.addBuild(buildNumber, result);
+        featuresDetail[1] = result.getFeatureDetails();
 
 
         // then
@@ -49,6 +49,8 @@ public class TrendsTest {
         assertThat(trends.getTotalSteps()).hasSize(2).endsWith(result.getSteps());
 
         assertThat(trends.getDurations()).hasSize(2).endsWith(3206126182390L);
+
+        assertThat(trends.getFeaturesDetail()).hasSize(2).endsWith(featuresDetail);
     }
 
     @Test
@@ -59,11 +61,18 @@ public class TrendsTest {
         // make sure that there is some data added already
         Reportable result = ReportableBuilder.buildSample();
         trends.addBuild("buildName", result);
+
+        FeatureScenario[][] featuresDetail = new FeatureScenario[4][];
+        featuresDetail[0] = new FeatureScenario[0];
+        featuresDetail[1] = new FeatureScenario[0];
+        featuresDetail[2] = result.getFeatureDetails();
+
         final String[] buildNumbers = new String[]{"a", "b", "e"};
         Deencapsulation.setField(trends, "buildNumbers", buildNumbers);
         
         // when
         trends.addBuild("the build!", result);
+        featuresDetail[3] = result.getFeatureDetails();
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(buildNumbers.length + 1).containsExactly("a", "b", "e", "the build!");
@@ -78,6 +87,8 @@ public class TrendsTest {
         assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
 
         assertThat(trends.getDurations()).hasSize(buildNumbers.length + 1).containsExactly(-1L, -1L, 3206126182390L, 3206126182390L);
+
+        assertThat(trends.getFeaturesDetail()).hasSize(buildNumbers.length + 1).containsExactly(featuresDetail[0], featuresDetail[1], featuresDetail[2], featuresDetail[3]);
     }
 
     @Test
@@ -115,6 +126,8 @@ public class TrendsTest {
         assertThat(trends.getTotalSteps()).hasSize(limit).containsExactly(result.getSteps());
 
         assertThat(trends.getDurations()).hasSize(limit).containsExactly(result.getDuration());
+
+        assertThat(trends.getFeaturesDetail()).hasSize(limit).containsExactly(result.getFeatureDetails());
     }
 
     @Test

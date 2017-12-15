@@ -153,7 +153,7 @@ public class TagObject implements Reportable {
 
     @Override
     public FeatureScenario[] getFeatureDetails() {
-        return null;
+        throw new  NotImplementedException();
     }
 
     public String getRawStatus() {
