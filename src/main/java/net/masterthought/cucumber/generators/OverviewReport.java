@@ -1,10 +1,9 @@
 package net.masterthought.cucumber.generators;
 
-import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Features;
-import net.masterthought.cucumber.json.support.FeatureScenario;
+import net.masterthought.cucumber.FeatureScenario;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -13,7 +12,6 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OverviewReport implements Reportable {

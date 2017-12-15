@@ -3,6 +3,7 @@ package net.masterthought.cucumber.json.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.masterthought.cucumber.FeatureScenario;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 

@@ -1,6 +1,5 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.support.FeatureScenario;
 import net.masterthought.cucumber.json.support.Status;
 
 /**

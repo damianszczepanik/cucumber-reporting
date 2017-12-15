@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.json.support;
+package net.masterthought.cucumber;
 
 /**
  * Created by suci on 11/17/17.

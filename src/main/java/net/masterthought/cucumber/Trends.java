@@ -1,11 +1,8 @@
 package net.masterthought.cucumber;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.lang.ArrayUtils;
 
 /**

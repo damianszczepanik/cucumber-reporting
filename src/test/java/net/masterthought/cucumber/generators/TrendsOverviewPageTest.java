@@ -4,11 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.TrendTableRow;
-import net.masterthought.cucumber.json.support.FeatureScenario;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
