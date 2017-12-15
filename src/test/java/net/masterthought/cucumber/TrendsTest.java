@@ -173,6 +173,25 @@ public class TrendsTest {
     }
 
     @Test
+    public void copyLastElemets_OnBigLimit_ReturnPassedFeatureScenarioArray(){
+        //given
+        final FeatureScenario[][] featuresDetail = new FeatureScenario[6][];
+
+        for(int i = 0 ; i < featuresDetail.length; i++){
+            FeatureScenario featureScenario = new FeatureScenario("device 1","feature 1", "scenario 1", "PASSED","4");
+            FeatureScenario[] featureScenarios = new FeatureScenario[1];
+            featureScenarios[0] = featureScenario;
+            featuresDetail[i] = featureScenarios;
+        }
+
+        final int limit = featuresDetail.length + 1;
+
+        FeatureScenario[][] limitedArray = Deencapsulation.invoke(Trends.class,"copyLastElements", featuresDetail,limit);
+
+        assertThat(limitedArray).isSameAs(featuresDetail);
+    }
+
+    @Test
     public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
 
         // given
@@ -191,6 +210,5 @@ public class TrendsTest {
         assertThat(trends.getTotalFeatures()).containsExactly(failedFeatures);
         assertThat(trends.getFailedFeatures()).containsExactly(totalFeatures);
     }
-
-
+    
 }

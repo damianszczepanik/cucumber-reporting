@@ -3,8 +3,11 @@ package net.masterthought.cucumber.json;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mockit.Deencapsulation;
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
@@ -18,6 +21,9 @@ public class FeatureTest extends PageTest {
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void getDeviceName_ReturnsDeviceName() {
@@ -309,4 +315,13 @@ public class FeatureTest extends PageTest {
         // then
         assertThat(deviceName).isEqualTo(jsonFileName);
     }
+
+    @Test
+    public void getFeatureDetails_ThrowException() throws Exception {
+        Feature feature = features.get(0);
+
+        thrown.expect(NotImplementedException.class);
+        feature.getFeatureDetails();
+    }
+
 }

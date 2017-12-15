@@ -2,11 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.TrendTableRow;
 import net.masterthought.cucumber.Trends;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
