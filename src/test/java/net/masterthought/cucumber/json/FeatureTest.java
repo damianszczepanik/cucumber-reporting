@@ -17,13 +17,13 @@ import net.masterthought.cucumber.json.support.Status;
  */
 public class FeatureTest extends PageTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Before
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void getDeviceName_ReturnsDeviceName() {
