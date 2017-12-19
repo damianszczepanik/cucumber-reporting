@@ -3,8 +3,11 @@ package net.masterthought.cucumber.generators;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
@@ -13,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
@@ -70,6 +74,22 @@ public class PageGeneratorTest extends PageTest {
 				"\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
 				"\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
 	}
+	
+	@Test
+	public void generateReport_OnInvalidPath_ThrowsException() throws IOException {
+
+		// given
+		File outputDir = new File("target", String.valueOf(System.currentTimeMillis()));
+		Files.createDirectories(outputDir.toPath());
+		configuration = new Configuration(outputDir, null);
+		File reportFile = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+		FileUtils.touch(reportFile);
+		
+		// when
+		thrown.expect(ValidationException.class);
+		initPageGeneartor();
+	}
+
 
 	@Test
 	public void generatePage_OnInvalidPath_ThrowsException() {
