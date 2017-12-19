@@ -23,7 +23,7 @@ public class FeaturesOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsFeatureFileName() {
 
         // given
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
         String fileName = page.getWebPage();
@@ -36,14 +36,14 @@ public class FeaturesOverviewPageTest extends PageTest {
     public void prepareReport_AddsCustomProperties() {
 
         // given
-        page = new FeaturesOverviewPage(reportResult, configuration);
+    	VelocityContext context = new VelocityContext();
+        page = new FeaturesOverviewPage();
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(4);
 
         assertThat(context.get("all_features")).isEqualTo(features);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());

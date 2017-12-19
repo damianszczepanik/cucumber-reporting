@@ -1,8 +1,11 @@
 package net.masterthought.cucumber.generators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.apache.velocity.VelocityContext;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
@@ -17,8 +20,8 @@ public class TagsOverviewPage extends AbstractPage {
 
     public static final String WEB_PAGE = "overview-tags.html";
 
-    public TagsOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "overviewTags.vm", configuration);
+    public TagsOverviewPage() {
+        super("overviewTags.vm");
     }
 
     @Override
@@ -27,13 +30,13 @@ public class TagsOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         List<TagObject> tags = reportResult.getAllTags();
         context.put("all_tags", tags);
         context.put("report_summary", reportResult.getTagReport());
 
-        context.put("chart_categories", generateTagLabels(filterExcludedTags(tags)));
-        context.put("chart_data", generateTagValues(filterExcludedTags(tags)));
+        context.put("chart_categories", generateTagLabels(filterExcludedTags(tags, configuration.getTagsToExcludeFromChart())));
+        context.put("chart_data", generateTagValues(filterExcludedTags(tags, configuration.getTagsToExcludeFromChart())));
     }
 
     static String[] generateTagLabels(List<TagObject> tagsObjectList) {
@@ -46,19 +49,19 @@ public class TagsOverviewPage extends AbstractPage {
         return tagNames;
     }
 
-	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
+	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList, Collection<Pattern> tagsToExcludeFromChart) {
 		List<TagObject> filteredTags = new ArrayList<>();
 		for (TagObject tagObject : tagsObjectList) {
 			String tagName = tagObject.getName();
-			if (shouldIncludeTag(tagName)) {
+			if (shouldIncludeTag(tagName, tagsToExcludeFromChart)) {
 				filteredTags.add(tagObject);
 			}
 		}
 		return filteredTags;
 	}
 
-	private boolean shouldIncludeTag(String tagName) {
-		for (Pattern pattern : configuration.getTagsToExcludeFromChart()) {
+	private boolean shouldIncludeTag(String tagName, Collection<Pattern> tagsToExcludeFromChart) {
+		for (Pattern pattern : tagsToExcludeFromChart) {
 			if (tagName.matches(pattern.pattern())) {
 				return false;
 			}

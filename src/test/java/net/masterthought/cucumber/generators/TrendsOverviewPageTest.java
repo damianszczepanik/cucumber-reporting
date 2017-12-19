@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.io.IOException;
 
-import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
@@ -13,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.Trends;
@@ -40,7 +40,7 @@ public class TrendsOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsTrendsOverviewFileName() {
 
         // given
-        page = new TrendsOverviewPage(reportResult, configuration, null);
+        page = new TrendsOverviewPage(null);
 
         // when
         String fileName = page.getWebPage();
@@ -53,18 +53,19 @@ public class TrendsOverviewPageTest extends PageTest {
     public void prepareReport_AddsCustomProperties() {
 
         // given
+    	VelocityContext context = new VelocityContext();
+    	
         configuration.setBuildNumber("myBuild");
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        reportResult = new ReportResult(features, configuration.getSortingMethod());
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(18);
+        assertThat(context.getKeys()).hasSize(11);
 
         assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first","other build","05last"});
         assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1,2,5});

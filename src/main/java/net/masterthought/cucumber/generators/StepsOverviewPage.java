@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import org.apache.velocity.VelocityContext;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -14,8 +16,8 @@ public class StepsOverviewPage extends AbstractPage {
 
     public static final String WEB_PAGE = "overview-steps.html";
 
-    public StepsOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "overviewSteps.vm", configuration);
+    public StepsOverviewPage() {
+        super("overviewSteps.vm");
     }
 
     @Override
@@ -24,7 +26,7 @@ public class StepsOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         context.put("all_steps", reportResult.getAllSteps());
 
         int allOccurrences = 0;

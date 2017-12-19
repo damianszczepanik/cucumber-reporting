@@ -16,6 +16,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
+import net.masterthought.cucumber.generators.PageGenerator;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.json.Output;
 
@@ -25,12 +26,19 @@ import net.masterthought.cucumber.json.Output;
 public abstract class PageTest extends ReportGenerator {
 
     protected AbstractPage page;
+    
+    protected PageGenerator pageGenerator;
 
     @After
     public void cleanUp() {
         // delete report file if was already created by any of test
         File report = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
         FileUtils.deleteQuietly(report);
+    }
+    
+    protected PageGenerator initPageGeneartor() {
+    	pageGenerator = new PageGenerator(configuration, reportResult);
+    	return pageGenerator;
     }
 
     protected DocumentAssertion documentFrom(String pageName) {

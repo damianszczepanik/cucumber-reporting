@@ -2,9 +2,9 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.junit.Test;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.TrendsOverviewPage;
@@ -23,12 +23,12 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
         final String titleValue = String.format("Cucumber Reports  - Trends Overview",
                 configuration.getBuildNumber());
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -43,10 +43,10 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -62,10 +62,10 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -82,10 +82,10 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

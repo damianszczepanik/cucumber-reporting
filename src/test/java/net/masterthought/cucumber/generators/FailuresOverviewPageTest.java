@@ -27,7 +27,7 @@ public class FailuresOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsFailureReportFileName() {
 
         // given
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
 
         // when
         String fileName = page.getWebPage();
@@ -40,7 +40,9 @@ public class FailuresOverviewPageTest extends PageTest {
     public void prepareReport_AddsCustomProperties() {
 
         // given
-        page = new FailuresOverviewPage(reportResult, configuration);
+    	VelocityContext context = new VelocityContext();
+    	
+        page = new FailuresOverviewPage();
         // this page only has failed scenarios (elements) so extract them into
         // a list to compare
         List<Element> failures = new ArrayList<>();
@@ -58,13 +60,13 @@ public class FailuresOverviewPageTest extends PageTest {
         }
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(1);
 
-        List<Element> elements = (List<Element>) context.get("failures");
+        @SuppressWarnings("unchecked")
+		List<Element> elements = (List<Element>) context.get("failures");
         assertThat(elements).hasSameElementsAs(failures);
     }
 }

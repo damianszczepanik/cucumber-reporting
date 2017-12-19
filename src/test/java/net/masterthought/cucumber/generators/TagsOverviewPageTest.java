@@ -25,7 +25,7 @@ public class TagsOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsTagOverviewReportFileName() {
 
         // given
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
         String fileName = page.getWebPage();
@@ -38,14 +38,14 @@ public class TagsOverviewPageTest extends PageTest {
     public void prepareReport_AddsCustomProperties() {
 
         // given
-        page = new TagsOverviewPage(reportResult, configuration);
+    	VelocityContext context = new VelocityContext();
+        page = new TagsOverviewPage();
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(4);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
@@ -57,14 +57,14 @@ public class TagsOverviewPageTest extends PageTest {
     public void prepareReport_setTagsToExcludeFromChart_ReturnsFilteredTags() {
 
         // give
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
         configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
 
         //when
-        page.prepareReport();
+        VelocityContext context = new VelocityContext();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
         assertThat(context.get("chart_categories")).isEqualTo(new String[]{"@fast"});
         assertThat(context.get("chart_data")).isEqualTo(new String[][]{
                 {"100.00"},

@@ -21,12 +21,12 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
         final String titleValue = String.format("Cucumber Reports  - Tags Overview",
                 configuration.getBuildNumber());
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -40,10 +40,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -58,10 +58,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -74,10 +74,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -98,10 +98,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -122,10 +122,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -157,10 +157,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -176,10 +176,10 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SIMPLE_JSON);
-        page = new TagsOverviewPage(reportResult, configuration);
+        page = new TagsOverviewPage();
 
         // when
-        page.generatePage();
+        initPageGeneartor().generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

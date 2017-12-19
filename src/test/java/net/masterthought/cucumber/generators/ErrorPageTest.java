@@ -20,18 +20,19 @@ public class ErrorPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext() {
 
         // give
-        Exception exception = new Exception();
-        page = new ErrorPage(null, configuration, exception, jsonReports);
+    	VelocityContext context = new VelocityContext();
+
+    	Exception exception = new Exception();
+        page = new ErrorPage(exception, jsonReports);
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, null);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(2);
         assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
         assertThat(context.get("json_files")).isEqualTo(jsonReports);
     }

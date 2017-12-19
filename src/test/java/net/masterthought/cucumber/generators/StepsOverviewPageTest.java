@@ -24,7 +24,7 @@ public class StepsOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsStepsOverviewFileName() {
 
         // given
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
         String fileName = page.getWebPage();
@@ -37,14 +37,14 @@ public class StepsOverviewPageTest extends PageTest {
     public void prepareReport_AddsCustomProperties() {
 
         // given
-        page = new StepsOverviewPage(reportResult, configuration);
+    	VelocityContext context = new VelocityContext();
+        page = new StepsOverviewPage();
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(4);
         assertThat(context.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;

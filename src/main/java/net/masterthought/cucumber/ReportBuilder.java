@@ -10,21 +10,24 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
+import net.masterthought.cucumber.generators.PageGenerator;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.TagsOverviewPage;
@@ -152,29 +155,32 @@ public class ReportBuilder {
     private List<AbstractPage> collectPages(Trends trends) {
         List<AbstractPage> pages = new ArrayList<>();
 
-        pages.add(new FeaturesOverviewPage(reportResult, configuration));
+        pages.add(new FeaturesOverviewPage());
         for (Feature feature : reportResult.getAllFeatures()) {
-            pages.add(new FeatureReportPage(reportResult, configuration, feature));
+            pages.add(new FeatureReportPage(feature));
         }
 
-        pages.add(new TagsOverviewPage(reportResult, configuration));
+        pages.add(new TagsOverviewPage());
         for (TagObject tagObject : reportResult.getAllTags()) {
-            pages.add(new TagReportPage(reportResult, configuration, tagObject));
+            pages.add(new TagReportPage(tagObject));
         }
 
-        pages.add(new StepsOverviewPage(reportResult, configuration));
-        pages.add(new FailuresOverviewPage(reportResult, configuration));
+        pages.add(new StepsOverviewPage());
+        pages.add(new FailuresOverviewPage());
 
         if (configuration.isTrendsStatsFile()) {
-            pages.add(new TrendsOverviewPage(reportResult, configuration, trends));
+            pages.add(new TrendsOverviewPage(trends));
         }
 
         return pages;
     }
 
     private void generatePages(List<AbstractPage> pages) {
+    	
+    	PageGenerator generator = new PageGenerator(configuration, reportResult);
+    	   	
         for (AbstractPage page : pages) {
-            page.generatePage();
+            generator.generatePage(page);
         }
     }
 
@@ -227,10 +233,10 @@ public class ReportBuilder {
             throw new ValidationException("Could not save updated trends in file: " + file.getAbsolutePath(), e);
         }
     }
-
+    
     private void generateErrorPage(Exception exception) {
         LOG.info(exception);
-        ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
-        errorPage.generatePage();
+        generatePages(Collections.<AbstractPage>singletonList(new ErrorPage(exception, jsonFiles)));
     }
+
 }

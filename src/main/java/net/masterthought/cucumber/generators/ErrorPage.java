@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators;
 import java.util.List;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.velocity.VelocityContext;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
@@ -13,9 +14,8 @@ public class ErrorPage extends AbstractPage {
     private final Exception exception;
     private final List<String> jsonFiles;
 
-    public ErrorPage(ReportResult reportResult, Configuration configuration, Exception exception,
-            List<String> jsonFiles) {
-        super(reportResult, "errorpage.vm", configuration);
+    public ErrorPage(Exception exception, List<String> jsonFiles) {
+        super("errorpage.vm");
         this.exception = exception;
         this.jsonFiles = jsonFiles;
     }
@@ -26,7 +26,7 @@ public class ErrorPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         context.put("output_message", ExceptionUtils.getStackTrace(exception));
         context.put("json_files", jsonFiles);
     }
