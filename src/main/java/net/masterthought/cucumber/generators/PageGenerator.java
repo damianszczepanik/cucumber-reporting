@@ -27,7 +27,7 @@ import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.Util;
 
 public class PageGenerator {
-	
+
 	private static final Logger LOG = LogManager.getLogger(PageGenerator.class);
 
 	private final VelocityEngine engine;
@@ -35,14 +35,10 @@ public class PageGenerator {
 	final VelocityContext globalContext;
 
 	private final Configuration configuration;
-	
-	private final ReportResult reportResult;
-	
-	private final File reportDirectory;
 
-	public PageGenerator(Configuration configuration) {
-		this(configuration, null);
-	}
+	private final ReportResult reportResult;
+
+	private final File reportDirectory;
 
 	public PageGenerator(Configuration configuration, ReportResult reportResult) {
 
@@ -54,10 +50,10 @@ public class PageGenerator {
 
 		this.engine.init(buildProperties());
 		this.reportDirectory = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
-		
+
 		createDirectories();
 	}
-	
+
 	private VelocityContext newGlobalContext(Configuration configuration, ReportResult reportResult) {
 
 		VelocityContext context = new VelocityContext();
@@ -99,24 +95,24 @@ public class PageGenerator {
 
 		return props;
 	}
-	
+
 	private void createDirectories() {
 		try {
 			Files.createDirectories(reportDirectory.toPath());
 		} catch (IOException e) {
-			 throw new ValidationException(e);
+			throw new ValidationException(e);
 		}
 	}
 
 	public void generatePage(AbstractPage page) {
-		
+
 		VelocityContext context = newPageContext();
 		page.preparePageContext(context, configuration, reportResult);
 		context.put("report_file", page.getWebPage());
-		
+
 		writePage(page.getTemplateName(), page.getWebPage(), context);
 	}
-	
+
 	private VelocityContext newPageContext() {
 
 		VelocityContext context = new VelocityContext(globalContext);
@@ -126,18 +122,18 @@ public class PageGenerator {
 
 		return context;
 	}
-	
+
 	private void writePage(String templateName, String webPage, VelocityContext context) {
-		
+
 		Template template = engine.getTemplate(templateName);
 		File pageFile = new File(reportDirectory, webPage);
-		
+
 		try (Writer writer = new OutputStreamWriter(new FileOutputStream(pageFile), StandardCharsets.UTF_8)) {
-            template.merge(context, writer);
-        } catch (IOException e) {
-            throw new ValidationException(e);
-        }
-		
+			template.merge(context, writer);
+		} catch (IOException e) {
+			throw new ValidationException(e);
+		}
+
 	}
 
 }

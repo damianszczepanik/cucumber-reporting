@@ -162,6 +162,24 @@ public class PageGeneratorTest extends PageTest {
 	}
 	
 	@Test
+	public void newGlobalContext_OnBuildNumber_NotInJenkins_DoesntAddsBuildPreviousNumberProperty() {
+
+		// given
+		configuration.setBuildNumber("12");
+        configuration.setRunWithJenkins(false);
+		initPageGeneartor();
+
+		// when
+		// newGlobalContext() already called by constructor
+
+		// then
+		VelocityContext context = pageGenerator.globalContext;
+		assertThat(context.getKeys()).hasSize(6);
+		assertThat(context.get("build_number")).isNotNull();
+		assertThat(context.get("build_previous_number")).isNull();
+	}
+	
+	@Test
 	public void newGlobalContext_OnTrendsStatsFile_AddsTrendsFlag() {
 
 		// given
