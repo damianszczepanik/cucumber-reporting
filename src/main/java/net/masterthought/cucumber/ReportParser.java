@@ -1,26 +1,30 @@
 package net.masterthought.cucumber;
 
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.masterthought.cucumber.json.Feature;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -55,15 +59,15 @@ public class ReportParser {
             throw new ValidationException("No report file was added!");
         }
 
-        List<Feature> featureResults = new ArrayList<>();
-        for (int i = 0; i < jsonFiles.size(); i++) {
-            String jsonFile = jsonFiles.get(i);
-            Feature[] features = parseForFeature(jsonFile);
-            LOG.info("File '{}' contain {} features", jsonFile, features.length);
-            setMetadata(features, jsonFile, i);
-            featureResults.addAll(Arrays.asList(features));
+        List<Feature> featureResults = new ArrayList<>(jsonFiles.size() * 10);
+        int jsonFileNo = 0;
+        
+        for (String jsonFile : jsonFiles) {
+        	Feature[] features = parseForFeature(jsonFile);
+        	LOG.info("File '{}' contain {} features", jsonFile, features.length);
+        	collectFeaturesAndSetMetadata(featureResults, features, jsonFile, jsonFileNo++);
         }
-
+        
         // report that has no features seems to be not valid
         if (featureResults.isEmpty()) {
             throw new ValidationException("Passed files have no features!");
@@ -82,7 +86,7 @@ public class ReportParser {
     private Feature[] parseForFeature(String jsonFile) {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
-            if (ArrayUtils.isEmpty(features)) {
+            if (LOG.isInfoEnabled() && ArrayUtils.isEmpty(features)) {
                 LOG.info("File '{}' does not contain features", jsonFile);
             }
             return features;
@@ -93,11 +97,15 @@ public class ReportParser {
             throw new ValidationException(e);
         }
     }
-
-    /** Sets additional information and calculates values which should be calculated during object creation. */
-    private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
-        for (Feature feature : features) {
+    
+    
+    /** 
+     * Collects features, sets additional information and calculates values which should be calculated during object creation. 
+     */
+    private void collectFeaturesAndSetMetadata(Collection<Feature> featuresAccumulator, Feature[] features, String jsonFile, int jsonFileNo) {
+    	for (Feature feature : features) {
             feature.setMetaData(jsonFile, jsonFileNo, configuration);
+            featuresAccumulator.add(feature);
         }
     }
 
@@ -121,7 +129,10 @@ public class ReportParser {
     private void processClassificationFile(String file) {
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(file);
-            Iterator<String> keys = config.getKeys();
+            
+            @SuppressWarnings("unchecked")
+			Iterator<String> keys = config.getKeys();
+            
             while (keys.hasNext()) {
                 String key = keys.next();
                 String value = config.getProperty(key).toString();
