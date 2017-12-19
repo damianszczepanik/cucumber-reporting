@@ -86,7 +86,7 @@ public class ReportParser {
     private Feature[] parseForFeature(String jsonFile) {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
-            if (LOG.isInfoEnabled() && ArrayUtils.isEmpty(features)) {
+            if (ArrayUtils.isEmpty(features)) {
                 LOG.info("File '{}' does not contain features", jsonFile);
             }
             return features;
