@@ -43,9 +43,9 @@ public class ReportBuilderTest extends ReportGenerator {
 
     @Before
     public void setUp() throws IOException {
-        reportDirectory = new File("target" + File.separatorChar + System.currentTimeMillis());
+        reportDirectory = new File("target", String.valueOf(System.currentTimeMillis()));
         // random temp directory
-        reportDirectory.mkdir();
+        reportDirectory.mkdirs();
         // root report directory
         new File(reportDirectory, ReportBuilder.BASE_DIRECTORY).mkdir();
 
@@ -59,6 +59,10 @@ public class ReportBuilderTest extends ReportGenerator {
     @After
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
+        if (configuration != null) {
+			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
+					ReportBuilder.BASE_DIRECTORY));
+        }
     }
 
     @Test
@@ -518,6 +522,12 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+    }
+    
+    private File[] countHtmlFiles(Configuration configuration) {
+    	FileFilter fileFilter = new WildcardFileFilter("*.html");
+    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {

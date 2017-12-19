@@ -153,7 +153,7 @@ public class ReportBuilder {
     }
 
     private List<AbstractPage> collectPages(Trends trends) {
-        List<AbstractPage> pages = new ArrayList<>();
+        List<AbstractPage> pages = new ArrayList<>(reportResult.getAllFeatures().size() + reportResult.getAllTags().size() + 5);
 
         pages.add(new FeaturesOverviewPage());
         for (Feature feature : reportResult.getAllFeatures()) {
@@ -233,10 +233,9 @@ public class ReportBuilder {
             throw new ValidationException("Could not save updated trends in file: " + file.getAbsolutePath(), e);
         }
     }
-    
+
     private void generateErrorPage(Exception exception) {
         LOG.info(exception);
         generatePages(Collections.<AbstractPage>singletonList(new ErrorPage(exception, jsonFiles)));
     }
-
 }
