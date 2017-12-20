@@ -26,215 +26,215 @@ import net.masterthought.cucumber.util.Util;
 
 public class PageGeneratorTest extends PageTest {
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	@Before
-	public void setUp() {
-		setUpWithJson(SAMPLE_JSON);
-	}
+    @Before
+    public void setUp() {
+        setUpWithJson(SAMPLE_JSON);
+    }
 
-	@Test
-	public void generatePage_CreatesFile() {
+    @Test
+    public void generatePage_CreatesFile() {
 
-		// given
-		page = new FeaturesOverviewPage();
+        // given
+        page = new FeaturesOverviewPage();
 
-		// when
-		initPageGeneartor().generatePage(page);
+        // when
+        initPageGeneartor().generatePage(page);
 
-		// then
-		File reportFile = new File(configuration.getReportDirectory(),
-				ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
-		assertThat(reportFile).exists();
-	}
+        // then
+        File reportFile = new File(configuration.getReportDirectory(),
+                ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
+        assertThat(reportFile).exists();
+    }
 
-	@Test
-	public void generatePage_DisplaysContentAsEscapedText() {
+    @Test
+    public void generatePage_DisplaysContentAsEscapedText() {
 
-		// given
-		page = new FeatureReportPage(features.get(1));
+        // given
+        page = new FeatureReportPage(features.get(1));
 
-		// when
-		initPageGeneartor().generatePage(page);
+        // when
+        initPageGeneartor().generatePage(page);
 
-		// then
-		DocumentAssertion document = documentFrom(page.getWebPage());
-		assertThat(document.getFeature().getDescription())
-		.isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
-		assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
-		.isEqualTo("Attachment 4 (HTML)");
-		assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
-		.isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" +
-				"Expected: is <80>\n" +
-				"     got: <90>\n" +
-				"\n" +
-				"\tat org.junit.Assert.assertThat(Assert.java:780)\n" +
-				"\tat org.junit.Assert.assertThat(Assert.java:738)\n" +
-				"\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
-				"\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
-	}
-	
-	@Test
-	public void generateReport_OnInvalidPath_ThrowsException() throws IOException {
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        assertThat(document.getFeature().getDescription())
+        .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
+        .isEqualTo("Attachment 4 (HTML)");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
+        .isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" +
+                "Expected: is <80>\n" +
+                "     got: <90>\n" +
+                "\n" +
+                "\tat org.junit.Assert.assertThat(Assert.java:780)\n" +
+                "\tat org.junit.Assert.assertThat(Assert.java:738)\n" +
+                "\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
+                "\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
+    }
+    
+    @Test
+    public void generateReport_OnInvalidPath_ThrowsException() throws IOException {
 
-		// given
-		File outputDir = new File("target", String.valueOf(System.currentTimeMillis()));
-		Files.createDirectories(outputDir.toPath());
-		configuration = new Configuration(outputDir, null);
-		File reportFile = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
-		FileUtils.touch(reportFile);
-		
-		// when
-		thrown.expect(ValidationException.class);
-		initPageGeneartor();
-	}
+        // given
+        File outputDir = new File("target", String.valueOf(System.currentTimeMillis()));
+        Files.createDirectories(outputDir.toPath());
+        configuration = new Configuration(outputDir, null);
+        File reportFile = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        FileUtils.touch(reportFile);
+        
+        // when
+        thrown.expect(ValidationException.class);
+        initPageGeneartor();
+    }
 
 
-	@Test
-	public void generatePage_OnInvalidPath_ThrowsException() {
+    @Test
+    public void generatePage_OnInvalidPath_ThrowsException() {
 
-		// given
-		page = new FeaturesOverviewPage() {
-			@Override
-			public String getWebPage() {
-				// invalid file path
-				return StringUtils.EMPTY;
-			}
-		};
+        // given
+        page = new FeaturesOverviewPage() {
+            @Override
+            public String getWebPage() {
+                // invalid file path
+                return StringUtils.EMPTY;
+            }
+        };
 
-		// when
-		thrown.expect(ValidationException.class);
-		initPageGeneartor().generatePage(page);
-	}
+        // when
+        thrown.expect(ValidationException.class);
+        initPageGeneartor().generatePage(page);
+    }
 
-	@Test
-	public void buildProperties_ReturnsProperties() {
+    @Test
+    public void buildProperties_ReturnsProperties() {
 
-		// given
-		initPageGeneartor();
+        // given
+        initPageGeneartor();
 
-		// when
-		Properties props = Deencapsulation.invoke(pageGenerator, "buildProperties");
+        // when
+        Properties props = Deencapsulation.invoke(pageGenerator, "buildProperties");
 
-		// then
-		assertThat(props).hasSize(3);
-		assertThat(props.getProperty("resource.loader")).isNotNull();
-		assertThat(props.getProperty("class.resource.loader.class")).isNotNull();
-		assertThat(props.getProperty("runtime.log")).isNotNull();
-	}
+        // then
+        assertThat(props).hasSize(3);
+        assertThat(props.getProperty("resource.loader")).isNotNull();
+        assertThat(props.getProperty("class.resource.loader.class")).isNotNull();
+        assertThat(props.getProperty("runtime.log")).isNotNull();
+    }
 
-	@Test
-	public void newGlobalContext_AddsCommonPropertiesForAllPages() {
+    @Test
+    public void newGlobalContext_AddsCommonPropertiesForAllPages() {
 
-		// given
-		initPageGeneartor();
+        // given
+        initPageGeneartor();
 
-		// when
-		// newGlobalContext() already called by constructor
+        // when
+        // newGlobalContext() already called by constructor
 
-		// then
-		VelocityContext context = pageGenerator.globalContext;
-		assertThat(context.getKeys()).hasSize(6);
+        // then
+        VelocityContext context = pageGenerator.globalContext;
+        assertThat(context.getKeys()).hasSize(6);
 
-		assertThat(context.get("util")).isInstanceOf(Util.class);
+        assertThat(context.get("util")).isInstanceOf(Util.class);
 
-		assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.isRunWithJenkins());
-		assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
-		assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
-	}
+        assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.isRunWithJenkins());
+        assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
+        assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
+    }
 
-	@Test
-	public void newGlobalContext_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
+    @Test
+    public void newGlobalContext_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
 
-		// given
-		configuration.setBuildNumber("notAnumber");
-		configuration.setRunWithJenkins(true);
-		initPageGeneartor();
-
-		// when
-		// newGlobalContext() already called by constructor
-
-		// then
-		VelocityContext context = pageGenerator.globalContext;
-		assertThat(context.getKeys()).hasSize(6);
-		assertThat(context.get("build_number")).isNotNull();
-		assertThat(context.get("build_previous_number")).isNull();
-	}
-	
-	@Test
-	public void newGlobalContext_OnBuildNumber_AddsBuildPreviousNumberProperty() {
-
-		// given
-		configuration.setBuildNumber("12");
+        // given
+        configuration.setBuildNumber("notAnumber");
         configuration.setRunWithJenkins(true);
-		initPageGeneartor();
+        initPageGeneartor();
 
-		// when
-		// newGlobalContext() already called by constructor
+        // when
+        // newGlobalContext() already called by constructor
 
-		// then
-		VelocityContext context = pageGenerator.globalContext;
-		assertThat(context.getKeys()).hasSize(7);
-		assertThat(context.get("build_number")).isNotNull();
-		assertThat(context.get("build_previous_number")).isNotNull();
-		assertThat(context.get("build_previous_number")).isEqualTo(11);
-	}
-	
-	@Test
-	public void newGlobalContext_OnBuildNumber_NotInJenkins_DoesntAddsBuildPreviousNumberProperty() {
+        // then
+        VelocityContext context = pageGenerator.globalContext;
+        assertThat(context.getKeys()).hasSize(6);
+        assertThat(context.get("build_number")).isNotNull();
+        assertThat(context.get("build_previous_number")).isNull();
+    }
+    
+    @Test
+    public void newGlobalContext_OnBuildNumber_AddsBuildPreviousNumberProperty() {
 
-		// given
-		configuration.setBuildNumber("12");
+        // given
+        configuration.setBuildNumber("12");
+        configuration.setRunWithJenkins(true);
+        initPageGeneartor();
+
+        // when
+        // newGlobalContext() already called by constructor
+
+        // then
+        VelocityContext context = pageGenerator.globalContext;
+        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.get("build_number")).isNotNull();
+        assertThat(context.get("build_previous_number")).isNotNull();
+        assertThat(context.get("build_previous_number")).isEqualTo(11);
+    }
+    
+    @Test
+    public void newGlobalContext_OnBuildNumber_NotInJenkins_DoesntAddsBuildPreviousNumberProperty() {
+
+        // given
+        configuration.setBuildNumber("12");
         configuration.setRunWithJenkins(false);
-		initPageGeneartor();
+        initPageGeneartor();
 
-		// when
-		// newGlobalContext() already called by constructor
+        // when
+        // newGlobalContext() already called by constructor
 
-		// then
-		VelocityContext context = pageGenerator.globalContext;
-		assertThat(context.getKeys()).hasSize(6);
-		assertThat(context.get("build_number")).isNotNull();
-		assertThat(context.get("build_previous_number")).isNull();
-	}
-	
-	@Test
-	public void newGlobalContext_OnTrendsStatsFile_AddsTrendsFlag() {
+        // then
+        VelocityContext context = pageGenerator.globalContext;
+        assertThat(context.getKeys()).hasSize(6);
+        assertThat(context.get("build_number")).isNotNull();
+        assertThat(context.get("build_previous_number")).isNull();
+    }
+    
+    @Test
+    public void newGlobalContext_OnTrendsStatsFile_AddsTrendsFlag() {
 
-		// given
-		configuration.setTrendsStatsFile(TRENDS_FILE);
-		initPageGeneartor();
+        // given
+        configuration.setTrendsStatsFile(TRENDS_FILE);
+        initPageGeneartor();
 
-		// when
-		// newGlobalContext() already called by constructor
+        // when
+        // newGlobalContext() already called by constructor
 
-		// then
-		VelocityContext context = pageGenerator.globalContext;
-		Boolean hasTrends = (Boolean) context.get("trends_present");
-		
-		assertThat(hasTrends).isNotNull();
-		assertThat(hasTrends).isTrue();
-	}
+        // then
+        VelocityContext context = pageGenerator.globalContext;
+        Boolean hasTrends = (Boolean) context.get("trends_present");
+        
+        assertThat(hasTrends).isNotNull();
+        assertThat(hasTrends).isTrue();
+    }
 
-	@Test
-	public void newPageContext_AddsCommonPropertiesForOnePageAndKeepsGlobalOnes() {
+    @Test
+    public void newPageContext_AddsCommonPropertiesForOnePageAndKeepsGlobalOnes() {
 
-		// given
-		initPageGeneartor();
+        // given
+        initPageGeneartor();
 
-		// when
-		VelocityContext context = Deencapsulation.invoke(pageGenerator, "newPageContext");
+        // when
+        VelocityContext context = Deencapsulation.invoke(pageGenerator, "newPageContext");
 
-		// then
-		assertThat(context.getKeys()).hasSize(1);
-		assertThat(context.getChainedContext().getKeys()).hasSize(6);
+        // then
+        assertThat(context.getKeys()).hasSize(1);
+        assertThat(context.getChainedContext().getKeys()).hasSize(6);
 
-		Object obj = context.get("counter");
-		assertThat(obj).isInstanceOf(Counter.class);
-		Counter counter = (Counter) obj;
-		assertThat(counter.next()).isEqualTo(1);
+        Object obj = context.get("counter");
+        assertThat(obj).isInstanceOf(Counter.class);
+        Counter counter = (Counter) obj;
+        assertThat(counter.next()).isEqualTo(1);
 
-	}
+    }
 
 }

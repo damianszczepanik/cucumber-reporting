@@ -25,7 +25,7 @@ public abstract class AbstractPage {
      * @return HTML file for the report
      */
     public String getTemplateName() {
-    	return "templates/generators/" + templateFileName;
+        return "templates/generators/" + templateFileName;
     }
 
     /**
