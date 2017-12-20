@@ -234,7 +234,5 @@ public class PageGeneratorTest extends PageTest {
         assertThat(obj).isInstanceOf(Counter.class);
         Counter counter = (Counter) obj;
         assertThat(counter.next()).isEqualTo(1);
-
     }
-
 }
