@@ -11,6 +11,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
+[![Contributors](https://img.shields.io/github/contributors/damianszczepanik/cucumber-reporting.svg)](https://github.com/damianszczepanik/cucumber-reporting/graphs/contributors)
 
 # Publish pretty [cucumber](http://cukes.info/) reports
 
