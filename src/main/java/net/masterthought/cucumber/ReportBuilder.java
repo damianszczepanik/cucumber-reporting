@@ -9,8 +9,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -22,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -99,9 +96,8 @@ public class ReportBuilder {
                 trends = updateAndSaveTrends(reportable);
             }
 
-            List<AbstractPage> pages = collectPages(trends);
-            generatePages(pages);
-
+            generatePages(trends);
+            
             return reportable;
 
             // whatever happens we want to provide at least error page instead of incomplete report or exception
@@ -152,38 +148,29 @@ public class ReportBuilder {
         }
     }
 
-    private List<AbstractPage> collectPages(Trends trends) {
-        List<AbstractPage> pages = new ArrayList<>(reportResult.getAllFeatures().size() + reportResult.getAllTags().size() + 5);
-
-        pages.add(new FeaturesOverviewPage());
+    private void generatePages(Trends trends) {
+       
+        PageGenerator generator = new PageGenerator(configuration, reportResult);
+        
+        generator.generatePage(new FeaturesOverviewPage());
         for (Feature feature : reportResult.getAllFeatures()) {
-            pages.add(new FeatureReportPage(feature));
+        	generator.generatePage(new FeatureReportPage(feature));
         }
 
-        pages.add(new TagsOverviewPage());
+        generator.generatePage(new TagsOverviewPage());
         for (TagObject tagObject : reportResult.getAllTags()) {
-            pages.add(new TagReportPage(tagObject));
+        	generator.generatePage(new TagReportPage(tagObject));
         }
 
-        pages.add(new StepsOverviewPage());
-        pages.add(new FailuresOverviewPage());
+        generator.generatePage(new StepsOverviewPage());
+        generator.generatePage(new FailuresOverviewPage());
 
         if (configuration.isTrendsStatsFile()) {
-            pages.add(new TrendsOverviewPage(trends));
+        	generator.generatePage(new TrendsOverviewPage(trends));
         }
 
-        return pages;
     }
-
-    private void generatePages(List<AbstractPage> pages) {
-    	
-    	PageGenerator generator = new PageGenerator(configuration, reportResult);
-    	   	
-        for (AbstractPage page : pages) {
-            generator.generatePage(page);
-        }
-    }
-
+    
     private Trends updateAndSaveTrends(Reportable reportable) {
         Trends trends = loadOrCreateTrends();
         appendToTrends(trends, reportable);
@@ -236,6 +223,6 @@ public class ReportBuilder {
 
     private void generateErrorPage(Exception exception) {
         LOG.info(exception);
-        generatePages(Collections.<AbstractPage>singletonList(new ErrorPage(exception, jsonFiles)));
+        new PageGenerator(configuration, reportResult).generatePage(new ErrorPage(exception, jsonFiles));
     }
 }

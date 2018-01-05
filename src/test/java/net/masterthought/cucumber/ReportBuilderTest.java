@@ -17,8 +17,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.velocity.VelocityContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,7 +24,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import mockit.Deencapsulation;
-import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 
@@ -227,10 +224,10 @@ public class ReportBuilderTest extends ReportGenerator {
         Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(9);
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(9);
     }
 
     @Test
@@ -244,40 +241,13 @@ public class ReportBuilderTest extends ReportGenerator {
         Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(10);
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(10);
     }
 
-    @Test
-    public void generatePages_CallsPreparePageContextOverPassedPages() {
-
-        // given
-        Configuration configuration = new Configuration(reportDirectory, null);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        final MutableInt counter = new MutableInt();
-        AbstractPage page = new AbstractPage("testpage.vm") {
-            @Override
-            public String getWebPage() {
-                return "test.html";
-            }
-
-			@Override
-			public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
-				counter.increment();
-			}
-        };
-        List<AbstractPage> pages = Arrays.asList(page, page, page);
-
-        // when
-        Deencapsulation.invoke(builder, "generatePages", pages);
-
-        // then
-        assertThat(counter.getValue()).isEqualTo(pages.size());
-    }
-
+    
     @Test
     public void updateAndSaveTrends_ReturnsUpdatedTrends() {
 
