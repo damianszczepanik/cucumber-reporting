@@ -26,7 +26,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
                 configuration.getBuildNumber());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -43,7 +43,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -61,7 +61,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -77,7 +77,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -101,7 +101,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -125,7 +125,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -160,7 +160,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -179,7 +179,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         page = new TagsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

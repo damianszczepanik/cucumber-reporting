@@ -28,7 +28,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         final String titleValue = String.format("Cucumber Reports  - Tag: %s", tag.getName());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -46,7 +46,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         page = new TagReportPage(tag);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -65,7 +65,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         page = new TagReportPage(tag);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -84,7 +84,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         page = new TagReportPage(tag);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -102,7 +102,7 @@ public class TagReportPageIntegrationTest extends PageTest {
         page = new TagReportPage(tag);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

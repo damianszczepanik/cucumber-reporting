@@ -28,7 +28,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
                 configuration.getBuildNumber());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -46,7 +46,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         page = new TrendsOverviewPage(trends);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -65,7 +65,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         page = new TrendsOverviewPage(trends);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -85,7 +85,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
         page = new TrendsOverviewPage(trends);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

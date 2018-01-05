@@ -43,7 +43,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         final String titleValue = String.format("Cucumber Reports  - Feature: %s", feature.getName());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -61,7 +61,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -80,7 +80,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -106,7 +106,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -140,7 +140,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -173,7 +173,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -206,7 +206,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -225,7 +225,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -244,7 +244,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -271,7 +271,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -291,7 +291,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -319,7 +319,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -342,7 +342,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         page = new FeatureReportPage(feature);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

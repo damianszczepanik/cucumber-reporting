@@ -27,7 +27,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
                 configuration.getBuildNumber());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -44,7 +44,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -67,7 +67,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -88,7 +88,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -104,7 +104,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -128,7 +128,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -157,7 +157,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

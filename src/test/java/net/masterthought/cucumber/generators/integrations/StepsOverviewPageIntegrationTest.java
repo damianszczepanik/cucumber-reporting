@@ -26,7 +26,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
                 configuration.getBuildNumber());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -43,7 +43,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -63,7 +63,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -83,7 +83,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -109,7 +109,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

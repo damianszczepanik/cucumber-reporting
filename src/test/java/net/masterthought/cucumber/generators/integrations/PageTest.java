@@ -27,8 +27,6 @@ public abstract class PageTest extends ReportGenerator {
 
     protected AbstractPage page;
     
-    protected PageGenerator pageGenerator;
-
     @After
     public void cleanUp() {
         // delete report file if was already created by any of test
@@ -36,11 +34,11 @@ public abstract class PageTest extends ReportGenerator {
         FileUtils.deleteQuietly(report);
     }
     
-    protected PageGenerator initPageGeneartor() {
-    	pageGenerator = new PageGenerator(configuration, reportResult);
-    	return pageGenerator;
+    protected void generatePage(AbstractPage page) {
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
+        pageGenerator.generatePage(page);
     }
-
+    
     protected DocumentAssertion documentFrom(String pageName) {
         File input = new File(configuration.getReportDirectory(),
                 ReportBuilder.BASE_DIRECTORY + File.separatorChar + pageName);

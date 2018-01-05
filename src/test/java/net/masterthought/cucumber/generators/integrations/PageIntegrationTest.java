@@ -38,7 +38,7 @@ public class PageIntegrationTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+       generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -65,7 +65,7 @@ public class PageIntegrationTest extends PageTest {
         page = new TagReportPage(reportResult.getAllTags().get(0));
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -90,7 +90,7 @@ public class PageIntegrationTest extends PageTest {
         page = new FailuresOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -111,7 +111,7 @@ public class PageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -135,7 +135,7 @@ public class PageIntegrationTest extends PageTest {
         page = new StepsOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -157,7 +157,7 @@ public class PageIntegrationTest extends PageTest {
         page = new TagReportPage(reportResult.getAllTags().get(0));
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

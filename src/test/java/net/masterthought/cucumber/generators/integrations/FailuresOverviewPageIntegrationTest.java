@@ -27,7 +27,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
                 configuration.getBuildNumber());
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -44,7 +44,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         page = new FailuresOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -62,7 +62,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         page = new FailuresOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -78,7 +78,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         page = new FailuresOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

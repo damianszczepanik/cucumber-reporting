@@ -25,7 +25,7 @@ public class ErrorPageIntegrationTest extends PageTest {
         final String titleValue = String.format("Cucumber Reports  - Error Page");
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -43,7 +43,7 @@ public class ErrorPageIntegrationTest extends PageTest {
         page = new ErrorPage(cause, jsonReports);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -62,7 +62,7 @@ public class ErrorPageIntegrationTest extends PageTest {
         page = new ErrorPage(cause, jsonReports);
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

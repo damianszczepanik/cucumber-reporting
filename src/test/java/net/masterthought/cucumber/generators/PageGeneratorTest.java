@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import mockit.Deencapsulation;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
@@ -41,7 +42,7 @@ public class PageGeneratorTest extends PageTest {
         page = new FeaturesOverviewPage();
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         File reportFile = new File(configuration.getReportDirectory(),
@@ -56,7 +57,7 @@ public class PageGeneratorTest extends PageTest {
         page = new FeatureReportPage(features.get(1));
 
         // when
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -87,7 +88,20 @@ public class PageGeneratorTest extends PageTest {
         
         // when
         thrown.expect(ValidationException.class);
-        initPageGeneartor();
+        generatePage(new AbstractPage("test") {
+			
+			@Override
+			public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public String getWebPage() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
     }
 
 
@@ -105,14 +119,14 @@ public class PageGeneratorTest extends PageTest {
 
         // when
         thrown.expect(ValidationException.class);
-        initPageGeneartor().generatePage(page);
+        generatePage(page);
     }
 
     @Test
     public void buildProperties_ReturnsProperties() {
 
         // given
-        initPageGeneartor();
+    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         Properties props = Deencapsulation.invoke(pageGenerator, "buildProperties");
@@ -128,7 +142,7 @@ public class PageGeneratorTest extends PageTest {
     public void newGlobalContext_AddsCommonPropertiesForAllPages() {
 
         // given
-        initPageGeneartor();
+    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -150,7 +164,7 @@ public class PageGeneratorTest extends PageTest {
         // given
         configuration.setBuildNumber("notAnumber");
         configuration.setRunWithJenkins(true);
-        initPageGeneartor();
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -168,7 +182,7 @@ public class PageGeneratorTest extends PageTest {
         // given
         configuration.setBuildNumber("12");
         configuration.setRunWithJenkins(true);
-        initPageGeneartor();
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -187,7 +201,7 @@ public class PageGeneratorTest extends PageTest {
         // given
         configuration.setBuildNumber("12");
         configuration.setRunWithJenkins(false);
-        initPageGeneartor();
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -204,7 +218,7 @@ public class PageGeneratorTest extends PageTest {
 
         // given
         configuration.setTrendsStatsFile(TRENDS_FILE);
-        initPageGeneartor();
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -221,7 +235,7 @@ public class PageGeneratorTest extends PageTest {
     public void newPageContext_AddsCommonPropertiesForOnePageAndKeepsGlobalOnes() {
 
         // given
-        initPageGeneartor();
+    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         VelocityContext context = Deencapsulation.invoke(pageGenerator, "newPageContext");
