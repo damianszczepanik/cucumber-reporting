@@ -124,10 +124,10 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public FeatureScenario[] getFeatureDetails() {
+    public  FeatureScenario[] getFeatureDetails() {
         //get all feature & scenario name
         List<Feature> features = Features.getFeatures();
-        FeatureScenario[] list_tfs = new FeatureScenario[0];
+        FeatureScenario[] featureScenarios = new FeatureScenario[0];
 
         for (Feature feature : features){
             String featureName = feature.getName();
@@ -140,11 +140,11 @@ public class OverviewReport implements Reportable {
                     String line = scenario.getLine();
 
                     FeatureScenario trendFeatureScenario = new FeatureScenario(deviceName, featureName, scenarioName, scenarioStatus,line);
-                    list_tfs = (FeatureScenario[]) ArrayUtils.add(list_tfs, trendFeatureScenario);
+                    featureScenarios = (FeatureScenario[]) ArrayUtils.add(featureScenarios, trendFeatureScenario);
                 }
             }
         }
 
-        return list_tfs;
+        return featureScenarios;
     }
 }

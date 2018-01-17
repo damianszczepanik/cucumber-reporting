@@ -38,7 +38,7 @@ public class Trends {
     }
 
     public FeatureScenario[][] getFeaturesDetail() {
-    return featuresDetail;
+        return featuresDetail;
     }
 
     public ArrayList<TrendTableRow> collectTrendFeatureScenario() {
@@ -314,11 +314,11 @@ public class Trends {
     }
 
     private void fillMissingFeaturesDetail(){
-        FeatureScenario[][] featuresDetail_ = new FeatureScenario[buildNumbers.length][];
+        FeatureScenario[][] extendedFeaturesDetail = new FeatureScenario[buildNumbers.length][];
         FeatureScenario[] featureScenarios = new FeatureScenario[0];
 
-        Arrays.fill(featuresDetail_, featureScenarios);
-        System.arraycopy(featuresDetail, 0, featuresDetail_, buildNumbers.length - featuresDetail.length, featuresDetail.length);
-        featuresDetail = featuresDetail_;
+        Arrays.fill(extendedFeaturesDetail, featureScenarios);
+        System.arraycopy(featuresDetail, 0, extendedFeaturesDetail, buildNumbers.length - featuresDetail.length, featuresDetail.length);
+        featuresDetail = extendedFeaturesDetail;
     }
 }

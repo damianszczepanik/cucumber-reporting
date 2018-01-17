@@ -3,9 +3,6 @@ package net.masterthought.cucumber;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by suci on 11/22/17.
- */
 public class TrendTableRow {
 
     private String deviceName;

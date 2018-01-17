@@ -10,9 +10,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by suci on 15/12/2017.
- */
 public class FeaturesTest extends PageTest {
     @Before
     public void setUp() throws Exception {

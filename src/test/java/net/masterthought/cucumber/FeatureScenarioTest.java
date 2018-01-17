@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by suci on 15/12/2017.
- */
 public class FeatureScenarioTest {
     FeatureScenario featureScenario;
 

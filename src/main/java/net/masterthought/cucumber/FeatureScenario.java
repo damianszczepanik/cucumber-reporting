@@ -1,8 +1,5 @@
 package net.masterthought.cucumber;
 
-/**
- * Created by suci on 11/17/17.
- */
 public class FeatureScenario {
 
     private String featureName;
@@ -12,7 +9,6 @@ public class FeatureScenario {
     private String id;
 
     public FeatureScenario(){
-        super();
     }
 
     public FeatureScenario(String deviceName, String featureName, String scenarioName, String status, String line){
