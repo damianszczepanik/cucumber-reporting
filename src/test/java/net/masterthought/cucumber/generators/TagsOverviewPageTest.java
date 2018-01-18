@@ -35,38 +35,38 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext context = new VelocityContext();
+    	VelocityContext pageContext = new VelocityContext();
         page = new TagsOverviewPage();
 
         // when
-        page.preparePageContext(context, configuration, reportResult);
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(context.getKeys()).hasSize(4);
+        assertThat(pageContext.getKeys()).hasSize(4);
 
-        assertThat(context.get("all_tags")).isEqualTo(tags);
-        assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
-        assertThat(context.get("chart_categories")).isEqualTo(TagsOverviewPage.generateTagLabels(tags));
-        assertThat(context.get("chart_data")).isEqualTo(TagsOverviewPage.generateTagValues(tags));
+        assertThat(pageContext.get("all_tags")).isEqualTo(tags);
+        assertThat(pageContext.get("report_summary")).isEqualTo(reportResult.getTagReport());
+        assertThat(pageContext.get("chart_categories")).isEqualTo(TagsOverviewPage.generateTagLabels(tags));
+        assertThat(pageContext.get("chart_data")).isEqualTo(TagsOverviewPage.generateTagValues(tags));
     }
 
     @Test
-    public void prepareReport_setTagsToExcludeFromChart_ReturnsFilteredTags() {
+    public void preparePageContext_setTagsToExcludeFromChart_ReturnsFilteredTags() {
 
         // give
         page = new TagsOverviewPage();
         configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
 
         //when
-        VelocityContext context = new VelocityContext();
-        page.preparePageContext(context, configuration, reportResult);
+        VelocityContext pageContext = new VelocityContext();
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(context.get("chart_categories")).isEqualTo(new String[]{"@fast"});
-        assertThat(context.get("chart_data")).isEqualTo(new String[][]{
+        assertThat(pageContext.get("chart_categories")).isEqualTo(new String[]{"@fast"});
+        assertThat(pageContext.get("chart_data")).isEqualTo(new String[][]{
                 {"100.00"},
                 {"0.00"},
                 {"0.00"},

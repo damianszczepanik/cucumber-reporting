@@ -34,18 +34,18 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext context = new VelocityContext();
+    	VelocityContext pageContext = new VelocityContext();
         page = new StepsOverviewPage();
 
         // when
-        page.preparePageContext(context, configuration, reportResult);
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(context.getKeys()).hasSize(4);
-        assertThat(context.get("all_steps")).isEqualTo(steps);
+        assertThat(pageContext.getKeys()).hasSize(4);
+        assertThat(pageContext.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;
         long allDurations = 0;
@@ -53,9 +53,9 @@ public class StepsOverviewPageTest extends PageTest {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getDuration();
         }
-        assertThat(context.get("all_occurrences")).isEqualTo(allOccurrences);
-        assertThat(context.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
+        assertThat(pageContext.get("all_occurrences")).isEqualTo(allOccurrences);
+        assertThat(pageContext.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        assertThat(context.get("all_average")).isEqualTo(Util.formatDuration(average));
+        assertThat(pageContext.get("all_average")).isEqualTo(Util.formatDuration(average));
     }
 }

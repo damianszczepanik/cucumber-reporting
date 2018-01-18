@@ -37,10 +37,10 @@ public class FailuresOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext context = new VelocityContext();
+    	VelocityContext pageContext = new VelocityContext();
     	
         page = new FailuresOverviewPage();
         // this page only has failed scenarios (elements) so extract them into
@@ -60,13 +60,13 @@ public class FailuresOverviewPageTest extends PageTest {
         }
 
         // when
-        page.preparePageContext(context, configuration, reportResult);
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(context.getKeys()).hasSize(1);
+        assertThat(pageContext.getKeys()).hasSize(1);
 
         @SuppressWarnings("unchecked")
-		List<Element> elements = (List<Element>) context.get("failures");
+		List<Element> elements = (List<Element>) pageContext.get("failures");
         assertThat(elements).hasSameElementsAs(failures);
     }
 }

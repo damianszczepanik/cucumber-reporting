@@ -97,7 +97,7 @@ public class ReportBuilder {
             }
 
             generatePages(trends);
-            
+
             return reportable;
 
             // whatever happens we want to provide at least error page instead of incomplete report or exception

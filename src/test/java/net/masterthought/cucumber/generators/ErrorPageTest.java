@@ -23,17 +23,17 @@ public class ErrorPageTest extends PageTest {
     public void preparePageContext() {
 
         // give
-    	VelocityContext context = new VelocityContext();
+    	VelocityContext pageContext = new VelocityContext();
 
     	Exception exception = new Exception();
         page = new ErrorPage(exception, jsonReports);
 
         // when
-        page.preparePageContext(context, configuration, null);
+        page.preparePageContext(pageContext, configuration, null);
 
         // then
-        assertThat(context.getKeys()).hasSize(2);
-        assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
-        assertThat(context.get("json_files")).isEqualTo(jsonReports);
+        assertThat(pageContext.getKeys()).hasSize(2);
+        assertThat(pageContext.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
+        assertThat(pageContext.get("json_files")).isEqualTo(jsonReports);
     }
 }

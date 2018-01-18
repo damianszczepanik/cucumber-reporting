@@ -50,7 +50,7 @@ public class TrendsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
     	VelocityContext context = new VelocityContext();

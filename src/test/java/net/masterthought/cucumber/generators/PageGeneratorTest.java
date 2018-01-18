@@ -45,8 +45,7 @@ public class PageGeneratorTest extends PageTest {
         generatePage(page);
 
         // then
-        File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
+        File reportFile = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 
@@ -61,21 +60,11 @@ public class PageGeneratorTest extends PageTest {
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
-        assertThat(document.getFeature().getDescription())
-        .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
-        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
-        .isEqualTo("Attachment 4 (HTML)");
-        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
-        .isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" +
-                "Expected: is <80>\n" +
-                "     got: <90>\n" +
-                "\n" +
-                "\tat org.junit.Assert.assertThat(Assert.java:780)\n" +
-                "\tat org.junit.Assert.assertThat(Assert.java:738)\n" +
-                "\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" +
-                "\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
+        assertThat(document.getFeature().getDescription()).isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text()).isEqualTo("Attachment 4 (HTML)");
+        assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text()).isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" + "Expected: is <80>\n" + "     got: <90>\n" + "\n" + "\tat org.junit.Assert.assertThat(Assert.java:780)\n" + "\tat org.junit.Assert.assertThat(Assert.java:738)\n" + "\tat net.masterthought.example.ATMScenario.checkBalance(ATMScenario.java:69)\n" + "\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)");
     }
-    
+
     @Test
     public void generateReport_OnInvalidPath_ThrowsException() throws IOException {
 
@@ -85,25 +74,24 @@ public class PageGeneratorTest extends PageTest {
         configuration = new Configuration(outputDir, null);
         File reportFile = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
         FileUtils.touch(reportFile);
-        
+
         // when
         thrown.expect(ValidationException.class);
         generatePage(new AbstractPage("test") {
-			
-			@Override
-			public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public String getWebPage() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
-    }
 
+            @Override
+            public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public String getWebPage() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+        });
+    }
 
     @Test
     public void generatePage_OnInvalidPath_ThrowsException() {
@@ -126,7 +114,7 @@ public class PageGeneratorTest extends PageTest {
     public void buildProperties_ReturnsProperties() {
 
         // given
-    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         Properties props = Deencapsulation.invoke(pageGenerator, "buildProperties");
@@ -142,7 +130,7 @@ public class PageGeneratorTest extends PageTest {
     public void newGlobalContext_AddsCommonPropertiesForAllPages() {
 
         // given
-    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         // newGlobalContext() already called by constructor
@@ -175,7 +163,7 @@ public class PageGeneratorTest extends PageTest {
         assertThat(context.get("build_number")).isNotNull();
         assertThat(context.get("build_previous_number")).isNull();
     }
-    
+
     @Test
     public void newGlobalContext_OnBuildNumber_AddsBuildPreviousNumberProperty() {
 
@@ -194,7 +182,7 @@ public class PageGeneratorTest extends PageTest {
         assertThat(context.get("build_previous_number")).isNotNull();
         assertThat(context.get("build_previous_number")).isEqualTo(11);
     }
-    
+
     @Test
     public void newGlobalContext_OnBuildNumber_NotInJenkins_DoesntAddsBuildPreviousNumberProperty() {
 
@@ -212,7 +200,7 @@ public class PageGeneratorTest extends PageTest {
         assertThat(context.get("build_number")).isNotNull();
         assertThat(context.get("build_previous_number")).isNull();
     }
-    
+
     @Test
     public void newGlobalContext_OnTrendsStatsFile_AddsTrendsFlag() {
 
@@ -226,7 +214,7 @@ public class PageGeneratorTest extends PageTest {
         // then
         VelocityContext context = pageGenerator.globalContext;
         Boolean hasTrends = (Boolean) context.get("trends_present");
-        
+
         assertThat(hasTrends).isNotNull();
         assertThat(hasTrends).isTrue();
     }
@@ -235,7 +223,7 @@ public class PageGeneratorTest extends PageTest {
     public void newPageContext_AddsCommonPropertiesForOnePageAndKeepsGlobalOnes() {
 
         // given
-    	PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
 
         // when
         VelocityContext context = Deencapsulation.invoke(pageGenerator, "newPageContext");

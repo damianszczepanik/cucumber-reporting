@@ -12,20 +12,22 @@ import net.masterthought.cucumber.ReportResult;
  */
 public abstract class AbstractPage {
 
+    private static final String TEMPLATE_BASE_PATH = "templates/generators/";
+
     /** Name of the HTML file which will be generated. */
     private final String templateFileName;
-    
+
     protected AbstractPage(String templateFileName) {
         this.templateFileName = templateFileName;
     }
-    
+
     /**
      * Returns HTML file name (with extension) for this report.
      *
      * @return HTML file for the report
      */
     public String getTemplateName() {
-        return "templates/generators/" + templateFileName;
+        return TEMPLATE_BASE_PATH + templateFileName;
     }
 
     /**
@@ -34,11 +36,9 @@ public abstract class AbstractPage {
      * @return HTML file for the report
      */
     public abstract String getWebPage();
-    
+
     /**
      * Populates the given context to merge it with the template
-     * 
-     * @param context
      */
     public abstract void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult);
 

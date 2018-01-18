@@ -59,15 +59,15 @@ public class ReportParser {
             throw new ValidationException("No report file was added!");
         }
 
-        List<Feature> featureResults = new ArrayList<>(jsonFiles.size() * 10);
-        int jsonFileNo = 0;
-        
-        for (String jsonFile : jsonFiles) {
-        	Feature[] features = parseForFeature(jsonFile);
-        	LOG.info("File '{}' contain {} features", jsonFile, features.length);
-        	collectFeaturesAndSetMetadata(featureResults, features, jsonFile, jsonFileNo++);
+        List<Feature> featureResults = new ArrayList<>();
+
+        for (int i = 0; i < jsonFiles.size(); i++) {
+            String jsonFile = jsonFiles.get(i);
+            Feature[] features = parseForFeature(jsonFile);
+            LOG.info("File '{}' contain {} features", jsonFile, features.length);
+            collectFeaturesAndSetMetadata(featureResults, features, jsonFile, i);
         }
-        
+
         // report that has no features seems to be not valid
         if (featureResults.isEmpty()) {
             throw new ValidationException("Passed files have no features!");
@@ -97,13 +97,12 @@ public class ReportParser {
             throw new ValidationException(e);
         }
     }
-    
-    
+
     /** 
      * Collects features, sets additional information and calculates values which should be calculated during object creation. 
      */
     private void collectFeaturesAndSetMetadata(Collection<Feature> featuresAccumulator, Feature[] features, String jsonFile, int jsonFileNo) {
-    	for (Feature feature : features) {
+        for (Feature feature : features) {
             feature.setMetaData(jsonFile, jsonFileNo, configuration);
             featuresAccumulator.add(feature);
         }
@@ -129,10 +128,10 @@ public class ReportParser {
     private void processClassificationFile(String file) {
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(file);
-            
+
             @SuppressWarnings("unchecked")
-			Iterator<String> keys = config.getKeys();
-            
+            Iterator<String> keys = config.getKeys();
+
             while (keys.hasNext()) {
                 String key = keys.next();
                 String value = config.getProperty(key).toString();

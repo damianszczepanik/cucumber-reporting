@@ -26,22 +26,21 @@ import net.masterthought.cucumber.json.Output;
 public abstract class PageTest extends ReportGenerator {
 
     protected AbstractPage page;
-    
+
     @After
     public void cleanUp() {
         // delete report file if was already created by any of test
         File report = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
         FileUtils.deleteQuietly(report);
     }
-    
+
     protected void generatePage(AbstractPage page) {
         PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
         pageGenerator.generatePage(page);
     }
-    
+
     protected DocumentAssertion documentFrom(String pageName) {
-        File input = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + pageName);
+        File input = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + File.separatorChar + pageName);
         try {
             return new DocumentAssertion(Jsoup.parse(input, StandardCharsets.UTF_8.name(), StringUtils.EMPTY));
         } catch (IOException e) {

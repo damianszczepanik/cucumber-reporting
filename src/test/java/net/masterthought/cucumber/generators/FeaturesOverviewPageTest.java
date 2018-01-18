@@ -33,19 +33,19 @@ public class FeaturesOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext context = new VelocityContext();
+    	VelocityContext pageContext = new VelocityContext();
         page = new FeaturesOverviewPage();
 
         // when
-        page.preparePageContext(context, configuration, reportResult);
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(context.getKeys()).hasSize(4);
+        assertThat(pageContext.getKeys()).hasSize(4);
 
-        assertThat(context.get("all_features")).isEqualTo(features);
-        assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
+        assertThat(pageContext.get("all_features")).isEqualTo(features);
+        assertThat(pageContext.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
     }
 }
