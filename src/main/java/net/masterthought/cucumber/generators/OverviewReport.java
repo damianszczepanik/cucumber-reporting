@@ -16,7 +16,7 @@ import java.util.List;
 
 public class OverviewReport implements Reportable {
 
-    private static final List<Feature> features = Features.getFeatures();
+    private final List<Feature> features = Features.getFeatures();
 
     private long duration;
 
