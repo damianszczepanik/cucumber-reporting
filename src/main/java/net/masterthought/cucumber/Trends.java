@@ -183,6 +183,8 @@ public class Trends {
         if (durations.length < buildNumbers.length) {
             fillMissingDurations();
         }
+
+        //this code to handle current user that want to update to this version
         if (featuresDetail.length < buildNumbers.length){
             fillMissingFeaturesDetail();
         }

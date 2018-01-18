@@ -16,6 +16,8 @@ import java.util.List;
 
 public class OverviewReport implements Reportable {
 
+    private static final List<Feature> features = Features.getFeatures();
+
     private long duration;
 
     private final StatusCounter featuresCounter = new StatusCounter();
@@ -125,8 +127,6 @@ public class OverviewReport implements Reportable {
 
     @Override
     public  FeatureScenario[] getFeatureDetails() {
-        //get all feature & scenario name
-        List<Feature> features = Features.getFeatures();
         FeatureScenario[] featureScenarios = new FeatureScenario[0];
 
         for (Feature feature : features){
