@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
@@ -23,7 +24,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 
@@ -247,7 +247,6 @@ public class ReportBuilderTest extends ReportGenerator {
         assertThat(countHtmlFiles(configuration).length).isEqualTo(10);
     }
 
-    
     @Test
     public void updateAndSaveTrends_ReturnsUpdatedTrends() {
 
