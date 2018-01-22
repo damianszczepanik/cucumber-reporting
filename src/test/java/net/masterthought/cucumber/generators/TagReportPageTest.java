@@ -24,7 +24,7 @@ public class TagReportPageTest extends PageTest {
 
         // given
         TagObject tag = tags.get(0);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
         String fileName = page.getWebPage();
@@ -34,18 +34,18 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
+        VelocityContext pageContext = new VelocityContext();
         TagObject tag = tags.get(1);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
-        page.prepareReport();
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
-        assertThat(context.get("tag")).isEqualTo(tag);
+        assertThat(pageContext.getKeys()).hasSize(1);
+        assertThat(pageContext.get("tag")).isEqualTo(tag);
     }
 }

@@ -3,6 +3,8 @@ package net.masterthought.cucumber.generators;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.velocity.VelocityContext;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
@@ -12,8 +14,8 @@ public class FailuresOverviewPage extends AbstractPage {
 
     public static final String WEB_PAGE = "overview-failures.html";
 
-    public FailuresOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "overviewFailures.vm", configuration);
+    public FailuresOverviewPage() {
+        super("overviewFailures.vm");
     }
 
     @Override
@@ -22,11 +24,11 @@ public class FailuresOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
-        context.put("failures", collectFailures());
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
+        context.put("failures", collectFailures(reportResult));
     }
 
-    private List<Element> collectFailures() {
+    private List<Element> collectFailures(ReportResult reportResult) {
         List<Element> failures = new ArrayList<>();
         for (Feature feature : reportResult.getAllFeatures()) {
             if (feature.getStatus().isPassed()) {

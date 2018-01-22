@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import org.apache.velocity.VelocityContext;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.Trends;
@@ -13,8 +15,8 @@ public class TrendsOverviewPage extends AbstractPage {
 
     private final Trends trends;
 
-    public TrendsOverviewPage(ReportResult reportResult, Configuration configuration, Trends trends) {
-        super(reportResult, "overviewTrends.vm", configuration);
+    public TrendsOverviewPage(Trends trends) {
+        super("overviewTrends.vm");
         this.trends = trends;
     }
 
@@ -24,7 +26,7 @@ public class TrendsOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         context.put("buildNumbers", trends.getBuildNumbers());
 
         context.put("failedFeatures", trends.getFailedFeatures());

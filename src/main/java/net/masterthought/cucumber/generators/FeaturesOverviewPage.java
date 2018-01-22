@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import org.apache.velocity.VelocityContext;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
@@ -8,8 +10,8 @@ public class FeaturesOverviewPage extends AbstractPage {
 
     public static final String WEB_PAGE = ReportBuilder.HOME_PAGE;
 
-    public FeaturesOverviewPage(ReportResult reportResult, Configuration configuration) {
-        super(reportResult, "overviewFeatures.vm", configuration);
+    public FeaturesOverviewPage() {
+        super("overviewFeatures.vm");
     }
 
     @Override
@@ -18,7 +20,7 @@ public class FeaturesOverviewPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         context.put("all_features", reportResult.getAllFeatures());
         context.put("report_summary", reportResult.getFeatureReport());
 

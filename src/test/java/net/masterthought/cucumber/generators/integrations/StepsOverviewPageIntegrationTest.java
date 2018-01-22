@@ -21,12 +21,12 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("333");
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
         final String titleValue = String.format("Cucumber Reports (no %s) - Steps Overview",
                 configuration.getBuildNumber());
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -40,10 +40,10 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -60,10 +60,10 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -80,10 +80,10 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -106,10 +106,10 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

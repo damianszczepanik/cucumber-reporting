@@ -22,12 +22,12 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
         final String titleValue = String.format("Cucumber Reports (no %s) - Failures Overview",
                 configuration.getBuildNumber());
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -41,10 +41,10 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -59,10 +59,10 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SIMPLE_JSON);
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -75,10 +75,10 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

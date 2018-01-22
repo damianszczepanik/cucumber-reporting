@@ -35,10 +35,10 @@ public class PageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+       generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -62,10 +62,10 @@ public class PageIntegrationTest extends PageTest {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
-        page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
+        page = new TagReportPage(reportResult.getAllTags().get(0));
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -87,10 +87,10 @@ public class PageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         configuration.setTrendsStatsFile(new File("someTmpFile"));
 
-        page = new FailuresOverviewPage(reportResult, configuration);
+        page = new FailuresOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -108,10 +108,10 @@ public class PageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -132,10 +132,10 @@ public class PageIntegrationTest extends PageTest {
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("123");
 
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -154,10 +154,10 @@ public class PageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
+        page = new TagReportPage(reportResult.getAllTags().get(0));
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

@@ -24,7 +24,7 @@ public class StepsOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsStepsOverviewFileName() {
 
         // given
-        page = new StepsOverviewPage(reportResult, configuration);
+        page = new StepsOverviewPage();
 
         // when
         String fileName = page.getWebPage();
@@ -34,18 +34,18 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
-        page = new StepsOverviewPage(reportResult, configuration);
+        VelocityContext pageContext = new VelocityContext();
+        page = new StepsOverviewPage();
 
         // when
-        page.prepareReport();
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
-        assertThat(context.get("all_steps")).isEqualTo(steps);
+        assertThat(pageContext.getKeys()).hasSize(4);
+        assertThat(pageContext.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;
         long allDurations = 0;
@@ -53,9 +53,9 @@ public class StepsOverviewPageTest extends PageTest {
             allOccurrences += stepObject.getTotalOccurrences();
             allDurations += stepObject.getDuration();
         }
-        assertThat(context.get("all_occurrences")).isEqualTo(allOccurrences);
-        assertThat(context.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
+        assertThat(pageContext.get("all_occurrences")).isEqualTo(allOccurrences);
+        assertThat(pageContext.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        assertThat(context.get("all_average")).isEqualTo(Util.formatDuration(average));
+        assertThat(pageContext.get("all_average")).isEqualTo(Util.formatDuration(average));
     }
 }

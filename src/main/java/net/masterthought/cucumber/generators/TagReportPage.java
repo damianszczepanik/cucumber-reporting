@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import org.apache.velocity.VelocityContext;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -8,8 +10,8 @@ public class TagReportPage extends AbstractPage {
 
     private final TagObject tagObject;
 
-    public TagReportPage(ReportResult reportResult, Configuration configuration, TagObject tagObject) {
-        super(reportResult, "reportTag.vm", configuration);
+    public TagReportPage(TagObject tagObject) {
+        super("reportTag.vm");
         this.tagObject = tagObject;
     }
 
@@ -19,7 +21,7 @@ public class TagReportPage extends AbstractPage {
     }
 
     @Override
-    public void prepareReport() {
+    public void preparePageContext(VelocityContext context, Configuration configuration, ReportResult reportResult) {
         context.put("tag", tagObject);
     }
 

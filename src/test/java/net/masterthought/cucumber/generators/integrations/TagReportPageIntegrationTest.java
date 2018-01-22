@@ -24,11 +24,11 @@ public class TagReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
         final String titleValue = String.format("Cucumber Reports  - Tag: %s", tag.getName());
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -43,10 +43,10 @@ public class TagReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -62,10 +62,10 @@ public class TagReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(1);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -81,10 +81,10 @@ public class TagReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -99,10 +99,10 @@ public class TagReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(1);
-        page = new TagReportPage(reportResult, configuration, tag);
+        page = new TagReportPage(tag);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

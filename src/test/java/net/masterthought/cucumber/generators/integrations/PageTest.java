@@ -16,6 +16,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
+import net.masterthought.cucumber.generators.PageGenerator;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.json.Output;
 
@@ -33,9 +34,13 @@ public abstract class PageTest extends ReportGenerator {
         FileUtils.deleteQuietly(report);
     }
 
+    protected void generatePage(AbstractPage page) {
+        PageGenerator pageGenerator = new PageGenerator(configuration, reportResult);
+        pageGenerator.generatePage(page);
+    }
+
     protected DocumentAssertion documentFrom(String pageName) {
-        File input = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + pageName);
+        File input = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + File.separatorChar + pageName);
         try {
             return new DocumentAssertion(Jsoup.parse(input, StandardCharsets.UTF_8.name(), StringUtils.EMPTY));
         } catch (IOException e) {

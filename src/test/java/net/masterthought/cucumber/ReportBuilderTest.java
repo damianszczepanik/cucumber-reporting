@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
@@ -24,6 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 
@@ -52,13 +52,11 @@ public class ReportBuilderTest extends ReportGenerator {
         FileUtils.copyFile(TRENDS_FILE, trendsFileTmp);
     }
 
-
     @After
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
         if (configuration != null) {
-			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
-					ReportBuilder.BASE_DIRECTORY));
+            FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY));
         }
     }
 
@@ -206,7 +204,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         try {
-            Deencapsulation.invoke(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
+            Deencapsulation.invoke(builder, "copyResources", dir.getAbsolutePath(), new String[] { "someFile" });
             fail("Copying should fail!");
             // exception depends of operating system
         } catch (ValidationException | NullPointerException e) {
@@ -492,10 +490,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
     }
-    
+
     private File[] countHtmlFiles(Configuration configuration) {
-    	FileFilter fileFilter = new WildcardFileFilter("*.html");
-    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
         return dir.listFiles(fileFilter);
     }
 

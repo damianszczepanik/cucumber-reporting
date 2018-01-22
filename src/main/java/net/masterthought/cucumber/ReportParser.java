@@ -1,26 +1,30 @@
 package net.masterthought.cucumber;
 
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.masterthought.cucumber.json.Feature;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -56,12 +60,12 @@ public class ReportParser {
         }
 
         List<Feature> featureResults = new ArrayList<>();
+
         for (int i = 0; i < jsonFiles.size(); i++) {
             String jsonFile = jsonFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
             LOG.info("File '{}' contain {} features", jsonFile, features.length);
-            setMetadata(features, jsonFile, i);
-            featureResults.addAll(Arrays.asList(features));
+            collectFeaturesAndSetMetadata(featureResults, features, jsonFile, i);
         }
 
         // report that has no features seems to be not valid
@@ -94,10 +98,13 @@ public class ReportParser {
         }
     }
 
-    /** Sets additional information and calculates values which should be calculated during object creation. */
-    private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
+    /** 
+     * Collects features, sets additional information and calculates values which should be calculated during object creation. 
+     */
+    private void collectFeaturesAndSetMetadata(Collection<Feature> featuresAccumulator, Feature[] features, String jsonFile, int jsonFileNo) {
         for (Feature feature : features) {
             feature.setMetaData(jsonFile, jsonFileNo, configuration);
+            featuresAccumulator.add(feature);
         }
     }
 
@@ -121,7 +128,10 @@ public class ReportParser {
     private void processClassificationFile(String file) {
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(file);
+
+            @SuppressWarnings("unchecked")
             Iterator<String> keys = config.getKeys();
+
             while (keys.hasNext()) {
                 String key = keys.next();
                 String value = config.getProperty(key).toString();

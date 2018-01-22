@@ -22,12 +22,12 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         configuration.setRunWithJenkins(true);
         configuration.setBuildNumber("1");
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
         final String titleValue = String.format("Cucumber Reports (no %s) - Features Overview",
                 configuration.getBuildNumber());
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -41,10 +41,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -64,10 +64,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         for (int i = 0; i < names.length; i++) {
             configuration.addClassifications(names[i], values[i]);
         }
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -85,10 +85,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -101,10 +101,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -125,10 +125,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -154,10 +154,10 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new FeaturesOverviewPage(reportResult, configuration);
+        page = new FeaturesOverviewPage();
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

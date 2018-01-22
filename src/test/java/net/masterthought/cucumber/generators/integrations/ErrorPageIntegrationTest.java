@@ -21,11 +21,11 @@ public class ErrorPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new ErrorPage(reportResult, configuration, cause, jsonReports);
+        page = new ErrorPage(cause, jsonReports);
         final String titleValue = String.format("Cucumber Reports  - Error Page");
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -40,10 +40,10 @@ public class ErrorPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         configuration.setBuildNumber("12");
-        page = new ErrorPage(reportResult, configuration, cause, jsonReports);
+        page = new ErrorPage(cause, jsonReports);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -59,10 +59,10 @@ public class ErrorPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        page = new ErrorPage(reportResult, configuration, cause, jsonReports);
+        page = new ErrorPage(cause, jsonReports);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

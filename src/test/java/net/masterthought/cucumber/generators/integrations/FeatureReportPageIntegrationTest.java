@@ -39,11 +39,11 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
         final String titleValue = String.format("Cucumber Reports  - Feature: %s", feature.getName());
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -58,10 +58,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -77,10 +77,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -103,10 +103,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -137,10 +137,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -170,10 +170,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -203,10 +203,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -222,10 +222,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -241,10 +241,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -268,10 +268,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -288,10 +288,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -316,10 +316,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
@@ -339,10 +339,10 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.generatePage();
+        generatePage(page);
 
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());

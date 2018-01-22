@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.io.IOException;
 
-import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
@@ -13,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.Trends;
@@ -40,7 +40,7 @@ public class TrendsOverviewPageTest extends PageTest {
     public void getWebPage_ReturnsTrendsOverviewFileName() {
 
         // given
-        page = new TrendsOverviewPage(reportResult, configuration, null);
+        page = new TrendsOverviewPage(null);
 
         // when
         String fileName = page.getWebPage();
@@ -50,35 +50,36 @@ public class TrendsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
+        VelocityContext context = new VelocityContext();
+
         configuration.setBuildNumber("myBuild");
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
-        page = new TrendsOverviewPage(reportResult, configuration, trends);
+        page = new TrendsOverviewPage(trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        reportResult = new ReportResult(features, configuration.getSortingMethod());
 
         // when
-        page.prepareReport();
+        page.preparePageContext(context, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(18);
+        assertThat(context.getKeys()).hasSize(11);
 
-        assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first","other build","05last"});
-        assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1,2,5});
-        assertThat(context.get("totalFeatures")).isEqualTo(new int[]{10,20,30});
+        assertThat(context.get("buildNumbers")).isEqualTo(new String[] { "01_first", "other build", "05last" });
+        assertThat(context.get("failedFeatures")).isEqualTo(new int[] { 1, 2, 5 });
+        assertThat(context.get("totalFeatures")).isEqualTo(new int[] { 10, 20, 30 });
 
-        assertThat(context.get("failedScenarios")).isEqualTo(new int[]{10,20,20});
-        assertThat(context.get("totalScenarios")).isEqualTo(new int[]{10,2,5});
+        assertThat(context.get("failedScenarios")).isEqualTo(new int[] { 10, 20, 20 });
+        assertThat(context.get("totalScenarios")).isEqualTo(new int[] { 10, 2, 5 });
 
-        assertThat(context.get("passedSteps")).isEqualTo(new int[]{1,3,5});
-        assertThat(context.get("failedSteps")).isEqualTo(new int[]{10,30,50});
-        assertThat(context.get("skippedSteps")).isEqualTo(new int[]{100,300,500});
-        assertThat(context.get("pendingSteps")).isEqualTo(new int[]{1000,3000,5000});
-        assertThat(context.get("undefinedSteps")).isEqualTo(new int[]{10000,30000,50000});
+        assertThat(context.get("passedSteps")).isEqualTo(new int[] { 1, 3, 5 });
+        assertThat(context.get("failedSteps")).isEqualTo(new int[] { 10, 30, 50 });
+        assertThat(context.get("skippedSteps")).isEqualTo(new int[] { 100, 300, 500 });
+        assertThat(context.get("pendingSteps")).isEqualTo(new int[] { 1000, 3000, 5000 });
+        assertThat(context.get("undefinedSteps")).isEqualTo(new int[] { 10000, 30000, 50000 });
 
-        assertThat(context.get("durations")).isEqualTo(new long[]{3206126182398L, 3206126182399L, 3206126182310L});
+        assertThat(context.get("durations")).isEqualTo(new long[] { 3206126182398L, 3206126182399L, 3206126182310L });
     }
 }

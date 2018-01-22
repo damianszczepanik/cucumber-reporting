@@ -2,15 +2,15 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
-import net.masterthought.cucumber.json.Step;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Step;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -27,7 +27,7 @@ public class FeatureReportPageTest extends PageTest {
 
         // given
         Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
         String fileName = page.getWebPage();
@@ -37,20 +37,20 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void preparePageContext_AddsCustomProperties() {
 
         // given
+        VelocityContext pageContext = new VelocityContext();
         Feature feature = features.get(1);
-        page = new FeatureReportPage(reportResult, configuration, feature);
+        page = new FeatureReportPage(feature);
 
         // when
-        page.prepareReport();
+        page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
-        assertThat(context.get("parallel")).isEqualTo(configuration.isParallelTesting());
-        assertThat(context.get("feature")).isEqualTo(feature);
+        assertThat(pageContext.getKeys()).hasSize(2);
+        assertThat(pageContext.get("parallel")).isEqualTo(configuration.isParallelTesting());
+        assertThat(pageContext.get("feature")).isEqualTo(feature);
     }
 
     @Test
