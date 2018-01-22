@@ -23,9 +23,9 @@ public class ErrorPageTest extends PageTest {
     public void preparePageContext() {
 
         // give
-    	VelocityContext pageContext = new VelocityContext();
+        VelocityContext pageContext = new VelocityContext();
 
-    	Exception exception = new Exception();
+        Exception exception = new Exception();
         page = new ErrorPage(exception, jsonReports);
 
         // when

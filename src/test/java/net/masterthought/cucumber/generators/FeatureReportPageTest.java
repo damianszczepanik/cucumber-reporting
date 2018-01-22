@@ -40,7 +40,7 @@ public class FeatureReportPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext pageContext = new VelocityContext();
+        VelocityContext pageContext = new VelocityContext();
         Feature feature = features.get(1);
         page = new FeatureReportPage(feature);
 

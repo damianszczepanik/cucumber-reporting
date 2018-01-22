@@ -28,112 +28,112 @@ import net.masterthought.cucumber.util.Util;
 
 public class PageGenerator {
 
-	private static final Logger LOG = LogManager.getLogger(PageGenerator.class);
+    private static final Logger LOG = LogManager.getLogger(PageGenerator.class);
 
-	private final VelocityEngine engine;
+    private final VelocityEngine engine;
 
-	final VelocityContext globalContext;
+    final VelocityContext globalContext;
 
-	private final Configuration configuration;
+    private final Configuration configuration;
 
-	private final ReportResult reportResult;
+    private final ReportResult reportResult;
 
-	private final File reportDirectory;
+    private final File reportDirectory;
 
-	public PageGenerator(Configuration configuration, ReportResult reportResult) {
+    public PageGenerator(Configuration configuration, ReportResult reportResult) {
 
-		this.engine = new VelocityEngine();
-		this.globalContext = newGlobalContext(configuration, reportResult);
+        this.engine = new VelocityEngine();
+        this.globalContext = newGlobalContext(configuration, reportResult);
 
-		this.configuration = configuration;
-		this.reportResult = reportResult;
+        this.configuration = configuration;
+        this.reportResult = reportResult;
 
-		this.engine.init(buildProperties());
-		this.reportDirectory = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        this.engine.init(buildProperties());
+        this.reportDirectory = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
 
-		createDirectories();
-	}
+        createDirectories();
+    }
 
-	private VelocityContext newGlobalContext(Configuration configuration, ReportResult reportResult) {
+    private VelocityContext newGlobalContext(Configuration configuration, ReportResult reportResult) {
 
-		VelocityContext context = new VelocityContext();
+        VelocityContext context = new VelocityContext();
 
-		// to escape html and xml
-		EventCartridge ec = new EventCartridge();
-		ec.addEventHandler(new EscapeHtmlReference());
-		context.attachEventCartridge(ec);
+        // to escape html and xml
+        EventCartridge ec = new EventCartridge();
+        ec.addEventHandler(new EscapeHtmlReference());
+        context.attachEventCartridge(ec);
 
-		context.put("util", Util.INSTANCE);
+        context.put("util", Util.INSTANCE);
 
-		context.put("run_with_jenkins", configuration.isRunWithJenkins());
-		context.put("trends_present", configuration.getTrendsStatsFile() != null);
-		context.put("build_project_name", configuration.getProjectName());
-		context.put("build_number", configuration.getBuildNumber());
+        context.put("run_with_jenkins", configuration.isRunWithJenkins());
+        context.put("trends_present", configuration.getTrendsStatsFile() != null);
+        context.put("build_project_name", configuration.getProjectName());
+        context.put("build_number", configuration.getBuildNumber());
 
-		// if report generation fails then report is null
-		String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
-		context.put("build_time", formattedTime);
+        // if report generation fails then report is null
+        String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
+        context.put("build_time", formattedTime);
 
-		// build number is not mandatory
-		String buildNumber = configuration.getBuildNumber();
-		if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
-			if (NumberUtils.isCreatable(buildNumber)) {
-				context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
-			} else {
-				LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
-			}
-		}
+        // build number is not mandatory
+        String buildNumber = configuration.getBuildNumber();
+        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
+            if (NumberUtils.isCreatable(buildNumber)) {
+                context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
+            } else {
+                LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
+            }
+        }
 
-		return context;
-	}
+        return context;
+    }
 
-	private Properties buildProperties() {
-		Properties props = new Properties();
-		props.setProperty("resource.loader", "class");
-		props.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
-		props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
+    private Properties buildProperties() {
+        Properties props = new Properties();
+        props.setProperty("resource.loader", "class");
+        props.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
+        props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
 
-		return props;
-	}
+        return props;
+    }
 
-	private void createDirectories() {
-		try {
-			Files.createDirectories(reportDirectory.toPath());
-		} catch (IOException e) {
-			throw new ValidationException(e);
-		}
-	}
+    private void createDirectories() {
+        try {
+            Files.createDirectories(reportDirectory.toPath());
+        } catch (IOException e) {
+            throw new ValidationException(e);
+        }
+    }
 
-	public void generatePage(AbstractPage page) {
+    public void generatePage(AbstractPage page) {
 
-		VelocityContext context = newPageContext();
-		page.preparePageContext(context, configuration, reportResult);
-		context.put("report_file", page.getWebPage());
+        VelocityContext context = newPageContext();
+        page.preparePageContext(context, configuration, reportResult);
+        context.put("report_file", page.getWebPage());
 
-		writePage(page.getTemplateName(), page.getWebPage(), context);
-	}
+        writePage(page.getTemplateName(), page.getWebPage(), context);
+    }
 
-	private VelocityContext newPageContext() {
+    private VelocityContext newPageContext() {
 
-		VelocityContext context = new VelocityContext(globalContext);
+        VelocityContext context = new VelocityContext(globalContext);
 
-		// to provide unique ids for elements on each page
-		context.put("counter", new Counter());
+        // to provide unique ids for elements on each page
+        context.put("counter", new Counter());
 
-		return context;
-	}
+        return context;
+    }
 
-	private void writePage(String templateName, String webPage, VelocityContext context) {
+    private void writePage(String templateName, String webPage, VelocityContext context) {
 
-		Template template = engine.getTemplate(templateName);
-		File pageFile = new File(reportDirectory, webPage);
+        Template template = engine.getTemplate(templateName);
+        File pageFile = new File(reportDirectory, webPage);
 
-		try (Writer writer = new OutputStreamWriter(new FileOutputStream(pageFile), StandardCharsets.UTF_8)) {
-			template.merge(context, writer);
-		} catch (IOException e) {
-			throw new ValidationException(e);
-		}
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(pageFile), StandardCharsets.UTF_8)) {
+            template.merge(context, writer);
+        } catch (IOException e) {
+            throw new ValidationException(e);
+        }
 
-	}
+    }
 
 }

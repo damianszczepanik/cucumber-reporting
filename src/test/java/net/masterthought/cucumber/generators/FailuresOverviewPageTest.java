@@ -40,8 +40,8 @@ public class FailuresOverviewPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext pageContext = new VelocityContext();
-    	
+        VelocityContext pageContext = new VelocityContext();
+
         page = new FailuresOverviewPage();
         // this page only has failed scenarios (elements) so extract them into
         // a list to compare
@@ -66,7 +66,7 @@ public class FailuresOverviewPageTest extends PageTest {
         assertThat(pageContext.getKeys()).hasSize(1);
 
         @SuppressWarnings("unchecked")
-		List<Element> elements = (List<Element>) pageContext.get("failures");
+        List<Element> elements = (List<Element>) pageContext.get("failures");
         assertThat(elements).hasSameElementsAs(failures);
     }
 }

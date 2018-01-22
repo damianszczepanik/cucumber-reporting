@@ -53,8 +53,8 @@ public class TrendsOverviewPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext context = new VelocityContext();
-    	
+        VelocityContext context = new VelocityContext();
+
         configuration.setBuildNumber("myBuild");
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
         page = new TrendsOverviewPage(trends);
@@ -67,19 +67,19 @@ public class TrendsOverviewPageTest extends PageTest {
         // then
         assertThat(context.getKeys()).hasSize(11);
 
-        assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first","other build","05last"});
-        assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1,2,5});
-        assertThat(context.get("totalFeatures")).isEqualTo(new int[]{10,20,30});
+        assertThat(context.get("buildNumbers")).isEqualTo(new String[] { "01_first", "other build", "05last" });
+        assertThat(context.get("failedFeatures")).isEqualTo(new int[] { 1, 2, 5 });
+        assertThat(context.get("totalFeatures")).isEqualTo(new int[] { 10, 20, 30 });
 
-        assertThat(context.get("failedScenarios")).isEqualTo(new int[]{10,20,20});
-        assertThat(context.get("totalScenarios")).isEqualTo(new int[]{10,2,5});
+        assertThat(context.get("failedScenarios")).isEqualTo(new int[] { 10, 20, 20 });
+        assertThat(context.get("totalScenarios")).isEqualTo(new int[] { 10, 2, 5 });
 
-        assertThat(context.get("passedSteps")).isEqualTo(new int[]{1,3,5});
-        assertThat(context.get("failedSteps")).isEqualTo(new int[]{10,30,50});
-        assertThat(context.get("skippedSteps")).isEqualTo(new int[]{100,300,500});
-        assertThat(context.get("pendingSteps")).isEqualTo(new int[]{1000,3000,5000});
-        assertThat(context.get("undefinedSteps")).isEqualTo(new int[]{10000,30000,50000});
+        assertThat(context.get("passedSteps")).isEqualTo(new int[] { 1, 3, 5 });
+        assertThat(context.get("failedSteps")).isEqualTo(new int[] { 10, 30, 50 });
+        assertThat(context.get("skippedSteps")).isEqualTo(new int[] { 100, 300, 500 });
+        assertThat(context.get("pendingSteps")).isEqualTo(new int[] { 1000, 3000, 5000 });
+        assertThat(context.get("undefinedSteps")).isEqualTo(new int[] { 10000, 30000, 50000 });
 
-        assertThat(context.get("durations")).isEqualTo(new long[]{3206126182398L, 3206126182399L, 3206126182310L});
+        assertThat(context.get("durations")).isEqualTo(new long[] { 3206126182398L, 3206126182399L, 3206126182310L });
     }
 }

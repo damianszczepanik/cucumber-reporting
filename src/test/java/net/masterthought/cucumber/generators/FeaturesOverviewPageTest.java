@@ -36,7 +36,7 @@ public class FeaturesOverviewPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext pageContext = new VelocityContext();
+        VelocityContext pageContext = new VelocityContext();
         page = new FeaturesOverviewPage();
 
         // when

@@ -20,6 +20,11 @@ public abstract class AbstractPage {
     protected AbstractPage(String templateFileName) {
         this.templateFileName = templateFileName;
     }
+    
+    @Deprecated
+    protected AbstractPage(ReportResult reportResult, String templateFileName, Configuration configuration) {
+        this(templateFileName);
+    }
 
     /**
      * Returns HTML file name (with extension) for this report.

@@ -154,19 +154,19 @@ public class ReportBuilder {
         
         generator.generatePage(new FeaturesOverviewPage());
         for (Feature feature : reportResult.getAllFeatures()) {
-        	generator.generatePage(new FeatureReportPage(feature));
+            generator.generatePage(new FeatureReportPage(feature));
         }
 
         generator.generatePage(new TagsOverviewPage());
         for (TagObject tagObject : reportResult.getAllTags()) {
-        	generator.generatePage(new TagReportPage(tagObject));
+            generator.generatePage(new TagReportPage(tagObject));
         }
 
         generator.generatePage(new StepsOverviewPage());
         generator.generatePage(new FailuresOverviewPage());
 
         if (configuration.isTrendsStatsFile()) {
-        	generator.generatePage(new TrendsOverviewPage(trends));
+            generator.generatePage(new TrendsOverviewPage(trends));
         }
 
     }

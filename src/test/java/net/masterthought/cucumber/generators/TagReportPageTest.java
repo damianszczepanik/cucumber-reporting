@@ -37,7 +37,7 @@ public class TagReportPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext pageContext = new VelocityContext();
+        VelocityContext pageContext = new VelocityContext();
         TagObject tag = tags.get(1);
         page = new TagReportPage(tag);
 

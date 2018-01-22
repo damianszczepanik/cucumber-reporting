@@ -49,25 +49,25 @@ public class TagsOverviewPage extends AbstractPage {
         return tagNames;
     }
 
-	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList, Collection<Pattern> tagsToExcludeFromChart) {
-		List<TagObject> filteredTags = new ArrayList<>();
-		for (TagObject tagObject : tagsObjectList) {
-			String tagName = tagObject.getName();
-			if (shouldIncludeTag(tagName, tagsToExcludeFromChart)) {
-				filteredTags.add(tagObject);
-			}
-		}
-		return filteredTags;
-	}
+    private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList, Collection<Pattern> tagsToExcludeFromChart) {
+        List<TagObject> filteredTags = new ArrayList<>();
+        for (TagObject tagObject : tagsObjectList) {
+            String tagName = tagObject.getName();
+            if (shouldIncludeTag(tagName, tagsToExcludeFromChart)) {
+                filteredTags.add(tagObject);
+            }
+        }
+        return filteredTags;
+    }
 
-	private boolean shouldIncludeTag(String tagName, Collection<Pattern> tagsToExcludeFromChart) {
-		for (Pattern pattern : tagsToExcludeFromChart) {
-			if (tagName.matches(pattern.pattern())) {
-				return false;
-			}
-		}
-		return true;
-	}
+    private boolean shouldIncludeTag(String tagName, Collection<Pattern> tagsToExcludeFromChart) {
+        for (Pattern pattern : tagsToExcludeFromChart) {
+            if (tagName.matches(pattern.pattern())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     static String[][] generateTagValues(List<TagObject> tagsObjectList) {
         int tagsCount = tagsObjectList.size();

@@ -38,7 +38,7 @@ public class TagsOverviewPageTest extends PageTest {
     public void preparePageContext_AddsCustomProperties() {
 
         // given
-    	VelocityContext pageContext = new VelocityContext();
+        VelocityContext pageContext = new VelocityContext();
         page = new TagsOverviewPage();
 
         // when
@@ -60,19 +60,13 @@ public class TagsOverviewPageTest extends PageTest {
         page = new TagsOverviewPage();
         configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
 
-        //when
+        // when
         VelocityContext pageContext = new VelocityContext();
         page.preparePageContext(pageContext, configuration, reportResult);
 
         // then
-        assertThat(pageContext.get("chart_categories")).isEqualTo(new String[]{"@fast"});
-        assertThat(pageContext.get("chart_data")).isEqualTo(new String[][]{
-                {"100.00"},
-                {"0.00"},
-                {"0.00"},
-                {"0.00"},
-                {"0.00"}
-        });
+        assertThat(pageContext.get("chart_categories")).isEqualTo(new String[] { "@fast" });
+        assertThat(pageContext.get("chart_data")).isEqualTo(new String[][] { { "100.00" }, { "0.00" }, { "0.00" }, { "0.00" }, { "0.00" } });
     }
 
     @Test
@@ -85,7 +79,7 @@ public class TagsOverviewPageTest extends PageTest {
         String[] labels = TagsOverviewPage.generateTagLabels(allTags);
 
         // then
-        assertThat(labels).isEqualTo(new String[]{"@checkout", "@fast", "@featureTag"});
+        assertThat(labels).isEqualTo(new String[] { "@checkout", "@fast", "@featureTag" });
     }
 
     @Test
@@ -98,12 +92,6 @@ public class TagsOverviewPageTest extends PageTest {
         String[][] labels = TagsOverviewPage.generateTagValues(allTags);
 
         // then
-        assertThat(labels).isEqualTo(new String[][]{
-                {"62.50", "100.00", "100.00"},
-                {"6.25", "0.00", "0.00"},
-                {"12.50", "0.00", "0.00"},
-                {"6.25", "0.00", "0.00"},
-                {"12.50", "0.00", "0.00"}
-        });
+        assertThat(labels).isEqualTo(new String[][] { { "62.50", "100.00", "100.00" }, { "6.25", "0.00", "0.00" }, { "12.50", "0.00", "0.00" }, { "6.25", "0.00", "0.00" }, { "12.50", "0.00", "0.00" } });
     }
 }
