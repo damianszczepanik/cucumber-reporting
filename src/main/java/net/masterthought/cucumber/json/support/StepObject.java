@@ -22,6 +22,11 @@ public class StepObject {
     /** How many times this step was executed. */
     private int totalOccurrences;
 
+    /**
+     * Max occured duration for the step.
+     */
+    private long maxDuration;
+
     private final StatusCounter statusCounter = new StatusCounter();
 
     public StepObject(String location) {
@@ -39,6 +44,9 @@ public class StepObject {
         this.totalDuration += duration;
         this.totalOccurrences++;
         this.statusCounter.incrementFor(status);
+        if (duration > maxDuration) {
+            this.maxDuration = duration;
+        }
     }
 
     public long getDuration() {
@@ -61,6 +69,14 @@ public class StepObject {
         return totalOccurrences;
     }
 
+    public long getMaxDuration() {
+        return maxDuration;
+    }
+
+    public String getFormattedMaxDuration() {
+        return Util.formatDuration(maxDuration);
+    }
+
     /**
      * Gets percentage how many steps passed (PASSED / All) formatted to double decimal precision.
      *
@@ -71,7 +87,6 @@ public class StepObject {
         for (Status status : Status.values()) {
             total += this.statusCounter.getValueFor(status);
         }
-
         return Util.formatAsPercentage(this.statusCounter.getValueFor(Status.PASSED), total);
     }
 

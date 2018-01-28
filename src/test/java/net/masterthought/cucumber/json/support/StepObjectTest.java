@@ -29,6 +29,7 @@ public class StepObjectTest {
 
     @Test
     public void StepObject_OnNullLocation_ThrowsException() {
+
         // given
         // nothing
 
@@ -51,7 +52,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void addDurationSumsDurations() {
+    public void addDuration_ReturnsSumsDurations() {
 
         // give
         StepObject step = new StepObject("ble bla ble");
@@ -78,6 +79,32 @@ public class StepObjectTest {
 
         // then
         assertThat(duration).isEqualTo("3.503");
+    }
+
+    @Test
+    public void getFormattedMaxDuration_ReturnsFormattedMaxDurations() {
+
+        // give
+        // from @Before
+
+        // when
+        String duration = stepObject.getFormattedTotalDuration();
+
+        // then
+        assertThat(duration).isEqualTo("3.503");
+    }
+
+    @Test
+    public void getFormattedMaxDuration_ReturnsdMaxDurations() {
+
+        // give
+        // from @Before
+
+        // when
+        long maxDuration = stepObject.getMaxDuration();
+
+        // then
+        assertThat(maxDuration).isEqualTo(2200000000L);
     }
 
     @Test
