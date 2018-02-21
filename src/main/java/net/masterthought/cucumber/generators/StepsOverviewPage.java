@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators;
 
+import java.util.List;
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.StepObject;
@@ -36,8 +38,18 @@ public class StepsOverviewPage extends AbstractPage {
         context.put("all_occurrences", allOccurrences);
         context.put("all_durations", Util.formatDuration(allDurations));
         // make sure it does not divide by 0 - may happens if there is no step at all or all results have 0 ms durations
+        context.put("all_max_duration", Util.formatDuration(maxDurationOf(reportResult.getAllSteps())));
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        context.put("all_average", Util.formatDuration(average));
+        context.put("all_average_duration", Util.formatDuration(average));
+    }
 
+    private long maxDurationOf(List<StepObject> steps) {
+        long maxDuration = 0;
+        for (StepObject step : steps) {
+            if (step.getDuration() > maxDuration) {
+                maxDuration = step.getDuration();
+            }
+        }
+        return maxDuration;
     }
 }
