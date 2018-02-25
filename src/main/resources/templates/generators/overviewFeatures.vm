@@ -15,7 +15,7 @@
 
 #includeNavigation("features")
 
-#includeReportInfo(true)
+#includeReportInfo()
 
 #includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
 
