@@ -27,6 +27,8 @@ public class ErrorPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
+        context.put("classifications", configuration.getClassifications());
+
         context.put("output_message", ExceptionUtils.getStackTrace(exception));
         context.put("json_files", jsonFiles);
     }
