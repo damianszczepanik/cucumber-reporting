@@ -35,9 +35,9 @@
                                 "data": "aHR0cDovL2xvY2FsaG9zdC9zdGF0aWMvbG9nby5wbmc="
                             },
                             {
-                                "data":"file:///path/to/index.html",
-                                "media":{
-                                    "type":"text/plain"
+                                "data": "file:///path/to/index.html",
+                                "media": {
+                                    "type": "text/plain"
                                 }
                             }
                         ]
@@ -245,17 +245,29 @@
                         "name": "the account balance should be 90",
                         "keyword": "And ",
                         "line": 28,
+                        "arguments": [
+                            {
+                                "rows": [
+                                    {
+                                        "cells": [
+                                            "max",
+                                            "min"
+                                        ]
+                                    },
+                                    {
+                                        "cells": [
+                                            "20",
+                                            "3"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "match": {
-                            "arguments": [
-                                {
-                                    "val": "90",
-                                    "offset": 30
-                                }
-                            ],
                             "location": "ATMScenario.checkBalance(int)"
                         },
                         "matchedColumns": [
-                            4
+                            2
                         ]
                     }
                 ],
