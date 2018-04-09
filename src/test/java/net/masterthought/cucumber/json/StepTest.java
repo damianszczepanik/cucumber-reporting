@@ -33,6 +33,20 @@ public class StepTest extends PageTest {
     }
 
     @Test
+    public void getRows_OnArguments_ReturnsRows() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[5];
+
+        // when
+        Row[] rows = step.getRows();
+
+        // then
+        assertThat(rows).hasSize(2);
+        assertThat(rows[0].getCells()).containsOnlyOnce("max", "min");
+    }
+
+    @Test
     public void getName_ReturnsName() {
 
         // given
