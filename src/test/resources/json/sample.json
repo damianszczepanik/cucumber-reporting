@@ -515,7 +515,8 @@
                     },
                     {
                         "result": {
-                            "status": "failed"
+                            "status": "failed",
+                            "error_message": "\n"
                         },
                         "name": "the card is valid",
                         "keyword": "And ",
@@ -595,43 +596,5 @@
             }
         ],
         "uri": "net/masterthought/example/ATMK.feature"
-    },
-    {
-        "keyword": "Feature",
-        "name": "Test something",
-        "line": 1,
-        "id": "test-button",
-        "tags": [],
-        "uri": "some.feature",
-        "elements": [
-            {
-                "id": "test-sound-button;check-sound-button-state-to-turn-on/off-the-sound-when-clicked",
-                "keyword": "Scenario",
-                "line": 4,
-                "name": "Check sound button state to turn on/off the sound when clicked",
-                "tags": [
-                    {
-                        "name": "@tag",
-                        "line": 3
-                    }
-                ],
-                "type": "scenario",
-                "steps": [
-                    {
-                        "arguments": [],
-                        "keyword": "Given ",
-                        "line": 5,
-                        "name": "Something should be visible",
-                        "match": {
-                            "location": "settings.js"
-                        },
-                        "result": {
-                            "status": "failed",
-                            "error_message": "\n"
-                        }
-                    }
-                ]
-            }
-        ]
     }
 ]

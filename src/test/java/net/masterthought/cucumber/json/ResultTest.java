@@ -81,10 +81,10 @@ public class ResultTest extends PageTest {
     @Test
     public void getErrorMessageTitle_ReturnsEmptyStringIfNoErrorMessage() {
 
-        Result result = features.get(2).getElements()[0].getSteps()[0].getResult();
+        Result result = features.get(1).getElements()[0].getSteps()[8].getResult();
 
-        String errorMessageTitle = result.getErrorMessageTitle();
-        System.out.println(errorMessageTitle);
+        assertThat(result.getErrorMessageTitle()).isEqualTo("");
+
 
     }
 
