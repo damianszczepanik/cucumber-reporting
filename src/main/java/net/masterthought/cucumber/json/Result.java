@@ -37,6 +37,10 @@ public class Result implements Durationable {
     }
 
     public final String getErrorMessageTitle() {
-        return errorMessage.split("[\\r\\n]+")[0];
+        try {
+            return errorMessage.split("[\\r\\n]+")[0];
+        } catch(ArrayIndexOutOfBoundsException e) {
+            return "";
+        }
     }
 }
