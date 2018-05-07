@@ -71,7 +71,7 @@ public class ReportResultTest extends ReportGenerator {
         Reportable reportable = reportResult.getTagReport();
 
         // then
-        assertThat(reportable.getDurations()).isEqualTo(509064334L);
+        assertThat(reportable.getDuration()).isEqualTo(509064334L);
     }
 
     @Test

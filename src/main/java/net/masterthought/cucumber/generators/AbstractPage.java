@@ -7,10 +7,11 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -31,7 +32,7 @@ import net.masterthought.cucumber.util.Util;
  */
 public abstract class AbstractPage {
 
-    private static final Logger LOG = LogManager.getLogger(AbstractPage.class);
+    private static final Logger LOG = Logger.getLogger(AbstractPage.class.getName());
 
     private final VelocityEngine engine = new VelocityEngine();
     protected final VelocityContext context = new VelocityContext();
@@ -57,7 +58,11 @@ public abstract class AbstractPage {
         generateReport();
     }
 
-    /** Returns HTML file name (with extension) for this report. */
+    /**
+     * Returns HTML file name (with extension) for this report.
+     *
+     * @return HTML file for the report
+     */
     public abstract String getWebPage();
 
     protected abstract void prepareReport();
@@ -105,11 +110,11 @@ public abstract class AbstractPage {
 
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
-        if (buildNumber != null) {
+        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.info("Could not parse build number: {}.", configuration.getBuildNumber());
+                LOG.log(Level.INFO, String.format("Could not parse build number: %1$s.", configuration.getBuildNumber()));
             }
         }
     }

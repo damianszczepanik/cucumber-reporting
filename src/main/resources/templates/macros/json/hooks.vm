@@ -1,6 +1,6 @@
-#macro(includeHooks, $keyword, $hooks, $status)
+#macro(includeHooks $keyword, $hooks, $status)
 
-#if($hooks.size() > 0)
+#if(!$hooks.isEmpty())
   <div class="inner-level hooks-$keyword.toLowerCase()">
     #set($hookId = $counter.next())
     <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hookId">
@@ -22,6 +22,8 @@
             #includeMessage("Error message", $hook.getResult().getErrorMessage())
           #end
 
+          #set($isPassed = $hook.getResult().getStatus().isPassed())
+          #includeOutput($hook.getOutputs(), $isPassed)
           #includeEmbeddings($hook.getEmbeddings())
         </div>
       #end

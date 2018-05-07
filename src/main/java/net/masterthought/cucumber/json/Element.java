@@ -2,12 +2,14 @@ package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Element {
+public class Element implements Durationable {
     private static final Logger LOG = LogManager.getLogger(Element.class);
 
     // Start: attributes from JSON file report
@@ -29,6 +31,7 @@ public class Element {
     private Status stepsStatus;
 
     private Feature feature;
+    private long duration;
 
     public Step[] getSteps() {
         return steps;
@@ -79,11 +82,21 @@ public class Element {
     }
 
     public boolean isScenario() {
-        return SCENARIO_TYPE.equals(type);
+        return SCENARIO_TYPE.equalsIgnoreCase(type);
     }
 
     public Feature getFeature() {
         return feature;
+    }
+
+    @Override
+    public long getDuration() {
+        return duration;
+    }
+
+    @Override
+    public String getFormattedDuration() {
+        return Util.formatDuration(duration);
     }
 
     public void setMetaData(Feature feature) {
@@ -118,7 +131,9 @@ public class Element {
     private Status calculateStepsStatus() {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getResult().getStatus());
+            Result result = step.getResult();
+            statusCounter.incrementFor(result.getStatus());
+            duration += result.getDuration();
         }
         return statusCounter.getFinalStatus();
     }

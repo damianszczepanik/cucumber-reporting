@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
 
@@ -27,6 +28,8 @@ public class Configuration {
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
+    private SortingMethod sortingMethod = SortingMethod.NATURAL;
+    private List<String> classificationFiles;
 
     public Configuration(File reportOutputDirectory, String projectName) {
         this.reportDirectory = reportOutputDirectory;
@@ -58,7 +61,17 @@ public class Configuration {
     }
 
     /**
+     * Checks if the file for the trends was set.
+     *
+     * @return <code>true</code> if the file location was provided, otherwise <code>false</code>
+     */
+    public boolean isTrendsStatsFile() {
+        return trendsFile != null;
+    }
+
+    /**
      * Calls {@link #setTrends(File, int)} with zero limit.
+     * @param trendsFile file with trends
      */
     public void setTrendsStatsFile(File trendsFile) {
         setTrends(trendsFile, 0);
@@ -83,6 +96,12 @@ public class Configuration {
         return buildNumber;
     }
 
+    /**
+     * Sets number of the build. If the {{@link #setRunWithJenkins(boolean)} executed on Jenkins}, this should be
+     * integer value so the number of previous build can be calculated properly.
+     *
+     * @param buildNumber number of the build
+     */
     public void setBuildNumber(String buildNumber) {
         this.buildNumber = buildNumber;
     }
@@ -109,7 +128,7 @@ public class Configuration {
      * @param patterns Regex patterns to match against tags
      * @throws ValidationException when any of the given strings is not a valid regex pattern.
      */
-    public void setTagsToExcludeFromChart(String... patterns) throws ValidationException {
+    public void setTagsToExcludeFromChart(String... patterns) {
         for (String pattern : patterns) {
             try {
                 tagsToExcludeFromChart.add(Pattern.compile(pattern));
@@ -135,5 +154,37 @@ public class Configuration {
      */
     public List<Map.Entry<String, String>> getClassifications() {
         return classifications;
+    }
+
+    /**
+     * Configure how items will be sorted in the report by default.
+     *
+     * @param sortingMethod how the items should be sorted
+     */
+    public void setSortingMethod(SortingMethod sortingMethod) {
+        this.sortingMethod = sortingMethod;
+    }
+
+    /**
+     * Returns the default sorting method.
+     */
+    public SortingMethod getSortingMethod() {
+        return this.sortingMethod;
+    }
+
+    /**
+     * Adds properties files which house classifications in key value pairings. When these properties files get
+     * processed these classifications get displayed on the main page of the report as metadata in the order in which
+     * they appear within the file.
+     */
+    public void addClassificationFiles(List<String> classificationFiles) {
+        this.classificationFiles = classificationFiles;
+    }
+
+    /**
+     * Returns the list of properties files.
+     */
+    public List<String> getClassificationFiles() {
+        return this.classificationFiles;
     }
 }

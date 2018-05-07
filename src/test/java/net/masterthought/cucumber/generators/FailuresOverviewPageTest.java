@@ -45,8 +45,9 @@ public class FailuresOverviewPageTest extends PageTest {
         // a list to compare
         List<Element> failures = new ArrayList<>();
         for (Feature feature : features) {
-            if (feature.getStatus().isPassed())
+            if (feature.getStatus().isPassed()) {
                 continue;
+            }
 
             for (Element element : feature.getElements()) {
                 if (element.getStepsStatus().isPassed())

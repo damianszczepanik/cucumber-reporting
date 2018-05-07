@@ -72,7 +72,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         assertThat(headerRows).hasSize(1);
 
         TableRowAssertion firstRow = headerRows[0];
-        firstRow.hasExactValues("Implementation", "Occurrences", "Duration", "Average", "Ratio");
+        firstRow.hasExactValues("Implementation", "Occurrences", "Average duration", "Max duration", "Total durations", "Ratio");
     }
 
     @Test
@@ -91,14 +91,14 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         assertThat(bodyRows).hasSameSizeAs(steps);
 
-        TableRowAssertion firstRow = bodyRows[1];
-        firstRow.hasExactValues("ATMScenario.I_have_a_new_credit_card()", "1", "1m 39s 107ms", "1m 39s 107ms", "100.00%");
-        firstRow.hasExactCSSClasses("location", "", "duration", "duration", "passed");
-        firstRow.hasExactDataValues("", "", "99107447000", "99107447000", "");
+        TableRowAssertion firstRow = bodyRows[4];
+        firstRow.hasExactValues("ATMScenario.checkBalance(int)", "2", "0.015", "0.030", "0.031", "50.00%");
+        firstRow.hasExactCSSClasses("location", "", "duration", "duration", "duration", "failed");
+        firstRow.hasExactDataValues("", "", "15966500", "15966500", "31933000", "");
 
         // also verify the average durations is written to data-values correctly
         TableRowAssertion secondRow = bodyRows[3];
-        secondRow.hasExactDataValues("", "", "90000000", "45000000", "");
+        secondRow.hasExactDataValues("", "", "45000000", "45000000", "90000000", "");
     }
 
     @Test
@@ -115,6 +115,6 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion footerCells = document.getReport().getTableStats().getFooterRow();
 
-        footerCells.hasExactValues("16", "23", "1m 39s 492ms", "4s 325ms", "Totals");
+        footerCells.hasExactValues("16", "23", "4.325", "1:39.107", "1:39.492", "Totals");
     }
 }

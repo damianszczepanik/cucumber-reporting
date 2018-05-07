@@ -7,24 +7,27 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.masterthought.cucumber.json.Feature;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ReportParser {
 
-    private static final Logger LOG = LogManager.getLogger(ReportParser.class);
+    private static final Logger LOG = Logger.getLogger(ReportParser.class.getName());
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final Configuration configuration;
@@ -49,21 +52,21 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("None report file was added!");
+            throw new ValidationException("No report file was added!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
         for (int i = 0; i < jsonFiles.size(); i++) {
             String jsonFile = jsonFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
-            LOG.info("File '{}' contain {} features", jsonFile, features.length);
+            LOG.log(Level.INFO, String.format("File '%1$s' contains %2$s features", jsonFile, features.length));
             setMetadata(features, jsonFile, i);
             featureResults.addAll(Arrays.asList(features));
         }
 
         // report that has no features seems to be not valid
         if (featureResults.isEmpty()) {
-            throw new ValidationException(String.format("Passed reports have no features!"));
+            throw new ValidationException("Passed files have no features!");
         }
 
         return featureResults;
@@ -71,7 +74,7 @@ public class ReportParser {
 
     /**
      * Reads passed file and returns parsed features.
-     * 
+     *
      * @param jsonFile
      *            JSON file that should be read
      * @return array of parsed features
@@ -80,7 +83,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.info("File '{}' does not contain features", jsonFile);
+                LOG.log(Level.INFO, String.format("File '%1$s' does not contain features", jsonFile));
             }
             return features;
         } catch (JsonMappingException e) {
@@ -97,4 +100,36 @@ public class ReportParser {
             feature.setMetaData(jsonFile, jsonFileNo, configuration);
         }
     }
+
+    /**
+     * Parses passed properties files for classifications. These classifications within each file get added to the overview-features page as metadata.
+     * File and metadata order within the individual files are preserved when classifications are added.
+     *
+     * @param propertiesFiles
+     *            property files to read
+     */
+    public void parseClassificationsFiles(List<String> propertiesFiles) {
+        if (isNotEmpty(propertiesFiles)) {
+            for (String propertyFile : propertiesFiles) {
+                if (StringUtils.isNotEmpty(propertyFile)) {
+                    processClassificationFile(propertyFile);
+                }
+            }
+        }
+    }
+
+    private void processClassificationFile(String file) {
+        try {
+            PropertiesConfiguration config = new PropertiesConfiguration(file);
+            Iterator<String> keys = config.getKeys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = config.getProperty(key).toString();
+                this.configuration.addClassifications(key, value);
+            }
+        } catch (ConfigurationException e) {
+            throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
+        }
+    }
+
 }

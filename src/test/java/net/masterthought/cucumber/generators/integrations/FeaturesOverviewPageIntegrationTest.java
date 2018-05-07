@@ -58,8 +58,8 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     public void generatePage_generatesClassifications() {
 
         // given
-        final String[] names = {"Platform", "Browser", "Branch"};
-        final String[] values = {"Win", "Opera", "master"};
+        final String[] names = {"Platform", "Browser", "Branch", "Repository"};
+        final String[] values = {"Win", "Opera", "master", "<a href=\"example.com\" rel=\"nofollow noopener noreferrer\">Example Repository</a>"};
         setUpWithJson(SAMPLE_JSON);
         for (int i = 0; i < names.length; i++) {
             configuration.addClassifications(names[i], values[i]);
@@ -75,7 +75,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         assertThat(classifications).hasSize(names.length);
         for (int i = 0; i < names.length; i++) {
-            String[] cells = classifications[i].getCellsValues();
+            String[] cells = classifications[i].getCellsHtml();
             assertThat(cells).containsExactly(names[i], values[i]);
         }
     }
@@ -140,7 +140,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         firstRow.hasExactValues("1st feature", "10", "0", "0", "0", "0", "10", "1", "0", "0", "0", "1", "1m 39s 263ms", "Passed");
         firstRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "", "", "total", "duration", "passed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "", "99263122889", "");
-        firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_net-masterthought-example-s--ATM-local-feature.html");
+        firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_net-masterthought-example-s--ATM--u6771-u4EAC-feature.html");
 
         TableRowAssertion secondRow = bodyRows[1];
         secondRow.hasExactValues("Second feature", "5", "1", "2", "1", "2", "11", "1", "1", "0", "0", "2", "092ms", "Failed");
@@ -166,6 +166,5 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         assertThat(footerRows).hasSize(2);
         footerRows[0].hasExactValues("2", "15", "1", "2", "1", "2", "21", "2", "1", "0", "0", "3", "1m 39s 355ms", "");
         footerRows[1].hasExactValues("", "71.43%", "4.76%", "9.52%", "4.76%", "9.52%", "", "66.67%", "33.33%", "0.00%", "0.00%", "", "", "50.00%");
-
     }
 }

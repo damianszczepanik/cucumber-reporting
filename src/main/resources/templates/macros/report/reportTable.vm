@@ -26,7 +26,7 @@
           <td #if ($reportable.getUndefinedScenarios() != 0) class="undefined" #end>$reportable.getUndefinedScenarios()</td>
           <td class="total">$reportable.getScenarios()</td>
 
-          <td class="duration" data-value="$reportable.getDurations()">$reportable.getFormattedDurations()</td>
+          <td class="duration" data-value="$reportable.getDuration()">$reportable.getFormattedDuration()</td>
           <td class="$reportable.getStatus().getRawName()">$reportable.getStatus().getLabel()</td>
         </tr>
         </tbody>

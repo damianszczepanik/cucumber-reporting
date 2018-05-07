@@ -13,9 +13,12 @@
   }
   </style>
 </head>
+
 <body>
 
 #includeNavigation()
+
+#includeReportInfo()
 
 #includeLead("Error", "Something went wrong with project $build_project_name, build $build_number")
 

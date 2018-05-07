@@ -23,8 +23,9 @@
           <tr class="header">
             <th>Implementation</th>
             <th>Occurrences</th>
-            <th>Duration</th>
-            <th>Average</th>
+            <th>Average duration</th>
+            <th>Max duration</th>
+            <th>Total durations</th>
             <th>Ratio</th>
           </tr>
         </thead>
@@ -34,8 +35,9 @@
             <tr>
               <td class="location">$step.getLocation()</td>
               <td>$step.getTotalOccurrences()</td>
-              <td class="duration" data-value="$step.getDurations()">$step.getFormattedTotalDuration()</td>
               <td class="duration" data-value="$step.getAverageDuration()">$step.getFormattedAverageDuration()</td>
+              <td class="duration" data-value="$step.getAverageDuration()">$step.getFormattedMaxDuration()</td>
+              <td class="duration" data-value="$step.getDuration()">$step.getFormattedTotalDuration()</td>
               <td class="$step.getStatus().getRawName()">$step.getPercentageResult()</td>
             </tr>
           #end
@@ -45,8 +47,9 @@
           <tr>
             <td>$all_steps.size()</td>
             <td>$all_occurrences</td>
+            <td class="duration">$all_average_duration</td>
+            <td class="duration">$all_max_duration</td>
             <td class="duration">$all_durations</td>
-            <td class="duration">$all_average</td>
             <td>Totals</td>
           </tr>
         </tfoot>

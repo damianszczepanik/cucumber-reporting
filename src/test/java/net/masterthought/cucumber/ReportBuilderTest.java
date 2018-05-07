@@ -18,14 +18,12 @@ import java.util.List;
 import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 
@@ -35,31 +33,37 @@ import net.masterthought.cucumber.json.Feature;
 public class ReportBuilderTest extends ReportGenerator {
 
     private File reportDirectory;
-    private final File TRENDS_TMP_FILE = new File(TRENDS_FILE.getAbsolutePath() + "-tmp");
+    private File trendsFileTmp;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() throws IOException {
-        reportDirectory = new File("target" + File.separatorChar + System.currentTimeMillis());
+        reportDirectory = new File("target", String.valueOf(System.currentTimeMillis()));
         // random temp directory
-        reportDirectory.mkdir();
+        reportDirectory.mkdirs();
         // root report directory
         new File(reportDirectory, ReportBuilder.BASE_DIRECTORY).mkdir();
 
         // refresh the file if it was already copied by another/previous test
-        FileUtils.copyFile(TRENDS_FILE, TRENDS_TMP_FILE);
+        trendsFileTmp = new File(reportDirectory, "trends-tmp.json");
+
+        FileUtils.copyFile(TRENDS_FILE, trendsFileTmp);
     }
 
 
     @After
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
+        if (configuration != null) {
+			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
+					ReportBuilder.BASE_DIRECTORY));
+        }
     }
 
     @Test
-    public void ReportBuilder_storesFilesAndConfiguratio() {
+    public void ReportBuilder_storesFilesAndConfiguration() {
 
         // given
         final List<String> jsonFiles = new ArrayList<>();
@@ -77,19 +81,88 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void createEmbeddingsDirectory_CreatesDirectory() {
+    public void generateReports_GeneratesPages() {
 
         // given
-        File subDirectory = new File(reportDirectory, "sub");
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
 
-        Configuration configuration = new Configuration(subDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
-        Deencapsulation.invoke(builder, "createEmbeddingsDirectory");
+        Reportable result = builder.generateReports();
 
         // then
-        assertThat(subDirectory).exists();
+        assertThat(countHtmlFiles()).hasSize(9);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    public void generateReports_WithTrendsFile_GeneratesPages() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        configuration.setTrendsStatsFile(trendsFileTmp);
+
+        // when
+        Reportable result = builder.generateReports();
+
+        // then
+        assertThat(countHtmlFiles()).hasSize(10);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    public void generateReports_OnException_AppendsBuildToTrends() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject") {
+            @Override
+            public File getEmbeddingDirectory() {
+                throw new IllegalStateException();
+            }
+        };
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
+        configuration.setTrendsStatsFile(trendsFileTmp);
+
+        // when
+        reportBuilder.generateReports();
+
+        // then
+        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertThat(countHtmlFiles()).hasSize(1);
+
+        Trends trends = Deencapsulation.invoke(reportBuilder, "loadTrends", trendsFileTmp);
+        assertThat(trends.getBuildNumbers()).hasSize(4);
+    }
+
+    @Test
+    public void generateReports_OnException_StoresEmptyTrendsFile() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject") {
+            @Override
+            public File getEmbeddingDirectory() {
+                throw new IllegalStateException();
+            }
+        };
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        configuration.setTrendsStatsFile(trendsFileTmp);
+
+        // when
+        Reportable result = builder.generateReports();
+
+        // then
+        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertThat(countHtmlFiles()).hasSize(1);
+        assertThat(result).isNull();
     }
 
     @Test
@@ -104,7 +177,23 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         Collection<File> files = FileUtils.listFiles(reportDirectory, null, true);
-        assertThat(files).hasSize(20);
+        assertThat(files).hasSize(21);
+    }
+
+    @Test
+    public void createEmbeddingsDirectory_CreatesDirectory() {
+
+        // given
+        File subDirectory = new File(reportDirectory, "sub");
+
+        Configuration configuration = new Configuration(subDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+
+        // when
+        Deencapsulation.invoke(builder, "createEmbeddingsDirectory");
+
+        // then
+        assertThat(subDirectory).exists();
     }
 
     @Test
@@ -126,97 +215,51 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateErrorPage_GeneratesErrorPage() {
-
-        // given
-        Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-
-        // when
-        Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
-
-        // then
-        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
-    }
-
-    @Test
     public void collectPages_CollectsPages() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages");
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(9);
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(9);
     }
 
     @Test
-    public void collectPages_OnTrendsFile_CollectsPages() {
+    public void collectPages_OnExistingTrendsFile_CollectsPages() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setTrendsStatsFile(TRENDS_TMP_FILE);
+        configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages");
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(10);
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(10);
     }
 
     @Test
-    public void generatePages_CallsGeneratePagesOverPassedPages() {
-
-        // given
-        Configuration configuration = new Configuration(null, null);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        final MutableInt counter = new MutableInt();
-        AbstractPage page = new AbstractPage(null, null, configuration) {
-            @Override
-            public String getWebPage() {
-                return null;
-            }
-
-            @Override
-            protected void prepareReport() {
-                // only to satisfy abstract class contract
-            }
-
-            @Override
-            public void generatePage() {
-                counter.increment();
-            }
-        };
-        List<AbstractPage> pages = Arrays.asList(page, page, page);
-
-        // when
-        Deencapsulation.invoke(builder, "generatePages", pages);
-
-        // then
-        assertThat(counter.getValue()).isEqualTo(pages.size());
-    }
-
-    @Test
-    public void updateAndGenerateTrends_ReturnsUpdatedTrends() {
+    public void updateAndSaveTrends_ReturnsUpdatedTrends() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
         final String buildNumber = "my build";
         configuration.setBuildNumber(buildNumber);
+        configuration.setTrendsStatsFile(trendsFileTmp);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
         Deencapsulation.setField(builder, "reportResult", reportResult);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "updateAndGenerateTrends", TRENDS_TMP_FILE);
+        Trends trends = Deencapsulation.invoke(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(4);
@@ -226,19 +269,19 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void updateAndGenerateTrends_OnTrendsLimit_ReturnsUpdatedTrends() {
+    public void updateAndSaveTrends_OnTrendsLimit_ReturnsUpdatedTrends() {
 
         // given
         final int trendsLimit = 2;
         setUpWithJson(SAMPLE_JSON);
         final String buildNumber = "my build";
         configuration.setBuildNumber(buildNumber);
-        configuration.setTrends(TRENDS_TMP_FILE, trendsLimit);
+        configuration.setTrends(trendsFileTmp, trendsLimit);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
         Deencapsulation.setField(builder, "reportResult", reportResult);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "updateAndGenerateTrends", TRENDS_TMP_FILE);
+        Trends trends = Deencapsulation.invoke(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(trendsLimit);
@@ -273,23 +316,58 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
+    public void loadTrends_OnMissingTrendsFile_ThrowsException() {
 
         // given
         File noExistingTrendsFile = new File("anyNoExisting?File");
 
         // when
-        Trends trend = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
+        thrown.expect(ValidationException.class);
+        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
+    }
+
+    @Test
+    public void loadOrCreateTrends_ReturnsLoadedTrends() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        configuration.setTrendsStatsFile(trendsFileTmp);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+
+        // when
+        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
 
         // then
-        assertThat(trend).isNotNull();
-        assertThat(trend.getBuildNumbers()).isEmpty();
-        assertThat(trend.getFailedFeatures()).isEmpty();
-        assertThat(trend.getTotalFeatures()).isEmpty();
-        assertThat(trend.getFailedScenarios()).isEmpty();
-        assertThat(trend.getTotalScenarios()).isEmpty();
-        assertThat(trend.getFailedSteps()).isEmpty();
-        assertThat(trend.getTotalSteps()).isEmpty();
+        assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
+    }
+
+    @Test
+    public void loadOrCreateTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        configuration.setTrendsStatsFile(new File("missing?file"));
+
+        // when
+        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
+
+        // then
+        assertThat(trends.getBuildNumbers()).hasSize(0);
+    }
+
+    @Test
+    public void loadOrCreateTrends_OnInvalidTrendsFile_ReturnsEmptyTrends() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+
+        // when
+        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
+
+        // then
+        assertThat(trends.getBuildNumbers()).hasSize(0);
     }
 
     @Test
@@ -317,7 +395,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void appendCurrentReport_AppendsDataToTrends() {
+    public void appendToTrends_AppendsDataToTrends() {
 
         // given
         final String buildNumber = "1";
@@ -331,32 +409,38 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setBuildNumber(buildNumber);
 
         final Reportable reportable = new OverviewReport() {
+            @Override
             public int getFailedFeatures() {
                 return failedFeature;
             }
 
+            @Override
             public int getFeatures() {
                 return totalFeature;
             }
 
+            @Override
             public int getFailedScenarios() {
                 return failedScenario;
             }
 
+            @Override
             public int getScenarios() {
                 return totalScenario;
             }
 
+            @Override
             public int getFailedSteps() {
                 return failedStep;
             }
 
+            @Override
             public int getSteps() {
                 return totalStep;
             }
         };
 
-        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList()) {
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration.getSortingMethod()) {
             @Override
             public Reportable getFeatureReport() {
                 return reportable;
@@ -368,7 +452,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Trends trends = new Trends();
 
         // when
-        Deencapsulation.invoke(reportBuilder, "appendCurrentReport", trends);
+        Deencapsulation.invoke(reportBuilder, "appendToTrends", trends, reportable);
 
         // then
         assertThat(trends.getBuildNumbers()).containsExactly(buildNumber);
@@ -396,44 +480,23 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_OnException_GeneratesErrorPage() {
+    public void generateErrorPage_GeneratesErrorPage() {
 
         // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
-
-        final String errorMessage = "ups!";
-        Configuration configuration = new Configuration(reportDirectory, "myProject") {
-            @Override
-            public File getEmbeddingDirectory() {
-                throw new IllegalStateException(errorMessage);
-            }
-        };
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
 
         // when
-        Reportable result = builder.generateReports();
+        Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
 
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
-        assertThat(countHtmlFiles()).hasSize(1);
-        assertThat(result).isNull();
     }
-
-    @Test
-    public void generateReports_GeneratesErrorPage() {
-
-        // given
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
-
-        Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        // when
-        Reportable result = builder.generateReports();
-
-        // then
-        assertThat(countHtmlFiles()).hasSize(9);
-        assertThat(result).isNotNull();
+    
+    private File[] countHtmlFiles(Configuration configuration) {
+    	FileFilter fileFilter = new WildcardFileFilter("*.html");
+    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {

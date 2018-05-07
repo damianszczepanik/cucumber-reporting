@@ -88,6 +88,8 @@ public class Trends {
 
     /**
      * Adds build into the trends.
+     * @param buildNumber number of the build
+     * @param reportable stats for the generated report
      */
     public void addBuild(String buildNumber, Reportable reportable) {
 
@@ -108,7 +110,7 @@ public class Trends {
         undefinedSteps = ArrayUtils.add(undefinedSteps, reportable.getUndefinedSteps());
         totalSteps = ArrayUtils.add(totalSteps, reportable.getSteps());
 
-        durations = ArrayUtils.add(durations, reportable.getDurations());
+        durations = ArrayUtils.add(durations, reportable.getDuration());
 
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();

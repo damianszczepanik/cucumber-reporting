@@ -33,6 +33,12 @@
                             {
                                 "mime_type": "image/url",
                                 "data": "aHR0cDovL2xvY2FsaG9zdC9zdGF0aWMvbG9nby5wbmc="
+                            },
+                            {
+                                "data": "file:///path/to/index.html",
+                                "media": {
+                                    "type": "text/plain"
+                                }
                             }
                         ]
                     },
@@ -239,17 +245,29 @@
                         "name": "the account balance should be 90",
                         "keyword": "And ",
                         "line": 28,
+                        "arguments": [
+                            {
+                                "rows": [
+                                    {
+                                        "cells": [
+                                            "max",
+                                            "min"
+                                        ]
+                                    },
+                                    {
+                                        "cells": [
+                                            "20",
+                                            "3"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "match": {
-                            "arguments": [
-                                {
-                                    "val": "90",
-                                    "offset": 30
-                                }
-                            ],
                             "location": "ATMScenario.checkBalance(int)"
                         },
                         "matchedColumns": [
-                            4
+                            2
                         ]
                     }
                 ],
@@ -268,7 +286,7 @@
                 ]
             }
         ],
-        "uri": "net/masterthought/example(s)/ATM:local.feature"
+        "uri": "net/masterthought/example(s)/ATM:東京.feature"
     },
     {
         "id": "account-holder-withdraws-more-cash",
@@ -287,12 +305,15 @@
                 ],
                 "before": [
                     {
+                        "output": [
+                            "System version: beta3"
+                        ],
                         "result": {
                             "duration": 10744700,
                             "status": "passed"
                         },
                         "match": {
-                            "location": "MachineFactory.findCachMachine()"
+                            "location": "MachineFactory.findCashMachine()"
                         }
                     },
                     {
@@ -440,11 +461,15 @@
                             },
                             {
                                 "mime_type": "text/html",
-                                "data": "PGk+SGVsbG88L2k+IDxiPldvcmxkITwvYj4="
+                                "data": "PGh0bWw+PGhlYWQ+PC9oZWFkPjxib2R5PjxwPjxpPkhlbGxvPC9pPiA8Yj5Xb3JsZCE8L2I+PC9wPjxwPlRoZSB3aWtpcGVkaWEgbG9nbyBzaG91bGQgYXBwZWFyIGJlbG93PC9wPjxpbWcgc3JjPSJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvc3RhdGljL2ltYWdlcy9wcm9qZWN0LWxvZ29zL2Vud2lraS5wbmciPjwvYm9keT48L2h0bWw+"
                             },
                             {
                                 "mime_type": "text/xml",
                                 "data": "PD94bWwgdmVyc2lvbj0iMS4wIj8+DQo8eG1sPg0KICA8c29tZU5vZGUgYXR0cj0idmFsdWUiIC8+DQo8L3htbD4="
+                            },
+                            {
+                                "mime_type": "image/svg+xml",
+                                "data": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE3LjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiIFsKCTwhRU5USVRZIHN0MCAiZmlsbDojMzMzMzMzOyI+Cl0+CjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiCgkgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNCAyNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBzdHlsZT0iJnN0MDsiIGQ9Ik0yMy4xMzIsMTIuMDEyYzAsNi4xNjktNC45OTcsMTEuMjE5LTExLjE2NCwxMS4yMTljLTYuMTc4LDAtMTEuMTc1LTUuMDUtMTEuMTc1LTExLjIxOQoJYzAtNi4xNzgsNC45OTctMTEuMTczLDExLjE3NS0xMS4xNzNDMTguMTM2LDAuODM5LDIzLjEzMiw1LjgzNSwyMy4xMzIsMTIuMDEyIE0xNC43NTYsMjEuMTMyYzMuODI3LTEuMzY4LDYuNjI2LTQuODk5LDYuNjI2LTkuMTIKCWMwLTUuMjAyLTQuMjItOS40MjUtOS40MTQtOS40MjVjLTUuMjA0LDAtOS40MjYsNC4yMjMtOS40MjYsOS40MjVjMCw0LjI2NCwyLjg0NCw3LjgxOCw2LjczNiw5LjEydi0xLjc5MwoJYzAtMS4wNzIsMC40NDgtMS42NCwwLjg5Ni0xLjk0NmMtMi40MjctMC4yNTMtNS4wMy0xLjEyOC01LjAzLTUuMzI3YzAtMS4xNzcsMC40MTYtMi4xNDEsMS4xMDUtMi44ODUKCUM2LjE0MSw4Ljg5Nyw1Ljc4LDcuODA1LDYuMzU5LDYuMzI4YzAsMCwwLjkwOC0wLjI5NSwyLjk2MywxLjEwNWMwLjg1My0wLjI0MSwxLjc4My0wLjM2MSwyLjY4OS0wLjM2MQoJYzAuOTE4LDAsMS44MzgsMC4xMTksMi43MDEsMC4zNjFjMi4wNTYtMS40LDIuOTUyLTEuMTA1LDIuOTUyLTEuMTA1YzAuNTksMS40NzcsMC4yMTksMi41NjksMC4xMSwyLjg1MwoJYzAuNjg5LDAuNzQ0LDEuMTA1LDEuNzA4LDEuMTA1LDIuODg1YzAsNC4xOTktMi42MDMsNS4wNzQtNS4wMyw1LjMyN2MwLjQ0NywwLjMwNiwwLjkwNywwLjg3NCwwLjkwNywxLjk0NlYyMS4xMzJ6Ii8+Cjwvc3ZnPgo="
                             },
                             {
                                 "mime_type": "js",
@@ -550,6 +575,20 @@
                         "name": "Stream closing",
                         "keyword": "Given ",
                         "line": 32
+                    }
+                ],
+                "type": "scenario"
+            },
+            {
+                "id": "undefined-result",
+                "name": "This step has no result...",
+                "keyword": "Scenario",
+                "line": 35,
+                "steps": [
+                    {
+                        "name": " - even it should",
+                        "keyword": "Given ",
+                        "line": 36
                     }
                 ],
                 "type": "scenario"

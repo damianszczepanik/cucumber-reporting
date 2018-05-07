@@ -247,4 +247,30 @@ public class ElementTest extends PageTest {
         // then
         assertThat(feature.getId()).isEqualTo("account-holder-withdraws-cash");
     }
+
+    @Test
+    public void getDuration_ReturnsDuration() {
+
+        // given
+        Element element = features.get(0).getElements()[0];
+
+        // when
+        long duration = element.getDuration();
+
+        // then
+        assertThat(duration).isEqualTo(99124118111L);
+    }
+
+    @Test
+    public void getFormattedDuration_ReturnsFormattedDuration() {
+
+        // given
+        Element element = features.get(0).getElements()[0];
+
+        // when
+        String duration = element.getFormattedDuration();
+
+        // then
+        assertThat(duration).isEqualTo("1:39.124");
+    }
 }

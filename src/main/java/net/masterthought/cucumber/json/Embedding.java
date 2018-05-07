@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.json;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 import org.codehaus.plexus.util.Base64;
 
-import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -43,7 +42,11 @@ public class Embedding {
         return fileId + "." + getExtension();
     }
 
-    /** Returns file name without extension. */
+    /**
+     * Returns unique file ID.
+     *
+     * @return ID of the file
+     */
     public String getFileId() {
         return fileId;
     }
@@ -51,6 +54,7 @@ public class Embedding {
     public String getExtension() {
         switch (mimeType) {
         case "image/png":
+        case "image/gif":
         case "image/bmp":
         case "image/jpeg":
         case "text/html":
@@ -61,8 +65,12 @@ public class Embedding {
         // image available remotely stored as link/url
         case "image/url":
             return "image";
+        case "image/svg+xml":
+            return "svg";
         case "text/plain":
             return "txt";
+        case "application/pdf":
+            return "pdf";
         default:
             return "unknown";
         }

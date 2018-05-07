@@ -33,6 +33,20 @@ public class StepTest extends PageTest {
     }
 
     @Test
+    public void getRows_OnArguments_ReturnsRows() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[5];
+
+        // when
+        Row[] rows = step.getRows();
+
+        // then
+        assertThat(rows).hasSize(2);
+        assertThat(rows[0].getCells()).containsOnlyOnce("max", "min");
+    }
+
+    @Test
     public void getName_ReturnsName() {
 
         // given
@@ -65,10 +79,10 @@ public class StepTest extends PageTest {
         Step step = features.get(1).getElements()[0].getSteps()[7];
 
         // when
-        Output output = step.getOutput();
+        Output[] outputs = step.getOutputs();
 
         // then
-        assertThat(output.getMessages()).containsOnlyOnce(
+        assertThat(getMessages(outputs)).containsOnlyOnce(
                 "Could not connect to the server @Rocky@",
                 "Could not connect to the server @Mike@");
     }
@@ -150,5 +164,20 @@ public class StepTest extends PageTest {
 
         // then
         assertThat(duration).isZero();
+    }
+
+    @Test
+    public void getResult_OnMissingResult_ReturnsEmptyResult() {
+
+        // given
+        Step step = features.get(1).getElements()[2].getSteps()[0];
+
+        // when
+        Result result = step.getResult();
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(Status.UNDEFINED);
+        assertThat(result.getDuration()).isEqualTo(0L);
+        assertThat(result.getErrorMessage()).isNull();
     }
 }

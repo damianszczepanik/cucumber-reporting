@@ -64,9 +64,9 @@ public class AbstractPageTest extends PageTest {
         assertThat(document.getFeature().getDescription())
                 .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
-                .isEqualTo("Attachment 4 (HTML) <i>Hello</i> <b>World!</b>");
+                .isEqualTo("Attachment 4 (HTML)");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())
-                .isEqualTo("Error message java.lang.AssertionError: \n" +
+                .isEqualTo("java.lang.AssertionError: java.lang.AssertionError: \n" +
                         "Expected: is <80>\n" +
                         "     got: <90>\n" +
                         "\n" +
@@ -135,10 +135,11 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
+    public void buildGeneralParameters_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
 
         // given
-        configuration.setBuildNumber("12");
+        configuration.setBuildNumber("notAnumber");
+        configuration.setRunWithJenkins(true);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -146,7 +147,24 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.get("build_time")).isNotNull();
+    }
+
+    @Test
+    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
+
+        // given
+        configuration.setBuildNumber("12");
+        configuration.setRunWithJenkins(false);
+        page = new ErrorPage(null, configuration, null, jsonReports);
+
+        // when
+        // buildGeneralParameters() already called by constructor
+
+        // then
+        VelocityContext context = page.context;
+        assertThat(context.getKeys()).hasSize(7);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -171,6 +189,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("34");
+        configuration.setRunWithJenkins(true);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

@@ -23,7 +23,7 @@ import net.masterthought.cucumber.generators.integrations.PageTest;
  */
 public class TrendsOverviewPageTest extends PageTest {
 
-    private final String TRENDS_FILE = pathToTestFile("cucumber-trends.json");
+    private final String TRENDS_FILE = pathToSampleFile("cucumber-trends.json");
     private final String TRENDS_TMP_FILE = TRENDS_FILE + "-tmp";
 
     @Rule
@@ -57,7 +57,7 @@ public class TrendsOverviewPageTest extends PageTest {
         Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
         page.prepareReport();
