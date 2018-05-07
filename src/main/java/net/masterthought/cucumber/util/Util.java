@@ -28,21 +28,15 @@ public final class Util {
     public static final Util INSTANCE = new Util();
 
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
-            .appendDays()
-            .appendSuffix("d")
-            .appendSeparator(" ")
             .appendHours()
-            .appendSuffix("h")
-            .appendSeparator(" ")
+            .appendSeparator(":")
             .appendMinutes()
-            .appendSuffix("m")
-            .appendSeparator(" ")
+            .appendSeparator(":")
+            .printZeroAlways()
             .appendSeconds()
-            .appendSuffix("s")
-            .appendSeparator(" ")
+            .appendSeparator(".")
             .minimumPrintedDigits(3)
             .appendMillis()
-            .appendSuffix("ms")
             .toFormatter();
 
     private Util() {
@@ -73,12 +67,12 @@ public final class Util {
     /**
      * Converts characters of passed string by replacing to dash (-) each character that might not be accepted as file
      * name such as / ? or &gt;.
-     * 
-     * @param value
+     *
+     * @param fileName
      *            sequence that should be converted
      * @return converted string
      */
-    public static String toValidFileName(String value) {
-        return StringEscapeUtils.escapeJava(value).replaceAll("[^\\d\\w]", "-");
+    public static String toValidFileName(String fileName) {
+        return StringEscapeUtils.escapeJava(fileName).replaceAll("[^\\d\\w]", "-");
     }
 }

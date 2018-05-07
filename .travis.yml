@@ -13,8 +13,10 @@ env:
    # via the "travis encrypt" command using the project repo's public key
    - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
 
-# Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
-# See https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
+before_install:
+  # Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
+  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
+
 addons:
   hosts:
     - myshorthost
@@ -57,5 +59,4 @@ addons:
   sonarqube:
     token:
       secure: $SONAR_TOKEN
-  branches:
-    - master
+

@@ -26,6 +26,16 @@ public class TableRowAssertion extends ReportAssertion {
         return values;
     }
 
+    public String[] getCellsHtml() {
+        WebAssertion[] cells = getCells();
+        String[] values = new String[cells.length];
+        for (int i = 0; i < cells.length; i++) {
+            values[i] = cells[i].html();
+        }
+        return values;
+    }
+
+
     /**
      * Validates the row cells' text match the given passed values.
      * 
@@ -35,7 +45,7 @@ public class TableRowAssertion extends ReportAssertion {
     public void hasExactValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
-        assertThat(array.length).isEqualTo(values.length);
+        assertThat(array.length).describedAs("The two arrays should be the same size, but expected array has %d and actual has %d",values.length,array.length).isEqualTo(values.length);
 
         for (int i = 0; i < values.length; i++) {
             assertThat(array[i].text()).describedAs("Invalid value at index %d", i).isEqualTo(values[i]);

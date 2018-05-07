@@ -9,6 +9,7 @@ import java.util.List;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -16,6 +17,7 @@ import net.masterthought.cucumber.json.support.TagObject;
 public abstract class ReportGenerator {
 
     public final static String JSON_DIRECTORY = "json/";
+    public final static String CLASSIFICATIONS_DIRECTORY = "classifications/";
 
     protected static final String SAMPLE_JSON = "sample.json";
     protected static final String COMPLEX_JSON = "complex.json";
@@ -24,6 +26,13 @@ public abstract class ReportGenerator {
     protected static final String INVALID_JSON = "invalid.json";
     protected static final String INVALID_REPORT_JSON = "invalid-report.json";
 
+    protected static final String EMPTY_PROPERTIES = "empty.properties";
+    protected static final String SAMPLE_ONE_PROPERTIES = "sample_one.properties";
+    protected static final String SAMPLE_TWO_PROPERTIES = "sample_two.properties";
+    protected static final String DUPLICATE_PROPERTIES = "duplicate.properties";
+    protected static final String SPECIAL_CHARACTERS_PROPERTIES = "special_characters.properties";
+
+
     protected static final File TRENDS_FILE = new File(pathToSampleFile("cucumber-trends.json"));
 
     private final File reportDirectory;
@@ -31,6 +40,7 @@ public abstract class ReportGenerator {
     protected Configuration configuration;
     private final String projectName = "test cucumberProject";
     protected final List<String> jsonReports = new ArrayList<>();
+    protected final List<String> classificationFiles = new ArrayList<>();
     protected ReportResult reportResult;
 
     protected List<Feature> features;
@@ -47,12 +57,12 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
-        initWithJSon(jsonFiles);
+        initWithJson(jsonFiles);
 
         createReport();
     }
 
-    protected void initWithJSon(String... jsonFiles) {
+    protected void initWithJson(String... jsonFiles) {
         if (jsonFiles != null) {
             for (String jsonFile : jsonFiles)
                 jsonReports.add(reportFromResource(jsonFile));
@@ -62,11 +72,28 @@ public abstract class ReportGenerator {
         if (configuration == null) {
             configuration = new Configuration(reportDirectory, projectName);
         }
+        configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
+        createEmbeddingsDirectory();
+    }
+
+    protected void initWithProperties(String... propertyFiles) {
+        for (String propertyFile : propertyFiles)
+           this.classificationFiles.add(reportFromResourceProperties(propertyFile));
+
+        // may be already created so don't overwrite it
+        if (configuration == null) {
+            configuration = new Configuration(reportDirectory, projectName);
+        }
+        configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
         createEmbeddingsDirectory();
     }
 
     public static String reportFromResource(String jsonReport) {
         return pathToSampleFile(JSON_DIRECTORY + jsonReport);
+    }
+
+    public static String reportFromResourceProperties(String propertyFile) {
+        return pathToSampleFile(CLASSIFICATIONS_DIRECTORY + propertyFile);
     }
 
     protected static String pathToSampleFile(String fileName) {
@@ -82,7 +109,7 @@ public abstract class ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         List<Feature> featuresFromJson = reportParser.parseJsonFiles(jsonReports);
-        reportResult = new ReportResult(featuresFromJson);
+        reportResult = new ReportResult(featuresFromJson, configuration.getSortingMethod());
 
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();

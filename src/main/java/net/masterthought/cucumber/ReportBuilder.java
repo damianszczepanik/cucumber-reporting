@@ -9,18 +9,16 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -34,7 +32,7 @@ import net.masterthought.cucumber.json.support.TagObject;
 
 public class ReportBuilder {
 
-    private static final Logger LOG = LogManager.getLogger(ReportBuilder.class);
+    private static final Logger LOG = Logger.getLogger(ReportBuilder.class.getName());
 
     /**
      * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
@@ -69,8 +67,9 @@ public class ReportBuilder {
     }
 
     /**
-     * Parses provided files and generates whole report. When generating process fails
+     * Parses provided files and generates the report. When generating process fails
      * report with information about error is provided.
+     * @return stats for the generated report
      */
     public Reportable generateReports() {
         Trends trends = null;
@@ -82,9 +81,12 @@ public class ReportBuilder {
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
 
+            // add metadata info sourced from files
+            reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
+
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
-            reportResult = new ReportResult(features);
+            reportResult = new ReportResult(features, configuration.getSortingMethod());
             Reportable reportable = reportResult.getFeatureReport();
 
             if (configuration.isTrendsStatsFile()) {
@@ -92,8 +94,8 @@ public class ReportBuilder {
                 trends = updateAndSaveTrends(reportable);
             }
 
-            List<AbstractPage> pages = collectPages(trends);
-            generatePages(pages);
+            // Collect and generate pages in a single pass
+            generatePages(trends);
 
             return reportable;
 
@@ -145,35 +147,27 @@ public class ReportBuilder {
         }
     }
 
-    private List<AbstractPage> collectPages(Trends trends) {
-        List<AbstractPage> pages = new ArrayList<>();
+	private void generatePages(Trends trends) {
+		new FeaturesOverviewPage(reportResult, configuration).generatePage();
+		
+		for (Feature feature : reportResult.getAllFeatures()) {
+			new FeatureReportPage(reportResult, configuration, feature).generatePage();
+		}
+		
+		new TagsOverviewPage(reportResult, configuration).generatePage();
+		
+		for (TagObject tagObject : reportResult.getAllTags()) {
+			new TagReportPage(reportResult, configuration, tagObject).generatePage();
+		}
 
-        pages.add(new FeaturesOverviewPage(reportResult, configuration));
-        for (Feature feature : reportResult.getAllFeatures()) {
-            pages.add(new FeatureReportPage(reportResult, configuration, feature));
-        }
+		new StepsOverviewPage(reportResult, configuration).generatePage();
+		new FailuresOverviewPage(reportResult, configuration).generatePage();
 
-        pages.add(new TagsOverviewPage(reportResult, configuration));
-        for (TagObject tagObject : reportResult.getAllTags()) {
-            pages.add(new TagReportPage(reportResult, configuration, tagObject));
-        }
-
-        pages.add(new StepsOverviewPage(reportResult, configuration));
-        pages.add(new FailuresOverviewPage(reportResult, configuration));
-
-        if (configuration.isTrendsStatsFile()) {
-            pages.add(new TrendsOverviewPage(reportResult, configuration, trends));
-        }
-
-        return pages;
-    }
-
-    private void generatePages(List<AbstractPage> pages) {
-        for (AbstractPage page : pages) {
-            page.generatePage();
-        }
-    }
-
+		if (configuration.isTrendsStatsFile()) {
+			new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
+		}
+	}
+	
     private Trends updateAndSaveTrends(Reportable reportable) {
         Trends trends = loadOrCreateTrends();
         appendToTrends(trends, reportable);
@@ -225,7 +219,7 @@ public class ReportBuilder {
     }
 
     private void generateErrorPage(Exception exception) {
-        LOG.info(exception);
+        LOG.log(Level.INFO, "Unexpected error", exception);
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }

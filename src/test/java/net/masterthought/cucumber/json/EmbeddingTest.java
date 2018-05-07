@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -65,6 +65,19 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getFileName_ReturnsFileNameForSVG() {
+
+        // given
+        Embedding embedding = new Embedding("image/svg+xml", "some data");
+
+        // when
+        String fileName = embedding.getFileName();
+
+        // then
+        assertThat(fileName).isEqualTo("embedding_-642587818.svg");
+    }
+
+    @Test
     public void getExtension__OnCommonMimeType_ReturnsFileExtension() {
 
         // given
@@ -101,6 +114,19 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("image");
+    }
+
+    @Test
+    public void getExtension__OnApplicationPdfMimeType_ReturnsPdf() {
+
+        // given
+        Embedding embedding = new Embedding("application/pdf", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("pdf");
     }
 
     @Test

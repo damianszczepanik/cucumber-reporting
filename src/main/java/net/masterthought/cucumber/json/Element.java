@@ -2,13 +2,12 @@ package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.masterthought.cucumber.util.Util;
 
-public class Element {
-    private static final Logger LOG = LogManager.getLogger(Element.class);
+public class Element implements Durationable {
 
     // Start: attributes from JSON file report
     private final String name = null;
@@ -29,6 +28,7 @@ public class Element {
     private Status stepsStatus;
 
     private Feature feature;
+    private long duration;
 
     public Step[] getSteps() {
         return steps;
@@ -79,11 +79,21 @@ public class Element {
     }
 
     public boolean isScenario() {
-        return SCENARIO_TYPE.equals(type);
+        return SCENARIO_TYPE.equalsIgnoreCase(type);
     }
 
     public Feature getFeature() {
         return feature;
+    }
+
+    @Override
+    public long getDuration() {
+        return duration;
+    }
+
+    @Override
+    public String getFormattedDuration() {
+        return Util.formatDuration(duration);
     }
 
     public void setMetaData(Feature feature) {
@@ -105,20 +115,20 @@ public class Element {
     }
 
     private Status calculateElementStatus() {
-        LOG.debug("calculating element status for " + this.type + " '" + this.name + "'");
         StatusCounter statusCounter = new StatusCounter();
         statusCounter.incrementFor(stepsStatus);
         statusCounter.incrementFor(beforeStatus);
         statusCounter.incrementFor(afterStatus);
         Status finalStatus = statusCounter.getFinalStatus();
-        LOG.debug("  final status is " + finalStatus);
         return finalStatus;
     }
 
     private Status calculateStepsStatus() {
         StatusCounter statusCounter = new StatusCounter();
         for (Step step : steps) {
-            statusCounter.incrementFor(step.getResult().getStatus());
+            Result result = step.getResult();
+            statusCounter.incrementFor(result.getStatus());
+            duration += result.getDuration();
         }
         return statusCounter.getFinalStatus();
     }

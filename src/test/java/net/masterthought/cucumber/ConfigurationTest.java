@@ -3,7 +3,9 @@ package net.masterthought.cucumber;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -192,5 +194,26 @@ public class ConfigurationTest {
         Map.Entry<String, String> classification = configuration.getClassifications().get(0);
         assertThat(classification.getKey()).isEqualTo(classificationName);
         assertThat(classification.getValue()).isEqualTo(classificationValue);
+    }
+
+    @Test
+    public void addPropertiesFiles_getPropertyFiles() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        List<String> propertiesFiles = new ArrayList<>();
+        propertiesFiles.add("properties-1.properties");
+        propertiesFiles.add("properties-2.properties");
+
+        // when
+        configuration.addClassificationFiles(propertiesFiles);
+
+        // then
+        List<String> returnedPropertiesFiles = configuration.getClassificationFiles();
+        assertThat(returnedPropertiesFiles).hasSize(2);
+        assertThat(returnedPropertiesFiles).containsExactly(
+                ("properties-1.properties"),
+                ("properties-2.properties")
+        );
     }
 }

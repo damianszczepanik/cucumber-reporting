@@ -29,6 +29,7 @@ public class StepObjectTest {
 
     @Test
     public void StepObject_OnNullLocation_ThrowsException() {
+
         // given
         // nothing
 
@@ -51,7 +52,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void addDurationSumsDurations() {
+    public void addDuration_ReturnsSumsDurations() {
 
         // give
         StepObject step = new StepObject("ble bla ble");
@@ -62,7 +63,7 @@ public class StepObjectTest {
         step.addDuration(700L, Status.UNDEFINED);
 
         // then
-        assertThat(step.getDurations()).isEqualTo(725L);
+        assertThat(step.getDuration()).isEqualTo(725L);
         assertThat(step.getTotalOccurrences()).isEqualTo(3);
         assertThat(step.getStatus()).isEqualTo(Status.UNDEFINED);
     }
@@ -77,7 +78,33 @@ public class StepObjectTest {
         String duration = stepObject.getFormattedTotalDuration();
 
         // then
-        assertThat(duration).isEqualTo("3s 503ms");
+        assertThat(duration).isEqualTo("3.503");
+    }
+
+    @Test
+    public void getFormattedMaxDuration_ReturnsFormattedMaxDurations() {
+
+        // give
+        // from @Before
+
+        // when
+        String duration = stepObject.getFormattedTotalDuration();
+
+        // then
+        assertThat(duration).isEqualTo("3.503");
+    }
+
+    @Test
+    public void getFormattedMaxDuration_ReturnsdMaxDurations() {
+
+        // give
+        // from @Before
+
+        // when
+        long maxDuration = stepObject.getMaxDuration();
+
+        // then
+        assertThat(maxDuration).isEqualTo(2200000000L);
     }
 
     @Test
@@ -103,7 +130,7 @@ public class StepObjectTest {
         String duration = stepObject.getFormattedAverageDuration();
 
         // then
-        assertThat(duration).isEqualTo("1s 167ms");
+        assertThat(duration).isEqualTo("1.167");
     }
 
     @Test
@@ -132,33 +159,5 @@ public class StepObjectTest {
 
         // then
         assertThat(percentage).isEqualTo("0.00%");
-    }
-
-    @Test
-    public void compareTo_OnDifferentLocation_ReturnsNoneZero() {
-
-        // given
-        StepObject step1 = new StepObject("one");
-        StepObject step2 = new StepObject("two");
-
-        // when
-        int result = step1.compareTo(step2);
-
-        // then
-        assertThat(result).isNotEqualTo(0);
-    }
-
-    @Test
-    public void compareTo_OnSameLocation_ReturnsZero() {
-
-        // given
-        StepObject step1 = new StepObject("one");
-        StepObject step2 = new StepObject("one");
-
-        // when
-        int result = step1.compareTo(step2);
-
-        // then
-        assertThat(result).isEqualTo(0);
     }
 }

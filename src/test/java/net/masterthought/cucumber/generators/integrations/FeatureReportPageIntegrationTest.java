@@ -67,7 +67,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         DocumentAssertion document = documentFrom(page.getWebPage());
         TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
 
-        bodyRow.hasExactValues(feature.getName(), "10", "0", "0", "0", "0", "10", "1", "0", "0", "0", "1", "1m 39s 263ms", "Passed");
+        bodyRow.hasExactValues(feature.getName(), "10", "0", "0", "0", "0", "10", "1", "0", "0", "0", "1", "1:39.263", "Passed");
         bodyRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "", "", "total", "duration", "passed");
     }
 
@@ -331,6 +331,28 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].hasImageContent(embeddings[0]);
         asserEmbeddingFileExist(embeddings[0]);
+    }
+
+    @Test
+    public void generatePage_ForAfterHook_generatesOutputs() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        OutputAssertion[] outputsElement = document.getFeature().getElements()[0].getBefore().getHooks()[0].getOutputs();
+
+        Output[] outputs = feature.getElements()[0].getBefore()[0].getOutputs();
+
+        assertThat(outputsElement).hasSameSizeAs(outputs);
+        outputsElement[0].hasMessages(getMessages(outputs));
     }
 
     private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {

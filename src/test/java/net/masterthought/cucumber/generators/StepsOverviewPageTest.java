@@ -44,18 +44,23 @@ public class StepsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(12);
         assertThat(context.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;
         long allDurations = 0;
+        long maxDuration = 0;
         for (StepObject stepObject : reportResult.getAllSteps()) {
             allOccurrences += stepObject.getTotalOccurrences();
-            allDurations += stepObject.getDurations();
+            allDurations += stepObject.getDuration();
+            if (stepObject.getDuration() > maxDuration) {
+                maxDuration = stepObject.getMaxDuration();
+            }
         }
         assertThat(context.get("all_occurrences")).isEqualTo(allOccurrences);
-        assertThat(context.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
         long average = allDurations / (allOccurrences == 0 ? 1 : allOccurrences);
-        assertThat(context.get("all_average")).isEqualTo(Util.formatDuration(average));
+        assertThat(context.get("all_average_duration")).isEqualTo(Util.formatDuration(average));
+        assertThat(context.get("all_max_duration")).isEqualTo(Util.formatDuration(maxDuration));
+        assertThat(context.get("all_durations")).isEqualTo(Util.formatDuration(allDurations));
     }
 }

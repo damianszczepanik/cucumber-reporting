@@ -24,7 +24,7 @@
         <td #if ($item.getUndefinedScenarios() > 0) class="undefined" #end>$item.getUndefinedScenarios()</td>
         <td class="total">$item.getScenarios()</td>
 
-        <td class="duration" data-value="$item.getDurations()">$item.getFormattedDurations()</td>
+        <td class="duration" data-value="$item.getDuration()">$item.getFormattedDuration()</td>
         <td class="$item.getStatus().getRawName()">$item.getStatus().getLabel()</td>
       </tr>
     #end
@@ -32,7 +32,7 @@
 
   <tfoot class="total">
     <tr>
-      <td>$items.size()</td>
+      <td></td>
       #if ($parallel)
         <td>-</td>
       #end
@@ -49,8 +49,8 @@
       <td>$report_summary.getUndefinedScenarios()</td>
       <td>$report_summary.getScenarios()</td>
 
-      <td class="duration">$report_summary.getFormattedDurations()</td>
-      <td></td>
+      <td class="duration">$report_summary.getFormattedDuration()</td>
+      <td>$items.size()</td>
     </tr>
     <tr>
       <td></td>

@@ -31,4 +31,10 @@ public class EscapeHtmlReferenceTest {
         assertThat(insertionEventHandler.referenceInsert(SOME_REFERENCE, null)).isNull();
     }
 
+    @Test
+    public void referenceInsert_shouldSanitize(){
+        String html = "<a href=\"www.example.com\" rel=\"nofollow noopener noreferrer\">a hyper web reference</a>";
+        assertThat(insertionEventHandler.referenceInsert("$_sanitize_" + SOME_REFERENCE, html))
+                .isEqualTo(html);
+    }
 }

@@ -108,7 +108,7 @@ public class TrendsTest {
         assertThat(trends.getUndefinedSteps()).hasSize(limit).containsExactly(result.getUndefinedSteps());
         assertThat(trends.getTotalSteps()).hasSize(limit).containsExactly(result.getSteps());
 
-        assertThat(trends.getDurations()).hasSize(limit).containsExactly(result.getDurations());
+        assertThat(trends.getDurations()).hasSize(limit).containsExactly(result.getDuration());
     }
 
     @Test

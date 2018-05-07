@@ -18,14 +18,12 @@ import java.util.List;
 import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 
@@ -42,9 +40,9 @@ public class ReportBuilderTest extends ReportGenerator {
 
     @Before
     public void setUp() throws IOException {
-        reportDirectory = new File("target" + File.separatorChar + System.currentTimeMillis());
+        reportDirectory = new File("target", String.valueOf(System.currentTimeMillis()));
         // random temp directory
-        reportDirectory.mkdir();
+        reportDirectory.mkdirs();
         // root report directory
         new File(reportDirectory, ReportBuilder.BASE_DIRECTORY).mkdir();
 
@@ -58,6 +56,10 @@ public class ReportBuilderTest extends ReportGenerator {
     @After
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
+        if (configuration != null) {
+			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
+					ReportBuilder.BASE_DIRECTORY));
+        }
     }
 
     @Test
@@ -219,13 +221,13 @@ public class ReportBuilderTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(9);
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(9);
     }
 
     @Test
@@ -236,46 +238,13 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
 
         // when
-        List<AbstractPage> pages = Deencapsulation.invoke(builder, "collectPages", new Trends());
+        Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(pages).hasSize(10);
-    }
-
-    @Test
-    public void generatePages_CallsGeneratePagesOverPassedPages() {
-
-        // given
-        Configuration configuration = new Configuration(null, null);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        final MutableInt counter = new MutableInt();
-        AbstractPage page = new AbstractPage(null, null, configuration) {
-            @Override
-            public String getWebPage() {
-                return null;
-            }
-
-            @Override
-            protected void prepareReport() {
-                // only to satisfy abstract class contract
-            }
-
-            @Override
-            public void generatePage() {
-                counter.increment();
-            }
-        };
-        List<AbstractPage> pages = Arrays.asList(page, page, page);
-
-        // when
-        Deencapsulation.invoke(builder, "generatePages", pages);
-
-        // then
-        assertThat(counter.getValue()).isEqualTo(pages.size());
+        assertThat(countHtmlFiles(configuration).length).isEqualTo(10);
     }
 
     @Test
@@ -440,32 +409,38 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setBuildNumber(buildNumber);
 
         final Reportable reportable = new OverviewReport() {
+            @Override
             public int getFailedFeatures() {
                 return failedFeature;
             }
 
+            @Override
             public int getFeatures() {
                 return totalFeature;
             }
 
+            @Override
             public int getFailedScenarios() {
                 return failedScenario;
             }
 
+            @Override
             public int getScenarios() {
                 return totalScenario;
             }
 
+            @Override
             public int getFailedSteps() {
                 return failedStep;
             }
 
+            @Override
             public int getSteps() {
                 return totalStep;
             }
         };
 
-        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList()) {
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration.getSortingMethod()) {
             @Override
             public Reportable getFeatureReport() {
                 return reportable;
@@ -516,6 +491,12 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+    }
+    
+    private File[] countHtmlFiles(Configuration configuration) {
+    	FileFilter fileFilter = new WildcardFileFilter("*.html");
+    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+        return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {
