@@ -209,7 +209,9 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(feature.getPassedScenarios()).isEqualTo(1);
-        assertThat(feature.getFailedScenarios()).isEqualTo(2);
+        assertThat(feature.getFailedScenarios()).isEqualTo(1);
+        assertThat(feature.getPendingScenarios()).isEqualTo(0);
+        assertThat(feature.getUndefinedScenarios()).isEqualTo(1);
     }
 
     @Test

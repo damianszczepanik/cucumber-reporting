@@ -45,7 +45,7 @@ public class TableRowAssertion extends ReportAssertion {
     public void hasExactValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
-        assertThat(array.length).isEqualTo(values.length);
+        assertThat(array.length).describedAs("The two arrays should be the same size, but expected array has %d and actual has %d",values.length,array.length).isEqualTo(values.length);
 
         for (int i = 0; i < values.length; i++) {
             assertThat(array[i].text()).describedAs("Invalid value at index %d", i).isEqualTo(values[i]);

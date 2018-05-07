@@ -13,11 +13,8 @@ import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Feature implements Reportable, Durationable {
-    private static final Logger LOG = LogManager.getLogger(Feature.class);
 
     // Start: attributes from JSON file report
     private final String id = null;
@@ -223,13 +220,11 @@ public class Feature implements Reportable, Durationable {
     }
 
     private Status calculateFeatureStatus() {
-        LOG.debug("calculating feature status for '" + this.name + "'");
         StatusCounter statusCounter = new StatusCounter();
         for (Element element : elements) {
             statusCounter.incrementFor(element.getStatus());
         }
         Status finalStatus = statusCounter.getFinalStatus();
-        LOG.debug ("  final feature status is " + finalStatus);
         return finalStatus;
     }
 

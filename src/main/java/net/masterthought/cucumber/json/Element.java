@@ -6,11 +6,8 @@ import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Element implements Durationable {
-    private static final Logger LOG = LogManager.getLogger(Element.class);
 
     // Start: attributes from JSON file report
     private final String name = null;
@@ -118,13 +115,11 @@ public class Element implements Durationable {
     }
 
     private Status calculateElementStatus() {
-        LOG.debug("calculating element status for " + this.type + " '" + this.name + "'");
         StatusCounter statusCounter = new StatusCounter();
         statusCounter.incrementFor(stepsStatus);
         statusCounter.incrementFor(beforeStatus);
         statusCounter.incrementFor(afterStatus);
         Status finalStatus = statusCounter.getFinalStatus();
-        LOG.debug("  final status is " + finalStatus);
         return finalStatus;
     }
 

@@ -93,7 +93,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion firstRow = bodyRows[4];
         firstRow.hasExactValues("ATMScenario.checkBalance(int)", "2", "0.015", "0.030", "0.031", "50.00%");
-        firstRow.hasExactCSSClasses("location", "", "duration", "duration", "duration", "failed");
+        firstRow.hasExactCSSClasses("location", "", "duration", "duration", "duration", "passed");
         firstRow.hasExactDataValues("", "", "15966500", "15966500", "31933000", "");
 
         // also verify the average durations is written to data-values correctly
