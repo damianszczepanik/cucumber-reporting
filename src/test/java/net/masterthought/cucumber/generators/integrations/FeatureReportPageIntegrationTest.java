@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -25,6 +26,7 @@ import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
 import net.masterthought.cucumber.json.Output;
+import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 
@@ -355,9 +357,9 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         outputsElement[0].hasMessages(getMessages(outputs));
     }
 
-    private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
-        for (int i = 0; i < elements.length; i++) {
-            BriefAssertion brief = elements[i].getBrief();
+    private static void validateHook(HookAssertion[] hookAssertions, Hook[] hooks, String hookName) {
+        for (int i = 0; i < hookAssertions.length; i++) {
+            BriefAssertion brief = hookAssertions[i].getBrief();
             assertThat(brief.getKeyword()).isEqualTo(hookName);
             brief.hasStatus(hooks[i].getResult().getStatus());
 
@@ -365,9 +367,11 @@ public class FeatureReportPageIntegrationTest extends PageTest {
                 assertThat(brief.getName()).isEqualTo(hooks[i].getMatch().getLocation());
             }
             if (hooks[i].getResult() != null) {
-                brief.hasDuration(hooks[i].getResult().getDuration());
-                if (hooks[i].getResult().getErrorMessage() != null) {
-                    assertThat(elements[i].getErrorMessage()).contains(hooks[i].getResult().getErrorMessage());
+                Result result = hooks[i].getResult();
+                brief.hasDuration(result.getDuration());
+                // no message should not be evaluated, empty is validated by unit tests as jsoup parses it differently
+                if (StringUtils.isNotBlank(result.getErrorMessage())) {
+                    assertThat(hookAssertions[i].getErrorMessage()).contains(result.getErrorMessage());
                 }
             }
         }
