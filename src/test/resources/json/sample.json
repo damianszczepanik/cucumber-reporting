@@ -319,7 +319,8 @@
                     {
                         "result": {
                             "duration": 1000001,
-                            "status": "failed"
+                            "status": "failed",
+                            "error_message": "   \n"
                         },
                         "match": {
                             "location": "MachineFactory.wait()"
