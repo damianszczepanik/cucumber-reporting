@@ -24,13 +24,6 @@ addons:
 
 matrix:
   include:
-    - jdk: oraclejdk7
-      script: mvn clean test
-
-    - jdk: openjdk7
-      # use 'verify' phrase to execute integration tests
-      script: mvn clean verify
-
     - jdk: oraclejdk8
       script: mvn clean verify
 
