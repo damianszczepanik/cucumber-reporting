@@ -8,7 +8,7 @@
 [![Coverity](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
 [![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)
-[![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/cucumber-reporting/badge.svg)](https://github.com/damianszczepanik/cucumber-reporting)
+[![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/cucumber-reporting/badge.svg)](https://snyk.io/org/damianszczepanik/project/6a2fe301-d56c-49e7-8c78-cd3ff09c3828)
 
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)

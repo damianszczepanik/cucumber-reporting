@@ -26,6 +26,13 @@ public class StatusCounter {
         }
     }
 
+    public StatusCounter(Resultsable[] resultsables) {
+        this();
+        for (Resultsable resultsable : resultsables) {
+            incrementFor(resultsable.getResult().getStatus());
+        }
+    }
+
     /**
      * Increments finalStatus counter by single value.
      *

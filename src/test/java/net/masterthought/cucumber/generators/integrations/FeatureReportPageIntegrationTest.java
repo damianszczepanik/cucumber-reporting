@@ -336,7 +336,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_ForAfterHook_generatesOutputs() {
+    public void generatePage_ForAfterElementHook_generatesOutputs() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -355,6 +355,50 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         assertThat(outputsElement).hasSameSizeAs(outputs);
         outputsElement[0].hasMessages(getMessages(outputs));
+    }
+
+    @Test
+    public void generatePage_ForBeforeStepHook_generatesHooks() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepAssertion = document.getFeature().getElements()[0].getStepsSection().getSteps()[0];
+        HookAssertion[] beforeHooks = stepAssertion.getBefore().getHooks();
+
+        Hook[] hooks = feature.getElements()[0].getSteps()[0].getBefore();
+        assertThat(beforeHooks).hasSameSizeAs(hooks);
+        beforeHooks[0].getBrief().hasDuration(hooks[0].getResult().getDuration());
+    }
+
+    @Test
+    public void generatePage_ForAfterStepHook_generatesHooks() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepAssertion = document.getFeature().getElements()[0].getStepsSection().getSteps()[1];
+        HookAssertion[] afterHooks = stepAssertion.getAfter().getHooks();
+
+        Hook[] hooks = feature.getElements()[0].getSteps()[1].getAfter();
+        assertThat(afterHooks).hasSameSizeAs(hooks);
+        afterHooks[0].getBrief().hasDuration(hooks[0].getResult().getDuration());
     }
 
     private static void validateHook(HookAssertion[] hookAssertions, Hook[] hooks, String hookName) {

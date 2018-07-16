@@ -11,6 +11,7 @@
       <div class="step">
         #includeBrief($step.getKeyword(), $step.getResult().getStatus(), $step.getName(), false, $step.getResult())
         #set($isPassed = $step.getResult().getStatus().isPassed())
+        #includeHooks("Before", $step.getBefore(), $step.getBeforeStatus(), "step")
         #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)
 
         #if (!$step.getRows().isEmpty())
@@ -28,6 +29,7 @@
         #includeDocString($step.getDocString())
         #includeOutput($step.getOutputs(), $isPassed)
         #includeEmbeddings($step.getEmbeddings())
+        #includeHooks("After", $step.getAfter(), $step.getAfterStatus(), "step")
       </div>
     #end
   </div>
