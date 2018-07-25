@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -109,13 +109,13 @@ public abstract class AbstractPage {
         context.put("build_time", formattedTime);
 
         // build number is not mandatory
-        String buildNumber = configuration.getBuildNumber();
-        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
-            if (NumberUtils.isCreatable(buildNumber)) {
-                context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
-            } else {
-                LOG.log(Level.INFO, String.format("Could not parse build number: %1$s.", configuration.getBuildNumber()));
-            }
+        // the build number could contain " ". calling strip will return 'null' to
+        // buildNumber
+        String buildNumber = StringUtils.stripToNull(configuration.getBuildNumber());
+        if (StringUtils.isNumeric(buildNumber) && configuration.isRunWithJenkins()) {
+            context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
+        } else {
+             LOG.log(Level.INFO, String.format("Could not parse build number: %1$s.", configuration.getBuildNumber()));
         }
     }
 }
