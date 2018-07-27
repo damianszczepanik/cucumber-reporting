@@ -99,19 +99,16 @@ public class Element implements Durationable {
     public void setMetaData(Feature feature) {
         this.feature = feature;
 
-        beforeStatus = calculateHookStatus(before);
-        afterStatus = calculateHookStatus(after);
-        stepsStatus = calculateStepsStatus();
-        elementStatus = calculateElementStatus();
-    }
-
-    private Status calculateHookStatus(Hook[] hooks) {
-        StatusCounter statusCounter = new StatusCounter();
-        for (Hook hook : hooks) {
-            statusCounter.incrementFor(hook.getResult().getStatus());
+        for (Step step : steps) {
+            step.setMetaData();
         }
 
-        return statusCounter.getFinalStatus();
+        beforeStatus = new StatusCounter(before).getFinalStatus();
+        afterStatus = new StatusCounter(after).getFinalStatus();
+        stepsStatus = new StatusCounter(steps).getFinalStatus();
+        elementStatus = calculateElementStatus();
+
+        calculateDuration();
     }
 
     private Status calculateElementStatus() {
@@ -122,13 +119,9 @@ public class Element implements Durationable {
         return statusCounter.getFinalStatus();
     }
 
-    private Status calculateStepsStatus() {
-        StatusCounter statusCounter = new StatusCounter();
+    private void calculateDuration() {
         for (Step step : steps) {
-            Result result = step.getResult();
-            statusCounter.incrementFor(result.getStatus());
-            duration += result.getDuration();
+            duration += step.getResult().getDuration();
         }
-        return statusCounter.getFinalStatus();
     }
 }

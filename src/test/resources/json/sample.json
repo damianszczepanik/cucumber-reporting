@@ -349,6 +349,20 @@
                         },
                         "matchedColumns": [
                             0
+                        ],
+                        "before": [
+                            {
+                                "embeddings": [
+                                    {
+                                        "mime_type": "text/plain",
+                                        "data": "amF2YS5sYW5nLlRocm93YWJsZQ=="
+                                    }
+                                ],
+                                "result": {
+                                    "duration": 410802047,
+                                    "status": "failed"
+                                }
+                            }
                         ]
                     },
                     {
@@ -361,7 +375,18 @@
                         "line": 8,
                         "match": {
                             "location": "ATMScenario.createCreditCard()"
-                        }
+                        },
+                        "after": [
+                            {
+                                "result": {
+                                    "duration": 410802048,
+                                    "status": "passed"
+                                },
+                                "match": {
+                                    "location": "StepHook.afterStep()"
+                                }
+                            }
+                        ]
                     },
                     {
                         "result": {

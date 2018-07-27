@@ -180,4 +180,86 @@ public class StepTest extends PageTest {
         assertThat(result.getDuration()).isEqualTo(0L);
         assertThat(result.getErrorMessage()).isNull();
     }
+
+    @Test
+    public void getBeforeHook_ReturnsBeforeHooks() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[0];
+
+        // when
+        Hook[] afterHooks = step.getBefore();
+
+        // then
+        assertThat(afterHooks).hasSize(1);
+        assertThat(afterHooks[0].getResult().getDuration()).isEqualTo(410802047);
+    }
+
+    @Test
+    public void getAfterHook_ReturnsAfterHooks() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[1];
+
+        // when
+        Hook[] beforeHooks = step.getAfter();
+
+        // then
+        assertThat(beforeHooks).hasSize(1);
+        assertThat(beforeHooks[0].getResult().getDuration()).isEqualTo(410802048);
+    }
+
+    @Test
+    public void getBeforeStatus_ReturnsStatusForBeforeHooks() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[0];
+
+        // when
+        Status status = step.getBeforeStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.FAILED);
+    }
+
+
+    @Test
+    public void getAfterStatus_ReturnsStatusForAfterHooks() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[2];
+
+        // when
+        Status status = step.getAfterStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.PASSED);
+    }
+
+
+    @Test
+    public void getBeforeStatus_OnEmptyHooks_ReturnsPassed() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[2];
+
+        // when
+        Status status = step.getBeforeStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.PASSED);
+    }
+
+    @Test
+    public void getAfterStatus_OnEmptyHooks_ReturnsPassed() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[2];
+
+        // when
+        Status status = step.getAfterStatus();
+
+        // then
+        assertThat(status).isEqualTo(Status.PASSED);
+    }
 }

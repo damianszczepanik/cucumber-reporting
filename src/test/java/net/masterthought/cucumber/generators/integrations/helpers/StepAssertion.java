@@ -5,6 +5,7 @@ package net.masterthought.cucumber.generators.integrations.helpers;
  */
 public class StepAssertion extends ReportAssertion {
 
+    @Override
     public BriefAssertion getBrief() {
         return super.getBrief();
     }
@@ -27,5 +28,13 @@ public class StepAssertion extends ReportAssertion {
 
     public WebAssertion getMessage() {
         return oneByClass("message", WebAssertion.class);
+    }
+
+    public HooksAssertion getBefore() {
+        return oneByClass("hooks-step-before", HooksAssertion.class);
+    }
+
+    public HooksAssertion getAfter() {
+        return oneByClass("hooks-step-after", HooksAssertion.class);
     }
 }

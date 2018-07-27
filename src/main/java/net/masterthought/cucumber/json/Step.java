@@ -7,6 +7,8 @@ import org.apache.commons.lang.ArrayUtils;
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
 import net.masterthought.cucumber.json.support.Resultsable;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.json.support.StatusCounter;
 
 public class Step implements Resultsable {
 
@@ -29,7 +31,14 @@ public class Step implements Resultsable {
 
     @JsonProperty("doc_string")
     private final DocString docString = null;
+
+    // hooks are supported since Cucumber-JVM 3.x.x
+    private final Hook[] before = new Hook[0];
+    private final Hook[] after = new Hook[0];
     // End: attributes from JSON file report
+
+    private Status beforeStatus;
+    private Status afterStatus;
 
     public Row[] getRows() {
         if (ArrayUtils.getLength(arguments) == 1) {
@@ -76,5 +85,26 @@ public class Step implements Resultsable {
 
     public DocString getDocString() {
         return docString;
+    }
+
+    public Hook[] getBefore() {
+        return before;
+    }
+    
+    public Hook[] getAfter() {
+        return after;
+    }
+    
+    public Status getBeforeStatus() {
+        return beforeStatus;
+    }
+
+    public Status getAfterStatus() {
+        return afterStatus;
+    }
+
+    public void setMetaData() {
+        beforeStatus = new StatusCounter(before).getFinalStatus();
+        afterStatus = new StatusCounter(after).getFinalStatus();
     }
 }
