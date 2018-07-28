@@ -18,6 +18,10 @@ public class BriefAssertion extends ReportAssertion {
         return oneByClass("name", WebAssertion.class).text();
     }
 
+    public String getLocation() {
+        return oneByClass("location", WebAssertion.class).text();
+    }
+
     public void hasDuration(long duration) {
         String found = oneByClass("duration", WebAssertion.class).text();
         assertThat(found).isEqualTo(Util.formatDuration(duration));

@@ -21,10 +21,6 @@ public abstract class ReportAssertion extends WebAssertion {
         return childByClass("collapsable-control", clazz);
     }
 
-    protected <T extends WebAssertion> T getCollapseDetails(Class<T> clazz) {
-        return childByClass("collapsable-details", clazz);
-    }
-
     public LinkAssertion getLink() {
         return oneBySelector("a", LinkAssertion.class);
     }

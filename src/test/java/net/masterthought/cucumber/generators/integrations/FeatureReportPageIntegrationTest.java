@@ -398,6 +398,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         Hook[] hooks = feature.getElements()[0].getSteps()[1].getAfter();
         assertThat(afterHooks).hasSameSizeAs(hooks);
+        assertThat(afterHooks[0].getBrief().getLocation()).isEqualTo(hooks[0].getMatch().getLocation());
         afterHooks[0].getBrief().hasDuration(hooks[0].getResult().getDuration());
     }
 
