@@ -31,8 +31,8 @@ public class Configuration {
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
     private List<String> classificationFiles;
 
-    public Configuration(File reportOutputDirectory, String projectName) {
-        this.reportDirectory = reportOutputDirectory;
+    public Configuration(File reportDirectory, String projectName) {
+        this.reportDirectory = reportDirectory;
         this.projectName = projectName;
     }
 
@@ -44,18 +44,38 @@ public class Configuration {
         this.parallelTesting = parallelTesting;
     }
 
+    /**
+     * Validates if the configuration is prepared to be run on Jenkins.
+     *
+     * @return <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     */
     public boolean isRunWithJenkins() {
         return runWithJenkins;
     }
 
+    /**
+     * Desides if the configuration is prepared to be run on Jenkins.
+     *
+     * @param runWithJenkins <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     */
     public void setRunWithJenkins(boolean runWithJenkins) {
         this.runWithJenkins = runWithJenkins;
     }
 
+    /**
+     * Returns directory where the report should be stored.
+     *
+     * @return directory for the report
+     */
     public File getReportDirectory() {
         return reportDirectory;
     }
 
+    /**
+     * Returns file with history with trends.
+     *
+     * @return file with trends
+     */
     public File getTrendsStatsFile() {
         return trendsFile;
     }
@@ -77,6 +97,11 @@ public class Configuration {
         setTrends(trendsFile, 0);
     }
 
+    /**
+     * Returns number of historical reports presented by trends.
+     *
+     * @return number of reports in trends
+     */
     public int getTrendsLimit() {
         return trendsLimit;
     }
@@ -92,6 +117,11 @@ public class Configuration {
         this.trendsLimit = trendsLimit;
     }
 
+    /**
+     * Gets the build number for this report.
+     *
+     * @return build number
+     */
     public String getBuildNumber() {
         return buildNumber;
     }
@@ -106,10 +136,20 @@ public class Configuration {
         this.buildNumber = buildNumber;
     }
 
+    /**
+     * Returns the project name.
+     *
+     * @return name of the project
+     */
     public String getProjectName() {
         return projectName;
     }
 
+    /**
+     * Gets directory where the attachments are stored.
+     *
+     * @return directory for attachment
+     */
     public File getEmbeddingDirectory() {
         return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
