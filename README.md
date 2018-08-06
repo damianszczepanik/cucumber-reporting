@@ -51,8 +51,7 @@ boolean runWithJenkins = false;
 boolean parallelTesting = false;
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-// optional configuration
-configuration.setParallelTesting(parallelTesting);
+// optional configuration - check javadoc
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
 // addidtional metadata presented on main page
