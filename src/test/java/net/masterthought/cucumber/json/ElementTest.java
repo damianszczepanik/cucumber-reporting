@@ -273,4 +273,17 @@ public class ElementTest extends PageTest {
         // then
         assertThat(duration).isEqualTo("1:39.124");
     }
+
+    @Test
+    public void getLine_ReturnLine(){
+
+        //given
+        Element element = features.get(0).getElements()[0];
+
+        //when
+        String line = element.getLine();
+
+        //then
+        assertThat(line).isEqualTo("7");
+    }
 }

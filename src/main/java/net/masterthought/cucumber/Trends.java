@@ -1,11 +1,12 @@
 package net.masterthought.cucumber;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.commons.lang.ArrayUtils;
 
 /**
- * Contains historical information about all and failed features, scenarios and steps.
+ * Contains historical information about all and failed features, trendTableRows and steps.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -30,8 +31,67 @@ public class Trends {
 
     private long[] durations = new long[0];
 
+    private  FeatureScenario[][] featuresDetail = new FeatureScenario[0][0];
+
     public String[] getBuildNumbers() {
         return buildNumbers;
+    }
+
+    public FeatureScenario[][] getFeaturesDetail() {
+        return featuresDetail;
+    }
+
+    public ArrayList<TrendTableRow> collectTrendFeatureScenario() {
+
+        ArrayList<TrendTableRow> trendTableRows = new ArrayList<>();
+
+        for (int i = 0 ; i < buildNumbers.length;i++){
+
+            for (int j=0;j<featuresDetail[i].length;j++){
+                FeatureScenario featureScenario = featuresDetail[i][j];
+                TrendTableRow trendTableRow = new TrendTableRow(featureScenario.getDeviceName(), featureScenario.getFeatureName(), featureScenario.getScenarioName(), featureScenario.getId());
+                if(!isAlreadyInTrenTableRows(trendTableRow,trendTableRows)){
+                    trendTableRows.add(trendTableRow);
+                }
+            }
+        }
+
+        for (int i = 0 ; i < buildNumbers.length;i++){
+            FeatureScenario[] featureScenarioPerBuild = featuresDetail[i];
+            for (TrendTableRow trendTableRow: trendTableRows) {
+                if (getStatus(trendTableRow, featureScenarioPerBuild)!=null){
+                    trendTableRow.setStatus(getStatus(trendTableRow, featureScenarioPerBuild));
+                }else {
+                    trendTableRow.setStatus("-");
+                }
+            }
+        }
+
+        return trendTableRows;
+    }
+
+    private boolean isAlreadyInTrenTableRows(TrendTableRow trendTableRow, ArrayList<TrendTableRow> TrendTableRows){
+        boolean found = false;
+        for (TrendTableRow ttr: TrendTableRows) {
+            if(ttr.getId().equals(trendTableRow.getId())){
+                found = true;
+                break;
+            }
+        }
+
+        return found;
+    }
+
+    private String getStatus(TrendTableRow trendTableRow, FeatureScenario[] featureScenarios){
+        String status = null;
+        for (int i=0; i < featureScenarios.length ; i++){
+            String status_tmp = featureScenarios[i].getStatus();
+            if (trendTableRow.getId().equals(featureScenarios[i].getId())){
+                status = status_tmp;
+            }
+        }
+
+        return status;
     }
 
     public int[] getFailedFeatures() {
@@ -112,6 +172,9 @@ public class Trends {
 
         durations = ArrayUtils.add(durations, reportable.getDuration());
 
+        featuresDetail = (FeatureScenario[][]) ArrayUtils.add(featuresDetail, reportable.getFeatureDetails());
+
+
         // this should be removed later but for now correct features and save valid data
         applyPatchForFeatures();
         if (pendingSteps.length < buildNumbers.length) {
@@ -119,6 +182,11 @@ public class Trends {
         }
         if (durations.length < buildNumbers.length) {
             fillMissingDurations();
+        }
+
+        //this code to handle current user that want to update to this version
+        if (featuresDetail.length < buildNumbers.length){
+            fillMissingFeaturesDetail();
         }
     }
 
@@ -147,6 +215,19 @@ public class Trends {
         totalSteps = copyLastElements(totalSteps, limit);
 
         durations = copyLastElements(durations, limit);
+
+        featuresDetail = copyLastElements(featuresDetail,limit);
+    }
+
+    private static FeatureScenario[][] copyLastElements(FeatureScenario[][] srcArray, int copyingLimit){
+        if (srcArray.length <= copyingLimit) {
+            return srcArray;
+        }
+
+        FeatureScenario[][] featureScenarios = new FeatureScenario[copyingLimit][];
+        System.arraycopy(srcArray,srcArray.length-copyingLimit,featureScenarios,0,copyingLimit);
+
+        return featureScenarios;
     }
 
     private static int[] copyLastElements(int[] srcArray, int copyingLimit) {
@@ -232,5 +313,14 @@ public class Trends {
         Arrays.fill(extendedArray, -1);
         System.arraycopy(durations, 0, extendedArray, buildNumbers.length - durations.length, durations.length);
         durations = extendedArray;
+    }
+
+    private void fillMissingFeaturesDetail(){
+        FeatureScenario[][] extendedFeaturesDetail = new FeatureScenario[buildNumbers.length][];
+        FeatureScenario[] featureScenarios = new FeatureScenario[0];
+
+        Arrays.fill(extendedFeaturesDetail, featureScenarios);
+        System.arraycopy(featuresDetail, 0, extendedFeaturesDetail, buildNumbers.length - featuresDetail.length, featuresDetail.length);
+        featuresDetail = extendedFeaturesDetail;
     }
 }

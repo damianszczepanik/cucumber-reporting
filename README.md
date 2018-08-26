@@ -14,6 +14,8 @@
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
 [![Contributors](https://img.shields.io/github/contributors/damianszczepanik/cucumber-reporting.svg)](https://github.com/damianszczepanik/cucumber-reporting/graphs/contributors)
 
+# USED IN PANAMERA AUTOMATIOM TESTS
+
 # Publish pretty [cucumber](http://cukes.info/) reports
 
 This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server.

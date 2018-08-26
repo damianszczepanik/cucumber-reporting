@@ -252,4 +252,14 @@ public class TagObjectTest extends PageTest {
         thrown.expect(NotImplementedException.class);
         tag.getDeviceName();
     }
+
+    @Test
+    public void getFeatureDetails_ThrowException() throws Exception {
+        // given
+        TagObject tag = new TagObject("@checkout");
+
+        // then
+        thrown.expect(NotImplementedException.class);
+        tag.getFeatureDetails();
+    }
 }

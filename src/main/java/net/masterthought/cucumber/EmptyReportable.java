@@ -93,4 +93,9 @@ public class EmptyReportable implements Reportable {
     public Status getStatus() {
         return null;
     }
+
+    @Override
+    public FeatureScenario[] getFeatureDetails() {
+        return new FeatureScenario[0];
+    }
 }

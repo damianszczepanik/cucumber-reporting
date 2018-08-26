@@ -28,10 +28,12 @@ public class ReportableBuilder implements Reportable {
 
     protected long duration;
 
+    protected FeatureScenario[] featureDetails;
+
     public ReportableBuilder(int passedFeatures, int failedFeatures, int totalFeatures,
                              int passedScenarios, int failedScenarios, int totalScenarios,
                              int passedSteps, int failedSteps, int skippedSteps, int pendingSteps, int undefinedSteps, int totalSteps,
-                             long duration) {
+                             long duration, FeatureScenario[] featureDetails) {
 
         this.passedFeatures = passedFeatures;
         this.failedFeatures = failedFeatures;
@@ -49,11 +51,19 @@ public class ReportableBuilder implements Reportable {
         this.totalSteps = totalSteps;
 
         this.duration = duration;
+
+        this.featureDetails = featureDetails;
     }
 
     public static Reportable buildSample() {
+        FeatureScenario fs1 = new FeatureScenario("device1","feature 1", "scenario 1", "PASSED","4");
+        FeatureScenario fs2 = new FeatureScenario("device2","feature 2", "scenario 2", "FAILED","15");
+        FeatureScenario[] featureScenarios = new FeatureScenario[2];
+        featureScenarios[0] = fs1;
+        featureScenarios[1] = fs2;
         // only prime numbers
-        return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 3206126182390L);
+        return new ReportableBuilder(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
+                3206126182390L, featureScenarios);
     }
 
     @Override
@@ -139,5 +149,10 @@ public class ReportableBuilder implements Reportable {
     @Override
     public Status getStatus() {
         throw new IllegalStateException("Not implemented!");
+    }
+
+    @Override
+    public FeatureScenario[] getFeatureDetails() {
+        return featureDetails;
     }
 }

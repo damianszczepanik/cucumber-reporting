@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import mockit.Deencapsulation;
 import org.junit.Test;
 
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -15,14 +16,19 @@ public class TrendsTest {
 
         // given
         Trends trends = new Trends();
+        FeatureScenario[][] featuresDetail = new FeatureScenario[2][];
+
         // make sure that there is some data added already
         Reportable result = ReportableBuilder.buildSample();
         trends.addBuild("buildName", result);
+        featuresDetail[0] = result.getFeatureDetails();
 
         final String buildNumber = "this is the build!";
 
         // when
         trends.addBuild(buildNumber, result);
+        featuresDetail[1] = result.getFeatureDetails();
+
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(2).endsWith(buildNumber);
@@ -43,6 +49,8 @@ public class TrendsTest {
         assertThat(trends.getTotalSteps()).hasSize(2).endsWith(result.getSteps());
 
         assertThat(trends.getDurations()).hasSize(2).endsWith(3206126182390L);
+
+        assertThat(trends.getFeaturesDetail()).hasSize(2).endsWith(featuresDetail);
     }
 
     @Test
@@ -53,11 +61,18 @@ public class TrendsTest {
         // make sure that there is some data added already
         Reportable result = ReportableBuilder.buildSample();
         trends.addBuild("buildName", result);
+
+        FeatureScenario[][] featuresDetail = new FeatureScenario[4][];
+        featuresDetail[0] = new FeatureScenario[0];
+        featuresDetail[1] = new FeatureScenario[0];
+        featuresDetail[2] = result.getFeatureDetails();
+
         final String[] buildNumbers = new String[]{"a", "b", "e"};
         Deencapsulation.setField(trends, "buildNumbers", buildNumbers);
         
         // when
         trends.addBuild("the build!", result);
+        featuresDetail[3] = result.getFeatureDetails();
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(buildNumbers.length + 1).containsExactly("a", "b", "e", "the build!");
@@ -72,6 +87,8 @@ public class TrendsTest {
         assertThat(trends.getUndefinedSteps()).hasSize(buildNumbers.length + 1).containsExactly(0, 0, 31, 31);
 
         assertThat(trends.getDurations()).hasSize(buildNumbers.length + 1).containsExactly(-1L, -1L, 3206126182390L, 3206126182390L);
+
+        assertThat(trends.getFeaturesDetail()).hasSize(buildNumbers.length + 1).containsExactly(featuresDetail[0], featuresDetail[1], featuresDetail[2], featuresDetail[3]);
     }
 
     @Test
@@ -109,6 +126,8 @@ public class TrendsTest {
         assertThat(trends.getTotalSteps()).hasSize(limit).containsExactly(result.getSteps());
 
         assertThat(trends.getDurations()).hasSize(limit).containsExactly(result.getDuration());
+
+        assertThat(trends.getFeaturesDetail()).hasSize(limit).containsExactly(result.getFeatureDetails());
     }
 
     @Test
@@ -154,13 +173,32 @@ public class TrendsTest {
     }
 
     @Test
+    public void copyLastElemets_OnBigLimit_ReturnPassedFeatureScenarioArray(){
+        //given
+        final FeatureScenario[][] featuresDetail = new FeatureScenario[6][];
+
+        for(int i = 0 ; i < featuresDetail.length; i++){
+            FeatureScenario featureScenario = new FeatureScenario("device 1","feature 1", "scenario 1", "PASSED","4");
+            FeatureScenario[] featureScenarios = new FeatureScenario[1];
+            featureScenarios[0] = featureScenario;
+            featuresDetail[i] = featureScenarios;
+        }
+
+        final int limit = featuresDetail.length + 1;
+
+        FeatureScenario[][] limitedArray = Deencapsulation.invoke(Trends.class,"copyLastElements", featuresDetail,limit);
+
+        assertThat(limitedArray).isSameAs(featuresDetail);
+    }
+
+    @Test
     public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
 
         // given
         final int totalFeatures = 1000;
         final int failedFeatures = totalFeatures + 1;
         Trends trends = new Trends();
-        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L);
+        Reportable result = new ReportableBuilder(0, failedFeatures, totalFeatures, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3206126182398L, null);
         trends.addBuild("buildNumber", result);
 
         // when
@@ -172,4 +210,5 @@ public class TrendsTest {
         assertThat(trends.getTotalFeatures()).containsExactly(failedFeatures);
         assertThat(trends.getFailedFeatures()).containsExactly(totalFeatures);
     }
+    
 }

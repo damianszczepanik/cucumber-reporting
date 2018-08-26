@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import net.masterthought.cucumber.json.Features;
 import org.apache.commons.io.FileUtils;
 
 import net.masterthought.cucumber.generators.ErrorPage;
@@ -86,7 +87,9 @@ public class ReportBuilder {
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
+            Features.setFeatures(features);
             reportResult = new ReportResult(features, configuration.getSortingMethod());
+
             Reportable reportable = reportResult.getFeatureReport();
 
             if (configuration.isTrendsStatsFile()) {

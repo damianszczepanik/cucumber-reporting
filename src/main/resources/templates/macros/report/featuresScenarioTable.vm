@@ -1,0 +1,43 @@
+#macro(includeFeaturesScenarioTable, $table_key, $items, $parallel,$buildNumbers)
+
+<table id="tableTrend" class="stats-table table-hover">
+  <thead>
+    <tr>
+        #if ($parallel)
+        <th rowspan="2">Device Name</th>
+        #end
+        <th rowspan="2">Feature</th>
+        <th rowspan="2">Scenario</th>
+        <th colspan=$buildNumbers.size()>Build Number</th>
+    </tr>
+    <tr>
+        #foreach($buildNumber in $buildNumbers)
+
+            <th>$buildNumber</th>
+        #end
+    </tr>
+  </thead>
+  <tbody>
+  #foreach($item in $items)
+        <tr>
+             #if ($parallel)
+                    <td class="tagname">$item.getDeviceName()</td>
+             #end
+            <td class="tagname">$item.getFeatureName()</td>
+            <td class="tagname">$item.getScenarioName()</td>
+            #foreach($status in $item.getStatuses())
+                 #if($buildNumbers.size()>15)
+                 #set ($status_table=$status.charAt(0))
+                 #else
+                 #set ($status_table=$status)
+                 #end
+                 <td class="#if ($status=='PASSED') passed #elseif($status=='FAILED') failed #elseif($status=='SKIPPED')skipped #end">$status_table</td>
+
+            #end
+        </tr>
+         #end
+  </tbody>
+
+</table>
+
+#end

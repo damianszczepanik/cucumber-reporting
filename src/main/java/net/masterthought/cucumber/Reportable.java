@@ -59,4 +59,6 @@ public interface Reportable {
 
     /** Returns status for this element. */
     Status getStatus();
+
+    FeatureScenario[] getFeatureDetails();
 }

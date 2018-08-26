@@ -1,5 +1,10 @@
 package net.masterthought.cucumber.generators;
 
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Features;
+import net.masterthought.cucumber.FeatureScenario;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.NotImplementedException;
 
 import net.masterthought.cucumber.Reportable;
@@ -7,7 +12,11 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
+import java.util.List;
+
 public class OverviewReport implements Reportable {
+
+    private final List<Feature> features = Features.getFeatures();
 
     private long duration;
 
@@ -114,5 +123,28 @@ public class OverviewReport implements Reportable {
     @Override
     public Status getStatus() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public  FeatureScenario[] getFeatureDetails() {
+        FeatureScenario[] featureScenarios = new FeatureScenario[0];
+
+        for (Feature feature : features){
+            String featureName = feature.getName();
+            String deviceName = feature.getDeviceName();
+            Element[] scenarios = feature.getElements();
+            for (Element scenario : scenarios){
+                if(scenario.isScenario()){
+                    String scenarioName = scenario.getName();
+                    String scenarioStatus = scenario.getStatus().toString();
+                    String line = scenario.getLine();
+
+                    FeatureScenario trendFeatureScenario = new FeatureScenario(deviceName, featureName, scenarioName, scenarioStatus,line);
+                    featureScenarios = (FeatureScenario[]) ArrayUtils.add(featureScenarios, trendFeatureScenario);
+                }
+            }
+        }
+
+        return featureScenarios;
     }
 }
