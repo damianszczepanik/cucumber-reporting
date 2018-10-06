@@ -3,6 +3,7 @@ package net.masterthought.cucumber;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -21,8 +22,8 @@ import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingFactory;
-import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class ReportResult {
 
@@ -39,12 +40,31 @@ public class ReportResult {
     private final OverviewReport featuresReport = new OverviewReport();
     private final OverviewReport tagsReport = new OverviewReport();
 
-    public ReportResult(List<Feature> features, SortingMethod sortingMethod) {
-        this.buildTime = getCurrentTime();
-        this.sortingFactory = new SortingFactory(sortingMethod);
+    public ReportResult(List<Feature> features, Configuration configuration) {
+        buildTime = getCurrentTime();
+        sortingFactory = new SortingFactory(configuration.getSortingMethod());
 
-        for (Feature feature : features) {
-            processFeature(feature);
+        // TODO: extract to separate class as sorting method above
+        Feature[] arrayFeatures;
+        if (configuration.getReducingMethod() == ReducingMethod.MERGE_FEATURES_BY_ID) {
+            Map<String, Feature> mergedFeatures = new HashMap<>();
+            for (Feature feature : features) {
+                Feature mergedFeature = mergedFeatures.get(feature.getId());
+                if (mergedFeature == null) {
+                    mergedFeatures.put(feature.getId(), feature);
+                } else {
+                    mergedFeatures.get(feature.getId()).addElements(feature.getElements());
+                }
+            }
+            arrayFeatures = mergedFeatures.values().toArray(new Feature[mergedFeatures.size()]);
+        } else {
+            arrayFeatures = features.toArray(new Feature[features.size()]);
+        }
+
+        for (int i = 0; i < arrayFeatures.length; i++) {
+            // as this is the incex, start numeration from 1, not 0
+            arrayFeatures[i].setMetaData(i + 1, configuration);
+            processFeature(arrayFeatures[i]);
         }
     }
 

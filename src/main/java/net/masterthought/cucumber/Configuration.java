@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
@@ -29,6 +30,7 @@ public class Configuration {
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
+    private ReducingMethod reducingMethod = ReducingMethod.NONE;
     private List<String> classificationFiles;
 
     public Configuration(File reportDirectory, String projectName) {
@@ -210,6 +212,24 @@ public class Configuration {
      */
     public SortingMethod getSortingMethod() {
         return this.sortingMethod;
+    }
+
+    /**
+     * Sets how the report should or reduced or merged.
+     *
+     * @param reducingMethod type of reduction
+     */
+    public void setReducingMethod(ReducingMethod reducingMethod) {
+        this.reducingMethod = reducingMethod;
+    }
+
+    /**
+     * GEts how the report should be reduced or merged.
+     *
+     * @return type or reduction
+     */
+    public ReducingMethod getReducingMethod() {
+        return reducingMethod;
     }
 
     /**

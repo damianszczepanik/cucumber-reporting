@@ -153,9 +153,4 @@ public class TagObject implements Reportable {
     public String getRawStatus() {
         return status.name().toLowerCase();
     }
-
-    @Override
-    public String getDeviceName() {
-        throw new NotImplementedException();
-    }
 }

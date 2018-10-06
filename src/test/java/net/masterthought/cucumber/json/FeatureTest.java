@@ -2,7 +2,6 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,19 +16,6 @@ public class FeatureTest extends PageTest {
     @Before
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
-    }
-
-    @Test
-    public void getDeviceName_ReturnsDeviceName() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        String deviceName = feature.getDeviceName();
-
-        // when
-        assertThat(deviceName).isEqualTo("sample");
     }
 
     @Test
@@ -70,21 +56,6 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
-    }
-
-    @Test
-    public void getReportFileName_OnParallelTesting_ReturnsFileNameWithNumberPostfix() {
-
-        // given
-        configuration.setParallelTesting(true);
-        setUpWithJson(SAMPLE_JSON);
-        Feature feature = features.get(2);
-
-        // when
-        String fileName = feature.getReportFileName();
-
-        // then
-        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature_sample.html");
     }
 
     @Test
@@ -265,48 +236,5 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(formattedDuration).isEqualTo("0.092");
-    }
-
-    @Test
-    public void getJsonFile_ReturnsFileName() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        String fileName = feature.getJsonFile();
-
-        // then
-        assertThat(fileName).endsWith(SAMPLE_JSON);
-    }
-
-    @Test
-    public void calculateDeviceName_ReturnsDeviceName() {
-
-        // given
-        Feature feature = new Feature();
-        final String jsonFileName = "json_filename_without_extension";
-        Deencapsulation.setField(feature, "jsonFile", jsonFileName + ".json");
-
-        // when
-        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
-
-        // then
-        assertThat(deviceName).isEqualTo(jsonFileName);
-    }
-
-    @Test
-    public void calculateDeviceName_OnFileWithoutExtension_ReturnsDeviceName() {
-
-        // given
-        Feature feature = new Feature();
-        final String jsonFileName = "json_filename_without_extension";
-        Deencapsulation.setField(feature, "jsonFile", jsonFileName);
-
-        // when
-        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
-
-        // then
-        assertThat(deviceName).isEqualTo(jsonFileName);
     }
 }
