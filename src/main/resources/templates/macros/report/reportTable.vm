@@ -10,9 +10,6 @@
         <tbody>
         <tr>
           <td class="tagname">$reportable.getName()</td>
-          #if ($parallel)
-            <td>$reportable.getDeviceName()</td>
-          #end
           <td #if ($reportable.getPassedSteps() != 0)     class="passed"    #end>$reportable.getPassedSteps()</td>
           <td #if ($reportable.getFailedSteps() != 0)     class="failed"    #end>$reportable.getFailedSteps()</td>
           <td #if ($reportable.getSkippedSteps() != 0)    class="skipped"   #end>$reportable.getSkippedSteps()</td>

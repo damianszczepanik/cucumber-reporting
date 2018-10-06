@@ -108,7 +108,7 @@ public abstract class ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         List<Feature> featuresFromJson = reportParser.parseJsonFiles(jsonReports);
-        reportResult = new ReportResult(featuresFromJson, configuration.getSortingMethod());
+        reportResult = new ReportResult(featuresFromJson, configuration);
 
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();

@@ -12,9 +12,6 @@ public interface Reportable {
     /** Returns name of the element that will be displayed to user. */
     String getName();
 
-    /** In case of running the same tests on many devices it displays name of the device. */
-    String getDeviceName();
-
     /** Returns number of features for this element. */
     int getFeatures();
 

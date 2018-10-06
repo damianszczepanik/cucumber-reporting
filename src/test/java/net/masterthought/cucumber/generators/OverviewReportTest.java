@@ -184,17 +184,6 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getDeviceName_ThrowsException() {
-
-        // given
-        OverviewReport report = buildSampleReport();
-
-        // then
-        thrown.expect(NotImplementedException.class);
-        report.getDeviceName();
-    }
-
-    @Test
     public void getName_ThrowsException() {
 
         // given

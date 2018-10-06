@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,13 +25,12 @@ public class Feature implements Reportable, Durationable {
     private final String description = null;
     private final String keyword = null;
 
-    private final Element[] elements = new Element[0];
+    private Element[] elements = new Element[0];
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
-    private String jsonFile;
     private String reportFileName;
-    private String deviceName;
+    /** Collects those of elements which are scenarios, not eg background. */
     private final List<Element> scenarios = new ArrayList<>();
     private final StatusCounter elementsCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
@@ -38,13 +38,14 @@ public class Feature implements Reportable, Durationable {
     private Status featureStatus;
     private long duration;
 
-    @Override
-    public String getDeviceName() {
-        return deviceName;
-    }
-
     public String getId() {
         return id;
+    }
+
+    public void addElements(Element[] newElements) {
+        Element[] both = Arrays.copyOf(elements, elements.length + newElements.length);
+        System.arraycopy(newElements, 0, both, elements.length, newElements.length);
+        elements = both;
     }
 
     public Element[] getElements() {
@@ -147,19 +148,12 @@ public class Feature implements Reportable, Durationable {
         return elementsCounter.getValueFor(Status.FAILED);
     }
 
-    public String getJsonFile() {
-        return jsonFile;
-    }
-
     /**
      * Sets additional information and calculates values which should be calculated during object creation.
-     * @param jsonFile JSON file name
      * @param jsonFileNo index of the JSON file
      * @param configuration configuration for the report
      */
-    public void setMetaData(String jsonFile, int jsonFileNo, Configuration configuration) {
-        this.jsonFile = jsonFile;
-
+    public void setMetaData(int jsonFileNo, Configuration configuration) {
         for (Element element : elements) {
             element.setMetaData(this);
 
@@ -168,42 +162,15 @@ public class Feature implements Reportable, Durationable {
             }
         }
 
-        deviceName = calculateDeviceName();
-        calculateReportFileName(jsonFileNo, configuration);
+        calculateReportFileName();
         featureStatus = calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private String calculateDeviceName() {
-        String[] splitJsonFile = jsonFile.split("[^\\d\\w]");
-        // it should have at least two parts: file name and its extension (.json)
-        if (splitJsonFile.length > 1) {
-            // file name without path and extension (usually path/jsonFile.json)
-            return splitJsonFile[splitJsonFile.length - 2];
-        } else {
-            // path name without special characters
-            return splitJsonFile[0];
-        }
-    }
-
-    private void calculateReportFileName(int jsonFileNo, Configuration configuration) {
+    private void calculateReportFileName() {
         // remove all characters that might not be valid file name
-        reportFileName = "report-feature_" + Util.toValidFileName(uri);
-
-        // If we expect to have parallel executions, we add postfix to file name
-        if (configuration.isParallelTesting()) {
-            reportFileName += "_" + getDeviceName();
-        }
-
-        // if there is only one JSON file - skip unique prefix
-        if (jsonFileNo > 0) {
-            // add jsonFile index to the file name so if two the same features are reported
-            // in two different JSON files then file name must be different
-            reportFileName += "_" + jsonFileNo;
-        }
-
-        reportFileName += ".html";
+        reportFileName = "report-feature_" + Util.toValidFileName(uri) + ".html";
     }
 
     private Status calculateFeatureStatus() {

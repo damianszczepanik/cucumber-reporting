@@ -221,7 +221,7 @@ public class ReportBuilderTest extends ReportGenerator {
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
         Deencapsulation.invoke(builder, "generatePages", new Trends());
@@ -238,7 +238,7 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration.getSortingMethod()));
+        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
         Deencapsulation.invoke(builder, "generatePages", new Trends());
@@ -440,7 +440,7 @@ public class ReportBuilderTest extends ReportGenerator {
             }
         };
 
-        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration.getSortingMethod()) {
+        ReportResult reportResult = new ReportResult(Collections.<Feature>emptyList(), configuration) {
             @Override
             public Reportable getFeatureReport() {
                 return reportable;

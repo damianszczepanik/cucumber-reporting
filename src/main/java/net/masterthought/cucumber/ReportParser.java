@@ -1,5 +1,7 @@
 package net.masterthought.cucumber;
 
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,16 +13,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+
 import net.masterthought.cucumber.json.Feature;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -60,7 +63,6 @@ public class ReportParser {
             String jsonFile = jsonFiles.get(i);
             Feature[] features = parseForFeature(jsonFile);
             LOG.log(Level.INFO, String.format("File '%1$s' contains %2$s features", jsonFile, features.length));
-            setMetadata(features, jsonFile, i);
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -91,13 +93,6 @@ public class ReportParser {
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
-        }
-    }
-
-    /** Sets additional information and calculates values which should be calculated during object creation. */
-    private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
-        for (Feature feature : features) {
-            feature.setMetaData(jsonFile, jsonFileNo, configuration);
         }
     }
 

@@ -15,11 +15,6 @@ public class EmptyReportable implements Reportable {
     }
 
     @Override
-    public String getDeviceName() {
-        return null;
-    }
-
-    @Override
     public int getFeatures() {
         return 0;
     }

@@ -62,11 +62,6 @@ public class ReportableBuilder implements Reportable {
     }
 
     @Override
-    public String getDeviceName() {
-        return deviceName;
-    }
-
-    @Override
     public int getPassedFeatures() {
         return passedFeatures;
     }

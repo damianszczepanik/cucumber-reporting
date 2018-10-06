@@ -17,7 +17,6 @@ public class EmptyReportableTest {
 
         // then
         assertThat(reportable.getName()).isNull();
-        assertThat(reportable.getDeviceName()).isNull();
         assertThat(reportable.getFeatures()).isZero();
         assertThat(reportable.getPassedFeatures()).isZero();
         assertThat(reportable.getFailedFeatures()).isZero();

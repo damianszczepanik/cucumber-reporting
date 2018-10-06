@@ -102,11 +102,6 @@ public class OverviewReport implements Reportable {
     }
 
     @Override
-    public String getDeviceName() {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public String getName() {
         throw new NotImplementedException();
     }

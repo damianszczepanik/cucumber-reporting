@@ -241,15 +241,4 @@ public class TagObjectTest extends PageTest {
         // then
         assertThat(tag.getRawStatus()).isEqualTo(Status.PASSED.getRawName());
     }
-
-    @Test
-    public void getDeviceName_ThrowsException() {
-
-        // given
-        TagObject tag = new TagObject("@checkout");
-
-        // then
-        thrown.expect(NotImplementedException.class);
-        tag.getDeviceName();
-    }
 }
