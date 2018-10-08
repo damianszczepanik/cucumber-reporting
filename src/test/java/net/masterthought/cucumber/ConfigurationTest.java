@@ -26,21 +26,6 @@ public class ConfigurationTest {
 
 
     @Test
-    public void isParallelTesting_ReturnsParallelTesting() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        boolean parallelTesting = true;
-        configuration.setParallelTesting(parallelTesting);
-
-        // when
-        boolean parallel = configuration.isParallelTesting();
-
-        // then
-        assertThat(parallel).isEqualTo(parallelTesting);
-    }
-
-    @Test
     public void isRunWithJenkins_ReturnsRunWithJenkins() {
 
         // given
