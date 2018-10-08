@@ -48,7 +48,6 @@ jsonFiles.add("cucumber-report-2.json");
 String buildNumber = "1";
 String projectName = "cucumberProject";
 boolean runWithJenkins = false;
-boolean parallelTesting = false;
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 // optional configuration - check javadoc

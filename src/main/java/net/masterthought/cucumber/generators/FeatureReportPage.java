@@ -20,7 +20,6 @@ public class FeatureReportPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        context.put("parallel", configuration.isParallelTesting());
         context.put("feature", feature);
     }
 

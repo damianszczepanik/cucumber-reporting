@@ -16,7 +16,6 @@ public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
 
-    private boolean parallelTesting;
     private boolean runWithJenkins;
 
     private File reportDirectory;
@@ -36,14 +35,6 @@ public class Configuration {
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
         this.projectName = projectName;
-    }
-
-    public boolean isParallelTesting() {
-        return parallelTesting;
-    }
-
-    public void setParallelTesting(boolean parallelTesting) {
-        this.parallelTesting = parallelTesting;
     }
 
     /**
