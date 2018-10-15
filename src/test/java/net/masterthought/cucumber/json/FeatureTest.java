@@ -2,11 +2,13 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -43,6 +45,35 @@ public class FeatureTest extends PageTest {
         // then
         assertThat(elements).hasSize(2);
         assertThat(elements[0].getName()).isEqualTo("Activate Credit Card");
+    }
+
+    @Test
+    public void calculateReportFileName_ReturnsFileName() {
+
+        // given
+        Feature feature = features.get(1);
+        final int jsonFileNo = 3;
+
+        // when
+        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
+
+        // then
+        assertThat(reportFileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
+    }
+
+    @Test
+    public void calculateReportFileName_OnFeatureFileNameNo_ReturnsFileName() {
+
+        // given
+        Feature feature = features.get(1);
+        final int jsonFileNo = 5;
+        configuration.addReducingMethod(ReducingMethod.FEATURE_FILE_NAME_WITH_NO);
+
+        // when
+        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
+
+        // then
+        assertThat(reportFileName).isEqualTo("report-feature_" + jsonFileNo + "_net-masterthought-example-ATMK-feature.html");
     }
 
     @Test

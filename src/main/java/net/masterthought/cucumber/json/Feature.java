@@ -12,6 +12,7 @@ import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Util;
 
 public class Feature implements Reportable, Durationable {
@@ -162,15 +163,26 @@ public class Feature implements Reportable, Durationable {
             }
         }
 
-        calculateReportFileName();
+        reportFileName = calculateReportFileName(jsonFileNo, configuration);
         featureStatus = calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private void calculateReportFileName() {
+    private String calculateReportFileName(int jsonFileNo, Configuration configuration) {
         // remove all characters that might not be valid file name
-        reportFileName = "report-feature_" + Util.toValidFileName(uri) + ".html";
+        String fileName = "report-feature_";
+
+        if (configuration.getReducingMethods().contains(ReducingMethod.FEATURE_FILE_NAME_WITH_NO)) {
+            // add jsonFile index to the file name so if two the same features are reported
+            // in two different JSON files then file name must be different
+            fileName += jsonFileNo + "_";
+        }
+        fileName += Util.toValidFileName(uri);
+
+        fileName += ".html";
+
+        return fileName;
     }
 
     private Status calculateFeatureStatus() {

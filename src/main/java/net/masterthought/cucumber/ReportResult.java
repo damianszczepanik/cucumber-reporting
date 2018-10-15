@@ -46,7 +46,7 @@ public class ReportResult {
 
         // TODO: extract to separate class as sorting method above
         Feature[] arrayFeatures;
-        if (configuration.getReducingMethod() == ReducingMethod.MERGE_FEATURES_BY_ID) {
+        if (configuration.getReducingMethods().contains(ReducingMethod.MERGE_FEATURES_BY_ID)) {
             Map<String, Feature> mergedFeatures = new HashMap<>();
             for (Feature feature : features) {
                 Feature mergedFeature = mergedFeatures.get(feature.getId());
