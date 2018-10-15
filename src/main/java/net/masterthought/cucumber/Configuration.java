@@ -29,7 +29,7 @@ public class Configuration {
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
-    private ReducingMethod reducingMethod = ReducingMethod.NONE;
+    private List<ReducingMethod> reducingMethods = new ArrayList<>();
     private List<String> classificationFiles;
 
     public Configuration(File reportDirectory, String projectName) {
@@ -206,21 +206,21 @@ public class Configuration {
     }
 
     /**
-     * Sets how the report should or reduced or merged.
+     * Sets how the report should or reduced, merged or modified.
      *
      * @param reducingMethod type of reduction
      */
-    public void setReducingMethod(ReducingMethod reducingMethod) {
-        this.reducingMethod = reducingMethod;
+    public void addReducingMethod(ReducingMethod reducingMethod) {
+        this.reducingMethods.add(reducingMethod);
     }
 
     /**
-     * GEts how the report should be reduced or merged.
+     * Gets how the report should be reduced, merged or modified.
      *
      * @return type or reduction
      */
-    public ReducingMethod getReducingMethod() {
-        return reducingMethod;
+    public List<ReducingMethod> getReducingMethods() {
+        return reducingMethods;
     }
 
     /**
