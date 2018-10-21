@@ -2,9 +2,20 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.io.File;
+import java.io.IOException;
 
+import mockit.Deencapsulation;
+import org.apache.commons.io.FileUtils;
+import org.apache.velocity.VelocityContext;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
@@ -28,5 +39,18 @@ public class MatchTest extends PageTest {
 
         // then
         assertThat(location).isEqualTo("ATMScenario.createAccount(int)");
+    }
+
+    @Test
+    public void getArguments_ReturnsArguments() {
+
+        // given
+        Match match = features.get(0).getElements()[1].getSteps()[0].getMatch();
+
+        // when
+        MatchArgument[] arguments = match.getArguments();
+
+        // then
+        assertThat(arguments).hasSize(1);
     }
 }

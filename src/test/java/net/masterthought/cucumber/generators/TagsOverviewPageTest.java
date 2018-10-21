@@ -45,7 +45,7 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(12);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());

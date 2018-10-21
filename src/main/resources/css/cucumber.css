@@ -25,6 +25,10 @@ a:hover {
     font-weight: bold;
 }
 
+.argument {
+    font-weight: bold;
+}
+
 .indention {
     padding-left: 3px;
 }

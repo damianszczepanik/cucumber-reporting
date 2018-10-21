@@ -2,7 +2,7 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
@@ -106,5 +106,13 @@ public class Step implements Resultsable {
     public void setMetaData() {
         beforeStatus = new StatusCounter(before).getFinalStatus();
         afterStatus = new StatusCounter(after).getFinalStatus();
+    }
+
+    public MatchArgument[] getMatchArguments() {
+        if (getMatch() == null) {
+            return new MatchArgument[0];
+        }
+
+        return getMatch().getArguments();
     }
 }

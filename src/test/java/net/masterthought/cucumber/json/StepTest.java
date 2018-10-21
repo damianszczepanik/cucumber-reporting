@@ -262,4 +262,43 @@ public class StepTest extends PageTest {
         // then
         assertThat(status).isEqualTo(Status.PASSED);
     }
+
+    @Test
+    public void getMatchArguments_noMatch() {
+
+        // given
+        Step step = features.get(1).getElements()[1].getSteps()[0];
+
+        // when
+        MatchArgument[] matchArguments = step.getMatchArguments();
+
+        // then
+        assertThat(matchArguments).isEmpty();
+    }
+
+    @Test
+    public void getMatchArguments_noArguments() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[1];
+
+        // when
+        MatchArgument[] matchArguments = step.getMatchArguments();
+
+        // then
+        assertThat(matchArguments).isEmpty();
+    }
+
+    @Test
+    public void getMatchArguments_withArguments() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[0];
+
+        // when
+        MatchArgument[] matchArguments = step.getMatchArguments();
+
+        // then
+        assertThat(matchArguments).hasSize(1);
+    }
 }

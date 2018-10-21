@@ -27,6 +27,12 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
+    public void referenceInsert_shouldNotEscapeWithSpecialTag(){
+        String html = "<b>a bold statement</b>";
+        assertThat(insertionEventHandler.referenceInsert("$_noescape_" + SOME_REFERENCE, html)).isEqualTo(html);
+    }
+
+    @Test
     public void referenceInsert_shouldReturnNullForNull(){
         assertThat(insertionEventHandler.referenceInsert(SOME_REFERENCE, null)).isNull();
     }
