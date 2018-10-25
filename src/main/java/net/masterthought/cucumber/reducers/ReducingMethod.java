@@ -9,13 +9,7 @@ package net.masterthought.cucumber.reducers;
 public enum ReducingMethod {
 
     /**
-     * Adds index postfix to each feature name.
-     * This is strongly recommended when there are more features with the same ID,
-     * so each one is stored in different file.
-     */
-    FEATURE_FILE_NAME_WITH_NO,
-    /**
-     * Merge features if they have same ID so scenrios will be merged into one scenario.
+     * Merge features if they have same ID so scenarios will be merged into one scenario.
      */
     MERGE_FEATURES_BY_ID
 }

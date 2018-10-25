@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -58,22 +57,7 @@ public class FeatureTest extends PageTest {
         String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
 
         // then
-        assertThat(reportFileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
-    }
-
-    @Test
-    public void calculateReportFileName_OnFeatureFileNameNo_ReturnsFileName() {
-
-        // given
-        Feature feature = features.get(1);
-        final int jsonFileNo = 5;
-        configuration.addReducingMethod(ReducingMethod.FEATURE_FILE_NAME_WITH_NO);
-
-        // when
-        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
-
-        // then
-        assertThat(reportFileName).isEqualTo("report-feature_" + jsonFileNo + "_net-masterthought-example-ATMK-feature.html");
+        assertThat(reportFileName).isEqualTo("report-feature_3_net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
@@ -86,7 +70,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
+        assertThat(fileName).isEqualTo("report-feature_1_net-masterthought-example-ATMK-feature.html");
     }
 
     @Test
