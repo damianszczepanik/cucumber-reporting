@@ -63,7 +63,7 @@ public class ReportResult {
 
         for (int i = 0; i < arrayFeatures.length; i++) {
             // as this is the incex, start numeration from 1, not 0
-            arrayFeatures[i].setMetaData(i + 1, configuration);
+            arrayFeatures[i].setMetaData(i, configuration);
             processFeature(arrayFeatures[i]);
         }
     }
