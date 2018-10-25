@@ -13,6 +13,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import net.masterthought.cucumber.reducers.ReducingMethod;
+import net.masterthought.cucumber.sorting.SortingMethod;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -179,6 +182,34 @@ public class ConfigurationTest {
         Map.Entry<String, String> classification = configuration.getClassifications().get(0);
         assertThat(classification.getKey()).isEqualTo(classificationName);
         assertThat(classification.getValue()).isEqualTo(classificationValue);
+    }
+
+    @Test
+    public void setSortingMethod_SetsSortingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        SortingMethod sortingMethod = SortingMethod.NATURAL;
+
+        // then
+        configuration.setSortingMethod(sortingMethod);
+
+        // then
+        assertThat(configuration.getSortingMethod()).isEqualTo(sortingMethod);
+    }
+
+    @Test
+    public void addReducingMethod_AddsReducingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        ReducingMethod reducingMethod = ReducingMethod.MERGE_FEATURES_BY_ID;
+
+        // when
+        configuration.addReducingMethod(reducingMethod);
+
+        // then
+        assertThat(configuration.getReducingMethods()).containsOnly(reducingMethod);
     }
 
     @Test
