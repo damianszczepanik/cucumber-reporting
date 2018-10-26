@@ -33,6 +33,21 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void addElements_AddsScenarios() {
+
+        // given
+        Feature feature = features.get(0);
+        int scenarioCount = feature.getElements().length;
+        Element[] scenarioToAdd = new Element[]{features.get(0).getElements()[0]};
+
+        // when
+        feature.addElements(scenarioToAdd);
+
+        // then
+        assertThat(feature.getElements()).hasSize(scenarioCount + scenarioToAdd.length);
+    }
+
+    @Test
     public void getElements_ReturnsElements() {
 
         // given
