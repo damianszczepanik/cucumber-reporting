@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.masterthought.cucumber.json.support.Argument;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ public class MatchTest extends PageTest {
         Match match = features.get(0).getElements()[1].getSteps()[0].getMatch();
 
         // when
-        MatchArgument[] arguments = match.getArguments();
+        Argument[] arguments = match.getArguments();
 
         // then
         assertThat(arguments).hasSize(1);

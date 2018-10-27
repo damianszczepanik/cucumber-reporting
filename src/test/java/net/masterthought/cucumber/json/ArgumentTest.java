@@ -33,4 +33,29 @@ public class ArgumentTest extends PageTest {
         assertThat(rows).hasSize(2);
         assertThat(rows[0].getCells()).containsOnlyOnce("max", "min");
     }
+    @Test
+    public void getVal_ReturnsVal() {
+
+        // given
+        Argument matchArgument = features.get(0).getElements()[1].getSteps()[0].getMatch().getArguments()[0];
+
+        // when
+        String val = matchArgument.getVal();
+
+        // then
+        assertThat(val).isEqualTo("100");
+    }
+
+    @Test
+    public void getArguments_ReturnsArguments() {
+
+        // given
+        Argument matchArgument = features.get(0).getElements()[1].getSteps()[0].getMatch().getArguments()[0];
+
+        // when
+        int offset = matchArgument.getOffset();
+
+        // then
+        assertThat(offset).isEqualTo(23);
+    }
 }

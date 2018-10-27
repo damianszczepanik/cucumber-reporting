@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.util;
 
-import net.masterthought.cucumber.json.MatchArgument;
+import net.masterthought.cucumber.json.support.Argument;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 public class StepNameFormatter {
     public static final StepNameFormatter INSTANCE = new StepNameFormatter();
 
-    public static String format(String stepName, MatchArgument[] arguments, String preArgument, String postArgument) {
+    public static String format(String stepName, Argument[] arguments, String preArgument, String postArgument) {
         if (ArrayUtils.isEmpty(arguments)) {
             return StringEscapeUtils.escapeHtml(stepName);
         }
@@ -29,8 +29,8 @@ public class StepNameFormatter {
         return str.split("(?!^)");
     }
 
-    private static void surroundArguments(MatchArgument[] arguments, String preArgument, String postArgument, String[] chars) {
-        for (MatchArgument argument : arguments) {
+    private static void surroundArguments(Argument[] arguments, String preArgument, String postArgument, String[] chars) {
+        for (Argument argument : arguments) {
             int start = argument.getOffset();
             int end = start + argument.getVal().length() - 1;
             chars[start] = preArgument + chars[start];
