@@ -23,6 +23,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Counter;
+import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
 
 /**
@@ -98,6 +99,7 @@ public abstract class AbstractPage {
         // to provide unique ids for elements on each page
         context.put("counter", new Counter());
         context.put("util", Util.INSTANCE);
+        context.put("stepNameFormatter", StepNameFormatter.INSTANCE);
 
         context.put("run_with_jenkins", configuration.isRunWithJenkins());
         context.put("trends_present", configuration.getTrendsStatsFile() != null);

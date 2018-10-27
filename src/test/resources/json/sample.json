@@ -179,14 +179,14 @@
                             "duration": 44333333,
                             "status": "passed"
                         },
-                        "name": "the machine contains 100",
+                        "name": "100 is contained in the machine",
                         "keyword": "And ",
                         "line": 25,
                         "match": {
                             "arguments": [
                                 {
                                     "val": "100",
-                                    "offset": 21
+                                    "offset": 0
                                 }
                             ],
                             "location": "ATMScenario.createATM(int)"
@@ -200,7 +200,7 @@
                             "duration": 11000001,
                             "status": "passed"
                         },
-                        "name": "the Account Holder requests 10",
+                        "name": "the Account Holder requests 10, entering PIN 1234",
                         "keyword": "When ",
                         "line": 26,
                         "match": {
@@ -208,6 +208,10 @@
                                 {
                                     "val": "10",
                                     "offset": 28
+                                },
+                                {
+                                    "val": "1234",
+                                    "offset": 45
                                 }
                             ],
                             "location": "ATMScenario.requestMoney(int)"
@@ -221,7 +225,7 @@
                             "duration": 3220000,
                             "status": "passed"
                         },
-                        "name": "the ATM should dispense 10",
+                        "name": "the ATM should dispense 10 monetary units",
                         "keyword": "Then ",
                         "line": 27,
                         "match": {
