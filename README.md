@@ -99,7 +99,7 @@ Once you developed your new feature or improvement you should test it by providi
 
 ## BrowserStack
 We use [BrowserStack](https://www.browserstack.com) to examine HTML report against different browsers and platforms.
-![BrowserStack](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/Browserstack-logo.svg)
+![BrowserStack](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/Browserstack-logo.png)
 
 ## Contribution
 
