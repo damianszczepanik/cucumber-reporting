@@ -1,14 +1,34 @@
 package net.masterthought.cucumber.util;
 
 import net.masterthought.cucumber.json.MatchArgument;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class StepNameFormatter {
     public static final StepNameFormatter INSTANCE = new StepNameFormatter();
 
     public static String format(String stepName, MatchArgument[] arguments, String preArgument, String postArgument) {
-        String[] chars = stepName.split("(?!^)");
+        String[] chars = splitIntoCharacters(stepName);
+
         escape(chars);
+        surroundArguments(arguments, preArgument, postArgument, chars);
+
+        return StringUtils.join(chars);
+    }
+
+    /**
+     * Splits a string into an array of individual characters (each a String).
+     * splitIntoCharacters("Text") = ["T", "e", "x", "t"]
+     */
+    private static String[] splitIntoCharacters(String str) {
+        return str.split("(?!^)");
+    }
+
+    private static void surroundArguments(MatchArgument[] arguments, String preArgument, String postArgument, String[] chars) {
+        if (ArrayUtils.isEmpty(arguments)) {
+            return;
+        }
 
         for (MatchArgument argument : arguments) {
             int start = argument.getOffset();
@@ -16,18 +36,11 @@ public class StepNameFormatter {
             chars[start] = preArgument + chars[start];
             chars[end] = chars[end] + postArgument;
         }
-        return StringUtils.join(chars);
     }
 
     private static void escape(String[] chars) {
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i].equals("<")) {
-                chars[i] = "&lt;";
-            } else if (chars[i].equals(">")) {
-                chars[i] = "&gt;";
-            } else if (chars[i].equals("&")) {
-                chars[i] = "&amp;";
-            }
+            chars[i] = StringEscapeUtils.escapeHtml(chars[i]);
         }
     }
 }

@@ -21,7 +21,7 @@ public class StepNameFormatterTest extends PageTest {
         Step step = features.get(0).getElements()[1].getSteps()[1];
 
         // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatchArguments(), "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("the card is valid");
@@ -34,7 +34,7 @@ public class StepNameFormatterTest extends PageTest {
         Step step = features.get(0).getElements()[1].getSteps()[0];
 
         // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatchArguments(), "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("the account balance is <arg>100</arg>");
@@ -47,7 +47,7 @@ public class StepNameFormatterTest extends PageTest {
         Step step = features.get(0).getElements()[1].getSteps()[4];
 
         // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatchArguments(), "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("the ATM should dispense <arg>10</arg> monetary units");
@@ -60,7 +60,7 @@ public class StepNameFormatterTest extends PageTest {
         Step step = features.get(0).getElements()[1].getSteps()[2];
 
         // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatchArguments(), "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("<arg>100</arg> is contained in the machine");
@@ -73,7 +73,7 @@ public class StepNameFormatterTest extends PageTest {
         Step step = features.get(0).getElements()[1].getSteps()[3];
 
         // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatchArguments(), "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("the Account Holder requests <arg>10</arg>, entering PIN <arg>1234</arg>");
@@ -86,7 +86,7 @@ public class StepNameFormatterTest extends PageTest {
         String text = "I press <ON> & <C> simulatenously";
 
         // when
-        String formatted = StepNameFormatter.format(text, new MatchArgument[0], "<arg>", "</arg>");
+        String formatted = StepNameFormatter.format(text, null, "<arg>", "</arg>");
 
         // then
         assertThat(formatted).isEqualTo("I press &lt;ON&gt; &amp; &lt;C&gt; simulatenously");

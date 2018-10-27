@@ -107,12 +107,4 @@ public class Step implements Resultsable {
         beforeStatus = new StatusCounter(before).getFinalStatus();
         afterStatus = new StatusCounter(after).getFinalStatus();
     }
-
-    public MatchArgument[] getMatchArguments() {
-        if (getMatch() == null) {
-            return new MatchArgument[0];
-        }
-
-        return getMatch().getArguments();
-    }
 }

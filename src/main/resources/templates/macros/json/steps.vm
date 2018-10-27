@@ -9,7 +9,7 @@
   <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed()) in #end">
     #foreach($step in $element.getSteps())
       <div class="step">
-        #includeStepName($step.getKeyword(), $step.getName(), $step.getMatchArguments(), $step.getResult().getStatus(), $step.getResult())
+        #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())
         #set($isPassed = $step.getResult().getStatus().isPassed())
         #includeHooks("Before", $step.getBefore(), $step.getBeforeStatus(), "step")
         #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)

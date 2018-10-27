@@ -16,31 +16,61 @@ public class EscapeHtmlReferenceTest {
 
     @Test
     public void referenceInsert_returnNormalText(){
+        // given
         String normalText = "a plain statement";
-        assertThat(insertionEventHandler.referenceInsert(SOME_REFERENCE, normalText)).isEqualTo(normalText);
+
+        // when
+        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, normalText);
+
+        // then
+        assertThat(result).isEqualTo(normalText);
     }
 
     @Test
     public void referenceInsert_shouldEscapeHtmlForAnyLabel(){
+        // given
         String html = "<b>a bold statement</b>";
-        assertThat(insertionEventHandler.referenceInsert(SOME_REFERENCE, html)).isEqualTo(escapeHtml(html));
+
+        // when
+        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, html);
+
+        // then
+        assertThat(result).isEqualTo(escapeHtml(html));
     }
 
     @Test
     public void referenceInsert_shouldNotEscapeWithSpecialTag(){
+        // given
         String html = "<b>a bold statement</b>";
-        assertThat(insertionEventHandler.referenceInsert("$_noescape_" + SOME_REFERENCE, html)).isEqualTo(html);
+
+        // when
+        Object result = insertionEventHandler.referenceInsert("$_noescape_" + SOME_REFERENCE, html);
+
+        // then
+        assertThat(result).isEqualTo(html);
     }
 
     @Test
     public void referenceInsert_shouldReturnNullForNull(){
-        assertThat(insertionEventHandler.referenceInsert(SOME_REFERENCE, null)).isNull();
+        // given
+        String html = null;
+
+        // when
+        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, html);
+
+        // then
+        assertThat(result).isNull();
     }
 
     @Test
     public void referenceInsert_shouldSanitize(){
+        // given
         String html = "<a href=\"www.example.com\" rel=\"nofollow noopener noreferrer\">a hyper web reference</a>";
-        assertThat(insertionEventHandler.referenceInsert("$_sanitize_" + SOME_REFERENCE, html))
-                .isEqualTo(html);
+
+        // when
+        Object result = insertionEventHandler.referenceInsert("$_sanitize_" + SOME_REFERENCE, html);
+
+        // result
+        assertThat(result).isEqualTo(html);
     }
 }
