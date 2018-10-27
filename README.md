@@ -36,7 +36,7 @@ Add a maven dependency to your pom
 </dependency>
 ```
 
-Read this if you need further [detailed install and configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+Read this if you need further [detailed configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 ```Java
@@ -66,8 +66,7 @@ configuration.addClassificationFiles(classificationFiles);
 
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 Reportable result = reportBuilder.generateReports();
-// and here validate 'result' to decide what to do
-// if report has failed features, undefined steps etc
+// and here validate 'result' to decide what to do if report has failed
 ```
 There is a feature overview page:
 
@@ -98,6 +97,9 @@ Once you developed your new feature or improvement you should test it by providi
 
 ![codecov.io](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graphs/tree.svg)
 
+## BrowserStack
+We use [BrowserStack](https://www.browserstack.com) to examine HTML report against different browsers and platforms.
+![BrowserStack](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/Browserstack-logo.svg)
 
 ## Contribution
 
