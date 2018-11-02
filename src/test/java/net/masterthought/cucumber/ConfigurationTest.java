@@ -99,6 +99,35 @@ public class ConfigurationTest {
     }
 
     @Test
+    public void isTrendsAvailable_OnNoTrendsPage_ReturnsFalse() {
+
+        // given
+        final int limit = -1;
+        File file = new File("ble");
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrends(file, limit);
+
+        // then
+        assertThat(configuration.isTrendsAvailable()).isFalse();
+    }
+
+    @Test
+    public void isTrendsAvailable_OnNoTrendsFile_ReturnsFalse() {
+
+        // given
+        final int limit = 10;
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrends(null, limit);
+
+        // then
+        assertThat(configuration.isTrendsAvailable()).isFalse();
+    }
+
+    @Test
     public void getBuildNumber_ReturnsBuildNumber() {
 
         // given

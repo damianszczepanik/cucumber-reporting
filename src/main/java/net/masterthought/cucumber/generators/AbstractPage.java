@@ -102,7 +102,7 @@ public abstract class AbstractPage {
         context.put("stepNameFormatter", StepNameFormatter.INSTANCE);
 
         context.put("run_with_jenkins", configuration.isRunWithJenkins());
-        context.put("trends_present", configuration.getTrendsStatsFile() != null);
+        context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
 

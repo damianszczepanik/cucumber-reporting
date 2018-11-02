@@ -100,14 +100,24 @@ public class Configuration {
     }
 
     /**
-     * Sets configuration for trends. When the limit is set to 0 then all items will be displayed.
+     * Checks if the trends page should be generated and displayed.
+     * @return <code>true</code> if the page with trends should be displayed
+     */
+    public boolean isTrendsAvailable() {
+        return getTrendsLimit() > -1  && isTrendsStatsFile();
+    }
+
+    /**
+     * Sets configuration for trends.
+     * When the limit is set to 0 then all items will be stored and displayed.
+     * To disable saving and displaying trends page set to 0.
      *
      * @param trendsFile  file where information about previous builds is stored
-     * @param trendsLimit number of builds that should be presented (older builds are skipped)
+     * @param limit number of builds that should be presented (older builds are skipped)
      */
-    public void setTrends(File trendsFile, int trendsLimit) {
+    public void setTrends(File trendsFile, int limit) {
         this.trendsFile = trendsFile;
-        this.trendsLimit = trendsLimit;
+        this.trendsLimit = limit;
     }
 
     /**
