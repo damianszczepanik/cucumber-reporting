@@ -163,9 +163,9 @@ public class ReportBuilder {
 		new StepsOverviewPage(reportResult, configuration).generatePage();
 		new FailuresOverviewPage(reportResult, configuration).generatePage();
 
-        if (configuration.isTrendsAvailable()) {
-           new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
-        }
+		if (configuration.isTrendsAvailable()) {
+		    new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
+		}
 	}
 	
     private Trends updateAndSaveTrends(Reportable reportable) {
