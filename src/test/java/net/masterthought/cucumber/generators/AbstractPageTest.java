@@ -212,7 +212,7 @@ public class AbstractPageTest extends PageTest {
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when
-        boolean hasTrends = (Boolean) page.context.get("trends_present");
+        boolean hasTrends = (Boolean) page.context.get("trends_available");
 
         // then
         assertThat(hasTrends).isTrue();

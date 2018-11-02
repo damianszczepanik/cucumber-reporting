@@ -89,7 +89,7 @@ public class ReportBuilder {
             reportResult = new ReportResult(features, configuration);
             Reportable reportable = reportResult.getFeatureReport();
 
-            if (configuration.isTrendsStatsFile()) {
+            if (configuration.isTrendsAvailable()) {
                 // prepare data required by generators, collect generators and generate pages
                 trends = updateAndSaveTrends(reportable);
             }
@@ -106,7 +106,7 @@ public class ReportBuilder {
 
             // if trends was not created then something went wrong
             // and information about build failure should be saved
-            if (!wasTrendsFileSaved && configuration.isTrendsStatsFile()) {
+            if (!wasTrendsFileSaved && configuration.isTrendsAvailable()) {
                 Reportable reportable = new EmptyReportable();
                 updateAndSaveTrends(reportable);
             }
@@ -163,22 +163,22 @@ public class ReportBuilder {
 		new StepsOverviewPage(reportResult, configuration).generatePage();
 		new FailuresOverviewPage(reportResult, configuration).generatePage();
 
-		if (configuration.isTrendsStatsFile()) {
-			new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
-		}
+        if (configuration.isTrendsAvailable()) {
+           new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
+        }
 	}
 	
     private Trends updateAndSaveTrends(Reportable reportable) {
         Trends trends = loadOrCreateTrends();
         appendToTrends(trends, reportable);
 
-        // save updated trends so it contains all history
-        saveTrends(trends, configuration.getTrendsStatsFile());
-
         // display only last n items - don't skip items if limit is not defined
         if (configuration.getTrendsLimit() > 0) {
             trends.limitItems(configuration.getTrendsLimit());
         }
+
+        // save updated trends so it contains history only for the last builds
+        saveTrends(trends, configuration.getTrendsStatsFile());
 
         return trends;
     }
