@@ -348,7 +348,8 @@
                                 {
                                     "val": "100",
                                     "offset": 23
-                                }
+                                },
+                                {}
                             ]
                         },
                         "matchedColumns": [
