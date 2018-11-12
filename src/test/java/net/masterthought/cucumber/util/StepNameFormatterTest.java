@@ -79,6 +79,19 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
+    public void format_optionalArgumentNotMatched() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[0];
+
+        // when
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
+
+        // then
+        assertThat(formatted).isEqualTo("the account balance is <arg>100</arg>");
+    }
+
+    @Test
     public void format_shouldEscape() {
 
         // given

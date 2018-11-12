@@ -31,6 +31,10 @@ public class StepNameFormatter {
 
     private static void surroundArguments(Argument[] arguments, String preArgument, String postArgument, String[] chars) {
         for (Argument argument : arguments) {
+            if (argument.getOffset() == null) {
+                continue;
+            }
+
             int start = argument.getOffset();
             int end = start + argument.getVal().length() - 1;
             chars[start] = preArgument + chars[start];
