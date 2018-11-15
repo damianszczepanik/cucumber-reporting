@@ -137,19 +137,19 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         firstRow.hasExactValues("@checkout", "10", "1", "2", "1", "2", "16", "1", "1", "2", "0.231", "Failed");
         firstRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
         firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "231054778", "");
-        firstRow.getReportLink().hasLabelAndAddress("@checkout", "report-tag_checkout.html");
+        firstRow.getReportLink().hasLabelAndAddress("@checkout", "report-tag_3971419525.html");
 
         TableRowAssertion secondRow = bodyRows[1];
         secondRow.hasExactValues("@fast", "6", "0", "0", "0", "0", "6", "1", "0", "1", "0.139", "Passed");
         secondRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "139004778", "");
-        secondRow.getReportLink().hasLabelAndAddress("@fast", "report-tag_fast.html");
+        secondRow.getReportLink().hasLabelAndAddress("@fast", "report-tag_2209724571.html");
 
         TableRowAssertion lastRow = bodyRows[2];
         lastRow.hasExactValues("@featureTag", "6", "0", "0", "0", "0", "6", "1", "0", "1", "0.139", "Passed");
         lastRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
         lastRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "139004778", "");
-        lastRow.getReportLink().hasLabelAndAddress("@featureTag", "report-tag_featureTag.html");
+        lastRow.getReportLink().hasLabelAndAddress("@featureTag", "report-tag_2956005635.html");
     }
 
     @Test

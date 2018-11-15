@@ -54,7 +54,7 @@ public class TagTest extends PageTest {
         String fileName = tag.getFileName();
 
         // then
-        assertThat(fileName).isEqualTo("report-tag_checkout.html");
+        assertThat(fileName).isEqualTo("report-tag_3971419525.html");
     }
 
     @Test
@@ -62,9 +62,9 @@ public class TagTest extends PageTest {
 
         // given
         final String[] tags = {"@up s", "?any", "9/3"};
-        final String[] names = {"up-s", "-any", "9-3"};
+        final String[] names = {"2210183277", "2149457228", "2147539932"};
 
-        // then
+        // when & then
         for (int i = 0; i < tags.length; i++) {
             assertThat(Tag.generateFileName(tags[i])).isEqualTo(String.format("report-tag_%s.html", names[i]));
         }

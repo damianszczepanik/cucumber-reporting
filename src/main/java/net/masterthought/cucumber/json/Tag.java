@@ -17,8 +17,7 @@ public class Tag {
     }
 
     public static String generateFileName(String tagName) {
-        // TODO: the file name should be unique
-        return String.format("report-tag_%s.html", Util.toValidFileName(tagName.replace("@", "")).trim());
+        return String.format("report-tag_%s.html", Util.toValidFileName(tagName));
     }
 
     @Override

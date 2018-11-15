@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -65,14 +64,14 @@ public final class Util {
     }
 
     /**
-     * Converts characters of passed string by replacing to dash (-) each character that might not be accepted as file
-     * name such as / ? or &gt;.
+     * Converts characters of passed string and replaces to hash which can be treated as valid file name.
      *
      * @param fileName
      *            sequence that should be converted
      * @return converted string
      */
     public static String toValidFileName(String fileName) {
-        return StringEscapeUtils.escapeJava(fileName).replaceAll("[^\\d\\w]", "-");
+        // adds MAX_VALUE to eliminate minus character which might be returned by hashCode()
+        return Long.toString((long) fileName.hashCode() + Integer.MAX_VALUE);
     }
 }
