@@ -31,6 +31,15 @@ matrix:
       script:
         - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 
+    - jdk: openjdk10
+      script: mvn clean verify
+
+    - jdk: openjdk11
+      script: mvn clean verify
+
+    - jdk: oraclejdk11
+      script: mvn clean verify
+
 after_success:
   # push report to codecov server
   bash <(curl -s https://codecov.io/bash)
