@@ -13,7 +13,9 @@
 
 #includeLead("Failures Overview", "The following summary displays scenarios that failed.")
 
-#includeExpandingButtons()
+#if(!$failures.isEmpty())
+  #includeExpandingButtons()
+#end
 
 <div class="container-fluid" id="report">
   <div class="row">
@@ -33,7 +35,9 @@
   </div>
 </div>
 
-#includeExpandingButtons()
+#if(!$failures.isEmpty())
+  #includeExpandingButtons()
+#end
 <br>
 
 #include("/templates/footer.vm")
