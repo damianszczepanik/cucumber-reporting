@@ -2,6 +2,7 @@ package net.masterthought.cucumber;
 
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -55,14 +57,19 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("No report file was added!");
+            throw new ValidationException("None report file was added!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
         for (int i = 0; i < jsonFiles.size(); i++) {
             String jsonFile = jsonFiles.get(i);
+            // if file is empty (is not valid JSON report), check if should be skipped or not
+            if (new File(jsonFile).length() == 0
+                    && configuration.containsReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES)) {
+                continue;
+            }
             Feature[] features = parseForFeature(jsonFile);
-            LOG.log(Level.INFO, String.format("File '%1$s' contains %2$s features", jsonFile, features.length));
+            LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -85,7 +92,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.log(Level.INFO, String.format("File '%1$s' does not contain features", jsonFile));
+                LOG.log(Level.INFO, String.format("File '%s' does not contain features", jsonFile));
             }
             return features;
         } catch (JsonMappingException e) {

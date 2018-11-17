@@ -234,6 +234,15 @@ public class Configuration {
     }
 
     /**
+     * Checks if the configuration has given {@link ReducingMethod} set.
+     * @param reducingMethod method to validate
+     * @return <code>true</code> if method was set, otherwise <code>false</code>
+     */
+    public boolean containsReducingMethod(ReducingMethod reducingMethod) {
+        return reducingMethods.contains(reducingMethod);
+    }
+
+    /**
      * Adds properties files which house classifications in key value pairings. When these properties files get
      * processed these classifications get displayed on the main page of the report as metadata in the order in which
      * they appear within the file.
