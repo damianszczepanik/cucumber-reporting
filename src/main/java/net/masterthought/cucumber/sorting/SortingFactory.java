@@ -26,7 +26,7 @@ public final class SortingFactory {
     public List<Feature> sortFeatures(Collection<Feature> features) {
         switch (sortingMethod) {
             case NATURAL:
-                return new ArrayList(features);
+                return new ArrayList<>(features);
             case ALPHABETICAL:
                 return toSortedList(features, new FeaturesAlphabeticalComparator());
             default:
@@ -37,7 +37,7 @@ public final class SortingFactory {
     public List<TagObject> sortTags(Collection<TagObject> tags) {
         switch (sortingMethod) {
             case NATURAL:
-                return new ArrayList(tags);
+                return new ArrayList<>(tags);
             case ALPHABETICAL:
                 return toSortedList(tags, new TagObjectAlphabeticalComparator());
             default:
@@ -48,7 +48,7 @@ public final class SortingFactory {
     public List<StepObject> sortSteps(Collection<StepObject> steps) {
         switch (sortingMethod) {
             case NATURAL:
-                return new ArrayList(steps);
+                return new ArrayList<>(steps);
             case ALPHABETICAL:
                 return toSortedList(steps, new StepObjectAlphabeticalComparator());
             default:
