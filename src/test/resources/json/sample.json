@@ -379,6 +379,12 @@
                         "keyword": "And ",
                         "line": 8,
                         "match": {
+                            "arguments": [
+                                {
+                                    "val": "",
+                                    "offset": 17
+                                }
+                            ],
                             "location": "ATMScenario.createCreditCard()"
                         },
                         "after": [
