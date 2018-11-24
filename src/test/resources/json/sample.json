@@ -200,18 +200,22 @@
                             "duration": 11000001,
                             "status": "passed"
                         },
-                        "name": "the Account Holder requests 10, entering PIN 1234",
+                        "name": "the Account Holder  requests 10, entering PIN 1234",
                         "keyword": "When ",
                         "line": 26,
                         "match": {
                             "arguments": [
                                 {
+                                    "val": "",
+                                    "offset": 19
+                                },
+                                {
                                     "val": "10",
-                                    "offset": 28
+                                    "offset": 29
                                 },
                                 {
                                     "val": "1234",
-                                    "offset": 45
+                                    "offset": 46
                                 }
                             ],
                             "location": "ATMScenario.requestMoney(int)"
@@ -349,7 +353,8 @@
                                     "val": "100",
                                     "offset": 23
                                 },
-                                {}
+                                {
+                                }
                             ]
                         },
                         "matchedColumns": [

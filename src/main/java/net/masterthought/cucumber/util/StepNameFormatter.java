@@ -1,11 +1,13 @@
 package net.masterthought.cucumber.util;
 
-import net.masterthought.cucumber.json.support.Argument;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import net.masterthought.cucumber.json.support.Argument;
+
 public class StepNameFormatter {
+
     public static final StepNameFormatter INSTANCE = new StepNameFormatter();
 
     public static String format(String stepName, Argument[] arguments, String preArgument, String postArgument) {
@@ -31,7 +33,7 @@ public class StepNameFormatter {
 
     private static void surroundArguments(Argument[] arguments, String preArgument, String postArgument, String[] chars) {
         for (Argument argument : arguments) {
-            if (argument.getOffset() == null) {
+            if (argument.getOffset() == null || StringUtils.isEmpty(argument.getVal())) {
                 continue;
             }
 
