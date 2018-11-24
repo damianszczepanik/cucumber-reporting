@@ -92,6 +92,19 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
+    public void format_emptyArgumentAtEndOfString() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[1];
+
+        // when
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
+
+        // then
+        assertThat(formatted).isEqualTo("the card is valid");
+    }
+
+    @Test
     public void format_shouldEscape() {
 
         // given
