@@ -2,19 +2,21 @@ package net.masterthought.cucumber.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Step;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Step;
+
 public class StepNameFormatterTest extends PageTest {
+
     @Before
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void format_noArguments() {
+    public void format_OnNoArgument_ReturnsUnchangedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[1];
@@ -23,11 +25,11 @@ public class StepNameFormatterTest extends PageTest {
         String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
 
         // then
-        assertThat(formatted).isEqualTo("the card is valid");
+        assertThat(formatted).isEqualTo(step.getName());
     }
 
     @Test
-    public void format_endsWithArguments() {
+    public void format_OnLastPosition_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[0];
@@ -40,7 +42,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_argumentInTheMiddle() {
+    public void format_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[4];
@@ -53,7 +55,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_startsWithArgument() {
+    public void format_StartPosition_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[2];
@@ -66,7 +68,20 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_twoArguments() {
+    public void format_OnMultipleArguments_ReturnsFormattedValue() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[3];
+
+        // when
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
+
+        // then
+        assertThat(formatted).isEqualTo("the Account Holder requests <arg>10</arg>, entering PIN <arg>1234</arg>");
+    }
+
+    @Test
+    public void format_OnEmptyValue_ReturnsUnchangedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[3];
@@ -92,7 +107,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_emptyArgumentAtEndOfString() {
+    public void format_ReturnsEscapedValues() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[1];
