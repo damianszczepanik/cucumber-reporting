@@ -242,7 +242,21 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addPropertiesFiles_getPropertyFiles() {
+    public void containsReducingMethod_ChecksReducingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.addReducingMethod(ReducingMethod.MERGE_FEATURES_BY_ID);
+
+        // then
+        assertThat(configuration.containsReducingMethod(ReducingMethod.MERGE_FEATURES_BY_ID)).isTrue();
+
+    }
+
+    @Test
+    public void addClassificationFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);

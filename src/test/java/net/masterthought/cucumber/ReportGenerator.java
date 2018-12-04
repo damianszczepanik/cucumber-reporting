@@ -22,7 +22,7 @@ public abstract class ReportGenerator {
     protected static final String SAMPLE_JSON = "sample.json";
     public static final String SIMPLE_JSON = "simple.json";
     protected static final String EMPTY_JSON = "empty.json";
-    protected static final String INVALID_JSON = "invalid.json";
+    protected static final String EMPTY_FILE_JSON = "empty-file.json";
     protected static final String INVALID_REPORT_JSON = "invalid-report.json";
 
     protected static final String EMPTY_PROPERTIES = "empty.properties";
