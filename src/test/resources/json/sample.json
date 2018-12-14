@@ -233,6 +233,10 @@
                                 {
                                     "val": "10",
                                     "offset": 24
+                                },
+                                {
+                                    "val": "",
+                                    "offset": 0
                                 }
                             ],
                             "location": "ATMScenario.checkMoney(int)"
