@@ -1,10 +1,8 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.fail;
-import static org.hamcrest.core.StringContains.containsString;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.core.StringStartsWith.startsWith;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -20,9 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
@@ -34,9 +30,6 @@ public class ReportBuilderTest extends ReportGenerator {
 
     private File reportDirectory;
     private File trendsFileTmp;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() throws IOException {
@@ -321,9 +314,9 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         File noExistingTrendsFile = new File("anyNoExisting?File");
 
-        // when
-        thrown.expect(ValidationException.class);
-        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile);
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile))
+                .isInstanceOf(ValidationException.class);
     }
 
     @Test
@@ -376,10 +369,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
 
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(endsWith("could not be parsed as file with trends!"));
-        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", notTrendJsonFile);
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", notTrendJsonFile))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageEndingWith("could not be parsed as file with trends!");
     }
 
     @Test
@@ -388,10 +381,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         File directoryFile = new File(".");
 
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(containsString("java.io.FileNotFoundException"));
-        Deencapsulation.invoke(ReportBuilder.class, "loadTrends", directoryFile);
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", directoryFile))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageContaining("java.io.FileNotFoundException");
     }
 
     @Test
@@ -473,10 +466,10 @@ public class ReportBuilderTest extends ReportGenerator {
         Trends trends = new Trends();
         File directoryFile = new File(".");
 
-        // when
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(startsWith("Could not save updated trends "));
-        Deencapsulation.invoke(builder, "saveTrends", trends, directoryFile);
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(builder, "saveTrends", trends, directoryFile))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageStartingWith("Could not save updated trends ");
     }
 
     @Test

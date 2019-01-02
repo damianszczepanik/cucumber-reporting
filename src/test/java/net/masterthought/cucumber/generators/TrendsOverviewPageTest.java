@@ -9,9 +9,7 @@ import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
@@ -25,9 +23,6 @@ public class TrendsOverviewPageTest extends PageTest {
 
     private final String TRENDS_FILE = pathToSampleFile("cucumber-trends.json");
     private final String TRENDS_TMP_FILE = TRENDS_FILE + "-tmp";
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() throws IOException {

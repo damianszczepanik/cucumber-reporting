@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
@@ -21,8 +20,6 @@ import net.masterthought.cucumber.sorting.SortingMethod;
  */
 public class ConfigurationTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     private static final File outputDirectory = new File("abc");
 
     private final String projectName = "123";
@@ -190,9 +187,8 @@ public class ConfigurationTest {
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
-        // then
-        thrown.expect(ValidationException.class);
-        configuration.setTagsToExcludeFromChart("\\invalid.regex\\");
+        // then & then
+        assertThatThrownBy(() -> configuration.setTagsToExcludeFromChart("\\invalid.regex\\")).isInstanceOf(ValidationException.class);
     }
 
     @Test
