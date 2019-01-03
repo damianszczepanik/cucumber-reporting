@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.json.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
@@ -19,9 +18,6 @@ import net.masterthought.cucumber.json.Element;
  */
 public class TagObjectTest extends PageTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Before
     public void setUp() {
         setUpWithJson(SAMPLE_JSON);
@@ -30,11 +26,10 @@ public class TagObjectTest extends PageTest {
     @Test
     public void TagObject_OnNullTagName_ThrowsException() {
         // given
-        // nothing
+        String tagName = null;
 
-        // then
-        thrown.expect(ValidationException.class);
-        new TagObject(null);
+        // when & then
+        assertThatThrownBy(() -> new TagObject(tagName)).isInstanceOf(ValidationException.class);
     }
 
     @Test
@@ -86,9 +81,9 @@ public class TagObjectTest extends PageTest {
         // given
         TagObject tag = new TagObject("@checkout");
 
-        // then
-        thrown.expect(NotImplementedException.class);
-        tag.getFeatures();
+        // when & then
+        assertThatThrownBy(() -> tag.getFeatures()).
+                isInstanceOf(NotImplementedException.class);
     }
 
     @Test
@@ -97,9 +92,9 @@ public class TagObjectTest extends PageTest {
         // given
         TagObject tag = new TagObject("@checkout");
 
-        // then
-        thrown.expect(NotImplementedException.class);
-        tag.getPassedFeatures();
+        // when & then
+        assertThatThrownBy(() -> tag.getPassedFeatures())
+                .isInstanceOf(NotImplementedException.class);
     }
 
     @Test
@@ -108,9 +103,9 @@ public class TagObjectTest extends PageTest {
         // given
         TagObject tag = new TagObject("@checkout");
 
-        // then
-        thrown.expect(NotImplementedException.class);
-        tag.getFailedFeatures();
+        // when & then
+        assertThatThrownBy(() -> tag.getFailedFeatures())
+                .isInstanceOf(NotImplementedException.class);
     }
 
     @Test

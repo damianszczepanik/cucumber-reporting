@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import java.util.Properties;
@@ -9,9 +10,7 @@ import mockit.Deencapsulation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
@@ -26,9 +25,6 @@ import net.masterthought.cucumber.util.Util;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class AbstractPageTest extends PageTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -89,9 +85,9 @@ public class AbstractPageTest extends PageTest {
             }
         };
 
-        // when
-        thrown.expect(ValidationException.class);
-        Deencapsulation.invoke(page, "generatePage");
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(page, "generatePage"))
+                .isInstanceOf(ValidationException.class);
     }
 
     @Test
