@@ -9,12 +9,12 @@ package net.masterthought.cucumber.reducers;
 public enum ReducingMethod {
 
     /**
-     * Merge features with the same ID so scenarios are be merged into single feature.
+     * Merge features with different JSON files that have same ID so scenarios are be stored in single feature.
      */
     MERGE_FEATURES_BY_ID,
 
     /**
-     * Skip JSON reports which have been parsed but have none features or are empty file at all.
+     * Skip empty JSON reports. If this flag is not selected then report generation fails on empty file.
      */
     SKIP_EMPTY_JSON_FILES
 }
