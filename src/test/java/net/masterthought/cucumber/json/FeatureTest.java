@@ -72,7 +72,7 @@ public class FeatureTest extends PageTest {
         String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
 
         // then
-        assertThat(reportFileName).isEqualTo("report-feature_3_net-masterthought-example-ATMK-feature.html");
+        assertThat(reportFileName).isEqualTo("report-feature_3_1515379431.html");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("report-feature_1_net-masterthought-example-ATMK-feature.html");
+        assertThat(fileName).isEqualTo("report-feature_1_1515379431.html");
     }
 
     @Test
