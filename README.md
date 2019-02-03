@@ -70,25 +70,25 @@ Reportable result = reportBuilder.generateReports();
 ```
 There is a feature overview page:
 
-![feature overview page](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-overview.png)
+![feature overview page](./.README/feature-overview.png)
 
 And there are also feature specific results pages:
 
-![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-passed.png)
+![feature specific page passing](./.README/feature-passed.png)
 
 And useful information for failures:
 
-![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-failed.png)
+![feature specific page passing](./.README/feature-failed.png)
 
 If you have tags in your cucumber features you can see a tag overview:
 
-![Tag overview](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-overview.png)
+![Tag overview](./.README/tag-overview.png)
 
 And you can drill down into tag specific reports:
 
-![Tag report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
+![Tag report](./.README/tag-report.png)
 
-![Trends report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/trends.png)
+![Trends report](./.README/trends.png)
 
 
 ## Code quality
@@ -99,7 +99,7 @@ Once you developed your new feature or improvement you should test it by providi
 
 ## BrowserStack
 We use [BrowserStack](https://www.browserstack.com) to examine HTML report against different browsers and platforms.
-![BrowserStack](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/Browserstack-logo.png)
+![BrowserStack](./.README/Browserstack-logo.png)
 
 ## Contribution
 
