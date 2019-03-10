@@ -9,14 +9,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
-
-    private boolean runWithJenkins;
 
     private File reportDirectory;
 
@@ -30,6 +29,8 @@ public class Configuration {
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
     private List<ReducingMethod> reducingMethods = new ArrayList<>();
+
+    private List<PresentationMode> presentationModes = new ArrayList<>();
     private List<String> classificationFiles;
 
     public Configuration(File reportDirectory, String projectName) {
@@ -39,20 +40,25 @@ public class Configuration {
 
     /**
      * Validates if the configuration is prepared to be run on Jenkins.
-     *
+     * @see #addPresentationModes(PresentationMode)
      * @return <code>true</code> if running on Jenkins, <code>false</code> otherwise
      */
+    @Deprecated
     public boolean isRunWithJenkins() {
-        return runWithJenkins;
+        return containsPresentationMode(PresentationMode.RUN_WITH_JENKINS);
     }
 
     /**
-     * Desides if the configuration is prepared to be run on Jenkins.
-     *
+     * Decides if the configuration is prepared to be run on Jenkins.
+     * @see #addPresentationModes(PresentationMode)
      * @param runWithJenkins <code>true</code> if running on Jenkins, <code>false</code> otherwise
      */
+    @Deprecated
     public void setRunWithJenkins(boolean runWithJenkins) {
-        this.runWithJenkins = runWithJenkins;
+        if (runWithJenkins) {
+            addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+        }
+        // else - by default this is false
     }
 
     /**
@@ -216,7 +222,7 @@ public class Configuration {
     }
 
     /**
-     * Sets how the report should or reduced, merged or modified.
+     * Sets how the report should be reduced, merged or modified.
      *
      * @param reducingMethod type of reduction
      */
@@ -227,7 +233,7 @@ public class Configuration {
     /**
      * Gets how the report should be reduced, merged or modified.
      *
-     * @return type or reduction
+     * @return type of reduction
      */
     public List<ReducingMethod> getReducingMethods() {
         return reducingMethods;
@@ -240,6 +246,25 @@ public class Configuration {
      */
     public boolean containsReducingMethod(ReducingMethod reducingMethod) {
         return reducingMethods.contains(reducingMethod);
+    }
+
+    /**
+     * Sets how the report should be presented.
+     *
+     * @param presentationMode method used for presentation
+     */
+    public void addPresentationModes(PresentationMode presentationMode) {
+        this.presentationModes.add(presentationMode);
+    }
+
+    /**
+     * Checks if the configuration has given {@link PresentationMode} set.
+     *
+     * @param presentationMode method used for presentation
+     * @return <code>true</code> if mode was set, otherwise <code>false</code>
+     */
+    public boolean containsPresentationMode(PresentationMode presentationMode) {
+        return presentationModes.contains(presentationMode);
     }
 
     /**

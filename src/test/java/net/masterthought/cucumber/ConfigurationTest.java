@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 
@@ -26,6 +27,7 @@ public class ConfigurationTest {
 
 
     @Test
+    @Deprecated
     public void isRunWithJenkins_ReturnsRunWithJenkins() {
 
         // given
@@ -238,7 +240,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void containsReducingMethod_ChecksReducingMethod() {
+    public void containsReducingMethod_ChecksExistenceOfReducingMethod() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -249,6 +251,20 @@ public class ConfigurationTest {
         // then
         assertThat(configuration.containsReducingMethod(ReducingMethod.MERGE_FEATURES_BY_ID)).isTrue();
 
+    }
+
+    @Test
+    public void addPresentationMode_AddsPresentationMode() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        PresentationMode presentationMode = PresentationMode.EXPAND_ALL_STEPS;
+
+        // when
+        configuration.addPresentationModes(presentationMode);
+
+        // then
+        assertThat(configuration.containsPresentationMode(presentationMode)).isTrue();
     }
 
     @Test

@@ -6,7 +6,7 @@
     #includeBrief("Steps", $element.getStepsStatus(), "", true)
   </div>
 
-  <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed()) in #end">
+  <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed() || $expand_all_steps) in #end">
     #foreach($step in $element.getSteps())
       <div class="step">
         #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())

@@ -7,7 +7,7 @@
       #includeBrief("Hooks", $status, "", true)
     </div>
 
-    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
+    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed() || $expand_all_steps) in #end">
       #foreach($hook in $hooks)
         <div class="hook">
           <div class="brief $hook.getResult().getStatus().getRawName()">
