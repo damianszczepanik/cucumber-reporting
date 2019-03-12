@@ -38,9 +38,11 @@ public class Result implements Durationable {
     }
 
     public final String getErrorMessageTitle() {
-        String[] title = errorMessage.split("[\\p{Space}]+");
-        if (title.length > 0) {
-            return title[0];
+        if(errorMessage != null) {
+            String[] title = errorMessage.split("[\\p{Space}]+");
+            if (title.length > 0) {
+                return title[0];
+            }
         }
         return StringUtils.EMPTY;
     }
