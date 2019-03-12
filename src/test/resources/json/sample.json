@@ -633,6 +633,24 @@
                     }
                 ],
                 "type": "scenario"
+            },
+            {
+                "id": "passed-scenario-with-no-error-message-in-result",
+                "name": "this scenario is passed and does not have a error masse in the result",
+                "keyword": "Scenario",
+                "line": 37,
+                "steps": [
+                    {
+                        "result": {
+                            "duration": 560000,
+                            "status": "passed"
+                        },
+                        "name": "Stream closing",
+                        "keyword": "Given ",
+                        "line": 38
+                    }
+                ],
+                "type": "scenario"
             }
         ],
         "uri": "net/masterthought/example/ATMK.feature"

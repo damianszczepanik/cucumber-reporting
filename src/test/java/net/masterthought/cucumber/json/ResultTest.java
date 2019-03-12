@@ -94,7 +94,7 @@ public class ResultTest extends PageTest {
     public void getErrorMessageTitle_OnNullMessage_ReturnsEmptyTitle() {
 
         // given
-        Result result = features.get(0).getElements()[0].getSteps()[0].getResult();
+        Result result = features.get(1).getElements()[3].getSteps()[0].getResult();
 
         // when
         String messageTitle = result.getErrorMessageTitle();
