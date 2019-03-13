@@ -1,11 +1,10 @@
 language: java
 
-dist: precise
+dist: trusty
 
 cache:
   directories:
   - ~/.m2
-  - ~/.sonar/cache
 
 env:
   global:
@@ -43,7 +42,7 @@ deploy:
   local-dir: target/demo/
   verbose: true
   on:
-    branch: master
+    branch: damian
 
 addons:
   coverity_scan:
@@ -57,9 +56,3 @@ addons:
     # Pattern to match selecting branches that will run analysis.
     branch_pattern: master
 
-  sonarcloud:
-    organization: "net.masterthought:cucumber-reporting"
-    token:
-      secure: $SONAR_TOKEN
-script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
