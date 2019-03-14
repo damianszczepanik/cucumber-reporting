@@ -57,7 +57,9 @@ addons:
     # Pattern to match selecting branches that will run analysis.
     branch_pattern: master
 
-  sonarqube:
+  sonarcloud:
+    organization: "net.masterthought:cucumber-reporting"
     token:
       secure: $SONAR_TOKEN
-
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
