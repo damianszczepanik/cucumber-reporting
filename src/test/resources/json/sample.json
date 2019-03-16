@@ -515,6 +515,10 @@
                             {
                                 "mime_type": "js",
                                 "data": "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsNCiAgY29uc29sZS5sb2cobWVzc2FnZSk7DQp9"
+                            },
+                            {
+                                "mime_type": "text/plain",
+                                "data": "Not Base64 Encoded String"
                             }
                         ]
                     },
