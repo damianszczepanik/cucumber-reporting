@@ -209,7 +209,7 @@ public class FeatureTest extends PageTest {
         Feature feature = features.get(1);
 
         // then
-        assertThat(feature.getPassedScenarios()).isEqualTo(2);
+        assertThat(feature.getPassedScenarios()).isEqualTo(1);
         assertThat(feature.getFailedScenarios()).isEqualTo(2);
     }
 
@@ -265,6 +265,6 @@ public class FeatureTest extends PageTest {
         String formattedDuration = feature.getFormattedDuration();
 
         // then
-        assertThat(formattedDuration).isEqualTo("0.093");
+        assertThat(formattedDuration).isEqualTo("0.092");
     }
 }
