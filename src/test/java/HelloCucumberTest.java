@@ -12,7 +12,7 @@ import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class HelloCucumberTest {
 
-    // test adnotation only to make sure it is generated during "mvn test"
+    // test annotation only to make sure it is generated during "mvn test"
     @Test
     public void generateReport() throws IOException {
         File reportOutputDirectory = new File("target/demo");
