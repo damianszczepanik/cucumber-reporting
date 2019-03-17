@@ -23,12 +23,21 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
 
+    /*
+    Base64 Regex matches for the following:
+    ^([A-Za-z0-9+/]{4})* matches group of four chracters from [A-Z, a-z, 0-9, and + /]
+    If a base64 encoded String is not a multiple of four it is padded with '='.
+    (?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$ checks if the String ends with a group of four of the legal characters
+    or it ends with '=' or '=='
+     */
+    private static final String BASE64_MATCHER_REGEX = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
+
     @Override
     public Embedding deserialize(JsonNode rootNode, Configuration configuration) {
         String data = rootNode.get("data").asText();
         String mimeType = findMimeType(rootNode);
 
-        Pattern base64Pattern = Pattern.compile("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$");
+        Pattern base64Pattern = Pattern.compile(BASE64_MATCHER_REGEX);
         Embedding embedding;
         if (base64Pattern.matcher(data).matches()) {
             embedding = new Embedding(mimeType, data);
