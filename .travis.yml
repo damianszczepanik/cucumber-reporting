@@ -28,6 +28,10 @@ matrix:
       script: mvn clean verify
 
     - jdk: oraclejdk8
+      env:
+        - DESC="tests"
+      env:
+        - DESC="static analysis"
       script:
         - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 
@@ -62,8 +66,7 @@ addons:
     branch_pattern: master
 
   sonarcloud:
-    organization: "net.masterthought:cucumber-reporting"
     token:
       secure: $SONAR_TOKEN
-script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  branches:
+    - master
