@@ -4,8 +4,8 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![Sonarqube coverage](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=coverage)](https://sonarcloud.io/dashboard/index/net.masterthought:cucumber-reporting)
-[![Sonarqube tech debt](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard/index/net.masterthought:cucumber-reporting)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=security_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
 [![Coverity](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
 [![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)
