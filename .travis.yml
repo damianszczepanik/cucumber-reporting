@@ -35,6 +35,10 @@ after_success:
   # push report to codecov server
   bash <(curl -s https://codecov.io/bash)
 
+before_deploy:
+  - cat /dev/null > .gitignore
+  - touch .gitignore
+
 deploy:
   provider: pages
   skip-cleanup: true
