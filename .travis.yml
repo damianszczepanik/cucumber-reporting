@@ -25,11 +25,11 @@ addons:
 matrix:
   include:
     - jdk: oraclejdk8
+      env:
+        - DESC="tests"
       script: mvn clean verify
 
     - jdk: oraclejdk8
-      env:
-        - DESC="tests"
       env:
         - DESC="static analysis"
       script:

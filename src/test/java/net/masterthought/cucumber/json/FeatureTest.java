@@ -69,7 +69,7 @@ public class FeatureTest extends PageTest {
         final int jsonFileNo = 3;
 
         // when
-        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo, configuration);
+        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo);
 
         // then
         assertThat(reportFileName).isEqualTo("report-feature_3_1515379431.html");
