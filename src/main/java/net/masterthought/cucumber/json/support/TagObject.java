@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json.support;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
@@ -151,6 +152,6 @@ public class TagObject implements Reportable {
     }
 
     public String getRawStatus() {
-        return status.name().toLowerCase();
+        return status.name().toLowerCase(Locale.US);
     }
 }

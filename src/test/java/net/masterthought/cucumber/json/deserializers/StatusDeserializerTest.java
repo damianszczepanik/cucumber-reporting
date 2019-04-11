@@ -13,6 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.masterthought.cucumber.json.support.Status;
 
+import java.util.Locale;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -26,7 +28,7 @@ public class StatusDeserializerTest {
         // given
         Status status = Status.PASSED;
         JsonNode node = mock(JsonNode.class);
-        when(node.asText()).thenReturn(status.name().toLowerCase());
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
 
         StatusDeserializer deserializer = new StatusDeserializer();
 
