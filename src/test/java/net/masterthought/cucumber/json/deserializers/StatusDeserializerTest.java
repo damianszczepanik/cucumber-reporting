@@ -40,6 +40,24 @@ public class StatusDeserializerTest {
     }
 
     @Test
+    public void deserialize_OnFailedStatus_ReturnsStatus() {
+
+        // given
+        Status status = Status.FAILED;
+        JsonNode node = mock(JsonNode.class);
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
+
+        StatusDeserializer deserializer = new StatusDeserializer();
+
+        // when
+        Status newStatus = deserializer.deserialize(node, null);
+
+        // then
+        assertThat(newStatus).isEqualTo(status);
+    }
+
+
+    @Test
     public void deserialize_OnAdditionalStatus_ReturnsUndefinedStatus() {
 
         // given
