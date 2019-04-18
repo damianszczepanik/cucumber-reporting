@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json.deserializers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -21,6 +22,7 @@ public class StatusDeserializer extends CucumberJsonDeserializer<Status> {
     @Override
     public Status deserialize(JsonNode rootNode, Configuration configuration) {
 
+        Locale.setDefault(Locale.US);
         String status = rootNode.asText();
         if (UNKNOWN_STATUSES.contains(status)) {
             return Status.UNDEFINED;
