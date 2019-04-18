@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import net.masterthought.cucumber.json.deserializers.StatusDeserializer;
 
-import java.util.Locale;
-
 /**
  * Defines all possible statuses provided by cucumber library.
  * 
