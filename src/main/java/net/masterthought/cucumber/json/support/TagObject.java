@@ -152,6 +152,6 @@ public class TagObject implements Reportable {
     }
 
     public String getRawStatus() {
-        return status.name().toLowerCase(Locale.US);
+        return status.name().toLowerCase();
     }
 }

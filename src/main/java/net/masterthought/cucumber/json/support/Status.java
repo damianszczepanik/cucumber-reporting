@@ -25,7 +25,7 @@ public enum Status {
      * @return status name as lowercase
      */
     public String getRawName() {
-        return name().toLowerCase(Locale.US);
+        return name().toLowerCase();
     }
 
     /**
@@ -34,7 +34,7 @@ public enum Status {
      * @return status formatted with first letter to uppercase
      */
     public String getLabel() {
-        return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase(Locale.US);
+        return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
     }
 
     /**

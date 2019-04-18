@@ -22,11 +22,12 @@ public class StatusDeserializer extends CucumberJsonDeserializer<Status> {
     @Override
     public Status deserialize(JsonNode rootNode, Configuration configuration) {
 
+        Locale.setDefault(Locale.US);
         String status = rootNode.asText();
         if (UNKNOWN_STATUSES.contains(status)) {
             return Status.UNDEFINED;
         } else {
-            return Status.valueOf(status.toUpperCase(Locale.US));
+            return Status.valueOf(status.toUpperCase());
         }
     }
 }
