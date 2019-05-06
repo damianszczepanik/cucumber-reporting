@@ -1,10 +1,11 @@
 package net.masterthought.cucumber.json;
 
+import java.nio.charset.StandardCharsets;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 import org.codehaus.plexus.util.Base64;
 
-import java.nio.charset.StandardCharsets;
+import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -53,26 +54,27 @@ public class Embedding {
 
     public String getExtension() {
         switch (mimeType) {
-        case "image/png":
-        case "image/gif":
-        case "image/bmp":
-        case "image/jpeg":
-        case "text/html":
-        case "text/xml":
-        case "application/json":
-        case "application/xml":
-            return mimeType.substring(mimeType.indexOf('/') + 1);
-        // image available remotely stored as link/url
-        case "image/url":
-            return "image";
-        case "image/svg+xml":
-            return "svg";
-        case "text/plain":
-            return "txt";
-        case "application/pdf":
-            return "pdf";
-        default:
-            return "unknown";
+            case "image/png":
+            case "image/gif":
+            case "image/bmp":
+            case "image/jpeg":
+            case "text/html":
+            case "text/xml":
+            case "text/csv":
+            case "application/json":
+            case "application/xml":
+                return mimeType.substring(mimeType.indexOf('/') + 1);
+            // image available remotely stored as link/url
+            case "image/url":
+                return "image";
+            case "image/svg+xml":
+                return "svg";
+            case "text/plain":
+                return "txt";
+            case "application/pdf":
+                return "pdf";
+            default:
+                return "unknown";
         }
     }
 }
