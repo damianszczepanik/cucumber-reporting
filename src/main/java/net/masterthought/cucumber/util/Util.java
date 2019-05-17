@@ -27,6 +27,8 @@ public final class Util {
     public static final Util INSTANCE = new Util();
 
     private static final PeriodFormatter TIME_FORMATTER = new PeriodFormatterBuilder()
+            .appendDays()
+            .appendSeparator(" ")
             .appendHours()
             .appendSeparator(":")
             .appendMinutes()
