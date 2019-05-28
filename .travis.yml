@@ -29,7 +29,8 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="tests"
-      script: mvn clean verify
+      script:
+        - mvn clean verify
 
     - jdk: oraclejdk8
       env:
@@ -47,6 +48,8 @@ before_deploy:
 
 deploy:
   provider: pages
+  repo: damianszczepanik/damianszczepanik.github.io
+  target_branch: master
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true

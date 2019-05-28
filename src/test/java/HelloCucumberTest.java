@@ -13,8 +13,9 @@ import net.masterthought.cucumber.sorting.SortingMethod;
 public class HelloCucumberTest {
 
     // test annotation only to make sure it is generated during "mvn test"
+    // what is needed to publish generated report via github.com
     @Test
-    public void generateReport() throws IOException {
+    public void generateDemoReport() throws IOException {
         File reportOutputDirectory = new File("target/demo");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("src/test/resources/json/sample.json");
@@ -28,6 +29,7 @@ public class HelloCucumberTest {
         configuration.addClassifications("Branch", "release/1.0");
         configuration.setSortingMethod(SortingMethod.NATURAL);
         configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
+        configuration.setTrendsStatsFile(new File("target/test-classes/demo-trends.json"));
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         reportBuilder.generateReports();
