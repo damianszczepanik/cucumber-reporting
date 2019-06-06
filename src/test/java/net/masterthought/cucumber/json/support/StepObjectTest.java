@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.json.support;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ValidationException;
 
@@ -13,9 +12,6 @@ import net.masterthought.cucumber.ValidationException;
  * @author Sam Park (midopa@github)
  */
 public class StepObjectTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private StepObject stepObject;
 
@@ -31,11 +27,11 @@ public class StepObjectTest {
     public void StepObject_OnNullLocation_ThrowsException() {
 
         // given
-        // nothing
+        String location = null;
 
-        // then
-        thrown.expect(ValidationException.class);
-        new StepObject(null);
+        // when & then
+        assertThatThrownBy(() -> new StepObject(location))
+                .isInstanceOf(ValidationException.class);
     }
 
     @Test

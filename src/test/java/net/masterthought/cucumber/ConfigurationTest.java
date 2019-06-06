@@ -1,6 +1,7 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,38 +10,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import net.masterthought.cucumber.presentation.PresentationMode;
+import net.masterthought.cucumber.reducers.ReducingMethod;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ConfigurationTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     private static final File outputDirectory = new File("abc");
 
     private final String projectName = "123";
 
 
     @Test
-    public void isParallelTesting_ReturnsParallelTesting() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        boolean parallelTesting = true;
-        configuration.setParallelTesting(parallelTesting);
-
-        // when
-        boolean parallel = configuration.isParallelTesting();
-
-        // then
-        assertThat(parallel).isEqualTo(parallelTesting);
-    }
-
-    @Test
+    @Deprecated
     public void isRunWithJenkins_ReturnsRunWithJenkins() {
 
         // given
@@ -111,6 +98,35 @@ public class ConfigurationTest {
     }
 
     @Test
+    public void isTrendsAvailable_OnNoTrendsPage_ReturnsFalse() {
+
+        // given
+        final int limit = -1;
+        File file = new File("ble");
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrends(file, limit);
+
+        // then
+        assertThat(configuration.isTrendsAvailable()).isFalse();
+    }
+
+    @Test
+    public void isTrendsAvailable_OnNoTrendsFile_ReturnsFalse() {
+
+        // given
+        final int limit = 10;
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setTrends(null, limit);
+
+        // then
+        assertThat(configuration.isTrendsAvailable()).isFalse();
+    }
+
+    @Test
     public void getBuildNumber_ReturnsBuildNumber() {
 
         // given
@@ -173,9 +189,8 @@ public class ConfigurationTest {
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
-        // then
-        thrown.expect(ValidationException.class);
-        configuration.setTagsToExcludeFromChart("\\invalid.regex\\");
+        // then & then
+        assertThatThrownBy(() -> configuration.setTagsToExcludeFromChart("\\invalid.regex\\")).isInstanceOf(ValidationException.class);
     }
 
     @Test
@@ -197,7 +212,63 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addPropertiesFiles_getPropertyFiles() {
+    public void setSortingMethod_SetsSortingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        SortingMethod sortingMethod = SortingMethod.NATURAL;
+
+        // then
+        configuration.setSortingMethod(sortingMethod);
+
+        // then
+        assertThat(configuration.getSortingMethod()).isEqualTo(sortingMethod);
+    }
+
+    @Test
+    public void addReducingMethod_AddsReducingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        ReducingMethod reducingMethod = ReducingMethod.MERGE_FEATURES_BY_ID;
+
+        // when
+        configuration.addReducingMethod(reducingMethod);
+
+        // then
+        assertThat(configuration.getReducingMethods()).containsOnly(reducingMethod);
+    }
+
+    @Test
+    public void containsReducingMethod_ChecksExistenceOfReducingMethod() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.addReducingMethod(ReducingMethod.MERGE_FEATURES_BY_ID);
+
+        // then
+        assertThat(configuration.containsReducingMethod(ReducingMethod.MERGE_FEATURES_BY_ID)).isTrue();
+
+    }
+
+    @Test
+    public void addPresentationMode_AddsPresentationMode() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        PresentationMode presentationMode = PresentationMode.EXPAND_ALL_STEPS;
+
+        // when
+        configuration.addPresentationModes(presentationMode);
+
+        // then
+        assertThat(configuration.containsPresentationMode(presentationMode)).isTrue();
+    }
+
+    @Test
+    public void addClassificationFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);

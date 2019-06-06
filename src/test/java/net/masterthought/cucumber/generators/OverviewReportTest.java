@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.apache.commons.lang.NotImplementedException;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.json.support.Status;
 
@@ -13,9 +12,6 @@ import net.masterthought.cucumber.json.support.Status;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class OverviewReportTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void incFeaturesFor_AddsFeatures() {
@@ -184,25 +180,14 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getDeviceName_ThrowsException() {
-
-        // given
-        OverviewReport report = buildSampleReport();
-
-        // then
-        thrown.expect(NotImplementedException.class);
-        report.getDeviceName();
-    }
-
-    @Test
     public void getName_ThrowsException() {
 
         // given
         OverviewReport report = buildSampleReport();
 
-        // then
-        thrown.expect(NotImplementedException.class);
-        report.getName();
+        // when & then
+        assertThatThrownBy(() -> report.getName()).
+                isInstanceOf(NotImplementedException.class);
     }
 
     @Test
@@ -211,9 +196,9 @@ public class OverviewReportTest {
         // given
         OverviewReport report = buildSampleReport();
 
-        // then
-        thrown.expect(NotImplementedException.class);
-        report.getStatus();
+        // when & then
+        assertThatThrownBy(() -> report.getStatus())
+                .isInstanceOf(NotImplementedException.class);
     }
 
     private static OverviewReport buildSampleReport() {

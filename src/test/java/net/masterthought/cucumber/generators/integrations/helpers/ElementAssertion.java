@@ -22,11 +22,11 @@ public class ElementAssertion extends ReportAssertion {
     }
 
     public HooksAssertion getBefore() {
-        return oneByClass("hooks-before", HooksAssertion.class);
+        return oneByClass("hooks-element-before", HooksAssertion.class);
     }
 
     public HooksAssertion getAfter() {
-        return oneByClass("hooks-after", HooksAssertion.class);
+        return oneByClass("hooks-element-after", HooksAssertion.class);
     }
 
     public StepsAssertion getStepsSection() {

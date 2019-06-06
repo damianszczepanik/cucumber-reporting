@@ -1,28 +1,23 @@
 package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.data.MapEntry.entry;
-import static org.hamcrest.core.StringContains.containsString;
-import static org.hamcrest.core.StringEndsWith.endsWith;
 
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
 import org.assertj.core.data.Index;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ReportParserTest extends ReportGenerator {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void parseJsonResults_ReturnsFeatureFiles() {
@@ -45,10 +40,10 @@ public class ReportParserTest extends ReportGenerator {
         initWithJson(EMPTY_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
-        // when
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage("Passed files have no features!");
-        reportParser.parseJsonFiles(jsonReports);
+        // when & then
+        assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("Passed files have no features!");
     }
 
     @Test
@@ -58,10 +53,10 @@ public class ReportParserTest extends ReportGenerator {
         initWithJson();
         ReportParser reportParser = new ReportParser(configuration);
 
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage("No report file was added!");
-        reportParser.parseJsonFiles(jsonReports);
+        // when & then
+        assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
+                .isInstanceOf(ValidationException.class)
+                .hasMessage("None report file was added!");
     }
 
     @Test
@@ -71,10 +66,10 @@ public class ReportParserTest extends ReportGenerator {
         initWithJson(INVALID_REPORT_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
-        // when
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(endsWith("is not proper Cucumber report!"));
-        reportParser.parseJsonFiles(jsonReports);
+        // when & then
+        assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageEndingWith("is not proper Cucumber report!");
     }
 
     @Test
@@ -86,11 +81,25 @@ public class ReportParserTest extends ReportGenerator {
         jsonReports.add(invalidFile);
         ReportParser reportParser = new ReportParser(configuration);
 
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(containsString(invalidFile));
+        // when & then
+        assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageContaining(invalidFile);
+    }
 
-        reportParser.parseJsonFiles(jsonReports);
+    @Test
+    public void parseJsonResults_OnEmptyFile_SkipsJSONReport() {
+
+        // given
+        initWithJson(EMPTY_FILE_JSON, SAMPLE_JSON);
+        configuration.addReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(2);
     }
 
     @Test
@@ -228,11 +237,11 @@ public class ReportParserTest extends ReportGenerator {
         classificationFiles.add(invalidFile);
         ReportParser reportParser = new ReportParser(configuration);
 
-        // then
-        thrown.expect(ValidationException.class);
-        thrown.expectMessage(containsString(invalidFile));
-        thrown.expectMessage(endsWith("doesn't exist or the properties file is invalid!"));
-        reportParser.parseClassificationsFiles(classificationFiles);
+        // when & then
+        assertThatThrownBy(() -> reportParser.parseClassificationsFiles(classificationFiles))
+                .isInstanceOf(ValidationException.class)
+                .hasMessageContaining(invalidFile)
+                .hasMessageEndingWith("doesn't exist or the properties file is invalid!");
     }
 
 }

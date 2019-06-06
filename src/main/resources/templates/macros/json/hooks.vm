@@ -1,13 +1,13 @@
-#macro(includeHooks $keyword, $hooks, $status)
+#macro(includeHooks $keyword, $hooks, $status, $level)
 
 #if(!$hooks.isEmpty())
-  <div class="inner-level hooks-$keyword.toLowerCase()">
+  <div class="inner-level hooks-${level}-$keyword.toLowerCase()">
     #set($hookId = $counter.next())
     <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hookId">
       #includeBrief("Hooks", $status, "", true)
     </div>
 
-    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed()) in #end">
+    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed() || $expand_all_steps) in #end">
       #foreach($hook in $hooks)
         <div class="hook">
           <div class="brief $hook.getResult().getStatus().getRawName()">

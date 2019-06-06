@@ -1,5 +1,8 @@
 package net.masterthought.cucumber;
 
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,16 +14,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+
 import net.masterthought.cucumber.json.Feature;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -52,15 +57,19 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("No report file was added!");
+            throw new ValidationException("None report file was added!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
         for (int i = 0; i < jsonFiles.size(); i++) {
             String jsonFile = jsonFiles.get(i);
+            // if file is empty (is not valid JSON report), check if should be skipped or not
+            if (new File(jsonFile).length() == 0
+                    && configuration.containsReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES)) {
+                continue;
+            }
             Feature[] features = parseForFeature(jsonFile);
-            LOG.log(Level.INFO, String.format("File '%1$s' contains %2$s features", jsonFile, features.length));
-            setMetadata(features, jsonFile, i);
+            LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -83,7 +92,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.log(Level.INFO, String.format("File '%1$s' does not contain features", jsonFile));
+                LOG.log(Level.INFO, "File '{}' does not contain features", jsonFile);
             }
             return features;
         } catch (JsonMappingException e) {
@@ -91,13 +100,6 @@ public class ReportParser {
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
-        }
-    }
-
-    /** Sets additional information and calculates values which should be calculated during object creation. */
-    private void setMetadata(Feature[] features, String jsonFile, int jsonFileNo) {
-        for (Feature feature : features) {
-            feature.setMetaData(jsonFile, jsonFileNo, configuration);
         }
     }
 

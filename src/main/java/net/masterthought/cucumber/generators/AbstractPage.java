@@ -22,7 +22,9 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.util.Counter;
+import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
 
 /**
@@ -98,9 +100,12 @@ public abstract class AbstractPage {
         // to provide unique ids for elements on each page
         context.put("counter", new Counter());
         context.put("util", Util.INSTANCE);
+        context.put("stepNameFormatter", StepNameFormatter.INSTANCE);
 
-        context.put("run_with_jenkins", configuration.isRunWithJenkins());
-        context.put("trends_present", configuration.getTrendsStatsFile() != null);
+        context.put("run_with_jenkins", configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS));
+        context.put("expand_all_steps", configuration.containsPresentationMode(PresentationMode.EXPAND_ALL_STEPS));
+
+        context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
 
@@ -114,7 +119,7 @@ public abstract class AbstractPage {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.log(Level.INFO, String.format("Could not parse build number: %1$s.", configuration.getBuildNumber()));
+                LOG.log(Level.INFO, "Could not parse build number: {}.", configuration.getBuildNumber());
             }
         }
     }

@@ -2,42 +2,61 @@ package net.masterthought.cucumber.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-@RunWith(Parameterized.class)
 public class UtilTest {
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {"simpleFile", "simpleFile"},
-                {"file-dash", "file-dash"},
-                {"東京", "-u6771-u4EAC"},
-                {"żółć", "-u017C-u00F3-u0142-u0107"}
-        });
+    @Test
+    public void formatAsPercentage_ReturnsFormatedValue() {
+
+        // given
+        final int[][] values = {{1, 3}, {2, 2}, {1, 5}, {0, 5}};
+        String[] formatted = {"33.33%", "100.00%", "20.00%", "0.00%"};
+
+        // then
+        for (int i = 0; i < values.length; i++) {
+            assertThat(Util.formatAsPercentage(values[i][0], values[i][1])).isEqualTo(formatted[i]);
+        }
     }
 
-    @Parameterized.Parameter(value = 0)
-    public String value;
+    @Test
+    public void formatAsPercentage_OnZeroTotal_ReturnsFormattedValue() {
 
-    @Parameterized.Parameter(value = 1)
-    public String fileName;
+        // given
+        final int[] values = {1, 2, 0};
+
+        // when & then
+        for (int i = 0; i < values.length; i++) {
+            assertThat(Util.formatAsPercentage(values[i], 0)).isEqualTo("0.00%");
+        }
+    }
+
+    @Test
+    public void formatAsDecimal_ReturnsFormattedValue() {
+
+        // given
+        final int[][] values = {{1, 3}, {2, 2}, {1, 5}, {0, 5}, {0, 0}};
+        String[] formatted = {"33.33", "100.00", "20.00", "0.00", "0.00"};
+
+        // when & then
+        for (int i = 0; i < values.length; i++) {
+            assertThat(Util.formatAsDecimal(values[i][0], values[i][1])).isEqualTo(formatted[i]);
+        }
+    }
 
     @Test
     public void toValidFileName_RemovesInvalidChars() {
 
-        // when
-        String convertedFileName = Util.toValidFileName(value);
+        // given
+        final String[] ids = {"simpleFile", "file-dash", "東京", "żółć"};
+        final String[] hashes = {"715485773", "784542018", "2148324698", "2159047995"};
 
-        // then
-        assertThat(convertedFileName).isEqualTo(fileName);
+        // when & then
+        for (int i = 0; i < ids.length; i++) {
+            assertThat(Util.toValidFileName(ids[i])).isEqualTo(hashes[i]);
+        }
     }
 }

@@ -20,19 +20,6 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getDeviceName_ReturnsDeviceName() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        String deviceName = feature.getDeviceName();
-
-        // when
-        assertThat(deviceName).isEqualTo("sample");
-    }
-
-    @Test
     public void getId_ReturnsID() {
 
         // given
@@ -43,6 +30,21 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(id).isEqualTo("account-holder-withdraws-more-cash");
+    }
+
+    @Test
+    public void addElements_AddsScenarios() {
+
+        // given
+        Feature feature = features.get(0);
+        int scenarioCount = feature.getElements().length;
+        Element[] scenarioToAdd = new Element[]{features.get(0).getElements()[0]};
+
+        // when
+        feature.addElements(scenarioToAdd);
+
+        // then
+        assertThat(feature.getElements()).hasSize(scenarioCount + scenarioToAdd.length);
     }
 
     @Test
@@ -60,6 +62,20 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void calculateReportFileName_ReturnsFileName() {
+
+        // given
+        Feature feature = features.get(1);
+        final int jsonFileNo = 3;
+
+        // when
+        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo);
+
+        // then
+        assertThat(reportFileName).isEqualTo("report-feature_3_1515379431.html");
+    }
+
+    @Test
     public void getReportFileName_ReturnsFileName() {
 
         // given
@@ -69,22 +85,7 @@ public class FeatureTest extends PageTest {
         String fileName = feature.getReportFileName();
 
         // then
-        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature.html");
-    }
-
-    @Test
-    public void getReportFileName_OnParallelTesting_ReturnsFileNameWithNumberPostfix() {
-
-        // given
-        configuration.setParallelTesting(true);
-        setUpWithJson(SAMPLE_JSON);
-        Feature feature = features.get(2);
-
-        // when
-        String fileName = feature.getReportFileName();
-
-        // then
-        assertThat(fileName).isEqualTo("report-feature_net-masterthought-example-ATMK-feature_sample.html");
+        assertThat(fileName).isEqualTo("report-feature_1_1515379431.html");
     }
 
     @Test
@@ -267,48 +268,5 @@ public class FeatureTest extends PageTest {
 
         // then
         assertThat(formattedDuration).isEqualTo("0.092");
-    }
-
-    @Test
-    public void getJsonFile_ReturnsFileName() {
-
-        // given
-        Feature feature = features.get(0);
-
-        // when
-        String fileName = feature.getJsonFile();
-
-        // then
-        assertThat(fileName).endsWith(SAMPLE_JSON);
-    }
-
-    @Test
-    public void calculateDeviceName_ReturnsDeviceName() {
-
-        // given
-        Feature feature = new Feature();
-        final String jsonFileName = "json_filename_without_extension";
-        Deencapsulation.setField(feature, "jsonFile", jsonFileName + ".json");
-
-        // when
-        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
-
-        // then
-        assertThat(deviceName).isEqualTo(jsonFileName);
-    }
-
-    @Test
-    public void calculateDeviceName_OnFileWithoutExtension_ReturnsDeviceName() {
-
-        // given
-        Feature feature = new Feature();
-        final String jsonFileName = "json_filename_without_extension";
-        Deencapsulation.setField(feature, "jsonFile", jsonFileName);
-
-        // when
-        String deviceName = Deencapsulation.invoke(feature, "calculateDeviceName");
-
-        // then
-        assertThat(deviceName).isEqualTo(jsonFileName);
     }
 }

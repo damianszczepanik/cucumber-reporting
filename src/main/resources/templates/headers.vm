@@ -24,4 +24,5 @@
 #parse("/templates/macros/json/output.vm")
 #parse("/templates/macros/json/message.vm")
 #parse("/templates/macros/json/steps.vm")
+#parse("/templates/macros/json/stepName.vm")
 #parse("/templates/macros/json/tags.vm")

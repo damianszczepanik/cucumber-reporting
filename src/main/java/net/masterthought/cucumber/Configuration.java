@@ -9,14 +9,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.presentation.PresentationMode;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
-
-    private boolean parallelTesting;
-    private boolean runWithJenkins;
 
     private File reportDirectory;
 
@@ -29,33 +28,53 @@ public class Configuration {
 
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
+    private List<ReducingMethod> reducingMethods = new ArrayList<>();
+
+    private List<PresentationMode> presentationModes = new ArrayList<>();
     private List<String> classificationFiles;
 
-    public Configuration(File reportOutputDirectory, String projectName) {
-        this.reportDirectory = reportOutputDirectory;
+    public Configuration(File reportDirectory, String projectName) {
+        this.reportDirectory = reportDirectory;
         this.projectName = projectName;
     }
 
-    public boolean isParallelTesting() {
-        return parallelTesting;
-    }
-
-    public void setParallelTesting(boolean parallelTesting) {
-        this.parallelTesting = parallelTesting;
-    }
-
+    /**
+     * Validates if the configuration is prepared to be run on Jenkins.
+     * @see #addPresentationModes(PresentationMode)
+     * @return <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     */
+    @Deprecated
     public boolean isRunWithJenkins() {
-        return runWithJenkins;
+        return containsPresentationMode(PresentationMode.RUN_WITH_JENKINS);
     }
 
+    /**
+     * Decides if the configuration is prepared to be run on Jenkins.
+     * @see #addPresentationModes(PresentationMode)
+     * @param runWithJenkins <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     */
+    @Deprecated
     public void setRunWithJenkins(boolean runWithJenkins) {
-        this.runWithJenkins = runWithJenkins;
+        if (runWithJenkins) {
+            addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+        }
+        // else - by default this is false
     }
 
+    /**
+     * Returns directory where the report should be stored.
+     *
+     * @return directory for the report
+     */
     public File getReportDirectory() {
         return reportDirectory;
     }
 
+    /**
+     * Returns file with history with trends.
+     *
+     * @return file with trends
+     */
     public File getTrendsStatsFile() {
         return trendsFile;
     }
@@ -77,21 +96,41 @@ public class Configuration {
         setTrends(trendsFile, 0);
     }
 
+    /**
+     * Returns number of historical reports presented by trends.
+     *
+     * @return number of reports in trends
+     */
     public int getTrendsLimit() {
         return trendsLimit;
     }
 
     /**
-     * Sets configuration for trends. When the limit is set to 0 then all items will be displayed.
-     *
-     * @param trendsFile  file where information about previous builds is stored
-     * @param trendsLimit number of builds that should be presented (older builds are skipped)
+     * Checks if the trends page should be generated and displayed.
+     * @return <code>true</code> if the page with trends should be displayed
      */
-    public void setTrends(File trendsFile, int trendsLimit) {
-        this.trendsFile = trendsFile;
-        this.trendsLimit = trendsLimit;
+    public boolean isTrendsAvailable() {
+        return getTrendsLimit() > -1  && isTrendsStatsFile();
     }
 
+    /**
+     * Sets configuration for trends.
+     * When the limit is set to 0 then all items will be stored and displayed.
+     * To disable saving and displaying trends page set to 0.
+     *
+     * @param trendsFile  file where information about previous builds is stored
+     * @param limit number of builds that should be presented (older builds are skipped)
+     */
+    public void setTrends(File trendsFile, int limit) {
+        this.trendsFile = trendsFile;
+        this.trendsLimit = limit;
+    }
+
+    /**
+     * Gets the build number for this report.
+     *
+     * @return build number
+     */
     public String getBuildNumber() {
         return buildNumber;
     }
@@ -106,10 +145,20 @@ public class Configuration {
         this.buildNumber = buildNumber;
     }
 
+    /**
+     * Returns the project name.
+     *
+     * @return name of the project
+     */
     public String getProjectName() {
         return projectName;
     }
 
+    /**
+     * Gets directory where the attachments are stored.
+     *
+     * @return directory for attachment
+     */
     public File getEmbeddingDirectory() {
         return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
@@ -170,6 +219,52 @@ public class Configuration {
      */
     public SortingMethod getSortingMethod() {
         return this.sortingMethod;
+    }
+
+    /**
+     * Sets how the report should be reduced, merged or modified.
+     *
+     * @param reducingMethod type of reduction
+     */
+    public void addReducingMethod(ReducingMethod reducingMethod) {
+        this.reducingMethods.add(reducingMethod);
+    }
+
+    /**
+     * Gets how the report should be reduced, merged or modified.
+     *
+     * @return type of reduction
+     */
+    public List<ReducingMethod> getReducingMethods() {
+        return reducingMethods;
+    }
+
+    /**
+     * Checks if the configuration has given {@link ReducingMethod} set.
+     * @param reducingMethod method to validate
+     * @return <code>true</code> if method was set, otherwise <code>false</code>
+     */
+    public boolean containsReducingMethod(ReducingMethod reducingMethod) {
+        return reducingMethods.contains(reducingMethod);
+    }
+
+    /**
+     * Sets how the report should be presented.
+     *
+     * @param presentationMode method used for presentation
+     */
+    public void addPresentationModes(PresentationMode presentationMode) {
+        this.presentationModes.add(presentationMode);
+    }
+
+    /**
+     * Checks if the configuration has given {@link PresentationMode} set.
+     *
+     * @param presentationMode method used for presentation
+     * @return <code>true</code> if mode was set, otherwise <code>false</code>
+     */
+    public boolean containsPresentationMode(PresentationMode presentationMode) {
+        return presentationModes.contains(presentationMode);
     }
 
     /**

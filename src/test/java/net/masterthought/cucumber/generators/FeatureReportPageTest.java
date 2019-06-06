@@ -2,15 +2,15 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
-import net.masterthought.cucumber.json.Step;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Step;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -48,8 +48,7 @@ public class FeatureReportPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
-        assertThat(context.get("parallel")).isEqualTo(configuration.isParallelTesting());
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("feature")).isEqualTo(feature);
     }
 

@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.sorting;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 
 import mockit.Deencapsulation;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
@@ -19,9 +18,6 @@ import net.masterthought.cucumber.json.support.TagObject;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class SortingFactoryTest extends PageTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -62,11 +58,10 @@ public class SortingFactoryTest extends PageTest {
         // to be able to test default: block which throws an exception for unsupported values
         SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
 
-        // when
-        // then
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(buildErrorMessage());
-        sortingFactory.sortFeatures(features);
+        // when & then
+        assertThatThrownBy(() -> sortingFactory.sortFeatures(features))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(buildErrorMessage());
     }
 
     @Test
@@ -102,11 +97,10 @@ public class SortingFactoryTest extends PageTest {
         // given
         SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
 
-        // when
-        // then
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(buildErrorMessage());
-        sortingFactory.sortTags(tags);
+        // when & then
+        assertThatThrownBy(() -> sortingFactory.sortTags(tags))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(buildErrorMessage());
     }
 
     @Test
@@ -147,11 +141,10 @@ public class SortingFactoryTest extends PageTest {
         SortingMethod sortingMethod = SortingMethod.INVALID;
         SortingFactory sortingFactory = new SortingFactory(sortingMethod);
 
-        // when
-        // then
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(buildErrorMessage());
-        sortingFactory.sortSteps(steps);
+        // when & then
+        assertThatThrownBy(() -> sortingFactory.sortSteps(steps))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(buildErrorMessage());
     }
 
     @Test

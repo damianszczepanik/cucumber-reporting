@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import java.util.Properties;
@@ -9,25 +10,22 @@ import mockit.Deencapsulation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
+import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.util.Counter;
+import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class AbstractPageTest extends PageTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -88,9 +86,9 @@ public class AbstractPageTest extends PageTest {
             }
         };
 
-        // when
-        thrown.expect(ValidationException.class);
-        Deencapsulation.invoke(page, "generatePage");
+        // when & then
+        assertThatThrownBy(() -> Deencapsulation.invoke(page, "generatePage"))
+                .isInstanceOf(ValidationException.class);
     }
 
     @Test
@@ -120,7 +118,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(9);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -128,8 +126,10 @@ public class AbstractPageTest extends PageTest {
         assertThat(counter.next()).isEqualTo(1);
 
         assertThat(context.get("util")).isInstanceOf(Util.class);
+        assertThat(context.get("stepNameFormatter")).isInstanceOf(StepNameFormatter.class);
 
-        assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.isRunWithJenkins());
+        assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS));
+        assertThat(context.get("expand_all_steps")).isEqualTo(configuration.containsPresentationMode(PresentationMode.EXPAND_ALL_STEPS));
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
     }
@@ -147,7 +147,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -164,7 +164,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -180,7 +180,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(7);
+        assertThat(context.getKeys()).hasSize(9);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -197,7 +197,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(8);
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 
@@ -210,7 +210,7 @@ public class AbstractPageTest extends PageTest {
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when
-        boolean hasTrends = (Boolean) page.context.get("trends_present");
+        boolean hasTrends = (Boolean) page.context.get("trends_available");
 
         // then
         assertThat(hasTrends).isTrue();

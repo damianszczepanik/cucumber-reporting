@@ -62,7 +62,7 @@ public class FeaturesAlphabeticalComparatorTest extends PageTest {
         int result = comparator.compare(feature1, feature2);
 
         // then
-        assertThat(result).isEqualTo(feature1.getJsonFile().compareTo(feature2.getJsonFile()));
+        assertThat(result).isEqualTo(feature1.getReportFileName().compareTo(feature2.getReportFileName()));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class FeaturesAlphabeticalComparatorTest extends PageTest {
 
         // given
         Feature feature1 = features.get(0);
-        Feature feature2 = buildFeature(feature1.getName() + "_", feature1.getId(), feature1.getJsonFile());
+        Feature feature2 = buildFeature(feature1.getName() + "_", feature1.getId(), feature1.getReportFileName());
 
         // then
         int result = comparator.compare(feature1, feature2);
@@ -79,11 +79,11 @@ public class FeaturesAlphabeticalComparatorTest extends PageTest {
         assertThat(result).isEqualTo(feature1.getName().compareTo(feature2.getName()));
     }
 
-    private static Feature buildFeature(final String name, final String id, final String jsonFile) {
+    private static Feature buildFeature(final String name, final String id, final String reportFileName) {
         Feature feature = new Feature();
         Deencapsulation.setField(feature, "name", name);
         Deencapsulation.setField(feature, "id", id);
-        Deencapsulation.setField(feature, "jsonFile", jsonFile);
+        Deencapsulation.setField(feature, "reportFileName", reportFileName);
 
         return feature;
     }

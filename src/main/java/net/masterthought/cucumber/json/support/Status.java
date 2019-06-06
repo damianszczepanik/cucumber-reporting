@@ -36,7 +36,7 @@ public enum Status {
     }
 
     /**
-     * Returns name of the status formatted with first letter to uppercase.
+     * Returns name of the status formatted with first letter to uppercase and lowercase others.
      *
      * @return status formatted with first letter to uppercase
      */

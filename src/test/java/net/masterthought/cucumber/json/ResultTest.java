@@ -77,4 +77,29 @@ public class ResultTest extends PageTest {
                 "\tat ✽.And the account balance should be 90(net/masterthought/example/ATMK.feature:12)\n");
     }
 
+    @Test
+    public void getErrorMessageTitle_OnEmptyMessage_ReturnsEmptyTitle() {
+
+        // given
+        Result result = features.get(1).getElements()[0].getBefore()[1].getResult();
+
+        // when
+        String messageTitle = result.getErrorMessageTitle();
+
+        // then
+        assertThat(messageTitle).isEmpty();
+    }
+
+    @Test
+    public void getErrorMessageTitle_OnNullMessage_ReturnsEmptyTitle() {
+
+        // given
+        Result result = features.get(0).getElements()[0].getSteps()[0].getResult();
+
+        // when
+        String messageTitle = result.getErrorMessageTitle();
+
+        // then
+        assertThat(messageTitle).isEmpty();
+    }
 }

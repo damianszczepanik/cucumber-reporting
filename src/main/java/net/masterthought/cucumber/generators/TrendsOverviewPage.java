@@ -28,9 +28,9 @@ public class TrendsOverviewPage extends AbstractPage {
         context.put("buildNumbers", trends.getBuildNumbers());
 
         context.put("failedFeatures", trends.getFailedFeatures());
-        context.put("totalFeatures", trends.getTotalFeatures());
+        context.put("passedFeatures", trends.getPassedFeatures());
         context.put("failedScenarios", trends.getFailedScenarios());
-        context.put("totalScenarios", trends.getTotalScenarios());
+        context.put("passedScenarios", trends.getPassedScenarios());
 
         context.put("passedSteps", trends.getPassedSteps());
         context.put("failedSteps", trends.getFailedSteps());

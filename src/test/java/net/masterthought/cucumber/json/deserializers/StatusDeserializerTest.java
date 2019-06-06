@@ -1,18 +1,19 @@
 package net.masterthought.cucumber.json.deserializers;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.masterthought.cucumber.json.support.Status;
+
+import java.util.Locale;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -21,16 +22,13 @@ import net.masterthought.cucumber.json.support.Status;
 @PrepareForTest(value = JsonNode.class)
 public class StatusDeserializerTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void deserialize_OnDefaultStatus_ReturnsStatus() {
 
         // given
         Status status = Status.PASSED;
         JsonNode node = mock(JsonNode.class);
-        when(node.asText()).thenReturn(status.name().toLowerCase());
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
 
         StatusDeserializer deserializer = new StatusDeserializer();
 
@@ -40,6 +38,24 @@ public class StatusDeserializerTest {
         // then
         assertThat(newStatus).isEqualTo(status);
     }
+
+    @Test
+    public void deserialize_OnFailedStatus_ReturnsStatus() {
+
+        // given
+        Status status = Status.FAILED;
+        JsonNode node = mock(JsonNode.class);
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
+
+        StatusDeserializer deserializer = new StatusDeserializer();
+
+        // when
+        Status newStatus = deserializer.deserialize(node, null);
+
+        // then
+        assertThat(newStatus).isEqualTo(status);
+    }
+
 
     @Test
     public void deserialize_OnAdditionalStatus_ReturnsUndefinedStatus() {
@@ -69,10 +85,9 @@ public class StatusDeserializerTest {
 
         StatusDeserializer deserializer = new StatusDeserializer();
 
-        // when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(String.format("No enum constant %s.THISISNOTSTATUS", Status.class.getName()));
-        deserializer.deserialize(node, null);
+        // when & then
+        assertThatThrownBy(() -> deserializer.deserialize(node, null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(String.format("No enum constant %s.THISISNOTSTATUS", Status.class.getName()));
     }
-
 }

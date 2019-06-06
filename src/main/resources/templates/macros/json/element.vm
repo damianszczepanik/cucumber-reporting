@@ -17,12 +17,12 @@
   </span>
   <div class="description indention">$element.getDescription()</div>
 
-  <div id="element-$elementId" class="collapse collapsable-details #if(!$element.getStatus().isPassed()) in #end">
-    #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus())
+  <div id="element-$elementId" class="collapse collapsable-details #if(!$element.getStatus().isPassed() || $expand_all_steps) in #end">
+    #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus(), "element")
 
     #includeSteps($element.getSteps())
 
-    #includeHooks("After", $element.getAfter(), $element.getAfterStatus())
+    #includeHooks("After", $element.getAfter(), $element.getAfterStatus(), "element")
   </div>
 </div>
 

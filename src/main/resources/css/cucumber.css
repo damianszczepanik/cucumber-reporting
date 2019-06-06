@@ -2,6 +2,7 @@ body {
     /* Shifts body so navigation bar does not overlap it.
     Make sure to include this after the core Bootstrap CSS. */
     padding-top: 60px;
+    overflow-y: overlay;
 }
 
 h2 {
@@ -22,6 +23,10 @@ a:hover {
 }
 
 .keyword {
+    font-weight: bold;
+}
+
+.argument {
     font-weight: bold;
 }
 
@@ -234,4 +239,8 @@ tr:hover {
 
 pre {
     margin: 10px;
+}
+
+#footer {
+    padding-right: 20px;
 }

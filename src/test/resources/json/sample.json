@@ -179,14 +179,14 @@
                             "duration": 44333333,
                             "status": "passed"
                         },
-                        "name": "the machine contains 100",
+                        "name": "100 is contained in the machine",
                         "keyword": "And ",
                         "line": 25,
                         "match": {
                             "arguments": [
                                 {
                                     "val": "100",
-                                    "offset": 21
+                                    "offset": 0
                                 }
                             ],
                             "location": "ATMScenario.createATM(int)"
@@ -200,7 +200,7 @@
                             "duration": 11000001,
                             "status": "passed"
                         },
-                        "name": "the Account Holder requests 10",
+                        "name": "the Account Holder requests 10, entering PIN 1234",
                         "keyword": "When ",
                         "line": 26,
                         "match": {
@@ -208,6 +208,10 @@
                                 {
                                     "val": "10",
                                     "offset": 28
+                                },
+                                {
+                                    "val": "1234",
+                                    "offset": 45
                                 }
                             ],
                             "location": "ATMScenario.requestMoney(int)"
@@ -221,7 +225,7 @@
                             "duration": 3220000,
                             "status": "passed"
                         },
-                        "name": "the ATM should dispense 10",
+                        "name": "the ATM should dispense 10 monetary units",
                         "keyword": "Then ",
                         "line": 27,
                         "match": {
@@ -229,6 +233,10 @@
                                 {
                                     "val": "10",
                                     "offset": 24
+                                },
+                                {
+                                    "val": "",
+                                    "offset": 0
                                 }
                             ],
                             "location": "ATMScenario.checkMoney(int)"
@@ -319,7 +327,8 @@
                     {
                         "result": {
                             "duration": 1000001,
-                            "status": "failed"
+                            "status": "failed",
+                            "error_message": "   \n"
                         },
                         "match": {
                             "location": "MachineFactory.wait()"
@@ -343,11 +352,26 @@
                                 {
                                     "val": "100",
                                     "offset": 23
-                                }
+                                },
+                                {}
                             ]
                         },
                         "matchedColumns": [
                             0
+                        ],
+                        "before": [
+                            {
+                                "embeddings": [
+                                    {
+                                        "mime_type": "text/plain",
+                                        "data": "amF2YS5sYW5nLlRocm93YWJsZQ=="
+                                    }
+                                ],
+                                "result": {
+                                    "duration": 410802047,
+                                    "status": "failed"
+                                }
+                            }
                         ]
                     },
                     {
@@ -359,8 +383,25 @@
                         "keyword": "And ",
                         "line": 8,
                         "match": {
+                            "arguments": [
+                                {
+                                    "val": "",
+                                    "offset": 17
+                                }
+                            ],
                             "location": "ATMScenario.createCreditCard()"
-                        }
+                        },
+                        "after": [
+                            {
+                                "result": {
+                                    "duration": 410802048,
+                                    "status": "passed"
+                                },
+                                "match": {
+                                    "location": "StepHook.afterStep()"
+                                }
+                            }
+                        ]
                     },
                     {
                         "result": {
@@ -474,6 +515,10 @@
                             {
                                 "mime_type": "js",
                                 "data": "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsNCiAgY29uc29sZS5sb2cobWVzc2FnZSk7DQp9"
+                            },
+                            {
+                                "mime_type": "text/csv",
+                                "data": "MSwyLDMKb25lLHR3byx0aHJlZQp1bnUgLGR1LHRyaQo="
                             }
                         ]
                     },

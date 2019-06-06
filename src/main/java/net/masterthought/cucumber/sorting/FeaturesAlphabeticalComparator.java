@@ -26,6 +26,6 @@ public class FeaturesAlphabeticalComparator implements Comparator<Feature> {
         }
 
         // if ids are the same it means that feature exists in more than one JSON file so compare by JSON report
-        return ObjectUtils.compare(feature1.getJsonFile(), feature2.getJsonFile());
+        return ObjectUtils.compare(feature1.getReportFileName(), feature2.getReportFileName());
     }
 }

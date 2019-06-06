@@ -1,13 +1,14 @@
 [![Travis Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?label=Travis%20bulid)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
 [![AppVeyor Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting/master.svg?label=AppVeyor%20build)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
 [![Shippable Status](https://img.shields.io/shippable/5844689c9d1f3e0f0057631a/master.svg?label=Shippable%20build)](https://app.shippable.com/projects/5844689c9d1f3e0f0057631a)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![Sonarqube coverage](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=coverage)](https://sonarcloud.io/dashboard/index/net.masterthought:cucumber-reporting)
-[![Sonarqube tech debt](https://sonarqube.com/api/badges/measure?key=com.github.dannil:scb-java-client&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard/index/net.masterthought:cucumber-reporting)
-[![Coverity](https://scan.coverity.com/projects/6166/badge.svg?label=Coverity%20analysis)](https://scan.coverity.com/projects/damianszczepanik-cucumber-reporting)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=security_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
 [![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)
+[![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/cucumber-reporting/badge.svg)](https://snyk.io/org/damianszczepanik/project/6a2fe301-d56c-49e7-8c78-cd3ff09c3828)
 
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
@@ -35,7 +36,7 @@ Add a maven dependency to your pom
 </dependency>
 ```
 
-Read this if you need further [detailed install and configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
+Read this if you need further [detailed configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
 ```Java
@@ -47,11 +48,9 @@ jsonFiles.add("cucumber-report-2.json");
 String buildNumber = "1";
 String projectName = "cucumberProject";
 boolean runWithJenkins = false;
-boolean parallelTesting = false;
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-// optional configuration
-configuration.setParallelTesting(parallelTesting);
+// optional configuration - check javadoc
 configuration.setRunWithJenkins(runWithJenkins);
 configuration.setBuildNumber(buildNumber);
 // addidtional metadata presented on main page
@@ -67,31 +66,33 @@ configuration.addClassificationFiles(classificationFiles);
 
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 Reportable result = reportBuilder.generateReports();
-// and here validate 'result' to decide what to do
-// if report has failed features, undefined steps etc
+// and here validate 'result' to decide what to do if report has failed
 ```
 There is a feature overview page:
 
-![feature overview page](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-overview.png)
+![feature overview page](./.README/feature-overview.png)
 
 And there are also feature specific results pages:
 
-![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-passed.png)
+![feature specific page passing](./.README/feature-passed.png)
 
 And useful information for failures:
 
-![feature specific page passing](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/feature-failed.png)
+![feature specific page passing](./.README/feature-failed.png)
 
 If you have tags in your cucumber features you can see a tag overview:
 
-![Tag overview](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-overview.png)
+![Tag overview](./.README/tag-overview.png)
 
 And you can drill down into tag specific reports:
 
-![Tag report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/tag-report.png)
+![Tag report](./.README/tag-report.png)
 
-![Trends report](https://github.com/damianszczepanik/cucumber-reporting/raw/master/.README/trends.png)
+![Trends report](./.README/trends.png)
 
+## Live demo
+
+You can play with the [live demo](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html) report before you decide if this is worth to install. Mind that not all features are enabled as the report is generated by [sample code](./src/test/java/HelloCucumberTest.java).
 
 ## Code quality
 
@@ -99,6 +100,10 @@ Once you developed your new feature or improvement you should test it by providi
 
 ![codecov.io](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graphs/tree.svg)
 
+## BrowserStack
+
+We use [BrowserStack](https://www.browserstack.com) to examine HTML report against different browsers and platforms.
+![BrowserStack](./.README/Browserstack-logo.png)
 
 ## Contribution
 

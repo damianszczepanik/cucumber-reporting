@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -25,6 +26,7 @@ import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
 import net.masterthought.cucumber.json.Output;
+import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 
@@ -92,7 +94,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         TagAssertion[] tags = featureDetails.getTags();
         assertThat(tags).hasSize(1);
-        tags[0].getLink().hasLabelAndAddress("@featureTag", "report-tag_featureTag.html");
+        tags[0].getLink().hasLabelAndAddress("@featureTag", "report-tag_2956005635.html");
 
         assertThat(featureDetails.getDescription()).isEqualTo(feature.getDescription());
     }
@@ -334,7 +336,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_ForAfterHook_generatesOutputs() {
+    public void generatePage_ForAfterElementHook_generatesOutputs() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -355,9 +357,54 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         outputsElement[0].hasMessages(getMessages(outputs));
     }
 
-    private static void validateHook(HookAssertion[] elements, Hook[] hooks, String hookName) {
-        for (int i = 0; i < elements.length; i++) {
-            BriefAssertion brief = elements[i].getBrief();
+    @Test
+    public void generatePage_ForBeforeStepHook_generatesHooks() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepAssertion = document.getFeature().getElements()[0].getStepsSection().getSteps()[0];
+        HookAssertion[] beforeHooks = stepAssertion.getBefore().getHooks();
+
+        Hook[] hooks = feature.getElements()[0].getSteps()[0].getBefore();
+        assertThat(beforeHooks).hasSameSizeAs(hooks);
+        beforeHooks[0].getBrief().hasDuration(hooks[0].getResult().getDuration());
+    }
+
+    @Test
+    public void generatePage_ForAfterStepHook_generatesHooks() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(1);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+
+        StepAssertion stepAssertion = document.getFeature().getElements()[0].getStepsSection().getSteps()[1];
+        HookAssertion[] afterHooks = stepAssertion.getAfter().getHooks();
+
+        Hook[] hooks = feature.getElements()[0].getSteps()[1].getAfter();
+        assertThat(afterHooks).hasSameSizeAs(hooks);
+        assertThat(afterHooks[0].getBrief().getLocation()).isEqualTo(hooks[0].getMatch().getLocation());
+        afterHooks[0].getBrief().hasDuration(hooks[0].getResult().getDuration());
+    }
+
+    private static void validateHook(HookAssertion[] hookAssertions, Hook[] hooks, String hookName) {
+        for (int i = 0; i < hookAssertions.length; i++) {
+            BriefAssertion brief = hookAssertions[i].getBrief();
             assertThat(brief.getKeyword()).isEqualTo(hookName);
             brief.hasStatus(hooks[i].getResult().getStatus());
 
@@ -365,9 +412,11 @@ public class FeatureReportPageIntegrationTest extends PageTest {
                 assertThat(brief.getName()).isEqualTo(hooks[i].getMatch().getLocation());
             }
             if (hooks[i].getResult() != null) {
-                brief.hasDuration(hooks[i].getResult().getDuration());
-                if (hooks[i].getResult().getErrorMessage() != null) {
-                    assertThat(elements[i].getErrorMessage()).contains(hooks[i].getResult().getErrorMessage());
+                Result result = hooks[i].getResult();
+                brief.hasDuration(result.getDuration());
+                // no message should not be evaluated, empty is validated by unit tests as jsoup parses it differently
+                if (StringUtils.isNotBlank(result.getErrorMessage())) {
+                    assertThat(hookAssertions[i].getErrorMessage()).contains(result.getErrorMessage());
                 }
             }
         }
