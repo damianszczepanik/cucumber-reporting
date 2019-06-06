@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import java.util.Arrays;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
@@ -159,7 +160,6 @@ public class Feature implements Reportable, Durationable {
 
     @Override
     public int getUndefinedScenarios() { return elementsCounter.getValueFor(Status.UNDEFINED); }
-
     /**
      * Sets additional information and calculates values which should be calculated during object creation.
      * @param jsonFileNo index of the JSON file
