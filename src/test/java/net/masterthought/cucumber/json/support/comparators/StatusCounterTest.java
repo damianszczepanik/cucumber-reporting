@@ -83,7 +83,7 @@ public class StatusCounterTest {
         statusCounter.incrementFor(Status.UNDEFINED);
 
         // then
-        assertThat(statusCounter.getFinalStatus()).isEqualTo(Status.FAILED);
+        assertThat(statusCounter.getFinalStatus()).isEqualTo(Status.UNDEFINED);
     }
 
     @Test
