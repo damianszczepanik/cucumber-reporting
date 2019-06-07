@@ -16,5 +16,10 @@ public enum PresentationMode {
     /**
      * Expands all scenarios by default.
      */
-    EXPAND_ALL_STEPS
+    EXPAND_ALL_STEPS,
+
+    /**
+     * Suppress hooks if is empty
+     */
+    SUPRESS_HOOK_IF_EMPTY
 }
