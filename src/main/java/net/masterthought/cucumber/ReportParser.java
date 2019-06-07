@@ -28,6 +28,7 @@ import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Hook;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
@@ -73,24 +74,8 @@ public class ReportParser {
             }
             Feature[] features = parseForFeature(jsonFile);
 
-            for (Feature feature : features) {
-                Element[] elements = feature.getElements();
-                for (Element element : elements) {
-                    Step[] steps = element.getSteps();
-                    for (Step step : steps) {
-                        Hook[] after = step.getAfter();
-                        boolean isEmptyHook = false;
-                        for (Hook hook : after) {
-                            if (hook.getEmbeddings().length <= 0 && hook.getOutputs().length <= 0) {
-                                isEmptyHook = true;
-                                break;
-                            }
-                        }
-                        if (isEmptyHook) {
-                            step.setAfter(new Hook[0]);
-                        }
-                    }
-                }
+            if (configuration.containsPresentationMode(PresentationMode.SUPPRESS_HOOK_IF_EMPTY)) {
+                features = suppressEmptyHooks(features);
             }
 
             LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
@@ -103,6 +88,31 @@ public class ReportParser {
         }
 
         return featureResults;
+    }
+
+    private Feature[] suppressEmptyHooks(Feature[] features) {
+
+        for (Feature feature : features) {
+            Element[] elements = feature.getElements();
+            for (Element element : elements) {
+                Step[] steps = element.getSteps();
+                for (Step step : steps) {
+                    Hook[] after = step.getAfter();
+                    boolean isEmptyHook = false;
+                    for (Hook hook : after) {
+                        if (hook.getEmbeddings().length <= 0 && hook.getOutputs().length <= 0) {
+                            isEmptyHook = true;
+                            break;
+                        }
+                    }
+                    if (isEmptyHook) {
+                        step.setAfter(new Hook[0]);
+                    }
+                }
+            }
+        }
+
+        return features;
     }
 
     /**
