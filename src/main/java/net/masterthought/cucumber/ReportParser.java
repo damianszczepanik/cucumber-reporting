@@ -74,8 +74,8 @@ public class ReportParser {
             }
             Feature[] features = parseForFeature(jsonFile);
 
-            if (configuration.containsPresentationMode(PresentationMode.SUPRESS_HOOK_IF_EMPTY)) {
-                features = supressEmptyHooks(features);
+            if (configuration.containsPresentationMode(PresentationMode.SUPPRESS_HOOK_IF_EMPTY)) {
+                features = suppressEmptyHooks(features);
             }
 
             LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
@@ -90,7 +90,7 @@ public class ReportParser {
         return featureResults;
     }
 
-    private Feature[] supressEmptyHooks(Feature[] features) {
+    private Feature[] suppressEmptyHooks(Feature[] features) {
 
         for (Feature feature : features) {
             Element[] elements = feature.getElements();

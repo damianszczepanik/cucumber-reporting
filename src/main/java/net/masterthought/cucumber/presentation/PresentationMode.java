@@ -21,5 +21,5 @@ public enum PresentationMode {
     /**
      * Suppress hooks if is empty
      */
-    SUPRESS_HOOK_IF_EMPTY
+    SUPPRESS_HOOK_IF_EMPTY
 }
