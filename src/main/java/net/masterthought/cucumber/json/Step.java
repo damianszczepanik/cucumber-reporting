@@ -34,7 +34,7 @@ public class Step implements Resultsable {
 
     // hooks are supported since Cucumber-JVM 3.x.x
     private final Hook[] before = new Hook[0];
-    private final Hook[] after = new Hook[0];
+    private Hook[] after = new Hook[0];
     // End: attributes from JSON file report
 
     private Status beforeStatus;
@@ -93,6 +93,10 @@ public class Step implements Resultsable {
     
     public Hook[] getAfter() {
         return after;
+    }
+
+    public void setAfter(Hook[] after){
+        this.after = after;
     }
     
     public Status getBeforeStatus() {
