@@ -24,7 +24,10 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
+import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.Hook;
+import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
@@ -69,6 +72,27 @@ public class ReportParser {
                 continue;
             }
             Feature[] features = parseForFeature(jsonFile);
+
+            for (Feature feature : features) {
+                Element[] elements = feature.getElements();
+                for (Element element : elements) {
+                    Step[] steps = element.getSteps();
+                    for (Step step : steps) {
+                        Hook[] after = step.getAfter();
+                        boolean isEmptyHook = false;
+                        for (Hook hook : after) {
+                            if (hook.getEmbeddings().length <= 0 && hook.getOutputs().length <= 0) {
+                                isEmptyHook = true;
+                                break;
+                            }
+                        }
+                        if (isEmptyHook) {
+                            step.setAfter(new Hook[0]);
+                        }
+                    }
+                }
+            }
+
             LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
             featureResults.addAll(Arrays.asList(features));
         }
