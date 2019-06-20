@@ -65,6 +65,10 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
+        List<TagObject> tags = (List<TagObject>) context.get("all_tags");
+        assertThat(tags).hasSize(1);
+        assertThat(tags.get(0).getName()).isEqualTo("@fast");
+
         assertThat(context.get("chart_categories")).isEqualTo(new String[]{"@fast"});
         assertThat(context.get("chart_data")).isEqualTo(new String[][]{
                 {"100.00"},
