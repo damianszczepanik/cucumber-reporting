@@ -114,9 +114,10 @@ public class Configuration {
     }
 
     /**
-     * Sets configuration for trends.
+     * Sets configuration limit for trends.
      * When the limit is set to 0 then all items will be stored and displayed.
-     * To disable saving and displaying trends page set to 0.
+     * To disable saving and displaying trends page set to -1.
+     * Otherwise number of previous builds is equal to provided limit.
      *
      * @param trendsFile  file where information about previous builds is stored
      * @param limit number of builds that should be presented (older builds are skipped)
