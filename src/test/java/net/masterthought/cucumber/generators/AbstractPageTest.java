@@ -18,6 +18,7 @@ import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
@@ -118,7 +119,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(10);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -130,6 +131,8 @@ public class AbstractPageTest extends PageTest {
 
         assertThat(context.get("run_with_jenkins")).isEqualTo(configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS));
         assertThat(context.get("expand_all_steps")).isEqualTo(configuration.containsPresentationMode(PresentationMode.EXPAND_ALL_STEPS));
+        assertThat(context.get("hide_empty_hooks")).isEqualTo(configuration.containsReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS));
+
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
     }
@@ -147,7 +150,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -164,7 +167,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -180,7 +183,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(9);
+        assertThat(context.getKeys()).hasSize(10);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -197,7 +200,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(10);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 
