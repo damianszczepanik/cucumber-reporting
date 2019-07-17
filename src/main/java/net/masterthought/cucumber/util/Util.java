@@ -2,11 +2,16 @@ package net.masterthought.cucumber.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
+
+import net.masterthought.cucumber.json.Hook;
 
 public final class Util {
 
@@ -75,5 +80,17 @@ public final class Util {
     public static String toValidFileName(String fileName) {
         // adds MAX_VALUE to eliminate minus character which might be returned by hashCode()
         return Long.toString((long) fileName.hashCode() + Integer.MAX_VALUE);
+    }
+
+    /**
+     * Helper method that removes empty hooks from passed array and packs it into new collection.
+     *
+     * @param hooks hooks to be reduced
+     * @return no empty hooks
+     */
+    public static List<Hook> eliminateEmptyHooks(Hook[] hooks) {
+        return Arrays.asList(hooks).stream()
+                .filter(Hook::hasContent)
+                .collect(Collectors.toList());
     }
 }

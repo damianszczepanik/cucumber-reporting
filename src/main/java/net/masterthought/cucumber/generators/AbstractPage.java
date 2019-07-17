@@ -23,6 +23,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
@@ -104,6 +105,7 @@ public abstract class AbstractPage {
 
         context.put("run_with_jenkins", configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS));
         context.put("expand_all_steps", configuration.containsPresentationMode(PresentationMode.EXPAND_ALL_STEPS));
+        context.put("hide_empty_hooks", configuration.containsReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES));
 
         context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
@@ -119,7 +121,7 @@ public abstract class AbstractPage {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {
-                LOG.log(Level.INFO, "Could not parse build number: {}.", configuration.getBuildNumber());
+                LOG.log(Level.INFO, "Could not parse build number: {0}.", configuration.getBuildNumber());
             }
         }
     }

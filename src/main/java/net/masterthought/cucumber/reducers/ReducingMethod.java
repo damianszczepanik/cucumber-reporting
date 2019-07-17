@@ -16,5 +16,10 @@ public enum ReducingMethod {
     /**
      * Skip empty JSON reports. If this flag is not selected then report generation fails on empty file.
      */
-    SKIP_EMPTY_JSON_FILES
+    SKIP_EMPTY_JSON_FILES,
+
+    /**
+     * Does not display hooks (@Before and @After) which does not have attachment or error message.
+     */
+    HIDE_EMPTY_HOOKS
 }

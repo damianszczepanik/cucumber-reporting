@@ -2,15 +2,26 @@ package net.masterthought.cucumber.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
+
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Hook;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class UtilTest {
+public class UtilTest extends PageTest {
+
+    @Before
+    public void setUp() {
+        setUpWithJson(SAMPLE_JSON);
+    }
 
     @Test
-    public void formatAsPercentage_ReturnsFormatedValue() {
+    public void formatAsPercentage_ReturnsFormattedValue() {
 
         // given
         final int[][] values = {{1, 3}, {2, 2}, {1, 5}, {0, 5}};
@@ -58,5 +69,18 @@ public class UtilTest {
         for (int i = 0; i < ids.length; i++) {
             assertThat(Util.toValidFileName(ids[i])).isEqualTo(hashes[i]);
         }
+    }
+
+    @Test
+    public void eliminateEmptyHooks_RemovesEmptyHooks() {
+
+        // given
+        Hook[] hooks = features.get(0).getElements()[0].getBefore();
+
+        // when
+        List<Hook> reducedHooks = Util.eliminateEmptyHooks(hooks);
+
+        // then
+        assertThat(reducedHooks).isEmpty();
     }
 }
