@@ -304,12 +304,15 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         Embedding[] embeddings = feature.getElements()[0].getSteps()[5].getEmbeddings();
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
+        embeddingsElement[0].getLinks()[0].hasLabelAndAddress(embeddings[0].getName(), "");
         embeddingsElement[0].hasImageContent(embeddings[0]);
-        asserEmbeddingFileExist(embeddings[0]);
+        assertEmbeddingFileExist(embeddings[0]);
+        embeddingsElement[2].getLinks()[0].hasLabelAndAddress("Attachment 3 (Plain text)", "");
         embeddingsElement[2].hasTextContent(embeddings[2].getData());
-        asserEmbeddingFileExist(embeddings[2]);
+        assertEmbeddingFileExist(embeddings[2]);
+        embeddingsElement[3].getLinks()[0].hasLabelAndAddress(embeddings[3].getName(), "");
         embeddingsElement[3].hasSrcDocContent(embeddings[3].getData());
-        asserEmbeddingFileExist(embeddings[3]);
+        assertEmbeddingFileExist(embeddings[3]);
     }
 
     @Test
@@ -332,7 +335,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].hasImageContent(embeddings[0]);
-        asserEmbeddingFileExist(embeddings[0]);
+        assertEmbeddingFileExist(embeddings[0]);
     }
 
     @Test
@@ -422,7 +425,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         }
     }
 
-    private void asserEmbeddingFileExist(Embedding embedding) {
+    private void assertEmbeddingFileExist(Embedding embedding) {
         File file = new File(configuration.getEmbeddingDirectory(), embedding.getFileName());
         assertThat(file).exists();
     }

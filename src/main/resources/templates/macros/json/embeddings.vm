@@ -39,7 +39,7 @@
 <div class="embedding indention">
   #set($embeddingId = $counter.next())
   <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-    <a>Attachment $index ($format)</a>
+    <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
     <a href="embeddings/$embedding.getFileName()" download target="_blank">
       <span class="download-button glyphicon glyphicon-download-alt"></span>
     </a>
@@ -61,7 +61,7 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($image_type)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($image_type)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
@@ -79,7 +79,7 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index (Image)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index (Image)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
@@ -97,7 +97,7 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($format)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
@@ -113,7 +113,7 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($embedding.getMimeType())</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($embedding.getMimeType())#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
