@@ -16,17 +16,21 @@ public class Embedding {
     // Start: attributes from JSON file report
     private final String mimeType;
     private final String data;
-    private final String name;
+    private String name;
     // End: attributes from JSON file report
 
     private final String fileId;
 
-    public Embedding(String mimeType, String data, String name) {
+    public Embedding(String mimeType, String data) {
         this.mimeType = mimeType;
         this.data = data;
-        this.name = name;
 
         this.fileId = "embedding_" + data.hashCode();
+    }
+
+    public Embedding(String mimeType, String data, String name) {
+        this(mimeType, data);
+        this.name = name;
     }
 
     public String getMimeType() {

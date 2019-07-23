@@ -14,7 +14,7 @@ public class EmbeddingTest {
 
         // given
         final String refMimeType = "my mime TYPE";
-        Embedding embedding = new Embedding(refMimeType, "abc", null);
+        Embedding embedding = new Embedding(refMimeType, "abc");
 
         // when
         String mimeType = embedding.getMimeType();
@@ -28,7 +28,7 @@ public class EmbeddingTest {
 
         // given
         final String data = "your data";
-        Embedding embedding = new Embedding("mime/type", data, null);
+        Embedding embedding = new Embedding("mime/type", data);
 
         // when
         String content = embedding.getData();
@@ -41,7 +41,7 @@ public class EmbeddingTest {
     public void getDecodedData_ReturnsDecodedContent() {
 
         // given
-        Embedding embedding = new Embedding("mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", null);
+        Embedding embedding = new Embedding("mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=");
 
         // when
         String content = embedding.getDecodedData();
@@ -55,7 +55,7 @@ public class EmbeddingTest {
     public void getFileName_ReturnsFileName() {
 
         // given
-        Embedding embedding = new Embedding("text/xml", "some data", null);
+        Embedding embedding = new Embedding("text/xml", "some data");
 
         // when
         String fileName = embedding.getFileName();
@@ -68,7 +68,7 @@ public class EmbeddingTest {
     public void getFileName_ReturnsFileNameForSVG() {
 
         // given
-        Embedding embedding = new Embedding("image/svg+xml", "some data", null);
+        Embedding embedding = new Embedding("image/svg+xml", "some data");
 
         // when
         String fileName = embedding.getFileName();
@@ -81,7 +81,7 @@ public class EmbeddingTest {
     public void getExtension__OnCommonMimeType_ReturnsFileExtension() {
 
         // given
-        Embedding embedding = new Embedding("text/html", "", null);
+        Embedding embedding = new Embedding("text/html", "");
 
         // when
         String extension = embedding.getExtension();
@@ -94,7 +94,7 @@ public class EmbeddingTest {
     public void getExtension__OnTextMimeType_ReturnsText() {
 
         // given
-        Embedding embedding = new Embedding("text/plain", "", null);
+        Embedding embedding = new Embedding("text/plain", "");
 
         // when
         String extension = embedding.getExtension();
@@ -107,7 +107,7 @@ public class EmbeddingTest {
     public void getExtension__OnImageUrlMimeType_ReturnsTxt() {
 
         // given
-        Embedding embedding = new Embedding("image/url", "", null);
+        Embedding embedding = new Embedding("image/url", "");
 
         // when
         String extension = embedding.getExtension();
@@ -120,7 +120,7 @@ public class EmbeddingTest {
     public void getExtension__OnApplicationPdfMimeType_ReturnsPdf() {
 
         // given
-        Embedding embedding = new Embedding("application/pdf", "", null);
+        Embedding embedding = new Embedding("application/pdf", "");
 
         // when
         String extension = embedding.getExtension();
@@ -133,7 +133,7 @@ public class EmbeddingTest {
     public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given
-        Embedding embedding = new Embedding("js", "", null);
+        Embedding embedding = new Embedding("js", "");
 
         // when
         String extension = embedding.getExtension();
