@@ -36,7 +36,7 @@
 </div>
 
 #includeExpandingButtons()
-<br>
+<br/>
 
 #include("/templates/footer.vm")
 

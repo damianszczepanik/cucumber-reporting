@@ -61,7 +61,7 @@ public class AbstractPageTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         assertThat(document.getFeature().getDescription())
-                .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed");
+                .isEqualTo("As an Account Holder I want to withdraw cash from an ATM,<br/>so that I can get money when the bank is closed");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getEmbedding()[3].text())
                 .isEqualTo("Attachment 4 (HTML)");
         assertThat(document.getFeature().getElements()[0].getStepsSection().getSteps()[5].getMessage().text())

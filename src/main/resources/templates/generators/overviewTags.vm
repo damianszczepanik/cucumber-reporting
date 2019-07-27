@@ -4,7 +4,7 @@
   #parse("/templates/headers.vm")
   #includeTitle("Tags Overview")
 
-  <script type="text/javascript">
+  <script>
   #parse("/templates/js/tags-chart.js.vm")
   </script>
 </head>
@@ -27,7 +27,7 @@
   </div>
 #end
 
-<br>
+<br/>
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">

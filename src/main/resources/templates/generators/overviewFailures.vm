@@ -38,7 +38,7 @@
 #if(!$failures.isEmpty())
   #includeExpandingButtons()
 #end
-<br>
+<br/>
 
 #include("/templates/footer.vm")
 
