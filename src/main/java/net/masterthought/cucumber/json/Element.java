@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
@@ -96,7 +97,7 @@ public class Element implements Durationable {
         return Util.formatDuration(duration);
     }
 
-    public void setMetaData(Feature feature) {
+    public void setMetaData(Feature feature, Configuration configuration) {
         this.feature = feature;
 
         for (Step step : steps) {
@@ -105,7 +106,7 @@ public class Element implements Durationable {
 
         beforeStatus = new StatusCounter(before).getFinalStatus();
         afterStatus = new StatusCounter(after).getFinalStatus();
-        stepsStatus = new StatusCounter(steps).getFinalStatus();
+        stepsStatus = new StatusCounter(steps, configuration.getNotFailingStatuses()).getFinalStatus();
         elementStatus = calculateElementStatus();
 
         calculateDuration();

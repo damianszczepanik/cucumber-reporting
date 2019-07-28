@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/badge/license-GNU%20LGPL%20v2.1-blue.svg)](https://raw.githubusercontent.com/damianszczepanik/cucumber-reporting/master/LICENCE)
 [![Contributors](https://img.shields.io/github/contributors/damianszczepanik/cucumber-reporting.svg)](https://github.com/damianszczepanik/cucumber-reporting/graphs/contributors)
 
-# Publish pretty [cucumber](http://cukes.info/) reports
+# Publish pretty [cucumber](https://cucumber.io/) reports
 
 This is a Java report publisher primarily created to publish cucumber reports on the Jenkins build server.
 It publishes pretty html reports with charts showing the results of cucumber runs. It has been split out into a standalone package so it can be used for Jenkins and maven command line as well as any other packaging that might be useful. Generated report has no dependency so can be viewed offline.
@@ -51,6 +51,8 @@ String projectName = "cucumberProject";
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 // optional configuration - check javadoc for details
 configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+// do not make scenario failed when step has status SKIPPED
+configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
 configuration.setBuildNumber(buildNumber);
 // addidtional metadata presented on main page
 configuration.addClassifications("Platform", "Windows");
