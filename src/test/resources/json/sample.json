@@ -298,7 +298,7 @@
     },
     {
         "id": "account-holder-withdraws-more-cash",
-        "description": "As an Account Holder\nI want to withdraw cash from an ATM,<br>so that I can get money when the bank is closed",
+        "description": "As an Account Holder\nI want to withdraw cash from an ATM,<br/>so that I can get money when the bank is closed",
         "name": "Second feature",
         "keyword": "Feature",
         "line": 1,

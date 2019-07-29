@@ -4,7 +4,7 @@
   #parse("/templates/headers.vm")
   #includeTitle("Features Overview")
 
-  <script type="text/javascript">
+  <script>
   #parse("/templates/js/steps-chart.js.vm")
   #parse("/templates/js/scenarios-chart.js.vm")
   #parse("/templates/js/features-chart.js.vm")
@@ -60,7 +60,7 @@
       </div>
     </div>
   </div>
-  <br>
+  <br/>
 #end
 
 
