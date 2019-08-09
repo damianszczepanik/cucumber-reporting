@@ -27,8 +27,9 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
         String mimeType = findMimeType(rootNode);
 
         Embedding embedding;
-        if (rootNode.has("name")) {
-            String name = rootNode.get("name").asText();
+        String nameField = "name";
+        if (rootNode.has(nameField)) {
+            String name = rootNode.get(nameField).asText();
             embedding = new Embedding(mimeType, data, name);
         } else {
             embedding = new Embedding(mimeType, data);
