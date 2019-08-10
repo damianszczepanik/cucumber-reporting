@@ -16,13 +16,19 @@ public class Embedding {
     // Start: attributes from JSON file report
     private final String mimeType;
     private final String data;
+    private final String name;
     // End: attributes from JSON file report
 
     private final String fileId;
 
     public Embedding(String mimeType, String data) {
+        this(mimeType, data, null);
+    }
+
+    public Embedding(String mimeType, String data, String name) {
         this.mimeType = mimeType;
         this.data = data;
+        this.name = name;
 
         this.fileId = "embedding_" + data.hashCode();
     }
@@ -33,6 +39,10 @@ public class Embedding {
 
     public String getData() {
         return data;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getDecodedData() {

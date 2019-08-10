@@ -490,7 +490,8 @@
                         "embeddings": [
                             {
                                 "mime_type": "image/png",
-                                "data": "iVBORw0KGgoAAAANSUhEUgAAACwAAAE+CAIAAAB5j2VyAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEVSURBVHhe7c6hAYAwEMDAhzkqu/9m7ICAzFBzZ2JzPWvPafffo0zEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzExGfmBTSnA6klpvCvAAAAAElFTkSuQmCC"
+                                "data": "iVBORw0KGgoAAAANSUhEUgAAACwAAAE+CAIAAAB5j2VyAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEVSURBVHhe7c6hAYAwEMDAhzkqu/9m7ICAzFBzZ2JzPWvPafffo0zEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzEREzExGfmBTSnA6klpvCvAAAAAElFTkSuQmCC",
+                                "name": "Some PNG image"
                             },
                             {
                                 "mime_type": "image/jpeg",
@@ -502,7 +503,8 @@
                             },
                             {
                                 "mime_type": "text/html",
-                                "data": "PGh0bWw+PGhlYWQ+PC9oZWFkPjxib2R5PjxwPjxpPkhlbGxvPC9pPiA8Yj5Xb3JsZCE8L2I+PC9wPjxwPlRoZSB3aWtpcGVkaWEgbG9nbyBzaG91bGQgYXBwZWFyIGJlbG93PC9wPjxpbWcgc3JjPSJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvc3RhdGljL2ltYWdlcy9wcm9qZWN0LWxvZ29zL2Vud2lraS5wbmciPjwvYm9keT48L2h0bWw+"
+                                "data": "PGh0bWw+PGhlYWQ+PC9oZWFkPjxib2R5PjxwPjxpPkhlbGxvPC9pPiA8Yj5Xb3JsZCE8L2I+PC9wPjxwPlRoZSB3aWtpcGVkaWEgbG9nbyBzaG91bGQgYXBwZWFyIGJlbG93PC9wPjxpbWcgc3JjPSJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvc3RhdGljL2ltYWdlcy9wcm9qZWN0LWxvZ29zL2Vud2lraS5wbmciPjwvYm9keT48L2h0bWw+",
+                                "name": "Some HTML embedding"
                             },
                             {
                                 "mime_type": "text/xml",
