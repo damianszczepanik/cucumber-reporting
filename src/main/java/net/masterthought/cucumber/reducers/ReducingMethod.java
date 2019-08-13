@@ -19,7 +19,7 @@ public enum ReducingMethod {
     SKIP_EMPTY_JSON_FILES,
 
     /**
-     * Does not display hooks (@Before and @After) which does not have attachment or error message.
+     * Does not display hooks (@Before and @After) which do not have attachment or error message.
      */
     HIDE_EMPTY_HOOKS
 }

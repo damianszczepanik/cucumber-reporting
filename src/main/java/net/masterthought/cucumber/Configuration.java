@@ -4,11 +4,14 @@ import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
@@ -32,6 +35,8 @@ public class Configuration {
 
     private List<PresentationMode> presentationModes = new ArrayList<>();
     private List<String> classificationFiles;
+
+    private Set<Status> notFailingStatuses = Collections.emptySet();
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -282,5 +287,22 @@ public class Configuration {
      */
     public List<String> getClassificationFiles() {
         return this.classificationFiles;
+    }
+
+    /**
+     * Gets statuses which do not fail scenario.
+     */
+    public Set<Status> getNotFailingStatuses() {
+        return notFailingStatuses;
+    }
+
+    /**
+     * Sets {@link net.masterthought.cucumber.json.support.Status statuses}
+     * of {@link net.masterthought.cucumber.json.Step steps} which should not fail the scenario.
+     */
+    public void setNotFailingStatuses(Set<Status> notFailingStatuses) {
+        if (notFailingStatuses != null) {
+            this.notFailingStatuses = notFailingStatuses;
+        }
     }
 }
