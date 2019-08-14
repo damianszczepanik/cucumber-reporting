@@ -14,6 +14,7 @@ public class LiveDemoTest {
 
     // test annotation only to make sure it is generated during "mvn test"
     // what is needed to publish generated report via github.com
+    // http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html
     @Test
     public void generateDemoReport() throws IOException {
         File reportOutputDirectory = new File("target/demo");
