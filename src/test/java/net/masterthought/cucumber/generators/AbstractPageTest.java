@@ -112,6 +112,8 @@ public class AbstractPageTest extends PageTest {
     public void buildGeneralParameters_AddsCommonProperties() {
 
         // given
+        configuration.addReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS);
+        configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

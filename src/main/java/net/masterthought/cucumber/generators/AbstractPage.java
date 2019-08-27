@@ -105,7 +105,7 @@ public abstract class AbstractPage {
 
         context.put("run_with_jenkins", configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS));
         context.put("expand_all_steps", configuration.containsPresentationMode(PresentationMode.EXPAND_ALL_STEPS));
-        context.put("hide_empty_hooks", configuration.containsReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES));
+        context.put("hide_empty_hooks", configuration.containsReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS));
 
         context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
