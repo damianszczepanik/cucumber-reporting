@@ -73,6 +73,7 @@ public class Embedding {
             case "text/csv":
             case "application/json":
             case "application/xml":
+            case "video/mp4":
                 return mimeType.substring(mimeType.indexOf('/') + 1);
             // image available remotely stored as link/url
             case "image/url":

@@ -130,6 +130,18 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnVideoMp4MimeType_ReturnsMp4() {
+        // given
+        Embedding embedding = new Embedding("video/mp4", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("mp4");
+    }
+
+    @Test
     public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given

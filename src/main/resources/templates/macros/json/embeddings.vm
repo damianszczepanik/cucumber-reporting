@@ -25,6 +25,8 @@
         #includeTextEmbedding($embedding, "JSON", $foreach.index)
       #elseif ($embedding.getMimeType() == "image/url")
         #includeImageReferenceEmbedding($embedding, $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/mp4")
+        #includeVideoEmbedding($embedding, "mp4", $foreach.index)
       #else
         #includeUnknownEmbedding($embedding, $foreach.index)
       #end
@@ -54,7 +56,26 @@
 </div>
 #end
 
-
+#macro(includeVideoEmbedding $embedding, $format ,$index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
+      <a href="embeddings/$embedding.getFileName()" download target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
+    </div>
+    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+      <div class="embedding-content">
+        <video width="854" height="480" controls>
+          <source src="embeddings/$embedding.getFileName()" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+#end
 
 #macro(includeImageEmbedding $embedding, $image_type, $index)
   #set($index = $index + 1)
