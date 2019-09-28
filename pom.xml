@@ -3,7 +3,7 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting-extended</artifactId>
     <packaging>jar</packaging>
-    <version>4.10.1-SNAPSHOT</version>
+    <version>4.10.1</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
@@ -28,7 +28,7 @@
         <url>
             https://bitbucket.1and1.org/projects/TCQA/repos/cucumber-reporting-extended
         </url>
-        <tag>HEAD</tag>
+        <tag>cucumber-reporting-extended-4.10.1</tag>
     </scm>
 
     <distributionManagement>
