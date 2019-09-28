@@ -1,17 +1,16 @@
 package net.masterthought.cucumber.json.support;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.Tag;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TagObject implements Reportable {
 
@@ -25,7 +24,9 @@ public class TagObject implements Reportable {
     private long totalDuration;
     private int totalSteps;
 
-    /** Default status for current tag: {@link Status#PASSED} if all elements pass {@link Status#FAILED} otherwise. */
+    /**
+     * Default status for current tag: {@link Status#PASSED} if all elements pass {@link Status#FAILED} otherwise.
+     */
     private Status status = Status.PASSED;
 
     public TagObject(String tagName) {

@@ -1,12 +1,11 @@
 package net.masterthought.cucumber.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Step;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Step;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StepNameFormatterTest extends PageTest {
 

@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Argument;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Argument;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -33,6 +32,7 @@ public class ArgumentTest extends PageTest {
         assertThat(rows).hasSize(2);
         assertThat(rows[0].getCells()).containsOnlyOnce("max", "min");
     }
+
     @Test
     public void getVal_ReturnsVal() {
 

@@ -1,7 +1,6 @@
 package net.masterthought.cucumber.json.support;
 
 import mockit.Deencapsulation;
-
 import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Output;
 import net.masterthought.cucumber.json.Result;

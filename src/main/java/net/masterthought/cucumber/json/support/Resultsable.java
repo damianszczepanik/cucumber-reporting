@@ -6,9 +6,8 @@ import net.masterthought.cucumber.json.Result;
 
 /**
  * Ensures that class delivers method for counting results and matches.
- * 
- * @author Damian Szczepanik (damianszczepanik@github)
  *
+ * @author Damian Szczepanik (damianszczepanik@github)
  */
 public interface Resultsable {
 

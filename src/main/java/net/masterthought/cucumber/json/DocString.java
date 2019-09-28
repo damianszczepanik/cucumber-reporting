@@ -2,7 +2,7 @@ package net.masterthought.cucumber.json;
 
 /**
  * Doc Strings are handy for specifying a larger piece of text. This is inspired from Python’s Docstring syntax.
- *
+ * <p>
  * In your step definition, there’s no need to find this text and match it in your Regexp. It will automatically be
  * passed as the last parameter in the step definition.
  */

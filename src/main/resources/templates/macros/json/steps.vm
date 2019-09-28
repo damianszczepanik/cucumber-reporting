@@ -2,17 +2,35 @@
 
 <div class="steps inner-level">
   #set($stepsId = $counter.next())
+  #set($collapseCounter = 0)
   <div data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#steps-$stepsId">
     #includeBrief("Steps", $element.getStepsStatus(), "", true)
   </div>
 
   <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed() || $expand_all_steps) in #end">
     #foreach($step in $element.getSteps())
+        ## --- Add support for comments ---
+      #if ($step.getName().indexOf("#")==0 && $step.getName().indexOf("#>>")!=0 && $step.getName().indexOf("#<<")!=0)
+        <div class="description">$step.getName().substring(1,$step.getName().length())</div>
+        ## --- Add support for collapsible sections ---
+      #elseif ($step.getName().indexOf("#>>")==0)
+         #set($collapseCounter = $collapseCounter + 1)
+         #set($uid = $util.uid())
+         <div data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#collapsible-steps-$uid" style="background-color: #F2928C">
+            <div class="brief" style="background-color:white; color: black; margin-top: 5px; margin-bottom: 5px">
+              <i class="chevron fa fa-fw"></i>
+              <span class="collapsible-text indention">$step.getName().substring(3,$step.getName().length())</span>
+            </div>
+         </div>
+         <div id="collapsible-steps-$uid" class="steps inner-level collapse collapsable-details #if (!$element.getStatus().isPassed()) in #end">
+      #elseif ($step.getName().indexOf("#<<")==0 && $collapseCounter>0)
+         #set($collapseCounter = $collapseCounter - 1)
+         </div>
+      #else
       <div class="step">
         #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())
         #set($isPassed = $step.getResult().getStatus().isPassed())
         #includeHooks("Before", $step.getBefore(), $step.getBeforeStatus(), "step")
-        #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)
 
         #if (!$step.getRows().isEmpty())
           <table class="step-arguments">
@@ -27,10 +45,17 @@
         #end
 
         #includeDocString($step.getDocString())
+        #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)
         #includeOutput($step.getOutputs(), $isPassed)
         #includeEmbeddings($step.getEmbeddings())
         #includeHooks("After", $step.getAfter(), $step.getAfterStatus(), "step")
       </div>
+      #end
+    #end
+    #if ($collapseCounter>0)
+       #foreach($i in [1..$collapseCounter])
+          </div>
+       #end
     #end
   </div>
 </div>

@@ -1,15 +1,15 @@
 package net.masterthought.cucumber;
 
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.sorting.SortingMethod;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.StepObject;
-import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.sorting.SortingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -77,7 +77,7 @@ public abstract class ReportGenerator {
 
     protected void initWithProperties(String... propertyFiles) {
         for (String propertyFile : propertyFiles)
-           this.classificationFiles.add(reportFromResourceProperties(propertyFile));
+            this.classificationFiles.add(reportFromResourceProperties(propertyFile));
 
         // may be already created so don't overwrite it
         if (configuration == null) {

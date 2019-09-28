@@ -1,18 +1,17 @@
 package net.masterthought.cucumber.sorting;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.List;
-
 import mockit.Deencapsulation;
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

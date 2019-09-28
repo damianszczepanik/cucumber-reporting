@@ -1,10 +1,9 @@
 package net.masterthought.cucumber.sorting;
 
-import java.util.Comparator;
-
+import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.lang3.ObjectUtils;
 
-import net.masterthought.cucumber.json.Feature;
+import java.util.Comparator;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

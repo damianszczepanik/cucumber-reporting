@@ -1,12 +1,12 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FailuresOverviewPage extends AbstractPage {
 

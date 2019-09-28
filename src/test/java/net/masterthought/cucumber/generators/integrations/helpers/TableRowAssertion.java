@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang.StringUtils;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -38,9 +38,8 @@ public class TableRowAssertion extends ReportAssertion {
 
     /**
      * Validates the row cells' text match the given passed values.
-     * 
-     * @param values
-     *            reference element to compare with
+     *
+     * @param values reference element to compare with
      */
     public void hasExactValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
@@ -55,8 +54,7 @@ public class TableRowAssertion extends ReportAssertion {
     /**
      * Validates the row cells' class names contain the given values.
      *
-     * @param classes
-     *            reference element to compare with
+     * @param classes reference element to compare with
      */
     public void hasExactCSSClasses(String... classes) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
@@ -75,8 +73,7 @@ public class TableRowAssertion extends ReportAssertion {
     /**
      * Validates the row cells' data-value attribute values match the given values.
      *
-     * @param values
-     *            reference element to compare with
+     * @param values reference element to compare with
      */
     public void hasExactDataValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);

@@ -1,17 +1,16 @@
 package net.masterthought.cucumber.json.support;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.Arrays;
-
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

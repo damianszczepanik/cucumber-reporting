@@ -1,19 +1,18 @@
 package net.masterthought.cucumber.json.deserializers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
-
 import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import net.masterthought.cucumber.json.support.Status;
-
 import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

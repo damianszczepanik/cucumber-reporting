@@ -1,16 +1,15 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.StepObject;
-import net.masterthought.cucumber.json.support.TagObject;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

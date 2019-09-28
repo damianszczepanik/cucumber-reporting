@@ -7,7 +7,7 @@ import org.owasp.html.PolicyFactory;
 
 /**
  * Escapes all html and xml that was provided in a reference before inserting it into a template.
- *
+ * <p>
  * References that start with $_sanitize_ will be sanitized to allow urls.
  */
 final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
@@ -21,9 +21,9 @@ final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
     public Object referenceInsert(String reference, Object value) {
         if (value == null) {
             return null;
-        } else if(reference.startsWith("$_sanitize_")) {
+        } else if (reference.startsWith("$_sanitize_")) {
             return LINKS.sanitize(value.toString());
-        } else if(reference.startsWith("$_noescape_")) {
+        } else if (reference.startsWith("$_noescape_")) {
             return value.toString();
         } else {
             return StringEscapeUtils.escapeHtml(value.toString());

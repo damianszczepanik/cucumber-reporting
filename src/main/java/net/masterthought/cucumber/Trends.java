@@ -1,8 +1,8 @@
 package net.masterthought.cucumber;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang.ArrayUtils;
+
+import java.util.Arrays;
 
 /**
  * Contains historical information about all and failed features, scenarios and steps.
@@ -88,8 +88,9 @@ public class Trends {
 
     /**
      * Adds build into the trends.
+     *
      * @param buildNumber number of the build
-     * @param reportable stats for the generated report
+     * @param reportable  stats for the generated report
      */
     public void addBuild(String buildNumber, Reportable reportable) {
 

@@ -15,7 +15,7 @@ public class EscapeHtmlReferenceTest {
     private final ReferenceInsertionEventHandler insertionEventHandler = new EscapeHtmlReference();
 
     @Test
-    public void referenceInsert_returnNormalText(){
+    public void referenceInsert_returnNormalText() {
         // given
         String normalText = "a plain statement";
 
@@ -27,7 +27,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldEscapeHtmlForAnyLabel(){
+    public void referenceInsert_shouldEscapeHtmlForAnyLabel() {
         // given
         String html = "<b>a bold statement</b>";
 
@@ -39,7 +39,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldNotEscapeWithSpecialTag(){
+    public void referenceInsert_shouldNotEscapeWithSpecialTag() {
         // given
         String html = "<b>a bold statement</b>";
 
@@ -51,7 +51,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldReturnNullForNull(){
+    public void referenceInsert_shouldReturnNullForNull() {
         // given
         String html = null;
 
@@ -63,7 +63,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldSanitize(){
+    public void referenceInsert_shouldSanitize() {
         // given
         String html = "<a href=\"www.example.com\" rel=\"nofollow noopener noreferrer\">a hyper web reference</a>";
 

@@ -1,25 +1,29 @@
 package net.masterthought.cucumber.json.support;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Keeps information about steps statistics.
- * 
- * @author Damian Szczepanik (damianszczepanik@github)
  *
+ * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class StepObject {
 
-    /** Name of the method / step implementation. This value is unique, there are no two steps with the same locations. */
+    /**
+     * Name of the method / step implementation. This value is unique, there are no two steps with the same locations.
+     */
     public final String location;
 
-    /** Time that was spend to execute all occurrence of this step. */
+    /**
+     * Time that was spend to execute all occurrence of this step.
+     */
     private long totalDuration;
 
-    /** How many times this step was executed. */
+    /**
+     * How many times this step was executed.
+     */
     private int totalOccurrences;
 
     /**

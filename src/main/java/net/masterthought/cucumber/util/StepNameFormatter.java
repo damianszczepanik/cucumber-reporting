@@ -1,10 +1,9 @@
 package net.masterthought.cucumber.util;
 
+import net.masterthought.cucumber.json.support.Argument;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import net.masterthought.cucumber.json.support.Argument;
 
 public class StepNameFormatter {
 

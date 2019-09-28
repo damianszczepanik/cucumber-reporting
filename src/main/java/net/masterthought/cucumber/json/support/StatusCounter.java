@@ -6,9 +6,8 @@ import java.util.Set;
 
 /**
  * Keeps information about statuses occurrence.
- * 
- * @author Damian Szczepanik (damianszczepanik@github)
  *
+ * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class StatusCounter {
 
@@ -47,8 +46,7 @@ public class StatusCounter {
     /**
      * Increments finalStatus counter by single value.
      *
-     * @param status
-     *            finalStatus for which the counter should be incremented.
+     * @param status finalStatus for which the counter should be incremented.
      */
     public void incrementFor(Status status) {
         final int statusCounter = getValueFor(status) + 1;

@@ -1,34 +1,14 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-
+import net.masterthought.cucumber.generators.FeatureReportPage;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
+import net.masterthought.cucumber.json.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.EmbeddingAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.FeatureAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HookAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HooksAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.OutputAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepsAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TagAssertion;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Hook;
-import net.masterthought.cucumber.json.Output;
-import net.masterthought.cucumber.json.Result;
-import net.masterthought.cucumber.json.Row;
-import net.masterthought.cucumber.json.Step;
+import java.io.File;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

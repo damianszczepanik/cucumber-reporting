@@ -1,14 +1,14 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -46,25 +46,25 @@ public class TagsOverviewPage extends AbstractPage {
         return tagNames;
     }
 
-	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
-		List<TagObject> filteredTags = new ArrayList<>();
-		for (TagObject tagObject : tagsObjectList) {
-			String tagName = tagObject.getName();
-			if (shouldIncludeTag(tagName)) {
-				filteredTags.add(tagObject);
-			}
-		}
-		return filteredTags;
-	}
+    private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
+        List<TagObject> filteredTags = new ArrayList<>();
+        for (TagObject tagObject : tagsObjectList) {
+            String tagName = tagObject.getName();
+            if (shouldIncludeTag(tagName)) {
+                filteredTags.add(tagObject);
+            }
+        }
+        return filteredTags;
+    }
 
-	private boolean shouldIncludeTag(String tagName) {
-		for (Pattern pattern : configuration.getTagsToExcludeFromChart()) {
-			if (tagName.matches(pattern.pattern())) {
-				return false;
-			}
-		}
-		return true;
-	}
+    private boolean shouldIncludeTag(String tagName) {
+        for (Pattern pattern : configuration.getTagsToExcludeFromChart()) {
+            if (tagName.matches(pattern.pattern())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     static String[][] generateTagValues(List<TagObject> tagsObjectList) {
         int tagsCount = tagsObjectList.size();

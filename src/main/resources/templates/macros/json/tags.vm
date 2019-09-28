@@ -2,7 +2,7 @@
 
 <div class="tags indention">
   #if (!$tags.isEmpty())
-    <b>Tags:</b>
+    <i class="fa fa-tags"></i><b> Tags:</b>
     #foreach($tag in $tags)
        <a href="$tag.getFileName()">$tag.getName()</a>
     #end

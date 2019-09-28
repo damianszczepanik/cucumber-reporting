@@ -3,7 +3,7 @@
 <div class="element">
   #if ($linkToFeature)
     <div class="indention">
-      <b>Feature:</b>
+      <i class="fa fa-video-camera"></i><b> Feature:</b>
       <a href="$element.getFeature().getReportFileName()">$element.getFeature().getName()</a>
     </div>
   #end

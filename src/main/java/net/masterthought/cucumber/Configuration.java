@@ -1,20 +1,14 @@
 package net.masterthought.cucumber;
 
-import java.io.File;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
+
+import java.io.File;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class Configuration {
 
@@ -45,8 +39,9 @@ public class Configuration {
 
     /**
      * Validates if the configuration is prepared to be run on Jenkins.
-     * @see #addPresentationModes(PresentationMode)
+     *
      * @return <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     * @see #addPresentationModes(PresentationMode)
      */
     @Deprecated
     public boolean isRunWithJenkins() {
@@ -55,8 +50,9 @@ public class Configuration {
 
     /**
      * Decides if the configuration is prepared to be run on Jenkins.
-     * @see #addPresentationModes(PresentationMode)
+     *
      * @param runWithJenkins <code>true</code> if running on Jenkins, <code>false</code> otherwise
+     * @see #addPresentationModes(PresentationMode)
      */
     @Deprecated
     public void setRunWithJenkins(boolean runWithJenkins) {
@@ -95,6 +91,7 @@ public class Configuration {
 
     /**
      * Calls {@link #setTrends(File, int)} with zero limit.
+     *
      * @param trendsFile file with trends
      */
     public void setTrendsStatsFile(File trendsFile) {
@@ -112,10 +109,11 @@ public class Configuration {
 
     /**
      * Checks if the trends page should be generated and displayed.
+     *
      * @return <code>true</code> if the page with trends should be displayed
      */
     public boolean isTrendsAvailable() {
-        return getTrendsLimit() > -1  && isTrendsStatsFile();
+        return getTrendsLimit() > -1 && isTrendsStatsFile();
     }
 
     /**
@@ -124,8 +122,8 @@ public class Configuration {
      * To disable saving and displaying trends page set to -1.
      * Otherwise number of previous builds is equal to provided limit.
      *
-     * @param trendsFile  file where information about previous builds is stored
-     * @param limit number of builds that should be presented (older builds are skipped)
+     * @param trendsFile file where information about previous builds is stored
+     * @param limit      number of builds that should be presented (older builds are skipped)
      */
     public void setTrends(File trendsFile, int limit) {
         this.trendsFile = trendsFile;
@@ -247,6 +245,7 @@ public class Configuration {
 
     /**
      * Checks if the configuration has given {@link ReducingMethod} set.
+     *
      * @param reducingMethod method to validate
      * @return <code>true</code> if method was set, otherwise <code>false</code>
      */

@@ -1,12 +1,11 @@
 package net.masterthought.cucumber.json.support;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import net.masterthought.cucumber.json.deserializers.StatusDeserializer;
 
 /**
  * Defines all possible statuses provided by cucumber library.
- * 
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @JsonDeserialize(using = StatusDeserializer.class)
@@ -20,6 +19,7 @@ public enum Status {
 
     /**
      * Returns name of the status converted to lower case characters.
+     *
      * @return status name as lowercase
      */
     public String getRawName() {

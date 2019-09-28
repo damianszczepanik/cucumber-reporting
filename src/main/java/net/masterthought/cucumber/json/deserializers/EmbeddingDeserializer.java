@@ -1,5 +1,11 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.json.Embedding;
+import org.codehaus.plexus.util.Base64;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -7,16 +13,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import org.codehaus.plexus.util.Base64;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.json.Embedding;
-
 /**
  * Deserializes embedding and stores it in attachment directory.
- * 
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {

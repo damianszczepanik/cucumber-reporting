@@ -2,10 +2,9 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Resultsable;
+import org.apache.commons.lang.StringUtils;
 
 public class Hook implements Resultsable {
 

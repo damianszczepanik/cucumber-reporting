@@ -1,29 +1,18 @@
 package net.masterthought.cucumber;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.generators.OverviewReport;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Match;
-import net.masterthought.cucumber.json.Result;
-import net.masterthought.cucumber.json.Step;
-import net.masterthought.cucumber.json.Tag;
+import net.masterthought.cucumber.json.*;
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ReportResult {
 

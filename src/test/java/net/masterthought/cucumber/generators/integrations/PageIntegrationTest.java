@@ -1,24 +1,17 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-import java.util.Locale;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.TagReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.BuildInfoAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.LinkAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.NavigationAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.NavigationItemAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

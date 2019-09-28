@@ -1,17 +1,12 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.TagReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.LinkAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

@@ -1,12 +1,11 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.json.Embedding;
+import org.codehaus.plexus.util.Base64;
 
 import java.nio.charset.StandardCharsets;
 
-import org.codehaus.plexus.util.Base64;
-
-import net.masterthought.cucumber.json.Embedding;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

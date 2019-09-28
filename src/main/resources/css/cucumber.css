@@ -24,9 +24,23 @@ a:hover {
 
 .keyword {
     font-weight: bold;
+    color: white;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.tags a {
+    color: #2f2929;
 }
 
 .argument {
+    font-weight: normal;
+    text-color: #363837;
+}
+
+.collapsible-text {
     font-weight: bold;
 }
 
@@ -62,7 +76,7 @@ a:hover {
 }
 
 .message, .output, .embedding {
-    background-color: #dfdfdf;
+    background-color: #e9f1f2;
     overflow: auto;
 }
 
@@ -111,7 +125,7 @@ a:hover {
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
-    background-color: #92DD96;
+    background-color: #90CBA6;
 }
 
 .failed {
@@ -200,6 +214,13 @@ tr:hover {
 
 .chevron:after {
     content: "\f078";
+}
+
+.comment {
+    color:#934a01;
+    font-style:italic;
+    font-weight:bold;
+    margin-top: 10px;
 }
 
 .collapsed .chevron:after {

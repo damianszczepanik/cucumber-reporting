@@ -1,22 +1,23 @@
 package net.masterthought.cucumber.util;
 
+import net.masterthought.cucumber.json.Hook;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Collectors;
-
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
-
-import net.masterthought.cucumber.json.Hook;
 
 public final class Util {
 
     // provide Locale so tests can validate . (instead of ,) separator
     public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
+
     static {
         PERCENT_FORMATTER.setMinimumFractionDigits(2);
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
@@ -73,8 +74,7 @@ public final class Util {
     /**
      * Converts characters of passed string and replaces to hash which can be treated as valid file name.
      *
-     * @param fileName
-     *            sequence that should be converted
+     * @param fileName sequence that should be converted
      * @return converted string
      */
     public static String toValidFileName(String fileName) {
@@ -92,5 +92,9 @@ public final class Util {
         return Arrays.asList(hooks).stream()
                 .filter(Hook::hasContent)
                 .collect(Collectors.toList());
+    }
+
+    public static String uid() {
+        return UUID.randomUUID().toString();
     }
 }

@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.json.Output;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.json.Output;
 
 public class OutputsDeserializer extends CucumberJsonDeserializer<Output[]> {
 

@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.sorting;
 
-import java.util.Comparator;
-
 import net.masterthought.cucumber.json.support.TagObject;
+
+import java.util.Comparator;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

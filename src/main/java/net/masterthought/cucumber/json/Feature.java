@@ -1,18 +1,17 @@
 package net.masterthought.cucumber.json;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Feature implements Reportable, Durationable {
 
@@ -30,7 +29,9 @@ public class Feature implements Reportable, Durationable {
     // End: attributes from JSON file report
 
     private String reportFileName;
-    /** Collects those of elements which are scenarios, not eg background. */
+    /**
+     * Collects those of elements which are scenarios, not eg background.
+     */
     private final List<Element> scenarios = new ArrayList<>();
     private final StatusCounter elementsCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
@@ -150,7 +151,8 @@ public class Feature implements Reportable, Durationable {
 
     /**
      * Sets additional information and calculates values which should be calculated during object creation.
-     * @param jsonFileNo index of the JSON file
+     *
+     * @param jsonFileNo    index of the JSON file
      * @param configuration configuration for the report
      */
     public void setMetaData(int jsonFileNo, Configuration configuration) {

@@ -1,16 +1,15 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import mockit.Deencapsulation;
-import org.junit.Test;
-
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
 import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

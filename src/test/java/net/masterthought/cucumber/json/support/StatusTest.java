@@ -1,13 +1,9 @@
 package net.masterthought.cucumber.json.support;
 
-import static net.masterthought.cucumber.json.support.Status.FAILED;
-import static net.masterthought.cucumber.json.support.Status.PASSED;
-import static net.masterthought.cucumber.json.support.Status.PENDING;
-import static net.masterthought.cucumber.json.support.Status.SKIPPED;
-import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static net.masterthought.cucumber.json.support.Status.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -19,7 +15,7 @@ public class StatusTest {
 
         // given
         // tables displays result with following order
-        final Status[] reference = { PASSED, FAILED, SKIPPED, PENDING, UNDEFINED };
+        final Status[] reference = {PASSED, FAILED, SKIPPED, PENDING, UNDEFINED};
 
         // when
         Status[] orderedStatuses = Status.values();
@@ -34,7 +30,7 @@ public class StatusTest {
         // given
         final Status status = PASSED;
         final String refName = "passed";
-        
+
         // when
         String rawName = status.getRawName();
 

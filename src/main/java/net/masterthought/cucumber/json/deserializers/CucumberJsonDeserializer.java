@@ -1,18 +1,17 @@
 package net.masterthought.cucumber.json.deserializers;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import net.masterthought.cucumber.Configuration;
+
+import java.io.IOException;
 
 /**
  * Abstract deserializer that extracts {@link Configuration} and passes to
  * {@link #deserialize(JsonNode, Configuration)}.
- * 
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 abstract class CucumberJsonDeserializer<T> extends JsonDeserializer<T> {

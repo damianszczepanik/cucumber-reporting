@@ -1,14 +1,10 @@
 package net.masterthought.cucumber.sorting;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
+
+import java.util.*;
 
 /**
  * Keeps references to classes that sort results.

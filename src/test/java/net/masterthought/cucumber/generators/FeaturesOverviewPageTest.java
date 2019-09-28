@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.generators.integrations.PageTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -44,7 +43,6 @@ public class FeaturesOverviewPageTest extends PageTest {
         // then
         VelocityContext context = page.context;
         assertThat(context.getKeys()).hasSize(13);
-
         assertThat(context.get("all_features")).isEqualTo(features);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
     }

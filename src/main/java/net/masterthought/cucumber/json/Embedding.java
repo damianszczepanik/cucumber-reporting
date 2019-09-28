@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.json;
 
-import java.nio.charset.StandardCharsets;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 import org.codehaus.plexus.util.Base64;
 
-import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

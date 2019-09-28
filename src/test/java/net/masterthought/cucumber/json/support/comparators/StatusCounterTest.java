@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.json.support.comparators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Collections;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.ResultsableBuilder;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.junit.Test;
+
+import java.util.Collections;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

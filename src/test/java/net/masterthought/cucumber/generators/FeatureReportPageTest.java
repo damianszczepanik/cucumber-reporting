@@ -1,16 +1,15 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
+import org.apache.velocity.VelocityContext;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

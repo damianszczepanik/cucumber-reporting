@@ -1,23 +1,22 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jsoup.Jsoup;
-import org.junit.After;
-
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.json.Output;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.junit.After;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

@@ -1,9 +1,9 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import mockit.Deencapsulation;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -55,7 +55,7 @@ public class TrendsTest {
         trends.addBuild("buildName", result);
         final String[] buildNumbers = new String[]{"a", "b", "e"};
         Deencapsulation.setField(trends, "buildNumbers", buildNumbers);
-        
+
         // when
         trends.addBuild("the build!", result);
 

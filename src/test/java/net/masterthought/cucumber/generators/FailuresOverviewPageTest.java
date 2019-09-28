@@ -1,17 +1,16 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Feature;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -63,7 +62,6 @@ public class FailuresOverviewPageTest extends PageTest {
         // then
         VelocityContext context = page.context;
         assertThat(context.getKeys()).hasSize(11);
-
         List<Element> elements = (List<Element>) context.get("failures");
         assertThat(elements).hasSameElementsAs(failures);
     }

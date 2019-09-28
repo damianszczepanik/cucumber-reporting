@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.Hook;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.Hook;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

@@ -20,12 +20,14 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <div class="feature">
+        <span style="font-size: 20px"><i class="fa fa-video-camera"></i><b> Feature: $feature.getName()</b></span>
         #includeTags($feature.getTags())
         #includeBrief($feature.getKeyword(), $feature.getStatus(), $feature.getName())
         <div class="description indention">$feature.getDescription()</div>
-
         <div class="elements inner-level">
           #foreach($element in $feature.getElements())
+            <br/>
+            <span style="font-size: 18px"><i class="fa fa-film"></i><b> Scenario: </b>$element.getName()</span>
             #includeElement($element, false)
           #end
         </div>

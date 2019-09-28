@@ -1,13 +1,12 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.json.support.Status;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.json.support.Status;
 
 /**
  * Deserializes Status and maps all known but not supported into UNDEFINED status.

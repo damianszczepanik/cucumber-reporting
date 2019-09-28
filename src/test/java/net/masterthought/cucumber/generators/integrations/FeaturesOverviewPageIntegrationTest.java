@@ -1,14 +1,13 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

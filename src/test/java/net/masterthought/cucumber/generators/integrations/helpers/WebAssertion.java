@@ -1,14 +1,14 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.commons.lang.text.StrBuilder;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.text.StrBuilder;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

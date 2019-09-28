@@ -1,8 +1,8 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

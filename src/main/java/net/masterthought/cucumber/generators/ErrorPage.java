@@ -1,12 +1,11 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.List;
-
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.List;
 
 public class ErrorPage extends AbstractPage {
 
@@ -14,7 +13,7 @@ public class ErrorPage extends AbstractPage {
     private final List<String> jsonFiles;
 
     public ErrorPage(ReportResult reportResult, Configuration configuration, Exception exception,
-            List<String> jsonFiles) {
+                     List<String> jsonFiles) {
         super(reportResult, "errorpage.vm", configuration);
         this.exception = exception;
         this.jsonFiles = jsonFiles;

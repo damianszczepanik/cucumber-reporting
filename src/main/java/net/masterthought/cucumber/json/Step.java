@@ -2,13 +2,12 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class Step implements Resultsable {
 
@@ -90,11 +89,11 @@ public class Step implements Resultsable {
     public Hook[] getBefore() {
         return before;
     }
-    
+
     public Hook[] getAfter() {
         return after;
     }
-    
+
     public Status getBeforeStatus() {
         return beforeStatus;
     }

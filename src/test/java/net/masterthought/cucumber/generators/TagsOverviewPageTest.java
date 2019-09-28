@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.TagObject;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -46,7 +45,6 @@ public class TagsOverviewPageTest extends PageTest {
         // then
         VelocityContext context = page.context;
         assertThat(context.getKeys()).hasSize(14);
-
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
         assertThat(context.get("chart_categories")).isEqualTo(TagsOverviewPage.generateTagLabels(tags));
