@@ -6,11 +6,11 @@
       #set($outputId = $counter.next())
       #set($index = $foreach.index + 1)
       <div class="output indention">
-        <div data-toggle="collapse" class="#if ($isPassed) collapsed #end collapsable-control" data-target="#output-$outputId">
+        <div data-toggle="collapse" class="#if ($isPassed && !$expand_all_steps) collapsed #end collapsable-control" data-target="#output-$outputId">
           Output $index
           <i class="chevron fa fa-fw"></i>
         </div>
-        <div id="output-$outputId" class="collapse collapsable-details #if (!$isPassed) in #end" #if (!$isPassed) aria-expanded="true" #end>
+        <div id="output-$outputId" class="collapse collapsable-details #if (!$isPassed || $expand_all_steps) in #end" #if (!$isPassed || $expand_all_steps) aria-expanded="true" #end>
           #**
            * DO NOT format the line below. Whitespace nodes are significant in a pre-block.
            *#
@@ -20,5 +20,4 @@
     #end
   </div>
 #end
-
 #end

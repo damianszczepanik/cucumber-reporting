@@ -46,7 +46,7 @@
       <span class="download-button glyphicon glyphicon-download-alt"></span>
     </a>
   </div>
-  <div id="embedding-$embeddingId" class="collapse collapsable-details">
+  <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
     <div class="embedding-content">
       <div class="html-content">
         <iframe seamless="true" sandbox="allow-scripts" src="embeddings/$embedding.getFileName()" srcdoc="$embedding.getDecodedData()"></iframe>
@@ -66,7 +66,7 @@
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
         <video width="854" height="480" controls>
           <source src="embeddings/$embedding.getFileName()" type="video/mp4">
@@ -87,7 +87,7 @@
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
         <img src="embeddings/$embedding.getFileName()">
       </div>
@@ -105,7 +105,7 @@
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
         <img src="$embedding.getDecodedData()">
       </div>
@@ -123,7 +123,8 @@
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <pre class="embedding-content">$embedding.getDecodedData()</pre>
     </div>
   </div>
@@ -139,7 +140,7 @@
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
         <pre class="embedding-content">This file cannot be displayed. Use download button to get the content as file.</pre>
     </div>
   </div>
