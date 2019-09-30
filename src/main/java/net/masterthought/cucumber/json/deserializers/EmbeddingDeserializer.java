@@ -37,26 +37,29 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
         String data = rootNode.get("data").asText();
         String mimeType = findMimeType(rootNode);
 
-        Pattern base64Pattern = Pattern.compile(BASE64_MATCHER_REGEX);
-
-//        if (base64Pattern.matcher(data).matches()) {
-//            embedding = new Embedding(mimeType, data);
-//        } else {
-//            embedding = new Embedding(mimeType, new String(Base64.encodeBase64(data.getBytes(UTF_8)), UTF_8));
-//        }
+        String encodedData = getBase64EncodedData(data);
 
         Embedding embedding;
         String nameField = "name";
         if (rootNode.has(nameField)) {
             String name = rootNode.get(nameField).asText();
-            embedding = new Embedding(mimeType, data, name);
+            embedding = new Embedding(mimeType, encodedData, name);
         } else {
-            embedding = new Embedding(mimeType, data);
+            embedding = new Embedding(mimeType, encodedData);
         }
 
         storeEmbedding(embedding, configuration.getEmbeddingDirectory());
 
         return embedding;
+    }
+
+    private String getBase64EncodedData(String data) {
+        Pattern base64Pattern = Pattern.compile(BASE64_MATCHER_REGEX);
+        if(base64Pattern.matcher(data).matches()){
+            return data;
+        } else {
+            return new String(Base64.encodeBase64(data.getBytes(UTF_8)), UTF_8);
+        }
     }
 
     private String findMimeType(JsonNode rootNode) {
