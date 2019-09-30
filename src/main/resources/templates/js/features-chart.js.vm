@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     var context = document.getElementById("features-chart");
     window.myBar = new Chart(context, {
-        type: "pie",
+        type: "doughnut",
         data: chartData,
         options: {
             title: {

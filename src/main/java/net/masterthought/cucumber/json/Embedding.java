@@ -1,10 +1,11 @@
 package net.masterthought.cucumber.json;
 
+import java.nio.charset.StandardCharsets;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 import org.codehaus.plexus.util.Base64;
 
-import java.nio.charset.StandardCharsets;
+import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -15,13 +16,19 @@ public class Embedding {
     // Start: attributes from JSON file report
     private final String mimeType;
     private final String data;
+    private final String name;
     // End: attributes from JSON file report
 
     private final String fileId;
 
     public Embedding(String mimeType, String data) {
+        this(mimeType, data, null);
+    }
+
+    public Embedding(String mimeType, String data, String name) {
         this.mimeType = mimeType;
         this.data = data;
+        this.name = name;
 
         this.fileId = "embedding_" + data.hashCode();
     }
@@ -32,6 +39,10 @@ public class Embedding {
 
     public String getData() {
         return data;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getDecodedData() {
@@ -53,26 +64,28 @@ public class Embedding {
 
     public String getExtension() {
         switch (mimeType) {
-        case "image/png":
-        case "image/gif":
-        case "image/bmp":
-        case "image/jpeg":
-        case "text/html":
-        case "text/xml":
-        case "application/json":
-        case "application/xml":
-            return mimeType.substring(mimeType.indexOf('/') + 1);
-        // image available remotely stored as link/url
-        case "image/url":
-            return "image";
-        case "image/svg+xml":
-            return "svg";
-        case "text/plain":
-            return "txt";
-        case "application/pdf":
-            return "pdf";
-        default:
-            return "unknown";
+            case "image/png":
+            case "image/gif":
+            case "image/bmp":
+            case "image/jpeg":
+            case "text/html":
+            case "text/xml":
+            case "text/csv":
+            case "application/json":
+            case "application/xml":
+            case "video/mp4":
+                return mimeType.substring(mimeType.indexOf('/') + 1);
+            // image available remotely stored as link/url
+            case "image/url":
+                return "image";
+            case "image/svg+xml":
+                return "svg";
+            case "text/plain":
+                return "txt";
+            case "application/pdf":
+                return "pdf";
+            default:
+                return "unknown";
         }
     }
 }

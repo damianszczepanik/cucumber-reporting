@@ -28,12 +28,12 @@ public class TagsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        List<TagObject> tags = reportResult.getAllTags();
+        List<TagObject> tags = filterExcludedTags(reportResult.getAllTags());
         context.put("all_tags", tags);
         context.put("report_summary", reportResult.getTagReport());
 
-        context.put("chart_categories", generateTagLabels(filterExcludedTags(tags)));
-        context.put("chart_data", generateTagValues(filterExcludedTags(tags)));
+        context.put("chart_categories", generateTagLabels(tags));
+        context.put("chart_data", generateTagValues(tags));
     }
 
     static String[] generateTagLabels(List<TagObject> tagsObjectList) {

@@ -1,6 +1,8 @@
 package net.masterthought.cucumber.json.support;
 
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.Set;
 
 /**
  * Keeps information about statuses occurrence.
@@ -20,16 +22,25 @@ public class StatusCounter {
 
     private int size = 0;
 
-    public StatusCounter() {
-        for (Status status : Status.values()) {
-            counter.put(status, 0);
+    public StatusCounter(Resultsable[] resultsables) {
+        this(resultsables, Collections.emptySet());
+    }
+
+    public StatusCounter(Resultsable[] resultsables, Set<Status> notFailingStatuses) {
+        this();
+        for (Resultsable resultsable : resultsables) {
+            Status status = resultsable.getResult().getStatus();
+            if (notFailingStatuses != null && notFailingStatuses.contains(status)) {
+                incrementFor(Status.PASSED);
+            } else {
+                incrementFor(status);
+            }
         }
     }
 
-    public StatusCounter(Resultsable[] resultsables) {
-        this();
-        for (Resultsable resultsable : resultsables) {
-            incrementFor(resultsable.getResult().getStatus());
+    public StatusCounter() {
+        for (Status status : Status.values()) {
+            counter.put(status, 0);
         }
     }
 

@@ -1,5 +1,9 @@
 #macro(includeHooks $keyword, $hooks, $status, $level)
 
+#if($hide_empty_hooks)
+  #set($hooks = $util.eliminateEmptyHooks($hooks))
+#end
+
 #if(!$hooks.isEmpty())
   <div class="inner-level hooks-${level}-$keyword.toLowerCase()">
     #set($hookId = $counter.next())

@@ -21,10 +21,10 @@ public class HookTest extends PageTest {
     public void getResult_ReturnsResult() {
 
         // given
-        Hook before = features.get(0).getElements()[1].getAfter()[0];
+        Hook hook = features.get(0).getElements()[1].getAfter()[0];
 
         // when
-        Result result = before.getResult();
+        Result result = hook.getResult();
 
         // then
         assertThat(result.getDuration()).isEqualTo(60744700);
@@ -34,10 +34,10 @@ public class HookTest extends PageTest {
     public void getMatch_ReturnsMatch() {
 
         // given
-        Hook after = features.get(0).getElements()[1].getAfter()[0];
+        Hook hook = features.get(0).getElements()[1].getAfter()[0];
 
         // when
-        Match match = after.getMatch();
+        Match match = hook.getMatch();
 
         // then
         assertThat(match.getLocation()).isEqualTo("MachineFactory.timeout()");
@@ -47,10 +47,10 @@ public class HookTest extends PageTest {
     public void getOutputs_ReturnsOutputs() {
 
         // given
-        Hook before = features.get(1).getElements()[0].getBefore()[0];
+        Hook hook = features.get(1).getElements()[0].getBefore()[0];
 
         // when
-        Output[] outputs = before.getOutputs();
+        Output[] outputs = hook.getOutputs();
 
         // then
         assertThat(outputs).hasSize(1);
@@ -61,13 +61,69 @@ public class HookTest extends PageTest {
     public void getEmbeddings_ReturnsEmbeddings() {
 
         // given
-        Hook after = features.get(1).getElements()[0].getAfter()[0];
+        Hook hook = features.get(1).getElements()[0].getAfter()[0];
 
         // when
-        Embedding[] embeddings = after.getEmbeddings();
+        Embedding[] embeddings = hook.getEmbeddings();
 
         // then
         assertThat(embeddings).hasSize(1);
         assertThat(embeddings[0].getMimeType()).isEqualTo("image/png");
+    }
+
+    @Test
+    public void hasContent_WithEmbedding_ReturnsTrue() {
+
+        // given
+        Hook hook = features.get(1).getElements()[0].getSteps()[0].getBefore()[0];
+
+        // when
+        boolean hasContent = hook.hasContent();
+
+        // then
+        assertThat(hook.getEmbeddings()).isNotEmpty();
+        assertThat(hasContent).isTrue();
+    }
+
+    @Test
+    public void hasContent_WithErrorMessage_ReturnsTrue() {
+
+        // given
+        Hook hook = features.get(0).getElements()[1].getAfter()[0];
+
+        // when
+        boolean hasContent = hook.hasContent();
+
+        // then
+        assertThat(hook.getResult().getErrorMessage()).isNotEmpty();
+        assertThat(hasContent).isTrue();
+    }
+
+    @Test
+    public void hasContent_WithEmptyResult_ReturnsFalse() {
+
+        // given
+        Hook hook = features.get(1).getElements()[0].getSteps()[1].getAfter()[0];
+
+        // when
+        boolean hasContent = hook.hasContent();
+
+        // then
+        assertThat(hook.getResult().getErrorMessage()).isNull();
+        assertThat(hasContent).isFalse();
+    }
+
+    @Test
+    public void hasContent_OnEmptyHook_ReturnsFalse() {
+
+        // given
+        Hook hook = features.get(1).getElements()[0].getBefore()[0];
+
+        // when
+        boolean hasContent = hook.hasContent();
+
+        // then
+        assertThat(hook.getEmbeddings()).isEmpty();
+        assertThat(hasContent).isFalse();
     }
 }
