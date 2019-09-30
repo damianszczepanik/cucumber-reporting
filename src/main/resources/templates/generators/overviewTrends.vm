@@ -4,7 +4,7 @@
   #parse("/templates/headers.vm")
   #includeTitle("Trends Overview")
 
-  <script type="text/javascript">
+  <script>
   #parse("/templates/js/trends-chart.js.vm")
   </script>
 </head>
@@ -21,22 +21,22 @@
     <div class="col-md-10 col-md-offset-1">
       <h4>Features:</h4>
       <canvas id="trends-features-chart" height="50"></canvas>
-      <br>
+      <br/>
 
       <h4>Scenarios:</h4>
       <canvas id="trends-scenarios-chart" height="50"></canvas>
-      <br>
+      <br/>
 
       <h4>Steps:</h4>
       <canvas id="trends-steps-chart" height="50"></canvas>
-      <br>
+      <br/>
 
       <h4>Durations:</h4>
       <canvas id="trends-durations-chart" height="50"></canvas>
     </div>
   </div>
 </div>
-<br>
+<br/>
 
 #include("/templates/footer.vm")
 

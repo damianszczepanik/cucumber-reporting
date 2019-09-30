@@ -25,7 +25,7 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
 
     /*
     Base64 Regex matches for the following:
-    ^([A-Za-z0-9+/]{4})* matches group of four chracters from [A-Z, a-z, 0-9, and + /]
+    ^([A-Za-z0-9+/]{4})* matches group of four characters from [A-Z, a-z, 0-9, and + /]
     If a base64 encoded String is not a multiple of four it is padded with '='.
     (?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$ checks if the String ends with a group of four of the legal characters
     or it ends with '=' or '=='
@@ -38,12 +38,22 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
         String mimeType = findMimeType(rootNode);
 
         Pattern base64Pattern = Pattern.compile(BASE64_MATCHER_REGEX);
+
+//        if (base64Pattern.matcher(data).matches()) {
+//            embedding = new Embedding(mimeType, data);
+//        } else {
+//            embedding = new Embedding(mimeType, new String(Base64.encodeBase64(data.getBytes(UTF_8)), UTF_8));
+//        }
+
         Embedding embedding;
-        if (base64Pattern.matcher(data).matches()) {
-            embedding = new Embedding(mimeType, data);
+        String nameField = "name";
+        if (rootNode.has(nameField)) {
+            String name = rootNode.get(nameField).asText();
+            embedding = new Embedding(mimeType, data, name);
         } else {
-            embedding = new Embedding(mimeType, new String(Base64.encodeBase64(data.getBytes(UTF_8)), UTF_8));
+            embedding = new Embedding(mimeType, data);
         }
+
         storeEmbedding(embedding, configuration.getEmbeddingDirectory());
 
         return embedding;

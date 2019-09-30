@@ -27,9 +27,6 @@ $(document).ready(function() {
                 fontSize: 20,
                 text: "Scenarios"
             },
-            circumference: Math.PI,
-            rotation: Math.PI,
-            cutoutPercentage: 70,
             responsive: true,
             legend: {
                 display: false

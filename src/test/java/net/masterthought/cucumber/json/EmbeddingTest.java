@@ -130,7 +130,19 @@ public class EmbeddingTest {
     }
 
     @Test
-    public void getExtension__OnUnknownType_ResurnsUnknown() {
+    public void getExtension__OnVideoMp4MimeType_ReturnsMp4() {
+        // given
+        Embedding embedding = new Embedding("video/mp4", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("mp4");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given
         Embedding embedding = new Embedding("js", "");
@@ -140,5 +152,18 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("unknown");
+    }
+
+    @Test
+    public void getName_ReturnsName() {
+
+        // given
+        String embeddingName = "embeddingName";
+        Embedding embedding = new Embedding("application/pdf", "some data", embeddingName);
+
+        String name = embedding.getName();
+
+        // then
+        assertThat(name).isEqualTo(embeddingName);
     }
 }

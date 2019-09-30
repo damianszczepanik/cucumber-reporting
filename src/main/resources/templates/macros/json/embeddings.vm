@@ -3,30 +3,34 @@
   #if (!$embeddings.isEmpty())
   <div class="embeddings inner-level">
     #foreach($embedding in $embeddings)
-    #if ($embedding.getMimeType() == "image/png")
-      #includeImageEmbedding($embedding, "png", $foreach.index)
-    #elseif ($embedding.getMimeType() == "image/gif")
-      #includeImageEmbedding($embedding, "gif", $foreach.index)
-    #elseif ($embedding.getMimeType() == "image/bmp")
-      #includeImageEmbedding($embedding, "bmp", $foreach.index)
-    #elseif ($embedding.getMimeType() == "image/jpeg")
-      #includeImageEmbedding($embedding, "jpeg", $foreach.index)
-    #elseif ($embedding.getMimeType() == "image/svg+xml")
-      #includeImageEmbedding($embedding, "svg", $foreach.index)
-    #elseif ($embedding.getMimeType() == "text/xml")
-      #includeTextEmbedding($embedding, "XML text", $foreach.index)
-    #elseif ($embedding.getMimeType() == "text/plain")
-      #includeTextEmbedding($embedding, "Plain text", $foreach.index)
-    #elseif ($embedding.getMimeType() == "text/html")
-      #includeHtmlEmbedding($embedding, "HTML", $foreach.index)
-    #elseif ($embedding.getMimeType() == "application/json")
-      #includeTextEmbedding($embedding, "JSON", $foreach.index)
-    #elseif ($embedding.getMimeType() == "image/url")
-      #includeImageReferenceEmbedding($embedding, $foreach.index)
-    #else
-      #includeUnknownEmbedding($embedding, $foreach.index)
+      #if ($embedding.getMimeType() == "image/png")
+        #includeImageEmbedding($embedding, "png", $foreach.index)
+      #elseif ($embedding.getMimeType() == "image/gif")
+        #includeImageEmbedding($embedding, "gif", $foreach.index)
+      #elseif ($embedding.getMimeType() == "image/bmp")
+        #includeImageEmbedding($embedding, "bmp", $foreach.index)
+      #elseif ($embedding.getMimeType() == "image/jpeg")
+        #includeImageEmbedding($embedding, "jpeg", $foreach.index)
+      #elseif ($embedding.getMimeType() == "image/svg+xml")
+        #includeImageEmbedding($embedding, "svg", $foreach.index)
+      #elseif ($embedding.getMimeType() == "text/xml")
+        #includeTextEmbedding($embedding, "XML text", $foreach.index)
+      #elseif ($embedding.getMimeType() == "text/plain")
+        #includeTextEmbedding($embedding, "Plain text", $foreach.index)
+      #elseif ($embedding.getMimeType() == "text/html")
+        #includeHtmlEmbedding($embedding, "HTML", $foreach.index)
+      #elseif ($embedding.getMimeType() == "text/csv")
+        #includeTextEmbedding($embedding, "CSV", $foreach.index)
+      #elseif ($embedding.getMimeType() == "application/json")
+        #includeTextEmbedding($embedding, "JSON", $foreach.index)
+      #elseif ($embedding.getMimeType() == "image/url")
+        #includeImageReferenceEmbedding($embedding, $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/mp4")
+        #includeVideoEmbedding($embedding, "mp4", $foreach.index)
+      #else
+        #includeUnknownEmbedding($embedding, $foreach.index)
+      #end
     #end
-  #end
   </div>
   #end
 
@@ -37,12 +41,12 @@
 <div class="embedding indention">
   #set($embeddingId = $counter.next())
   <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-    <a>Attachment $index ($format)</a>
+    <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
     <a href="embeddings/$embedding.getFileName()" download target="_blank">
       <span class="download-button glyphicon glyphicon-download-alt"></span>
     </a>
   </div>
-  <div id="embedding-$embeddingId" class="collapse collapsable-details">
+  <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
     <div class="embedding-content">
       <div class="html-content">
         <iframe seamless="true" sandbox="allow-scripts" src="embeddings/$embedding.getFileName()" srcdoc="$embedding.getDecodedData()"></iframe>
@@ -52,19 +56,38 @@
 </div>
 #end
 
-
+#macro(includeVideoEmbedding $embedding, $format ,$index)
+  #set($index = $index + 1)
+  <div class="embedding indention">
+    #set($embeddingId = $counter.next())
+    <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
+      <a href="embeddings/$embedding.getFileName()" download target="_blank">
+        <span class="download-button glyphicon glyphicon-download-alt"></span>
+      </a>
+    </div>
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
+      <div class="embedding-content">
+        <video width="854" height="480" controls>
+          <source src="embeddings/$embedding.getFileName()" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+#end
 
 #macro(includeImageEmbedding $embedding, $image_type, $index)
   #set($index = $index + 1)
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($image_type)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($image_type)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
         <img src="embeddings/$embedding.getFileName()">
       </div>
@@ -77,12 +100,12 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index (Image)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index (Image)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
         <img src="$embedding.getDecodedData()">
       </div>
@@ -95,12 +118,13 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($format)</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($format)#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <pre class="embedding-content">$embedding.getDecodedData()</pre>
     </div>
   </div>
@@ -111,12 +135,12 @@
   <div class="embedding indention">
     #set($embeddingId = $counter.next())
     <div data-toggle="collapse" data-target="#embedding-$embeddingId" class="collapsable-control">
-      <a>Attachment $index ($embedding.getMimeType())</a>
+      <a>#if($embedding.getName())$embedding.getName()#{else}Attachment $index ($embedding.getMimeType())#end</a>
       <a href="embeddings/$embedding.getFileName()" download target="_blank">
         <span class="download-button glyphicon glyphicon-download-alt"></span>
       </a>
     </div>
-    <div id="embedding-$embeddingId" class="collapse collapsable-details">
+    <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
         <pre class="embedding-content">This file cannot be displayed. Use download button to get the content as file.</pre>
     </div>
   </div>

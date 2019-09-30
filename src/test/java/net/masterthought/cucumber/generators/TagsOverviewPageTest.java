@@ -45,7 +45,7 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(13);
+        assertThat(context.getKeys()).hasSize(14);
 
         assertThat(context.get("all_tags")).isEqualTo(tags);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getTagReport());
@@ -65,6 +65,10 @@ public class TagsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
+        List<TagObject> tags = (List<TagObject>) context.get("all_tags");
+        assertThat(tags).hasSize(1);
+        assertThat(tags.get(0).getName()).isEqualTo("@fast");
+
         assertThat(context.get("chart_categories")).isEqualTo(new String[]{"@fast"});
         assertThat(context.get("chart_data")).isEqualTo(new String[][]{
                 {"100.00"},

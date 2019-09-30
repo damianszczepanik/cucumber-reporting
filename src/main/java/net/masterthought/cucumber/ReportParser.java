@@ -92,7 +92,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.log(Level.INFO, String.format("File '%s' does not contain features", jsonFile));
+                LOG.log(Level.INFO, "File '{0}' does not contain features", jsonFile);
             }
             return features;
         } catch (JsonMappingException e) {

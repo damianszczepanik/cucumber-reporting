@@ -155,20 +155,20 @@ public class Feature implements Reportable, Durationable {
      */
     public void setMetaData(int jsonFileNo, Configuration configuration) {
         for (Element element : elements) {
-            element.setMetaData(this);
+            element.setMetaData(this, configuration);
 
             if (element.isScenario()) {
                 scenarios.add(element);
             }
         }
 
-        reportFileName = calculateReportFileName(jsonFileNo, configuration);
+        reportFileName = calculateReportFileName(jsonFileNo);
         featureStatus = calculateFeatureStatus();
 
         calculateSteps();
     }
 
-    private String calculateReportFileName(int jsonFileNo, Configuration configuration) {
+    private String calculateReportFileName(int jsonFileNo) {
         // remove all characters that might not be valid file name
         String fileName = "report-feature_";
 
