@@ -1,18 +1,16 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.json.Embedding;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.regex.Pattern;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import org.codehaus.plexus.util.Base64;
-
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ValidationException;
-import net.masterthought.cucumber.json.Embedding;
+import java.util.Base64;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -22,15 +20,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
-
-    /*
-    Base64 Regex matches for the following:
-    ^([A-Za-z0-9+/]{4})* matches group of four characters from [A-Z, a-z, 0-9, and + /]
-    If a base64 encoded String is not a multiple of four it is padded with '='.
-    (?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$ checks if the String ends with a group of four of the legal characters
-    or it ends with '=' or '=='
-     */
-    private static final String BASE64_MATCHER_REGEX = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
 
     @Override
     public Embedding deserialize(JsonNode rootNode, Configuration configuration) {
@@ -54,11 +43,15 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
     }
 
     private String getBase64EncodedData(String data) {
-        Pattern base64Pattern = Pattern.compile(BASE64_MATCHER_REGEX);
-        if(base64Pattern.matcher(data).matches()){
+        try{
+            // If we can successfully decode the data we consider it to be base64 encoded,
+            // so we do not need to do anything here
+            Base64.getDecoder().decode(data);
             return data;
-        } else {
-            return new String(Base64.encodeBase64(data.getBytes(UTF_8)), UTF_8);
+        }catch (IllegalArgumentException e){
+            // decoding failed, therefore we consider the data not to be encoded,
+            // so we need to encode it
+            return new String(Base64.getEncoder().encode(data.getBytes(UTF_8)), UTF_8);
         }
     }
 
@@ -75,7 +68,7 @@ public class EmbeddingDeserializer extends CucumberJsonDeserializer<Embedding> {
     private void storeEmbedding(Embedding embedding, File embeddingDirectory) {
         Path file = FileSystems.getDefault().getPath(embeddingDirectory.getAbsolutePath(),
                 embedding.getFileId() + "." + embedding.getExtension());
-        byte[] decodedData = Base64.decodeBase64(embedding.getData().getBytes(UTF_8));
+        byte[] decodedData = Base64.getDecoder().decode(embedding.getData().getBytes(UTF_8));
         try {
             Files.write(file, decodedData);
         } catch (IOException e) {
