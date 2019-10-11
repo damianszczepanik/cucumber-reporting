@@ -11,10 +11,12 @@ import net.masterthought.cucumber.util.Util;
 public class Element implements Durationable {
 
     // Start: attributes from JSON file report
+    private final String id = null;
     private final String name = null;
     private final String type = null;
     private final String description = null;
     private final String keyword = null;
+    private final Integer line = null;
     private final Step[] steps = new Step[0];
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
@@ -22,6 +24,7 @@ public class Element implements Durationable {
     // End: attributes from JSON file report
 
     private static final String SCENARIO_TYPE = "scenario";
+    private static final String BACKGROUND_TYPE = "background";
 
     private Status elementStatus;
     private Status beforeStatus;
@@ -63,12 +66,20 @@ public class Element implements Durationable {
         return stepsStatus;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getKeyword() {
         return keyword;
+    }
+
+    public Integer getLine() {
+        return line;
     }
 
     public String getType() {
@@ -81,6 +92,10 @@ public class Element implements Durationable {
 
     public boolean isScenario() {
         return SCENARIO_TYPE.equalsIgnoreCase(type);
+    }
+
+    public boolean isBackground() {
+        return BACKGROUND_TYPE.equalsIgnoreCase(type);
     }
 
     public Feature getFeature() {
