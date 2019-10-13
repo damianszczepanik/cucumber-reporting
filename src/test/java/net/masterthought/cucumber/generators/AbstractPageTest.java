@@ -103,8 +103,8 @@ public class AbstractPageTest extends PageTest {
 
         // then
         assertThat(props).hasSize(3);
-        assertThat(props.getProperty("resource.loader")).isNotNull();
-        assertThat(props.getProperty("class.resource.loader.class")).isNotNull();
+        assertThat(props.getProperty("resource.loaders")).isNotNull();
+        assertThat(props.getProperty("resource.loader.class.class")).isNotNull();
         assertThat(props.getProperty("runtime.log")).isNotNull();
     }
 

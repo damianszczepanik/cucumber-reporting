@@ -20,7 +20,7 @@ public class EscapeHtmlReferenceTest {
         String normalText = "a plain statement";
 
         // when
-        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, normalText);
+        Object result = insertionEventHandler.referenceInsert(null, SOME_REFERENCE, normalText);
 
         // then
         assertThat(result).isEqualTo(normalText);
@@ -32,7 +32,7 @@ public class EscapeHtmlReferenceTest {
         String html = "<b>a bold statement</b>";
 
         // when
-        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, html);
+        Object result = insertionEventHandler.referenceInsert(null, SOME_REFERENCE, html);
 
         // then
         assertThat(result).isEqualTo(escapeHtml(html));
@@ -44,7 +44,7 @@ public class EscapeHtmlReferenceTest {
         String html = "<b>a bold statement</b>";
 
         // when
-        Object result = insertionEventHandler.referenceInsert("$_noescape_" + SOME_REFERENCE, html);
+        Object result = insertionEventHandler.referenceInsert(null, "$_noescape_" + SOME_REFERENCE, html);
 
         // then
         assertThat(result).isEqualTo(html);
@@ -56,7 +56,7 @@ public class EscapeHtmlReferenceTest {
         String html = null;
 
         // when
-        Object result = insertionEventHandler.referenceInsert(SOME_REFERENCE, html);
+        Object result = insertionEventHandler.referenceInsert(null, SOME_REFERENCE, html);
 
         // then
         assertThat(result).isNull();
@@ -68,7 +68,7 @@ public class EscapeHtmlReferenceTest {
         String html = "<a href=\"www.example.com\" rel=\"nofollow noopener noreferrer\">a hyper web reference</a>";
 
         // when
-        Object result = insertionEventHandler.referenceInsert("$_sanitize_" + SOME_REFERENCE, html);
+        Object result = insertionEventHandler.referenceInsert(null, "$_sanitize_" + SOME_REFERENCE, html);
 
         // result
         assertThat(result).isEqualTo(html);

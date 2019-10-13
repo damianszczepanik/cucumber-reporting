@@ -85,8 +85,8 @@ public abstract class AbstractPage {
 
     private Properties buildProperties() {
         Properties props = new Properties();
-        props.setProperty("resource.loader", "class");
-        props.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
+        props.setProperty("resource.loaders", "class");
+        props.setProperty("resource.loader.class.class", ClasspathResourceLoader.class.getCanonicalName());
         props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
 
         return props;
