@@ -24,6 +24,7 @@ public class Feature implements Reportable, Durationable {
     private final String uri = null;
     private final String description = null;
     private final String keyword = null;
+    private final Integer line = null;
 
     private Element[] elements = new Element[0];
     private final Tag[] tags = new Tag[0];
@@ -72,6 +73,10 @@ public class Feature implements Reportable, Durationable {
 
     public String getKeyword() {
         return StringUtils.defaultString(keyword);
+    }
+
+    public Integer getLine() {
+        return line;
     }
 
     public String getDescription() {

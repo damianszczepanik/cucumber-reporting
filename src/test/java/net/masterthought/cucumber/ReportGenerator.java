@@ -20,6 +20,7 @@ public abstract class ReportGenerator {
     public final static String CLASSIFICATIONS_DIRECTORY = "classifications/";
 
     protected static final String SAMPLE_JSON = "sample.json";
+    protected static final String CUCUMBER_TIMESTAMPED_JSON = "timestamped/all-last-failed.json";
     protected static final String SAMPLE_FAILED_JSON = "sample_failed.json";
     public static final String SIMPLE_JSON = "simple.json";
     protected static final String EMPTY_JSON = "empty.json";

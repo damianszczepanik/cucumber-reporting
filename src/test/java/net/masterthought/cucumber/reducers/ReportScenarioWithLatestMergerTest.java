@@ -9,11 +9,11 @@ import static java.util.Collections.singletonList;
 import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_BY_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReportFeatureReplaceableMergerTest extends ReportGenerator {
+public class ReportScenarioWithLatestMergerTest extends ReportGenerator {
 
     @Test
     public void test_ApplyForMergeReduceMethodOnly() {
-        ReportFeatureReplaceableMerger merger = new ReportFeatureReplaceableMerger();
+        ReportScenarioWithLatestMerger merger = new ReportScenarioWithLatestMerger();
         assertThat(merger.test(singletonList(MERGE_FEATURES_BY_ID))).isTrue();
         assertThat(merger.test(null)).isFalse();
         assertThat(merger.test(emptyList())).isFalse();

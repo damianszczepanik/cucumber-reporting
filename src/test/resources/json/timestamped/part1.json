@@ -1,0 +1,71 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2019-10-14T15:38:54.474Z",
+        "line": 3,
+        "name": "All categories are displayed on site",
+        "description": "",
+        "id": "crawler-tests.-products-verifications.;all-categories-are-displayed-on-site",
+        "after": [
+          {
+            "result": {
+              "duration": 126501848,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 3553649251,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 179551775,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Get list of existing products",
+            "match": {
+              "location": "ProductDataSteps.readListOfExistingProducts()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 317496141,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "List of categories is displayed on Home page and contains all values",
+            "match": {
+              "location": "HomePageSteps.verifyListOfCategories()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Crawler tests. Products verifications.",
+    "description": "",
+    "id": "crawler-tests.-products-verifications.",
+    "keyword": "Feature",
+    "uri": "classpath:crawler/crawler-categories_and_tags.feature",
+    "tags": []
+  }
+]

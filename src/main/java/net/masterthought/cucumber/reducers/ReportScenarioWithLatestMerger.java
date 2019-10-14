@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-final class ReportFeatureReplaceableMerger implements ReportFeatureMerger {
+/**
+ *
+ */
+final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
 
     private static final ElementComparator ELEMENT_COMPARATOR = new ElementComparator();
 
@@ -69,6 +72,6 @@ final class ReportFeatureReplaceableMerger implements ReportFeatureMerger {
 
     @Override
     public boolean test(List<ReducingMethod> reducingMethods) {
-        return reducingMethods != null && reducingMethods.contains(ReducingMethod.MERGE_FEATURES_BY_ID);
+        return reducingMethods != null && reducingMethods.contains(ReducingMethod.MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
     }
 }

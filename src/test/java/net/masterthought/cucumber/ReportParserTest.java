@@ -2,12 +2,15 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.not;
 import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import net.masterthought.cucumber.json.Element;
+import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Index;
 import org.junit.Test;
 
@@ -31,6 +34,26 @@ public class ReportParserTest extends ReportGenerator {
 
         // then
         assertThat(features).hasSize(3);
+    }
+
+    @Test
+    public void parseJsonResults_Timestamp() {
+        initWithJson(CUCUMBER_TIMESTAMPED_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(3);
+
+        SoftAssertions.assertSoftly(a -> {
+            for (Feature f : features) {
+                for (Element elm : f.getElements()) {
+                    a.assertThat(elm.getStartTime()).isNotNull();
+                }
+            }
+        });
     }
 
     @Test
