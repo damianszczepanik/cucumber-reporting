@@ -3,15 +3,15 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2019-10-14T15:38:54.474Z",
+        "start_timestamp": "2019-10-15T13:36:46.463Z",
         "line": 3,
         "name": "All categories are displayed on site",
         "description": "",
-        "id": "crawler-tests.-products-verifications.;all-categories-are-displayed-on-site",
+        "id": "crawler-tests.-categories-and-tags.;all-categories-are-displayed-on-site",
         "after": [
           {
             "result": {
-              "duration": 126501848,
+              "duration": 128705440,
               "status": "passed"
             },
             "match": {
@@ -24,7 +24,7 @@
         "steps": [
           {
             "result": {
-              "duration": 3553649251,
+              "duration": 5339535007,
               "status": "passed"
             },
             "line": 4,
@@ -36,7 +36,7 @@
           },
           {
             "result": {
-              "duration": 179551775,
+              "duration": 183115380,
               "status": "passed"
             },
             "line": 5,
@@ -48,7 +48,7 @@
           },
           {
             "result": {
-              "duration": 317496141,
+              "duration": 328185822,
               "status": "passed"
             },
             "line": 6,
@@ -61,9 +61,9 @@
         ]
       }
     ],
-    "name": "Crawler tests. Products verifications.",
+    "name": "Crawler tests. Categories and tags.",
     "description": "",
-    "id": "crawler-tests.-products-verifications.",
+    "id": "crawler-tests.-categories-and-tags.",
     "keyword": "Feature",
     "uri": "classpath:crawler/crawler-categories_and_tags.feature",
     "tags": []
@@ -72,7 +72,7 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2019-10-14T15:38:58.695Z",
+        "start_timestamp": "2019-10-15T13:36:52.477Z",
         "line": 3,
         "name": "OnSale label is displayed for a product without discount",
         "description": "",
@@ -80,7 +80,7 @@
         "after": [
           {
             "result": {
-              "duration": 554747,
+              "duration": 785732,
               "status": "passed"
             },
             "match": {
@@ -93,7 +93,7 @@
         "steps": [
           {
             "result": {
-              "duration": 20653978,
+              "duration": 22425223,
               "status": "passed"
             },
             "line": 4,
@@ -105,7 +105,7 @@
           },
           {
             "result": {
-              "duration": 577105,
+              "duration": 544491,
               "status": "passed"
             },
             "line": 5,
@@ -117,7 +117,7 @@
           },
           {
             "result": {
-              "duration": 831153350,
+              "duration": 805299210,
               "status": "passed"
             },
             "line": 6,
@@ -130,7 +130,7 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-14T15:38:59.569Z",
+        "start_timestamp": "2019-10-15T13:36:53.330Z",
         "line": 8,
         "name": "All discount products have the OnSale label",
         "description": "",
@@ -138,7 +138,7 @@
         "after": [
           {
             "result": {
-              "duration": 642099,
+              "duration": 553730,
               "status": "passed"
             },
             "match": {
@@ -151,7 +151,7 @@
         "steps": [
           {
             "result": {
-              "duration": 10751242,
+              "duration": 8016631,
               "status": "passed"
             },
             "line": 9,
@@ -163,7 +163,7 @@
           },
           {
             "result": {
-              "duration": 443719,
+              "duration": 437157,
               "status": "passed"
             },
             "line": 10,
@@ -175,7 +175,7 @@
           },
           {
             "result": {
-              "duration": 4197786,
+              "duration": 1694930,
               "status": "passed"
             },
             "line": 11,
@@ -199,15 +199,36 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2019-10-14T15:38:59.616Z",
         "line": 3,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 3207898203,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-10-15T13:36:53.372Z",
+        "line": 6,
         "name": "Open Home and MyAccount page",
         "description": "",
         "id": "hello-world;open-home-and-myaccount-page",
         "after": [
           {
             "result": {
-              "duration": 133600821,
+              "duration": 134260563,
               "status": "passed"
             },
             "match": {
@@ -220,22 +241,10 @@
         "steps": [
           {
             "result": {
-              "duration": 2519093190,
+              "duration": 84042674,
               "status": "passed"
             },
-            "line": 4,
-            "name": "Open Home page",
-            "match": {
-              "location": "HomePageSteps.openHomePage()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 101138664,
-              "status": "passed"
-            },
-            "line": 5,
+            "line": 7,
             "name": "\"This shop is under construction so no transactions can take place at this time\" message is displayed",
             "match": {
               "arguments": [
@@ -254,10 +263,10 @@
           },
           {
             "result": {
-              "duration": 4717231446,
+              "duration": 4757402875,
               "status": "passed"
             },
-            "line": 6,
+            "line": 8,
             "name": "\"E-Commerce by Catch Themes.\" message is not displayed",
             "match": {
               "arguments": [
@@ -276,10 +285,10 @@
           },
           {
             "result": {
-              "duration": 27651220,
+              "duration": 28096724,
               "status": "passed"
             },
-            "line": 7,
+            "line": 9,
             "name": "Link with text \"SHOP HOME\" is displayed",
             "match": {
               "arguments": [
@@ -298,10 +307,10 @@
           },
           {
             "result": {
-              "duration": 819699926,
+              "duration": 994082315,
               "status": "passed"
             },
-            "line": 8,
+            "line": 10,
             "name": "I click on a link with text \"MY ACCOUNT\"",
             "match": {
               "arguments": [
@@ -316,10 +325,10 @@
           },
           {
             "result": {
-              "duration": 40313222,
+              "duration": 50821894,
               "status": "passed"
             },
-            "line": 9,
+            "line": 11,
             "name": "\"Username or email address\" message is displayed",
             "match": {
               "arguments": [
@@ -339,15 +348,36 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-14T15:39:07.997Z",
-        "line": 12,
+        "line": 3,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 3658160446,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-10-15T13:37:02.655Z",
+        "line": 14,
         "name": "Open Home and verify categories",
         "description": "",
         "id": "hello-world;open-home-and-verify-categories",
         "after": [
           {
             "result": {
-              "duration": 122120799,
+              "duration": 126669995,
               "status": "passed"
             },
             "match": {
@@ -360,22 +390,10 @@
         "steps": [
           {
             "result": {
-              "duration": 2795748137,
+              "duration": 226061329,
               "status": "passed"
             },
-            "line": 13,
-            "name": "Open Home page",
-            "match": {
-              "location": "HomePageSteps.openHomePage()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 225734105,
-              "status": "passed"
-            },
-            "line": 14,
+            "line": 15,
             "name": "The following categories are displayed",
             "match": {
               "location": "HomePageSteps.verifyListOfCategories(String\u003e)"

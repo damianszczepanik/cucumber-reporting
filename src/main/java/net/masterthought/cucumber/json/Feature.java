@@ -43,6 +43,10 @@ public class Feature implements Reportable, Durationable {
         return id;
     }
 
+    public String getUri() {
+        return uri;
+    }
+
     public void addElements(Element[] newElements) {
         Element[] both = Arrays.copyOf(elements, elements.length + newElements.length);
         System.arraycopy(newElements, 0, both, elements.length, newElements.length);

@@ -50,7 +50,9 @@ public class ReportParserTest extends ReportGenerator {
         SoftAssertions.assertSoftly(a -> {
             for (Feature f : features) {
                 for (Element elm : f.getElements()) {
-                    a.assertThat(elm.getStartTime()).isNotNull();
+                    if (elm.isScenario()) {
+                        a.assertThat(elm.getStartTime()).isNotNull();
+                    }
                 }
             }
         });

@@ -3,15 +3,15 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2019-10-14T15:38:54.474Z",
+        "start_timestamp": "2019-10-15T13:36:46.463Z",
         "line": 3,
         "name": "All categories are displayed on site",
         "description": "",
-        "id": "crawler-tests.-products-verifications.;all-categories-are-displayed-on-site",
+        "id": "crawler-tests.-categories-and-tags.;all-categories-are-displayed-on-site",
         "after": [
           {
             "result": {
-              "duration": 126501848,
+              "duration": 128705440,
               "status": "passed"
             },
             "match": {
@@ -24,7 +24,7 @@
         "steps": [
           {
             "result": {
-              "duration": 3553649251,
+              "duration": 5339535007,
               "status": "passed"
             },
             "line": 4,
@@ -36,7 +36,7 @@
           },
           {
             "result": {
-              "duration": 179551775,
+              "duration": 183115380,
               "status": "passed"
             },
             "line": 5,
@@ -48,7 +48,7 @@
           },
           {
             "result": {
-              "duration": 317496141,
+              "duration": 328185822,
               "status": "passed"
             },
             "line": 6,
@@ -61,9 +61,9 @@
         ]
       }
     ],
-    "name": "Crawler tests. Products verifications.",
+    "name": "Crawler tests. Categories and tags.",
     "description": "",
-    "id": "crawler-tests.-products-verifications.",
+    "id": "crawler-tests.-categories-and-tags.",
     "keyword": "Feature",
     "uri": "classpath:crawler/crawler-categories_and_tags.feature",
     "tags": []

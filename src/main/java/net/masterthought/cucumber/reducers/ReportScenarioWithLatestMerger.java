@@ -8,23 +8,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
+ * Merge list of given features. If there are couple of scenarios with the same Id then
+ * only the latest will be stored into the report.
  *
+ * Uses when need to generate a report with rerun results of failed tests.
  */
 final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
 
+    private static final String ERROR = "You are not able to use this type of results merge. The start_timestamp field" +
+            " should be part of element object. Please, update the cucumber-jvm version.";
     private static final ElementComparator ELEMENT_COMPARATOR = new ElementComparator();
 
     @Override
     public List<Feature> merge(List<Feature> features) {
         Map<String, Feature> mergedFeatures = new HashMap<>();
-        for (Feature feature : features) {
-            Feature mergedFeature = mergedFeatures.get(feature.getId());
+        for (Feature candidate : features) {
+            Feature mergedFeature = mergedFeatures.get(candidate.getId());
             if (mergedFeature == null) {
-                mergedFeatures.put(feature.getId(), feature);
+                mergedFeatures.put(candidate.getId(), candidate);
             }
             else {
-                updateElements(mergedFeatures.get(feature.getId()), feature.getElements());
+                updateElements(mergedFeatures.get(candidate.getId()), candidate.getElements());
             }
         }
         return new ArrayList<>(mergedFeatures.values());
@@ -34,6 +42,7 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
         for (int i = 0; i < elements.length; i++) {
             Element current = elements[i];
             if (current.isScenario()) {
+                checkArgument(current.getStartTime() != null, ERROR);
                 int index = find(feature.getElements(), current);
                 boolean hasBackground = isBackground(i - 1, elements);
 
@@ -45,13 +54,19 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
                             );
                 }
                 else {
-                    feature.getElements()[index] = current;
-                    if (hasBackground && isBackground(index - 1, feature.getElements())) {
-                        feature.getElements()[index - 1] = elements[i - 1];
+                    if (replaceIfExists(feature.getElements()[index], current)) {
+                        feature.getElements()[index] = current;
+                        if (hasBackground && isBackground(index - 1, feature.getElements())) {
+                            feature.getElements()[index - 1] = elements[i - 1];
+                        }
                     }
                 }
             }
         }
+    }
+
+    private boolean replaceIfExists(Element target, Element candidate) {
+        return candidate.getStartTime().compareTo(target.getStartTime()) >= 0;
     }
 
     private boolean isBackground(int elementInd, Element[] elements) {

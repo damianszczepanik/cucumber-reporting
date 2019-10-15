@@ -3,28 +3,15 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2019-10-14T15:41:54.474Z",
         "line": 3,
-        "name": "All categories are displayed on site",
+        "name": "",
         "description": "",
-        "id": "crawler-tests.-products-verifications.;all-categories-are-displayed-on-site",
-        "after": [
-          {
-            "result": {
-              "duration": 126501848,
-              "status": "passed"
-            },
-            "match": {
-              "location": "ContextShutdownHook.teardown()"
-            }
-          }
-        ],
-        "type": "scenario",
-        "keyword": "Scenario",
+        "type": "background",
+        "keyword": "Background",
         "steps": [
           {
             "result": {
-              "duration": 3553649251,
+              "duration": 3207898203,
               "status": "passed"
             },
             "line": 4,
@@ -33,181 +20,19 @@
               "location": "HomePageSteps.openHomePage()"
             },
             "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 179551775,
-              "status": "passed"
-            },
-            "line": 5,
-            "name": "Get list of existing products",
-            "match": {
-              "location": "ProductDataSteps.readListOfExistingProducts()"
-            },
-            "keyword": "When "
-          },
-          {
-            "result": {
-              "duration": 317496141,
-              "status": "passed"
-            },
-            "line": 6,
-            "name": "List of categories is displayed on Home page and contains all values",
-            "match": {
-              "location": "HomePageSteps.verifyListOfCategories()"
-            },
-            "keyword": "Then "
-          }
-        ]
-      }
-    ],
-    "name": "Crawler tests. Products verifications.",
-    "description": "",
-    "id": "crawler-tests.-products-verifications.",
-    "keyword": "Feature",
-    "uri": "classpath:crawler/crawler-categories_and_tags.feature",
-    "tags": []
-  },
-  {
-    "line": 1,
-    "elements": [
-      {
-        "start_timestamp": "2019-10-14T15:41:58.695Z",
-        "line": 3,
-        "name": "OnSale label is displayed for a product without discount",
-        "description": "",
-        "id": "crawler-tests.-products-verifications.;onsale-label-is-displayed-for-a-product-without-discount",
-        "after": [
-          {
-            "result": {
-              "duration": 554747,
-              "status": "passed"
-            },
-            "match": {
-              "location": "ContextShutdownHook.teardown()"
-            }
-          }
-        ],
-        "type": "scenario",
-        "keyword": "Scenario",
-        "steps": [
-          {
-            "result": {
-              "duration": 20653978,
-              "status": "passed"
-            },
-            "line": 4,
-            "name": "Get list of existing products",
-            "match": {
-              "location": "ProductDataSteps.readListOfExistingProducts()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 577105,
-              "status": "passed"
-            },
-            "line": 5,
-            "name": "Filter products list by onSale flag",
-            "match": {
-              "location": "ProductDataSteps.filterBySaleFlag()"
-            },
-            "keyword": "When "
-          },
-          {
-            "result": {
-              "duration": 831153350,
-              "status": "passed"
-            },
-            "line": 6,
-            "name": "Discount price is displayed and less that original price",
-            "match": {
-              "location": "ProductDataSteps.verifyDiscountAndOriginalPrice()"
-            },
-            "keyword": "Then "
           }
         ]
       },
       {
-        "start_timestamp": "2019-10-14T15:41:59.569Z",
-        "line": 8,
-        "name": "All discount products have the OnSale label",
-        "description": "",
-        "id": "crawler-tests.-products-verifications.;all-discount-products-have-the-onsale-label",
-        "after": [
-          {
-            "result": {
-              "duration": 642099,
-              "status": "passed"
-            },
-            "match": {
-              "location": "ContextShutdownHook.teardown()"
-            }
-          }
-        ],
-        "type": "scenario",
-        "keyword": "Scenario",
-        "steps": [
-          {
-            "result": {
-              "duration": 10751242,
-              "status": "passed"
-            },
-            "line": 9,
-            "name": "Get list of existing products",
-            "match": {
-              "location": "ProductDataSteps.readListOfExistingProducts()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 443719,
-              "status": "passed"
-            },
-            "line": 10,
-            "name": "Filter products with discount price",
-            "match": {
-              "location": "ProductDataSteps.filterByDiscountPRice()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 4197786,
-              "status": "passed"
-            },
-            "line": 11,
-            "name": "Discount price is displayed and less that original price",
-            "match": {
-              "location": "ProductDataSteps.verifyDiscountAndOriginalPrice()"
-            },
-            "keyword": "Then "
-          }
-        ]
-      }
-    ],
-    "name": "Crawler tests. Products verifications.",
-    "description": "",
-    "id": "crawler-tests.-products-verifications.",
-    "keyword": "Feature",
-    "uri": "classpath:crawler/crawler-product.feature",
-    "tags": []
-  },
-  {
-    "line": 1,
-    "elements": [
-      {
-        "start_timestamp": "2019-10-14T15:41:59.616Z",
-        "line": 3,
+        "start_timestamp": "2019-10-15T13:39:53.372Z",
+        "line": 6,
         "name": "Open Home and MyAccount page",
         "description": "",
         "id": "hello-world;open-home-and-myaccount-page",
         "after": [
           {
             "result": {
-              "duration": 133600821,
+              "duration": 134260563,
               "status": "passed"
             },
             "match": {
@@ -220,22 +45,10 @@
         "steps": [
           {
             "result": {
-              "duration": 2519093190,
+              "duration": 84042674,
               "status": "passed"
             },
-            "line": 4,
-            "name": "Open Home page",
-            "match": {
-              "location": "HomePageSteps.openHomePage()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 101138664,
-              "status": "passed"
-            },
-            "line": 5,
+            "line": 7,
             "name": "\"This shop is under construction so no transactions can take place at this time\" message is displayed",
             "match": {
               "arguments": [
@@ -254,10 +67,10 @@
           },
           {
             "result": {
-              "duration": 4717231446,
+              "duration": 4757402875,
               "status": "passed"
             },
-            "line": 6,
+            "line": 8,
             "name": "\"E-Commerce by Catch Themes.\" message is not displayed",
             "match": {
               "arguments": [
@@ -276,10 +89,10 @@
           },
           {
             "result": {
-              "duration": 27651220,
+              "duration": 28096724,
               "status": "passed"
             },
-            "line": 7,
+            "line": 9,
             "name": "Link with text \"SHOP HOME\" is displayed",
             "match": {
               "arguments": [
@@ -298,10 +111,10 @@
           },
           {
             "result": {
-              "duration": 819699926,
+              "duration": 994082315,
               "status": "passed"
             },
-            "line": 8,
+            "line": 10,
             "name": "I click on a link with text \"MY ACCOUNT\"",
             "match": {
               "arguments": [
@@ -316,10 +129,10 @@
           },
           {
             "result": {
-              "duration": 40313222,
+              "duration": 50821894,
               "status": "passed"
             },
-            "line": 9,
+            "line": 11,
             "name": "\"Username or email address\" message is displayed",
             "match": {
               "arguments": [
@@ -339,15 +152,36 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-14T15:42:07.997Z",
-        "line": 12,
+        "line": 3,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 3658160446,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-10-15T13:40:02.655Z",
+        "line": 14,
         "name": "Open Home and verify categories",
         "description": "",
         "id": "hello-world;open-home-and-verify-categories",
         "after": [
           {
             "result": {
-              "duration": 122120799,
+              "duration": 126669995,
               "status": "passed"
             },
             "match": {
@@ -360,22 +194,10 @@
         "steps": [
           {
             "result": {
-              "duration": 2795748137,
+              "duration": 226061329,
               "status": "passed"
             },
-            "line": 13,
-            "name": "Open Home page",
-            "match": {
-              "location": "HomePageSteps.openHomePage()"
-            },
-            "keyword": "Given "
-          },
-          {
-            "result": {
-              "duration": 225734105,
-              "status": "passed"
-            },
-            "line": 14,
+            "line": 15,
             "name": "The following categories are displayed",
             "match": {
               "location": "HomePageSteps.verifyListOfCategories(String\u003e)"

@@ -85,6 +85,10 @@ public abstract class ReportGenerator {
         return pathToSampleFile(CLASSIFICATIONS_DIRECTORY + propertyFile);
     }
 
+    public ReportResult getReportResult() {
+        return reportResult;
+    }
+
     protected static String pathToSampleFile(String fileName) {
         try {
             URL path = ReportGenerator.class.getClassLoader().getResource(fileName);
