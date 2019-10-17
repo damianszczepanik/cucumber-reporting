@@ -15,11 +15,14 @@ public class ElementComparatorTest extends ReportGenerator {
 
     @Test
     public void compare() {
+        // given
         setUpWithJson(SAMPLE_JSON);
         List<Element> elements = Arrays.stream(getFeatureByName("Second feature").getElements())
                 .filter(Element::isScenario)
                 .collect(Collectors.toList());
 
+        // when
+        // then
         assertThat(elements.get(0)).usingComparator(new ElementComparator()).isEqualTo(elements.get(0));
         assertThat(elements.get(0)).usingComparator(new ElementComparator()).isNotEqualTo(elements.get(1));
         assertThat(elements.get(0)).usingComparator(new ElementComparator()).isNotEqualTo(null);

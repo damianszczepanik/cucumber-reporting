@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST;
+import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_WITH_RETEST;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -32,46 +32,69 @@ public class ReportResultMergeTest extends ReportGenerator {
 
     @Test(expected = IllegalArgumentException.class)
     public void unsupportedReportFormat() {
-        configuration.addReducingMethod(MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
+        // given
+        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
+
+        // when
+        // then
         setUpWithJson(SAMPLE_FAILED_JSON, SAMPLE_JSON);
     }
 
     @Test
     public void parseAllReports() {
+        // given
+        // when
         setUpWithJson(ALL_FAILED);
+
+        // then
         assertThat(reportResult.getAllFeatures()).hasSize(3);
     }
 
     @Test
     public void parsePartOne() {
+        // given
+        // when
         setUpWithJson(PART_ONE);
+
+        // then
         assertThat(reportResult.getAllFeatures()).hasSize(1);
     }
 
     @Test
     public void parsePartTwo() {
+        // given
+        // when
         setUpWithJson(PART_TWO);
+
+        // then
         assertThat(reportResult.getAllFeatures()).hasSize(2);
     }
 
     @Test
     public void parsePartOneTwo_WithFailedRerun() {
-        configuration.addReducingMethod(MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
+        // given
+        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_FAILED);
-        assertThat(reportResult.getAllFeatures()).hasSize(3);
 
+        // when
         Reportable current = reportResult.getFeatureReport();
+
+        // then
+        assertThat(reportResult.getAllFeatures()).hasSize(3);
         assertThat(current.getFailedScenarios()).isEqualTo(1);
     }
 
     @Test
     public void merge_PartOneTwo_WithFailedRerun_Equals_AllInOneFailed() {
-        configuration.addReducingMethod(MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
+        // given
+        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_FAILED);
-        List<Feature> mergedResults = reportResult.getAllFeatures();
-
         ReportResult allInOneFailed = new AllInOneReport(ALL_FAILED).getReportResult();
 
+        // when
+        List<Feature> mergedResults = reportResult.getAllFeatures();
+
+        // then
         assertThat(mergedResults)
                 .usingElementComparator(new ReportResultSimpleFeatureComparator())
                 .containsExactlyInAnyOrder(allInOneFailed.getAllFeatures().toArray(new Feature[]{}));
@@ -79,12 +102,15 @@ public class ReportResultMergeTest extends ReportGenerator {
 
     @Test
     public void merge_PartOneTwo_WithPassedRerun_Equals_AllInOnePassed() {
-        configuration.addReducingMethod(MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
+        // given
+        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_PASSED);
-        List<Feature> mergedResults = reportResult.getAllFeatures();
-
         ReportResult allInOnePassed = new AllInOneReport(ALL_PASSED).getReportResult();
 
+        // when
+        List<Feature> mergedResults = reportResult.getAllFeatures();
+
+        // then
         assertThat(mergedResults)
                 .usingElementComparator(new ReportResultSimpleFeatureComparator())
                 .containsExactlyInAnyOrder(allInOnePassed.getAllFeatures().toArray(new Feature[]{}));

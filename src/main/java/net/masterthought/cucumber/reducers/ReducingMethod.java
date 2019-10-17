@@ -39,7 +39,7 @@ public enum ReducingMethod {
      * In that case you will have a merged report where all failed tests from the original cucumber.json file
      * are overridden with the results from the cucumber-rerun.json.
      */
-    MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST,
+    MERGE_FEATURES_WITH_RETEST,
 
     /**
      * Skip empty JSON reports. If this flag is not selected then report generation fails on empty file.

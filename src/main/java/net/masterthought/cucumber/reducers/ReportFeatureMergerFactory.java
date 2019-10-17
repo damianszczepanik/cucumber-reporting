@@ -10,7 +10,7 @@ public final class ReportFeatureMergerFactory {
 
     private List<ReportFeatureMerger> mergers = Arrays.asList(
             new ReportFeatureByIdMerger(),
-            new ReportScenarioWithLatestMerger()
+            new ReportFeatureWithRetestMerger()
     );
 
     /**

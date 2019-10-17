@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Merge list of given features. If there are couple of scenarios with the same Id then
@@ -17,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * Uses when need to generate a report with rerun results of failed tests.
  */
-final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
+final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
 
     private static final String ERROR = "You are not able to use this type of results merge. The start_timestamp field" +
             " should be part of element object. Please, update the cucumber-jvm version.";
@@ -43,10 +42,10 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
             Element current = elements[i];
             if (current.isScenario()) {
                 checkArgument(current.getStartTime() != null, ERROR);
-                int index = find(feature.getElements(), current);
+                int indexOfPreviousResult = find(feature.getElements(), current);
                 boolean hasBackground = isBackground(i - 1, elements);
 
-                if (index < 0) {
+                if (indexOfPreviousResult < 0) {
                     feature.addElements(
                             hasBackground ?
                                     new Element[] {elements[i - 1], current} :
@@ -54,10 +53,10 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
                             );
                 }
                 else {
-                    if (replaceIfExists(feature.getElements()[index], current)) {
-                        feature.getElements()[index] = current;
-                        if (hasBackground && isBackground(index - 1, feature.getElements())) {
-                            feature.getElements()[index - 1] = elements[i - 1];
+                    if (replaceIfExists(feature.getElements()[indexOfPreviousResult], current)) {
+                        feature.getElements()[indexOfPreviousResult] = current;
+                        if (hasBackground && isBackground(indexOfPreviousResult - 1, feature.getElements())) {
+                            feature.getElements()[indexOfPreviousResult - 1] = elements[i - 1];
                         }
                     }
                 }
@@ -65,10 +64,16 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
         }
     }
 
+    /**
+     * @return true when candidate element happened after the target element.
+     */
     private boolean replaceIfExists(Element target, Element candidate) {
         return candidate.getStartTime().compareTo(target.getStartTime()) >= 0;
     }
 
+    /**
+     * @return true when element from elements array with index=elementInd is a background.
+     */
     private boolean isBackground(int elementInd, Element[] elements) {
         return elementInd >= 0 &&
                 elements != null &&
@@ -76,6 +81,12 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
                 elements[elementInd].isBackground();
     }
 
+    /**
+     * @return an index of an element which is indicated as similar by rules
+     * defined in the ELEMENT_COMPARATOR. The comparator indicates that
+     * an element is found in the elements list with the same Id (for scenario)
+     * as target element has or it's on the same line (for background).
+     */
     private int find(Element[] elements, Element target) {
         for (int i = 0; i < elements.length; i++) {
             if (ELEMENT_COMPARATOR.compare(elements[i], target) == 0) {
@@ -87,6 +98,6 @@ final class ReportScenarioWithLatestMerger implements ReportFeatureMerger {
 
     @Override
     public boolean test(List<ReducingMethod> reducingMethods) {
-        return reducingMethods != null && reducingMethods.contains(ReducingMethod.MERGE_FEATURES_AND_SCENARIOS_WITH_LATEST);
+        return reducingMethods != null && reducingMethods.contains(ReducingMethod.MERGE_FEATURES_WITH_RETEST);
     }
 }

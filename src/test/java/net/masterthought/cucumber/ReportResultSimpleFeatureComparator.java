@@ -16,9 +16,9 @@ import java.util.List;
 public class ReportResultSimpleFeatureComparator implements Comparator<Feature> {
 
     @Override
-    public int compare(Feature f1, Feature f2) {
+    public int compare(Feature feature1, Feature feature2) {
         return StandardComparisonStrategy.instance()
-                .areEqual(buildTupleByFeature(f1), buildTupleByFeature(f2)) ? 0 : -1;
+                .areEqual(buildTupleByFeature(feature1), buildTupleByFeature(feature2)) ? 0 : -1;
     }
 
     private Tuple buildTupleByFeature(Feature feature) {

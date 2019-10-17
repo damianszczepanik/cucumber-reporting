@@ -20,6 +20,14 @@ public class Element implements Durationable {
     private final String description = null;
     private final String keyword = null;
     private final Integer line = null;
+
+    /**
+     * @since cucumber-jvm v4.3.0
+     * The timestamp field in the json report allows plugins to correctly calculate
+     * the time a TestSuite takes when the TCs are run in parallel.
+     * The scenario startTime (which is what i currently added to the report) will be useful
+     * in a number of ways both for reporting and getting correct duration of parallel TC execution.
+     */
     @JsonProperty("start_timestamp")
     private final LocalDateTime startTime = null;
     private final Step[] steps = new Step[0];

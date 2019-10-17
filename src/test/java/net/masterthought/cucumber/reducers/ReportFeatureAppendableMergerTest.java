@@ -18,13 +18,23 @@ public class ReportFeatureAppendableMergerTest {
 
     @Test
     public void merge_ReturnsOriginArray() {
-        List<Feature> origin = Arrays.asList(new Feature());
-        assertThat(new ReportFeatureAppendableMerger().merge(origin)).isEqualTo(origin);
+        // given
+        List<Feature> origin = singletonList(new Feature());
+
+        // when
+        List<Feature> actual = new ReportFeatureAppendableMerger().merge(origin);
+
+        // then
+        assertThat(actual).isEqualTo(origin);
     }
 
     @Test
     public void test_ApplyAll() {
+        // given
         ReportFeatureAppendableMerger merger = new ReportFeatureAppendableMerger();
+
+        // when
+        // then
         for (ReducingMethod m : ReducingMethod.values()) {
             assertThat(merger.test(singletonList(m))).isTrue();
         }
