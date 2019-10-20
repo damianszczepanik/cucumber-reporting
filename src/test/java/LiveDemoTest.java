@@ -10,6 +10,9 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.sorting.SortingMethod;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class LiveDemoTest {
 
     // test annotation only to make sure it is generated during "mvn test"

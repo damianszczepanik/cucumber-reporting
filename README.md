@@ -101,11 +101,6 @@ Once you developed your new feature or improvement you should test it by providi
 
 ![codecov.io](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graphs/tree.svg)
 
-## BrowserStack
-
-We use [BrowserStack](https://www.browserstack.com) to examine HTML report against different browsers and platforms.
-![BrowserStack](./.README/Browserstack-logo.png)
-
 ## Contribution
 
 Interested in contributing to the cucumber-reporting?  Great!  Start [here](https://github.com/damianszczepanik/cucumber-reporting).
