@@ -5,3 +5,4 @@ target
 .settings/
 cucumber-reporting.iml
 /*.json
+*.iml
