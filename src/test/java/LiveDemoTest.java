@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class LiveDemoTest {
 
     // test annotation only to make sure it is generated during "mvn test"

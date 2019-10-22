@@ -37,7 +37,7 @@ public class StepNameFormatter {
             }
 
             int start = argument.getOffset();
-            int end = start + argument.getVal().length() - 1;
+            int end = argument.getVal().isEmpty() ? start : start + argument.getVal().length() - 1;
             if (isArgumentAtStartOfString(end) || isArgumentAtEndOfString(start, chars)) {
                 continue;
             }
