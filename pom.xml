@@ -4,7 +4,7 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting-extended</artifactId>
     <packaging>jar</packaging>
-    <version>4.11.1</version>
+    <version>4.11.1-SNAPSHOT</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
