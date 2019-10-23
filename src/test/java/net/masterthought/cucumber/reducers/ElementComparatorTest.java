@@ -35,4 +35,17 @@ public class ElementComparatorTest extends ReportGenerator {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Test
+    public void compare_backgrounds() {
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        List<Element> elements = Arrays.stream(getFeatureByName("1st feature").getElements())
+                .filter(Element::isBackground)
+                .collect(Collectors.toList());
+
+        // when
+        // then
+        assertThat(new ElementComparator().compare(elements.get(0), elements.get(0))).isEqualTo(0);
+    }
 }
