@@ -15,7 +15,7 @@ env:
 
 before_install:
   # Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
-  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
+  # - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
   # Needed to publish sample report on github pages successfully
   - gem install public_suffix -v 3.0.3
 
@@ -36,7 +36,7 @@ matrix:
       env:
         - DESC="static analysis"
       script:
-        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=damianszczepanik_cucumber-reporting
 
 after_success:
   # push report to codecov server
@@ -60,6 +60,7 @@ deploy:
 
 addons:
   sonarcloud:
+    organization: "damianszczepanik"
     token:
       secure: $SONAR_TOKEN
   branches:
