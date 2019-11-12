@@ -12,7 +12,14 @@ public class ReportFeatureAppendableMergerTest {
 
     @Test
     public void merge_NullSafe() {
-        assertThat(new ReportFeatureAppendableMerger().merge(null)).isNotNull().isEmpty();
+        // given
+        ReportFeatureAppendableMerger merger = new ReportFeatureAppendableMerger();
+
+        // when
+        List<Feature> result = merger.merge(null);
+
+        // then
+        assertThat(result).isNotNull().isEmpty();
     }
 
     @Test
