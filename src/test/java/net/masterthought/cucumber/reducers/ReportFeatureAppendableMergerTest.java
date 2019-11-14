@@ -31,11 +31,11 @@ public class ReportFeatureAppendableMergerTest {
         List<Feature> actual = new ReportFeatureAppendableMerger().merge(origin);
 
         // then
-        assertThat(actual).isEqualTo(origin);
+        assertThat(actual).isSameAs(origin);
     }
 
     @Test
-    public void test_ApplyAll() {
+    public void test_ChecksMergerIsAvailableForAllReducingMethods() {
         // given
         ReportFeatureAppendableMerger merger = new ReportFeatureAppendableMerger();
 

@@ -17,6 +17,7 @@ public class ReportFeatureByIdMergerTest extends ReportGenerator {
     public void merge_TheSameFeatureTwiceById() {
         // given
         setUpWithJson(SAMPLE_JSON);
+        Integer expectedSize = reportResult.getAllFeatures().size();
 
         List<Feature> features = new ArrayList<>();
         features.addAll(reportResult.getAllFeatures());
@@ -26,7 +27,7 @@ public class ReportFeatureByIdMergerTest extends ReportGenerator {
         List<Feature> merged = new ReportFeatureByIdMerger().merge(features);
 
         // then
-        assertThat(merged).hasSameSizeAs(reportResult.getAllFeatures());
+        assertThat(merged).hasSize(expectedSize);
     }
 
     @Test
@@ -35,8 +36,10 @@ public class ReportFeatureByIdMergerTest extends ReportGenerator {
         ReportFeatureByIdMerger merger = new ReportFeatureByIdMerger();
 
         // when
+        boolean isApplicable = merger.test(null);
+
         // then
-        assertThat(merger.test(null)).isFalse();
+        assertThat(isApplicable).isFalse();
     }
 
     @Test
@@ -45,7 +48,9 @@ public class ReportFeatureByIdMergerTest extends ReportGenerator {
         ReportFeatureByIdMerger merger = new ReportFeatureByIdMerger();
 
         // when
+        boolean isApplicableByType = merger.test(Arrays.asList(MERGE_FEATURES_BY_ID));
+
         // then
-        assertThat(merger.test(Arrays.asList(MERGE_FEATURES_BY_ID))).isTrue();
+        assertThat(isApplicableByType).isTrue();
     }
 }
