@@ -1,0 +1,234 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 3,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 3207898203,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-10-15T13:39:53.372Z",
+        "line": 6,
+        "name": "Open Home and MyAccount page",
+        "description": "",
+        "id": "hello-world;open-home-and-myaccount-page",
+        "after": [
+          {
+            "result": {
+              "duration": 134260563,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 84042674,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "\"This shop is under construction so no transactions can take place at this time\" message is displayed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"This shop is under construction so no transactions can take place at this time\"",
+                  "offset": 0
+                },
+                {
+                  "val": "",
+                  "offset": 92
+                }
+              ],
+              "location": "BrowserManipulationSteps.verifyMessageOnPage(String,Boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 4757402875,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "\"E-Commerce by Catch Themes.\" message is not displayed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"E-Commerce by Catch Themes.\"",
+                  "offset": 0
+                },
+                {
+                  "val": "not ",
+                  "offset": 41
+                }
+              ],
+              "location": "BrowserManipulationSteps.verifyMessageOnPage(String,Boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 28096724,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "Link with text \"SHOP HOME\" is displayed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"SHOP HOME\"",
+                  "offset": 15
+                },
+                {
+                  "val": "",
+                  "offset": 30
+                }
+              ],
+              "location": "BrowserManipulationSteps.verifyLinkOnPage(String,Boolean)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 994082315,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "I click on a link with text \"MY ACCOUNT\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"MY ACCOUNT\"",
+                  "offset": 28
+                }
+              ],
+              "location": "BrowserManipulationSteps.clickOnLinkWithText(String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 50821894,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "\"Username or email address\" message is displayed",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Username or email address\"",
+                  "offset": 0
+                },
+                {
+                  "val": "",
+                  "offset": 39
+                }
+              ],
+              "location": "BrowserManipulationSteps.verifyMessageOnPage(String,Boolean)"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "line": 3,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 3658160446,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-10-15T13:40:02.655Z",
+        "line": 14,
+        "name": "Open Home and verify categories",
+        "description": "",
+        "id": "hello-world;open-home-and-verify-categories",
+        "after": [
+          {
+            "result": {
+              "duration": 126669995,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 226061329,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "The following categories are displayed",
+            "match": {
+              "location": "HomePageSteps.verifyListOfCategories(String\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "Cameras"
+                ]
+              },
+              {
+                "cells": [
+                  "Computer mice"
+                ]
+              },
+              {
+                "cells": [
+                  "Laptops"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Hello World",
+    "description": "",
+    "id": "hello-world",
+    "keyword": "Feature",
+    "uri": "classpath:hello-world.feature",
+    "tags": []
+  }
+]

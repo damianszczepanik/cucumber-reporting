@@ -1,0 +1,71 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2019-10-15T13:36:46.463Z",
+        "line": 3,
+        "name": "All categories are displayed on site",
+        "description": "",
+        "id": "crawler-tests.-categories-and-tags.;all-categories-are-displayed-on-site",
+        "after": [
+          {
+            "result": {
+              "duration": 128705440,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 5339535007,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 183115380,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Get list of existing products",
+            "match": {
+              "location": "ProductDataSteps.readListOfExistingProducts()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 328185822,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "List of categories is displayed on Home page and contains all values",
+            "match": {
+              "location": "HomePageSteps.verifyListOfCategories()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Crawler tests. Categories and tags.",
+    "description": "",
+    "id": "crawler-tests.-categories-and-tags.",
+    "keyword": "Feature",
+    "uri": "classpath:crawler/crawler-categories_and_tags.feature",
+    "tags": []
+  }
+]

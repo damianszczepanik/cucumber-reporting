@@ -9,7 +9,8 @@ import static java.util.Collections.emptyList;
 public final class ReportFeatureMergerFactory {
 
     private List<ReportFeatureMerger> mergers = Arrays.asList(
-            new ReportFeatureByIdMerger()
+            new ReportFeatureByIdMerger(),
+            new ReportFeatureWithRetestMerger()
     );
 
     /**

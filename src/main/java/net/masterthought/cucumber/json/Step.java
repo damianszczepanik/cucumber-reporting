@@ -15,6 +15,7 @@ public class Step implements Resultsable {
     // Start: attributes from JSON file report
     private String name = null;
     private final String keyword = null;
+    private Integer line = null;
     // create empty Result for all cases where step has no result
     // - happens for old or different cucumber implementation of the library
     private final Result result = new Result();
@@ -60,6 +61,10 @@ public class Step implements Resultsable {
         return keyword.trim();
     }
 
+    public Integer getLine() {
+        return line;
+    }
+
     @Override
     public Output[] getOutputs() {
         return outputs;
@@ -90,11 +95,11 @@ public class Step implements Resultsable {
     public Hook[] getBefore() {
         return before;
     }
-    
+
     public Hook[] getAfter() {
         return after;
     }
-    
+
     public Status getBeforeStatus() {
         return beforeStatus;
     }
