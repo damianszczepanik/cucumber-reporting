@@ -37,6 +37,7 @@ public class ReportParserTest extends ReportGenerator {
 
     @Test
     public void parseJsonResults_Timestamp() {
+        // given
         initWithJson(CUCUMBER_TIMESTAMPED_JSON);
         ReportParser reportParser = new ReportParser(configuration);
 
@@ -72,7 +73,6 @@ public class ReportParserTest extends ReportGenerator {
 
     @Test
     public void parseJsonResults_OnNoReport_ThrowsException() {
-
         // given
         initWithJson();
         ReportParser reportParser = new ReportParser(configuration);

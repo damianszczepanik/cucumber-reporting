@@ -28,7 +28,7 @@ public class ReportResultSimpleFeatureComparator implements Comparator<Feature> 
         values.add(feature.getId());
         values.add(feature.getName());
 
-        for(Element e : feature.getElements()) {
+        for (Element e : feature.getElements()) {
             values.add(e.getLine());
             values.add(e.getType());
             values.add(e.getId());

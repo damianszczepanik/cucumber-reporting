@@ -25,7 +25,7 @@ public class ElementComparatorTest extends ReportGenerator {
         // then
         assertThat(elements.get(0)).usingComparator(new ElementComparator()).isEqualTo(elements.get(0));
         assertThat(elements.get(0)).usingComparator(new ElementComparator()).isNotEqualTo(elements.get(1));
-        assertThat(elements.get(0)).usingComparator(new ElementComparator()).isNotEqualTo(null);
+        assertThat(elements.get(0)).usingComparator(new ElementComparator()).isNotNull();
     }
 
     private Feature getFeatureByName(String name) {
@@ -46,6 +46,6 @@ public class ElementComparatorTest extends ReportGenerator {
 
         // when
         // then
-        assertThat(new ElementComparator().compare(elements.get(0), elements.get(0))).isEqualTo(0);
+        assertThat(new ElementComparator().compare(elements.get(0), elements.get(0))).isZero();
     }
 }

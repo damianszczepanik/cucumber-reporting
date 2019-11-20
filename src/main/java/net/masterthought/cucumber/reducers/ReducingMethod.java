@@ -25,8 +25,30 @@ public enum ReducingMethod {
      *      1. if there is no scenario with a given Id in the feature's elements list
      *         then add the scenario to the end of the list.
      *
-     *      2. if scenario has a background (which is a previous element in the elements list)
+     *      2. if there are no scenario with a background (which is a previous element in the elements list)
      *        then both elements are added to the end of the current feature's elements list.
+     *        As the feature file has a structure like:
+     *        {
+     *            elements: [
+     *              {
+     *                  name: ...
+     *                  type: "background";
+     *              },
+     *              {
+     *                  name: ...
+     *                  type: "scenario";
+     *              },
+     *              {
+     *                  name: ...
+     *                  type: "background";
+     *              },
+     *              {
+     *                  name: ...
+     *                  type: "scenario";
+     *              }
+     *              ....
+     *            ]
+     *        }
      *
      *      3. if there is a scenario with a given Id then:
      *          scenario + background case: replace both elements (existing element with Id and its background with new ones)

@@ -41,7 +41,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void parseAllReports() {
+    public void test_checkAllFailedFileIsValidReport() {
         // given
         // when
         setUpWithJson(ALL_FAILED);
@@ -51,7 +51,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePartOne() {
+    public void test_checkPartOneIsValidReport() {
         // given
         // when
         setUpWithJson(PART_ONE);
@@ -61,7 +61,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePartTwo() {
+    public void test_checkPartTwoIsValidReport() {
         // given
         // when
         setUpWithJson(PART_TWO);
