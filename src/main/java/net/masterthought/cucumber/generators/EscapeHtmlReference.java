@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
+import org.apache.velocity.context.Context;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 
@@ -18,7 +19,7 @@ final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
             .toFactory();
 
     @Override
-    public Object referenceInsert(String reference, Object value) {
+    public Object referenceInsert(Context context, String reference, Object value) {
         if (value == null) {
             return null;
         } else if(reference.startsWith("$_sanitize_")) {
