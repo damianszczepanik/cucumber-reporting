@@ -75,8 +75,10 @@ public class ReportBuilder {
         Trends trends = null;
 
         try {
-            // first copy static resources so ErrorPage is displayed properly
-            copyStaticResources();
+            if(configuration.isCreateStaticResources()) {
+                // copy static resources so ErrorPage is displayed properly
+                copyStaticResources();
+            }
 
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();

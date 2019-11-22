@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
@@ -37,6 +38,7 @@ public class Configuration {
     private List<String> classificationFiles;
 
     private Set<Status> notFailingStatuses = Collections.emptySet();
+    private boolean createStaticResources =true;
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -297,12 +299,25 @@ public class Configuration {
     }
 
     /**
-     * Sets {@link net.masterthought.cucumber.json.support.Status statuses}
-     * of {@link net.masterthought.cucumber.json.Step steps} which should not fail the scenario.
+     * Sets {@link Status statuses}
+     * of {@link Step steps} which should not fail the scenario.
      */
     public void setNotFailingStatuses(Set<Status> notFailingStatuses) {
         if (notFailingStatuses != null) {
             this.notFailingStatuses = notFailingStatuses;
         }
+    }
+
+    public boolean isCreateStaticResources() {
+        return createStaticResources;
+    }
+
+    /**
+     * Sets the createStaticResources Flag (default: true)
+     * If set to false no static resources (css, fonts, js) will be created alongside the report
+     * @param createStaticResources
+     */
+    public void setCreateStaticResources(boolean createStaticResources) {
+        this.createStaticResources = createStaticResources;
     }
 }

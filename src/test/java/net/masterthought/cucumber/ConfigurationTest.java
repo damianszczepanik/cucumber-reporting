@@ -319,4 +319,21 @@ public class ConfigurationTest {
         // then
         assertThat(configuration.getNotFailingStatuses()).containsExactly(notFailingStatus);
     }
+
+    @Test
+    public void isCreateStaticResources_DefaultsToTrue(){
+        Configuration configuration = new Configuration(outputDirectory,projectName);
+
+        assertThat(configuration.isCreateStaticResources()).isTrue();
+    }
+
+    @Test
+    public void isCreateStaticResources_ReturnsCreateResources(){
+        Configuration configuration = new Configuration(outputDirectory,projectName);
+
+        boolean createStaticResources = false;
+        configuration.setCreateStaticResources(createStaticResources);
+
+        assertThat(configuration.isCreateStaticResources()).isEqualTo(createStaticResources);
+    }
 }

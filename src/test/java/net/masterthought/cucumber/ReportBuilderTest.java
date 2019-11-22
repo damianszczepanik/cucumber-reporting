@@ -15,6 +15,7 @@ import java.util.List;
 
 import mockit.Deencapsulation;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
 import org.junit.Before;
@@ -106,6 +107,30 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertThat(countHtmlFiles()).hasSize(10);
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    public void generateReports_WithoutStaticResources_GeneratesReportWithoutStaticResources() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        configuration.setCreateStaticResources(false);
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+
+        // when
+        Reportable result = builder.generateReports();
+
+
+        // then
+        assertThat(countHtmlFiles()).hasSize(9);
+        assertThat(result).isNotNull();
+        FileFilter fileFilter = DirectoryFileFilter.DIRECTORY;
+        assertThat(fileFilter.accept(new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + "/js"))).isFalse();
+        assertThat(fileFilter.accept(new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + "/css"))).isFalse();
+        assertThat(fileFilter.accept(new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + "/fonts"))).isFalse();
+        assertThat(fileFilter.accept(new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + "/images"))).isFalse();
     }
 
     @Test
