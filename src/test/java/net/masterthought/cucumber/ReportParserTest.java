@@ -45,7 +45,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Feature> features = reportParser.parseJsonFiles(jsonReports);
 
         // then
-        assertThat(features).hasSize(3);
+        assertThat(features).hasSize(2);
 
         SoftAssertions.assertSoftly(a -> {
             for (Feature f : features) {

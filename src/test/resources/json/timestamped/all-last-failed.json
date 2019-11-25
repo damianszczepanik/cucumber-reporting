@@ -108,7 +108,7 @@
           {
             "result": {
               "duration": 12449931300,
-              "status": "passed"
+              "status": "failed"
             },
             "line": 5,
             "name": "Open Home page",

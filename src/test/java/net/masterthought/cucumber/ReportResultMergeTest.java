@@ -9,9 +9,34 @@ import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * Expected conditions:
  * all-last-failed.json = p1.json + p2.json
  * all-last-failed.json = p1.json + p2.json + p2-rerun-failed.json
  * all-passed.json = p1.json + p2.json + p2-rerun-passed.json
+ *
+ *
+ *
+ * There are 2 features' files here:
+ *
+ * Num#1: ../reporting/categories.feature
+ *
+ * Feature: Product categories
+ *  Background:
+ *     Given Open Home page
+ *
+ *   @SMOKE
+ *   Scenario: All categories are displayed on site
+ *     When  Get list of existing products
+ *     Then  List of categories is displayed on Home page and contains all values
+ *
+ *
+ *
+ * Num#2: ../reporting/home-page.feature
+ * Feature: Home page
+ *
+ *   @SMOKE
+ *   Scenario: Open Home page
+ *     Given Open Home page
  */
 public class ReportResultMergeTest extends ReportGenerator {
 
@@ -47,7 +72,7 @@ public class ReportResultMergeTest extends ReportGenerator {
         setUpWithJson(ALL_FAILED);
 
         // then
-        assertThat(reportResult.getAllFeatures()).hasSize(3);
+        assertThat(reportResult.getAllFeatures()).hasSize(2);
     }
 
     @Test
@@ -67,7 +92,7 @@ public class ReportResultMergeTest extends ReportGenerator {
         setUpWithJson(PART_TWO);
 
         // then
-        assertThat(reportResult.getAllFeatures()).hasSize(2);
+        assertThat(reportResult.getAllFeatures()).hasSize(1);
     }
 
     @Test
@@ -80,7 +105,7 @@ public class ReportResultMergeTest extends ReportGenerator {
         Reportable current = reportResult.getFeatureReport();
 
         // then
-        assertThat(reportResult.getAllFeatures()).hasSize(3);
+        assertThat(reportResult.getAllFeatures()).hasSize(2);
         assertThat(current.getFailedScenarios()).isEqualTo(1);
     }
 
