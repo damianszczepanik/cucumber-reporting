@@ -117,7 +117,8 @@ public abstract class AbstractPage {
 
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
-        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
+        if (StringUtils.isNotBlank(buildNumber) &&
+                configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS)) {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {

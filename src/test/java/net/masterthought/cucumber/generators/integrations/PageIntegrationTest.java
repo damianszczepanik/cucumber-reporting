@@ -19,6 +19,7 @@ import net.masterthought.cucumber.generators.integrations.helpers.NavigationAsse
 import net.masterthought.cucumber.generators.integrations.helpers.NavigationItemAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -59,7 +60,7 @@ public class PageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("123");
 
         page = new TagReportPage(reportResult, configuration, reportResult.getAllTags().get(0));
@@ -129,7 +130,7 @@ public class PageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("123");
 
         page = new StepsOverviewPage(reportResult, configuration);

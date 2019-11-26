@@ -144,7 +144,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("notAnumber");
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -161,7 +161,6 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("12");
-        configuration.setRunWithJenkins(false);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -194,7 +193,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("34");
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

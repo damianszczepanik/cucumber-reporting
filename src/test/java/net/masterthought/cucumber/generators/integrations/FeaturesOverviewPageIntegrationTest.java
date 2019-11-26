@@ -9,6 +9,7 @@ import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssert
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -20,7 +21,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("1");
         page = new FeaturesOverviewPage(reportResult, configuration);
         final String titleValue = String.format("Cucumber Reports (no %s) - Features Overview",

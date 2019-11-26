@@ -44,29 +44,6 @@ public class Configuration {
     }
 
     /**
-     * Validates if the configuration is prepared to be run on Jenkins.
-     * @see #addPresentationModes(PresentationMode)
-     * @return <code>true</code> if running on Jenkins, <code>false</code> otherwise
-     */
-    @Deprecated
-    public boolean isRunWithJenkins() {
-        return containsPresentationMode(PresentationMode.RUN_WITH_JENKINS);
-    }
-
-    /**
-     * Decides if the configuration is prepared to be run on Jenkins.
-     * @see #addPresentationModes(PresentationMode)
-     * @param runWithJenkins <code>true</code> if running on Jenkins, <code>false</code> otherwise
-     */
-    @Deprecated
-    public void setRunWithJenkins(boolean runWithJenkins) {
-        if (runWithJenkins) {
-            addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
-        }
-        // else - by default this is false
-    }
-
-    /**
      * Returns directory where the report should be stored.
      *
      * @return directory for the report
@@ -142,8 +119,7 @@ public class Configuration {
     }
 
     /**
-     * Sets number of the build. If the {{@link #setRunWithJenkins(boolean)} executed on Jenkins}, this should be
-     * integer value so the number of previous build can be calculated properly.
+     * Sets number of the build.
      *
      * @param buildNumber number of the build
      */
