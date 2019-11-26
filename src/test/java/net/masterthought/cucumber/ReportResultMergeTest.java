@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  *  Background:
  *     Given Open Home page
  *
- *   @SMOKE
  *   Scenario: All categories are displayed on site
  *     When  Get list of existing products
  *     Then  List of categories is displayed on Home page and contains all values
@@ -34,7 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Num#2: ../reporting/home-page.feature
  * Feature: Home page
  *
- *   @SMOKE
  *   Scenario: Open Home page
  *     Given Open Home page
  */
@@ -80,7 +78,6 @@ public class ReportResultMergeTest extends ReportGenerator {
         // given
         // when
         setUpWithJson(PART_ONE);
-
         // then
         assertThat(reportResult.getAllFeatures()).hasSize(1);
     }
