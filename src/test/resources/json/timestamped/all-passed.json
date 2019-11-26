@@ -1,0 +1,117 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 3,
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 13340837400,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2019-11-25T13:36:37.562Z",
+        "line": 7,
+        "name": "All categories are displayed on site",
+        "id": "product-categories;all-categories-are-displayed-on-site",
+        "after": [
+          {
+            "result": {
+              "duration": 944241801,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 391179701,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Get list of existing products",
+            "match": {
+              "location": "ProductDataSteps.readListOfExistingProducts()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 620118000,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "List of categories is displayed on Home page and contains all values",
+            "match": {
+              "location": "HomePageSteps.verifyListOfCategories()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Product categories",
+    "id": "product-categories",
+    "keyword": "Feature",
+    "uri": "classpath:reporting/categories.feature"
+  },
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2019-11-25T13:36:53.146Z",
+        "line": 4,
+        "name": "Open Home page",
+        "id": "home-page;open-home-page",
+        "after": [
+          {
+            "result": {
+              "duration": 853411700,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ContextShutdownHook.teardown()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 12449931300,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Open Home page",
+            "match": {
+              "location": "HomePageSteps.openHomePage()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      }
+    ],
+    "name": "Home page",
+    "id": "home-page",
+    "keyword": "Feature",
+    "uri": "classpath:reporting/home-page.feature"
+  }
+]

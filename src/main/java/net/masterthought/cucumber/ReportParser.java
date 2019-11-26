@@ -1,6 +1,16 @@
 package net.masterthought.cucumber;
 
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,17 +25,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.reducers.ReducingMethod;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -43,6 +43,8 @@ public class ReportParser {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // this prevents printing eg. 2.20 as 2.2
         mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
+        mapper.registerModule(new JavaTimeModule());
+
         // pass configuration to deserializers
         InjectableValues values = new InjectableValues.Std().addValue(Configuration.class, configuration);
         mapper.setInjectableValues(values);

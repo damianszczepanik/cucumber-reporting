@@ -8,6 +8,8 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import net.masterthought.cucumber.json.Element;
+import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Index;
 import org.junit.Test;
 
@@ -34,6 +36,29 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
+    public void parseJsonResults_Timestamp() {
+        // given
+        initWithJson(CUCUMBER_TIMESTAMPED_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(2);
+
+        SoftAssertions.assertSoftly(a -> {
+            for (Feature f : features) {
+                for (Element elm : f.getElements()) {
+                    if (elm.isScenario()) {
+                        a.assertThat(elm.getStartTime()).isNotNull();
+                    }
+                }
+            }
+        });
+    }
+
+    @Test
     public void parseJsonResults_OnNoFeatures_ThrowsException() {
 
         // given
@@ -48,7 +73,6 @@ public class ReportParserTest extends ReportGenerator {
 
     @Test
     public void parseJsonResults_OnNoReport_ThrowsException() {
-
         // given
         initWithJson();
         ReportParser reportParser = new ReportParser(configuration);

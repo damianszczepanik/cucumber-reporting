@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.StringUtils;
 
 import net.masterthought.cucumber.Configuration;
@@ -8,13 +9,27 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 
+import java.time.LocalDateTime;
+
 public class Element implements Durationable {
 
     // Start: attributes from JSON file report
+    private final String id = null;
     private final String name = null;
     private final String type = null;
     private final String description = null;
     private final String keyword = null;
+    private final Integer line = null;
+
+    /**
+     * @since cucumber-jvm v4.3.0
+     * The timestamp field in the json report allows plugins to correctly calculate
+     * the time a TestSuite takes when the TCs are run in parallel.
+     * The scenario startTime (which is what i currently added to the report) will be useful
+     * in a number of ways both for reporting and getting correct duration of parallel TC execution.
+     */
+    @JsonProperty("start_timestamp")
+    private final LocalDateTime startTime = null;
     private final Step[] steps = new Step[0];
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
@@ -22,6 +37,7 @@ public class Element implements Durationable {
     // End: attributes from JSON file report
 
     private static final String SCENARIO_TYPE = "scenario";
+    private static final String BACKGROUND_TYPE = "background";
 
     private Status elementStatus;
     private Status beforeStatus;
@@ -63,12 +79,24 @@ public class Element implements Durationable {
         return stepsStatus;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getKeyword() {
         return keyword;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public Integer getLine() {
+        return line;
     }
 
     public String getType() {
@@ -81,6 +109,10 @@ public class Element implements Durationable {
 
     public boolean isScenario() {
         return SCENARIO_TYPE.equalsIgnoreCase(type);
+    }
+
+    public boolean isBackground() {
+        return BACKGROUND_TYPE.equalsIgnoreCase(type);
     }
 
     public Feature getFeature() {
