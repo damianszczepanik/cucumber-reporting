@@ -6,7 +6,6 @@
         "start_timestamp": "2019-11-25T13:36:53.146Z",
         "line": 4,
         "name": "Open Home page",
-        "description": "",
         "id": "home-page;open-home-page",
         "after": [
           {
@@ -34,19 +33,12 @@
             },
             "keyword": "Given "
           }
-        ],
-        "tags": [
-          {
-            "name": "@SMOKE"
-          }
         ]
       }
     ],
     "name": "Home page",
-    "description": "",
     "id": "home-page",
     "keyword": "Feature",
-    "uri": "classpath:reporting/home-page.feature",
-    "tags": []
+    "uri": "classpath:reporting/home-page.feature"
   }
 ]

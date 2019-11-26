@@ -4,8 +4,6 @@
     "elements": [
       {
         "line": 3,
-        "name": "",
-        "description": "",
         "type": "background",
         "keyword": "Background",
         "steps": [
@@ -27,7 +25,6 @@
         "start_timestamp": "2019-11-25T13:36:37.562Z",
         "line": 7,
         "name": "All categories are displayed on site",
-        "description": "",
         "id": "product-categories;all-categories-are-displayed-on-site",
         "after": [
           {
@@ -67,19 +64,12 @@
             },
             "keyword": "Then "
           }
-        ],
-        "tags": [
-          {
-            "name": "@SMOKE"
-          }
         ]
       }
     ],
     "name": "Product categories",
-    "description": "",
     "id": "product-categories",
     "keyword": "Feature",
-    "uri": "classpath:reporting/categories.feature",
-    "tags": []
+    "uri": "classpath:reporting/categories.feature"
   }
 ]
