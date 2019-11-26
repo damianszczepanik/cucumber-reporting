@@ -12,6 +12,7 @@ public interface ReportFeatureMerger extends Predicate<List<ReducingMethod>> {
      *
      * @see net.masterthought.cucumber.reducers.ReportFeatureAppendableMerger
      * @see net.masterthought.cucumber.reducers.ReportFeatureByIdMerger
+     * @see net.masterthought.cucumber.reducers.ReportFeatureWithRetestMerger
      *
      * Merger's type depends on a ReducingMethod which is coming from the configuration.
      */
