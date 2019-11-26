@@ -8,6 +8,7 @@ import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -19,7 +20,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("333");
         page = new StepsOverviewPage(reportResult, configuration);
         final String titleValue = String.format("Cucumber Reports (no %s) - Steps Overview",

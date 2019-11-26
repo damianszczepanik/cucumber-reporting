@@ -9,6 +9,7 @@ import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssert
 import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -20,7 +21,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("1");
         page = new FailuresOverviewPage(reportResult, configuration);
         final String titleValue = String.format("Cucumber Reports (no %s) - Failures Overview",

@@ -29,22 +29,6 @@ public class ConfigurationTest {
     private final String projectName = "123";
 
     @Test
-    @Deprecated
-    public void isRunWithJenkins_ReturnsRunWithJenkins() {
-
-        // given
-        Configuration configuration = new Configuration(outputDirectory, projectName);
-        boolean runWithJenkins = true;
-        configuration.setRunWithJenkins(runWithJenkins);
-
-        // when
-        boolean run = configuration.isRunWithJenkins();
-
-        // then
-        assertThat(run).isEqualTo(runWithJenkins);
-    }
-
-    @Test
     public void getReportDirectory_ReturnsOutputDirectory() {
 
         // given
