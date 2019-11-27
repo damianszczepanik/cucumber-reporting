@@ -37,7 +37,16 @@ final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
         return new ArrayList<>(mergedFeatures.values());
     }
 
-    private void updateElements(Feature feature, Element[] elements) {
+    /**
+     * Updates feature's elements with items from the @elements list if an Id of the item coincides
+     * with an Id of any element from the @feature object. If there is no element in the @feature object
+     * then the item is appended to the end of the elements' list of the @feature.
+     *
+     * @param feature  - target object of Feature class.
+     * @param elements - list of elements which need to be inserted to the @feature with replacing
+     *                   or adding to the end.
+     */
+    void updateElements(Feature feature, Element[] elements) {
         for (int i = 0; i < elements.length; i++) {
             Element current = elements[i];
             if (current.isScenario()) {
@@ -67,14 +76,14 @@ final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
     /**
      * @return true when candidate element happened after the target element.
      */
-    private boolean replaceIfExists(Element target, Element candidate) {
+    boolean replaceIfExists(Element target, Element candidate) {
         return candidate.getStartTime().compareTo(target.getStartTime()) >= 0;
     }
 
     /**
      * @return true when element from elements array with index=elementInd is a background.
      */
-    private boolean isBackground(int elementInd, Element[] elements) {
+    boolean isBackground(int elementInd, Element[] elements) {
         return elementInd >= 0 &&
                 elements != null &&
                 elementInd < elements.length &&
@@ -87,7 +96,7 @@ final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
      * an element is found in the elements list with the same Id (for scenario)
      * as target element has or it's on the same line (for background).
      */
-    private int find(Element[] elements, Element target) {
+    int find(Element[] elements, Element target) {
         for (int i = 0; i < elements.length; i++) {
             if (ELEMENT_COMPARATOR.compare(elements[i], target) == 0) {
                 return i;
