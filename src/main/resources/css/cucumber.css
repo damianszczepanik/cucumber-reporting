@@ -130,6 +130,15 @@ a:hover {
     background-color: #F5B975;
 }
 
+/** additional space before Given keyword to keep space between steps **/
+.step-name-Given {
+    margin-top: 5px;
+}
+
+.step-name-And {
+    padding-left: 10px;
+}
+
 .lead-duration {
     float: right;
     padding-right: 15px;
