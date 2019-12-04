@@ -130,6 +130,58 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnApplicationZipMimeType_ReturnsZip() {
+
+        // given
+        Embedding embedding = new Embedding("application/zip", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("zip");
+    }
+
+    @Test
+    public void getExtension__OnApplicationXTarMimeType_ReturnsTar() {
+
+        // given
+        Embedding embedding = new Embedding("application/x-tar", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("tar");
+    }
+
+    @Test
+    public void getExtension__OnApplicationXBZip2MimeType_ReturnsBZ2() {
+
+        // given
+        Embedding embedding = new Embedding("application/x-bzip2", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("bz2");
+    }
+
+    @Test
+    public void getExtension__OnApplicationGZipMimeType_ReturnsGZ() {
+
+        // given
+        Embedding embedding = new Embedding("application/gzip", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("gz");
+    }
+
+    @Test
     public void getExtension__OnVideoMp4MimeType_ReturnsMp4() {
         // given
         Embedding embedding = new Embedding("video/mp4", "");
