@@ -1,8 +1,5 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import java.util.Locale;
-import java.util.regex.Pattern;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -34,6 +31,6 @@ public class BuildInfoAssertion extends TableAssertion {
         WebAssertion[] cells = getBodyRow().getCells();
         assertThat(cells.length).isGreaterThan(2);
         assertThat(cells[2].text())
-                .matches(String.format("href=\"%s\">%s<", Pattern.quote(buildUrl), Pattern.quote(buildName)));
+                .contains(String.format("<a href=\"%s\">%s</a>", buildUrl, buildName));
     }
 }
