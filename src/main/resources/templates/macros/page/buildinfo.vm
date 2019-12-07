@@ -7,6 +7,9 @@
       #if($build_number)
         <th>Number</th>
       #end
+      #if($build_url)
+        <th>Link</th>
+      #end
       <th>Date</th>
     </tr>
   </thead>
@@ -15,6 +18,9 @@
       <td>$build_project_name</td>
       #if($build_number)
         <td>$build_number</td>
+      #end
+      #if($build_url)
+        <td><a href="$build_url">$build_name</a></td>
       #end
       <td>$build_time</td>
     </tr>

@@ -111,6 +111,16 @@ public abstract class AbstractPage {
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
 
+        String buildUrl = configuration.getBuildUrl();
+        if (StringUtils.isNotBlank(buildUrl)) {
+            context.put("build_url", buildUrl);
+            String buildName = configuration.getBuildName();
+            if (StringUtils.isBlank(buildName)) {
+                buildName = "Build #" + configuration.getBuildNumber();
+            }
+            context.put("build_name", buildName);
+        }
+
         // if report generation fails then report is null
         String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
         context.put("build_time", formattedTime);

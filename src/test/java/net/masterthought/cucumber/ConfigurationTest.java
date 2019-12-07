@@ -128,6 +128,36 @@ public class ConfigurationTest {
     }
 
     @Test
+    public void getBuildUrl_ReturnsBuildUrl() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        String buildUrl = "http://somehost/something";
+        configuration.setBuildUrl(buildUrl);
+
+        // when
+        String build = configuration.getBuildUrl();
+
+        // then
+        assertThat(build).isEqualTo(buildUrl);
+    }
+
+    @Test
+    public void getBuildName_ReturnsBuildName() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        String buildName = "123xyz";
+        configuration.setBuildName(buildName);
+
+        // when
+        String build = configuration.getBuildName();
+
+        // then
+        assertThat(build).isEqualTo(buildName);
+    }
+
+    @Test
     public void getProjectName_ReturnsProjectName() {
 
         // given

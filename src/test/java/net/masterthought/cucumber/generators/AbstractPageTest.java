@@ -114,6 +114,8 @@ public class AbstractPageTest extends PageTest {
         // given
         configuration.addReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS);
         configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
+        configuration.setBuildUrl("http://some/build/url");
+        configuration.setBuildName("123foo");
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when
@@ -121,7 +123,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(10);
+        assertThat(context.getKeys()).hasSize(12);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -137,6 +139,26 @@ public class AbstractPageTest extends PageTest {
 
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
+        assertThat(context.get("build_url")).isEqualTo(configuration.getBuildUrl());
+        assertThat(context.get("build_name")).isEqualTo(configuration.getBuildName());
+    }
+
+    @Test
+    public void buildGeneralParameters_FallsBackToDefaultBuildName() {
+
+        // given
+        configuration.addReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS);
+        configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
+        configuration.setBuildUrl("http://some/build/url");
+        configuration.setBuildNumber("12");
+        page = new TagsOverviewPage(reportResult, configuration);
+
+        // when
+        // buildGeneralParameters() already called by constructor
+
+        // then
+        VelocityContext context = page.context;
+        assertThat(context.get("build_name")).isEqualTo("Build #" + configuration.getBuildNumber());
     }
 
     @Test

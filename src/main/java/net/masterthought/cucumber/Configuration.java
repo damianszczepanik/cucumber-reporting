@@ -25,6 +25,8 @@ public class Configuration {
     private File trendsFile;
     private int trendsLimit;
     private String buildNumber;
+    private String buildName;
+    private String buildUrl;
     private String projectName;
 
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
@@ -125,6 +127,42 @@ public class Configuration {
      */
     public void setBuildNumber(String buildNumber) {
         this.buildNumber = buildNumber;
+    }
+
+    /**
+     * Gets the build name for this report.
+     *
+     * @return build name
+     */
+    public String getBuildName() {
+        return buildName;
+    }
+
+    /**
+     * Sets the name of the build, used for the generated link
+     *
+     * @param buildName name of the build
+     */
+    public void setBuildName(String buildName) {
+        this.buildName = buildName;
+    }
+
+    /**
+     * Gets the build URL for this report.
+     *
+     * @return build url
+     */
+    public String getBuildUrl() {
+        return buildUrl;
+    }
+
+    /**
+     * Sets the HTTP URL of the build, used for the generated link
+     *
+     * @param buildUrl URL of the build
+     */
+    public void setBuildUrl(String buildUrl) {
+        this.buildUrl = buildUrl;
     }
 
     /**

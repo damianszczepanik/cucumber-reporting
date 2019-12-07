@@ -122,16 +122,17 @@ public class PageIntegrationTest extends PageTest {
         headValues.hasExactValues("Project", "Date");
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
-        buildInfo.hasBuildDate(false);
+        buildInfo.hasBuildDate(false, false);
     }
 
     @Test
-    public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumber() {
+    public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumberAndUrl() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
         configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("123");
+        configuration.setBuildUrl("http://some/host/url");
 
         page = new StepsOverviewPage(reportResult, configuration);
 
@@ -143,11 +144,38 @@ public class PageIntegrationTest extends PageTest {
         BuildInfoAssertion buildInfo = document.getBuildInfo();
 
         TableRowAssertion headValues = buildInfo.getHeaderRow();
-        headValues.hasExactValues("Project", "Number", "Date");
+        headValues.hasExactValues("Project", "Number", "Link", "Date");
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
         assertThat(buildInfo.getBuildNumber()).isEqualTo(configuration.getBuildNumber());
-        buildInfo.hasBuildDate(true);
+        buildInfo.hasBuildLink("http://some/host/url", "Build #123");
+        buildInfo.hasBuildDate(true, true);
+    }
+
+    @Test
+    public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNameAndUrl() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+        configuration.setBuildName("My awesome build");
+        configuration.setBuildUrl("http://some/host/url");
+
+        page = new StepsOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        BuildInfoAssertion buildInfo = document.getBuildInfo();
+
+        TableRowAssertion headValues = buildInfo.getHeaderRow();
+        headValues.hasExactValues("Project", "Link", "Date");
+
+        assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
+        buildInfo.hasBuildLink("http://some/host/url", "My awesome build");
+        buildInfo.hasBuildDate(false, true);
     }
 
     @Test

@@ -47,6 +47,9 @@ jsonFiles.add("cucumber-report-2.json");
 
 String buildNumber = "1";
 String projectName = "cucumberProject";
+// optional, for other CI environments
+String buildUrl = "http://some/ci/setup/build";
+String buildName = "Build #123 (Git ...)";
 
 Configuration configuration = new Configuration(reportOutputDirectory, projectName);
 // optional configuration - check javadoc for details
@@ -54,6 +57,9 @@ configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
 // do not make scenario failed when step has status SKIPPED
 configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
 configuration.setBuildNumber(buildNumber);
+// optional
+configuration.setBuildUrl(buildUrl);
+configuration.setBuildName(buildName);
 // addidtional metadata presented on main page
 configuration.addClassifications("Platform", "Windows");
 configuration.addClassifications("Browser", "Firefox");
