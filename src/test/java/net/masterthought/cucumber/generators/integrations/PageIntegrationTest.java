@@ -148,7 +148,7 @@ public class PageIntegrationTest extends PageTest {
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
         assertThat(buildInfo.getBuildNumber()).isEqualTo(configuration.getBuildNumber());
-        buildInfo.hasBuildLink("http://some/host/url", "Build #123");
+        buildInfo.hasBuildLink(true, "http://some/host/url", "Build #123");
         buildInfo.hasBuildDate(true, true);
     }
 
@@ -174,7 +174,7 @@ public class PageIntegrationTest extends PageTest {
         headValues.hasExactValues("Project", "Link", "Date");
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
-        buildInfo.hasBuildLink("http://some/host/url", "My awesome build");
+        buildInfo.hasBuildLink(false, "http://some/host/url", "My awesome build");
         buildInfo.hasBuildDate(false, true);
     }
 

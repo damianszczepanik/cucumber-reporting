@@ -22,15 +22,18 @@ public class BuildInfoAssertion extends TableAssertion {
     public void hasBuildDate(boolean withBuildNumber, boolean withBuildLink) {
         // date format: dd MMM yyyy, HH:mm
         WebAssertion[] cells = getBodyRow().getCells();
-        assertThat(cells).hasSize(withBuildNumber ? withBuildLink ? 4 : 3 : 2);
-        assertThat(cells[withBuildNumber ? withBuildLink ? 3 : 2 : 1].text())
+        int columnCount = 2;
+        if (withBuildNumber) columnCount++;
+        if (withBuildLink) columnCount++;
+        assertThat(cells).hasSize(columnCount);
+        assertThat(cells[columnCount -1].text())
                 .matches("^[0-3][0-9] \\w{3} \\d{4}, \\d{2}:\\d{2}$");
     }
 
-    public void hasBuildLink(String buildUrl, String buildName) {
+    public void hasBuildLink(boolean withBuildNumber, String buildUrl, String buildName) {
         WebAssertion[] cells = getBodyRow().getCells();
-        assertThat(cells.length).isGreaterThan(2);
-        assertThat(cells[2].text())
+        assertThat(cells).hasSize(withBuildNumber ? 4 : 3);
+        assertThat(cells[withBuildNumber ? 2 : 1].html())
                 .contains(String.format("<a href=\"%s\">%s</a>", buildUrl, buildName));
     }
 }
