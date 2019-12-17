@@ -42,9 +42,10 @@ public class Step implements Resultsable {
     private Status afterStatus;
 
     public Row[] getRows() {
-        if (ArrayUtils.getLength(arguments) == 1) {
+        int argumentsSize = ArrayUtils.getLength(arguments);
+        if (argumentsSize == 1) {
             return arguments[0].getRows();
-        } else if (ArrayUtils.getLength(arguments) > 1) {
+        } else if (argumentsSize > 1) {
             // if this happens then proper support must be added
             throw new UnsupportedOperationException("'arguments' length should be equal to 1");
         } else {
