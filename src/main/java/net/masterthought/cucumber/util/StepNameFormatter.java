@@ -33,31 +33,20 @@ public class StepNameFormatter {
 
     private static void surroundArguments(Argument[] arguments, String preArgument, String postArgument, String[] chars) {
         for (Argument argument : arguments) {
-            if (isNotMatchedArgument(argument)) {
+            if (!isValidArgument(argument)) {
                 continue;
             }
 
             int start = argument.getOffset();
             int end = start + argument.getVal().length() - 1;
-            if (isArgumentAtStartOfString(end) || isArgumentAtEndOfString(start, chars)) {
-                continue;
-            }
 
             chars[start] = preArgument + chars[start];
             chars[end] = chars[end] + postArgument;
         }
     }
 
-    private static boolean isNotMatchedArgument(Argument argument) {
-        return argument.getOffset() == null;
-    }
-
-    private static boolean isArgumentAtStartOfString(int end) {
-        return end <= 0;
-    }
-
-    private static boolean isArgumentAtEndOfString(int start, String[] chars) {
-        return start >= chars.length;
+    private static boolean isValidArgument(Argument argument) {
+        return argument.getOffset() != null && argument.getVal().length() > 0;
     }
 
     private static void escape(String[] chars) {
