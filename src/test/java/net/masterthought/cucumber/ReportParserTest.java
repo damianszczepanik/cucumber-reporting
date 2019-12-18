@@ -1,17 +1,20 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.reducers.ReducingMethod;
-import org.assertj.core.data.Index;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.data.MapEntry.entry;
+import net.masterthought.cucumber.json.Element;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.data.Index;
+import org.junit.Test;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -33,6 +36,29 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
+    public void parseJsonResults_Timestamp() {
+        // given
+        initWithJson(CUCUMBER_TIMESTAMPED_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        List<Feature> features = reportParser.parseJsonFiles(jsonReports);
+
+        // then
+        assertThat(features).hasSize(2);
+
+        SoftAssertions.assertSoftly(a -> {
+            for (Feature f : features) {
+                for (Element elm : f.getElements()) {
+                    if (elm.isScenario()) {
+                        a.assertThat(elm.getStartTime()).isNotNull();
+                    }
+                }
+            }
+        });
+    }
+
+    @Test
     public void parseJsonResults_OnNoFeatures_ThrowsException() {
 
         // given
@@ -47,7 +73,6 @@ public class ReportParserTest extends ReportGenerator {
 
     @Test
     public void parseJsonResults_OnNoReport_ThrowsException() {
-
         // given
         initWithJson();
         ReportParser reportParser = new ReportParser(configuration);
@@ -180,7 +205,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(3);
         assertThat(classifications).containsExactly(
-                entry("NodeJsVersion", "8.5.0"),
+                entry("NodeJsVersion","8.5.0"),
                 entry("Proxy", "http=//172.22.240.68:18717"),
                 entry("NpmVersion", "5.3.0")
         );
@@ -200,7 +225,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(1);
         assertThat(classifications).containsExactly(
-                entry("BaseUrl_QA", "[Internal=https://internal.test.com, External=https://external.test.com]")
+                entry("BaseUrl_QA","[Internal=https://internal.test.com, External=https://external.test.com]")
         );
     }
 
@@ -218,7 +243,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(6);
         assertThat(classifications).containsExactly(
-                entry("website", "https://en.wikipedia.org/"),
+                entry("website","https://en.wikipedia.org/"),
                 entry("language", "English"),
                 entry("message", "Welcome to Wikipedia!"),
                 entry("key with spaces", "This is the value that could be looked up with the key \"key with spaces\"."),

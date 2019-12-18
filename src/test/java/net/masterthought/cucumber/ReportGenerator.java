@@ -20,6 +20,8 @@ public abstract class ReportGenerator {
     public final static String CLASSIFICATIONS_DIRECTORY = "classifications/";
 
     protected static final String SAMPLE_JSON = "sample.json";
+    protected static final String CUCUMBER_TIMESTAMPED_JSON = "timestamped/all-last-failed.json";
+    protected static final String SAMPLE_FAILED_JSON = "sample_failed.json";
     public static final String SIMPLE_JSON = "simple.json";
     protected static final String EMPTY_JSON = "empty.json";
     protected static final String EMPTY_FILE_JSON = "empty-file.json";
@@ -30,7 +32,6 @@ public abstract class ReportGenerator {
     protected static final String SAMPLE_TWO_PROPERTIES = "sample_two.properties";
     protected static final String DUPLICATE_PROPERTIES = "duplicate.properties";
     protected static final String SPECIAL_CHARACTERS_PROPERTIES = "special_characters.properties";
-
 
     protected static final File TRENDS_FILE = new File(pathToSampleFile("cucumber-trends.json"));
 
@@ -50,6 +51,9 @@ public abstract class ReportGenerator {
         try {
             // points to target/test-classes output
             reportDirectory = new File(ReportGenerator.class.getClassLoader().getResource("").toURI());
+            configuration = new Configuration(reportDirectory, projectName);
+            configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
+            configuration.getEmbeddingDirectory().mkdirs();
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
         }
@@ -57,7 +61,6 @@ public abstract class ReportGenerator {
 
     protected void setUpWithJson(String... jsonFiles) {
         initWithJson(jsonFiles);
-
         createReport();
     }
 
@@ -66,25 +69,12 @@ public abstract class ReportGenerator {
             for (String jsonFile : jsonFiles)
                 jsonReports.add(reportFromResource(jsonFile));
         }
-
-        // may be already created so don't overwrite it
-        if (configuration == null) {
-            configuration = new Configuration(reportDirectory, projectName);
-        }
-        configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
-        createEmbeddingsDirectory();
     }
 
     protected void initWithProperties(String... propertyFiles) {
-        for (String propertyFile : propertyFiles)
+        for (String propertyFile : propertyFiles) {
             this.classificationFiles.add(reportFromResourceProperties(propertyFile));
-
-        // may be already created so don't overwrite it
-        if (configuration == null) {
-            configuration = new Configuration(reportDirectory, projectName);
         }
-        configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
-        createEmbeddingsDirectory();
     }
 
     public static String reportFromResource(String jsonReport) {
@@ -93,6 +83,10 @@ public abstract class ReportGenerator {
 
     public static String reportFromResourceProperties(String propertyFile) {
         return pathToSampleFile(CLASSIFICATIONS_DIRECTORY + propertyFile);
+    }
+
+    public ReportResult getReportResult() {
+        return reportResult;
     }
 
     protected static String pathToSampleFile(String fileName) {
@@ -113,9 +107,5 @@ public abstract class ReportGenerator {
         features = reportResult.getAllFeatures();
         tags = reportResult.getAllTags();
         steps = reportResult.getAllSteps();
-    }
-
-    private void createEmbeddingsDirectory() {
-        configuration.getEmbeddingDirectory().mkdirs();
     }
 }

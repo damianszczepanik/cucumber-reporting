@@ -1,13 +1,15 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
-import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -19,7 +21,7 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         configuration.setBuildNumber("1");
         page = new FeaturesOverviewPage(reportResult, configuration);
         final String titleValue = String.format("Cucumber Reports (no %s) - Features Overview",

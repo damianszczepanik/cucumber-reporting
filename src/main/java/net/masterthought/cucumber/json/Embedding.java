@@ -72,6 +72,7 @@ public class Embedding {
             case "text/csv":
             case "application/json":
             case "application/xml":
+            case "application/zip":
             case "video/mp4":
                 return mimeType.substring(mimeType.indexOf('/') + 1);
             // image available remotely stored as link/url
@@ -83,6 +84,12 @@ public class Embedding {
                 return "txt";
             case "application/pdf":
                 return "pdf";
+            case "application/x-tar":
+                return "tar";
+            case "application/x-bzip2":
+                return "bz2";
+            case "application/gzip":
+                return "gz";
             default:
                 return "unknown";
         }

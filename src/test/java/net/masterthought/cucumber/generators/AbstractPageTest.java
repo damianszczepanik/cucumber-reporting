@@ -102,8 +102,8 @@ public class AbstractPageTest extends PageTest {
 
         // then
         assertThat(props).hasSize(3);
-        assertThat(props.getProperty("resource.loader")).isNotNull();
-        assertThat(props.getProperty("class.resource.loader.class")).isNotNull();
+        assertThat(props.getProperty("resource.loaders")).isNotNull();
+        assertThat(props.getProperty("resource.loader.class.class")).isNotNull();
         assertThat(props.getProperty("runtime.log")).isNotNull();
     }
 
@@ -141,7 +141,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("notAnumber");
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -158,7 +158,6 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("12");
-        configuration.setRunWithJenkins(false);
         page = new ErrorPage(null, configuration, null, jsonReports);
 
         // when
@@ -191,7 +190,7 @@ public class AbstractPageTest extends PageTest {
 
         // given
         configuration.setBuildNumber("34");
-        configuration.setRunWithJenkins(true);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         page = new TagsOverviewPage(reportResult, configuration);
 
         // when

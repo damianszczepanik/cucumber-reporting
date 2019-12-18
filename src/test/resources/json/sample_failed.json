@@ -171,12 +171,6 @@
                         "keyword": "And ",
                         "line": 24,
                         "match": {
-                            "arguments": [
-                                {
-                                    "val": "",
-                                    "offset": 0
-                                }
-                            ],
                             "location": "ATMScenario.createCreditCard()"
                         }
                     },
@@ -254,7 +248,7 @@
                     {
                         "result": {
                             "duration": 30000000,
-                            "status": "passed"
+                            "status": "failed"
                         },
                         "name": "the account balance should be 90",
                         "keyword": "And ",

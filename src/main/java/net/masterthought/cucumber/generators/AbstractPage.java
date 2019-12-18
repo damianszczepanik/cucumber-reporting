@@ -87,8 +87,8 @@ public abstract class AbstractPage {
 
     private Properties buildProperties() {
         Properties props = new Properties();
-        props.setProperty("resource.loader", "class");
-        props.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
+        props.setProperty("resource.loaders", "class");
+        props.setProperty("resource.loader.class.class", ClasspathResourceLoader.class.getCanonicalName());
         props.setProperty("runtime.log", new File(configuration.getReportDirectory(), "velocity.log").getPath());
 
         return props;
@@ -118,7 +118,8 @@ public abstract class AbstractPage {
 
         // build number is not mandatory
         String buildNumber = configuration.getBuildNumber();
-        if (StringUtils.isNotBlank(buildNumber) && configuration.isRunWithJenkins()) {
+        if (StringUtils.isNotBlank(buildNumber) &&
+                configuration.containsPresentationMode(PresentationMode.RUN_WITH_JENKINS)) {
             if (NumberUtils.isCreatable(buildNumber)) {
                 context.put("build_previous_number", Integer.parseInt(buildNumber) - 1);
             } else {

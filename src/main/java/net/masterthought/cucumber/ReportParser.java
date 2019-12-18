@@ -1,17 +1,12 @@
 package net.masterthought.cucumber;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.reducers.ReducingMethod;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +15,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -38,6 +44,8 @@ public class ReportParser {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // this prevents printing eg. 2.20 as 2.2
         mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
+        mapper.registerModule(new JavaTimeModule());
+
         // pass configuration to deserializers
         InjectableValues values = new InjectableValues.Std().addValue(Configuration.class, configuration);
         mapper.setInjectableValues(values);
@@ -46,7 +54,8 @@ public class ReportParser {
     /**
      * Parsed passed files and extracts features files.
      *
-     * @param jsonFiles JSON files to read
+     * @param jsonFiles
+     *            JSON files to read
      * @return array of parsed features
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
@@ -78,7 +87,8 @@ public class ReportParser {
     /**
      * Reads passed file and returns parsed features.
      *
-     * @param jsonFile JSON file that should be read
+     * @param jsonFile
+     *            JSON file that should be read
      * @return array of parsed features
      */
     private Feature[] parseForFeature(String jsonFile) {
@@ -100,7 +110,8 @@ public class ReportParser {
      * Parses passed properties files for classifications. These classifications within each file get added to the overview-features page as metadata.
      * File and metadata order within the individual files are preserved when classifications are added.
      *
-     * @param propertiesFiles property files to read
+     * @param propertiesFiles
+     *            property files to read
      */
     public void parseClassificationsFiles(List<String> propertiesFiles) {
         if (isNotEmpty(propertiesFiles)) {

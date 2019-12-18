@@ -41,6 +41,32 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
+    public void format_OnEmptyArgument_ReturnsFormattedValue() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[1];
+
+        // when
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
+
+        // then
+        assertThat(formatted).isEqualTo("the card is valid");
+    }
+
+    @Test
+    public void format_OnArgumentAtEndOfString_ReturnsFormattedValue() {
+
+        // given
+        Step step = features.get(0).getElements()[1].getSteps()[3];
+
+        // when
+        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "*", "*");
+
+        // then
+        assertThat(formatted).isEqualTo("the Account Holder requests *10*, entering PIN *1234*");
+    }
+
+    @Test
     public void format_ReturnsFormattedValue() {
 
         // given
