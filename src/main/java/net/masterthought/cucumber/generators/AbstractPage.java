@@ -1,23 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.app.event.EventCartridge;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
@@ -27,6 +9,19 @@ import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.app.event.EventCartridge;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Delivers common methods for page generation.
@@ -114,10 +109,10 @@ public abstract class AbstractPage {
         String buildUrl = configuration.getBuildUrl();
         if (StringUtils.isNotBlank(buildUrl)) {
             context.put("build_url", buildUrl);
-            String buildName = configuration.getBuildName();
-            if (StringUtils.isBlank(buildName)) {
-                buildName = "Build #" + configuration.getBuildNumber();
-            }
+            String buildName = StringUtils.defaultIfBlank(
+                    configuration.getBuildName(),
+                    "Build #" + configuration.getBuildNumber()
+            );
             context.put("build_name", buildName);
         }
 
