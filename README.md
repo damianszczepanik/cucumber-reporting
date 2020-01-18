@@ -3,7 +3,7 @@
 [![Shippable Status](https://img.shields.io/shippable/5844689c9d1f3e0f0057631a/master.svg?label=Shippable%20build)](https://app.shippable.com/projects/5844689c9d1f3e0f0057631a)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
 
-[![Coverage Status](https://img.shields.io/codecov/c/github/damianszczepanik/cucumber-reporting/master.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
+[![Coverage Status](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graph/badge.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=net.masterthought%3Acucumber-reporting&metric=security_rating)](https://sonarcloud.io/dashboard?id=net.masterthought%3Acucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
