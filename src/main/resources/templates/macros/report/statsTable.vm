@@ -1,7 +1,7 @@
-#macro(includeStatsTable, $table_key, $parallel, $items, $report_summary)
+#macro(includeStatsTable, $table_key, $items, $report_summary)
 
 <table id="tablesorter" class="stats-table table-hover">
-  #includeReportHeader($table_key, $parallel)
+  #includeReportHeader($table_key)
 
   <tbody>
     #foreach($item in $items)
@@ -44,9 +44,6 @@
     </tr>
     <tr>
       <td></td>
-      #if ($parallel)
-        <td>-</td>
-      #end
       <td>$util.formatAsPercentage($report_summary.getPassedSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getFailedSteps(), $report_summary.getSteps())</td>
       <td>$util.formatAsPercentage($report_summary.getSkippedSteps(), $report_summary.getSteps())</td>

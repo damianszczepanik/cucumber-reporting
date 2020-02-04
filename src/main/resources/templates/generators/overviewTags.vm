@@ -34,7 +34,7 @@
       #if($all_tags.isEmpty())
         <p>You have no tags in your cucumber report</p>
       #else
-        #includeStatsTable("Tag", $parallel, $all_tags, $report_summary)
+        #includeStatsTable("Tag", $all_tags, $report_summary)
       #end
     </div>
   </div>

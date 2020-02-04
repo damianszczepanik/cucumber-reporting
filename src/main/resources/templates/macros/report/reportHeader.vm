@@ -1,10 +1,7 @@
-#macro(includeReportHeader, $table_key, $parallel)
+#macro(includeReportHeader, $table_key)
 
 <thead>
   <tr class="header dont-sort">
-    #if ($parallel)
-      <th></th>
-    #end
     <th></th>
     <th colspan="6">Steps</th>
     <th colspan="3">Scenarios</th>
@@ -12,9 +9,6 @@
   </tr>
   <tr>
     <th>$table_key</th>
-    #if ($parallel)
-      <th>Device</th>
-    #end
     <th class="passed">Passed</th>
     <th class="failed">Failed</th>
     <th class="skipped">Skipped</th>

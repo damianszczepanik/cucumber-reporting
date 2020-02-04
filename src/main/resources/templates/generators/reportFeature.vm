@@ -12,7 +12,7 @@
 
 #includeLead("Feature Report")
 
-#includeReportTable("Feature", $feature, $parallel)
+#includeReportTable("Feature", $feature)
 
 #includeExpandingButtons()
 
