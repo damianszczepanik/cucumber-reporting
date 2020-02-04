@@ -8,6 +8,7 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import mockit.Deencapsulation;
 import net.masterthought.cucumber.json.Element;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Index;
@@ -22,7 +23,7 @@ import net.masterthought.cucumber.reducers.ReducingMethod;
 public class ReportParserTest extends ReportGenerator {
 
     @Test
-    public void parseJsonResults_ReturnsFeatureFiles() {
+    public void parseJsonFiles_ReturnsFeatureFiles() {
 
         // given
         initWithJson(SAMPLE_JSON, SIMPLE_JSON);
@@ -36,7 +37,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_Timestamp() {
+    public void parseJsonFiles_Timestamp() {
         // given
         initWithJson(CUCUMBER_TIMESTAMPED_JSON);
         ReportParser reportParser = new ReportParser(configuration);
@@ -59,7 +60,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_OnNoFeatures_ThrowsException() {
+    public void parseJsonFiles_OnNoFeatures_ThrowsException() {
 
         // given
         initWithJson(EMPTY_JSON);
@@ -72,7 +73,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_OnNoReport_ThrowsException() {
+    public void parseJsonFiles_OnNoReport_ThrowsException() {
         // given
         initWithJson();
         ReportParser reportParser = new ReportParser(configuration);
@@ -84,7 +85,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_OnInvalidReport_ThrowsException() {
+    public void parseJsonFiles_OnInvalidReport_ThrowsException() {
 
         // given
         initWithJson(INVALID_REPORT_JSON);
@@ -97,7 +98,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_OnNoExistingFile_ThrowsException() {
+    public void parseJsonFiles_OnNoExistingFile_ThrowsException() {
 
         // given
         final String invalidFile = "?no-existing%file.json";
@@ -112,7 +113,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parseJsonResults_OnEmptyFile_SkipsJSONReport() {
+    public void parseJsonFiles_OnEmptyFile_SkipsJSONReport() {
 
         // given
         initWithJson(EMPTY_FILE_JSON, SAMPLE_JSON);
@@ -127,7 +128,39 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_EmptyProperties() {
+    public void extractTarget_ReturnsFileNameWithoutExtension() {
+
+        // given
+        String jsonFile = SAMPLE_JSON;
+        initWithJson(SAMPLE_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        String qualifier = Deencapsulation.invoke(reportParser, "extractQualifier", jsonFile);
+
+
+        // then
+        assertThat(qualifier).isEqualTo(jsonFile.substring(0, jsonFile.length() - 5));
+    }
+
+    @Test
+    public void extractTarget_OnNoJSONFile_ReturnsFileName() {
+
+        // given
+        String jsonFile = SAMPLE_JSON + ".txt";
+        initWithJson(SAMPLE_JSON);
+        ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        String qualifier = Deencapsulation.invoke(reportParser, "extractQualifier", jsonFile);
+
+
+        // then
+        assertThat(qualifier).isEqualTo(jsonFile);
+    }
+
+    @Test
+    public void parseClassificationsFiles_EmptyProperties() {
 
         // given
         initWithProperties(EMPTY_PROPERTIES);
@@ -141,7 +174,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_One_File() {
+    public void parseClassificationsFiles_Populates_One_File() {
 
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES);
@@ -155,7 +188,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_Two_Files() {
+    public void parseClassificationsFiles_Populates_Two_Files() {
 
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES, SAMPLE_TWO_PROPERTIES);
@@ -174,7 +207,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_Two_Files_One_Empty() {
+    public void parseClassificationsFiles_Populates_Two_Files_One_Empty() {
 
         // given
         initWithProperties(SAMPLE_ONE_PROPERTIES);
@@ -192,7 +225,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_Check_Content_Integrity_And_Order() {
+    public void parseClassificationsFiles_Populates_Check_Content_Integrity_And_Order() {
 
         // given
         initWithProperties(SAMPLE_TWO_PROPERTIES);
@@ -212,7 +245,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_Check_Duplicates() {
+    public void parseClassificationsFiles_Populates_Check_Duplicates() {
 
         // given
         initWithProperties(DUPLICATE_PROPERTIES);
@@ -230,7 +263,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_Populates_Check_Special_Characters() {
+    public void parseClassificationsFiles_Populates_Check_Special_Characters() {
 
         // given
         initWithProperties(SPECIAL_CHARACTERS_PROPERTIES);
@@ -253,7 +286,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePropertyFiles_OnInvalidFilePath_ThrowsException() {
+    public void parseClassificationsFiles_OnInvalidFilePath_ThrowsException() {
 
         // given
         final String invalidFile = "?on-invalid-file-path.properties";

@@ -12,11 +12,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +92,9 @@ public class ReportParser {
             if (ArrayUtils.isEmpty(features)) {
                 LOG.log(Level.INFO, "File '{0}' does not contain features", jsonFile);
             }
+            String jsonFileName = extractQualifier(jsonFile);
+            Arrays.stream(features).forEach(feature -> feature.setQualifier(jsonFileName));
+
             return features;
         } catch (JsonMappingException e) {
             throw new ValidationException(String.format("File '%s' is not proper Cucumber report!", jsonFile), e);
@@ -103,6 +102,17 @@ public class ReportParser {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
         }
+    }
+
+    private String extractQualifier(String jsonFileName) {
+        File jsonFile = new File(jsonFileName);
+        String target = jsonFile.getName();
+
+        String JSON_EXTENSION = ".json";
+        if (target.toLowerCase().endsWith(JSON_EXTENSION)) {
+            return target.substring(0, target.length() - JSON_EXTENSION.length());
+        }
+        return target;
     }
 
     /**
