@@ -161,7 +161,7 @@
                   "offset": 52
                 }
               ],
-              "location": "NeatStepDefs.the_user_login_into_my_portal_and_Impersonates_an_User(String)"
+              "location": "NeatStepDefs.do_login_as(String)"
             },
             "keyword": "Given "
           },
@@ -173,7 +173,7 @@
             "line": 6,
             "name": "Clicks on the My Page link",
             "match": {
-              "location": "RockingStepDefs.click_on_message_center_link()"
+              "location": "RockingStepDefs.click_on_mypage()"
             },
             "keyword": "When "
           },
@@ -186,7 +186,7 @@
             "line": 7,
             "name": "the My Page main form is ready",
             "match": {
-              "location": "RockingStepDefs.messageCenterMainFormIsReady()"
+              "location": "RockingStepDefs.myMainFormIsReady()"
             },
             "keyword": "Then "
           }
@@ -356,7 +356,7 @@
                   "offset": 52
                 }
               ],
-              "location": "NeatStepDefs.the_user_login_into_my_portal_and_Impersonates_an_User(String)"
+              "location": "NeatStepDefs.do_login_as(String)"
             },
             "keyword": "Given "
           },
@@ -368,7 +368,7 @@
             "line": 6,
             "name": "Clicks on the My Page link",
             "match": {
-              "location": "RockingStepDefs.click_on_message_center_link()"
+              "location": "RockingStepDefs.click_on_mypage()"
             },
             "keyword": "When "
           },
@@ -381,7 +381,7 @@
             "line": 7,
             "name": "the My Page main form is ready",
             "match": {
-              "location": "RockingStepDefs.messageCenterMainFormIsReady()"
+              "location": "RockingStepDefs.myMainFormIsReady()"
             },
             "keyword": "Then "
           }
@@ -551,7 +551,7 @@
                   "offset": 52
                 }
               ],
-              "location": "NeatStepDefs.the_user_login_into_my_portal_and_Impersonates_an_User(String)"
+              "location": "NeatStepDefs.do_login_as(String)"
             },
             "keyword": "Given "
           },
@@ -563,7 +563,7 @@
             "line": 6,
             "name": "Clicks on stuff",
             "match": {
-              "location": "RockingStepDefs.click_on_message_center_link()"
+              "location": "RockingStepDefs.click_on_mypage()"
             },
             "keyword": "When "
           },
@@ -575,7 +575,7 @@
             "line": 7,
             "name": "the stuff is ready",
             "match": {
-              "location": "RockingStepDefs.messageCenterMainFormIsReady()"
+              "location": "RockingStepDefs.myMainFormIsReady()"
             },
             "keyword": "Then "
           }
@@ -591,7 +591,7 @@
     "description": "",
     "id": "my-page",
     "keyword": "Feature",
-    "uri": "file:src/main/resources/features/MessageCenter.feature",
+    "uri": "file:src/main/resources/features/MyPageArea.feature",
     "tags": []
   }
 ]
