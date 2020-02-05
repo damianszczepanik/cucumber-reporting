@@ -52,6 +52,10 @@ public class Feature implements Reportable, Durationable {
         System.arraycopy(newElements, 0, both, elements.length, newElements.length);
         elements = both;
     }
+    
+    public void setElements(Element[] elements) {
+        this.elements = elements;
+    }
 
     public Element[] getElements() {
         return elements;
