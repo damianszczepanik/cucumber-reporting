@@ -16,5 +16,11 @@ public enum PresentationMode {
     /**
      * Expands all scenarios by default.
      */
-    EXPAND_ALL_STEPS
+    EXPAND_ALL_STEPS,
+
+    /**
+     * Add "target" column to the report, when running the same tests many times.
+     * Value of this column is same as JSON report file name.
+     */
+    PARALLEL_TESTING
 }

@@ -89,6 +89,19 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
+    public void getQualifier_ReturnsFileNameWithoutExtension() {
+
+        // given
+        Feature feature = features.get(1);
+
+        // when
+        String qualifier = feature.getQualifier();
+
+        // then
+        assertThat(qualifier).isEqualTo("sample");
+    }
+
+    @Test
     public void getTags_ReturnsTags() {
 
         // given
