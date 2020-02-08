@@ -1,11 +1,10 @@
 language: java
 
-dist: precise
+dist: trusty
 
 cache:
   directories:
   - ~/.m2
-  - ~/.sonar/cache
 
 env:
   global:
@@ -41,10 +40,6 @@ matrix:
 after_success:
   # push report to codecov server
   bash <(curl -s https://codecov.io/bash)
-
-before_deploy:
-  - cat /dev/null > .gitignore
-  - touch .gitignore
 
 deploy:
   provider: pages
