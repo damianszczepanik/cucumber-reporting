@@ -129,7 +129,7 @@ a:hover {
 }
 
 .failed {
-    background-color: #F2928C;
+    background-color: #F7756C;
 }
 
 .skipped {
@@ -180,7 +180,7 @@ table.stats-table tfoot {
 }
 
 tfoot.total, td.total, th.total {
-    background-color: lightgray;
+    background-color: #d3e3e4;
 }
 
 table.stats-table td.duration {
@@ -269,6 +269,7 @@ tr:hover {
 
 pre {
     margin: 10px;
+    background-color: #f8fafb;
 }
 
 #footer {

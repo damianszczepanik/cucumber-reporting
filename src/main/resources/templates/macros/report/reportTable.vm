@@ -9,7 +9,14 @@
 
         <tbody>
         <tr>
-          <td class="tagname">$reportable.getName()</td>
+          <td class="tagname">
+            #if ($reportable.getStatus().isPassed())
+                <i class="fa fa-check" style="color:#02cf11"></i>
+            #else
+                <i class="fa fa-exclamation-triangle" style="color:#df022e"></i>
+            #end
+            $reportable.getName()
+          </td>
           <td #if ($reportable.getPassedSteps() != 0)     class="passed"    #end>$reportable.getPassedSteps()</td>
           <td #if ($reportable.getFailedSteps() != 0)     class="failed"    #end>$reportable.getFailedSteps()</td>
           <td #if ($reportable.getSkippedSteps() != 0)    class="skipped"   #end>$reportable.getSkippedSteps()</td>

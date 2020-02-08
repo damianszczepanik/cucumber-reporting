@@ -6,7 +6,14 @@
   <tbody>
     #foreach($item in $items)
       <tr>
-        <td class="tagname"><a href="$item.getReportFileName()">$item.getName()</a></td>
+        <td class="tagname">
+        #if ($item.getStatus().isPassed())
+            <i class="fa fa-check" style="color:#02cf11"></i>
+        #else
+            <i class="fa fa-exclamation-triangle" style="color:#df022e"></i>
+        #end
+            <a href="$item.getReportFileName()">$item.getName()</a>
+        </td>
 
         <td #if ($item.getPassedSteps() > 0)     class="passed"    #end>$item.getPassedSteps()</td>
         <td #if ($item.getFailedSteps() > 0)     class="failed"    #end>$item.getFailedSteps()</td>
