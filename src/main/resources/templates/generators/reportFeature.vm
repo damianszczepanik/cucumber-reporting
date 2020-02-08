@@ -29,7 +29,6 @@
           #foreach($element in $feature.getElements())
             <br/>
             <span style="font-size: 19px"><i class="fa fa-film"></i><b> Scenario: </b>$element.getName()</span></br>
-            <span style="font-size: 15px; color:#6b788a"><i class="fa fa-edit"></i><b> Uri: </b>$element.getFeature().getUri():$element.getLine()</span>
             #includeElement($element, false)
           #end
         </div>

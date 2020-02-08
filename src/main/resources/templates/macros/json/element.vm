@@ -7,6 +7,7 @@
       <a href="$element.getFeature().getReportFileName()">$element.getFeature().getName()</a>
     </div>
   #end
+  <span style="font-size: 15px; color:#6b788a"><i class="fa fa-edit"></i><b> Uri: </b>$element.getFeature().getUri():$element.getLine()</span>
 
   #includeTags($element.getTags())
   #includeDuration($element)
