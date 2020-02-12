@@ -70,7 +70,7 @@ public abstract class AbstractPage {
 
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + getWebPage());
+                ReportBuilder.BASE_DIRECTORY + configuration.getDirectoryQualifier() + File.separatorChar + getWebPage());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
         } catch (IOException e) {

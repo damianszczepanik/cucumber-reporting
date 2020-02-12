@@ -31,7 +31,7 @@ public class EmbeddingDeserializerTest {
 
     @Before
     public void setUp() {
-        final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + "/embeddings";
+        final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getDirectoryQualifier() + "/embeddings";
         final File dir = new File(directoryPath);
         if (!dir.exists()) {
             final boolean created = dir.mkdirs();

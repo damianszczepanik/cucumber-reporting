@@ -26,6 +26,7 @@ public class Configuration {
     private int trendsLimit;
     private String buildNumber;
     private String projectName;
+    private String directoryQualifier;
 
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
 
@@ -41,6 +42,7 @@ public class Configuration {
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
         this.projectName = projectName;
+        this.directoryQualifier = "";
     }
 
     /**
@@ -137,12 +139,30 @@ public class Configuration {
     }
 
     /**
+     * Sets directory qualifier.
+     *
+     * @param directoryQualifier directory qualifier
+     */
+    public void setDirectoryQualifier(String directoryQualifier) {
+        this.directoryQualifier = directoryQualifier;
+    }
+
+    /**
+     * Returns directory qualifier
+     *
+     * @return directory qualifier
+     */
+    public String getDirectoryQualifier() {
+        return directoryQualifier;
+    }
+
+    /**
      * Gets directory where the attachments are stored.
      *
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + directoryQualifier
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 

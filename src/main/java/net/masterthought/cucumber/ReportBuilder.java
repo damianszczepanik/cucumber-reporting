@@ -135,7 +135,7 @@ public class ReportBuilder {
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
-                    BASE_DIRECTORY + File.separatorChar + resourceLocation + File.separatorChar + resource);
+                    BASE_DIRECTORY + configuration.getDirectoryQualifier() + File.separatorChar + resourceLocation + File.separatorChar + resource);
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(

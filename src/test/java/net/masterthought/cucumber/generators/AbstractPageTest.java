@@ -44,7 +44,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + File.separatorChar + page.getWebPage());
+                ReportBuilder.BASE_DIRECTORY + configuration.getDirectoryQualifier() + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 
