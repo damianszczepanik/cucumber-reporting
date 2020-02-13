@@ -106,6 +106,7 @@ public abstract class AbstractPage {
         context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
+        context.put("directory_qualifier", configuration.getDirectoryQualifier());
 
         // if report generation fails then report is null
         String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
