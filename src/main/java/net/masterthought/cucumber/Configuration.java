@@ -15,6 +15,7 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
+import org.apache.commons.lang.StringUtils;
 
 public class Configuration {
 
@@ -42,7 +43,6 @@ public class Configuration {
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
         this.projectName = projectName;
-        this.directoryQualifier = "";
     }
 
     /**
@@ -153,7 +153,7 @@ public class Configuration {
      * @return directory qualifier
      */
     public String getDirectoryQualifier() {
-        return directoryQualifier;
+        return StringUtils.defaultString(directoryQualifier);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Configuration {
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + directoryQualifier
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + this.getDirectoryQualifier()
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 

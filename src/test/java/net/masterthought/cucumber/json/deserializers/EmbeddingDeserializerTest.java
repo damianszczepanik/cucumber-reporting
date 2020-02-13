@@ -31,6 +31,8 @@ public class EmbeddingDeserializerTest {
 
     @Before
     public void setUp() {
+        configuration = new Configuration(new File(RANDOM_DIR), "TestProject");
+
         final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getDirectoryQualifier() + "/embeddings";
         final File dir = new File(directoryPath);
         if (!dir.exists()) {
@@ -39,7 +41,6 @@ public class EmbeddingDeserializerTest {
                 Assert.fail("Could not create folder " + directoryPath);
             }
         }
-        configuration = new Configuration(new File(RANDOM_DIR), "TestProject");
     }
 
     @After
