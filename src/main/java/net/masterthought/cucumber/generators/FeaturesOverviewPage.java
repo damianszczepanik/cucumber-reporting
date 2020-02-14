@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.presentation.PresentationMode;
 
 public class FeaturesOverviewPage extends AbstractPage {
 
@@ -22,6 +23,7 @@ public class FeaturesOverviewPage extends AbstractPage {
         context.put("all_features", reportResult.getAllFeatures());
         context.put("report_summary", reportResult.getFeatureReport());
 
+        context.put("parallel_testing", configuration.containsPresentationMode(PresentationMode.PARALLEL_TESTING));
         context.put("classifications", configuration.getClassifications());
     }
 }
