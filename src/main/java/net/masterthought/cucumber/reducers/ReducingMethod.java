@@ -71,5 +71,11 @@ public enum ReducingMethod {
     /**
      * Does not display hooks (@Before and @After) which do not have attachment or error message.
      */
-    HIDE_EMPTY_HOOKS
+    HIDE_EMPTY_HOOKS,
+    
+    /**
+     * Keep only the very latest scenario runs. This is useful in situations where you did retries of a 
+     * flaky scenario and the subsequent attempt(s) passed. In this case you will want to disregard the first few failures.
+     */
+    KEEP_ONLY_LATEST_SCENARIO_RUNS
 }
