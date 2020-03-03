@@ -80,7 +80,7 @@ public abstract class AbstractPage {
 
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getDirectoryQualifier() + File.separatorChar + getWebPage());
+                ReportBuilder.BASE_DIRECTORY + configuration.getdirectorySuffix() + File.separatorChar + getWebPage());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
         } catch (IOException e) {
@@ -115,7 +115,7 @@ public abstract class AbstractPage {
         context.put("trends_available", configuration.isTrendsAvailable());
         context.put("build_project_name", configuration.getProjectName());
         context.put("build_number", configuration.getBuildNumber());
-        context.put("directory_qualifier", configuration.getDirectoryQualifier());
+        context.put("directory_suffix", configuration.getdirectorySuffix());
 
         // if report generation fails then report is null
         String formattedTime = reportResult != null ? reportResult.getBuildTime() : ReportResult.getCurrentTime();
