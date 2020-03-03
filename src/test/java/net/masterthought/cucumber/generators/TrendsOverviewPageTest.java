@@ -1,20 +1,19 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
 import java.io.IOException;
 
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.Trends;
+import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.Trends;
-import net.masterthought.cucumber.generators.integrations.PageTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -59,7 +58,7 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(23);
+        assertThat(context.getKeys()).hasSize(22);
 
         assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first", "other build", "05last"});
         assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1, 2, 5});
@@ -68,7 +67,7 @@ public class TrendsOverviewPageTest extends PageTest {
         assertThat(context.get("failedScenarios")).isEqualTo(new int[]{10, 20, 20});
         assertThat(context.get("passedScenarios")).isEqualTo(new int[]{10, 20, 20});
 
-        assertThat(context.get("passedSteps")).isEqualTo(new int[]{1,3,5});
+        assertThat(context.get("passedSteps")).isEqualTo(new int[]{1, 3, 5});
         assertThat(context.get("failedSteps")).isEqualTo(new int[]{10, 30, 50});
         assertThat(context.get("skippedSteps")).isEqualTo(new int[]{100, 300, 500});
         assertThat(context.get("pendingSteps")).isEqualTo(new int[]{1000, 3000, 5000});

@@ -22,6 +22,13 @@ import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.velocity.VelocityContext;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -121,7 +128,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(11);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -153,7 +160,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -169,7 +176,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -185,7 +192,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(11);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -202,7 +209,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(13);
+        assertThat(context.getKeys()).hasSize(12);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 

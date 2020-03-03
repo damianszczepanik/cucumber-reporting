@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.generators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 
+import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -33,7 +32,7 @@ public class ErrorPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(15);
+        assertThat(context.getKeys()).hasSize(14);
         assertThat(context.get("classifications")).isInstanceOf(List.class);
         assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
         assertThat(context.get("json_files")).isEqualTo(jsonReports);
