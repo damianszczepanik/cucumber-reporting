@@ -33,7 +33,7 @@ public class EmbeddingDeserializerTest {
     public void setUp() {
         configuration = new Configuration(new File(RANDOM_DIR), "TestProject");
 
-        final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getdirectorySuffix() + "/embeddings";
+        final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffix() + "/embeddings";
         final File dir = new File(directoryPath);
         if (!dir.exists()) {
             final boolean created = dir.mkdirs();

@@ -22,10 +22,6 @@ import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -51,7 +47,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getdirectorySuffix() + File.separatorChar + page.getWebPage());
+                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffix() + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 
@@ -144,7 +140,7 @@ public class AbstractPageTest extends PageTest {
 
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
-        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getdirectorySuffix());
+        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffix());
     }
 
     @Test

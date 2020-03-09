@@ -15,11 +15,11 @@ public class NavigationItemAssertion extends LinkAssertion {
     public void hasLinkToPreviousResult(Configuration configuration, String page) {
         final Integer prevBuildNumber = Integer.parseInt(configuration.getBuildNumber()) - 1;
         hasLabelAndAddress("Previous results", "../../" + prevBuildNumber
-                + "/" + ReportBuilder.BASE_DIRECTORY + configuration.getdirectorySuffix() + "/" + page);
+                + "/" + ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffix() + "/" + page);
     }
 
     public void hasLinkToLastResult(Configuration configuration, String page) {
-        hasLabelAndAddress("Latest results", "../../lastCompletedBuild/" + ReportBuilder.BASE_DIRECTORY + configuration.getdirectorySuffix() + "/" + page);
+        hasLabelAndAddress("Latest results", "../../lastCompletedBuild/" + ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffix() + "/" + page);
     }
 
     public void hasLinkToFeatures() {

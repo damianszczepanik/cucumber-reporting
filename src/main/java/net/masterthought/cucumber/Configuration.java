@@ -143,7 +143,7 @@ public class Configuration {
      *
      * @param directorySuffix directory qualifier
      */
-    public void setdirectorySuffix(String directorySuffix) {
+    public void setDirectorySuffix(String directorySuffix) {
         this.directorySuffix = directorySuffix;
     }
 
@@ -152,7 +152,7 @@ public class Configuration {
      *
      * @return directory qualifier
      */
-    public String getdirectorySuffix() {
+    public String getDirectorySuffix() {
         return StringUtils.defaultString(directorySuffix);
     }
 
@@ -162,7 +162,7 @@ public class Configuration {
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + this.getdirectorySuffix()
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + this.getDirectorySuffix()
                 + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 
