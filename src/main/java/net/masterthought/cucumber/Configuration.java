@@ -139,18 +139,18 @@ public class Configuration {
     }
 
     /**
-     * Sets directory qualifier.
+     * Sets directory suffix.
      *
-     * @param directorySuffix directory qualifier
+     * @param directorySuffix directory suffix
      */
     public void setDirectorySuffix(String directorySuffix) {
         this.directorySuffix = directorySuffix;
     }
 
     /**
-     * Returns directory qualifier
+     * Returns directory suffix
      *
-     * @return directory qualifier
+     * @return directory suffix
      */
     public String getDirectorySuffix() {
         return StringUtils.defaultString(directorySuffix);
