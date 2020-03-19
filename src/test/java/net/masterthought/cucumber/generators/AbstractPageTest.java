@@ -47,7 +47,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffix() + File.separatorChar + page.getWebPage());
+                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 
@@ -140,7 +140,7 @@ public class AbstractPageTest extends PageTest {
 
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
-        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffix());
+        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffixWithSeparator());
     }
 
     @Test

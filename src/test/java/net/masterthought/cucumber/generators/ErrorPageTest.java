@@ -36,6 +36,6 @@ public class ErrorPageTest extends PageTest {
         assertThat(context.get("classifications")).isInstanceOf(List.class);
         assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
         assertThat(context.get("json_files")).isEqualTo(jsonReports);
-        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffix());
+        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffixWithSeparator());
     }
 }

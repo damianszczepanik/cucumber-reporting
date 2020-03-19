@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
+    private static final String SUFFIX_SEPARATOR = "_";
 
     private File reportDirectory;
 
@@ -157,13 +158,22 @@ public class Configuration {
     }
 
     /**
+     * Returns directory suffix with separator prepended if necessary
+     *
+     * @return directory suffix with prepended separator
+     */
+    public String getDirectorySuffixWithSeparator() {
+        return StringUtils.isEmpty(directorySuffix) ? "" : SUFFIX_SEPARATOR + directorySuffix;
+    }
+
+    /**
      * Gets directory where the attachments are stored.
      *
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY + this.getDirectorySuffix()
-                + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY +
+                this.getDirectorySuffixWithSeparator() + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 
     /**
