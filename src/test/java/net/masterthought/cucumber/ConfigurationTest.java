@@ -2,14 +2,11 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -151,6 +148,51 @@ public class ConfigurationTest {
 
         // then
         assertThat(patterns).isEmpty();
+    }
+
+    @Test
+    public void getDirectorySuffix_ReturnsDirectorySuffix() {
+
+        // given
+        String directorySuffix = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setDirectorySuffix(directorySuffix);
+
+        // then
+        assertThat(configuration.getDirectorySuffix()).isEqualTo(directorySuffix);
+    }
+
+    @Test
+    public void getDirectorySuffixWithSeparator_ReturnsDirectorySuffixWithSeparator() {
+
+        // given
+        String directorySuffix = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setDirectorySuffix(directorySuffix);
+
+        // then
+        Class<Configuration> configClass = Configuration.class;
+        try {
+            Field suffixSeparator = configClass.getDeclaredField("SUFFIX_SEPARATOR");
+            suffixSeparator.setAccessible(true);
+            assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo(suffixSeparator.get(null) + directorySuffix);
+        } catch (NoSuchFieldException|IllegalAccessException ex) {
+            fail("Unable to retrieve directory suffix separator");
+        }
+    }
+
+    @Test
+    public void getDirectorySuffixWithSeparatorForEmptySuffix_ReturnsEmptyString() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // then
+        assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo("");
     }
 
     @Test
