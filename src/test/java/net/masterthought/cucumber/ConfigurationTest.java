@@ -175,14 +175,7 @@ public class ConfigurationTest {
         configuration.setDirectorySuffix(directorySuffix);
 
         // then
-        Class<Configuration> configClass = Configuration.class;
-        try {
-            Field suffixSeparator = configClass.getDeclaredField("SUFFIX_SEPARATOR");
-            suffixSeparator.setAccessible(true);
-            assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo(suffixSeparator.get(null) + directorySuffix);
-        } catch (NoSuchFieldException|IllegalAccessException ex) {
-            fail("Unable to retrieve directory suffix separator");
-        }
+        assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo("_" + directorySuffix);
     }
 
     @Test
