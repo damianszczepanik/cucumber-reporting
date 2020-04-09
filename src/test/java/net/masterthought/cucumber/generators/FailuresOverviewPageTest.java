@@ -1,14 +1,14 @@
 package net.masterthought.cucumber.generators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

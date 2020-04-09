@@ -32,6 +32,7 @@ public class LiveDemoTest {
         configuration.addClassifications("Branch", "release/1.0");
         configuration.setSortingMethod(SortingMethod.NATURAL);
         configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
         // points to the demo trends which is not used for other tests
         configuration.setTrendsStatsFile(new File("target/test-classes/demo-trends.json"));
 

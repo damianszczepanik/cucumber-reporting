@@ -1,15 +1,14 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -151,6 +150,36 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
+    public void generatePage_OnParallelTesting_generatesStatsTableBody() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+        page = new FeaturesOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getReport().getTableStats().getBodyRows();
+
+        assertThat(bodyRows).hasSize(2);
+
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("1st feature", "sample", "10", "0", "0", "0", "0", "10", "1", "0", "1", "1:39.263", "Passed");
+        firstRow.hasExactCSSClasses("tagname", "", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
+        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "99263122889", "");
+        firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_1920820787.html");
+
+        TableRowAssertion secondRow = bodyRows[1];
+        secondRow.hasExactValues("Second feature", "sample", "5", "1", "2", "1", "3", "12", "1", "2", "3", "0.092", "Failed");
+        secondRow.hasExactCSSClasses("tagname", "", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
+        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "92610000", "");
+        secondRow.getReportLink().hasLabelAndAddress("Second feature", "report-feature_1_1515379431.html");
+    }
+
+    @Test
     public void generatePage_generatesStatsTableFooter() {
 
         // given
@@ -167,5 +196,25 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         assertThat(footerRows).hasSize(2);
         footerRows[0].hasExactValues("", "15", "1", "2", "1", "3", "22", "2", "2", "4", "1:39.355", "2");
         footerRows[1].hasExactValues("", "68.18%", "4.55%", "9.09%", "4.55%", "13.64%", "", "50.00%", "50.00%", "", "", "50.00%");
+    }
+
+    @Test
+    public void generatePage_OnParallelTesting_generatesStatsTableFooter() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+        page = new FeaturesOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] footerRows = document.getReport().getTableStats().getAllFooterRows();
+
+        assertThat(footerRows).hasSize(2);
+        footerRows[0].hasExactValues("", "", "15", "1", "2", "1", "3", "22", "2", "2", "4", "1:39.355", "2");
+        footerRows[1].hasExactValues("", "", "68.18%", "4.55%", "9.09%", "4.55%", "13.64%", "", "50.00%", "50.00%", "", "", "50.00%");
     }
 }

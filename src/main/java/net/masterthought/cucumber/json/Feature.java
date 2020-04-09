@@ -30,9 +30,14 @@ public class Feature implements Reportable, Durationable {
     // End: attributes from JSON file report
 
     private String reportFileName;
+
     /**
-     * Collects those of elements which are scenarios, not eg background.
-     */
+     * When feature if executed against different devices, platforms or targets,
+     * then the file name tells for which qualifier the tests were executed.
+     * */
+    private String qualifier;
+
+    /** Collects those of elements which are scenarios, not eg background. */
     private final List<Element> scenarios = new ArrayList<>();
     private final StatusCounter elementsCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
@@ -60,6 +65,17 @@ public class Feature implements Reportable, Durationable {
 
     public String getReportFileName() {
         return reportFileName;
+    }
+
+    public String getQualifier() {
+        return qualifier;
+    }
+
+    /**
+     * @param qualifier name of the JSON file with report, used for parallel testing
+     */
+    public void setQualifier(String qualifier) {
+        this.qualifier = qualifier;
     }
 
     public Tag[] getTags() {

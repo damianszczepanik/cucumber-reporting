@@ -1,12 +1,12 @@
 package net.masterthought.cucumber.generators;
 
+import java.util.List;
+
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

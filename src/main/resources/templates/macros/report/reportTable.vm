@@ -1,11 +1,11 @@
-#macro(includeReportTable, $table_key, $reportable, $parallel)
+#macro(includeReportTable, $table_key, $reportable)
 
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <table class="stats-table">
 
-        #includeReportHeader($table_key, $parallel)
+        #includeReportHeader($table_key)
 
         <tbody>
         <tr>
