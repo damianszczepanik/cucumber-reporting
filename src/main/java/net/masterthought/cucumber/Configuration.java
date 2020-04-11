@@ -15,10 +15,12 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
+import org.apache.commons.lang.StringUtils;
 
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
+    private static final String SUFFIX_SEPARATOR = "_";
 
     private File reportDirectory;
 
@@ -26,6 +28,7 @@ public class Configuration {
     private int trendsLimit;
     private String buildNumber;
     private String projectName;
+    private String directorySuffix;
 
     private List<Map.Entry<String, String>> classifications = new ArrayList<>();
 
@@ -137,13 +140,40 @@ public class Configuration {
     }
 
     /**
+     * Sets directory suffix.
+     *
+     * @param directorySuffix directory suffix
+     */
+    public void setDirectorySuffix(String directorySuffix) {
+        this.directorySuffix = directorySuffix;
+    }
+
+    /**
+     * Returns directory suffix
+     *
+     * @return directory suffix
+     */
+    public String getDirectorySuffix() {
+        return StringUtils.defaultString(directorySuffix);
+    }
+
+    /**
+     * Returns directory suffix with separator prepended if necessary
+     *
+     * @return directory suffix with prepended separator
+     */
+    public String getDirectorySuffixWithSeparator() {
+        return StringUtils.isEmpty(directorySuffix) ? "" : SUFFIX_SEPARATOR + directorySuffix;
+    }
+
+    /**
      * Gets directory where the attachments are stored.
      *
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY
-                + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
+        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY +
+                this.getDirectorySuffixWithSeparator() + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 
     /**

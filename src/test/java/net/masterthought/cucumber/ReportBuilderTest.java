@@ -37,7 +37,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // random temp directory
         reportDirectory.mkdirs();
         // root report directory
-        new File(reportDirectory, ReportBuilder.BASE_DIRECTORY).mkdir();
+        new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()).mkdir();
 
         // refresh the file if it was already copied by another/previous test
         trendsFileTmp = new File(reportDirectory, "trends-tmp.json");
@@ -51,7 +51,7 @@ public class ReportBuilderTest extends ReportGenerator {
         FileUtils.deleteDirectory(reportDirectory);
         if (configuration != null) {
 			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
-					ReportBuilder.BASE_DIRECTORY));
+					ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
         }
     }
 
@@ -127,7 +127,7 @@ public class ReportBuilderTest extends ReportGenerator {
         reportBuilder.generateReports();
 
         // then
-        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
 
         Trends trends = Deencapsulation.invoke(reportBuilder, "loadTrends", trendsFileTmp);
@@ -153,7 +153,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Reportable result = builder.generateReports();
 
         // then
-        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
         assertThat(result).isNull();
     }
@@ -195,7 +195,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY);
+        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
 
         // then
         try {
@@ -483,23 +483,23 @@ public class ReportBuilderTest extends ReportGenerator {
         Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
 
         // then
-        assertPageExists(reportDirectory, ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
     }
     
     private File[] countHtmlFiles(Configuration configuration) {
     	FileFilter fileFilter = new WildcardFileFilter("*.html");
-    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY);
+    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {
         FileFilter fileFilter = new WildcardFileFilter("*.html");
-        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY);
+        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
-    private static void assertPageExists(File reportDirectory, String fileName) {
-        File errorPage = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + File.separatorChar + fileName);
+    private static void assertPageExists(File reportDirectory, String directorySuffix, String fileName) {
+        File errorPage = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + directorySuffix + File.separatorChar + fileName);
         assertThat(errorPage).exists();
     }
 }

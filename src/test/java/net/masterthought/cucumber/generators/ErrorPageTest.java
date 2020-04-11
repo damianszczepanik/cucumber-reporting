@@ -32,9 +32,10 @@ public class ErrorPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(13);
+        assertThat(context.getKeys()).hasSize(14);
         assertThat(context.get("classifications")).isInstanceOf(List.class);
         assertThat(context.get("output_message")).isEqualTo(ExceptionUtils.getStackTrace(exception));
         assertThat(context.get("json_files")).isEqualTo(jsonReports);
+        assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffixWithSeparator());
     }
 }
