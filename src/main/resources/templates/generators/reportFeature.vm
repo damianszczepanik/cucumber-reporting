@@ -20,19 +20,20 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <div class="feature">
-        <span style="font-size: 24px"><i class="fa fa-video-camera"></i><b> Feature: $feature.getName()</b></span></br>
-        <span style="font-size: 16px; color:#6b788a"><i class="fa fa-edit"></i><b> Uri: </b>$feature.getUri()</span>
-        #includeTags($feature.getTags())
-        #includeBrief($feature.getKeyword(), $feature.getStatus(), $feature.getName())
-        <div class="description indention">$feature.getDescription()</div>
-        <div class="elements inner-level">
-          #foreach($element in $feature.getElements())
-            <br/>
-            <span style="font-size: 19px"><i class="fa fa-film"></i><b> Scenario: </b>$element.getName()</span></br>
-            #includeElement($element, false)
-          #end
+        <div class="feature-bar">
+          <span class="small-thin-text" style="color:#59737b"><i class="fa fa-edit"></i><b> Uri: </b>$feature.getUri()</span>
+          #includeTags($feature.getTags())
+          #includeBrief($feature.getKeyword(), $feature.getStatus(), $feature.getName())
+          <div class="description indention small-thin-text">$feature.getDescription()</div>
+          <div class="elements inner-level">
+            #foreach($element in $feature.getElements())
+              <br/>
+              #includeElement($element, false)
+            #end
+          </div>
+          <br/>
+          <span class="feature-status">$feature.getStatus()</span>
         </div>
-
       </div>
     </div>
   </div>

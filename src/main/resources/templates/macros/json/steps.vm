@@ -9,15 +9,16 @@
 
   <div id="steps-$stepsId" class="inner-level collapse collapsable-details #if (!$element.getStatus().isPassed() || $expand_all_steps) in #end">
     #foreach($step in $element.getSteps())
+      #set($stepCounter = $counter.next())
         ## --- Add support for comments ---
       #if ($step.getName().indexOf("#")==0 && $step.getName().indexOf("#>>")!=0 && $step.getName().indexOf("#<<")!=0)
-        <div class="description">$step.getName().substring(1,$step.getName().length())</div>
+        <div class="comment">$step.getName().substring(1,$step.getName().length())</div>
         ## --- Add support for collapsible sections ---
       #elseif ($step.getName().indexOf("#>>")==0)
          #set($collapseCounter = $collapseCounter + 1)
          #set($uid = $util.uid())
          <div data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#collapsible-steps-$uid" style="background-color: #F2928C">
-            <div class="brief" style="background-color:white; color: black; margin-top: 5px; margin-bottom: 5px">
+            <div class="brief" style="background-color:#d2dce3; color: black; margin: 5px 0 5px 0; padding: 5px 0 5px 0">
               <i class="chevron fa fa-fw"></i>
               <span class="collapsible-text indention">$step.getName().substring(3,$step.getName().length())</span>
             </div>
@@ -28,12 +29,23 @@
          </div>
       #else
       <div class="step">
-        #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())
         #set($isPassed = $step.getResult().getStatus().isPassed())
+        <div data-toggle="collapse" class="#if ($isPassed && !$expand_all_steps) collapsed #end collapsable-control" data-target="#outputs-$stepCounter">
+            #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())
+        </div>
+        <div id="outputs-$stepCounter" class="collapse collapsable-details #if (!$isPassed || $expand_all_steps) in #end" #if (!$isPassed || $expand_all_steps) aria-expanded="true" #end>
+          #**
+            * DO NOT format the line below. Whitespace nodes are significant in a pre-block.
+          *#
+          #foreach($output in $step.getOutputs())
+            #set($outputIndex = $foreach.index + 1)
+            <pre><span class="medium-thin-text">Output $outputIndex:</span><br><br>#foreach($message in $output.getMessages())<p style="font-size: 15px">$message</p>#end</pre>
+          #end
+        </div>
         #includeHooks("Before", $step.getBefore(), $step.getBeforeStatus(), "step")
 
         #if (!$step.getRows().isEmpty())
-          <table class="step-arguments">
+          <table class="table table-bordered table-striped" style="width:5px">
             #foreach($row in $step.getRows())
               <tr>
                 #foreach($cell in $row.getCells())
@@ -46,7 +58,6 @@
 
         #includeDocString($step.getDocString())
         #includeMessage($step.getResult().getErrorMessageTitle(), $step.getResult().getErrorMessage(), $isPassed)
-        #includeOutput($step.getOutputs(), $isPassed)
         #includeEmbeddings($step.getEmbeddings())
         #includeHooks("After", $step.getAfter(), $step.getAfterStatus(), "step")
       </div>

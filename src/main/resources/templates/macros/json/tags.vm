@@ -2,9 +2,9 @@
 
 <div class="tags indention">
   #if (!$tags.isEmpty())
-    <i class="fa fa-tags"></i><b> Tags:</b>
+    <i class="fa fa-tags"></i><b><span class="small-text orange-color"> Tags:</span></b>
     #foreach($tag in $tags)
-       <a href="$tag.getFileName()">$tag.getName()</a>
+       <a class="small-thin-text" href="$tag.getFileName()">$tag.getName()</a>
     #end
   #end
 </div>

@@ -1,7 +1,7 @@
 #macro(includeNavigation, $active_tab)
-<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" id="navigation">
   <div class="container-fluid">
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse small-thin-text">
       <p class="navbar-text navbar-left">Cucumber Report</p>
       <ul class="nav navbar-nav navbar-right">
         #if ($run_with_jenkins)
@@ -22,4 +22,5 @@
     </div>
   </div>
 </nav>
+<br/>
 #end

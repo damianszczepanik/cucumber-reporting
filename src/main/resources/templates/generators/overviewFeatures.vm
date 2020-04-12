@@ -64,7 +64,7 @@
 #end
 
 
-<div class="container-fluid" id="report">
+<div class="container-fluid small-thin-text" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       #includeStatsTable("Feature", $all_features, $report_summary)

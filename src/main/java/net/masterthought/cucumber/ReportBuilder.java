@@ -110,7 +110,8 @@ public class ReportBuilder {
                 "fontawesome-webfont.eot", "fontawesome-webfont.ttf", "fontawesome-webfont.woff2",
                 "glyphicons-halflings-regular.eot", "glyphicons-halflings-regular.eot",
                 "glyphicons-halflings-regular.woff2", "glyphicons-halflings-regular.woff",
-                "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg");
+                "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg", "HarmoniaSans.ttf", "HarmoniaSans.otf",
+                "Inter-UI-Regular.woff2", "Inter-UI-Regular.woff", "Inter-UI-Medium.woff", "Inter-UI-Medium.woff2");
         copyResources("images", "favicon.png");
     }
 

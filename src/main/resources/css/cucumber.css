@@ -1,8 +1,69 @@
+@font-face {
+    font-family: "HarmoniaSans";
+    src:
+        url("../fonts/HarmoniaSans.otf") format("opentype"),
+        url("../fonts/HarmoniaSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "InterUI";
+    src:
+        url("../fonts/Inter-UI-Regular.woff") format("woff"),
+        url("../fonts/Inter-UI-Regular.woff2") format("woff2")
+}
+
+@font-face {
+    font-family: "InterUIMedium";
+    src:
+        url("../fonts/Inter-UI-Medium.woff") format("woff"),
+        url("../fonts/Inter-UI-Medium.woff2") format("woff2")
+}
+
 body {
     /* Shifts body so navigation bar does not overlap it.
     Make sure to include this after the core Bootstrap CSS. */
+    font-family: InterUIMedium;
+    font-size: 16px;
     padding-top: 60px;
     overflow-y: overlay;
+    background-color: #eff4f5;
+}
+
+.medium-text {
+    font-family: HarmoniaSans;
+    font-size: 24px;
+}
+
+.small-text {
+    font-family: HarmoniaSans;
+    font-size: 18px;
+}
+
+.xs-text {
+    font-family: InterUI;
+    font-size: 15px;
+}
+
+.medium-thin-text {
+    font-family: InterUI;
+    font-size: 22px;
+}
+
+.small-thin-text {
+    font-family: InterUI;
+    font-size: 16px;
+}
+
+.orange-color {
+    color: #f44a03;
+}
+
+.blue-color {
+    color: #3a9eb4;
+}
+
+.brown-color {
+    color: #b53434;
 }
 
 h2 {
@@ -24,11 +85,11 @@ a:hover {
 
 .keyword {
     font-weight: bold;
-    color: white;
 }
 
 .name {
-    font-weight: bold;
+    font-weight: normal;
+    padding-right: 50px;
 }
 
 .tags a {
@@ -36,8 +97,9 @@ a:hover {
 }
 
 .argument {
-    font-weight: normal;
-    text-color: #363837;
+    font-family: HarmoniaSans;
+    font-size: 20px;
+    color: #005171;
 }
 
 .collapsible-text {
@@ -57,22 +119,57 @@ a:hover {
 
 .element {
     margin-bottom: 15px;
-    padding-left: 3px;
+    padding: 15px;
+    background-color: white;
+    border-color: #d7d9dc;
+    border-style: solid;
+    border-width:thin;
+    border-radius: 3px;
+}
+
+.element-status {
+    padding: 2px 6px 2px 6px;
+    border-radius:3px;
+    font-family: HarmoniaSans;
+    font-size: 18px;
+    color: white;
+}
+
+.feature-status {
+    padding: 2px 6px 2px 6px;
+    border-radius:3px;
+    border: 1px solid lightgray;
+    font-family: HarmoniaSans;
+    font-size: 24px;
 }
 
 /* left line along each section */
-.element, .steps, .hooks-after, .hooks-before {
-    box-shadow: -1px 0 lightgray;
+.steps, .hooks-after, .hooks-before {
+    box-shadow:  -1px 0 lightgray;
     transition: box-shadow 0.3s;
 }
+
+.step:hover {
+    background-color: #ecf5f6;
+}
+
+.feature-bar {
+    padding-left:5px;
+    box-shadow: -1px 0 lightgray;
+}
+
 .element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
     box-shadow: -3px 0 #6ce;
 }
 
 .description {
-    font-style: italic;
-    background-color: beige;
+    padding: 6px;
+    background-color: #f4e8d9;
     white-space: pre;
+}
+
+.description:empty {
+    display:none;
 }
 
 .message, .output, .embedding {
@@ -125,23 +222,55 @@ a:hover {
 
 /* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
 .passed {
-    background-color: #90CBA6;
+    background-color: none;
+    box-shadow: inset -8px 0px 0px 0px #94d477;
 }
 
 .failed {
+    background-color: none;
+    box-shadow: inset -8px 0px 0px 0px #F7756C;
+}
+
+.failed-step {
     background-color: #F7756C;
+    color:white;
+    padding: 5px 0 5px 0;
 }
 
 .skipped {
+    background-color: none;
+    box-shadow: inset -8px 0px 0px 0px #8AF;
+}
+
+.skipped-step {
     background-color: #8AF;
+    padding: 5px 0 5px 0;
 }
 
 .pending {
+    background-color: none;
+    box-shadow: inset -8px 0px 0px 0px #F5F28F;
+}
+
+.pending-step {
     background-color: #F5F28F;
+    padding: 5px 0 5px 0;
 }
 
 .undefined {
+    background-color: none;
+    box-shadow: inset -8px 0px 0px 0px #F5B975;
+}
+
+.undefined-step {
     background-color: #F5B975;
+    padding: 5px 0 5px 0;
+}
+
+.step {
+    border-bottom: 1px solid #e9f1f2;
+    padding: 5px 0 5px 0;
+    line-height: 1;
 }
 
 /** additional space before Given keyword to keep space between steps **/
@@ -150,12 +279,19 @@ a:hover {
 }
 
 .step-name-And {
-    padding-left: 10px;
+    padding-left: 13px;
+}
+
+.step-name-Then {
+    padding-left: 5px;
 }
 
 .lead-duration {
     float: right;
-    padding-right: 15px;
+    color: black;
+    padding: 5px 18px 0 0;
+    font-family: InterUIMedium;
+    font-size: 14px;
 }
 
 table.stats-table {
@@ -172,7 +308,8 @@ table.stats-table th, table.stats-table td {
 }
 
 table.stats-table tr.header {
-    background-color: #66CCEE;
+    background-color: #3a9eb4;
+    color: white;
 }
 
 table.stats-table tfoot {
@@ -180,7 +317,7 @@ table.stats-table tfoot {
 }
 
 tfoot.total, td.total, th.total {
-    background-color: #d3e3e4;
+    background-color: #f7ece1;
 }
 
 table.stats-table td.duration {
@@ -226,10 +363,11 @@ tr:hover {
 }
 
 .comment {
-    color:#934a01;
-    font-style:italic;
-    font-weight:bold;
-    margin-top: 10px;
+    padding: 6px;
+    background-color: #d2dce3;
+    white-space: pre;
+    font-family: InterUI;
+    font-size: 14px;
 }
 
 .collapsed .chevron:after {
@@ -239,10 +377,8 @@ tr:hover {
 .footer {
     font-size: smaller;
     text-align: center;
-    margin-top: 30px;
+    margin-bottom: 0px;
 }
-
-
 
 /* Custom Bootstrap CSS overloading. */
 .carousel-indicators {
@@ -269,9 +405,12 @@ tr:hover {
 
 pre {
     margin: 10px;
-    background-color: #f8fafb;
+    background-color: #485051;
+    color: white;
+    border: none;
 }
 
 #footer {
     padding-right: 20px;
+    margin-bottom: 0;
 }

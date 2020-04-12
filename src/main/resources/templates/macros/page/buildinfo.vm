@@ -1,8 +1,8 @@
 #macro(includeBuildInfo)
 
-<table class="table table-bordered" id="build-info">
+<table class="table table-bordered" id="build-info" style="background-color:white">
   <thead>
-    <tr>
+    <tr style="background-color:#e7f0e8">
       <th>Project</th>
       #if($build_number)
         <th>Number</th>
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="info">
+    <tr>
       <td>$build_project_name</td>
       #if($build_number)
         <td>$build_number</td>

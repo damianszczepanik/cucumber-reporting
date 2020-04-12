@@ -1,30 +1,24 @@
 #macro(includeElement, $element, $linkToFeature)
 
 <div class="element">
-  #if ($linkToFeature)
-    <div class="indention">
-      <i class="fa fa-video-camera"></i><b> Feature:</b>
-      <a href="$element.getFeature().getReportFileName()">$element.getFeature().getName()</a>
-    </div>
-  #end
-  <span style="font-size: 15px; color:#6b788a"><i class="fa fa-edit"></i><b> Uri: </b>$element.getFeature().getUri():$element.getLine()</span>
+  <span class="small-thin-text" style="color:#6b788a"><i class="fa fa-edit"></i><b> Uri:</b> $element.getFeature().getUri():$element.getLine()</span>
 
   #includeTags($element.getTags())
   #includeDuration($element)
-
   #set($elementId = $counter.next())
   <span data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$elementId">
-    #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName(), true)
+    <div style="background-color:#f9f5f2">
+      #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName(), true)
+    </div>
   </span>
-  <div class="description indention">$element.getDescription()</div>
-
+  <div class="description indention small-thin-text">$element.getDescription()</div>
   <div id="element-$elementId" class="collapse collapsable-details #if(!$element.getStatus().isPassed() || $expand_all_steps) in #end">
     #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus(), "element")
-
     #includeSteps($element.getSteps())
-
     #includeHooks("After", $element.getAfter(), $element.getAfterStatus(), "element")
   </div>
+  <br/>
+  <span class="element-status" style="background-color: #if ($element.getStatus()=='PASSED')#94d477 #else #F7756C#end">$element.getStatus()</span>
 </div>
 
 #end
