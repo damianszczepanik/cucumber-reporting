@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.masterthought</groupId>
-    <artifactId>cucumber-reporting-extended</artifactId>
+    <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
     <version>5.1.2-SNAPSHOT</version>
     <name>cucumber-reporting</name>
@@ -12,35 +12,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
-
         <powermock.version>1.7.0</powermock.version>
-
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
-
-    <scm>
-        <connection>
-            scm:git:ssh://git@bitbucket.1and1.org/tcqa/cucumber-reporting-extended.git
-        </connection>
-        <developerConnection>
-            scm:git:ssh://git@bitbucket.1and1.org/tcqa/cucumber-reporting-extended.git
-        </developerConnection>
-        <url>
-            https://bitbucket.1and1.org/projects/TCQA/repos/cucumber-reporting-extended
-        </url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>hosting-release</id>
-            <url>https://artifactory.1and1.org/artifactory/hosting-release</url>
-        </repository>
-        <snapshotRepository>
-            <id>hosting-snapshot</id>
-            <url>https://artifactory.1and1.org/artifactory/hosting-snapshot</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <description>
         Provides pretty html reports for Cucumber. It works by generating html from the cucumber json file.
