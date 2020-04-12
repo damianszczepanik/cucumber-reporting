@@ -4,7 +4,7 @@
     <div>
       #set($docStringId = $counter.next())
       <div id="msg-$docStringId" class="collapsable-details">
-        <pre style="background-color: #f7fcf7; border-style: none; margin: 0px">$docString.getValue()</pre>
+        <pre style="margin: 10px">$docString.getValue()</pre>
       </div>
     </div>
 #end

@@ -45,7 +45,7 @@
         #includeHooks("Before", $step.getBefore(), $step.getBeforeStatus(), "step")
 
         #if (!$step.getRows().isEmpty())
-          <table class="table table-bordered table-striped" style="width:5px">
+          <table class="table table-bordered table-striped" style="width:5px; margin-top:5px">
             #foreach($row in $step.getRows())
               <tr>
                 #foreach($cell in $row.getCells())
