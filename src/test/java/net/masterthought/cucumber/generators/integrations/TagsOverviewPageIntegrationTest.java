@@ -2,14 +2,13 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -150,6 +149,30 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
         lastRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
         lastRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "139004778", "");
         lastRow.getReportLink().hasLabelAndAddress("@featureTag", "report-tag_2956005635.html");
+    }
+
+    @Test
+    public void generatePage_WithExculedTags_generatesStatsTableBody() {
+
+        // given
+        configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
+        setUpWithJson(SAMPLE_JSON);
+        page = new TagsOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getReport().getTableStats().getBodyRows();
+
+        assertThat(bodyRows).hasSize(1);
+
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("@fast", "6", "0", "0", "0", "0", "6", "1", "0", "1", "0.139", "Passed");
+        firstRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
+        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "139004778", "");
+        firstRow.getReportLink().hasLabelAndAddress("@fast", "report-tag_2209724571.html");
     }
 
     @Test

@@ -1,8 +1,6 @@
 package net.masterthought.cucumber.generators;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
@@ -28,7 +26,7 @@ public class TagsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
-        List<TagObject> tags = filterExcludedTags(reportResult.getAllTags());
+        List<TagObject> tags = reportResult.getAllTags();
         context.put("all_tags", tags);
         context.put("report_summary", reportResult.getTagReport());
 
@@ -46,25 +44,6 @@ public class TagsOverviewPage extends AbstractPage {
         return tagNames;
     }
 
-	private List<TagObject> filterExcludedTags(List<TagObject> tagsObjectList) {
-		List<TagObject> filteredTags = new ArrayList<>();
-		for (TagObject tagObject : tagsObjectList) {
-			String tagName = tagObject.getName();
-			if (shouldIncludeTag(tagName)) {
-				filteredTags.add(tagObject);
-			}
-		}
-		return filteredTags;
-	}
-
-	private boolean shouldIncludeTag(String tagName) {
-		for (Pattern pattern : configuration.getTagsToExcludeFromChart()) {
-			if (tagName.matches(pattern.pattern())) {
-				return false;
-			}
-		}
-		return true;
-	}
 
     static String[][] generateTagValues(List<TagObject> tagsObjectList) {
         int tagsCount = tagsObjectList.size();

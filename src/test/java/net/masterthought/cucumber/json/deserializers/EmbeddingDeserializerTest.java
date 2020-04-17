@@ -1,5 +1,14 @@
 package net.masterthought.cucumber.json.deserializers;
 
+import static org.junit.Assert.assertEquals;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
@@ -13,20 +22,12 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
-import static org.junit.Assert.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = JsonNode.class)
 public class EmbeddingDeserializerTest {
 
     private static final String RANDOM_DIR = "target" + File.separator + System.currentTimeMillis() + File.separator;
+
     private Configuration configuration;
 
     @Before
@@ -50,6 +51,8 @@ public class EmbeddingDeserializerTest {
 
     @Test
     public void deserialize_OnEncodedData_returnsEmbeddingWithEncodedData() {
+
+        // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
         JsonNode node = mock(JsonNode.class);
         String data = "This String will be Base64 encoded";
@@ -59,13 +62,17 @@ public class EmbeddingDeserializerTest {
 
         when(node.asText()).thenReturn(encodedData).thenReturn("text/plain");
 
+        // when
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
+        // then
         assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
     }
 
     @Test
     public void deserialize_OnUnEncodedData_returnsEmbeddingWithEncodedData() {
+
+        // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
         JsonNode node = mock(JsonNode.class);
         String data = "This String will NOT be Base64 encoded";
@@ -74,13 +81,17 @@ public class EmbeddingDeserializerTest {
 
         when(node.asText()).thenReturn(data).thenReturn("text/plain");
 
+        // when
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
+        // then
         assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
     }
 
     @Test
     public void deserialize_OnUnEncodedDataWithOnlyValidCharsAndWhiteSpaces_returnsEmbeddingWithEncodedData() {
+
+        // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
         JsonNode node = mock(JsonNode.class);
         String data = "This is an normal String";
@@ -89,8 +100,10 @@ public class EmbeddingDeserializerTest {
 
         when(node.asText()).thenReturn(data).thenReturn("text/plain");
 
+        // when
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
+        // thens
         assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
     }
 }

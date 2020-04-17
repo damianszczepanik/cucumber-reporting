@@ -2,11 +2,9 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.junit.Before;
 import org.junit.Test;
-
-import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -75,8 +73,7 @@ public class TagTest extends PageTest {
 
         // given
         final String tagName = "@superTaggggg";
-        Tag tag = new Tag();
-        Deencapsulation.setField(tag, "name", tagName);
+        Tag tag = new Tag(tagName);
 
         // when
         int hashCode = tag.hashCode();
@@ -90,10 +87,8 @@ public class TagTest extends PageTest {
 
         // given
         final String tagName = "@superTaggggg";
-        Tag tag1 = new Tag();
-        Deencapsulation.setField(tag1, "name", tagName);
-        Tag tag2 = new Tag();
-        Deencapsulation.setField(tag2, "name", tagName);
+        Tag tag1 = new Tag(tagName);
+        Tag tag2 = new Tag(tagName);
 
         // when
         boolean isSame = tag1.equals(tag2);
@@ -107,10 +102,8 @@ public class TagTest extends PageTest {
 
         // given
         final String tagName = "@superTaggggg";
-        Tag tag1 = new Tag();
-        Deencapsulation.setField(tag1, "name", tagName);
-        Tag tag2 = new Tag();
-        Deencapsulation.setField(tag2, "name", tagName + tagName);
+        Tag tag1 = new Tag(tagName);
+        Tag tag2 = new Tag(tagName + tagName);
 
         // when
         boolean isSame = tag1.equals(tag2);
