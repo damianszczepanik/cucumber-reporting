@@ -5,14 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
-
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.Reportable;
+import net.masterthought.cucumber.json.deserializers.TagsDeserializer;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang.StringUtils;
 
 public class Feature implements Reportable, Durationable {
 
@@ -27,6 +28,7 @@ public class Feature implements Reportable, Durationable {
     private final Integer line = null;
 
     private Element[] elements = new Element[0];
+    @JsonDeserialize(using = TagsDeserializer.class)
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
@@ -35,10 +37,12 @@ public class Feature implements Reportable, Durationable {
     /**
      * When feature if executed against different devices, platforms or targets,
      * then the file name tells for which qualifier the tests were executed.
-     * */
+     */
     private String qualifier;
 
-    /** Collects those of elements which are scenarios, not eg background. */
+    /**
+     * Collects those of elements which are scenarios, not eg background.
+     */
     private final List<Element> scenarios = new ArrayList<>();
     private final StatusCounter elementsCounter = new StatusCounter();
     private final StatusCounter stepsCounter = new StatusCounter();
@@ -177,7 +181,8 @@ public class Feature implements Reportable, Durationable {
 
     /**
      * Sets additional information and calculates values which should be calculated during object creation.
-     * @param jsonFileNo index of the JSON file
+     *
+     * @param jsonFileNo    index of the JSON file
      * @param configuration configuration for the report
      */
     public void setMetaData(int jsonFileNo, Configuration configuration) {

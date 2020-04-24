@@ -5,8 +5,12 @@ import net.masterthought.cucumber.util.Util;
 public class Tag {
 
     // Start: attributes from JSON file report
-    private final String name = null;
+    private final String name;
     // End: attributes from JSON file report
+
+    public Tag(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

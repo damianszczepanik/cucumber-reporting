@@ -1,15 +1,16 @@
 package net.masterthought.cucumber.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
+import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.json.deserializers.TagsDeserializer;
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-
-import java.time.LocalDateTime;
+import org.apache.commons.lang.StringUtils;
 
 public class Element implements Durationable {
 
@@ -33,6 +34,7 @@ public class Element implements Durationable {
     private final Step[] steps = new Step[0];
     private final Hook[] before = new Hook[0];
     private final Hook[] after = new Hook[0];
+    @JsonDeserialize(using = TagsDeserializer.class)
     private final Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
