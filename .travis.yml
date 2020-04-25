@@ -56,7 +56,6 @@ deploy:
 addons:
   sonarcloud:
     organization: "damianszczepanik"
-    token:
-      secure: $SONAR_TOKEN
+    token: $SONAR_TOKEN
   branches:
     - master
