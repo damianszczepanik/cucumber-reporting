@@ -17,8 +17,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.apache.commons.io.FileUtils;
-
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeatureReportPage;
@@ -29,6 +27,7 @@ import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
+import org.apache.commons.io.FileUtils;
 
 public class ReportBuilder {
 
@@ -74,6 +73,7 @@ public class ReportBuilder {
     /**
      * Parses provided files and generates the report. When generating process fails
      * report with information about error is provided.
+     *
      * @return stats for the generated report
      */
     public Reportable generateReports() {
@@ -152,27 +152,28 @@ public class ReportBuilder {
         }
     }
 
-	private void generatePages(Trends trends) {
-		new FeaturesOverviewPage(reportResult, configuration).generatePage();
-		
-		for (Feature feature : reportResult.getAllFeatures()) {
-			new FeatureReportPage(reportResult, configuration, feature).generatePage();
-		}
-		
-		new TagsOverviewPage(reportResult, configuration).generatePage();
-		
-		for (TagObject tagObject : reportResult.getAllTags()) {
-			new TagReportPage(reportResult, configuration, tagObject).generatePage();
-		}
+    private void generatePages(Trends trends) {
+        new FeaturesOverviewPage(reportResult, configuration).generatePage();
 
-		new StepsOverviewPage(reportResult, configuration).generatePage();
-		new FailuresOverviewPage(reportResult, configuration).generatePage();
+        for (Feature feature : reportResult.getAllFeatures()) {
+            new FeatureReportPage(reportResult, configuration, feature).generatePage();
+        }
 
-		if (configuration.isTrendsAvailable()) {
-		    new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
-		}
-	}
-	
+        new TagsOverviewPage(reportResult, configuration).generatePage();
+
+        for (TagObject tagObject : reportResult.getAllTags()) {
+            new TagReportPage(reportResult, configuration, tagObject).generatePage();
+        }
+
+        new StepsOverviewPage(reportResult, configuration).generatePage();
+        new FailuresOverviewPage(reportResult, configuration).generatePage();
+
+        if (configuration.isTrendsAvailable()) {
+            new TrendsOverviewPage(reportResult, configuration, trends).generatePage();
+        }
+    }
+
+
     private Trends updateAndSaveTrends(Reportable reportable) {
         Trends trends = loadOrCreateTrends();
         appendToTrends(trends, reportable);
