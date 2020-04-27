@@ -44,6 +44,11 @@ public class ReportBuilder {
      * Subdirectory where the report will be created.
      */
     public static final String BASE_DIRECTORY = "cucumber-html-reports";
+    /**
+     * Separator between main directory name and specified suffix
+     */
+    public static final String SUFFIX_SEPARATOR = "_";
+
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

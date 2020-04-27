@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringUtils;
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
-    private static final String SUFFIX_SEPARATOR = "_";
 
     private File reportDirectory;
 
@@ -163,7 +162,7 @@ public class Configuration {
      * @return directory suffix with prepended separator
      */
     public String getDirectorySuffixWithSeparator() {
-        return StringUtils.isEmpty(directorySuffix) ? "" : SUFFIX_SEPARATOR + directorySuffix;
+        return StringUtils.isEmpty(directorySuffix) ? "" : ReportBuilder.SUFFIX_SEPARATOR + directorySuffix;
     }
 
     /**
