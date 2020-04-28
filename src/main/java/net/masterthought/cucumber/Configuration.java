@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringUtils;
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
-    private static final String SUFFIX_SEPARATOR = "_";
 
     private File reportDirectory;
 
