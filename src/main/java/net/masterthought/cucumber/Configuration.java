@@ -1,13 +1,7 @@
 package net.masterthought.cucumber;
 
 import java.io.File;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -16,6 +10,7 @@ import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.lang.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class Configuration {
 
@@ -39,6 +34,8 @@ public class Configuration {
     private List<String> classificationFiles;
 
     private Set<Status> notFailingStatuses = Collections.emptySet();
+
+    private Map<String, String> qualifiers = new Hashtable<>();
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -309,5 +306,21 @@ public class Configuration {
         if (notFailingStatuses != null) {
             this.notFailingStatuses = notFailingStatuses;
         }
+    }
+
+    public void setQualifier(@NonNull String jsonFile, @NonNull String qualifier) {
+        qualifiers.put(jsonFile, qualifier);
+    }
+
+    public String getQualifier(@NonNull String jsonFile) {
+        return qualifiers.get(jsonFile);
+    }
+
+    public boolean isQualifierSet(@NonNull String jsonFile) {
+        return qualifiers.containsKey(jsonFile);
+    }
+
+    public void removeQualifier(@NonNull String jsonFile) {
+        qualifiers.remove(jsonFile);
     }
 }
