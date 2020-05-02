@@ -240,7 +240,7 @@ public class ConfigurationTest {
         configuration.setQualifier(jsonFile, qualifier);
 
         // then
-        assertThat(configuration.isQualifierSet(jsonFile)).isTrue();
+        assertThat(configuration.containsQualifier(jsonFile)).isTrue();
     }
 
     @Test
@@ -251,7 +251,7 @@ public class ConfigurationTest {
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
         // then
-        assertThat(configuration.isQualifierSet(jsonFile)).isFalse();
+        assertThat(configuration.containsQualifier(jsonFile)).isFalse();
     }
 
     @Test
@@ -267,7 +267,7 @@ public class ConfigurationTest {
         configuration.removeQualifier(jsonFile);
 
         // then
-        assertThat(configuration.isQualifierSet(jsonFile)).isFalse();
+        assertThat(configuration.containsQualifier(jsonFile)).isFalse();
     }
 
     @Test

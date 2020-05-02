@@ -316,7 +316,7 @@ public class Configuration {
         return qualifiers.get(jsonFile);
     }
 
-    public boolean isQualifierSet(@NonNull String jsonFile) {
+    public boolean containsQualifier(@NonNull String jsonFile) {
         return qualifiers.containsKey(jsonFile);
     }
 
