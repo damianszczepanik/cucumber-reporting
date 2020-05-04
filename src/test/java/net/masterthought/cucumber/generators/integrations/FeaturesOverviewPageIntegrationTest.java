@@ -171,15 +171,6 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         TableRowAssertion firstRow = bodyRows[0];
         firstRow.hasExactValues("1st feature", testQualifier, "10", "0", "0", "0", "0", "10", "1", "0", "1", "1:39.263", "Passed");
-        firstRow.hasExactCSSClasses("tagname", "", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
-        firstRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "99263122889", "");
-        firstRow.getReportLink().hasLabelAndAddress("1st feature", "report-feature_1920820787.html");
-
-        TableRowAssertion secondRow = bodyRows[1];
-        secondRow.hasExactValues("Second feature", testQualifier, "5", "1", "2", "1", "3", "12", "1", "2", "3", "0.092", "Failed");
-        secondRow.hasExactCSSClasses("tagname", "", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
-        secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "", "92610000", "");
-        secondRow.getReportLink().hasLabelAndAddress("Second feature", "report-feature_1_1515379431.html");
     }
 
     @Test
