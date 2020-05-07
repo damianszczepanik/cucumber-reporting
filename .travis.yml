@@ -53,6 +53,7 @@ deploy:
   on:
     branch: master
 
+# https://docs.travis-ci.com/user/sonarcloud/ without securing token
 addons:
   sonarcloud:
     organization: "damianszczepanik"

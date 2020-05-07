@@ -1,11 +1,10 @@
 package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.StringUtils;
-
 import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.util.Util;
+import org.apache.commons.lang3.StringUtils;
 
 public class Result implements Durationable {
 
@@ -38,7 +37,7 @@ public class Result implements Durationable {
     }
 
     public final String getErrorMessageTitle() {
-        if(errorMessage != null) {
+        if (errorMessage != null) {
             String[] title = errorMessage.split("[\\p{Space}]+");
             if (title.length > 0) {
                 return title[0];

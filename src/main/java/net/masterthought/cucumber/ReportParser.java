@@ -1,5 +1,20 @@
 package net.masterthought.cucumber;
 
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -11,17 +26,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -49,8 +53,7 @@ public class ReportParser {
     /**
      * Parsed passed files and extracts features files.
      *
-     * @param jsonFiles
-     *            JSON files to read
+     * @param jsonFiles JSON files to read
      * @return array of parsed features
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
@@ -82,8 +85,7 @@ public class ReportParser {
     /**
      * Reads passed file and returns parsed features.
      *
-     * @param jsonFile
-     *            JSON file that should be read
+     * @param jsonFile JSON file that should be read
      * @return array of parsed features
      */
     private Feature[] parseForFeature(String jsonFile) {
@@ -108,9 +110,9 @@ public class ReportParser {
         File jsonFile = new File(jsonFileName);
         String target = jsonFile.getName();
 
-        String JSON_EXTENSION = ".json";
-        if (target.toLowerCase().endsWith(JSON_EXTENSION)) {
-            return target.substring(0, target.length() - JSON_EXTENSION.length());
+        final String jsonExtension = ".json";
+        if (target.toLowerCase().endsWith(jsonExtension)) {
+            return target.substring(0, target.length() - jsonExtension.length());
         }
         return target;
     }
@@ -119,8 +121,7 @@ public class ReportParser {
      * Parses passed properties files for classifications. These classifications within each file get added to the overview-features page as metadata.
      * File and metadata order within the individual files are preserved when classifications are added.
      *
-     * @param propertiesFiles
-     *            property files to read
+     * @param propertiesFiles property files to read
      */
     public void parseClassificationsFiles(List<String> propertiesFiles) {
         if (isNotEmpty(propertiesFiles)) {

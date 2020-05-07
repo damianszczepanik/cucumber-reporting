@@ -4,7 +4,7 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
 
 [![Coverage Status](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graph/badge.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_cucumber-reporting&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_cucumber-reporting)
+[![Sonarqube Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_cucumber-reporting&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://www.codacy.com/app/damianszczepanik/cucumber-reporting)
 [![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)
 [![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/cucumber-reporting/badge.svg)](https://snyk.io/org/damianszczepanik/project/6a2fe301-d56c-49e7-8c78-cd3ff09c3828)
