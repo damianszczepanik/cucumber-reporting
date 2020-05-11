@@ -310,36 +310,36 @@ public class Configuration {
 
     /**
      * Sets explicit qualifier to use for the given json file.
-     * @param jsonFile      JSON file name - without the extension
+     * @param jsonFileName  JSON file name - without the extension
      * @param qualifier     Qualifier to use
      */
-    public void setQualifier(@NonNull String jsonFile, @NonNull String qualifier) {
-        qualifiers.put(jsonFile, qualifier);
+    public void setQualifier(@NonNull String jsonFileName, @NonNull String qualifier) {
+        qualifiers.put(jsonFileName, qualifier);
     }
 
     /**
      * Retrieves explicit qualifier to use for a given json file.
-     * @param jsonFile      JSON file name - without the extension
+     * @param jsonFileName  JSON file name - without the extension
      * @return              Qualifier specified for this file or <code>null</code> if none specified
      */
-    public String getQualifier(@NonNull String jsonFile) {
-        return qualifiers.get(jsonFile);
+    public String getQualifier(@NonNull String jsonFileName) {
+        return qualifiers.get(jsonFileName);
     }
 
     /**
      * Checks whether an explicit qualifier was specified for a given json file.
-     * @param jsonFile      JSON file name - without the extension
+     * @param jsonFileName  JSON file name - without the extension
      * @return              <code>true</code> if the qualifier was specified, <code>false</code> otherwise
      */
-    public boolean containsQualifier(@NonNull String jsonFile) {
-        return qualifiers.containsKey(jsonFile);
+    public boolean containsQualifier(@NonNull String jsonFileName) {
+        return qualifiers.containsKey(jsonFileName);
     }
 
     /**
      * Removes explicit qualifier for a given json file.
-     * @param jsonFile      JSON file name - without the extension
+     * @param jsonFileName  JSON file name - without the extension
      */
-    public void removeQualifier(@NonNull String jsonFile) {
-        qualifiers.remove(jsonFile);
+    public void removeQualifier(@NonNull String jsonFileName) {
+        qualifiers.remove(jsonFileName);
     }
 }
