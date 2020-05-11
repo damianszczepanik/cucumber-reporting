@@ -64,6 +64,11 @@ classificationFiles.add("properties-1.properties");
 classificationFiles.add("properties-2.properties");
 configuration.addClassificationFiles(classificationFiles);
 
+// optionally specify qualifiers for each of the report json files
+configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+configuration.setQualifier("cucumber-report-1", "First report");
+configuration.setQualifier("cucumber-report-2", "Second report");
+
 ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 Reportable result = reportBuilder.generateReports();
 // and here validate 'result' to decide what to do if report has failed
