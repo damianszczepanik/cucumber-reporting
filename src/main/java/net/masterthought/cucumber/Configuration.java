@@ -1,13 +1,7 @@
 package net.masterthought.cucumber;
 
 import java.io.File;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -16,6 +10,7 @@ import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.lang.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class Configuration {
 
@@ -39,6 +34,8 @@ public class Configuration {
     private List<String> classificationFiles;
 
     private Set<Status> notFailingStatuses = Collections.emptySet();
+
+    private Map<String, String> qualifiers = new Hashtable<>();
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -309,5 +306,40 @@ public class Configuration {
         if (notFailingStatuses != null) {
             this.notFailingStatuses = notFailingStatuses;
         }
+    }
+
+    /**
+     * Sets explicit qualifier to use for the given json file.
+     * @param jsonFileName  JSON file name - without the extension
+     * @param qualifier     Qualifier to use
+     */
+    public void setQualifier(@NonNull String jsonFileName, @NonNull String qualifier) {
+        qualifiers.put(jsonFileName, qualifier);
+    }
+
+    /**
+     * Retrieves explicit qualifier to use for a given json file.
+     * @param jsonFileName  JSON file name - without the extension
+     * @return              Qualifier specified for this file or <code>null</code> if none specified
+     */
+    public String getQualifier(@NonNull String jsonFileName) {
+        return qualifiers.get(jsonFileName);
+    }
+
+    /**
+     * Checks whether an explicit qualifier was specified for a given json file.
+     * @param jsonFileName  JSON file name - without the extension
+     * @return              <code>true</code> if the qualifier was specified, <code>false</code> otherwise
+     */
+    public boolean containsQualifier(@NonNull String jsonFileName) {
+        return qualifiers.containsKey(jsonFileName);
+    }
+
+    /**
+     * Removes explicit qualifier for a given json file.
+     * @param jsonFileName  JSON file name - without the extension
+     */
+    public void removeQualifier(@NonNull String jsonFileName) {
+        qualifiers.remove(jsonFileName);
     }
 }

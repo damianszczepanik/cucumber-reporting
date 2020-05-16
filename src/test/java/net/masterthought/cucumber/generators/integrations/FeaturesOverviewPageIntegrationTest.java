@@ -6,6 +6,7 @@ import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -147,6 +148,29 @@ public class FeaturesOverviewPageIntegrationTest extends PageTest {
         secondRow.hasExactCSSClasses("tagname", "passed", "failed", "skipped", "pending", "undefined", "total", "passed", "failed", "total", "duration", "failed");
         secondRow.hasExactDataValues("", "", "", "", "", "", "", "", "", "", "92610000", "");
         secondRow.getReportLink().hasLabelAndAddress("Second feature", "report-feature_1_1515379431.html");
+    }
+
+    @Test
+    public void generatePage_WithSpecifiedQualifier_generatesStatsTableBody() {
+
+        // given
+        String testQualifier = "testQualifier";
+        configuration.setQualifier(FilenameUtils.removeExtension(SAMPLE_JSON), testQualifier);
+        setUpWithJson(SAMPLE_JSON);
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+        page = new FeaturesOverviewPage(reportResult, configuration);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion[] bodyRows = document.getReport().getTableStats().getBodyRows();
+
+        assertThat(bodyRows).hasSize(2);
+
+        TableRowAssertion firstRow = bodyRows[0];
+        firstRow.hasExactValues("1st feature", testQualifier, "10", "0", "0", "0", "0", "10", "1", "0", "1", "1:39.263", "Passed");
     }
 
     @Test

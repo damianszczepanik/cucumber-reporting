@@ -95,7 +95,9 @@ public class ReportParser {
                 LOG.log(Level.INFO, "File '{0}' does not contain features", jsonFile);
             }
             String jsonFileName = extractQualifier(jsonFile);
-            Arrays.stream(features).forEach(feature -> feature.setQualifier(jsonFileName));
+            Arrays.stream(features).forEach(feature ->
+                    feature.setQualifier(StringUtils.defaultString(configuration.getQualifier(jsonFileName), jsonFileName))
+            );
 
             return features;
         } catch (JsonMappingException e) {

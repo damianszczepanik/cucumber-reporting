@@ -187,6 +187,90 @@ public class ConfigurationTest {
     }
 
     @Test
+    public void getQualifier_ReturnsQualifierWhenSet() {
+
+        // given
+        String jsonFile = "test";
+        String qualifier = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setQualifier(jsonFile, qualifier);
+
+        // then
+        assertThat(configuration.getQualifier(jsonFile)).isEqualTo(qualifier);
+    }
+
+    @Test
+    public void getQualifier_ReturnsNullWhenNotSet() {
+
+        // given
+        String jsonFile = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // then
+        assertThat(configuration.getQualifier(jsonFile)).isNull();
+    }
+
+    @Test
+    public void getQualifier_ReturnsNullWhenSetThenRemoved() {
+
+        // given
+        String jsonFile = "test";
+        String qualifier = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setQualifier(jsonFile, qualifier);
+        configuration.removeQualifier(jsonFile);
+
+        // then
+        assertThat(configuration.getQualifier(jsonFile)).isNull();
+    }
+
+    @Test
+    public void isQualifierSet_ReturnsTrueWhenSet() {
+
+        // given
+        String jsonFile = "test";
+        String qualifier = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setQualifier(jsonFile, qualifier);
+
+        // then
+        assertThat(configuration.containsQualifier(jsonFile)).isTrue();
+    }
+
+    @Test
+    public void isQualifierSet_ReturnsTrueWhenNotSet() {
+
+        // given
+        String jsonFile = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // then
+        assertThat(configuration.containsQualifier(jsonFile)).isFalse();
+    }
+
+    @Test
+    public void isQualifierSet_ReturnsTrueWhenSetThenRemoved() {
+
+        // given
+        String jsonFile = "test";
+        String qualifier = "test";
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        // when
+        configuration.setQualifier(jsonFile, qualifier);
+        configuration.removeQualifier(jsonFile);
+
+        // then
+        assertThat(configuration.containsQualifier(jsonFile)).isFalse();
+    }
+
+    @Test
     public void getTagsToExcludeFromChart_addPatterns_ReturnsListWithAllPatterns() {
 
         // given
