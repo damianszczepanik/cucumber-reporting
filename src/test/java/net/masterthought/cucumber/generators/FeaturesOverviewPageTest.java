@@ -43,8 +43,9 @@ public class FeaturesOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(15);
+        assertThat(context.getKeys()).hasSize(16);
 
+        assertThat(context.get("render_feature_chart")).isEqualTo(true);
         assertThat(context.get("all_features")).isEqualTo(features);
         assertThat(context.get("report_summary")).isEqualTo(reportResult.getFeatureReport());
     }
