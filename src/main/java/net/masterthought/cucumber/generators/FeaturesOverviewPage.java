@@ -3,6 +3,7 @@ package net.masterthought.cucumber.generators;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.chart.ChartType;
 import net.masterthought.cucumber.presentation.PresentationMode;
 
 public class FeaturesOverviewPage extends AbstractPage {
@@ -20,6 +21,8 @@ public class FeaturesOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
+        // Check if chart is to be rendered
+        context.put("render_feature_chart", configuration.containsChartToRender(ChartType.FEATURES_STATISTICS));
         context.put("all_features", reportResult.getAllFeatures());
         context.put("report_summary", reportResult.getFeatureReport());
 

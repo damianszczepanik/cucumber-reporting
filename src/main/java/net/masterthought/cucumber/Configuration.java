@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import net.masterthought.cucumber.chart.ChartType;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
@@ -36,6 +37,15 @@ public class Configuration {
     private Set<Status> notFailingStatuses = Collections.emptySet();
 
     private Map<String, String> qualifiers = new Hashtable<>();
+
+    // List of charts that can be optionally excluded from being rendered.
+    // Default behavior is to render all charts.
+    private final List<ChartType> chartsToRender = new ArrayList<>(
+        Arrays.asList(
+            ChartType.FEATURES_STATISTICS,
+            ChartType.TAGS_STATISTICS
+        )
+    );
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -341,5 +351,26 @@ public class Configuration {
      */
     public void removeQualifier(@NonNull String jsonFileName) {
         qualifiers.remove(jsonFileName);
+    }
+
+    /**
+     * Exclude the specified {@link ChartType} from being rendered.
+     *
+     * @param chartTypes charts not to be rendered
+     */
+    public void chartsNotToRender(@NonNull ChartType... chartTypes) {
+        for (ChartType chartType : chartTypes) {
+            this.chartsToRender.remove(chartType);
+        }
+    }
+
+    /**
+     * Checks if the configuration has given {@link ChartType} set for rendering.
+     *
+     * @param chartType to be checked if set in configuration
+     * @return <code>true</code> if {@link ChartType} is set for rendering, otherwise <code>false</code>
+     */
+    public boolean containsChartToRender(@NonNull ChartType chartType) {
+        return chartsToRender.contains(chartType);
     }
 }

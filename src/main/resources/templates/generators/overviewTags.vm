@@ -14,10 +14,10 @@
 
 #includeReportInfo()
 
-#includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags")
+#if($render_tags_chart && !$all_tags.isEmpty())
 
+  #includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags")
 
-#if(!$all_tags.isEmpty())
   <div class="container-fluid" id="charts">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
@@ -25,6 +25,8 @@
       </div>
     </div>
   </div>
+#else
+  #includeLead("Tags Overview")
 #end
 
 <br/>

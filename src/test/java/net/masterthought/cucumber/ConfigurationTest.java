@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import net.masterthought.cucumber.chart.ChartType;
 import org.junit.Test;
 
 import net.masterthought.cucumber.json.support.Status;
@@ -419,5 +420,53 @@ public class ConfigurationTest {
 
         // then
         assertThat(configuration.getNotFailingStatuses()).containsExactly(notFailingStatus);
+    }
+
+    @Test
+    public void chartsNotToRender_FEATURES_STATISTICS() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
+
+        // when
+        configuration.chartsNotToRender(ChartType.FEATURES_STATISTICS);
+
+        // then
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isFalse();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
+    }
+
+    @Test
+    public void chartsNotToRender_TAGS_STATISTICS() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
+
+        // when
+        configuration.chartsNotToRender(ChartType.TAGS_STATISTICS);
+
+        // then
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isFalse();
+    }
+
+    @Test
+    public void chartsNotToRender_All() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
+
+        // when
+        configuration.chartsNotToRender(ChartType.FEATURES_STATISTICS, ChartType.TAGS_STATISTICS);
+
+        // then
+        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isFalse();
+        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isFalse();
     }
 }

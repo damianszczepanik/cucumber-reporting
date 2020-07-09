@@ -17,10 +17,10 @@
 
 #includeReportInfo()
 
-#includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
+#if($render_feature_chart && !$all_features.isEmpty())
 
+  #includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
 
-#if(!$all_features.isEmpty())
   <div class="container-fluid" id="charts">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -60,10 +60,11 @@
       </div>
     </div>
   </div>
-  <br/>
+#else
+  #includeLead("Features Overview")
 #end
 
-
+<br/>
 <div class="container-fluid" id="report">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">

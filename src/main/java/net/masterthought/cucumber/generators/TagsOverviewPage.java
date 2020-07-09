@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportResult;
+import net.masterthought.cucumber.chart.ChartType;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.util.Util;
@@ -27,6 +28,8 @@ public class TagsOverviewPage extends AbstractPage {
     @Override
     public void prepareReport() {
         List<TagObject> tags = reportResult.getAllTags();
+        // Check if chart is to be rendered
+        context.put("render_tags_chart", configuration.containsChartToRender(ChartType.TAGS_STATISTICS));
         context.put("all_tags", tags);
         context.put("report_summary", reportResult.getTagReport());
 
