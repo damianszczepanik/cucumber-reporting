@@ -27,9 +27,9 @@ public class TagsOverviewPage extends AbstractPage {
 
     @Override
     public void prepareReport() {
+        final boolean renderTagsChart = configuration.containsChartToRender(ChartType.TAGS_STATISTICS);
         List<TagObject> tags = reportResult.getAllTags();
-        // Check if chart is to be rendered
-        context.put("render_tags_chart", configuration.containsChartToRender(ChartType.TAGS_STATISTICS));
+        context.put("render_tags_chart", (renderTagsChart && !tags.isEmpty()));
         context.put("all_tags", tags);
         context.put("report_summary", reportResult.getTagReport());
 

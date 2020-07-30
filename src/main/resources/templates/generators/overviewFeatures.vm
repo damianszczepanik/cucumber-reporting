@@ -17,7 +17,7 @@
 
 #includeReportInfo()
 
-#if($render_feature_chart && !$all_features.isEmpty())
+#if($render_feature_chart)
 
   #includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
 

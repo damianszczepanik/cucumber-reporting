@@ -354,11 +354,11 @@ public class Configuration {
     }
 
     /**
-     * Exclude the specified {@link ChartType} from being rendered.
+     * Remove the specified {@link ChartType} from being rendered.
      *
      * @param chartTypes charts not to be rendered
      */
-    public void chartsNotToRender(@NonNull ChartType... chartTypes) {
+    public void removeChartsToRender(@NonNull ChartType... chartTypes) {
         for (ChartType chartType : chartTypes) {
             this.chartsToRender.remove(chartType);
         }

@@ -423,15 +423,13 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void chartsNotToRender_FEATURES_STATISTICS() {
+    public void removeChartsToRender_RemoveFeaturesChart() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
-        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
 
         // when
-        configuration.chartsNotToRender(ChartType.FEATURES_STATISTICS);
+        configuration.removeChartsToRender(ChartType.FEATURES_STATISTICS);
 
         // then
         assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isFalse();
@@ -439,15 +437,13 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void chartsNotToRender_TAGS_STATISTICS() {
+    public void removeChartsToRender_RemoveTagsChart() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
-        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
 
         // when
-        configuration.chartsNotToRender(ChartType.TAGS_STATISTICS);
+        configuration.removeChartsToRender(ChartType.TAGS_STATISTICS);
 
         // then
         assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
@@ -455,15 +451,13 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void chartsNotToRender_All() {
+    public void removeChartsToRender_RemoveFeaturesAndTagsCharts() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isTrue();
-        assertThat(configuration.containsChartToRender(ChartType.TAGS_STATISTICS)).isTrue();
 
         // when
-        configuration.chartsNotToRender(ChartType.FEATURES_STATISTICS, ChartType.TAGS_STATISTICS);
+        configuration.removeChartsToRender(ChartType.FEATURES_STATISTICS, ChartType.TAGS_STATISTICS);
 
         // then
         assertThat(configuration.containsChartToRender(ChartType.FEATURES_STATISTICS)).isFalse();
