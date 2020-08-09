@@ -34,7 +34,7 @@ public class LiveDemoTest {
         configuration.setSortingMethod(SortingMethod.NATURAL);
         configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
         configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
-        configuration.setQualifier("sample", "Some Qualifier");
+        configuration.setQualifier("sample", "Chrome 80, mobile");
         // points to the demo trends which is not used for other tests
         configuration.setTrendsStatsFile(new File("target/test-classes/demo-trends.json"));
 
