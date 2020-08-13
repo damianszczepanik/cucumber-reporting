@@ -46,7 +46,7 @@ public class ReportBuilder {
     private ReportResult reportResult;
     private final ReportParser reportParser;
 
-    private Configuration configuration;
+    private final Configuration configuration;
     private List<String> jsonFiles;
 
     /**
@@ -56,10 +56,15 @@ public class ReportBuilder {
      */
     private boolean wasTrendsFileSaved = false;
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
-        this.jsonFiles = jsonFiles;
+    public ReportBuilder(Configuration configuration) {
         this.configuration = configuration;
         reportParser = new ReportParser(configuration);
+    }
+
+    @Deprecated
+    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
+        this(configuration);
+        this.jsonFiles = jsonFiles;
     }
 
     /**
@@ -74,6 +79,12 @@ public class ReportBuilder {
         return generateReportsFromFiles(jsonFiles);
     }
 
+    /**
+     * Parses provided files and generates the report. When generating process fails
+     * report with information about error is provided.
+     *
+     * @return stats for the generated report
+     */
     public Reportable generateReportsFromFiles(List<String> pathsTojsonFiles) {
         try {
             // first copy static resources so ErrorPage is displayed properly
@@ -103,6 +114,12 @@ public class ReportBuilder {
         }
     }
 
+    /**
+     * Parses provided features and generates the report. When generating process fails
+     * report with information about error is provided.
+     *
+     * @return stats for the generated report
+     */
     public Reportable generateReportsFromFeatures(List<Feature> features) {
         reportResult = new ReportResult(features, configuration);
         Reportable reportable = reportResult.getFeatureReport();
@@ -258,6 +275,7 @@ public class ReportBuilder {
 
     private void generateErrorPage(Exception exception) {
         LOG.log(Level.INFO, "Unexpected error", exception);
+        //FIXME jsonfiles can be null when generating from Features
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }
