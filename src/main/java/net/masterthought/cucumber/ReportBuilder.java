@@ -69,9 +69,6 @@ public class ReportBuilder {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
 
-            // create directory for embeddings before files are generated
-            createEmbeddingsDirectory();
-
             // add metadata info sourced from files
             reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
 
@@ -117,10 +114,6 @@ public class ReportBuilder {
                 "glyphicons-halflings-regular.woff2", "glyphicons-halflings-regular.woff",
                 "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg");
         copyResources("images", "favicon.png");
-    }
-
-    private void createEmbeddingsDirectory() {
-        configuration.getEmbeddingDirectory().mkdirs();
     }
 
     private void copyResources(String resourceLocation, String... resources) {
