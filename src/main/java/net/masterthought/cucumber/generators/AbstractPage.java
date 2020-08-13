@@ -1,15 +1,5 @@
 package net.masterthought.cucumber.generators;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
@@ -26,6 +16,12 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Delivers common methods for page generation.
@@ -57,7 +53,7 @@ public abstract class AbstractPage {
         this.reportResult = reportResult;
         this.configuration = configuration;
 
-        this.engine.init(buildProperties());
+        engine.init(buildProperties());
         buildGeneralParameters();
     }
 
@@ -81,8 +77,12 @@ public abstract class AbstractPage {
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(),
                 ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + getWebPage());
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream(2048);
+             Writer writer = new OutputStreamWriter(new BufferedOutputStream(out), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
+            writer.flush();
+            configuration.getOutputHandlers().forEach(outputHandler -> outputHandler.handle(reportFile, out.toByteArray()));
         } catch (IOException e) {
             throw new ValidationException(e);
         }

@@ -1,16 +1,18 @@
 package net.masterthought.cucumber;
 
-import java.io.File;
-import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.outputHandlers.FilesystemOutputHandler;
+import net.masterthought.cucumber.outputHandlers.OutputHandler;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.lang.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.io.File;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class Configuration {
 
@@ -29,7 +31,7 @@ public class Configuration {
     private Collection<Pattern> tagsToExcludeFromChart = new ArrayList<>();
     private SortingMethod sortingMethod = SortingMethod.NATURAL;
     private List<ReducingMethod> reducingMethods = new ArrayList<>();
-
+    private List<OutputHandler> outputHandlers = new ArrayList<>();
     private List<PresentationMode> presentationModes = new ArrayList<>();
     private List<String> classificationFiles;
 
@@ -40,6 +42,7 @@ public class Configuration {
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
         this.projectName = projectName;
+        outputHandlers.add(new FilesystemOutputHandler());
     }
 
     /**
@@ -71,6 +74,7 @@ public class Configuration {
 
     /**
      * Calls {@link #setTrends(File, int)} with zero limit.
+     *
      * @param trendsFile file with trends
      */
     public void setTrendsStatsFile(File trendsFile) {
@@ -88,10 +92,11 @@ public class Configuration {
 
     /**
      * Checks if the trends page should be generated and displayed.
+     *
      * @return <code>true</code> if the page with trends should be displayed
      */
     public boolean isTrendsAvailable() {
-        return getTrendsLimit() > -1  && isTrendsStatsFile();
+        return getTrendsLimit() > -1 && isTrendsStatsFile();
     }
 
     /**
@@ -100,12 +105,12 @@ public class Configuration {
      * To disable saving and displaying trends page set to -1.
      * Otherwise number of previous builds is equal to provided limit.
      *
-     * @param trendsFile  file where information about previous builds is stored
-     * @param limit number of builds that should be presented (older builds are skipped)
+     * @param trendsFile file where information about previous builds is stored
+     * @param limit      number of builds that should be presented (older builds are skipped)
      */
     public void setTrends(File trendsFile, int limit) {
         this.trendsFile = trendsFile;
-        this.trendsLimit = limit;
+        trendsLimit = limit;
     }
 
     /**
@@ -169,7 +174,7 @@ public class Configuration {
      */
     public File getEmbeddingDirectory() {
         return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY +
-                this.getDirectorySuffixWithSeparator() + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
+                getDirectorySuffixWithSeparator() + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 
     /**
@@ -226,7 +231,7 @@ public class Configuration {
      * Returns the default sorting method.
      */
     public SortingMethod getSortingMethod() {
-        return this.sortingMethod;
+        return sortingMethod;
     }
 
     /**
@@ -235,7 +240,7 @@ public class Configuration {
      * @param reducingMethod type of reduction
      */
     public void addReducingMethod(ReducingMethod reducingMethod) {
-        this.reducingMethods.add(reducingMethod);
+        reducingMethods.add(reducingMethod);
     }
 
     /**
@@ -249,6 +254,7 @@ public class Configuration {
 
     /**
      * Checks if the configuration has given {@link ReducingMethod} set.
+     *
      * @param reducingMethod method to validate
      * @return <code>true</code> if method was set, otherwise <code>false</code>
      */
@@ -262,7 +268,7 @@ public class Configuration {
      * @param presentationMode method used for presentation
      */
     public void addPresentationModes(PresentationMode presentationMode) {
-        this.presentationModes.add(presentationMode);
+        presentationModes.add(presentationMode);
     }
 
     /**
@@ -288,7 +294,7 @@ public class Configuration {
      * Returns the list of properties files.
      */
     public List<String> getClassificationFiles() {
-        return this.classificationFiles;
+        return classificationFiles;
     }
 
     /**
@@ -310,8 +316,9 @@ public class Configuration {
 
     /**
      * Sets explicit qualifier to use for the given json file.
-     * @param jsonFileName  JSON file name - without the extension
-     * @param qualifier     Qualifier to use
+     *
+     * @param jsonFileName JSON file name - without the extension
+     * @param qualifier    Qualifier to use
      */
     public void setQualifier(@NonNull String jsonFileName, @NonNull String qualifier) {
         qualifiers.put(jsonFileName, qualifier);
@@ -319,8 +326,9 @@ public class Configuration {
 
     /**
      * Retrieves explicit qualifier to use for a given json file.
-     * @param jsonFileName  JSON file name - without the extension
-     * @return              Qualifier specified for this file or <code>null</code> if none specified
+     *
+     * @param jsonFileName JSON file name - without the extension
+     * @return Qualifier specified for this file or <code>null</code> if none specified
      */
     public String getQualifier(@NonNull String jsonFileName) {
         return qualifiers.get(jsonFileName);
@@ -328,8 +336,9 @@ public class Configuration {
 
     /**
      * Checks whether an explicit qualifier was specified for a given json file.
-     * @param jsonFileName  JSON file name - without the extension
-     * @return              <code>true</code> if the qualifier was specified, <code>false</code> otherwise
+     *
+     * @param jsonFileName JSON file name - without the extension
+     * @return <code>true</code> if the qualifier was specified, <code>false</code> otherwise
      */
     public boolean containsQualifier(@NonNull String jsonFileName) {
         return qualifiers.containsKey(jsonFileName);
@@ -337,9 +346,26 @@ public class Configuration {
 
     /**
      * Removes explicit qualifier for a given json file.
-     * @param jsonFileName  JSON file name - without the extension
+     *
+     * @param jsonFileName JSON file name - without the extension
      */
     public void removeQualifier(@NonNull String jsonFileName) {
         qualifiers.remove(jsonFileName);
+    }
+
+    public void addOutputHandler(OutputHandler outputHandler) {
+        outputHandlers.add(outputHandler);
+    }
+
+    public void removeOutputHandler(OutputHandler outputHandlerToRemove) {
+        outputHandlers.remove(outputHandlerToRemove);
+    }
+
+    public List<OutputHandler> getOutputHandlers() {
+        return outputHandlers;
+    }
+
+    public void clearOutputHandlers() {
+        outputHandlers.clear();
     }
 }
