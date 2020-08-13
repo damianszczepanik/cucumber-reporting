@@ -9,9 +9,9 @@ import java.io.IOException;
 public class FilesystemOutputHandler implements OutputHandler {
 
     @Override
-    public void handle(File reportFile, byte[] reportFileContent) {
+    public void handle(File file, byte[] fileContent) {
         try {
-            FileUtils.writeByteArrayToFile(reportFile, reportFileContent);
+            FileUtils.writeByteArrayToFile(file, fileContent);
         } catch (IOException e) {
             throw new ValidationException(e);
         }

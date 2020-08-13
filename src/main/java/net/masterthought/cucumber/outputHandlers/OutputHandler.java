@@ -6,5 +6,5 @@ import java.io.File;
 
 public interface OutputHandler {
 
-    void handle(File reportFile, byte[] reportFileContent) throws ValidationException;
+    void handle(File file, byte[] fileContent) throws ValidationException;
 }
