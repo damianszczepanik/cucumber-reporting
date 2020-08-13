@@ -1,33 +1,19 @@
 package net.masterthought.cucumber;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import net.masterthought.cucumber.generators.ErrorPage;
-import net.masterthought.cucumber.generators.FailuresOverviewPage;
-import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.FeaturesOverviewPage;
-import net.masterthought.cucumber.generators.StepsOverviewPage;
-import net.masterthought.cucumber.generators.TagReportPage;
-import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.generators.TrendsOverviewPage;
+import net.masterthought.cucumber.generators.*;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReportBuilder {
 
@@ -142,9 +128,9 @@ public class ReportBuilder {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
                     BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
             // don't change this implementation unless you verified it works on Jenkins
-            try {
-                FileUtils.copyInputStreamToFile(
-                        this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
+            try (InputStream resourceAsStream = getClass().getResourceAsStream("/" + resourceLocation + "/" + resource)) {
+                final byte[] resourceAsBytes = IOUtils.toByteArray(resourceAsStream);
+                configuration.getOutputHandlers().forEach(outputHandler -> outputHandler.handle(tempFile, resourceAsBytes));
             } catch (IOException e) {
                 // based on FileUtils implementation, should never happen even is declared
                 throw new ValidationException(e);
