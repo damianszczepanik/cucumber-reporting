@@ -1,4 +1,4 @@
-package net.masterthought.cucumber.outputHandlers;
+package net.masterthought.cucumber.outputhandlers;
 
 import net.masterthought.cucumber.ValidationException;
 

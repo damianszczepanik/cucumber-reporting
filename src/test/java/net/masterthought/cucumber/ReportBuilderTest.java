@@ -1,27 +1,20 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.fail;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.OverviewReport;
+import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.OverviewReport;
-import net.masterthought.cucumber.json.Feature;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -50,8 +43,8 @@ public class ReportBuilderTest extends ReportGenerator {
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
         if (configuration != null) {
-			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
-					ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
+            FileUtils.deleteDirectory(new File(configuration.getReportDirectory(),
+                    ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
         }
     }
 
@@ -171,22 +164,6 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         Collection<File> files = FileUtils.listFiles(reportDirectory, null, true);
         assertThat(files).hasSize(21);
-    }
-
-    @Test
-    public void createEmbeddingsDirectory_CreatesDirectory() {
-
-        // given
-        File subDirectory = new File(reportDirectory, "sub");
-
-        Configuration configuration = new Configuration(subDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-
-        // when
-        Deencapsulation.invoke(builder, "createEmbeddingsDirectory");
-
-        // then
-        assertThat(subDirectory).exists();
     }
 
     @Test
@@ -485,10 +462,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
     }
-    
+
     private File[] countHtmlFiles(Configuration configuration) {
-    	FileFilter fileFilter = new WildcardFileFilter("*.html");
-    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 

@@ -1,8 +1,8 @@
 package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.outputHandlers.FilesystemOutputHandler;
-import net.masterthought.cucumber.outputHandlers.OutputHandler;
+import net.masterthought.cucumber.outputhandlers.FilesystemOutputHandler;
+import net.masterthought.cucumber.outputhandlers.OutputHandler;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
