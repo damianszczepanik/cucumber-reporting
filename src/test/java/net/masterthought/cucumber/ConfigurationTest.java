@@ -1,18 +1,19 @@
 package net.masterthought.cucumber;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import net.masterthought.cucumber.json.support.Status;
+import net.masterthought.cucumber.outputhandlers.FilesystemOutputHandler;
+import net.masterthought.cucumber.outputhandlers.OutputHandler;
+import net.masterthought.cucumber.presentation.PresentationMode;
+import net.masterthought.cucumber.reducers.ReducingMethod;
+import net.masterthought.cucumber.sorting.SortingMethod;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-
-import net.masterthought.cucumber.json.support.Status;
-import net.masterthought.cucumber.presentation.PresentationMode;
-import net.masterthought.cucumber.reducers.ReducingMethod;
-import net.masterthought.cucumber.sorting.SortingMethod;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -419,5 +420,59 @@ public class ConfigurationTest {
 
         // then
         assertThat(configuration.getNotFailingStatuses()).containsExactly(notFailingStatus);
+    }
+
+    @Test
+    public void getOutputHandlers_shouldContainFilesystemOutputHandler() {
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+
+        assertThat(configuration.getOutputHandlers()).hasSize(1);
+        assertThat(configuration.getOutputHandlers().get(0)).isInstanceOf(FilesystemOutputHandler.class);
+    }
+
+    @Test
+    public void clearOutputHandlers_shouldRemoveAllOutputHandlersFromOutputHandlersList() {
+        //given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        assertThat(configuration.getOutputHandlers()).hasSize(1);
+        assertThat(configuration.getOutputHandlers().get(0)).isInstanceOf(FilesystemOutputHandler.class);
+
+        //when
+        configuration.clearOutputHandlers();
+
+        //then
+        assertThat(configuration.getOutputHandlers()).isEmpty();
+    }
+
+    @Test
+    public void addOutputHandler_shouldAddGivenHandlerToListOfOutputHandlers() {
+        //given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        configuration.clearOutputHandlers();
+        assertThat(configuration.getOutputHandlers()).isEmpty();
+
+        //when
+        configuration.addOutputHandler(new FilesystemOutputHandler());
+
+        //then
+        assertThat(configuration.getOutputHandlers()).hasSize(1);
+        assertThat(configuration.getOutputHandlers().get(0)).isInstanceOf(FilesystemOutputHandler.class);
+    }
+
+    @Test
+    public void removeOutputHandler_shouldRemoveOnlyTheGivenOutputHandlerFromOutputHandlersList() {
+        //given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        OutputHandler handlerThatShouldStayInTheList = configuration.getOutputHandlers().get(0);
+        final FilesystemOutputHandler outputHandlerThatShouldBeRemoved = new FilesystemOutputHandler();
+        configuration.addOutputHandler(outputHandlerThatShouldBeRemoved);
+
+        //when
+        configuration.removeOutputHandler(outputHandlerThatShouldBeRemoved);
+
+        //then
+        assertThat(configuration.getOutputHandlers()).hasSize(1);
+        assertThat(configuration.getOutputHandlers()).contains(handlerThatShouldStayInTheList);
+        assertThat(configuration.getOutputHandlers()).doesNotContain(outputHandlerThatShouldBeRemoved);
     }
 }
