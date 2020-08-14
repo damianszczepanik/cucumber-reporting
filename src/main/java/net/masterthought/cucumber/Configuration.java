@@ -353,18 +353,37 @@ public class Configuration {
         qualifiers.remove(jsonFileName);
     }
 
+    /**
+     * Adds the given OutputHandler to the List of OutputHandlers
+     *
+     * @param outputHandler Handler that will be called with the generated files
+     */
     public void addOutputHandler(OutputHandler outputHandler) {
         outputHandlers.add(outputHandler);
     }
 
+    /**
+     * Removes the given OutputHandler from the List of OutputHandlers
+     *
+     * @param outputHandlerToRemove OutputHandler to be removed
+     */
     public void removeOutputHandler(OutputHandler outputHandlerToRemove) {
         outputHandlers.remove(outputHandlerToRemove);
     }
 
+    /**
+     * Gets the List of all currently configured OutputHandlers
+     * By default the {@link FilesystemOutputHandler} is configured
+     *
+     * @return the List of OutputHandlers
+     */
     public List<OutputHandler> getOutputHandlers() {
         return outputHandlers;
     }
 
+    /**
+     * Clears all OutputHandlers from the List of OutputHandlers
+     */
     public void clearOutputHandlers() {
         outputHandlers.clear();
     }

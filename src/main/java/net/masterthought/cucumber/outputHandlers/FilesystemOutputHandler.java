@@ -6,6 +6,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Florian Kaemmerer (FlorianKaemmerer@github)
+ */
 public class FilesystemOutputHandler implements OutputHandler {
 
     @Override
