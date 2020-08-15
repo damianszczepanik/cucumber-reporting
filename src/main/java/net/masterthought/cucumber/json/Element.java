@@ -138,8 +138,8 @@ public class Element implements Durationable {
             step.setMetaData();
         }
 
-        beforeStatus = new StatusCounter(before).getFinalStatus();
-        afterStatus = new StatusCounter(after).getFinalStatus();
+        beforeStatus = new StatusCounter(before, configuration.getNotFailingStatuses()).getFinalStatus();
+        afterStatus = new StatusCounter(after, configuration.getNotFailingStatuses()).getFinalStatus();
         stepsStatus = new StatusCounter(steps, configuration.getNotFailingStatuses()).getFinalStatus();
         elementStatus = calculateElementStatus();
 
