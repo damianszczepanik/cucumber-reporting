@@ -28,7 +28,7 @@ public class FilesystemOutputHandlerTest {
     }
 
     @Test
-    public void handle_shouldWriteGivenFileContentToGivenFile() throws Exception {
+    public void handle_writesGivenFileContentToGivenFile() throws Exception {
         final File filesystemOutputHandlerTestOutputFile = new File(outputDirectory, "FilesystemOutputHandler_Testoutput.txt");
         FilesystemOutputHandler fileSystemOutputHandler = new FilesystemOutputHandler();
         final String expectedOutput = "This is the FilesystemOutputHandler output";
