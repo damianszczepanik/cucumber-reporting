@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.outputhandlers.OutputHandler;
@@ -13,14 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OutputHandlerConfigurationIntegrationTest extends PageTest {
 
-    private InMemoryOutputHandler inMemoryOutputHandler = new InMemoryOutputHandler();
+    private final InMemoryOutputHandler inMemoryOutputHandler = new InMemoryOutputHandler();
 
     @Test
     public void addOutputHandler_addedOutputHandlerIsUsedDuringReportGeneration() {
         // Given
-        // we only want the inMemoryHandler to be used, so we clear the List of handlers first
-        configuration.clearOutputHandlers();
-        //Add the inMemoryHandler
+        // We want the default filesystemOutputHandler and a inMemoryHandler,
+        // to assert that both Handlers are used and called with the same files.
+        // So we add an inMemoryHandler
         configuration.addOutputHandler(inMemoryOutputHandler);
 
         //When
@@ -31,9 +32,10 @@ public class OutputHandlerConfigurationIntegrationTest extends PageTest {
         //Then
         Map<File, byte[]> files = inMemoryOutputHandler.getFiles();
 
-        // Feature-overview-page + 14 Embeddings -> Files should contain 15 entries
-        assertThat(files).hasSize(15);
-        assertThat(files.keySet().stream().anyMatch(file -> file.getName().equals("overview-features.html"))).isTrue();
+        // The FilesystemOutputHandler writes the Files to the filesystem,
+        // to assert if all files that are handled by the inMemoryHandler are also
+        // handled by the filesystemHandler we assert if the files exist on the filesystem.
+        assertThat(files.keySet().stream().allMatch(File::exists)).isTrue();
     }
 
 
