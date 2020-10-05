@@ -423,7 +423,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getOutputHandlers_shouldContainFilesystemOutputHandler() {
+    public void getOutputHandlers_containsFilesystemOutputHandler() {
         Configuration configuration = new Configuration(outputDirectory, projectName);
 
         assertThat(configuration.getOutputHandlers()).hasSize(1);
@@ -431,11 +431,10 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void clearOutputHandlers_shouldRemoveAllOutputHandlersFromOutputHandlersList() {
+    public void clearOutputHandlers_removesAllOutputHandlersFromOutputHandlersList() {
         //given
         Configuration configuration = new Configuration(outputDirectory, projectName);
-        assertThat(configuration.getOutputHandlers()).hasSize(1);
-        assertThat(configuration.getOutputHandlers().get(0)).isInstanceOf(FilesystemOutputHandler.class);
+        configuration.addOutputHandler(new FilesystemOutputHandler());
 
         //when
         configuration.clearOutputHandlers();
@@ -445,11 +444,10 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addOutputHandler_shouldAddGivenHandlerToListOfOutputHandlers() {
+    public void addOutputHandler_addsGivenHandlerToListOfOutputHandlers() {
         //given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         configuration.clearOutputHandlers();
-        assertThat(configuration.getOutputHandlers()).isEmpty();
 
         //when
         configuration.addOutputHandler(new FilesystemOutputHandler());
@@ -460,7 +458,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void removeOutputHandler_shouldRemoveOnlyTheGivenOutputHandlerFromOutputHandlersList() {
+    public void removeOutputHandler_removesOnlyTheGivenOutputHandlerFromOutputHandlersList() {
         //given
         Configuration configuration = new Configuration(outputDirectory, projectName);
         OutputHandler handlerThatShouldStayInTheList = configuration.getOutputHandlers().get(0);
