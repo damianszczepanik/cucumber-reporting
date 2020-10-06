@@ -450,11 +450,12 @@ public class ConfigurationTest {
         configuration.clearOutputHandlers();
 
         //when
-        configuration.addOutputHandler(new FilesystemOutputHandler());
+        FilesystemOutputHandler outputHandler = new FilesystemOutputHandler();
+        configuration.addOutputHandler(outputHandler);
 
         //then
-        assertThat(configuration.getOutputHandlers()).hasSize(1);
-        assertThat(configuration.getOutputHandlers().get(0)).isInstanceOf(FilesystemOutputHandler.class);
+        assertThat(configuration.getOutputHandlers().size()).isOne();
+        assertThat(configuration.getOutputHandlers().get(0)).isEqualTo(outputHandler);
     }
 
     @Test
@@ -469,7 +470,7 @@ public class ConfigurationTest {
         configuration.removeOutputHandler(outputHandlerThatShouldBeRemoved);
 
         //then
-        assertThat(configuration.getOutputHandlers()).hasSize(1);
+        assertThat(configuration.getOutputHandlers().size()).isOne();
         assertThat(configuration.getOutputHandlers()).contains(handlerThatShouldStayInTheList);
         assertThat(configuration.getOutputHandlers()).doesNotContain(outputHandlerThatShouldBeRemoved);
     }
