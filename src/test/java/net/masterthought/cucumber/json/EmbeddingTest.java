@@ -194,6 +194,30 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnApplicationOpenXMLFormatsOfficeDocumentSpreadsheetMimeType_ReturnsXlsx() {
+        // given
+        Embedding embedding = new Embedding("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xlsx");
+    }
+
+    @Test
+    public void getExtension__OnApplicationVNDMsExcelMimeType_ReturnsXls() {
+        // given
+        Embedding embedding = new Embedding("application/vnd.ms-excel", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xls");
+    }
+
+    @Test
     public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given

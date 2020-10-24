@@ -91,6 +91,10 @@ public class Embedding {
                 return "bz2";
             case "application/gzip":
                 return "gz";
+            case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                return "xlsx";
+            case "application/vnd.ms-excel":
+                return "xls";
             default:
                 return "unknown";
         }
