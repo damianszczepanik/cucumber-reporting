@@ -91,6 +91,19 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnCommonMimeTypeWithEncoding_ReturnsFileExtension() {
+
+        // given
+        Embedding embedding = new Embedding("text/html; charset=UTF-8", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("html");
+    }
+
+    @Test
     public void getExtension__OnTextMimeType_ReturnsText() {
 
         // given

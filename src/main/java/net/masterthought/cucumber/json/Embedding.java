@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.codehaus.plexus.util.Base64;
@@ -63,28 +64,35 @@ public class Embedding {
     }
 
     public String getExtension() {
-        switch (mimeType) {
+        // prepare/ensure switch-case matching
+        String mime = mimeType;
+        // remove subtype's suffix (if existing)
+        if (mime.contains("+")) mime = mime.substring(0, mime.indexOf('+'));
+        // remove subtype's parameter (if existing)
+        if (mime.contains(";")) mime = mime.substring(0, mime.indexOf(';'));
+        // normalise
+        mime = mime.toLowerCase(Locale.ENGLISH).trim();
+
+        switch (mime) {
             case "image/png":
             case "image/gif":
             case "image/bmp":
             case "image/jpeg":
+            case "image/svg":
             case "text/html":
             case "text/xml":
             case "text/csv":
             case "application/json":
+            case "application/pdf":
             case "application/xml":
             case "application/zip":
             case "video/mp4":
-                return mimeType.substring(mimeType.indexOf('/') + 1);
+                return mime.substring(mime.indexOf('/') + 1);
             // image available remotely stored as link/url
             case "image/url":
                 return "image";
-            case "image/svg+xml":
-                return "svg";
             case "text/plain":
                 return "txt";
-            case "application/pdf":
-                return "pdf";
             case "application/x-tar":
                 return "tar";
             case "application/x-bzip2":
