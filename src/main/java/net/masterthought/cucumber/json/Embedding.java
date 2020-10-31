@@ -104,6 +104,19 @@ public class Embedding {
             case "application/vnd.ms-excel":
                 return "xls";
             default:
+                // assert the name is file-name formatted --> try file-name extension
+                if (name != null && name.contains(".")) {
+                    String extension = name.substring(name.lastIndexOf('.') + 1);
+                    // the extension might by usable
+                    if (extension.matches("[a-z0-9]+")) return extension;
+                }
+                // assert the mime-type contains a subtype --> try subtype
+                if (mime.contains("/")) {
+                    String subtype = mime.substring(mime.indexOf('/') + 1);
+                    // the subtype might by usable
+                    if (subtype.matches("[a-z0-9]+")) return subtype;
+                }
+                // if nothing works the extension is unknown
                 return "unknown";
         }
     }

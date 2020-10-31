@@ -231,6 +231,71 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnUnknownType_DeducesPhpFromMimeType() {
+
+        // given
+        Embedding embedding = new Embedding("text/php", "echo 'Hello World!';");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("php");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_DeducesPhp7FromName() {
+
+        // given
+        Embedding embedding = new Embedding("text/php", "echo 'Hello World!';", "hello-world.php7");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("php7");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_DeducesJsFromName() {
+
+        // given
+        Embedding embedding = new Embedding("application/javascript", "alert('Hello World!');", "hello-world.js");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("js");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_DeducesXsltFromMimeType() {
+
+        // given
+        Embedding embedding = new Embedding("application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xslt");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_DeducesXslFromName() {
+
+        // given
+        Embedding embedding = new Embedding("application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "empty-xslt.xsl");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xsl");
+    }
+
+    @Test
     public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given
