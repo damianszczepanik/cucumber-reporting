@@ -296,10 +296,49 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension__OnUnknownType_DeducesXsltFromMimeType_NameNotUsable() {
+
+        // given
+        Embedding embedding = new Embedding("application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "just-some-xslt");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xslt");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_DeducesXsltFromMimeType_FileExtensionNotUsable() {
+
+        // given
+        Embedding embedding = new Embedding("application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "just-some-xslt.weird_extension");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("xslt");
+    }
+
+    @Test
     public void getExtension__OnUnknownType_ReturnsUnknown() {
 
         // given
         Embedding embedding = new Embedding("js", "");
+
+        // when
+        String extension = embedding.getExtension();
+
+        // then
+        assertThat(extension).isEqualTo("unknown");
+    }
+
+    @Test
+    public void getExtension__OnUnknownType_ReturnsUnknown_MimeTypeNotUsable() {
+
+        // given
+        Embedding embedding = new Embedding("application/vnd.tcpdump.pcap", "");
 
         // when
         String extension = embedding.getExtension();
