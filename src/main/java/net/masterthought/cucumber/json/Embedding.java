@@ -126,16 +126,20 @@ public class Embedding {
                 return "xls";
             default:
                 // assert the name is file-name formatted --> try file-name extension
-                if (name != null && name.contains(".")) {
+                if ((name != null) && name.contains(".")) {
                     String extension = name.substring(name.lastIndexOf('.') + 1);
                     // the extension might by usable
-                    if (extension.matches(FILE_EXTENSION_PATTERN)) return extension;
+                    if (extension.matches(FILE_EXTENSION_PATTERN)) {
+                        return extension;
+                    }
                 }
                 // assert the mime-type contains a subtype --> try subtype
                 if (mime.contains("/")) {
                     String subtype = mime.substring(mime.indexOf('/') + 1);
                     // the subtype might by usable
-                    if (subtype.matches(FILE_EXTENSION_PATTERN)) return subtype;
+                    if (subtype.matches(FILE_EXTENSION_PATTERN)) {
+                        return subtype;
+                    }
                 }
                 // if nothing works the extension is unknown
                 return UNKNOWN_FILE_EXTENSION;
