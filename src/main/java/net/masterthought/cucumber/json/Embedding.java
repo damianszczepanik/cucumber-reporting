@@ -14,6 +14,10 @@ import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 @JsonDeserialize(using = EmbeddingDeserializer.class)
 public class Embedding {
 
+    private static final String FILE_EXTENSION_PATTERN = "[a-z0-9]+";
+
+    private static final String UNKNOWN_FILE_EXTENSION = "unknown";
+    
     // Start: attributes from JSON file report
     private final String mimeType;
     private final String data;
@@ -63,6 +67,23 @@ public class Embedding {
         return fileId;
     }
 
+    /**
+     * Returns the file extension of this embedding (attachment).
+     * 
+     * In case the {{@link #getMimeType() embedding's MIME-type} is well-known, the according file extension is returned
+     * immediately.
+     * 
+     * In case the MIME-type is unknown, as a first try the {@link #getName() embedding's name} will be used in order to
+     * derive a file extension. If the name contains a file name delimiter (i.e., "{@code .}"), the following characters are
+     * used as the file extension as long as they match {@value #FILE_EXTENSION_PATTERN}. As a second try, the MIME-type's
+     * subtype will be used in order to derive a file extension (as long as such subtype is given). Similar, the subtype is
+     * used as the file extension as long as it matches {@value #FILE_EXTENSION_PATTERN}.
+     * 
+     * Finally (if neither a file extension is known nor can be derived), the value {@value #UNKNOWN_FILE_EXTENSION} will be
+     * returned.
+     * 
+     * @return the file extension of this embedding (attachment)
+     */
     public String getExtension() {
         // prepare/ensure switch-case matching
         String mime = mimeType;
@@ -108,16 +129,16 @@ public class Embedding {
                 if (name != null && name.contains(".")) {
                     String extension = name.substring(name.lastIndexOf('.') + 1);
                     // the extension might by usable
-                    if (extension.matches("[a-z0-9]+")) return extension;
+                    if (extension.matches(FILE_EXTENSION_PATTERN)) return extension;
                 }
                 // assert the mime-type contains a subtype --> try subtype
                 if (mime.contains("/")) {
                     String subtype = mime.substring(mime.indexOf('/') + 1);
                     // the subtype might by usable
-                    if (subtype.matches("[a-z0-9]+")) return subtype;
+                    if (subtype.matches(FILE_EXTENSION_PATTERN)) return subtype;
                 }
                 // if nothing works the extension is unknown
-                return "unknown";
+                return UNKNOWN_FILE_EXTENSION;
         }
     }
 }
