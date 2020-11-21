@@ -26,6 +26,22 @@ public class EmbeddingTest {
             { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }", ".type" },
             { "text/xml", "some data", NO_DECODING, "embedding_-642587818.xml" },
             { "image/svg+xml", "some data", NO_DECODING, "embedding_-642587818.svg" },
+            { "text/html", "<html />", NO_DECODING, ".html" },
+            { "text/html; charset=UTF-8", "", NO_DECODING, ".html" },
+            { "text/plain", "", NO_DECODING, ".txt" },
+            { "image/url", "", NO_DECODING, ".image" },
+            { "application/pdf", "", NO_DECODING, ".pdf" },
+            { "application/zip", "", NO_DECODING, ".zip" },
+            { "application/x-tar", "", NO_DECODING, ".tar" },
+            { "application/x-bzip2", "", NO_DECODING, ".bz2" },
+            { "application/gzip", "", NO_DECODING, ".gz" },
+            { "video/mp4", "", NO_DECODING, ".mp4" },
+            { "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "", NO_DECODING, ".xlsx" },
+            { "application/vnd.ms-excel", "", NO_DECODING, ".xls" },
+            { "text/php", "echo 'Hello World!';", NO_DECODING, ".php" },
+            { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", NO_DECODING, ".xslt" },
+            { "js", "", NO_DECODING, ".unknown" },
+            { "application/vnd.tcpdump.pcap", "", NO_DECODING, ".unknown" },
         });
     }
 
@@ -79,7 +95,6 @@ public class EmbeddingTest {
         assertThat(actualDecodedContent).isEqualTo(this.decodedData);
     }
 
-
     @Test
     public void getFileName_ReturnsFileName() {
         assumeThat(this.fileName).matches("^[^\\.]+\\.[^\\.]+$");
@@ -95,170 +110,18 @@ public class EmbeddingTest {
     }
 
     @Test
-    public void getExtension__OnCommonMimeType_ReturnsFileExtension() {
-
+    public void getExtension_ReturnsFileExtension() {
         // given
-        Embedding embedding = new Embedding("text/html", "");
+        Embedding embedding = new Embedding(this.mimeType, this.data);
 
         // when
-        String extension = embedding.getExtension();
+        String actualExtension = embedding.getExtension();
 
         // then
-        assertThat(extension).isEqualTo("html");
+        assertThat(actualExtension).isEqualTo(this.fileName.split("\\.")[1]);
     }
 
-    @Test
-    public void getExtension__OnCommonMimeTypeWithEncoding_ReturnsFileExtension() {
-
-        // given
-        Embedding embedding = new Embedding("text/html; charset=UTF-8", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("html");
-    }
-
-    @Test
-    public void getExtension__OnTextMimeType_ReturnsText() {
-
-        // given
-        Embedding embedding = new Embedding("text/plain", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("txt");
-    }
-
-    @Test
-    public void getExtension__OnImageUrlMimeType_ReturnsTxt() {
-
-        // given
-        Embedding embedding = new Embedding("image/url", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("image");
-    }
-
-    @Test
-    public void getExtension__OnApplicationPdfMimeType_ReturnsPdf() {
-
-        // given
-        Embedding embedding = new Embedding("application/pdf", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("pdf");
-    }
-
-    @Test
-    public void getExtension__OnApplicationZipMimeType_ReturnsZip() {
-
-        // given
-        Embedding embedding = new Embedding("application/zip", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("zip");
-    }
-
-    @Test
-    public void getExtension__OnApplicationXTarMimeType_ReturnsTar() {
-
-        // given
-        Embedding embedding = new Embedding("application/x-tar", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("tar");
-    }
-
-    @Test
-    public void getExtension__OnApplicationXBZip2MimeType_ReturnsBZ2() {
-
-        // given
-        Embedding embedding = new Embedding("application/x-bzip2", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("bz2");
-    }
-
-    @Test
-    public void getExtension__OnApplicationGZipMimeType_ReturnsGZ() {
-
-        // given
-        Embedding embedding = new Embedding("application/gzip", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("gz");
-    }
-
-    @Test
-    public void getExtension__OnVideoMp4MimeType_ReturnsMp4() {
-        // given
-        Embedding embedding = new Embedding("video/mp4", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("mp4");
-    }
-
-    @Test
-    public void getExtension__OnApplicationOpenXMLFormatsOfficeDocumentSpreadsheetMimeType_ReturnsXlsx() {
-        // given
-        Embedding embedding = new Embedding("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("xlsx");
-    }
-
-    @Test
-    public void getExtension__OnApplicationVNDMsExcelMimeType_ReturnsXls() {
-        // given
-        Embedding embedding = new Embedding("application/vnd.ms-excel", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("xls");
-    }
-
-    @Test
-    public void getExtension__OnUnknownType_DeducesPhpFromMimeType() {
-
-        // given
-        Embedding embedding = new Embedding("text/php", "echo 'Hello World!';");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("php");
-    }
+    /* ************* */
 
     @Test
     public void getExtension__OnUnknownType_DeducesPhp7FromName() {
@@ -284,19 +147,6 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("js");
-    }
-
-    @Test
-    public void getExtension__OnUnknownType_DeducesXsltFromMimeType() {
-
-        // given
-        Embedding embedding = new Embedding("application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("xslt");
     }
 
     @Test
@@ -336,32 +186,6 @@ public class EmbeddingTest {
 
         // then
         assertThat(extension).isEqualTo("xslt");
-    }
-
-    @Test
-    public void getExtension__OnUnknownType_ReturnsUnknown() {
-
-        // given
-        Embedding embedding = new Embedding("js", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("unknown");
-    }
-
-    @Test
-    public void getExtension__OnUnknownType_ReturnsUnknown_MimeTypeNotUsable() {
-
-        // given
-        Embedding embedding = new Embedding("application/vnd.tcpdump.pcap", "");
-
-        // when
-        String extension = embedding.getExtension();
-
-        // then
-        assertThat(extension).isEqualTo("unknown");
     }
 
     @Test
