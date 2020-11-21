@@ -95,25 +95,15 @@ public class Embedding {
         mime = mime.toLowerCase(Locale.ENGLISH).trim();
 
         switch (mime) {
-            case "image/png":
-            case "image/gif":
-            case "image/bmp":
-            case "image/jpeg":
-            case "image/svg":
-            case "text/html":
-            case "text/xml":
-            case "text/csv":
-            case "application/json":
-            case "application/pdf":
-            case "application/xml":
-            case "application/zip":
-            case "video/mp4":
-                return mime.substring(mime.indexOf('/') + 1);
             // image available remotely stored as link/url
             case "image/url":
                 return "image";
             case "text/plain":
                 return "txt";
+            case "application/ecmascript":
+                return "es";
+            case "application/javascript":
+                return "js";
             case "application/x-tar":
                 return "tar";
             case "application/x-bzip2":
