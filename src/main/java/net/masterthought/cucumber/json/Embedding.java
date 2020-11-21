@@ -114,6 +114,10 @@ public class Embedding {
                 return "image";
             case "text/plain":
                 return "txt";
+            case "application/ecmascript":
+                return "es";
+            case "application/javascript":
+                return "js";
             case "application/x-tar":
                 return "tar";
             case "application/x-bzip2":
