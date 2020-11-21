@@ -19,6 +19,7 @@ public class EmbeddingTest {
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
             { "my mime TYPE", "abc" },
+            { "mime/type", "your data" },
         });
     }
 
@@ -42,16 +43,14 @@ public class EmbeddingTest {
 
     @Test
     public void getData_ReturnsContent() {
-
         // given
-        final String data = "your data";
-        Embedding embedding = new Embedding("mime/type", data);
+        Embedding embedding = new Embedding(this.mimeType, this.data);
 
         // when
-        String content = embedding.getData();
+        String actualContent = embedding.getData();
 
         // then
-        assertThat(content).isEqualTo(data);
+        assertThat(actualContent).isEqualTo(data);
     }
 
     @Test
