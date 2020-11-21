@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -15,11 +16,14 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class EmbeddingTest {
 
+    private static final String NO_DECODING = null;
+
     @Parameters(name = "\"{0}\" with \"{1}\"")
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
-            { "my mime TYPE", "abc" },
-            { "mime/type", "your data" },
+            { "my mime TYPE", "abc", NO_DECODING },
+            { "mime/type", "your data", NO_DECODING },
+            { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }" },
         });
     }
 
@@ -28,6 +32,9 @@ public class EmbeddingTest {
 
     @Parameter(1)
     public String data;
+
+    @Parameter(2)
+    public String decodedData;
 
     @Test
     public void getMimeType_ReturnsMimeType() {
@@ -55,15 +62,16 @@ public class EmbeddingTest {
 
     @Test
     public void getDecodedData_ReturnsDecodedContent() {
-
+        assumeThat(this.decodedData).isNotEqualTo(NO_DECODING);
+        
         // given
-        Embedding embedding = new Embedding("mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=");
+        Embedding embedding = new Embedding(this.mimeType, this.data);
 
         // when
-        String content = embedding.getDecodedData();
+        String actualDecodedContent = embedding.getDecodedData();
 
         // then
-        assertThat(content).isEqualTo("function logger(message) {  }");
+        assertThat(actualDecodedContent).isEqualTo(this.decodedData);
     }
 
 
