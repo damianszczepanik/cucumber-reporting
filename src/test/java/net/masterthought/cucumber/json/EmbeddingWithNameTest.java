@@ -26,6 +26,7 @@ public class EmbeddingWithNameTest {
             { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "filename-without-extension", NO_DECODING, ".xslt" },
             { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "filename-with.invalid_extension", NO_DECODING, ".xslt" },
             { "text/jscript", "alert('Hello World!');", "hello-world.js", NO_DECODING, ".js" },
+            { "text/markdown", "c29tZSBkYXRh", "memo.md", "some data", "embedding_-1003041823.md" },
             { "text/php", "echo 'Hello World!';", "hello-world.php7", NO_DECODING, ".php7" },
         });
     }
