@@ -21,9 +21,11 @@ public class EmbeddingTest {
     @Parameters(name = "\"{0}\" with \"{1}\"")
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
-            { "my mime TYPE", "abc", NO_DECODING },
-            { "mime/type", "your data", NO_DECODING },
-            { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }" },
+            { "my mime TYPE", "abc", NO_DECODING, "unknown" },
+            { "mime/type", "your data", NO_DECODING, "type" },
+            { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }", "type" },
+            { "text/xml", "some data", NO_DECODING, "embedding_-642587818.xml" },
+            { "image/svg+xml", "some data", NO_DECODING, "embedding_-642587818.svg" },
         });
     }
 
@@ -35,6 +37,9 @@ public class EmbeddingTest {
 
     @Parameter(2)
     public String decodedData;
+
+    @Parameter(3)
+    public String fileName;
 
     @Test
     public void getMimeType_ReturnsMimeType() {
@@ -77,28 +82,16 @@ public class EmbeddingTest {
 
     @Test
     public void getFileName_ReturnsFileName() {
+        assumeThat(this.fileName).contains(".");
 
         // given
-        Embedding embedding = new Embedding("text/xml", "some data");
+        Embedding embedding = new Embedding(this.mimeType, this.data);
 
         // when
-        String fileName = embedding.getFileName();
+        String actualFileName = embedding.getFileName();
 
         // then
-        assertThat(fileName).isEqualTo("embedding_-642587818.xml");
-    }
-
-    @Test
-    public void getFileName_ReturnsFileNameForSVG() {
-
-        // given
-        Embedding embedding = new Embedding("image/svg+xml", "some data");
-
-        // when
-        String fileName = embedding.getFileName();
-
-        // then
-        assertThat(fileName).isEqualTo("embedding_-642587818.svg");
+        assertThat(actualFileName).isEqualTo(this.fileName);
     }
 
     @Test
