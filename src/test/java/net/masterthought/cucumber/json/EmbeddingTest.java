@@ -21,9 +21,9 @@ public class EmbeddingTest {
     @Parameters(name = "\"{0}\" with \"{1}\"")
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
-            { "my mime TYPE", "abc", NO_DECODING, "unknown" },
-            { "mime/type", "your data", NO_DECODING, "type" },
-            { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }", "type" },
+            { "my mime TYPE", "abc", NO_DECODING, ".unknown" },
+            { "mime/type", "your data", NO_DECODING, ".type" },
+            { "mime/type", "ZnVuY3Rpb24gbG9nZ2VyKG1lc3NhZ2UpIHsgIH0=", "function logger(message) {  }", ".type" },
             { "text/xml", "some data", NO_DECODING, "embedding_-642587818.xml" },
             { "image/svg+xml", "some data", NO_DECODING, "embedding_-642587818.svg" },
         });
@@ -82,7 +82,7 @@ public class EmbeddingTest {
 
     @Test
     public void getFileName_ReturnsFileName() {
-        assumeThat(this.fileName).contains(".");
+        assumeThat(this.fileName).matches("^[^\\.]+\\.[^\\.]+$");
 
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data);
