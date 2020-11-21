@@ -121,6 +121,18 @@ public class EmbeddingTest {
         assertThat(actualExtension).isEqualTo(this.fileName.split("\\.")[1]);
     }
 
+    @Test
+    public void getName_ReturnsNull() {
+        // given
+        Embedding embedding = new Embedding(this.mimeType, this.data);
+
+        // when
+        String actualName = embedding.getName();
+
+        // then
+        assertThat(actualName).isNull();
+    }
+
     /* ************* */
 
     @Test
