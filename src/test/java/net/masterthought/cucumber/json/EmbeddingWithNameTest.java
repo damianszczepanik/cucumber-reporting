@@ -22,6 +22,7 @@ public class EmbeddingWithNameTest {
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
             { "application/javascript", "alert('Hello World!');", "hello-world.js", NO_DECODING, ".js" },
+            { "application/xhtml+xml; charset=UTF-8", "c29tZSBkYXRh", "data.xhtm", "some data", "embedding_-1003041823.xhtm" },
             { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "filename-with-different-extension.xsl", NO_DECODING, ".xsl" },
             { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "filename-without-extension", NO_DECODING, ".xslt" },
             { "application/xslt+xml", "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" />", "filename-with.invalid_extension", NO_DECODING, ".xslt" },
