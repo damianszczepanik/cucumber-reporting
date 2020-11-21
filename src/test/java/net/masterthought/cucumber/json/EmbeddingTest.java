@@ -21,7 +21,9 @@ public class EmbeddingTest {
     @Parameters(name = "\"{0}\" with \"{1}\"")
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
+            { "application/ecmascript", "console.log('Hello world');", NO_DECODING, ".es" },
             { "application/gzip", "c29tZSBkYXRh", "some data", "embedding_-1003041823.gz" },
+            { "application/javascript", "alert('Hello World!');", NO_DECODING, ".js" },
             { "application/json", "c29tZSBkYXRh", "some data", "embedding_-1003041823.json" },
             { "application/pdf", "c29tZSBkYXRh", "some data", "embedding_-1003041823.pdf" },
             { "application/vnd.ms-excel", "c29tZSBkYXRh", "some data", "embedding_-1003041823.xls" },
