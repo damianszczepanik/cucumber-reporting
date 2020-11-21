@@ -1,26 +1,43 @@
 package net.masterthought.cucumber.json;
 
-import org.junit.Test;
-
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
+ * @author <a href="https://github.com/itbsg">Stefan Gasterstädt</a>
  */
+@RunWith(Parameterized.class)
 public class EmbeddingTest {
+
+    @Parameters(name = "\"{0}\" with \"{1}\"")
+    public static Iterable<Object[]> data() {
+        return asList(new Object[][] {
+            { "my mime TYPE", "abc" },
+        });
+    }
+
+    @Parameter(0)
+    public String mimeType;
+
+    @Parameter(1)
+    public String data;
 
     @Test
     public void getMimeType_ReturnsMimeType() {
-
         // given
-        final String refMimeType = "my mime TYPE";
-        Embedding embedding = new Embedding(refMimeType, "abc");
+        Embedding embedding = new Embedding(this.mimeType, this.data);
 
         // when
-        String mimeType = embedding.getMimeType();
+        String actualMimeType = embedding.getMimeType();
 
         // then
-        assertThat(mimeType).isEqualTo(refMimeType);
+        assertThat(actualMimeType).isEqualTo(this.mimeType);
     }
 
     @Test
