@@ -20,8 +20,6 @@ public class StatusCounter {
      */
     private Status finalStatus = Status.PASSED;
 
-    private int size = 0;
-
     public StatusCounter(Resultsable[] resultsables) {
         this(resultsables, Collections.emptySet());
     }
@@ -53,7 +51,6 @@ public class StatusCounter {
     public void incrementFor(Status status) {
         final int statusCounter = getValueFor(status) + 1;
         this.counter.put(status, statusCounter);
-        size++;
 
         if (finalStatus == Status.PASSED && status != Status.PASSED) {
             finalStatus = Status.FAILED;
@@ -76,7 +73,7 @@ public class StatusCounter {
      * @return sum of all occurrences for all statuses
      */
     public int size() {
-        return size;
+        return counter.values().stream().mapToInt(Integer::valueOf).sum();
     }
 
     /**
