@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  *
  * Uses when need to generate a report with rerun results of failed tests.
  */
-final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
+class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
 
     private static final String ERROR = "You are not able to use this type of results merge. The start_timestamp field" +
             " should be part of element object. Please, update the cucumber-jvm version.";
@@ -63,10 +63,7 @@ final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
                 }
                 else {
                     if (replaceIfExists(feature.getElements()[indexOfPreviousResult], current)) {
-                        feature.getElements()[indexOfPreviousResult] = current;
-                        if (hasBackground && isBackground(indexOfPreviousResult - 1, feature.getElements())) {
-                            feature.getElements()[indexOfPreviousResult - 1] = elements[i - 1];
-                        }
+                        replace(feature, elements, i, current, indexOfPreviousResult, hasBackground);
                     }
                 }
             }
@@ -109,4 +106,13 @@ final class ReportFeatureWithRetestMerger implements ReportFeatureMerger {
     public boolean test(List<ReducingMethod> reducingMethods) {
         return reducingMethods != null && reducingMethods.contains(ReducingMethod.MERGE_FEATURES_WITH_RETEST);
     }
+
+    protected void replace(Feature feature, Element[] elements, int i, Element current, int indexOfPreviousResult,
+                           boolean hasBackground) {
+        feature.getElements()[indexOfPreviousResult] = current;
+        if (hasBackground && isBackground(indexOfPreviousResult - 1, feature.getElements())) {
+            feature.getElements()[indexOfPreviousResult - 1] = elements[i - 1];
+        }
+    }
+
 }

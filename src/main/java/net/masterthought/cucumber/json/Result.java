@@ -14,7 +14,7 @@ public class Result implements Durationable {
     // for all cases where Result is not present or completed
     private final Status status = Status.UNDEFINED;
     @JsonProperty("error_message")
-    private final String errorMessage = null;
+    private String errorMessage = null;
     private final Long duration = 0L;
     // End: attributes from JSON file report
 
@@ -34,6 +34,10 @@ public class Result implements Durationable {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public final String getErrorMessageTitle() {

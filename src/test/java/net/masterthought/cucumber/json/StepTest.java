@@ -1,12 +1,12 @@
 package net.masterthought.cucumber.json;
 
+import static org.apache.commons.lang3.ArrayUtils.add;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -113,6 +113,36 @@ public class StepTest extends PageTest {
         assertThat(embeddings).hasSize(1);
         assertThat(embeddings[0].getMimeType()).isEqualTo("application/json");
     }
+
+    @Test
+    public void hasEmbeddings() {
+
+        // given
+
+        // when
+        Step step = features.get(1).getElements()[0].getSteps()[6];
+
+        // then
+        assertThat(step.hasEmbeddings()).isTrue();
+    }
+
+    @Test
+    public void setEmbeddings() {
+
+        // given
+        Step step = features.get(1).getElements()[0].getSteps()[6];
+        Embedding[] embeddings = step.getEmbeddings();
+        Embedding[] updatedEmbeddings = add(embeddings, new Embedding("mime/type", "your data"));
+
+        // when
+        step.setEmbeddings(updatedEmbeddings);
+
+        // then
+        assertThat(updatedEmbeddings).hasSize(2);
+        assertThat(updatedEmbeddings[1].getMimeType()).isEqualTo("mime/type");
+        assertThat(updatedEmbeddings[1].getData()).isEqualTo("your data");
+    }
+
 
     @Test
     public void getResult_ReturnResult() {

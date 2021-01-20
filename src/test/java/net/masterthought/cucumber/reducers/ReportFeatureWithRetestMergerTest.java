@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
+import static java.lang.Boolean.FALSE;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_WITH_RETEST;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,6 +73,25 @@ public class ReportFeatureWithRetestMergerTest {
 
         // when
         merger.updateElements(feature, newElements);
+
+        // then
+        assertThat(feature.getElements()).hasSize(3);
+        assertThat(feature.getElements()[0]).isSameAs(newElements[0]);
+    }
+
+    @Test
+    public void replace() throws IllegalAccessException {
+        // given
+        Feature feature = new Feature();
+        Element[] elements = {buildScenario(), buildBackground(), buildScenario()};
+        MemberModifier
+                .field(Feature.class, "elements")
+                .set(feature, elements);
+
+        Element[] newElements = {buildElement(elements[0].getId(), false)};
+
+        // when
+        merger.replace(feature, elements, 0, newElements[0], 0, FALSE);
 
         // then
         assertThat(feature.getElements()).hasSize(3);

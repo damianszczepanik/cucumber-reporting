@@ -1,7 +1,5 @@
 package net.masterthought.cucumber.json;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.masterthought.cucumber.Configuration;
@@ -11,6 +9,8 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
 import org.apache.commons.lang.StringUtils;
+
+import java.time.LocalDateTime;
 
 public class Element implements Durationable {
 
@@ -31,11 +31,11 @@ public class Element implements Durationable {
      */
     @JsonProperty("start_timestamp")
     private final LocalDateTime startTime = null;
-    private final Step[] steps = new Step[0];
-    private final Hook[] before = new Hook[0];
-    private final Hook[] after = new Hook[0];
+    private Step[] steps = new Step[0];
+    private Hook[] before = new Hook[0];
+    private Hook[] after = new Hook[0];
     @JsonDeserialize(using = TagsDeserializer.class)
-    private final Tag[] tags = new Tag[0];
+    private Tag[] tags = new Tag[0];
     // End: attributes from JSON file report
 
     private static final String SCENARIO_TYPE = "scenario";
@@ -63,6 +63,10 @@ public class Element implements Durationable {
 
     public Tag[] getTags() {
         return tags;
+    }
+
+    public void setTags(Tag[] tags) {
+        this.tags = tags;
     }
 
     public Status getStatus() {
@@ -129,6 +133,18 @@ public class Element implements Durationable {
     @Override
     public String getFormattedDuration() {
         return Util.formatDuration(duration);
+    }
+
+    public boolean isStatus(Status status) {
+        for (Step step : steps) {
+            step.setMetaData();
+        }
+
+        beforeStatus = new StatusCounter(before).getFinalStatus();
+        afterStatus = new StatusCounter(after).getFinalStatus();
+        stepsStatus = new StatusCounter(steps).getFinalStatus();
+        elementStatus = calculateElementStatus();
+        return elementStatus == status;
     }
 
     public void setMetaData(Feature feature, Configuration configuration) {

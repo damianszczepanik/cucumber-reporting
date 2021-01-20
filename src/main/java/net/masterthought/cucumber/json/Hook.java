@@ -2,12 +2,12 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
+import net.masterthought.cucumber.json.support.Embedded;
+import net.masterthought.cucumber.json.support.Resultsable;
 import org.apache.commons.lang.StringUtils;
 
-import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
-import net.masterthought.cucumber.json.support.Resultsable;
-
-public class Hook implements Resultsable {
+public class Hook implements Resultsable, Embedded {
 
     // Start: attributes from JSON file report
     private final Result result = null;
@@ -18,7 +18,7 @@ public class Hook implements Resultsable {
     private final Output[] outputs = new Output[0];
 
     // foe Ruby reports
-    private final Embedding[] embeddings = new Embedding[0];
+    private Embedding[] embeddings = new Embedding[0];
     // End: attributes from JSON file report
 
     @Override
@@ -36,8 +36,14 @@ public class Hook implements Resultsable {
         return outputs;
     }
 
+    @Override
     public Embedding[] getEmbeddings() {
         return embeddings;
+    }
+
+    @Override
+    public void setEmbeddings(Embedding[] embeddings) {
+        this.embeddings = embeddings;
     }
 
     /**
@@ -46,7 +52,7 @@ public class Hook implements Resultsable {
      * @return <code>true</code> if the hook has content otherwise <code>false</code>
      */
     public boolean hasContent() {
-        if (embeddings.length > 0) {
+        if (hasEmbeddings()) {
             // assuming that if the embedding exists then it is not empty
             return true;
         }
@@ -55,5 +61,10 @@ public class Hook implements Resultsable {
         }
         // TODO: hook with 'output' should be treated as empty or not?
         return false;
+    }
+
+    @Override
+    public boolean hasEmbeddings() {
+        return embeddings.length > 0;
     }
 }
