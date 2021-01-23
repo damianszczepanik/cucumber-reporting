@@ -12,11 +12,13 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.Tag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = JsonNode.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class TagsDeserializerTest {
 
     @Test
