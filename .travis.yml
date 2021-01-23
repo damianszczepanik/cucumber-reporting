@@ -1,41 +1,41 @@
 language: java
 
-dist: trusty
-
 cache:
   directories:
-  - ~/.m2
+    - ~/.m2
+
+git:
+  depth: false # remove the --depth to support full git blame by Sonarqube
 
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   # via the "travis encrypt" command using the project repo's public key
-   - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    # via the "travis encrypt" command using the project repo's public key
+    - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
 
 before_install:
-  # Workaround for issue http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7089443
-  # - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
   # Needed to publish sample report on github pages successfully
   - gem install public_suffix -v 3.0.3
 
-addons:
-  hosts:
-    - myshorthost
-  hostname: myshorthost
-
 matrix:
   include:
-    - jdk: oraclejdk8
+    - jdk: oraclejdk11
       env:
-        - DESC="tests"
+        - DESC="tests by oracle"
       script:
         - mvn clean verify
 
-    - jdk: oraclejdk8
+    - jdk: openjdk11
+      env:
+        - DESC="tests by openjdk"
+      script:
+        - mvn clean verify
+
+    - jdk: oraclejdk11
       env:
         - DESC="static analysis"
       script:
-        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=damianszczepanik_cucumber-reporting
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test install sonar:sonar -Dsonar.projectKey=damianszczepanik_silencio
 
 after_success:
   # push report to codecov server
@@ -53,7 +53,6 @@ deploy:
   on:
     branch: master
 
-# https://docs.travis-ci.com/user/sonarcloud/ without securing token
 addons:
   sonarcloud:
     organization: "damianszczepanik"

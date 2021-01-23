@@ -5,21 +5,22 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
+import java.util.Locale;
+
 import com.fasterxml.jackson.databind.JsonNode;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import net.masterthought.cucumber.json.support.Status;
-
-import java.util.Locale;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(value = JsonNode.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class StatusDeserializerTest {
 
     @Test

@@ -3,6 +3,8 @@ package net.masterthought.cucumber.json;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -14,6 +16,7 @@ import org.junit.runners.Parameterized.Parameters;
  * @author <a href="https://github.com/ghostcity">Stefan Gasterstädt</a>
  */
 @RunWith(Parameterized.class)
+@Ignore // TODO: https://github.com/damianszczepanik/cucumber-reporting/pull/978/files
 public class EmbeddingTest {
 
     private static final String NO_DECODING = null;
