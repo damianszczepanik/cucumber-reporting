@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
@@ -27,7 +28,7 @@ import net.masterthought.cucumber.generators.TagsOverviewPage;
 import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 public class ReportBuilder {
 
@@ -83,9 +84,6 @@ public class ReportBuilder {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
 
-            // create directory for embeddings before files are generated
-            createEmbeddingsDirectory();
-
             // add metadata info sourced from files
             reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
 
@@ -133,18 +131,14 @@ public class ReportBuilder {
         copyResources("images", "favicon.png");
     }
 
-    private void createEmbeddingsDirectory() {
-        configuration.getEmbeddingDirectory().mkdirs();
-    }
-
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
             File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
                     BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
             // don't change this implementation unless you verified it works on Jenkins
-            try {
-                FileUtils.copyInputStreamToFile(
-                        this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
+            try (InputStream resourceAsStream = getClass().getResourceAsStream("/" + resourceLocation + "/" + resource)) {
+                final byte[] resourceAsBytes = IOUtils.toByteArray(resourceAsStream);
+                configuration.getOutputHandlers().forEach(outputHandler -> outputHandler.handle(tempFile, resourceAsBytes));
             } catch (IOException e) {
                 // based on FileUtils implementation, should never happen even is declared
                 throw new ValidationException(e);
