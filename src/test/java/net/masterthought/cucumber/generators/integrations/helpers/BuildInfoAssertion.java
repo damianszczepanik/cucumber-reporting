@@ -15,7 +15,7 @@ public class BuildInfoAssertion extends TableAssertion {
 
     public String getBuildNumber() {
         WebAssertion[] cells = getBodyRow().getCells();
-        assertThat(cells.length).isGreaterThan(1);
+        assertThat(cells).hasSizeGreaterThanOrEqualTo(2);
         return cells[1].text();
     }
 

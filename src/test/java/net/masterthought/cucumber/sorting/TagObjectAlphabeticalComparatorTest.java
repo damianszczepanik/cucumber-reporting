@@ -4,9 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Comparator;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -26,7 +25,7 @@ public class TagObjectAlphabeticalComparatorTest {
         int result = comparator.compare(tag1, tag2);
 
         // then
-        assertThat(result).isNotEqualTo(0);
+        assertThat(result).isNotZero();
     }
 
     @Test
@@ -40,6 +39,6 @@ public class TagObjectAlphabeticalComparatorTest {
         int result = comparator.compare(tag1, tag2);
 
         // then
-        assertThat(result).isEqualTo(0);
+        assertThat(result).isZero();
     }
 }

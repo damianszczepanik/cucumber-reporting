@@ -3,11 +3,10 @@ package net.masterthought.cucumber.json;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import mockit.Deencapsulation;
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -187,8 +186,8 @@ public class FeatureTest extends PageTest {
         Feature passedFeature = features.get(0);
 
         // then
-        assertThat(passedFeature.getPassedFeatures()).isEqualTo(1);
-        assertThat(passedFeature.getFailedFeatures()).isEqualTo(0);
+        assertThat(passedFeature.getPassedFeatures()).isOne();
+        assertThat(passedFeature.getFailedFeatures()).isZero();
     }
 
     @Test
@@ -198,8 +197,8 @@ public class FeatureTest extends PageTest {
         Feature failedFeature = features.get(1);
 
         // then
-        assertThat(failedFeature.getPassedFeatures()).isEqualTo(0);
-        assertThat(failedFeature.getFailedFeatures()).isEqualTo(1);
+        assertThat(failedFeature.getPassedFeatures()).isZero();
+        assertThat(failedFeature.getFailedFeatures()).isOne();
     }
 
     @Test
