@@ -3,10 +3,9 @@ package net.masterthought.cucumber.generators;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import net.masterthought.cucumber.json.support.Status;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Test;
-
-import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -66,7 +65,7 @@ public class OverviewReportTest {
         // when
         int featuresSize = report.getPassedFeatures();
 
-        assertThat(featuresSize).isEqualTo(0);
+        assertThat(featuresSize).isZero();
     }
 
 

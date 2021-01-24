@@ -14,14 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 import mockit.Deencapsulation;
+import net.masterthought.cucumber.generators.OverviewReport;
+import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import net.masterthought.cucumber.generators.OverviewReport;
-import net.masterthought.cucumber.json.Feature;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -50,8 +49,8 @@ public class ReportBuilderTest extends ReportGenerator {
     public void cleanUp() throws IOException {
         FileUtils.deleteDirectory(reportDirectory);
         if (configuration != null) {
-			FileUtils.deleteDirectory(new File(configuration.getReportDirectory(), 
-					ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
+            FileUtils.deleteDirectory(new File(configuration.getReportDirectory(),
+                    ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
         }
     }
 
@@ -220,7 +219,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(countHtmlFiles(configuration).length).isEqualTo(9);
+        assertThat(countHtmlFiles(configuration)).hasSize(9);
     }
 
     @Test
@@ -237,7 +236,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Deencapsulation.invoke(builder, "generatePages", new Trends());
 
         // then
-        assertThat(countHtmlFiles(configuration).length).isEqualTo(10);
+        assertThat(countHtmlFiles(configuration)).hasSize(10);
     }
 
     @Test
@@ -346,7 +345,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
 
         // then
-        assertThat(trends.getBuildNumbers()).hasSize(0);
+        assertThat(trends.getBuildNumbers()).isEmpty();
     }
 
     @Test
@@ -360,7 +359,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
 
         // then
-        assertThat(trends.getBuildNumbers()).hasSize(0);
+        assertThat(trends.getBuildNumbers()).isEmpty();
     }
 
     @Test
@@ -485,10 +484,10 @@ public class ReportBuilderTest extends ReportGenerator {
         // then
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
     }
-    
+
     private File[] countHtmlFiles(Configuration configuration) {
-    	FileFilter fileFilter = new WildcardFileFilter("*.html");
-    	File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 

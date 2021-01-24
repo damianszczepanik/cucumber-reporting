@@ -38,14 +38,13 @@ public class TableRowAssertion extends ReportAssertion {
 
     /**
      * Validates the row cells' text match the given passed values.
-     * 
-     * @param values
-     *            reference element to compare with
+     *
+     * @param values reference element to compare with
      */
     public void hasExactValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
-        assertThat(array.length).isEqualTo(values.length);
+        assertThat(array).hasSameSizeAs(values);
 
         for (int i = 0; i < values.length; i++) {
             assertThat(array[i].text()).describedAs("Invalid value at index %d", i).isEqualTo(values[i]);
@@ -55,8 +54,7 @@ public class TableRowAssertion extends ReportAssertion {
     /**
      * Validates the row cells' class names contain the given values.
      *
-     * @param classes
-     *            reference element to compare with
+     * @param classes reference element to compare with
      */
     public void hasExactCSSClasses(String... classes) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
@@ -75,13 +73,12 @@ public class TableRowAssertion extends ReportAssertion {
     /**
      * Validates the row cells' data-value attribute values match the given values.
      *
-     * @param values
-     *            reference element to compare with
+     * @param values reference element to compare with
      */
     public void hasExactDataValues(String... values) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
-        assertThat(array.length).isEqualTo(values.length);
+        assertThat(array).hasSameSizeAs(values);
 
         for (int i = 0; i < values.length; i++) {
             if (StringUtils.isEmpty(values[i])) {

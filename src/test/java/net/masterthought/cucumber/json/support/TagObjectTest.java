@@ -5,13 +5,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Element;
+import org.apache.commons.lang.NotImplementedException;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -153,7 +152,7 @@ public class TagObjectTest extends PageTest {
         }
 
         // then
-        assertThat(tag.getFailedScenarios()).isEqualTo(0);
+        assertThat(tag.getFailedScenarios()).isZero();
     }
 
     @Test
@@ -203,8 +202,8 @@ public class TagObjectTest extends PageTest {
 
         // then
         assertThat(tag.getNumberOfStatus(Status.PASSED)).isEqualTo(10);
-        assertThat(tag.getNumberOfStatus(Status.FAILED)).isEqualTo(0);
-        assertThat(tag.getNumberOfStatus(Status.PENDING)).isEqualTo(0);
+        assertThat(tag.getNumberOfStatus(Status.FAILED)).isZero();
+        assertThat(tag.getNumberOfStatus(Status.PENDING)).isZero();
     }
 
     @Test

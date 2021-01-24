@@ -70,7 +70,7 @@ public class ReportParser {
                 continue;
             }
             Feature[] features = parseForFeature(jsonFile);
-            LOG.log(Level.INFO, String.format("File '%s' contains %d features", jsonFile, features.length));
+            LOG.log(Level.INFO, () -> String.format("File '%s' contains %d features", jsonFile, features.length));
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -92,7 +92,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.log(Level.INFO, "File '{0}' does not contain features", jsonFile);
+                LOG.log(Level.INFO, () -> String.format("File '%s' does not contain features", jsonFile));
             }
             String jsonFileName = extractQualifier(jsonFile);
             Arrays.stream(features).forEach(feature ->
