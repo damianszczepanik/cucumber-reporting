@@ -34,7 +34,7 @@ public class FailuresOverviewPage extends AbstractPage {
             }
 
             for (Element element : feature.getElements()) {
-                if (!element.getStepsStatus().isPassed()) {
+                if (!element.getStatus().isPassed()) {
                     failures.add(element);
                 }
             }
