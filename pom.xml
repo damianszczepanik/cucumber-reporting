@@ -20,6 +20,7 @@
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
 
+
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
