@@ -1,4 +1,4 @@
-[![Travis Status](https://img.shields.io/travis/damianszczepanik/cucumber-reporting/master.svg?label=Travis%20bulid)](https://travis-ci.org/damianszczepanik/cucumber-reporting)
+[![Travis Status](https://img.shields.io/travis/com/damianszczepanik/cucumber-reporting/master.svg?label=Travis%20build)](https://travis-ci.com/github/damianszczepanik/cucumber-reporting)
 [![AppVeyor Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting/master.svg?label=AppVeyor%20build)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
 [![Shippable Status](https://img.shields.io/shippable/5844689c9d1f3e0f0057631a/master.svg?label=Shippable%20build)](https://app.shippable.com/projects/5844689c9d1f3e0f0057631a)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
@@ -65,12 +65,12 @@ classificationFiles.add("properties-2.properties");
 configuration.addClassificationFiles(classificationFiles);
 
 // optionally specify qualifiers for each of the report json files
-configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
-configuration.setQualifier("cucumber-report-1", "First report");
-configuration.setQualifier("cucumber-report-2", "Second report");
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+        configuration.setQualifier("cucumber-report-1","First report");
+        configuration.setQualifier("cucumber-report-2","Second report");
 
-ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-Reportable result = reportBuilder.generateReports();
+        ReportBuilder reportBuilder=new ReportBuilder(jsonFiles,configuration);
+        Reportable result=reportBuilder.generateReports();
 // and here validate 'result' to decide what to do if report has failed
 ```
 There is a feature overview page:
