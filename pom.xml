@@ -253,10 +253,23 @@
             <artifactId>jsoup</artifactId>
             <version>1.13.1</version>
         </dependency>
+        <!-- vulnerabilities https://app.snyk.io/vuln/SNYK-JAVA-COMGOOGLEGUAVA-1015415 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
             <version>20200713.1</version>
+            <!-- vulnerabilities https://app.snyk.io/vuln/SNYK-JAVA-COMGOOGLEGUAVA-1015415 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- for testing -->
         <dependency>
