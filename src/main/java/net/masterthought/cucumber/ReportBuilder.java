@@ -1,33 +1,25 @@
 package net.masterthought.cucumber;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import net.masterthought.cucumber.generators.ErrorPage;
-import net.masterthought.cucumber.generators.FailuresOverviewPage;
-import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.FeaturesOverviewPage;
-import net.masterthought.cucumber.generators.StepsOverviewPage;
-import net.masterthought.cucumber.generators.TagReportPage;
-import net.masterthought.cucumber.generators.TagsOverviewPage;
-import net.masterthought.cucumber.generators.TrendsOverviewPage;
-import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.generators.*;
+import net.masterthought.cucumber.json.*;
 import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class ReportBuilder {
 
@@ -54,7 +46,7 @@ public class ReportBuilder {
     private ReportResult reportResult;
     private final ReportParser reportParser;
 
-    private Configuration configuration;
+    private final Configuration configuration;
     private List<String> jsonFiles;
 
     /**
@@ -64,10 +56,27 @@ public class ReportBuilder {
      */
     private boolean wasTrendsFileSaved = false;
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
-        this.jsonFiles = jsonFiles;
+    public ReportBuilder(Configuration configuration) {
         this.configuration = configuration;
         reportParser = new ReportParser(configuration);
+    }
+
+    @Deprecated
+    public ReportBuilder(List<String> jsonFiles, Configuration configuration) {
+        this(configuration);
+        this.jsonFiles = jsonFiles;
+    }
+
+    /**
+     * Parses provided files and generates the report. When generating process fails
+     * report with information about error is provided.
+     *
+     * @return stats for the generated report
+     * @deprecated use {@link #generateReportsFromFiles(List)} instead
+     */
+    @Deprecated
+    public Reportable generateReports() {
+        return generateReportsFromFiles(jsonFiles);
     }
 
     /**
@@ -76,33 +85,17 @@ public class ReportBuilder {
      *
      * @return stats for the generated report
      */
-    public Reportable generateReports() {
-        Trends trends = null;
-
+    public Reportable generateReportsFromFiles(List<String> pathsTojsonFiles) {
         try {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
-
-            // create directory for embeddings before files are generated
-            createEmbeddingsDirectory();
 
             // add metadata info sourced from files
             reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
 
             // parse json files for results
-            List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
-            reportResult = new ReportResult(features, configuration);
-            Reportable reportable = reportResult.getFeatureReport();
-
-            if (configuration.isTrendsAvailable()) {
-                // prepare data required by generators, collect generators and generate pages
-                trends = updateAndSaveTrends(reportable);
-            }
-
-            // Collect and generate pages in a single pass
-            generatePages(trends);
-
-            return reportable;
+            List<Feature> features = reportParser.parseJsonFiles(pathsTojsonFiles);
+            return generateReportsFromFeatures(features);
 
             // whatever happens we want to provide at least error page instead of incomplete report or exception
         } catch (Exception e) {
@@ -118,6 +111,62 @@ public class ReportBuilder {
 
             // something went wrong, don't pass result that might be incomplete
             return null;
+        }
+    }
+
+    /**
+     * Parses provided features and generates the report. When generating process fails
+     * report with information about error is provided.
+     *
+     * @return stats for the generated report
+     */
+    public Reportable generateReportsFromFeatures(List<Feature> features) {
+        reportResult = new ReportResult(features, configuration);
+        Reportable reportable = reportResult.getFeatureReport();
+
+        Trends trends = null;
+        if (configuration.isTrendsAvailable()) {
+            // prepare data required by generators, collect generators and generate pages
+            trends = updateAndSaveTrends(reportable);
+        }
+
+        generateEmbeddings();
+
+        // Collect and generate pages in a single pass
+        generatePages(trends);
+
+        return reportable;
+    }
+
+    private void generateEmbeddings() {
+        // create directory for embeddings before files are generated
+        createEmbeddingsDirectory();
+
+        reportResult.getAllFeatures().forEach(feature -> {
+            for (Element element : feature.getElements()) {
+                for (Hook hook : element.getAfter()) {
+                    storeEmbedding(hook.getEmbeddings(), configuration.getEmbeddingDirectory());
+                }
+                for (Hook hook : element.getBefore()) {
+                    storeEmbedding(hook.getEmbeddings(), configuration.getEmbeddingDirectory());
+                }
+                for (Step step : element.getSteps()) {
+                    storeEmbedding(step.getEmbeddings(), configuration.getEmbeddingDirectory());
+                }
+            }
+        });
+    }
+
+    private void storeEmbedding(Embedding[] embeddings, File embeddingDirectory) {
+        for (Embedding embedding : embeddings) {
+            Path file = FileSystems.getDefault().getPath(embeddingDirectory.getAbsolutePath(),
+                    embedding.getFileId() + "." + embedding.getExtension());
+            byte[] decodedData = Base64.getDecoder().decode(embedding.getData().getBytes(UTF_8));
+            try {
+                Files.write(file, decodedData);
+            } catch (IOException e) {
+                throw new ValidationException(e);
+            }
         }
     }
 
@@ -144,7 +193,7 @@ public class ReportBuilder {
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(
-                        this.getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
+                        getClass().getResourceAsStream("/" + resourceLocation + "/" + resource), tempFile);
             } catch (IOException e) {
                 // based on FileUtils implementation, should never happen even is declared
                 throw new ValidationException(e);
@@ -226,6 +275,7 @@ public class ReportBuilder {
 
     private void generateErrorPage(Exception exception) {
         LOG.log(Level.INFO, "Unexpected error", exception);
+        //FIXME jsonfiles can be null when generating from Features
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }

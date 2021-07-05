@@ -66,14 +66,15 @@ public abstract class ReportGenerator {
 
     protected void initWithJson(String... jsonFiles) {
         if (jsonFiles != null) {
-            for (String jsonFile : jsonFiles)
+            for (String jsonFile : jsonFiles) {
                 jsonReports.add(reportFromResource(jsonFile));
+            }
         }
     }
 
     protected void initWithProperties(String... propertyFiles) {
         for (String propertyFile : propertyFiles) {
-            this.classificationFiles.add(reportFromResourceProperties(propertyFile));
+            classificationFiles.add(reportFromResourceProperties(propertyFile));
         }
     }
 
