@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json;
 
+import static org.apache.commons.lang3.ArrayUtils.add;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
@@ -40,6 +41,20 @@ public class TagTest extends PageTest {
 
         // then
         assertThat(tagName).isEqualTo("@checkout");
+    }
+
+    @Test
+    public void setTag_ReturnsNewElementTagName() {
+
+        // given
+        Element element = features.get(0).getElements()[1];
+        Tag[] tags = add(element.getTags(), new Tag("@newTag"));
+
+        // when
+        element.setTags(tags);
+
+        // then
+        assertThat(element.getTags()).contains(new Tag("@newTag"));
     }
 
     @Test

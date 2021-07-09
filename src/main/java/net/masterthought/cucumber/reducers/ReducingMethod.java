@@ -64,6 +64,16 @@ public enum ReducingMethod {
     MERGE_FEATURES_WITH_RETEST,
 
     /**
+     * Works as MERGE_FEATURES_WITH_RETEST plus marking as FLACKY tests that after rerun were passed
+     * Before merging it checks that scenario was failed and now it's passed and mark it as flacky (add @flacky tag).
+     * Also it gets an exception from firstly failed scenario and sets it to passed scenario in the same step/hook so
+     * you can analyze the reason but not to fail test suite.
+     * Plus it will also move any attachments to passed scenario in the same step/hook from firstly failed scenario AFTER HOOK
+     * (The common cucumber solution to embed screenshot in after hook if scenario failed)
+     */
+    MERGE_FEATURES_WITH_RETEST_MARKING_FLACKY,
+
+    /**
      * Skip empty JSON reports. If this flag is not selected then report generation fails on empty file.
      */
     SKIP_EMPTY_JSON_FILES,

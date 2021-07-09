@@ -2,15 +2,15 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
+import net.masterthought.cucumber.json.support.Embedded;
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.apache.commons.lang3.ArrayUtils;
 
-public class Step implements Resultsable {
+public class Step implements Resultsable, Embedded {
 
     // Start: attributes from JSON file report
     private String name = null;
@@ -23,8 +23,8 @@ public class Step implements Resultsable {
     // protractor-cucumber-framework - mapping arguments to rows
     @JsonProperty("arguments")
     private final Argument[] arguments = new Argument[0];
-    private final Match match = null;
-    private final Embedding[] embeddings = new Embedding[0];
+    private Match match = null;
+    private Embedding[] embeddings = new Embedding[0];
 
     @JsonDeserialize(using = OutputsDeserializer.class)
     @JsonProperty("output")
@@ -34,8 +34,8 @@ public class Step implements Resultsable {
     private final DocString docString = null;
 
     // hooks are supported since Cucumber-JVM 3.x.x
-    private final Hook[] before = new Hook[0];
-    private final Hook[] after = new Hook[0];
+    private Hook[] before = new Hook[0];
+    private Hook[] after = new Hook[0];
     // End: attributes from JSON file report
 
     private Status beforeStatus;
@@ -76,8 +76,14 @@ public class Step implements Resultsable {
         return match;
     }
 
+    @Override
     public Embedding[] getEmbeddings() {
         return embeddings;
+    }
+
+    @Override
+    public void setEmbeddings(Embedding[] embeddings) {
+        this.embeddings = embeddings;
     }
 
     @Override
@@ -113,4 +119,10 @@ public class Step implements Resultsable {
         beforeStatus = new StatusCounter(before).getFinalStatus();
         afterStatus = new StatusCounter(after).getFinalStatus();
     }
+
+    @Override
+    public boolean hasEmbeddings() {
+        return embeddings.length > 0;
+    }
+
 }
