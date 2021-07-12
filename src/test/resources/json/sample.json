@@ -40,6 +40,10 @@
                                     "type": "text/plain"
                                 }
                             }
+                        ],
+                        "comments": [
+                            "# Some comments",
+                            "# Some more comments"
                         ]
                     },
                     {
