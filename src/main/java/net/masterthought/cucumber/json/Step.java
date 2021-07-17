@@ -2,13 +2,15 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Step implements Resultsable {
 
@@ -16,6 +18,7 @@ public class Step implements Resultsable {
     private String name = null;
     private final String keyword = null;
     private Integer line = null;
+    private List<String> comments = new ArrayList<>();
     // create empty Result for all cases where step has no result
     // - happens for old or different cucumber implementation of the library
     private final Result result = new Result();
@@ -107,6 +110,10 @@ public class Step implements Resultsable {
 
     public Status getAfterStatus() {
         return afterStatus;
+    }
+
+    public List<String> getComments() {
+        return comments;
     }
 
     public void setMetaData() {
