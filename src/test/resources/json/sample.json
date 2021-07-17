@@ -382,6 +382,9 @@
                                     "status": "failed"
                                 }
                             }
+                        ],
+                        "comments": [
+                            "Setting the account balance to 100"
                         ]
                     },
                     {
