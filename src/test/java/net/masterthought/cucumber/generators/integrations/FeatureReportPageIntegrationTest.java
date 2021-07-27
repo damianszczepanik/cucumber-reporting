@@ -1,34 +1,12 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-
+import net.masterthought.cucumber.generators.FeatureReportPage;
+import net.masterthought.cucumber.generators.integrations.helpers.*;
+import net.masterthought.cucumber.json.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.EmbeddingAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.FeatureAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HookAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HooksAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.OutputAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepsAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TagAssertion;
-import net.masterthought.cucumber.json.Element;
-import net.masterthought.cucumber.json.Embedding;
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.Hook;
-import net.masterthought.cucumber.json.Output;
-import net.masterthought.cucumber.json.Result;
-import net.masterthought.cucumber.json.Row;
-import net.masterthought.cucumber.json.Step;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -306,13 +284,14 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].getLinks()[0].hasLabelAndAddress(embeddings[0].getName(), "");
         embeddingsElement[0].hasImageContent(embeddings[0]);
-        assertEmbeddingFileExist(embeddings[0]);
+        // Embeddings are not generated when the page is generated, therefore it we should not check if the file exists
+//        assertEmbeddingFileExist(embeddings[0]);
         embeddingsElement[2].getLinks()[0].hasLabelAndAddress("Attachment 3 (Plain text)", "");
         embeddingsElement[2].hasTextContent(embeddings[2].getData());
-        assertEmbeddingFileExist(embeddings[2]);
+//        assertEmbeddingFileExist(embeddings[2]);
         embeddingsElement[3].getLinks()[0].hasLabelAndAddress(embeddings[3].getName(), "");
         embeddingsElement[3].hasSrcDocContent(embeddings[3].getData());
-        assertEmbeddingFileExist(embeddings[3]);
+//        assertEmbeddingFileExist(embeddings[3]);
     }
 
     @Test
@@ -335,7 +314,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         assertThat(embeddingsElement).hasSameSizeAs(embeddings);
         embeddingsElement[0].hasImageContent(embeddings[0]);
-        assertEmbeddingFileExist(embeddings[0]);
+        // Embeddings are not generated when the page is generated, therefore it we should not check if the file exists
+//        assertEmbeddingFileExist(embeddings[0]);
     }
 
     @Test
@@ -425,8 +405,8 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         }
     }
 
-    private void assertEmbeddingFileExist(Embedding embedding) {
-        File file = new File(configuration.getEmbeddingDirectory(), embedding.getFileName());
-        assertThat(file).exists();
-    }
+//    private void assertEmbeddingFileExist(Embedding embedding) {
+//        File file = new File(configuration.getEmbeddingDirectory(), embedding.getFileName());
+//        assertThat(file).exists();
+//    }
 }
