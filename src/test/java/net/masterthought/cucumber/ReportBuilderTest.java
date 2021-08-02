@@ -207,6 +207,39 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
+    public void copyUserResources_OnInvalidPath_DoesNotThrowsException() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        File srcFile = new File("non-existent.file");
+        File dstFile = (File) Deencapsulation.invoke(builder, "getTempFile", "js", srcFile.getName());
+
+        // when
+        Deencapsulation.invoke(builder, "copyUserResources", "js", srcFile);
+
+        // then
+        assertThat(dstFile).doesNotExist();
+    }
+
+    @Test
+    public void copyAdditionalResources_CheckCopiedFiles() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        configuration.addAdditionalJsFiles(Collections.singletonList("src/test/resources/js/test.js"));
+        configuration.addAdditionalCssFiles(Collections.singletonList("src/test/resources/css/test.css"));
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+
+        // when
+        Deencapsulation.invoke(builder, "copyAdditionalResources");
+
+        // then
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), "/js/test.js");
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), "/css/test.css");
+    }
+
+    @Test
     public void collectPages_CollectsPages() {
 
         // given
