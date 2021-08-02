@@ -384,7 +384,7 @@
                             }
                         ],
                         "comments": [
-                            "Setting the account balance to 100"
+                            "# Setting the account balance to 100"
                         ]
                     },
                     {
@@ -414,6 +414,10 @@
                                     "location": "StepHook.afterStep()"
                                 }
                             }
+                        ],
+                        "comments": [
+                            "# The card is valid",
+                            "# Processing should continue"
                         ]
                     },
                     {

@@ -10,7 +10,7 @@
     #foreach($step in $element.getSteps())
       <div class="step">
         #foreach($comment in $step.getComments())
-          <div class="description indention">$comment</div>
+          <div class="comment indention">$comment</div>
         #end
         #includeStepName($step.getKeyword(), $step.getName(), $step.getMatch().getArguments(), $step.getResult().getStatus(), $step.getResult())
         #set($isPassed = $step.getResult().getStatus().isPassed())

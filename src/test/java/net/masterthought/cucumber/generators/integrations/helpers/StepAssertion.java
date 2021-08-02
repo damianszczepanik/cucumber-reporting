@@ -47,7 +47,7 @@ public class StepAssertion extends ReportAssertion {
     }
 
     public void hasComments(List<String> expectedComments) {
-        Elements elements = element.getElementsByClass("description");
+        Elements elements = element.getElementsByClass("comment");
         List<String> comments = elements.stream()
                 .map(Element::text)
                 .collect(toList());
