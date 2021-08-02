@@ -61,7 +61,7 @@ public class FailuresOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(14);
 
         List<Element> elements = (List<Element>) context.get("failures");
         assertThat(elements).hasSameElementsAs(failures);

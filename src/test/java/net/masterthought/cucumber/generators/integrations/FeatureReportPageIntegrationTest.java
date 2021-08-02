@@ -1,26 +1,19 @@
 package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.setDescriptionConsumer;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+import net.masterthought.cucumber.generators.integrations.helpers.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import net.masterthought.cucumber.generators.FeatureReportPage;
-import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.EmbeddingAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.FeatureAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HookAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.HooksAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.OutputAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.StepsAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
-import net.masterthought.cucumber.generators.integrations.helpers.TagAssertion;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
@@ -52,6 +45,43 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
+    }
+
+    @Test
+    public void generatePage_addsAdditionalJsFiles() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        String jsFile = "my-code.js";
+        configuration.addAdditionalJsFiles(Collections.singletonList(jsFile));
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        document.getHead().hasAtLeastTheseJsFilesIncluded("js/" + jsFile);
+    }
+
+    @Test
+    public void generatePage_addsAdditionalCssFiles() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        String cssFile1 = "my-theme.css";
+        String cssFile2 = "color-scheme.css";
+        configuration.addAdditionalCssFiles(Arrays.asList(cssFile1, "some/sub/folder/" + cssFile2));
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        document.getHead().hasAtLeastTheseCssFilesIncluded("css/" + cssFile1, "css/" + cssFile2);
     }
 
     @Test

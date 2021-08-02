@@ -424,4 +424,37 @@ public class ConfigurationTest {
         // then
         assertThat(configuration.getNotFailingStatuses()).containsExactly(notFailingStatus);
     }
+
+    @Test
+    public void addAdditionalCssFiles_addsPropertyFiles() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        List<String> cssFiles = new ArrayList<>();
+        cssFiles.add("my-styling.css");
+        cssFiles.add("my-other-styling.css");
+
+        // when
+        configuration.addAdditionalCssFiles(cssFiles);
+
+        // then
+        List<String> returnedCssFiles = configuration.getAdditionalCssFiles();
+        assertThat(returnedCssFiles).containsExactly("my-styling.css", "my-other-styling.css");
+    }
+
+    @Test
+    public void addAdditionalJsFiles_addsPropertyFiles() {
+
+        // given
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        List<String> jsFiles = new ArrayList<>();
+        jsFiles.add("custom-code.js");
+
+        // when
+        configuration.addAdditionalJsFiles(jsFiles);
+
+        // then
+        List<String> returnedJsFiles = configuration.getAdditionalJsFiles();
+        assertThat(returnedJsFiles).containsExactly("custom-code.js");
+    }
 }

@@ -124,7 +124,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(13);
 
         Object obj = context.get("counter");
         assertThat(obj).isInstanceOf(Counter.class);
@@ -141,6 +141,9 @@ public class AbstractPageTest extends PageTest {
         assertThat(context.get("build_project_name")).isEqualTo(configuration.getProjectName());
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
         assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffixWithSeparator());
+
+        assertThat(context.get("js_files")).isEqualTo(configuration.getAdditionalJsFiles());
+        assertThat(context.get("css_files")).isEqualTo(configuration.getAdditionalCssFiles());
     }
 
     @Test
@@ -156,7 +159,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(13);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -172,7 +175,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(13);
         assertThat(context.get("build_time")).isNotNull();
     }
 
@@ -188,7 +191,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(11);
+        assertThat(context.getKeys()).hasSize(13);
         assertThat(context.get("build_previous_number")).isNull();
     }
 
@@ -205,7 +208,7 @@ public class AbstractPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(12);
+        assertThat(context.getKeys()).hasSize(14);
         assertThat(context.get("build_previous_number")).isEqualTo(33);
     }
 
