@@ -44,8 +44,8 @@ public class Configuration {
 
     private Map<String, String> qualifiers = new HashMap<>();
 
-    private List<String> additionalCssFiles = new ArrayList<>();
-    private List<String> additionalJsFiles = new ArrayList<>();
+    private List<String> customCssFiles = new ArrayList<>();
+    private List<String> customJsFiles = new ArrayList<>();
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -361,30 +361,30 @@ public class Configuration {
     }
 
     /**
-     * Adds additional static css files to each html page.
+     * Adds custom static css files to each html page.
      */
-    public void addAdditionalCssFiles(List<String> additionalCssFiles) {
-        this.additionalCssFiles = additionalCssFiles;
+    public void addCustomCssFiles(List<String> customCssFiles) {
+        this.customCssFiles = customCssFiles;
     }
 
     /**
-     * Returns the list of additional css files.
+     * Returns the list of custom css files.
      */
-    public List<String> getAdditionalCssFiles() {
-        return this.additionalCssFiles;
+    public List<String> getCustomCssFiles() {
+        return this.customCssFiles;
     }
 
     /**
-     * Adds additional static js files to each html page.
+     * Adds custom static js files to each html page.
      */
-    public void addAdditionalJsFiles(List<String> additionalJsFiles) {
-        this.additionalJsFiles = additionalJsFiles;
+    public void addCustomJsFiles(List<String> customJsFiles) {
+        this.customJsFiles = customJsFiles;
     }
 
     /**
-     * Returns the list of additional js files.
+     * Returns the list of custom js files.
      */
-    public List<String> getAdditionalJsFiles() {
-        return this.additionalJsFiles;
+    public List<String> getCustomJsFiles() {
+        return this.customJsFiles;
     }
 }

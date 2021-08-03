@@ -118,10 +118,10 @@ public abstract class AbstractPage {
         context.put("build_number", configuration.getBuildNumber());
         context.put("directory_suffix", configuration.getDirectorySuffixWithSeparator());
 
-        context.put("js_files", configuration.getAdditionalJsFiles().stream()
+        context.put("js_files", configuration.getCustomJsFiles().stream()
                 .map(f -> new File(f).getName())
                 .collect(Collectors.toList()));
-        context.put("css_files", configuration.getAdditionalCssFiles().stream()
+        context.put("css_files", configuration.getCustomCssFiles().stream()
                 .map(f -> new File(f).getName())
                 .collect(Collectors.toList()));
 

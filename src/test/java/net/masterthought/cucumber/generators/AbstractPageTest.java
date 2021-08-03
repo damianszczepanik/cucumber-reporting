@@ -142,8 +142,8 @@ public class AbstractPageTest extends PageTest {
         assertThat(context.get("build_number")).isEqualTo(configuration.getBuildNumber());
         assertThat(context.get("directory_suffix")).isEqualTo(configuration.getDirectorySuffixWithSeparator());
 
-        assertThat(context.get("js_files")).isEqualTo(configuration.getAdditionalJsFiles());
-        assertThat(context.get("css_files")).isEqualTo(configuration.getAdditionalCssFiles());
+        assertThat(context.get("js_files")).isEqualTo(configuration.getCustomJsFiles());
+        assertThat(context.get("css_files")).isEqualTo(configuration.getCustomCssFiles());
     }
 
     @Test

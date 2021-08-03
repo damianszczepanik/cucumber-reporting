@@ -84,8 +84,8 @@ public class ReportBuilder {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
 
-            // copy additional resources if specific in configuration
-            copyAdditionalResources();
+            // copy custom js and css resources if specific in configuration
+            copyCustomJsAndCssResources();
 
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
@@ -125,15 +125,15 @@ public class ReportBuilder {
         }
     }
 
-    private void copyAdditionalResources() {
-        for (String jsFile : configuration.getAdditionalJsFiles()) {
+    private void copyCustomJsAndCssResources() {
+        for (String jsFile : configuration.getCustomJsFiles()) {
             File file = new File(jsFile);
-            copyUserResources("js", file);
+            copyCustomResources("js", file);
         }
 
-        for (String cssFile : configuration.getAdditionalCssFiles()) {
+        for (String cssFile : configuration.getCustomCssFiles()) {
             File file = new File(cssFile);
-            copyUserResources("css", file);
+            copyCustomResources("css", file);
         }
     }
 
@@ -155,7 +155,7 @@ public class ReportBuilder {
 
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
-            File tempFile = getTempFile(resourceLocation, resource);
+            File tempFile = createTempFile(resourceLocation, resource);
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(
@@ -167,8 +167,8 @@ public class ReportBuilder {
         }
     }
 
-    private void copyUserResources(String resourceLocation, File srcFile) {
-        File tempFile = getTempFile(resourceLocation, srcFile.getName());
+    private void copyCustomResources(String resourceLocation, File srcFile) {
+        File tempFile = createTempFile(resourceLocation, srcFile.getName());
 
         try {
             FileUtils.copyFile(srcFile, tempFile);
@@ -180,7 +180,7 @@ public class ReportBuilder {
         }
     }
 
-    private File getTempFile(String resourceLocation, String resource) {
+    private File createTempFile(String resourceLocation, String resource) {
         return new File(configuration.getReportDirectory().getAbsoluteFile(),
                 BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
     }

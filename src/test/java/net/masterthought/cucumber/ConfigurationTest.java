@@ -426,7 +426,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addAdditionalCssFiles_addsPropertyFiles() {
+    public void addCustomCssFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -435,15 +435,15 @@ public class ConfigurationTest {
         cssFiles.add("my-other-styling.css");
 
         // when
-        configuration.addAdditionalCssFiles(cssFiles);
+        configuration.addCustomCssFiles(cssFiles);
 
         // then
-        List<String> returnedCssFiles = configuration.getAdditionalCssFiles();
+        List<String> returnedCssFiles = configuration.getCustomCssFiles();
         assertThat(returnedCssFiles).containsExactly("my-styling.css", "my-other-styling.css");
     }
 
     @Test
-    public void addAdditionalJsFiles_addsPropertyFiles() {
+    public void addCustomJsFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -451,10 +451,10 @@ public class ConfigurationTest {
         jsFiles.add("custom-code.js");
 
         // when
-        configuration.addAdditionalJsFiles(jsFiles);
+        configuration.addCustomJsFiles(jsFiles);
 
         // then
-        List<String> returnedJsFiles = configuration.getAdditionalJsFiles();
+        List<String> returnedJsFiles = configuration.getCustomJsFiles();
         assertThat(returnedJsFiles).containsExactly("custom-code.js");
     }
 }
