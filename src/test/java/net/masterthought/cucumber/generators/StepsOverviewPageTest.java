@@ -43,7 +43,7 @@ public class StepsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(16);
+        assertThat(context.getKeys()).hasSize(18);
         assertThat(context.get("all_steps")).isEqualTo(steps);
 
         int allOccurrences = 0;

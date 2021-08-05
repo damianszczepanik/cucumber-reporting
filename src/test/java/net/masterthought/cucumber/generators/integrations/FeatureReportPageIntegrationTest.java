@@ -3,6 +3,8 @@ package net.masterthought.cucumber.generators.integrations;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -52,6 +54,43 @@ public class FeatureReportPageIntegrationTest extends PageTest {
         String title = document.getHead().getTitle();
 
         assertThat(title).isEqualTo(titleValue);
+    }
+
+    @Test
+    public void generatePage_addsCustomJsFiles() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        String jsFile = "my-code.js";
+        configuration.addCustomJsFiles(Collections.singletonList(jsFile));
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        document.getHead().hasAtLeastTheseJsFilesIncluded("js/" + jsFile);
+    }
+
+    @Test
+    public void generatePage_addsCustomCssFiles() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        String cssFile1 = "my-theme.css";
+        String cssFile2 = "color-scheme.css";
+        configuration.addCustomCssFiles(Arrays.asList(cssFile1, "some/sub/folder/" + cssFile2));
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        document.getHead().hasAtLeastTheseCssFilesIncluded("css/" + cssFile1, "css/" + cssFile2);
     }
 
     @Test
