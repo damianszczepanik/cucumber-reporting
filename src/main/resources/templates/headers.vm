@@ -1,5 +1,5 @@
 
-#include("/templates/head.vm")
+#parse("/templates/head.vm")
 
 #parse("/templates/macros/array.js.vm")
 

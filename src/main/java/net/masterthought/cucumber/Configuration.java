@@ -44,6 +44,9 @@ public class Configuration {
 
     private Map<String, String> qualifiers = new HashMap<>();
 
+    private List<String> customCssFiles = new ArrayList<>();
+    private List<String> customJsFiles = new ArrayList<>();
+
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
         this.projectName = projectName;
@@ -355,5 +358,33 @@ public class Configuration {
      */
     public void removeQualifier(@NonNull String jsonFileName) {
         qualifiers.remove(jsonFileName);
+    }
+
+    /**
+     * Adds custom static css files to each html page.
+     */
+    public void addCustomCssFiles(List<String> customCssFiles) {
+        this.customCssFiles = customCssFiles;
+    }
+
+    /**
+     * Returns the list of custom css files.
+     */
+    public List<String> getCustomCssFiles() {
+        return this.customCssFiles;
+    }
+
+    /**
+     * Adds custom static js files to each html page.
+     */
+    public void addCustomJsFiles(List<String> customJsFiles) {
+        this.customJsFiles = customJsFiles;
+    }
+
+    /**
+     * Returns the list of custom js files.
+     */
+    public List<String> getCustomJsFiles() {
+        return this.customJsFiles;
     }
 }

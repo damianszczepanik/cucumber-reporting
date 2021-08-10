@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -83,6 +84,9 @@ public class ReportBuilder {
             // first copy static resources so ErrorPage is displayed properly
             copyStaticResources();
 
+            // copy custom js and css resources if specific in configuration
+            copyCustomJsAndCssResources();
+
             // create directory for embeddings before files are generated
             createEmbeddingsDirectory();
 
@@ -121,6 +125,18 @@ public class ReportBuilder {
         }
     }
 
+    private void copyCustomJsAndCssResources() {
+        for (String jsFile : configuration.getCustomJsFiles()) {
+            File file = new File(jsFile);
+            copyCustomResources("js", file);
+        }
+
+        for (String cssFile : configuration.getCustomCssFiles()) {
+            File file = new File(cssFile);
+            copyCustomResources("css", file);
+        }
+    }
+
     private void copyStaticResources() {
         copyResources("css", "cucumber.css", "bootstrap.min.css", "font-awesome.min.css");
         copyResources("js", "jquery.min.js", "jquery.tablesorter.min.js", "bootstrap.min.js", "Chart.min.js",
@@ -139,8 +155,7 @@ public class ReportBuilder {
 
     private void copyResources(String resourceLocation, String... resources) {
         for (String resource : resources) {
-            File tempFile = new File(configuration.getReportDirectory().getAbsoluteFile(),
-                    BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
+            File tempFile = createTempFile(resourceLocation, resource);
             // don't change this implementation unless you verified it works on Jenkins
             try {
                 FileUtils.copyInputStreamToFile(
@@ -150,6 +165,24 @@ public class ReportBuilder {
                 throw new ValidationException(e);
             }
         }
+    }
+
+    private void copyCustomResources(String resourceLocation, File srcFile) {
+        File tempFile = createTempFile(resourceLocation, srcFile.getName());
+
+        try {
+            FileUtils.copyFile(srcFile, tempFile);
+        } catch (FileNotFoundException e) {
+            LOG.log(Level.WARNING, "File not found: {0}", srcFile.getAbsolutePath());
+            LOG.log(Level.FINE, "", e);
+        } catch (IOException e) {
+            throw new ValidationException(e);
+        }
+    }
+
+    private File createTempFile(String resourceLocation, String resource) {
+        return new File(configuration.getReportDirectory().getAbsoluteFile(),
+                BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
     }
 
     private void generatePages(Trends trends) {

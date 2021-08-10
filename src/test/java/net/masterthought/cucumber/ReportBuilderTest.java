@@ -207,6 +207,57 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
+    public void copyCustomResources_OnInvalidPath_DoesNotThrowsException() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        File srcFile = new File("non-existent.file");
+        File dstFile = Deencapsulation.invoke(builder, "createTempFile", "js", srcFile.getName());
+
+        // when
+        Deencapsulation.invoke(builder, "copyCustomResources", "js", srcFile);
+
+        // then
+        assertThat(dstFile).doesNotExist();
+    }
+
+    @Test
+    public void copyCustomResources_OnDirAsFile_ThrowsIOException() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        File dir = new File("src/test/resources/js");
+
+        // then
+        try {
+            Deencapsulation.invoke(builder, "copyCustomResources", "js", dir);
+            fail("Copying should fail!");
+            // exception depends of operating system
+        } catch (ValidationException e) {
+            // passed
+        }
+    }
+
+    @Test
+    public void copyCustomResources_CheckCopiedFiles() {
+
+        // given
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        configuration.addCustomJsFiles(Collections.singletonList("src/test/resources/js/test.js"));
+        configuration.addCustomCssFiles(Collections.singletonList("src/test/resources/css/test.css"));
+        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+
+        // when
+        Deencapsulation.invoke(builder, "copyCustomJsAndCssResources");
+
+        // then
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), "/js/test.js");
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), "/css/test.css");
+    }
+
+    @Test
     public void collectPages_CollectsPages() {
 
         // given

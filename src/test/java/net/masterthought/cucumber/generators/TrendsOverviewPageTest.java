@@ -58,7 +58,7 @@ public class TrendsOverviewPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(22);
+        assertThat(context.getKeys()).hasSize(24);
 
         assertThat(context.get("buildNumbers")).isEqualTo(new String[]{"01_first", "other build", "05last"});
         assertThat(context.get("failedFeatures")).isEqualTo(new int[]{1, 2, 5});
