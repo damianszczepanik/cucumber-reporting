@@ -5,7 +5,7 @@ cache:
     - ~/.m2
 
 git:
-  depth: false # remove the --depth to support full git blame by Sonarqube
+  depth: 3 # remove the --depth to support full git blame by Sonarqube
 
 env:
   global:
