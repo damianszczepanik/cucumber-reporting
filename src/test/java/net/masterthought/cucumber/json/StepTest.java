@@ -1,12 +1,13 @@
 package net.masterthought.cucumber.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import net.masterthought.cucumber.generators.integrations.PageTest;
+import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.masterthought.cucumber.generators.integrations.PageTest;
-import net.masterthought.cucumber.json.support.Status;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -261,5 +262,31 @@ public class StepTest extends PageTest {
 
         // then
         assertThat(status).isEqualTo(Status.PASSED);
+    }
+
+    @Test
+    public void getComments_ReturnsComments() {
+
+        // given
+        Step step = features.get(0).getElements()[0].getSteps()[0];
+
+        // when
+        List<String> keyword = step.getComments();
+
+        // then
+        assertThat(keyword).containsExactly("# Some comments", "# Some more comments");
+    }
+
+    @Test
+    public void getComments_ReturnsEmptyCommentList() {
+
+        // given
+        Step step = features.get(0).getElements()[0].getSteps()[1];
+
+        // when
+        List<String> keyword = step.getComments();
+
+        // then
+        assertThat(keyword).isEmpty();
     }
 }

@@ -1,14 +1,5 @@
 package net.masterthought.cucumber.generators.integrations;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.apache.commons.lang.StringUtils;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FeatureReportPage;
 import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
@@ -31,6 +22,14 @@ import net.masterthought.cucumber.json.Output;
 import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -235,6 +234,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
             assertThat(brief.getKeyword()).isEqualTo(step.getKeyword());
             assertThat(brief.getName()).isEqualTo(step.getName());
             brief.hasDuration(step.getDuration());
+            steps[i].hasComments(step.getComments());
         }
     }
 

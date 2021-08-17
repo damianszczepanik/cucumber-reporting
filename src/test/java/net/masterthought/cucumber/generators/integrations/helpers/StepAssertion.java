@@ -1,5 +1,13 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -36,5 +44,13 @@ public class StepAssertion extends ReportAssertion {
 
     public HooksAssertion getAfter() {
         return oneByClass("hooks-step-after", HooksAssertion.class);
+    }
+
+    public void hasComments(List<String> expectedComments) {
+        Elements elements = element.getElementsByClass("comment");
+        List<String> comments = elements.stream()
+                .map(Element::text)
+                .collect(toList());
+        assertThat(comments).isEqualTo(expectedComments);
     }
 }
