@@ -294,7 +294,7 @@ public class StepTest extends PageTest {
     public void getComments_ReturnsEmptyCommentList() {
 
         // given
-        Step step = features.get(0).getElements()[0].getSteps()[1];
+        Step step = features.get(0).getElements()[0].getSteps()[2];
 
         // when
         List<String> keyword = step.getComments();
