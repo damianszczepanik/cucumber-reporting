@@ -265,7 +265,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getComments_ReturnsComments() {
+    public void getComments_ReturnsCommentsFromArrayOfString() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[0];
@@ -275,6 +275,19 @@ public class StepTest extends PageTest {
 
         // then
         assertThat(keyword).containsExactly("# Some comments", "# Some more comments");
+    }
+
+    @Test
+    public void getComments_ReturnsCommentsFromArrayOfCommentObject() {
+
+        // given
+        Step step = features.get(0).getElements()[0].getSteps()[1];
+
+        // when
+        List<String> keyword = step.getComments();
+
+        // then
+        assertThat(keyword).containsExactly("# First comments", "# Second comments");
     }
 
     @Test
