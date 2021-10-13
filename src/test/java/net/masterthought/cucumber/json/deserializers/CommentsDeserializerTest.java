@@ -30,16 +30,40 @@ public class CommentsDeserializerTest {
         checkCommentDeserialization(true);
     }
 
+    @Test
+    public void deserialize_returnsEmptyCommentsWhenOtherFormat() {
+        // given
+        CommentsDeserializer commentsDeserializer = new CommentsDeserializer();
+
+        JsonNode commentNode = mock(JsonNode.class);
+        when(commentNode.isTextual()).thenReturn(false);
+        when(commentNode.isObject()).thenReturn(true);
+        when(commentNode.has("value")).thenReturn(false);
+
+        JsonNode rootNode = mock(JsonNode.class);
+        List<JsonNode> commentsNodes = new ArrayList<>();
+        commentsNodes.add(commentNode);
+        when(rootNode.iterator()).thenReturn(commentsNodes.iterator());
+
+        Configuration configuration = new Configuration(null, null);
+
+        // when
+        List<String> comments = commentsDeserializer.deserialize(rootNode, configuration);
+
+        // then
+        assertThat(comments).hasSize(0);
+    }
+
     private void checkCommentDeserialization(boolean isObject) {
         // given
         CommentsDeserializer commentsDeserializer = new CommentsDeserializer();
 
         String comment = "# Comment";
-        JsonNode tagNode = buildNode(comment, isObject);
+        JsonNode commentNode = buildNode(comment, isObject);
 
         JsonNode rootNode = mock(JsonNode.class);
         List<JsonNode> commentsNodes = new ArrayList<>();
-        commentsNodes.add(tagNode);
+        commentsNodes.add(commentNode);
         when(rootNode.iterator()).thenReturn(commentsNodes.iterator());
 
         Configuration configuration = new Configuration(null, null);
