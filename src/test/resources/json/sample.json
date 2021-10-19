@@ -61,7 +61,17 @@
                             "content_type": "",
                             "line": 10,
                             "value": "{\n\"issuer\": {\n\"name\": \"Real Bank Inc.\",\n\"isn:\": \"RB55800093842N\"\n},\n\"card_number\": \"4896 0215 8478 6325\",\n\"holder\": \"A guy\"\n}"
-                        }
+                        },
+                        "comments": [
+                            {
+                                "line": 9,
+                                "value": "# First comments"
+                            },
+                            {
+                                "line": 10,
+                                "value": "# Second comments"
+                            }
+                        ]
                     },
                     {
                         "result": {

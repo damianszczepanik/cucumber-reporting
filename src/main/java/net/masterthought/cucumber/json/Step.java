@@ -2,6 +2,7 @@ package net.masterthought.cucumber.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.masterthought.cucumber.json.deserializers.CommentsDeserializer;
 import net.masterthought.cucumber.json.deserializers.OutputsDeserializer;
 import net.masterthought.cucumber.json.support.Argument;
 import net.masterthought.cucumber.json.support.Resultsable;
@@ -18,6 +19,7 @@ public class Step implements Resultsable {
     private String name = null;
     private final String keyword = null;
     private Integer line = null;
+    @JsonDeserialize(using = CommentsDeserializer.class)
     private List<String> comments = new ArrayList<>();
     // create empty Result for all cases where step has no result
     // - happens for old or different cucumber implementation of the library
