@@ -261,8 +261,7 @@
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
-            <version>20211018.1</version>
-            <!-- vulnerabilities https://app.snyk.io/vuln/SNYK-JAVA-COMGOOGLEGUAVA-1015415 -->
+            <version>20211018.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
