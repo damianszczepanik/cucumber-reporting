@@ -36,9 +36,12 @@ matrix:
         - DESC="static analysis"
       script:
         - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test install sonar:sonar -Dsonar.projectKey=damianszczepanik_cucumber-reporting
+
 after_success:
   # push report to codecov server
-  bash <(curl -s https://codecov.io/bash)
+  - curl -Os https://uploader.codecov.io/latest/linux/codecov
+  - chmod +x codecov
+  - ./codecov
 
 deploy:
   provider: pages
