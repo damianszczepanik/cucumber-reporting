@@ -29,7 +29,7 @@ public class StatusDeserializerTest {
         // given
         Status status = Status.PASSED;
         JsonNode node = mock(JsonNode.class);
-        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.ENGLISH));
 
         StatusDeserializer deserializer = new StatusDeserializer();
 
@@ -46,7 +46,7 @@ public class StatusDeserializerTest {
         // given
         Status status = Status.FAILED;
         JsonNode node = mock(JsonNode.class);
-        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.US));
+        when(node.asText()).thenReturn(status.name().toLowerCase(Locale.ENGLISH));
 
         StatusDeserializer deserializer = new StatusDeserializer();
 

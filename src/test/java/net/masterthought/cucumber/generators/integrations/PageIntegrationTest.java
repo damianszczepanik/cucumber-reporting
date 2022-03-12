@@ -28,7 +28,7 @@ public class PageIntegrationTest extends PageTest {
 
     @Before
     public void prepare() {
-        Locale.setDefault(Locale.UK);
+        Locale.setDefault(Locale.ENGLISH);
     }
 
     @Test
