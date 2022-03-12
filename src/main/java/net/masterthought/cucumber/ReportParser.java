@@ -101,7 +101,7 @@ public class ReportParser {
 
             return features;
         } catch (JsonMappingException e) {
-            throw new ValidationException(String.format("File '%s' is not proper Cucumber report!", jsonFile), e);
+            throw new ValidationException(String.format("File '%s' is not proper Cucumber report!", jsonFile), e.getCause());
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
