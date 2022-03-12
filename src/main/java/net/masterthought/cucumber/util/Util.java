@@ -7,22 +7,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import net.masterthought.cucumber.json.Hook;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
-import net.masterthought.cucumber.json.Hook;
-
 public final class Util {
 
     // provide Locale so tests can validate . (instead of ,) separator
-    public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.US);
+    public static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance(Locale.ENGLISH);
+
     static {
         PERCENT_FORMATTER.setMinimumFractionDigits(2);
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
     }
 
-    private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.US);
+    private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.ENGLISH);
 
     static {
         DECIMAL_FORMATTER.setMinimumFractionDigits(2);
