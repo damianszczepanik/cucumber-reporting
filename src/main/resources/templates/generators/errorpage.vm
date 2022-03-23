@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Error Page")
+
+  <style>
+  .error-message {
+    color:red;
+    font-weight: bold;
+    background-color: lightpink;
+    font-family: monospace;
+  }
+  </style>
+</head>
+
+<body>
+
+#includeNavigation()
+
+#includeReportInfo()
+
+#includeLead("Error", "Something went wrong with project $build_project_name, build $build_number")
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="message">
+        <pre>$output_message</pre>
+      </div>
+      <div>Trying to generate report from following files. Make sure they are valid cucumber report files:</div>
+      <div class="error-files">
+        <pre>
+          #foreach($file in $json_files) $file
+          #end
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Features Overview")
+
+  <script>
+  #parse("/templates/js/steps-chart.js.vm")
+  #parse("/templates/js/scenarios-chart.js.vm")
+  #parse("/templates/js/features-chart.js.vm")
+  </script>
+</head>
+
+<body>
+
+#includeNavigation("features")
+
+#includeReportInfo()
+
+#includeLead("Features Statistics", "The following graphs show passing and failing statistics for features")
+
+
+#if(!$all_features.isEmpty())
+  <div class="container-fluid" id="charts">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div id="featureChartCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#featureChartCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#featureChartCarousel" data-slide-to="1"></li>
+            <li data-target="#featureChartCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <canvas id="features-chart" height="120"></canvas>
+            </div>
+
+            <div class="item">
+              <canvas id="scenarios-chart" height="120"></canvas>
+            </div>
+
+            <div class="item">
+              <canvas id="steps-chart" height="120"></canvas>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#featureChartCarousel" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#featureChartCarousel" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+#end
+
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      #includeStatsTable("Feature", $all_features, $report_summary)
+    </div>
+  </div>
+</div>
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

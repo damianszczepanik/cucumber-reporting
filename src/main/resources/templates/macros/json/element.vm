@@ -1,0 +1,29 @@
+#macro(includeElement, $element, $linkToFeature)
+
+<div class="element">
+  #if ($linkToFeature)
+    <div class="indention">
+      <b>Feature:</b>
+      <a href="$element.getFeature().getReportFileName()">$element.getFeature().getName()</a>
+    </div>
+  #end
+
+  #includeTags($element.getTags())
+  #includeDuration($element)
+
+  #set($elementId = $counter.next())
+  <span data-toggle="collapse" class="#if ($element.getStatus().isPassed()) collapsed #end collapsable-control" data-target="#element-$elementId">
+    #includeBrief($element.getKeyword(), $element.getStatus(), $element.getName(), true)
+  </span>
+  <div class="description indention">$element.getDescription()</div>
+
+  <div id="element-$elementId" class="collapse collapsable-details #if(!$element.getStatus().isPassed() || $expand_all_steps) in #end">
+    #includeHooks("Before", $element.getBefore(), $element.getBeforeStatus(), "element")
+
+    #includeSteps($element.getSteps())
+
+    #includeHooks("After", $element.getAfter(), $element.getAfterStatus(), "element")
+  </div>
+</div>
+
+#end

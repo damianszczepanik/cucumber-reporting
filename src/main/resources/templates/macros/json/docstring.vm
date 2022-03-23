@@ -1,0 +1,17 @@
+#macro(includeDocString, $docString)
+
+#if ($docString)
+  <div class="inner-level">
+    <div class="docstring indention">
+      #set($docStringId = $counter.next())
+      <div data-toggle="collapse" class="collapsable-control" data-target="#msg-$docStringId">
+          <a>Doc string</a>
+      </div>
+      <div id="msg-$docStringId" class="collapse collapsable-details">
+        <pre>$docString.getValue()</pre>
+      </div>
+    </div>
+  </div>
+#end
+
+#end

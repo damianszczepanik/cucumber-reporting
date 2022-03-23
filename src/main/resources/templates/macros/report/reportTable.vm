@@ -1,0 +1,34 @@
+#macro(includeReportTable, $table_key, $reportable)
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table class="stats-table">
+
+        #includeReportHeader($table_key)
+
+        <tbody>
+        <tr>
+          <td class="tagname">$reportable.getName()</td>
+          <td #if ($reportable.getPassedSteps() != 0)     class="passed"    #end>$reportable.getPassedSteps()</td>
+          <td #if ($reportable.getFailedSteps() != 0)     class="failed"    #end>$reportable.getFailedSteps()</td>
+          <td #if ($reportable.getSkippedSteps() != 0)    class="skipped"   #end>$reportable.getSkippedSteps()</td>
+          <td #if ($reportable.getPendingSteps() != 0)    class="pending"   #end>$reportable.getPendingSteps()</td>
+          <td #if ($reportable.getUndefinedSteps() != 0)  class="undefined" #end>$reportable.getUndefinedSteps()</td>
+          <td class="total">$reportable.getSteps()</td>
+
+          <td #if ($reportable.getPassedScenarios() != 0) class="passed"    #end>$reportable.getPassedScenarios()</td>
+          <td #if ($reportable.getFailedScenarios() != 0) class="failed"    #end>$reportable.getFailedScenarios()</td>
+          <td class="total">$reportable.getScenarios()</td>
+
+          <td class="duration" data-value="$reportable.getDuration()">$reportable.getFormattedDuration()</td>
+          <td class="$reportable.getStatus().getRawName()">$reportable.getStatus().getLabel()</td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+#end

@@ -1,0 +1,18 @@
+#macro(includeMessage, $messageName, $message, $isPassed)
+
+#if ($message)
+  #set($msgId = $counter.next())
+
+  <div class="inner-level">
+    <div class="message indention">
+      <div data-toggle="collapse" class="#if ($isPassed) collapsed #end collapsable-control" data-target="#msg-$msgId">
+          <a>$messageName</a>
+      </div>
+      <div id="msg-$msgId" class="collapse collapsable-details #if (!$isPassed) in #end">
+        <pre>$message</pre>
+      </div>
+    </div>
+  </div>
+#end
+
+#end

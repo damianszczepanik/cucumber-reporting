@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Steps Overview")
+</head>
+<body>
+
+#includeNavigation("steps")
+
+#includeReportInfo()
+
+#includeLead("Steps Statistics", "The following graph shows step statistics for this build. Below list is based on results.
+ step does not provide information about result then is not listed below.
+ Additionally @Before and @After are not counted because they are part of the scenarios, not steps.")
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table id="tablesorter" class="stats-table table-hover">
+
+        <thead>
+          <tr class="header">
+            <th>Implementation</th>
+            <th>Occurrences</th>
+            <th>Average duration</th>
+            <th>Max duration</th>
+            <th>Total durations</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          #foreach($step in $all_steps)
+            <tr>
+              <td class="location">$step.getLocation()</td>
+              <td>$step.getTotalOccurrences()</td>
+              <td class="duration" data-value="$step.getAverageDuration()">$step.getFormattedAverageDuration()</td>
+              <td class="duration" data-value="$step.getAverageDuration()">$step.getFormattedMaxDuration()</td>
+              <td class="duration" data-value="$step.getDuration()">$step.getFormattedTotalDuration()</td>
+              <td class="$step.getStatus().getRawName()">$step.getPercentageResult()</td>
+            </tr>
+          #end
+        </tbody>
+
+        <tfoot class="total">
+          <tr>
+            <td>$all_steps.size()</td>
+            <td>$all_occurrences</td>
+            <td class="duration">$all_average_duration</td>
+            <td class="duration">$all_max_duration</td>
+            <td class="duration">$all_durations</td>
+            <td>Totals</td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

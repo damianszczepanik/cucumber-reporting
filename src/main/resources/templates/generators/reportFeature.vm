@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Feature: $feature.getName()")
+</head>
+<body>
+
+#includeNavigation()
+
+#includeReportInfo()
+
+#includeLead("Feature Report")
+
+#includeReportTable("Feature", $feature)
+
+#includeExpandingButtons()
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="feature">
+        #includeTags($feature.getTags())
+        #includeBrief($feature.getKeyword(), $feature.getStatus(), $feature.getName())
+        <div class="description indention">$feature.getDescription()</div>
+
+        <div class="elements inner-level">
+          #foreach($element in $feature.getElements())
+            #includeElement($element, false)
+          #end
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+#includeExpandingButtons()
+<br/>
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

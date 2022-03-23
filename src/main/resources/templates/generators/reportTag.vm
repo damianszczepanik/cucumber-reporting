@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Tag: $tag.getName()")
+</head>
+<body>
+
+#includeNavigation()
+
+#includeReportInfo()
+
+#includeLead("Tag Report")
+
+#includeReportTable("Tag", $tag, false)
+
+#includeExpandingButtons()
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="elements">
+
+        #foreach($element in $tag.getElements())
+          #includeElement($element, true)
+        #end
+
+      </div>
+    </div>
+  </div>
+</div>
+
+#includeExpandingButtons()
+<br/>
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

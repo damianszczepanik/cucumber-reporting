@@ -1,0 +1,25 @@
+#macro(includeNavigation, $active_tab)
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber Report</p>
+      <ul class="nav navbar-nav navbar-right">
+        #if ($run_with_jenkins)
+          <li role="presentation"><a href="../">Jenkins</a></li>
+          #if ($build_previous_number)
+            <li role="presentation"><a href="../../$build_previous_number/cucumber-html-reports$directory_suffix/$report_file">Previous results</a></li>
+          #end
+          <li role="presentation"><a href="../../lastCompletedBuild/cucumber-html-reports$directory_suffix/$report_file">Latest results</a></li>
+        #end
+        <li role="presentation" #if($active_tab == "features") class="active" #end><a href="overview-features.html">Features</a></li>
+        <li role="presentation" #if($active_tab == "tags")     class="active" #end><a href="overview-tags.html">Tags</a></li>
+        <li role="presentation" #if($active_tab == "steps")    class="active" #end><a href="overview-steps.html">Steps</a></li>
+        #if ($trends_available)
+          <li role="presentation" #if($active_tab == "trends")  class="active" #end><a href="overview-trends.html">Trends</a></li>
+        #end
+        <li role="presentation" #if($active_tab == "failures") class="active" #end><a href="overview-failures.html">Failures</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+#end

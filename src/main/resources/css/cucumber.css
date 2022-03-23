@@ -1,0 +1,255 @@
+body {
+    /* Shifts body so navigation bar does not overlap it.
+    Make sure to include this after the core Bootstrap CSS. */
+    padding-top: 60px;
+    overflow-y: overlay;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+a {
+    color: #0097da;
+}
+
+a:hover {
+    color: #00587f;
+}
+
+.header-tag-name {
+    color: gray;
+    font-style: italic;
+}
+
+.keyword {
+    font-weight: bold;
+}
+
+.argument {
+    font-weight: bold;
+}
+
+.indention {
+    padding-left: 3px;
+}
+
+.inner-level {
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-bottom: 2px;
+    padding-left: 1px;
+}
+
+.element {
+    margin-bottom: 15px;
+    padding-left: 3px;
+}
+
+/* left line along each section */
+.element, .steps, .hooks-after, .hooks-before {
+    box-shadow: -1px 0 lightgray;
+    transition: box-shadow 0.3s;
+}
+.element:hover, .steps:hover, .hooks-after:hover, .hooks-before:hover {
+    box-shadow: -3px 0 #6ce;
+}
+
+.description, .comment {
+    font-style: italic;
+    background-color: beige;
+    white-space: pre;
+}
+
+.message, .output, .embedding {
+    background-color: #dfdfdf;
+    overflow: auto;
+}
+
+/*
+   same as <pre> from bootstrap library.
+   padding and overflow-x added.
+*/
+.embedding-content {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.html-content {
+    position: relative;
+    /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+    padding: 0 0 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.html-content iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+
+.download-button {
+    float: right;
+    margin-right: 10px;
+    color: #333;
+}
+
+/* names of those classes must be the same as name of the statuses (to lower case) in Status class  */
+.passed {
+    background-color: #92DD96;
+}
+
+.failed {
+    background-color: #F2928C;
+}
+
+.skipped {
+    background-color: #8AF;
+}
+
+.pending {
+    background-color: #F5F28F;
+}
+
+.undefined {
+    background-color: #F5B975;
+}
+
+/** additional space before Given keyword to keep space between steps **/
+.step-name-Given {
+    margin-top: 5px;
+}
+
+.step-name-And {
+    padding-left: 10px;
+}
+
+.lead-duration {
+    float: right;
+    padding-right: 15px;
+}
+
+table.stats-table {
+    background-color: white;
+    color: black;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+table.stats-table th, table.stats-table td {
+    border: 1px solid gray;
+    padding: 5px;
+    text-align: center;
+}
+
+table.stats-table tr.header {
+    background-color: #66CCEE;
+}
+
+table.stats-table tfoot {
+    font-weight: bold;
+}
+
+tfoot.total, td.total, th.total {
+    background-color: lightgray;
+}
+
+table.stats-table td.duration {
+    text-align: right;
+    white-space: nowrap;
+}
+
+table.stats-table td.tagname {
+    text-align: left;
+}
+
+table.stats-table td.location, .location {
+    font-family: monospace;
+    text-align: left;
+}
+
+table.step-arguments {
+    margin-bottom: 5px;
+    margin-left: 25px;
+    margin-top: 3px;
+}
+
+table.step-arguments th, table.step-arguments td {
+    border: 1px solid gray;
+    padding: 3px;
+    text-align: left;
+}
+
+table#tablesorter thead tr:not(.dont-sort) th {
+    cursor: pointer;
+}
+
+tr:hover {
+    transition: background-color 0.3s;
+}
+
+.collapsable-control {
+    cursor: pointer;
+}
+
+.chevron:after {
+    content: "\f078";
+}
+
+.collapsed .chevron:after {
+    content: "\f054";
+}
+
+.footer {
+    font-size: smaller;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+
+/* Custom Bootstrap CSS overloading. */
+.carousel-indicators {
+    bottom: 0;
+}
+
+.carousel-indicators li {
+    border: 1px solid black;
+}
+
+.carousel-indicators .active {
+    background-color: black;
+}
+
+.carousel-control {
+    font-size: 40px;
+    padding-top: 150px;;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+    color: #eee;
+}
+
+pre {
+    margin: 10px;
+}
+
+#footer {
+    padding-right: 20px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Failures Overview")
+</head>
+
+<body>
+
+#includeNavigation("failures")
+
+#includeReportInfo()
+
+#includeLead("Failures Overview", "The following summary displays scenarios that failed.")
+
+#if(!$failures.isEmpty())
+  #includeExpandingButtons()
+#end
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+      #if($failures.isEmpty())
+        <p>You have no failed scenarios in your Cucumber report</p>
+      #else
+        <div class="elements">
+          #foreach($element in $failures)
+            #includeElement($element, true)
+          #end
+        </div>
+      #end
+
+    </div>
+  </div>
+</div>
+
+#if(!$failures.isEmpty())
+  #includeExpandingButtons()
+#end
+<br/>
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

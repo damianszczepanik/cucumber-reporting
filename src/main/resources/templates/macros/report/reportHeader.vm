@@ -1,0 +1,35 @@
+#macro(includeReportHeader, $table_key)
+
+<thead>
+  <tr class="header dont-sort">
+    #if ($parallel_testing)
+      <th colspan="2"></th>
+    #else
+      <th></th>
+    #end
+    <th colspan="6">Steps</th>
+    <th colspan="3">Scenarios</th>
+    <th colspan="2">Features</th>
+  </tr>
+  <tr>
+    <th>$table_key</th>
+    #if ($parallel_testing)
+      <th>Qualifier</th>
+    #end
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="skipped">Skipped</th>
+    <th class="pending">Pending</th>
+    <th class="undefined">Undefined</th>
+    <th class="total">Total</th>
+
+    <th class="passed">Passed</th>
+    <th class="failed">Failed</th>
+    <th class="total">Total</th>
+
+    <th>Duration</th>
+    <th>Status</th>
+  </tr>
+</thead>
+
+#end

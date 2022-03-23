@@ -1,0 +1,12 @@
+#macro(includeStepName, $keyword, $name, $args, $status, $result)
+
+#set($_noescape_stepName = $stepNameFormatter.format($name, $args, '<span class="argument">', '</span>'))
+#set($stepNameClass = "step-name-$keyword")
+
+<div class="brief $stepNameClass $status.getRawName()">
+  <span class="keyword indention">$keyword</span>
+  <span class="name">$_noescape_stepName</span>
+  #includeDuration($result)
+</div>
+
+#end

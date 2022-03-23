@@ -1,0 +1,23 @@
+#macro(includeOutput $outputs, $isPassed)
+
+#if(!$outputs.isEmpty())
+  <div class="outputs inner-level">
+    #foreach($output in $outputs)
+      #set($outputId = $counter.next())
+      #set($index = $foreach.index + 1)
+      <div class="output indention">
+        <div data-toggle="collapse" class="#if ($isPassed && !$expand_all_steps) collapsed #end collapsable-control" data-target="#output-$outputId">
+          Output $index
+          <i class="chevron fa fa-fw"></i>
+        </div>
+        <div id="output-$outputId" class="collapse collapsable-details #if (!$isPassed || $expand_all_steps) in #end" #if (!$isPassed || $expand_all_steps) aria-expanded="true" #end>
+          #**
+           * DO NOT format the line below. Whitespace nodes are significant in a pre-block.
+           *#
+          <pre>#foreach($message in $output.getMessages())<p>$message</p>#end</pre>
+        </div>
+      </div>
+    #end
+  </div>
+#end
+#end

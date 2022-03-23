@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  #parse("/templates/headers.vm")
+  #includeTitle("Tags Overview")
+
+  <script>
+  #parse("/templates/js/tags-chart.js.vm")
+  </script>
+</head>
+<body>
+
+#includeNavigation("tags")
+
+#includeReportInfo()
+
+#includeLead("Tags Statistics", "The following graph shows passing and failing statistics for tags")
+
+
+#if(!$all_tags.isEmpty())
+  <div class="container-fluid" id="charts">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <canvas id="tags-chart" height="50"></canvas>
+      </div>
+    </div>
+  </div>
+#end
+
+<br/>
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      #if($all_tags.isEmpty())
+        <p>You have no tags in your cucumber report</p>
+      #else
+        #includeStatsTable("Tag", $all_tags, $report_summary)
+      #end
+    </div>
+  </div>
+</div>
+
+#include("/templates/footer.vm")
+
+</body>
+</html>

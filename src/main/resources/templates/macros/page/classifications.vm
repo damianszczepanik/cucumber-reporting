@@ -1,0 +1,16 @@
+#macro(includeClassifications)
+
+<table class="table table-bordered" id="classifications">
+  <tbody>
+    #foreach($classification in $classifications)
+      #set($key = $classification.getKey())
+      #set($_sanitize_value = $classification.getValue())
+      <tr class="info">
+        <th>$key</th>
+        <td>$_sanitize_value</td>
+      </tr>
+    #end
+  </tbody>
+</table>
+
+#end

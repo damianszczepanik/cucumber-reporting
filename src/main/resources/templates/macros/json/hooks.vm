@@ -1,0 +1,38 @@
+#macro(includeHooks $keyword, $hooks, $status, $level)
+
+#if($hide_empty_hooks)
+  #set($hooks = $util.eliminateEmptyHooks($hooks))
+#end
+
+#if(!$hooks.isEmpty())
+  <div class="inner-level hooks-${level}-$keyword.toLowerCase()">
+    #set($hookId = $counter.next())
+    <div data-toggle="collapse" class="#if($status.isPassed()) collapsed #end collapsable-control" data-target="#$keyword.toLowerCase()-$hookId">
+      #includeBrief("Hooks", $status, "", true)
+    </div>
+
+    <div id="$keyword.toLowerCase()-$hookId" class="inner-level collapse collapsable-details #if (!$status.isPassed() || $expand_all_steps) in #end">
+      #foreach($hook in $hooks)
+        <div class="hook">
+          <div class="brief $hook.getResult().getStatus().getRawName()">
+            <span class="keyword indention">$keyword</span>
+            #if ($hook.getMatch())
+              <span class="location name">$hook.getMatch().getLocation()</span>
+            #end
+            #includeDuration($hook.getResult())
+          </div>
+
+          #if ($hook.getResult())
+            #includeMessage("Error message", $hook.getResult().getErrorMessage())
+          #end
+
+          #set($isPassed = $hook.getResult().getStatus().isPassed())
+          #includeOutput($hook.getOutputs(), $isPassed)
+          #includeEmbeddings($hook.getEmbeddings())
+        </div>
+      #end
+    </div>
+  </div>
+#end
+
+#end
