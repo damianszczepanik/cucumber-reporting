@@ -14,7 +14,15 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
         <powermock.version>1.7.3</powermock.version>
-        <jackson.version>2.13.0</jackson.version>
+
+        <jackson.version>2.13.2</jackson.version>
+        <!--
+        Addresses https://nvd.nist.gov/vuln/detail/CVE-2020-36518 which impacts up to but not
+        including 2.13.2.1
+
+        This only impacts databind itself, and there is no release for other Jackson modules.
+        -->
+        <jackson-databind.version>2.13.2.1</jackson-databind.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
@@ -210,7 +218,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -284,7 +292,7 @@
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
+            <artifactId>powermock-api-mockito2</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
