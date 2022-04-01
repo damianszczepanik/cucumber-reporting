@@ -58,7 +58,7 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("None report file was added!");
+            throw new ValidationException("No report file was added!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ReportParser {
                 continue;
             }
             Feature[] features = parseForFeature(jsonFile);
-            LOG.log(Level.INFO, () -> String.format("File '%s' contains %d features", jsonFile, features.length));
+            LOG.log(Level.INFO, () -> String.format("File '%s' contains %d feature(s)", jsonFile, features.length));
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -101,7 +101,7 @@ public class ReportParser {
 
             return features;
         } catch (JsonMappingException e) {
-            throw new ValidationException(String.format("File '%s' is not proper Cucumber report!", jsonFile), e.getCause());
+            throw new ValidationException(String.format("File '%s' is not a valid Cucumber report!", jsonFile), e.getCause());
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
