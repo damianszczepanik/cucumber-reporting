@@ -14,7 +14,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
         <powermock.version>1.7.3</powermock.version>
-        <jackson.version>2.13.2</jackson.version>
+        <jackson.version>2.13.2.1</jackson.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
