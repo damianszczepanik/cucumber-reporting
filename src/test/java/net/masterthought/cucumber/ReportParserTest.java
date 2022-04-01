@@ -81,7 +81,7 @@ public class ReportParserTest extends ReportGenerator {
         // when & then
         assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
                 .isInstanceOf(ValidationException.class)
-                .hasMessage("None report file was added!");
+                .hasMessage("No report file was added!");
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ReportParserTest extends ReportGenerator {
         // when & then
         assertThatThrownBy(() -> reportParser.parseJsonFiles(jsonReports))
                 .isInstanceOf(ValidationException.class)
-                .hasMessageEndingWith("is not proper Cucumber report!");
+                .hasMessageMatching("^File '.+' is not a valid Cucumber report!$");
     }
 
     @Test
