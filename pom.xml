@@ -14,7 +14,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
         <powermock.version>1.7.3</powermock.version>
-        <jackson.version>2.13.2</jackson.version>
+        <jackson.version>2.13.2.20220328</jackson.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
@@ -206,16 +206,26 @@
         </plugins>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
