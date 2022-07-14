@@ -1,6 +1,6 @@
 package net.masterthought.cucumber;
 
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 import java.io.File;
 import java.io.FileInputStream;
