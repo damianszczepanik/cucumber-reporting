@@ -1,21 +1,10 @@
 language: java
 
-cache:
-  directories:
-    - ~/.m2
-
-git:
-  depth: false # remove the --depth to support full git blame by Sonarqube
-
 env:
   global:
     # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
     # via the "travis encrypt" command using the project repo's public key
     - secure: "erPk0ACAA2A4i+ik4RKhLS6xAWRqC03KuaQ8dD91Oy8fsIRJdTu7w+woATRW2rESak6qHsp0aZvzEz9WaIrxFxpn/8DEPPgXQK/Hz3bm+zySTwELy0HCEO+ATEbdGMjpSoGlDRUS3eu0zBGOfZHI7Jp3LQYiycZO7PIzaxWo2UI="
-
-before_install:
-  # Needed to publish sample report on github pages successfully
-  - gem install public_suffix -v 3.0.3
 
 matrix:
   include:
@@ -31,33 +20,8 @@ matrix:
       script:
         - mvn clean verify
 
-    - jdk: oraclejdk11
-      env:
-        - DESC="static analysis"
-      script:
-        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test install sonar:sonar -Dsonar.projectKey=damianszczepanik_cucumber-reporting
-
 after_success:
   # push report to codecov server
   - curl -Os https://uploader.codecov.io/latest/linux/codecov
   - chmod +x codecov
   - ./codecov
-
-deploy:
-  provider: pages
-  repo: damianszczepanik/damianszczepanik.github.io
-  target_branch: master
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-  local-dir: target/demo/
-  verbose: true
-  on:
-    branch: master
-
-addons:
-  sonarcloud:
-    organization: "damianszczepanik"
-    token: $SONAR_TOKEN
-  branches:
-    - master
