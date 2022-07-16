@@ -1,0 +1,27 @@
+name: github-pages
+on:
+  push:
+    branches:
+      - master # upload demo report only from main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: adopt
+
+      - name: Generate demo report
+        run: mvn --batch-mode test
+
+      - uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          external_repository: damianszczepanik/damianszczepanik.github.io
+          personal_token: ${{ secrets.GH_PAGES_UPLOAD }}
+          publish_branch: master
+          publish_dir: target/demo/
