@@ -1,4 +1,5 @@
 name: sonarcloud.io
+
 on:
   push:
     branches:
