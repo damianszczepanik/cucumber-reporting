@@ -47,8 +47,9 @@ public class ValidationExceptionTest {
         ValidationException exception = new ValidationException(message, cause);
 
         // then
-        assertThat(exception).hasCause(cause);
-        assertThat(exception).hasMessage(message);
+        assertThat(exception)
+                .hasCause(cause)
+                .hasMessage(message);
     }
 
 }

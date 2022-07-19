@@ -10,12 +10,11 @@ import java.util.Map;
 
 import mockit.Deencapsulation;
 import net.masterthought.cucumber.json.Element;
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Index;
 import org.junit.Test;
-
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -200,10 +199,11 @@ public class ReportParserTest extends ReportGenerator {
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
         assertThat(returnedClassifications).hasSize(8);
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1));
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("Proxy", "http=//172.22.240.68:18717"), Index.atIndex(6));
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("NpmVersion", "5.3.0"), Index.atIndex(7));
+        assertThat(returnedClassifications)
+                .contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1))
+                .contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4))
+                .contains(new AbstractMap.SimpleEntry<>("Proxy", "http=//172.22.240.68:18717"), Index.atIndex(6))
+                .contains(new AbstractMap.SimpleEntry<>("NpmVersion", "5.3.0"), Index.atIndex(7));
     }
 
     @Test
@@ -220,8 +220,9 @@ public class ReportParserTest extends ReportGenerator {
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
         assertThat(returnedClassifications).hasSize(5);
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1));
-        assertThat(returnedClassifications).contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
+        assertThat(returnedClassifications)
+                .contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1))
+                .contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
     }
 
     @Test
@@ -238,7 +239,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(3);
         assertThat(classifications).containsExactly(
-                entry("NodeJsVersion","8.5.0"),
+                entry("NodeJsVersion", "8.5.0"),
                 entry("Proxy", "http=//172.22.240.68:18717"),
                 entry("NpmVersion", "5.3.0")
         );
@@ -258,7 +259,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(1);
         assertThat(classifications).containsExactly(
-                entry("BaseUrl_QA","[Internal=https://internal.test.com, External=https://external.test.com]")
+                entry("BaseUrl_QA", "[Internal=https://internal.test.com, External=https://external.test.com]")
         );
     }
 
@@ -276,7 +277,7 @@ public class ReportParserTest extends ReportGenerator {
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
         assertThat(classifications).hasSize(6);
         assertThat(classifications).containsExactly(
-                entry("website","https://en.wikipedia.org/"),
+                entry("website", "https://en.wikipedia.org/"),
                 entry("language", "English"),
                 entry("message", "Welcome to Wikipedia!"),
                 entry("key with spaces", "This is the value that could be looked up with the key \"key with spaces\"."),

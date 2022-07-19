@@ -59,7 +59,7 @@ public class TableRowAssertion extends ReportAssertion {
     public void hasExactCSSClasses(String... classes) {
         WebAssertion[] array = allBySelector("td,th", WebAssertion.class);
 
-        assertThat(array.length).isEqualTo(classes.length);
+        assertThat(array).hasSameSizeAs(classes);
 
         for (int i = 0; i < classes.length; i++) {
             if (StringUtils.isEmpty(classes[i])) {
