@@ -3,10 +3,9 @@ package net.masterthought.cucumber.json.support;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import net.masterthought.cucumber.ValidationException;
 import org.junit.Before;
 import org.junit.Test;
-
-import net.masterthought.cucumber.ValidationException;
 
 /**
  * @author Sam Park (midopa@github)
@@ -20,7 +19,7 @@ public class StepObjectTest {
         stepObject = new StepObject("Test step location");
         stepObject.addDuration(1000000000L, Status.PASSED);
         stepObject.addDuration(2200000000L, Status.FAILED);
-        stepObject.addDuration( 303000000L, Status.UNDEFINED);
+        stepObject.addDuration(303000000L, Status.UNDEFINED);
     }
 
     @Test
@@ -91,7 +90,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedMaxDuration_ReturnsdMaxDurations() {
+    public void getFormattedMaxDuration_ReturnsMaxDurations() {
 
         // give
         // from @Before

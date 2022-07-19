@@ -2,12 +2,11 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -67,8 +66,9 @@ public class ErrorPageIntegrationTest extends PageTest {
         // then
         DocumentAssertion document = documentFrom(page.getWebPage());
         String error = getErrorMessage(document).text();
-        assertThat(error).contains(cause.getMessage());
-        assertThat(error).contains(cause.getClass().getName());
+        assertThat(error)
+                .contains(cause.getMessage())
+                .contains(cause.getClass().getName());
 
         String details = getReportList(document).text();
         for (String fileName : jsonReports) {

@@ -1,13 +1,13 @@
 package net.masterthought.cucumber.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -178,7 +178,7 @@ public class StepTest extends PageTest {
 
         // then
         assertThat(result.getStatus()).isEqualTo(Status.UNDEFINED);
-        assertThat(result.getDuration()).isEqualTo(0L);
+        assertThat(result.getDuration()).isZero();
         assertThat(result.getErrorMessage()).isNull();
     }
 

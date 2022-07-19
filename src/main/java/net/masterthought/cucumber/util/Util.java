@@ -1,6 +1,5 @@
 package net.masterthought.cucumber.util;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,7 @@ public final class Util {
         PERCENT_FORMATTER.setMaximumFractionDigits(2);
     }
 
-    private static final NumberFormat DECIMAL_FORMATTER = DecimalFormat.getInstance(Locale.ENGLISH);
+    private static final NumberFormat DECIMAL_FORMATTER = NumberFormat.getInstance(Locale.ENGLISH);
 
     static {
         DECIMAL_FORMATTER.setMinimumFractionDigits(2);
@@ -73,8 +72,7 @@ public final class Util {
     /**
      * Converts characters of passed string and replaces to hash which can be treated as valid file name.
      *
-     * @param fileName
-     *            sequence that should be converted
+     * @param fileName sequence that should be converted
      * @return converted string
      */
     public static String toValidFileName(String fileName) {
