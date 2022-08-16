@@ -49,7 +49,7 @@
   <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
     <div class="embedding-content">
       <div class="html-content">
-        <iframe seamless="true" sandbox="allow-scripts" src="embeddings/$embedding.getFileName()" srcdoc="$embedding.getDecodedData()"></iframe>
+        <iframe seamless="true" sandbox="allow-downloads allow-scripts" src="embeddings/$embedding.getFileName()" srcdoc="$embedding.getDecodedData()"></iframe>
       </div>
     </div>
   </div>
