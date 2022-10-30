@@ -4,11 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Hook;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -40,8 +39,8 @@ public class UtilTest extends PageTest {
         final int[] values = {1, 2, 0};
 
         // when & then
-        for (int i = 0; i < values.length; i++) {
-            assertThat(Util.formatAsPercentage(values[i], 0)).isEqualTo("0.00%");
+        for (int value : values) {
+            assertThat(Util.formatAsPercentage(value, 0)).isEqualTo("0.00%");
         }
     }
 
