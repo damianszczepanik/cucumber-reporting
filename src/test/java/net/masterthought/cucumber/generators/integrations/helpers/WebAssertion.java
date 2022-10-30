@@ -33,27 +33,26 @@ public class WebAssertion {
     }
 
     public <T extends WebAssertion> T oneByClass(String cssClass, Class<T> clazz) {
-        Elements inner = element.getElementsByClass(cssClass);
+        Elements inners = element.getElementsByClass(cssClass);
 
-        assertNotEmpty(inner, cssClass);
-        if (inner.size() > 1) {
+        assertNotEmpty(inners, cssClass);
+        if (inners.size() > 1) {
             StrBuilder sb = new StrBuilder();
-            for (int i = 0; i < inner.size(); i++) {
-                sb.append(inner.get(i)).append("\n");
+            for (Element inner : inners) {
+                sb.append(inners).append("\n");
             }
             throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
-                    inner.size(), cssClass, sb.toString()));
+                    inners.size(), cssClass, sb.toString()));
         }
 
-        return toAssertion(inner.first(), clazz);
+        return toAssertion(inners.first(), clazz);
     }
 
     public <T extends WebAssertion> T childByClass(String cssClass, Class<T> clazz) {
         Elements children = element.children();
 
         List<Element> matched = new ArrayList<>();
-        for (int i = 0; i < children.size(); i++) {
-            Element child = children.get(i);
+        for (Element child : children) {
             if (child.hasClass(cssClass)) {
                 matched.add(child);
             }
@@ -62,8 +61,8 @@ public class WebAssertion {
         assertNotEmpty(matched, cssClass);
         if (matched.size() > 1) {
             StrBuilder sb = new StrBuilder();
-            for (int i = 0; i < matched.size(); i++) {
-                sb.append(matched.get(i)).append("\n");
+            for (Element element : matched) {
+                sb.append(element).append("\n");
             }
             throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
                     matched.size(), cssClass, sb.toString()));
@@ -103,16 +102,16 @@ public class WebAssertion {
         return toArray(inner, clazz);
     }
 
-    private <T extends WebAssertion> T[] toArray(Elements inner, Class<T> clazz) {
+    private <T extends WebAssertion> T[] toArray(Elements inners, Class<T> clazz) {
         List<T> elements = new ArrayList<>();
-        for (int i = 0; i < inner.size(); i++) {
+        for (Element element : inners) {
             T assertion = null;
             try {
                 assertion = (T) clazz.newInstance();
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new IllegalArgumentException(e);
             }
-            assertion.element = inner.get(i);
+            assertion.element = element;
             elements.add(assertion);
         }
 

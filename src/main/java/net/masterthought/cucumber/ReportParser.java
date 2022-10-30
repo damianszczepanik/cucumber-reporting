@@ -58,12 +58,11 @@ public class ReportParser {
      */
     public List<Feature> parseJsonFiles(List<String> jsonFiles) {
         if (jsonFiles.isEmpty()) {
-            throw new ValidationException("No report file was added!");
+            throw new ValidationException("No JSON report file was found!");
         }
 
         List<Feature> featureResults = new ArrayList<>();
-        for (int i = 0; i < jsonFiles.size(); i++) {
-            String jsonFile = jsonFiles.get(i);
+        for (String jsonFile : jsonFiles) {
             // if file is empty (is not valid JSON report), check if should be skipped or not
             if (new File(jsonFile).length() == 0
                     && configuration.containsReducingMethod(ReducingMethod.SKIP_EMPTY_JSON_FILES)) {
@@ -101,7 +100,8 @@ public class ReportParser {
 
             return features;
         } catch (JsonMappingException e) {
-            throw new ValidationException(String.format("File '%s' is not a valid Cucumber report!", jsonFile), e.getCause());
+            throw new ValidationException(
+                    String.format("File '%s' is not a valid Cucumber report! %s", jsonFile, e.getMessage()), e.getCause());
         } catch (IOException e) {
             // IO problem - stop generating and re-throw the problem
             throw new ValidationException(e);
