@@ -5,7 +5,6 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -47,8 +46,9 @@ public class EmbeddingDeserializerTest {
     }
 
     @After
-    public void cleanUp() throws IOException {
-        FileUtils.deleteDirectory(new File(RANDOM_DIR));
+    public void cleanUp() {
+        // from time to time it fails on local machine so delete quietly
+        FileUtils.deleteQuietly(new File(RANDOM_DIR));
     }
 
     @Test

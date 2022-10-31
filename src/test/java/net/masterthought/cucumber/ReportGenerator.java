@@ -1,15 +1,17 @@
 package net.masterthought.cucumber;
 
-import net.masterthought.cucumber.json.Feature;
-import net.masterthought.cucumber.json.support.StepObject;
-import net.masterthought.cucumber.json.support.TagObject;
-import net.masterthought.cucumber.sorting.SortingMethod;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import net.masterthought.cucumber.json.Feature;
+import net.masterthought.cucumber.json.support.StepObject;
+import net.masterthought.cucumber.json.support.TagObject;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -60,6 +62,7 @@ public abstract class ReportGenerator {
     }
 
     protected void setUpWithJson(String... jsonFiles) {
+        Logger.getLogger(ReportParser.class.getName()).setLevel(Level.WARNING);
         initWithJson(jsonFiles);
         createReport();
     }

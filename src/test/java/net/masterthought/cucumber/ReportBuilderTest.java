@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.OverviewReport;
@@ -46,10 +48,11 @@ public class ReportBuilderTest extends ReportGenerator {
 
 
     @After
-    public void cleanUp() throws IOException {
-        FileUtils.deleteDirectory(reportDirectory);
+    public void cleanUp() {
+        // from time to time it fails on local machine so delete quietly
+        FileUtils.deleteQuietly(reportDirectory);
         if (configuration != null) {
-            FileUtils.deleteDirectory(new File(configuration.getReportDirectory(),
+            FileUtils.deleteQuietly(new File(configuration.getReportDirectory(),
                     ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
         }
     }
@@ -121,6 +124,7 @@ public class ReportBuilderTest extends ReportGenerator {
         };
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         configuration.setTrendsStatsFile(trendsFileTmp);
+        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         reportBuilder.generateReports();
@@ -163,6 +167,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         Deencapsulation.invoke(builder, "copyStaticResources");
@@ -211,7 +216,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
-        ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        ReportBuilder builder = new ReportBuilder(Collections.emptyList(), configuration);
         File srcFile = new File("non-existent.file");
         File dstFile = Deencapsulation.invoke(builder, "createTempFile", "js", srcFile.getName());
 
@@ -528,6 +533,7 @@ public class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
+        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
