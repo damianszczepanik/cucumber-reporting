@@ -98,7 +98,7 @@ public class Configuration {
     }
 
     /**
-     * Checks if the trends page should be generated and displayed.
+     * Checks if the page with trends should be generated and displayed.
      *
      * @return <code>true</code> if the page with trends should be displayed
      */
@@ -109,8 +109,8 @@ public class Configuration {
     /**
      * Sets configuration limit for trends.
      * When the limit is set to 0 then all items will be stored and displayed.
-     * To disable saving and displaying trends page set to -1.
-     * Otherwise number of previous builds is equal to provided limit.
+     * To disable saving and displaying trends page set to -1,
+     * otherwise number of previous builds is equal to provided limit.
      *
      * @param trendsFile file where information about previous builds is stored
      * @param limit      number of builds that should be presented (older builds are skipped)
@@ -219,7 +219,7 @@ public class Configuration {
     }
 
     /**
-     * Returns the classification for the report.
+     * @return the classification for the report.
      */
     public List<Map.Entry<String, String>> getClassifications() {
         return classifications;
@@ -235,7 +235,7 @@ public class Configuration {
     }
 
     /**
-     * Returns the default sorting method.
+     * @return the default sorting method.
      */
     public SortingMethod getSortingMethod() {
         return this.sortingMethod;
@@ -289,23 +289,25 @@ public class Configuration {
     }
 
     /**
-     * Adds properties files which house classifications in key value pairings. When these properties files get
+     * Adds properties files which house classifications in key value pairings. When these properties file get
      * processed these classifications get displayed on the main page of the report as metadata in the order in which
      * they appear within the file.
+     *
+     * @param classificationFiles files with classifications
      */
     public void addClassificationFiles(List<String> classificationFiles) {
         this.classificationFiles = classificationFiles;
     }
 
     /**
-     * Returns the list of properties files.
+     * @return the list of properties files.
      */
     public List<String> getClassificationFiles() {
         return this.classificationFiles;
     }
 
     /**
-     * Gets statuses which do not fail scenario.
+     * @return statuses which do not fail scenario.
      */
     public Set<Status> getNotFailingStatuses() {
         return notFailingStatuses;
@@ -314,6 +316,8 @@ public class Configuration {
     /**
      * Sets {@link net.masterthought.cucumber.json.support.Status statuses}
      * of {@link net.masterthought.cucumber.json.Step steps} which should not fail the scenario.
+     *
+     * @param notFailingStatuses not failing statusses
      */
     public void setNotFailingStatuses(Set<Status> notFailingStatuses) {
         if (notFailingStatuses != null) {
@@ -362,13 +366,15 @@ public class Configuration {
 
     /**
      * Adds custom static css files to each html page.
+     *
+     * @param customCssFiles css files
      */
     public void addCustomCssFiles(List<String> customCssFiles) {
         this.customCssFiles = customCssFiles;
     }
 
     /**
-     * Returns the list of custom css files.
+     * @return the list of custom css files.
      */
     public List<String> getCustomCssFiles() {
         return this.customCssFiles;
@@ -376,13 +382,15 @@ public class Configuration {
 
     /**
      * Adds custom static js files to each html page.
+     *
+     * @param customJsFiles javascript files
      */
     public void addCustomJsFiles(List<String> customJsFiles) {
         this.customJsFiles = customJsFiles;
     }
 
     /**
-     * Returns the list of custom js files.
+     * @return the list of custom js files.
      */
     public List<String> getCustomJsFiles() {
         return this.customJsFiles;

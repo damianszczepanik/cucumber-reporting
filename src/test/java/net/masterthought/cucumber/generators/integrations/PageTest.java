@@ -7,17 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jsoup.Jsoup;
-import org.junit.After;
-
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.json.Output;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -25,13 +22,6 @@ import net.masterthought.cucumber.json.Output;
 public abstract class PageTest extends ReportGenerator {
 
     protected AbstractPage page;
-
-    @After
-    public void cleanUp() {
-        // delete report file if was already created by any of test
-        File report = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
-        FileUtils.deleteQuietly(report);
-    }
 
     protected DocumentAssertion documentFrom(String pageName) {
         File input = new File(configuration.getReportDirectory(),
