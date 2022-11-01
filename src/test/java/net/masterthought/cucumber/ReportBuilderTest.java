@@ -20,7 +20,6 @@ import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,17 +43,6 @@ public class ReportBuilderTest extends ReportGenerator {
         trendsFileTmp = new File(reportDirectory, "trends-tmp.json");
 
         FileUtils.copyFile(TRENDS_FILE, trendsFileTmp);
-    }
-
-
-    @After
-    public void cleanUp() {
-        // from time to time it fails on local machine so delete quietly
-        FileUtils.deleteQuietly(reportDirectory);
-        if (configuration != null) {
-            FileUtils.deleteQuietly(new File(configuration.getReportDirectory(),
-                    ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()));
-        }
     }
 
     @Test

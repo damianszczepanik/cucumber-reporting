@@ -12,8 +12,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.Embedding;
-import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,12 +41,6 @@ public class EmbeddingDeserializerTest {
                 Assert.fail("Could not create folder " + directoryPath);
             }
         }
-    }
-
-    @After
-    public void cleanUp() {
-        // from time to time it fails on local machine so delete quietly
-        FileUtils.deleteQuietly(new File(RANDOM_DIR));
     }
 
     @Test
