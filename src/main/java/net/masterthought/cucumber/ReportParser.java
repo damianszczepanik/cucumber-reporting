@@ -1,7 +1,5 @@
 package net.masterthought.cucumber;
 
-import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -126,7 +124,7 @@ public class ReportParser {
      * @param propertiesFiles property files to read
      */
     public void parseClassificationsFiles(List<String> propertiesFiles) {
-        if (isNotEmpty(propertiesFiles)) {
+        if (propertiesFiles != null && !propertiesFiles.isEmpty()) {
             for (String propertyFile : propertiesFiles) {
                 if (StringUtils.isNotEmpty(propertyFile)) {
                     processClassificationFile(propertyFile);
