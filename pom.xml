@@ -14,7 +14,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
         <powermock.version>1.7.3</powermock.version>
-        <jackson.version>2.13.2.20220328</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
         <jmockit.version>1.34</jmockit.version> <!-- last version that supports reflections -->
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
