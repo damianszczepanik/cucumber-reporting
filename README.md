@@ -1,6 +1,6 @@
 [![Github build](https://github.com/damianszczepanik/cucumber-reporting/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/damianszczepanik/cucumber-reporting/actions/workflows/build.yml)
 [![AppVeyor Status](https://img.shields.io/appveyor/ci/damianszczepanik/cucumber-reporting/master.svg?label=AppVeyor%20build)](https://ci.appveyor.com/project/damianszczepanik/cucumber-reporting/history)
-[![Live Demo](https://img.shields.io/badge/Online%20demo-published-blue.svg)](http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
+[![Live Demo](https://img.shields.io/badge/Online%20demo-published-blue.svg)](https://damianszczepanik.github.io/cucumber-html-reports/overview-features.html)
 
 [![Coverage Status](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graph/badge.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Sonarqube Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_cucumber-reporting&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_cucumber-reporting)
