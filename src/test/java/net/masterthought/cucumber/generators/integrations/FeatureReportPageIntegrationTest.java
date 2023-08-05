@@ -1,5 +1,9 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+
 import net.masterthought.cucumber.generators.FeatureReportPage;
 import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
@@ -22,12 +26,9 @@ import net.masterthought.cucumber.json.Output;
 import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
+import net.masterthought.cucumber.presentation.PresentationMode;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -109,6 +110,26 @@ public class FeatureReportPageIntegrationTest extends PageTest {
 
         bodyRow.hasExactValues(feature.getName(), "10", "0", "0", "0", "0", "10", "1", "0", "1", "1:39.263", "Passed");
         bodyRow.hasExactCSSClasses("tagname", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
+    }
+
+    @Test
+    public void generatePage_OnParallelTesting_generatesQualifierColumn() {
+
+        // given
+        setUpWithJson(SAMPLE_JSON);
+        final Feature feature = features.get(0);
+        configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
+        page = new FeatureReportPage(reportResult, configuration, feature);
+
+        // when
+        page.generatePage();
+
+        // then
+        DocumentAssertion document = documentFrom(page.getWebPage());
+        TableRowAssertion bodyRow = document.getReport().getTableStats().getBodyRow();
+
+        bodyRow.hasExactValues(feature.getName(), "sample", "10", "0", "0", "0", "0", "10", "1", "0", "1", "1:39.263", "Passed");
+        bodyRow.hasExactCSSClasses("tagname", "", "passed", "", "", "", "", "total", "passed", "", "total", "duration", "passed");
     }
 
     @Test

@@ -47,7 +47,7 @@ public class FeatureReportPageTest extends PageTest {
 
         // then
         VelocityContext context = page.context;
-        assertThat(context.getKeys()).hasSize(14);
+        assertThat(context.getKeys()).hasSize(15);
         assertThat(context.get("feature")).isEqualTo(feature);
     }
 
