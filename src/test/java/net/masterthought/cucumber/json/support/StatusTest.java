@@ -1,5 +1,6 @@
 package net.masterthought.cucumber.json.support;
 
+import static java.util.Arrays.asList;
 import static net.masterthought.cucumber.json.support.Status.FAILED;
 import static net.masterthought.cucumber.json.support.Status.PASSED;
 import static net.masterthought.cucumber.json.support.Status.PENDING;
@@ -8,79 +9,66 @@ import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
+ * @author <a href="https://github.com/ghostcity">Stefan Gasterstädt</a>
  */
+@RunWith(Parameterized.class)
 public class StatusTest {
 
-    @Test
-    public void valuesOf_ReturnsOrderedStatuses() {
-
-        // given
-        // tables displays result with following order
-        final Status[] reference = { PASSED, FAILED, SKIPPED, PENDING, UNDEFINED };
-
-        // when
-        Status[] orderedStatuses = Status.values();
-
-        // then
-        assertThat(orderedStatuses).isEqualTo(reference);
+    @Parameters(name = "{0}")
+    public static Iterable<Object[]> data() {
+        return asList(new Object[][] {
+            { PASSED, "passed", "Passed", true },
+            { FAILED, "failed", "Failed", false },
+            { SKIPPED, "skipped", "Skipped", false },
+            { PENDING, "pending", "Pending", false },
+            { UNDEFINED, "undefined", "Undefined", false },
+        });
     }
+
+    @Parameter(0)
+    public Status status;
+
+    @Parameter(1)
+    public String rawName;
+
+    @Parameter(2)
+    public String label;
+
+    @Parameter(3)
+    public boolean isPassed;
 
     @Test
     public void getName_ReturnsNameAsLowerCase() {
-
-        // given
-        final Status status = PASSED;
-        final String refName = "passed";
-        
         // when
-        String rawName = status.getRawName();
+        String actualRawName = status.getRawName();
 
         // then
-        assertThat(rawName).isEqualTo(refName);
+        assertThat(actualRawName).isEqualTo(this.rawName);
     }
 
     @Test
     public void getLabel_ReturnsNameStartingFromUpperCase() {
-
-        // given
-        final Status status = UNDEFINED;
-        final String refLabel = "Undefined";
-
         // when
-        String label = status.getLabel();
+        String actualLabel = status.getLabel();
 
         // then
-        assertThat(label).isEqualTo(refLabel);
+        assertThat(actualLabel).isEqualTo(this.label);
     }
 
     @Test
-    public void isPassed_ReturnsTrueForPASSEDStatus() {
-
-        // given
-        Status status = PASSED;
-
+    public void isPassed_ReturnsPassedStatus() {
         // when
-        boolean isPassed = status.isPassed();
+        boolean actualIsPassed = status.isPassed();
 
         // then
-        assertThat(isPassed).isTrue();
+        assertThat(actualIsPassed).isEqualTo(this.isPassed);
     }
 
-    @Test
-    public void hasPassed_ReturnsFalseForNoPASSED() {
-
-        // given
-        Status[] notPassed = {FAILED, SKIPPED, PENDING, UNDEFINED};
-
-        for (Status status : notPassed) {
-            // when
-            boolean isPassed = status.isPassed();
-
-            // then
-            assertThat(isPassed).isFalse();
-        }
-    }
 }
