@@ -4,11 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+  # do not validate pull requests because SONAR_TOKEN is available only for project owner
 
 jobs:
   build:
