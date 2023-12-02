@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.codehaus.plexus.util.Base64;
+import java.util.Base64;
 
 import net.masterthought.cucumber.json.deserializers.EmbeddingDeserializer;
 
@@ -51,7 +51,7 @@ public class Embedding {
     }
 
     public String getDecodedData() {
-        return new String(Base64.decodeBase64(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+        return new String(Base64.getDecoder().decode(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
     }
 
     public String getFileName() {
