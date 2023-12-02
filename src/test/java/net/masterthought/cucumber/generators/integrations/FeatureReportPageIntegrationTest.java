@@ -27,7 +27,7 @@ import net.masterthought.cucumber.json.Result;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.presentation.PresentationMode;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

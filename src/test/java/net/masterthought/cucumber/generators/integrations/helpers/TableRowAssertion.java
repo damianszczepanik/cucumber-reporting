@@ -2,7 +2,7 @@ package net.masterthought.cucumber.generators.integrations.helpers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

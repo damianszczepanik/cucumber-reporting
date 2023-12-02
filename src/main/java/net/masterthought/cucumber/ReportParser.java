@@ -22,7 +22,7 @@ import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
