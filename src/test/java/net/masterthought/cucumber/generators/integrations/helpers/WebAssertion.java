@@ -39,7 +39,7 @@ public class WebAssertion {
         if (inners.size() > 1) {
             TextStringBuilder sb = new TextStringBuilder();
             for (Element inner : inners) {
-                sb.append(inners).append("\n");
+                sb.append(inner).append("\n");
             }
             throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
                     inners.size(), cssClass, sb.toString()));
