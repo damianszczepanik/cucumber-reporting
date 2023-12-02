@@ -19,10 +19,12 @@
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
 
+    <!-- 'oss-parent' should not be used, it was deprecated years ago -->
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
+        <relativePath />
     </parent>
 
     <distributionManagement>
