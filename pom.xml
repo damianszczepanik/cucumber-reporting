@@ -107,6 +107,16 @@
             </build>
 
         </profile>
+
+        <profile>
+            <id>jdk17on</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <properties>
+                <argLine>--add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
