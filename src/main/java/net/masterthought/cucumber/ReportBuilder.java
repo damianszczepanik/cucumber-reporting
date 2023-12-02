@@ -175,7 +175,7 @@ public class ReportBuilder {
         } catch (FileNotFoundException e) {
             LOG.log(Level.WARNING, "File not found: {0}", srcFile.getAbsolutePath());
             LOG.log(Level.FINE, "", e);
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             throw new ValidationException(e);
         }
     }
