@@ -8,13 +8,13 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Index;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -127,7 +127,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void extractTarget_ReturnsFileNameWithoutExtension() {
+    public void extractTarget_ReturnsFileNameWithoutExtension() throws Exception {
 
         // given
         String jsonFile = SAMPLE_JSON;
@@ -135,7 +135,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        String qualifier = Deencapsulation.invoke(reportParser, "extractQualifier", jsonFile);
+        String qualifier = Whitebox.invokeMethod(reportParser, "extractQualifier", jsonFile);
 
 
         // then
@@ -143,7 +143,7 @@ public class ReportParserTest extends ReportGenerator {
     }
 
     @Test
-    public void extractTarget_OnNoJSONFile_ReturnsFileName() {
+    public void extractTarget_OnNoJSONFile_ReturnsFileName() throws Exception {
 
         // given
         String jsonFile = SAMPLE_JSON + ".txt";
@@ -151,7 +151,7 @@ public class ReportParserTest extends ReportGenerator {
         ReportParser reportParser = new ReportParser(configuration);
 
         // when
-        String qualifier = Deencapsulation.invoke(reportParser, "extractQualifier", jsonFile);
+        String qualifier = Whitebox.invokeMethod(reportParser, "extractQualifier", jsonFile);
 
 
         // then

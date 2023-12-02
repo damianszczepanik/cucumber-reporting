@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Comparator;
 
-import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
@@ -81,9 +81,9 @@ public class FeaturesAlphabeticalComparatorTest extends PageTest {
 
     private static Feature buildFeature(final String name, final String id, final String reportFileName) {
         Feature feature = new Feature();
-        Deencapsulation.setField(feature, "name", name);
-        Deencapsulation.setField(feature, "id", id);
-        Deencapsulation.setField(feature, "reportFileName", reportFileName);
+        Whitebox.setInternalState(feature, "name", name);
+        Whitebox.setInternalState(feature, "id", id);
+        Whitebox.setInternalState(feature, "reportFileName", reportFileName);
 
         return feature;
     }

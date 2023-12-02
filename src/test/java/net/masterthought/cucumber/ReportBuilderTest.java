@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -56,8 +56,8 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(jsonFiles, configuration);
 
         // then
-        List<String> assignedJsonReports = Deencapsulation.getField(builder, "jsonFiles");
-        Configuration assignedConfiguration = Deencapsulation.getField(builder, "configuration");
+        List<String> assignedJsonReports = Whitebox.getInternalState(builder, "jsonFiles");
+        Configuration assignedConfiguration = Whitebox.getInternalState(builder, "configuration");
 
         assertThat(assignedJsonReports).isSameAs(jsonFiles);
         assertThat(assignedConfiguration).isSameAs(configuration);
@@ -99,7 +99,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_OnException_AppendsBuildToTrends() {
+    public void generateReports_OnException_AppendsBuildToTrends() throws Exception {
 
         // given
         List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
@@ -121,7 +121,7 @@ public class ReportBuilderTest extends ReportGenerator {
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
 
-        Trends trends = Deencapsulation.invoke(reportBuilder, "loadTrends", trendsFileTmp);
+        Trends trends = Whitebox.invokeMethod(reportBuilder, "loadTrends", trendsFileTmp);
         assertThat(trends.getBuildNumbers()).hasSize(4);
     }
 
@@ -150,7 +150,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyStaticResources_CopiesRequiredFiles() {
+    public void copyStaticResources_CopiesRequiredFiles() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -158,7 +158,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
-        Deencapsulation.invoke(builder, "copyStaticResources");
+        Whitebox.invokeMethod(builder, "copyStaticResources");
 
         // then
         Collection<File> files = FileUtils.listFiles(reportDirectory, null, true);
@@ -166,7 +166,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void createEmbeddingsDirectory_CreatesDirectory() {
+    public void createEmbeddingsDirectory_CreatesDirectory() throws Exception {
 
         // given
         File subDirectory = new File(reportDirectory, "sub");
@@ -175,14 +175,14 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
 
         // when
-        Deencapsulation.invoke(builder, "createEmbeddingsDirectory");
+        Whitebox.invokeMethod(builder, "createEmbeddingsDirectory");
 
         // then
         assertThat(subDirectory).exists();
     }
 
     @Test
-    public void copyResources_OnInvalidPath_ThrowsException() {
+    public void copyResources_OnInvalidPath_ThrowsException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -191,7 +191,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         try {
-            Deencapsulation.invoke(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
+            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
             fail("Copying should fail!");
             // exception depends of operating system
         } catch (ValidationException | NullPointerException e) {
@@ -200,23 +200,23 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyCustomResources_OnInvalidPath_DoesNotThrowsException() {
+    public void copyCustomResources_OnInvalidPath_DoesNotThrowsException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.emptyList(), configuration);
         File srcFile = new File("non-existent.file");
-        File dstFile = Deencapsulation.invoke(builder, "createTempFile", "js", srcFile.getName());
+        File dstFile = Whitebox.invokeMethod(builder, "createTempFile", "js", srcFile.getName());
 
         // when
-        Deencapsulation.invoke(builder, "copyCustomResources", "js", srcFile);
+        Whitebox.invokeMethod(builder, "copyCustomResources", "js", srcFile);
 
         // then
         assertThat(dstFile).doesNotExist();
     }
 
     @Test
-    public void copyCustomResources_OnDirAsFile_ThrowsIOException() {
+    public void copyCustomResources_OnDirAsFile_ThrowsIOException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -225,7 +225,7 @@ public class ReportBuilderTest extends ReportGenerator {
 
         // then
         try {
-            Deencapsulation.invoke(builder, "copyCustomResources", "js", dir);
+            Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir);
             fail("Copying should fail!");
             // exception depends of operating system
         } catch (ValidationException e) {
@@ -234,7 +234,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyCustomResources_CheckCopiedFiles() {
+    public void copyCustomResources_CheckCopiedFiles() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -243,7 +243,7 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
 
         // when
-        Deencapsulation.invoke(builder, "copyCustomJsAndCssResources");
+        Whitebox.invokeMethod(builder, "copyCustomJsAndCssResources");
 
         // then
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), "/js/test.js");
@@ -251,40 +251,40 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void collectPages_CollectsPages() {
+    public void collectPages_CollectsPages() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
+        Whitebox.setInternalState(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
-        Deencapsulation.invoke(builder, "generatePages", new Trends());
+        Whitebox.invokeMethod(builder, "generatePages", new Trends());
 
         // then
         assertThat(countHtmlFiles(configuration)).hasSize(9);
     }
 
     @Test
-    public void collectPages_OnExistingTrendsFile_CollectsPages() {
+    public void collectPages_OnExistingTrendsFile_CollectsPages() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
         configuration.setTrendsStatsFile(trendsFileTmp);
 
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", new ReportResult(features, configuration));
+        Whitebox.setInternalState(builder, "reportResult", new ReportResult(features, configuration));
 
         // when
-        Deencapsulation.invoke(builder, "generatePages", new Trends());
+        Whitebox.invokeMethod(builder, "generatePages", new Trends());
 
         // then
         assertThat(countHtmlFiles(configuration)).hasSize(10);
     }
 
     @Test
-    public void updateAndSaveTrends_ReturnsUpdatedTrends() {
+    public void updateAndSaveTrends_ReturnsUpdatedTrends() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -292,10 +292,10 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setBuildNumber(buildNumber);
         configuration.setTrendsStatsFile(trendsFileTmp);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", reportResult);
+        Whitebox.setInternalState(builder, "reportResult", reportResult);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
+        Trends trends = Whitebox.invokeMethod(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(4);
@@ -305,7 +305,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void updateAndSaveTrends_OnTrendsLimit_ReturnsUpdatedTrends() {
+    public void updateAndSaveTrends_OnTrendsLimit_ReturnsUpdatedTrends() throws Exception {
 
         // given
         final int trendsLimit = 2;
@@ -314,10 +314,10 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setBuildNumber(buildNumber);
         configuration.setTrends(trendsFileTmp, trendsLimit);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-        Deencapsulation.setField(builder, "reportResult", reportResult);
+        Whitebox.setInternalState(builder, "reportResult", reportResult);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
+        Trends trends = Whitebox.invokeMethod(builder, "updateAndSaveTrends", reportResult.getFeatureReport());
 
         // then
         assertThat(trends.getBuildNumbers()).hasSize(trendsLimit);
@@ -327,10 +327,10 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_ReturnsTrends() {
+    public void loadTrends_ReturnsTrends() throws Exception {
 
         // when
-        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        Trends trends = Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", TRENDS_FILE);
 
         // then
         assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
@@ -358,12 +358,12 @@ public class ReportBuilderTest extends ReportGenerator {
         File noExistingTrendsFile = new File("anyNoExisting?File");
 
         // when & then
-        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", noExistingTrendsFile))
+        assertThatThrownBy(() -> Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", noExistingTrendsFile))
                 .isInstanceOf(ValidationException.class);
     }
 
     @Test
-    public void loadOrCreateTrends_ReturnsLoadedTrends() {
+    public void loadOrCreateTrends_ReturnsLoadedTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -371,14 +371,14 @@ public class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
+        Trends trends = Whitebox.invokeMethod(builder, "loadOrCreateTrends");
 
         // then
         assertThat(trends.getBuildNumbers()).containsExactly("01_first", "other build", "05last");
     }
 
     @Test
-    public void loadOrCreateTrends_OnMissingTrendsFile_ReturnsEmptyTrends() {
+    public void loadOrCreateTrends_OnMissingTrendsFile_ReturnsEmptyTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -386,21 +386,21 @@ public class ReportBuilderTest extends ReportGenerator {
         configuration.setTrendsStatsFile(new File("missing?file"));
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
+        Trends trends = Whitebox.invokeMethod(builder, "loadOrCreateTrends");
 
         // then
         assertThat(trends.getBuildNumbers()).isEmpty();
     }
 
     @Test
-    public void loadOrCreateTrends_OnInvalidTrendsFile_ReturnsEmptyTrends() {
+    public void loadOrCreateTrends_OnInvalidTrendsFile_ReturnsEmptyTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
 
         // when
-        Trends trends = Deencapsulation.invoke(builder, "loadOrCreateTrends");
+        Trends trends = Whitebox.invokeMethod(builder, "loadOrCreateTrends");
 
         // then
         assertThat(trends.getBuildNumbers()).isEmpty();
@@ -413,7 +413,7 @@ public class ReportBuilderTest extends ReportGenerator {
         File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
 
         // when & then
-        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", notTrendJsonFile))
+        assertThatThrownBy(() -> Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", notTrendJsonFile))
                 .isInstanceOf(ValidationException.class)
                 .hasMessageEndingWith("could not be parsed as file with trends!");
     }
@@ -425,13 +425,13 @@ public class ReportBuilderTest extends ReportGenerator {
         File directoryFile = new File(".");
 
         // when & then
-        assertThatThrownBy(() -> Deencapsulation.invoke(ReportBuilder.class, "loadTrends", directoryFile))
+        assertThatThrownBy(() -> Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", directoryFile))
                 .isInstanceOf(ValidationException.class)
                 .hasMessageContaining("java.io.FileNotFoundException");
     }
 
     @Test
-    public void appendToTrends_AppendsDataToTrends() {
+    public void appendToTrends_AppendsDataToTrends() throws Exception {
 
         // given
         final String buildNumber = "1";
@@ -484,11 +484,11 @@ public class ReportBuilderTest extends ReportGenerator {
         };
 
         ReportBuilder reportBuilder = new ReportBuilder(null, configuration);
-        Deencapsulation.setField(reportBuilder, "reportResult", reportResult);
+        Whitebox.setInternalState(reportBuilder, "reportResult", reportResult);
         Trends trends = new Trends();
 
         // when
-        Deencapsulation.invoke(reportBuilder, "appendToTrends", trends, reportable);
+        Whitebox.invokeMethod(reportBuilder, "appendToTrends", trends, reportable);
 
         // then
         assertThat(trends.getBuildNumbers()).containsExactly(buildNumber);
@@ -510,13 +510,13 @@ public class ReportBuilderTest extends ReportGenerator {
         File directoryFile = new File(".");
 
         // when & then
-        assertThatThrownBy(() -> Deencapsulation.invoke(builder, "saveTrends", trends, directoryFile))
+        assertThatThrownBy(() -> Whitebox.invokeMethod(builder, "saveTrends", trends, directoryFile))
                 .isInstanceOf(ValidationException.class)
                 .hasMessageStartingWith("Could not save updated trends ");
     }
 
     @Test
-    public void generateErrorPage_GeneratesErrorPage() {
+    public void generateErrorPage_GeneratesErrorPage() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -524,7 +524,7 @@ public class ReportBuilderTest extends ReportGenerator {
         Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
-        Deencapsulation.invoke(builder, "generateErrorPage", new Exception());
+        Whitebox.invokeMethod(builder, "generateErrorPage", new Exception());
 
         // then
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);

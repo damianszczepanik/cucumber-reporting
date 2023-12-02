@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.json.support;
 
-import mockit.Deencapsulation;
+import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.json.Match;
 import net.masterthought.cucumber.json.Output;
@@ -29,7 +29,7 @@ public class ResultsableBuilder {
 
         ResultsableMock(Status status) {
             this.result = new Result();
-            Deencapsulation.setField(this.result, "status", status);
+            Whitebox.setInternalState(this.result, "status", status);
         }
 
         @Override

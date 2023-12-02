@@ -2,8 +2,8 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -54,7 +54,7 @@ public class TrendsTest {
         Reportable result = ReportableBuilder.buildSample();
         trends.addBuild("buildName", result);
         final String[] buildNumbers = new String[]{"a", "b", "e"};
-        Deencapsulation.setField(trends, "buildNumbers", buildNumbers);
+        Whitebox.setInternalState(trends, "buildNumbers", buildNumbers);
         
         // when
         trends.addBuild("the build!", result);
@@ -112,49 +112,49 @@ public class TrendsTest {
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedIntArray() {
+    public void copyLastElements_OnBigLimit_ReturnsPassedIntArray() throws Exception {
 
         // given
         final int[] array = new int[]{3, 4, 5, 6, 7, 8};
         final int limit = array.length + 1;
 
         // when
-        int[] limitedArray = Deencapsulation.invoke(Trends.class, "copyLastElements", array, limit);
+        int[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
         assertThat(limitedArray).isSameAs(array);
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedLongArray() {
+    public void copyLastElements_OnBigLimit_ReturnsPassedLongArray() throws Exception {
 
         // given
         final long[] array = new long[]{3, 4, 5, 6, 7, 8};
         final int limit = array.length + 1;
 
         // when
-        long[] limitedArray = Deencapsulation.invoke(Trends.class, "copyLastElements", array, limit);
+        long[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
         assertThat(limitedArray).isSameAs(array);
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedStringArray() {
+    public void copyLastElements_OnBigLimit_ReturnsPassedStringArray() throws Exception {
 
         // given
         final String[] array = new String[]{"3", "4", "5", "6", "7", "8"};
         final int limit = array.length + 1;
 
         // when
-        String[] limitedArray = Deencapsulation.invoke(Trends.class, "copyLastElements", array, limit);
+        String[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
         assertThat(limitedArray).isSameAs(array);
     }
 
     @Test
-    public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() {
+    public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() throws Exception {
 
         // given
         final int totalFeatures = 1000;
@@ -164,7 +164,7 @@ public class TrendsTest {
         trends.addBuild("buildNumber", result);
 
         // when
-        Deencapsulation.invoke(trends, "applyPatchForFeatures");
+        Whitebox.invokeMethod(trends, "applyPatchForFeatures");
 
         // then
         assertThat(trends.getTotalFeatures()[0]).isGreaterThan(trends.getFailedFeatures()[0]);

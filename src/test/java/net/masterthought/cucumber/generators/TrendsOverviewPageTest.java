@@ -3,7 +3,6 @@ package net.masterthought.cucumber.generators;
 import java.io.File;
 import java.io.IOException;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.Trends;
@@ -12,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,14 +44,14 @@ public class TrendsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    public void prepareReport_AddsCustomProperties() throws Exception {
 
         // given
         configuration.setBuildNumber("myBuild");
-        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
+        Trends trends = Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", new File(TRENDS_TMP_FILE));
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
-        Deencapsulation.setField(page, "reportResult", new ReportResult(features, configuration));
+        Whitebox.setInternalState(page, "reportResult", new ReportResult(features, configuration));
 
         // when
         page.prepareReport();

@@ -2,11 +2,11 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -61,14 +61,14 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void calculateReportFileName_ReturnsFileName() {
+    public void calculateReportFileName_ReturnsFileName() throws Exception {
 
         // given
         Feature feature = features.get(1);
         final int jsonFileNo = 3;
 
         // when
-        String reportFileName = Deencapsulation.invoke(feature, "calculateReportFileName", jsonFileNo);
+        String reportFileName = Whitebox.invokeMethod(feature, "calculateReportFileName", jsonFileNo);
 
         // then
         assertThat(reportFileName).isEqualTo("report-feature_3_1515379431.html");

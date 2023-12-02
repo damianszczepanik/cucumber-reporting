@@ -6,11 +6,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.io.File;
 import java.util.Properties;
 
-import mockit.Deencapsulation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
@@ -91,18 +91,18 @@ public class AbstractPageTest extends PageTest {
         };
 
         // when & then
-        assertThatThrownBy(() -> Deencapsulation.invoke(page, "generatePage"))
+        assertThatThrownBy(() -> Whitebox.invokeMethod(page, "generatePage"))
                 .isInstanceOf(ValidationException.class);
     }
 
     @Test
-    public void buildProperties_ReturnsProperties() {
+    public void buildProperties_ReturnsProperties() throws Exception {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
 
         // when
-        Properties props = Deencapsulation.invoke(page, "buildProperties");
+        Properties props = Whitebox.invokeMethod(page, "buildProperties");
 
         // then
         assertThat(props).hasSize(3);
@@ -213,11 +213,11 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() {
+    public void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() throws Exception {
 
         // given
         configuration.setTrendsStatsFile(TRENDS_FILE);
-        Trends trends = Deencapsulation.invoke(ReportBuilder.class, "loadTrends", TRENDS_FILE);
+        Trends trends = Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", TRENDS_FILE);
         page = new TrendsOverviewPage(reportResult, configuration, trends);
 
         // when

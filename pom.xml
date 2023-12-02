@@ -13,9 +13,8 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
-        <powermock.version>1.7.3</powermock.version>
         <jackson.version>2.16.0</jackson.version>
-        <jmockit.version>1.34</jmockit.version> <!-- last version that supports reflections -->
+        <powermock.version>2.0.9</powermock.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
     </properties>
@@ -272,20 +271,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jmockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>${jmockit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
+            <artifactId>powermock-api-mockito2</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-reflect</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
