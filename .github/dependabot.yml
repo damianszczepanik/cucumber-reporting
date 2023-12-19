@@ -1,0 +1,13 @@
+# configuration: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 3
+  target-branch: master
+  commit-message:
+    prefix: "[dependency] "
