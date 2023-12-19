@@ -43,8 +43,8 @@
         <url>git@github.com:damianszczepanik/cucumber-reporting.git</url>
     </scm>
     <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.com/github/damianszczepanik/cucumber-reporting</url>
+        <system>GitHub Actions</system>
+        <url>https://github.com/damianszczepanik/cucumber-reporting/actions</url>
     </ciManagement>
 
     <description>
