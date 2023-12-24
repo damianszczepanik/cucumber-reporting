@@ -457,4 +457,19 @@ public class ConfigurationTest {
         List<String> returnedJsFiles = configuration.getCustomJsFiles();
         assertThat(returnedJsFiles).containsExactly("custom-code.js");
     }
+
+    @Test
+    public void getEmbeddingDirectory_CreatesCorrectDirectoryPath() {
+        // Arrange
+        File reportDirectory = new File("target");
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+
+        String expectedPath = new File(reportDirectory, "cucumber-html-reports" + File.separatorChar + "embeddings").getAbsolutePath();
+
+        // Act
+        File embeddingDirectory = configuration.getEmbeddingDirectory();
+
+        // Assert
+        assertThat(embeddingDirectory.getAbsolutePath()).isEqualTo(expectedPath);
+    }
 }
