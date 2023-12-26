@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
 
-import org.codehaus.plexus.util.Base64;
+import java.util.Base64;
 
 import net.masterthought.cucumber.json.Embedding;
 
@@ -33,6 +33,6 @@ public class EmbeddingAssertion extends ReportAssertion {
     }
 
     private String getDecodedData(String data) {
-        return new String(Base64.decodeBase64(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+        return new String(Base64.getDecoder().decode(data.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
     }
 }
