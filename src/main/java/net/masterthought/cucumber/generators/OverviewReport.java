@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.generators;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import net.masterthought.cucumber.Reportable;
 import net.masterthought.cucumber.json.support.Status;

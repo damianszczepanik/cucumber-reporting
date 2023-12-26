@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.filter.NotInFilter;
 
 import java.util.Arrays;

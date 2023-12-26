@@ -1,7 +1,7 @@
 package net.masterthought.cucumber.reducers;
 
 import net.masterthought.cucumber.json.Element;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Comparator;
 

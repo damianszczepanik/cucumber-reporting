@@ -20,7 +20,7 @@ import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
 import net.masterthought.cucumber.reducers.ReportFeatureMergerFactory;
 import net.masterthought.cucumber.sorting.SortingFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class ReportResult {
