@@ -3,7 +3,8 @@ name: github-pages
 on:
   push:
     branches:
-      - master # upload demo report only from main branch
+      # upload demo report only from main branch
+      - master
 
 jobs:
   build:
