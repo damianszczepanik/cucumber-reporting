@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 
-import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
@@ -148,14 +148,14 @@ public class SortingFactoryTest extends PageTest {
     }
 
     @Test
-    public void createUnknownMethodException_CreatesException() {
+    public void createUnknownMethodException_CreatesException() throws Exception {
 
         // given
         SortingMethod invalidSorthingMethod = SortingMethod.ALPHABETICAL;
         SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
 
         // when
-        Exception e = Deencapsulation.invoke(sortingFactory, "createUnknownMethodException", invalidSorthingMethod);
+        Exception e = Whitebox.invokeMethod(sortingFactory, "createUnknownMethodException", invalidSorthingMethod);
 
         // then
         assertThat(e).isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("Unsupported sorting method: " + invalidSorthingMethod);

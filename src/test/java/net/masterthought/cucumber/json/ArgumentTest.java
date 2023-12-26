@@ -2,9 +2,9 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Argument;
@@ -24,7 +24,7 @@ public class ArgumentTest extends PageTest {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[5];
-        Argument[] arguments = Deencapsulation.getField(step, "arguments");
+        Argument[] arguments = Whitebox.getInternalState(step, "arguments");
 
         // when
         Row[] rows = arguments[0].getRows();
