@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.util;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,7 +12,7 @@ public class StepNameFormatter {
 
     public static String format(String stepName, Argument[] arguments, String preArgument, String postArgument) {
         if (ArrayUtils.isEmpty(arguments)) {
-            return StringEscapeUtils.escapeHtml(stepName);
+            return StringEscapeUtils.escapeHtml4(stepName);
         }
 
         String[] chars = splitIntoCharacters(stepName);
@@ -51,7 +51,7 @@ public class StepNameFormatter {
 
     private static void escape(String[] chars) {
         for (int i = 0; i < chars.length; i++) {
-            chars[i] = StringEscapeUtils.escapeHtml(chars[i]);
+            chars[i] = StringEscapeUtils.escapeHtml4(chars[i]);
         }
     }
 }

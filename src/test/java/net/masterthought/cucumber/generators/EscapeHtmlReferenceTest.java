@@ -3,7 +3,7 @@ package net.masterthought.cucumber.generators;
 import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
 import org.junit.Test;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -35,7 +35,7 @@ public class EscapeHtmlReferenceTest {
         Object result = insertionEventHandler.referenceInsert(null, SOME_REFERENCE, html);
 
         // then
-        assertThat(result).isEqualTo(escapeHtml(html));
+        assertThat(result).isEqualTo(escapeHtml4(html));
     }
 
     @Test

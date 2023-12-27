@@ -1,6 +1,6 @@
 package net.masterthought.cucumber.generators;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
 import org.apache.velocity.context.Context;
 import org.owasp.html.HtmlPolicyBuilder;
@@ -27,7 +27,7 @@ final class EscapeHtmlReference implements ReferenceInsertionEventHandler {
         } else if(reference.startsWith("$_noescape_")) {
             return value.toString();
         } else {
-            return StringEscapeUtils.escapeHtml(value.toString());
+            return StringEscapeUtils.escapeHtml4(value.toString());
         }
     }
 
