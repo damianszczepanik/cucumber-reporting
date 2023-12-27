@@ -134,6 +134,23 @@ public class EmbeddingTest {
     }
 
     @Test
+    public void getExtension_UsesExtensionFromNameWhenMIMETypeIsUnknown() {
+        // Arrange
+        String mimeType = "unknown/mimetype";
+        String data = "c29tZSBkYXRh";
+        String name = "example.docx";
+
+        // Creating an embedding here with an unknown MIME type and a name containing a file extension
+        Embedding embedding = new Embedding(mimeType, data, name);
+
+        // Act
+        String actualExtension = embedding.getExtension();
+
+        // Assert
+        assertThat(actualExtension).isEqualTo("docx");
+    }
+
+    @Test
     public void getName_ReturnsNull() {
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data);
