@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - master
-  # do not validate pull requests because SONAR_TOKEN is available only for project owner
+  # Run against master only to not overwhelm sonar given master branch is the base used branch
 
 jobs:
   build:
+    # Do not run sonar on forks because SONAR_TOKEN is available only for project owner
     if: github.repository_owner == 'damianszczepanik'
     runs-on: ubuntu-latest
 
