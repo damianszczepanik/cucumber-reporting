@@ -7,6 +7,8 @@ import org.apache.commons.lang3.mutable.MutableInt;
  * doesn't guarantee uniqueness.
  */
 public class Counter extends MutableInt {
+    private static final long serialVersionUID = 1L;
+
     /**
      * @return The next integer
      */

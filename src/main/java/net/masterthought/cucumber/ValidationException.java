@@ -7,6 +7,8 @@ package net.masterthought.cucumber;
  */
 public class ValidationException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public ValidationException(Exception e) {
         super(e);
     }
