@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
@@ -112,7 +110,6 @@ class ReportBuilderTest extends ReportGenerator {
         };
         ReportBuilder reportBuilder = new ReportBuilder(jsonReports, configuration);
         configuration.setTrendsStatsFile(trendsFileTmp);
-        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         reportBuilder.generateReports();
@@ -155,7 +152,6 @@ class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         Whitebox.invokeMethod(builder, "copyStaticResources");
@@ -521,7 +517,6 @@ class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-        Logger.getLogger(ReportBuilder.class.getName()).setLevel(Level.OFF);
 
         // when
         Whitebox.invokeMethod(builder, "generateErrorPage", new Exception());
