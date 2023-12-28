@@ -2,8 +2,8 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
@@ -12,15 +12,15 @@ import net.masterthought.cucumber.json.support.Argument;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ArgumentTest extends PageTest {
+class ArgumentTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getRows_ReturnsRows() {
+    void getRows_ReturnsRows() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[5];
@@ -33,8 +33,9 @@ public class ArgumentTest extends PageTest {
         assertThat(rows).hasSize(2);
         assertThat(rows[0].getCells()).containsOnlyOnce("max", "min");
     }
+
     @Test
-    public void getVal_ReturnsVal() {
+    void getVal_ReturnsVal() {
 
         // given
         Argument matchArgument = features.get(0).getElements()[1].getSteps()[0].getMatch().getArguments()[0];
@@ -47,7 +48,7 @@ public class ArgumentTest extends PageTest {
     }
 
     @Test
-    public void getArguments_ReturnsArguments() {
+    void getArguments_ReturnsArguments() {
 
         // given
         Argument matchArgument = features.get(0).getElements()[1].getSteps()[0].getMatch().getArguments()[0];

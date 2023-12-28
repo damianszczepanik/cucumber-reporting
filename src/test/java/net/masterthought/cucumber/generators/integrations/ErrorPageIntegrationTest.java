@@ -6,17 +6,17 @@ import net.masterthought.cucumber.generators.ErrorPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ErrorPageIntegrationTest extends PageTest {
+class ErrorPageIntegrationTest extends PageTest {
 
     private final Exception cause = new IllegalArgumentException("Help me!");
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -34,7 +34,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesLead() {
+    void generatePage_generatesLead() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -54,7 +54,7 @@ public class ErrorPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesErrorMessage() {
+    void generatePage_generatesErrorMessage() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

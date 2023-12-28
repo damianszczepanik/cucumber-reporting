@@ -2,15 +2,15 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ValidationExceptionTest {
+class ValidationExceptionTest {
 
     @Test
-    public void constructor_PassesCause() {
+    void constructor_PassesCause() {
 
         // given
         Exception cause = new Exception();
@@ -23,7 +23,7 @@ public class ValidationExceptionTest {
     }
 
     @Test
-    public void constructor_PassesMessage() {
+    void constructor_PassesMessage() {
 
         // given
         String message = "ups...";
@@ -36,7 +36,7 @@ public class ValidationExceptionTest {
     }
 
     @Test
-    public void constructor_PassesMessageAndCause() {
+    void constructor_PassesMessageAndCause() {
 
         // given
         Exception cause = new Exception();

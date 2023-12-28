@@ -2,7 +2,7 @@ package net.masterthought.cucumber.reducers;
 
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.powermock.api.support.membermodification.MemberModifier;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-public class ReportFeatureWithRetestMergerTest {
+class ReportFeatureWithRetestMergerTest {
 
     private ReportFeatureWithRetestMerger merger = new ReportFeatureWithRetestMerger();
 
@@ -41,7 +41,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_UpdateElementsOfGivenFeature_NoCoincidencesById() throws IllegalAccessException {
+    void updateElementsOfGivenFeature_NoCoincidencesById() throws IllegalAccessException {
         // given
         Feature feature = new Feature();
         MemberModifier
@@ -60,7 +60,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_UpdateElementsOfGivenFeature_WithCoincidenceById() throws IllegalAccessException {
+    void updateElementsOfGivenFeature_WithCoincidenceById() throws IllegalAccessException {
         // given
         Feature feature = new Feature();
         Element[] elements = {buildScenario(), buildBackground(), buildScenario()};
@@ -79,7 +79,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_elementReplaceWithNewest() {
+    void elementReplaceWithNewest() {
         // given
         LocalDateTime currentTime = LocalDateTime.now();
 
@@ -97,7 +97,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_elementWithGivenIndexIsBackground() {
+    void elementWithGivenIndexIsBackground() {
         // given
         Element first = buildScenario();
         Element second = buildBackground();
@@ -110,7 +110,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_elementWithGivenIndexIsNotBackground() {
+    void elementWithGivenIndexIsNotBackground() {
         // given
         Element first = buildScenario();
         Element second = buildBackground();
@@ -123,7 +123,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_isBackgroundCheckFailsDueToNegativeIndex() {
+    void isBackgroundCheckFailsDueToNegativeIndex() {
         // given
         // when
         boolean isBackground = merger.isBackground(-1, new Element[]{});
@@ -133,7 +133,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_isBackgroundCheckFailsDueToNullCollection() {
+    void isBackgroundCheckFailsDueToNullCollection() {
         // given
         // when
         boolean isBackground = merger.isBackground(1, null);
@@ -143,7 +143,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_isBackgroundCheckFailsDueToIndexOutOfBounds() {
+    void isBackgroundCheckFailsDueToIndexOutOfBounds() {
         // given
         // when
         boolean isBackground = merger.isBackground(1, new Element[]{});
@@ -153,7 +153,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_findElementOfTheSameTypeWithSameId() {
+    void findElementOfTheSameTypeWithSameId() {
         // given
         Element first = buildScenario();
         Element second = buildScenario();
@@ -166,7 +166,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void test_ThereIsNoElementOfTheSameTypeWithSameId() {
+    void thereIsNoElementOfTheSameTypeWithSameId() {
         // given
         Element first = buildScenario();
         Element second = buildScenario();
@@ -179,7 +179,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void check_MergerIsApplicableByType_NullParam() {
+    void check_MergerIsApplicableByType_NullParam() {
         // given
         // when
         boolean isApplicable = merger.test(null);
@@ -189,7 +189,7 @@ public class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    public void check_MergerIsApplicableByType_CorrectParam() {
+    void check_MergerIsApplicableByType_CorrectParam() {
         // given
         // when
         boolean isApplicableByType = merger.test(Arrays.asList(MERGE_FEATURES_WITH_RETEST));

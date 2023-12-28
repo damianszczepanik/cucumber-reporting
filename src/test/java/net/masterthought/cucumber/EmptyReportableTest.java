@@ -2,15 +2,15 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class EmptyReportableTest {
+class EmptyReportableTest {
 
     @Test
-    public void allMethods_ReturnsDefaultValues() {
+    void allMethods_ReturnsDefaultValues() {
 
         // given
         EmptyReportable reportable = new EmptyReportable();

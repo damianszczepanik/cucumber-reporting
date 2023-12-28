@@ -3,7 +3,7 @@ package net.masterthought.cucumber.reducers;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ElementComparatorTest extends ReportGenerator {
+class ElementComparatorTest extends ReportGenerator {
 
     @Test
-    public void compare() {
+    void compare() {
         // given
         setUpWithJson(SAMPLE_JSON);
         List<Element> elements = Arrays.stream(getFeatureByName("Second feature").getElements())
@@ -37,7 +37,7 @@ public class ElementComparatorTest extends ReportGenerator {
     }
 
     @Test
-    public void compare_backgrounds() {
+    void compare_backgrounds() {
         // given
         setUpWithJson(SAMPLE_JSON);
         List<Element> elements = Arrays.stream(getFeatureByName("1st feature").getElements())

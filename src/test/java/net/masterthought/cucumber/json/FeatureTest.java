@@ -4,22 +4,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeatureTest extends PageTest {
+class FeatureTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getId_ReturnsID() {
+    void getId_ReturnsID() {
 
         // given
         Feature feature = features.get(1);
@@ -32,7 +32,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void addElements_AddsScenarios() {
+    void addElements_AddsScenarios() {
 
         // given
         Feature feature = features.get(0);
@@ -47,7 +47,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getElements_ReturnsElements() {
+    void getElements_ReturnsElements() {
 
         // given
         Feature feature = features.get(0);
@@ -61,7 +61,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void calculateReportFileName_ReturnsFileName() throws Exception {
+    void calculateReportFileName_ReturnsFileName() throws Exception {
 
         // given
         Feature feature = features.get(1);
@@ -75,7 +75,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getReportFileName_ReturnsFileName() {
+    void getReportFileName_ReturnsFileName() {
 
         // given
         Feature feature = features.get(1);
@@ -88,7 +88,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getQualifier_ReturnsFileNameWithoutExtension() {
+    void getQualifier_ReturnsFileNameWithoutExtension() {
 
         // given
         Feature feature = features.get(1);
@@ -101,7 +101,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getTags_ReturnsTags() {
+    void getTags_ReturnsTags() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -115,7 +115,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getStatus_ReturnsStatus() {
+    void getStatus_ReturnsStatus() {
 
         // given
         Feature feature = features.get(1);
@@ -128,7 +128,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getName_ReturnsName() {
+    void getName_ReturnsName() {
 
         // given
         Feature feature = features.get(0);
@@ -141,7 +141,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getKeyword_ReturnsKeyword() {
+    void getKeyword_ReturnsKeyword() {
 
         // given
         Feature feature = features.get(0);
@@ -154,7 +154,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getDescription_ReturnsDescription() {
+    void getDescription_ReturnsDescription() {
 
         // given
         Feature feature = features.get(0);
@@ -167,7 +167,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getFeatures_ReturnsOne() {
+    void getFeatures_ReturnsOne() {
 
         // given
         Feature feature = features.get(0);
@@ -180,7 +180,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getXXXFeatures_OnPassedFeature_ReturnsFeaturesForStatus() {
+    void getXXXFeatures_OnPassedFeature_ReturnsFeaturesForStatus() {
 
         // given
         Feature passedFeature = features.get(0);
@@ -191,7 +191,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getXXXFeatures_OnFAiledFeature_ReturnsFeaturesForStatus() {
+    void getXXXFeatures_OnFAiledFeature_ReturnsFeaturesForStatus() {
 
         // given
         Feature failedFeature = features.get(1);
@@ -202,7 +202,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getScenarios_ReturnsNumberOfScenarios() {
+    void getScenarios_ReturnsNumberOfScenarios() {
 
         // given
         Feature feature = features.get(0);
@@ -215,7 +215,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getXXXScenarios_ReturnsScenariosForStatus() {
+    void getXXXScenarios_ReturnsScenariosForStatus() {
 
         // given
         Feature feature = features.get(1);
@@ -226,7 +226,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getSteps_ReturnsNumberOfSteps() {
+    void getSteps_ReturnsNumberOfSteps() {
 
         // given
         Feature feature = features.get(0);
@@ -239,7 +239,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getXXXSteps_ReturnsStepsForStatus() {
+    void getXXXSteps_ReturnsStepsForStatus() {
 
         // given
         Feature passingFeature = features.get(0);
@@ -255,7 +255,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // given
         Feature feature = features.get(0);
@@ -268,7 +268,7 @@ public class FeatureTest extends PageTest {
     }
 
     @Test
-    public void getFormattedDuration_ReturnsFormattedDuration() {
+    void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         Feature feature = features.get(1);

@@ -4,24 +4,17 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  * @author <a href="https://github.com/ghostcity">Stefan Gasterstädt</a>
  */
-@RunWith(Parameterized.class)
-@Ignore // TODO: https://github.com/damianszczepanik/cucumber-reporting/pull/978/files
 public class EmbeddingWithNameTest {
 
     private static final String NO_DECODING = null;
 
-    @Parameters(name = "\"{0}\" into \"{2}\"")
     public static Iterable<Object[]> data() {
         return asList(new Object[][] {
             { "application/javascript", "alert('Hello World!');", "hello-world.js", NO_DECODING, ".js" },
@@ -34,24 +27,16 @@ public class EmbeddingWithNameTest {
             { "text/php", "echo 'Hello World!';", "hello-world.php7", NO_DECODING, ".php7" },
         });
     }
-
-    @Parameter(0)
     public String mimeType;
-
-    @Parameter(1)
     public String data;
-
-    @Parameter(2)
     public String name;
-
-    @Parameter(3)
     public String decodedData;
-
-    @Parameter(4)
     public String fileName;
 
-    @Test
-    public void getMimeType_ReturnsMimeType() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getMimeType_ReturnsMimeType(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -62,8 +47,10 @@ public class EmbeddingWithNameTest {
         assertThat(actualMimeType).isEqualTo(this.mimeType);
     }
 
-    @Test
-    public void getData_ReturnsContent() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getData_ReturnsContent(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -74,8 +61,10 @@ public class EmbeddingWithNameTest {
         assertThat(actualContent).isEqualTo(data);
     }
 
-    @Test
-    public void getDecodedData_ReturnsDecodedContent() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getDecodedData_ReturnsDecodedContent(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         assumeThat(this.decodedData).isNotEqualTo(NO_DECODING);
         
         // given
@@ -88,8 +77,10 @@ public class EmbeddingWithNameTest {
         assertThat(actualDecodedContent).isEqualTo(this.decodedData);
     }
 
-    @Test
-    public void getFileName_ReturnsFileName() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getFileName_ReturnsFileName(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         assumeThat(this.fileName).matches("^[^\\.]+\\.[^\\.]+$");
 
         // given
@@ -102,8 +93,10 @@ public class EmbeddingWithNameTest {
         assertThat(actualFileName).isEqualTo(this.fileName);
     }
 
-    @Test
-    public void getExtension_ReturnsFileExtension() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getExtension_ReturnsFileExtension(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -114,8 +107,10 @@ public class EmbeddingWithNameTest {
         assertThat(actualExtension).isEqualTo(this.fileName.split("\\.")[1]);
     }
 
-    @Test
-    public void getName_ReturnsName() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
+    public void getName_ReturnsName(String mimeType, String data, String name, String decodedData, String fileName) {
+        initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -124,6 +119,14 @@ public class EmbeddingWithNameTest {
 
         // then
         assertThat(actualName).isEqualTo(this.name);
+    }
+
+    public void initEmbeddingWithNameTest(String mimeType, String data, String name, String decodedData, String fileName) {
+        this.mimeType = mimeType;
+        this.data = data;
+        this.name = name;
+        this.decodedData = decodedData;
+        this.fileName = fileName;
     }
 
 }

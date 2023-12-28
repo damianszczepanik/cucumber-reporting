@@ -2,16 +2,16 @@ package net.masterthought.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TrendsTest {
+class TrendsTest {
 
     @Test
-    public void addBuild_AddsNewResultAtTheLastPosition() {
+    void addBuild_AddsNewResultAtTheLastPosition() {
 
         // given
         Trends trends = new Trends();
@@ -46,7 +46,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void addBuild_OnMissingDataForSteps_FillsMissingDataForSteps() {
+    void addBuild_OnMissingDataForSteps_FillsMissingDataForSteps() {
 
         // given
         Trends trends = new Trends();
@@ -75,7 +75,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void limitItems_ReducesNumberOfItems() {
+    void limitItems_ReducesNumberOfItems() {
 
         // given
         final int limit = 1;
@@ -112,7 +112,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedIntArray() throws Exception {
+    void copyLastElements_OnBigLimit_ReturnsPassedIntArray() throws Exception {
 
         // given
         final int[] array = new int[]{3, 4, 5, 6, 7, 8};
@@ -126,7 +126,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedLongArray() throws Exception {
+    void copyLastElements_OnBigLimit_ReturnsPassedLongArray() throws Exception {
 
         // given
         final long[] array = new long[]{3, 4, 5, 6, 7, 8};
@@ -140,7 +140,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void copyLastElements_OnBigLimit_ReturnsPassedStringArray() throws Exception {
+    void copyLastElements_OnBigLimit_ReturnsPassedStringArray() throws Exception {
 
         // given
         final String[] array = new String[]{"3", "4", "5", "6", "7", "8"};
@@ -154,7 +154,7 @@ public class TrendsTest {
     }
 
     @Test
-    public void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() throws Exception {
+    void applyPatchForFeatures_OnFailedGreaterThanTotal_ChangesTotalFeatureAndFailed() throws Exception {
 
         // given
         final int totalFeatures = 1000;

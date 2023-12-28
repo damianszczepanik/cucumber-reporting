@@ -1,12 +1,13 @@
 package net.masterthought.cucumber;
 
 import net.masterthought.cucumber.json.Feature;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_WITH_RETEST;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Expected conditions:
@@ -36,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *   Scenario: Open Home page
  *     Given Open Home page
  */
-public class ReportResultMergeTest extends ReportGenerator {
+class ReportResultMergeTest extends ReportGenerator {
 
     private static final String TIMESTAMPED = "timestamped/";
     private static final String ALL_FAILED = TIMESTAMPED + "all-last-failed.json";
@@ -53,18 +54,20 @@ public class ReportResultMergeTest extends ReportGenerator {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void unsupportedReportFormat() {
-        // given
-        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
+    @Test
+    void unsupportedReportFormat() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            // given
+            configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
 
-        // when
-        // then
-        setUpWithJson(SAMPLE_FAILED_JSON, SAMPLE_JSON);
+            // when
+            // then
+            setUpWithJson(SAMPLE_FAILED_JSON, SAMPLE_JSON);
+        });
     }
 
     @Test
-    public void test_checkAllFailedFileIsValidReport() {
+    void checkAllFailedFileIsValidReport() {
         // given
         // when
         setUpWithJson(ALL_FAILED);
@@ -74,7 +77,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void test_checkPartOneIsValidReport() {
+    void checkPartOneIsValidReport() {
         // given
         // when
         setUpWithJson(PART_ONE);
@@ -83,7 +86,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void test_checkPartTwoIsValidReport() {
+    void checkPartTwoIsValidReport() {
         // given
         // when
         setUpWithJson(PART_TWO);
@@ -93,7 +96,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void parsePartOneTwo_WithFailedRerun() {
+    void parsePartOneTwo_WithFailedRerun() {
         // given
         configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_FAILED);
@@ -107,7 +110,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void merge_PartOneTwo_WithFailedRerun_Equals_AllInOneFailed() {
+    void merge_PartOneTwo_WithFailedRerun_Equals_AllInOneFailed() {
         // given
         configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_FAILED);
@@ -123,7 +126,7 @@ public class ReportResultMergeTest extends ReportGenerator {
     }
 
     @Test
-    public void merge_PartOneTwo_WithPassedRerun_Equals_AllInOnePassed() {
+    void merge_PartOneTwo_WithPassedRerun_Equals_AllInOnePassed() {
         // given
         configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
         setUpWithJson(PART_ONE, PART_TWO, PART_TWO_RERUN_PASSED);

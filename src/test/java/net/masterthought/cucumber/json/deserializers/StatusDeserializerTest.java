@@ -2,29 +2,22 @@ package net.masterthought.cucumber.json.deserializers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Locale;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.json.support.Status;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(value = JsonNode.class)
-@PowerMockIgnore("jdk.internal.reflect.*")
-public class StatusDeserializerTest {
+class StatusDeserializerTest {
 
     @Test
-    public void deserialize_OnDefaultStatus_ReturnsStatus() {
+    void deserialize_OnDefaultStatus_ReturnsStatus() {
 
         // given
         Status status = Status.PASSED;
@@ -41,7 +34,7 @@ public class StatusDeserializerTest {
     }
 
     @Test
-    public void deserialize_OnFailedStatus_ReturnsStatus() {
+    void deserialize_OnFailedStatus_ReturnsStatus() {
 
         // given
         Status status = Status.FAILED;
@@ -59,7 +52,7 @@ public class StatusDeserializerTest {
 
 
     @Test
-    public void deserialize_OnAdditionalStatus_ReturnsUndefinedStatus() {
+    void deserialize_OnAdditionalStatus_ReturnsUndefinedStatus() {
 
         // given
         Status status = Status.UNDEFINED;
@@ -77,7 +70,7 @@ public class StatusDeserializerTest {
     }
 
     @Test
-    public void deserialize_OnUnknownStatus_ThrowsException() {
+    void deserialize_OnUnknownStatus_ThrowsException() {
 
         // given
         String status = "thisIsNotStatus";

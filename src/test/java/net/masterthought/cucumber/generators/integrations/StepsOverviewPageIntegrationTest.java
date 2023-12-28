@@ -2,21 +2,20 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.StepsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StepsOverviewPageIntegrationTest extends PageTest {
+class StepsOverviewPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -37,7 +36,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesLead() {
+    void generatePage_generatesLead() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -57,7 +56,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableHeader() {
+    void generatePage_generatesStatsTableHeader() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -77,7 +76,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableBody() {
+    void generatePage_generatesStatsTableBody() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -103,7 +102,7 @@ public class StepsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableFooter() {
+    void generatePage_generatesStatsTableFooter() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

@@ -6,21 +6,21 @@ import java.util.List;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Hook;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class UtilTest extends PageTest {
+class UtilTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void formatAsPercentage_ReturnsFormattedValue() {
+    void formatAsPercentage_ReturnsFormattedValue() {
 
         // given
         final int[][] values = {{1, 3}, {2, 2}, {1, 5}, {0, 5}};
@@ -33,7 +33,7 @@ public class UtilTest extends PageTest {
     }
 
     @Test
-    public void formatAsPercentage_OnZeroTotal_ReturnsFormattedValue() {
+    void formatAsPercentage_OnZeroTotal_ReturnsFormattedValue() {
 
         // given
         final int[] values = {1, 2, 0};
@@ -45,7 +45,7 @@ public class UtilTest extends PageTest {
     }
 
     @Test
-    public void formatAsDecimal_ReturnsFormattedValue() {
+    void formatAsDecimal_ReturnsFormattedValue() {
 
         // given
         final int[][] values = {{1, 3}, {2, 2}, {1, 5}, {0, 5}, {0, 0}};
@@ -58,7 +58,7 @@ public class UtilTest extends PageTest {
     }
 
     @Test
-    public void toValidFileName_RemovesInvalidChars() {
+    void toValidFileName_RemovesInvalidChars() {
 
         // given
         final String[] ids = {"simpleFile", "file-dash", "東京", "żółć"};
@@ -71,7 +71,7 @@ public class UtilTest extends PageTest {
     }
 
     @Test
-    public void eliminateEmptyHooks_RemovesEmptyHooks() {
+    void eliminateEmptyHooks_RemovesEmptyHooks() {
 
         // given
         Hook[] hooks = features.get(0).getElements()[0].getBefore();

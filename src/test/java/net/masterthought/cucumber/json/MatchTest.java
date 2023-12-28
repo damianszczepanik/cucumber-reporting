@@ -3,23 +3,22 @@ package net.masterthought.cucumber.json;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import net.masterthought.cucumber.json.support.Argument;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchTest extends PageTest {
+class MatchTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getLocation_ReturnsLocation() {
+    void getLocation_ReturnsLocation() {
 
         // given
         Match match = features.get(0).getElements()[1].getSteps()[0].getMatch();
@@ -32,7 +31,7 @@ public class MatchTest extends PageTest {
     }
 
     @Test
-    public void getArguments_ReturnsArguments() {
+    void getArguments_ReturnsArguments() {
 
         // given
         Match match = features.get(0).getElements()[1].getSteps()[0].getMatch();

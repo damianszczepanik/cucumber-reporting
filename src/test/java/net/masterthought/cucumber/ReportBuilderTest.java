@@ -19,20 +19,20 @@ import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ReportBuilderTest extends ReportGenerator {
+class ReportBuilderTest extends ReportGenerator {
 
     private File reportDirectory;
     private File trendsFileTmp;
 
-    @Before
-    public void setUp() throws IOException {
+    @BeforeEach
+    void setUp() throws IOException {
         reportDirectory = new File("target", String.valueOf(System.currentTimeMillis()));
         // random temp directory
         reportDirectory.mkdirs();
@@ -46,7 +46,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void ReportBuilder_storesFilesAndConfiguration() {
+    void ReportBuilder_storesFilesAndConfiguration() {
 
         // given
         final List<String> jsonFiles = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_GeneratesPages() {
+    void generateReports_GeneratesPages() {
 
         // given
         List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
@@ -81,7 +81,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_WithTrendsFile_GeneratesPages() {
+    void generateReports_WithTrendsFile_GeneratesPages() {
 
         // given
         List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
@@ -99,7 +99,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_OnException_AppendsBuildToTrends() throws Exception {
+    void generateReports_OnException_AppendsBuildToTrends() throws Exception {
 
         // given
         List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
@@ -126,7 +126,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateReports_OnException_StoresEmptyTrendsFile() {
+    void generateReports_OnException_StoresEmptyTrendsFile() {
 
         // given
         List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
@@ -150,7 +150,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyStaticResources_CopiesRequiredFiles() throws Exception {
+    void copyStaticResources_CopiesRequiredFiles() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -166,7 +166,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void createEmbeddingsDirectory_CreatesDirectory() throws Exception {
+    void createEmbeddingsDirectory_CreatesDirectory() throws Exception {
 
         // given
         File subDirectory = new File(reportDirectory, "sub");
@@ -182,7 +182,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyResources_OnInvalidPath_ThrowsException() throws Exception {
+    void copyResources_OnInvalidPath_ThrowsException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -200,7 +200,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyCustomResources_OnInvalidPath_DoesNotThrowsException() throws Exception {
+    void copyCustomResources_OnInvalidPath_DoesNotThrowsException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -216,7 +216,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyCustomResources_OnDirAsFile_ThrowsIOException() throws Exception {
+    void copyCustomResources_OnDirAsFile_ThrowsIOException() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -234,7 +234,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void copyCustomResources_CheckCopiedFiles() throws Exception {
+    void copyCustomResources_CheckCopiedFiles() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -251,7 +251,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void collectPages_CollectsPages() throws Exception {
+    void collectPages_CollectsPages() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -267,7 +267,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void collectPages_OnExistingTrendsFile_CollectsPages() throws Exception {
+    void collectPages_OnExistingTrendsFile_CollectsPages() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -284,7 +284,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void updateAndSaveTrends_ReturnsUpdatedTrends() throws Exception {
+    void updateAndSaveTrends_ReturnsUpdatedTrends() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -305,7 +305,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void updateAndSaveTrends_OnTrendsLimit_ReturnsUpdatedTrends() throws Exception {
+    void updateAndSaveTrends_OnTrendsLimit_ReturnsUpdatedTrends() throws Exception {
 
         // given
         final int trendsLimit = 2;
@@ -327,7 +327,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_ReturnsTrends() throws Exception {
+    void loadTrends_ReturnsTrends() throws Exception {
 
         // when
         Trends trends = Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", TRENDS_FILE);
@@ -352,7 +352,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_OnMissingTrendsFile_ThrowsException() {
+    void loadTrends_OnMissingTrendsFile_ThrowsException() {
 
         // given
         File noExistingTrendsFile = new File("anyNoExisting?File");
@@ -363,7 +363,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadOrCreateTrends_ReturnsLoadedTrends() throws Exception {
+    void loadOrCreateTrends_ReturnsLoadedTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -378,7 +378,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadOrCreateTrends_OnMissingTrendsFile_ReturnsEmptyTrends() throws Exception {
+    void loadOrCreateTrends_OnMissingTrendsFile_ReturnsEmptyTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -393,7 +393,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadOrCreateTrends_OnInvalidTrendsFile_ReturnsEmptyTrends() throws Exception {
+    void loadOrCreateTrends_OnInvalidTrendsFile_ReturnsEmptyTrends() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -407,7 +407,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_OnInvalidTrendsFormatFile_ThrowsExceptions() {
+    void loadTrends_OnInvalidTrendsFormatFile_ThrowsExceptions() {
 
         // given
         File notTrendJsonFile = new File(reportFromResource(SAMPLE_JSON));
@@ -419,7 +419,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void loadTrends_OnInvalidTrendsFile_ThrowsExceptions() {
+    void loadTrends_OnInvalidTrendsFile_ThrowsExceptions() {
 
         // given
         File directoryFile = new File(".");
@@ -431,7 +431,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void appendToTrends_AppendsDataToTrends() throws Exception {
+    void appendToTrends_AppendsDataToTrends() throws Exception {
 
         // given
         final String buildNumber = "1";
@@ -501,7 +501,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void saveTrends_OnInvalidFile_ThrowsException() {
+    void saveTrends_OnInvalidFile_ThrowsException() {
 
         // given
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
@@ -516,7 +516,7 @@ public class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    public void generateErrorPage_GeneratesErrorPage() throws Exception {
+    void generateErrorPage_GeneratesErrorPage() throws Exception {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");

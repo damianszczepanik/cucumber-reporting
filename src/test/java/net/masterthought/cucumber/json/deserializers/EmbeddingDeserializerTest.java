@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.json.deserializers;
 
-import static org.junit.Assert.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -12,25 +12,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.json.Embedding;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(value = JsonNode.class)
-@PowerMockIgnore("jdk.internal.reflect.*")
-public class EmbeddingDeserializerTest {
+class EmbeddingDeserializerTest {
 
     private static final String RANDOM_DIR = "target" + File.separator + System.currentTimeMillis() + File.separator;
 
     private Configuration configuration;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         configuration = new Configuration(new File(RANDOM_DIR), "TestProject");
 
         final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + "/embeddings";
@@ -38,13 +31,13 @@ public class EmbeddingDeserializerTest {
         if (!dir.exists()) {
             final boolean created = dir.mkdirs();
             if (!created) {
-                Assert.fail("Could not create folder " + directoryPath);
+                Assertions.fail("Could not create folder " + directoryPath);
             }
         }
     }
 
     @Test
-    public void deserialize_OnEncodedData_returnsEmbeddingWithEncodedData() {
+    void deserialize_OnEncodedData_returnsEmbeddingWithEncodedData() {
 
         // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
@@ -60,11 +53,11 @@ public class EmbeddingDeserializerTest {
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
         // then
-        assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
+        assertEquals(data, embedding.getDecodedData(), "The Decoded Data should be the same as the input Data");
     }
 
     @Test
-    public void deserialize_OnUnEncodedData_returnsEmbeddingWithEncodedData() {
+    void deserialize_OnUnEncodedData_returnsEmbeddingWithEncodedData() {
 
         // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
@@ -79,11 +72,11 @@ public class EmbeddingDeserializerTest {
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
         // then
-        assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
+        assertEquals(data, embedding.getDecodedData(), "The Decoded Data should be the same as the input Data");
     }
 
     @Test
-    public void deserialize_OnUnEncodedDataWithOnlyValidCharsAndWhiteSpaces_returnsEmbeddingWithEncodedData() {
+    void deserialize_OnUnEncodedDataWithOnlyValidCharsAndWhiteSpaces_returnsEmbeddingWithEncodedData() {
 
         // given
         EmbeddingDeserializer embeddingDeserializer = new EmbeddingDeserializer();
@@ -98,6 +91,6 @@ public class EmbeddingDeserializerTest {
         Embedding embedding = embeddingDeserializer.deserialize(node, configuration);
 
         // thens
-        assertEquals("The Decoded Data should be the same as the input Data", data, embedding.getDecodedData());
+        assertEquals(data, embedding.getDecodedData(), "The Decoded Data should be the same as the input Data");
     }
 }

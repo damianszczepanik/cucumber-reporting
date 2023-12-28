@@ -4,20 +4,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.json.support.Resultsable;
 import net.masterthought.cucumber.json.support.ResultsableBuilder;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StatusCounterTest {
+class StatusCounterTest {
 
     @Test
-    public void StatusCounter_OnFailingStatuses_IncrementsPassing() {
+    void StatusCounter_OnFailingStatuses_IncrementsPassing() {
 
         // given
         Resultsable[] resultsables = ResultsableBuilder.Resultsable(Status.PASSED, Status.FAILED, Status.SKIPPED);
@@ -32,7 +31,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void StatusCounter_OnNullFailingStatuses_IncrementsPassing() {
+    void StatusCounter_OnNullFailingStatuses_IncrementsPassing() {
 
         // given
         Resultsable[] resultsables = ResultsableBuilder.Resultsable(Status.PASSED, Status.FAILED, Status.SKIPPED);
@@ -47,7 +46,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void StatusCounter_OnEmptyFailingStatuses_IncrementsPassing() {
+    void StatusCounter_OnEmptyFailingStatuses_IncrementsPassing() {
 
         // given
         Resultsable[] resultsables = ResultsableBuilder.Resultsable(Status.PASSED, Status.FAILED, Status.SKIPPED);
@@ -62,7 +61,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void getValueFor_ReturnsStatusCounter() {
+    void getValueFor_ReturnsStatusCounter() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();
@@ -81,7 +80,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void size_ReturnsAllStatusCounter() {
+    void size_ReturnsAllStatusCounter() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();
@@ -95,7 +94,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void getFinalStatus_WithNoStatuses_ReturnsPass() {
+    void getFinalStatus_WithNoStatuses_ReturnsPass() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();
@@ -108,7 +107,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void getFinalStatus_OnSameStatuses_ReturnsThatStatus() {
+    void getFinalStatus_OnSameStatuses_ReturnsThatStatus() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();
@@ -122,7 +121,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void getFinalStatus_OnDifferentStatuses_ReturnsFailedStatus() {
+    void getFinalStatus_OnDifferentStatuses_ReturnsFailedStatus() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();
@@ -136,7 +135,7 @@ public class StatusCounterTest {
     }
 
     @Test
-    public void getFinalStatus_OnFailedStatus_ReturnsFailedStatus() {
+    void getFinalStatus_OnFailedStatus_ReturnsFailedStatus() {
 
         // given
         StatusCounter statusCounter = new StatusCounter();

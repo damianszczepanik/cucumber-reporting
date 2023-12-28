@@ -1,8 +1,7 @@
 package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.ReportBuilder;
@@ -15,10 +14,10 @@ import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TrendsOverviewPageIntegrationTest extends PageTest {
+class TrendsOverviewPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() throws Exception {
+    void generatePage_generatesTitle() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -38,7 +37,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesLead() throws Exception {
+    void generatePage_generatesLead() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -57,7 +56,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesCharts() throws Exception {
+    void generatePage_generatesCharts() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -77,7 +76,7 @@ public class TrendsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_insertsChartData() throws Exception {
+    void generatePage_insertsChartData() throws Exception {
 
         // given
         setUpWithJson(SAMPLE_JSON);

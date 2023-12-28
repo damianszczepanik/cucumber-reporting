@@ -6,21 +6,21 @@ import java.util.List;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StepTest extends PageTest {
+class StepTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getRows_ReturnsRows() {
+    void getRows_ReturnsRows() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[2];
@@ -34,7 +34,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getRows_OnArguments_ReturnsRows() {
+    void getRows_OnArguments_ReturnsRows() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[5];
@@ -48,7 +48,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getName_ReturnsName() {
+    void getName_ReturnsName() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[0];
@@ -61,7 +61,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getKeyword_ReturnsKeyword() {
+    void getKeyword_ReturnsKeyword() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[1];
@@ -74,7 +74,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getOutput_ReturnsOutput() {
+    void getOutput_ReturnsOutput() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[7];
@@ -89,7 +89,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getMatch_ReturnsMatch() {
+    void getMatch_ReturnsMatch() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[4];
@@ -102,7 +102,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getEmbeddings_ReturnsEmbeddings() {
+    void getEmbeddings_ReturnsEmbeddings() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[6];
@@ -116,7 +116,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getResult_ReturnResult() {
+    void getResult_ReturnResult() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[5];
@@ -129,7 +129,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getStatus_ReturnsStatus() {
+    void getStatus_ReturnsStatus() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[5];
@@ -142,7 +142,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[1];
@@ -155,7 +155,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getDuration_OnMissingDuration_ReturnsZero() {
+    void getDuration_OnMissingDuration_ReturnsZero() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[0];
@@ -168,7 +168,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getResult_OnMissingResult_ReturnsEmptyResult() {
+    void getResult_OnMissingResult_ReturnsEmptyResult() {
 
         // given
         Step step = features.get(1).getElements()[2].getSteps()[0];
@@ -183,7 +183,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getBeforeHook_ReturnsBeforeHooks() {
+    void getBeforeHook_ReturnsBeforeHooks() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[0];
@@ -197,7 +197,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getAfterHook_ReturnsAfterHooks() {
+    void getAfterHook_ReturnsAfterHooks() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[1];
@@ -211,7 +211,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getBeforeStatus_ReturnsStatusForBeforeHooks() {
+    void getBeforeStatus_ReturnsStatusForBeforeHooks() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[0];
@@ -225,7 +225,7 @@ public class StepTest extends PageTest {
 
 
     @Test
-    public void getAfterStatus_ReturnsStatusForAfterHooks() {
+    void getAfterStatus_ReturnsStatusForAfterHooks() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[2];
@@ -239,7 +239,7 @@ public class StepTest extends PageTest {
 
 
     @Test
-    public void getBeforeStatus_OnEmptyHooks_ReturnsPassed() {
+    void getBeforeStatus_OnEmptyHooks_ReturnsPassed() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[2];
@@ -252,7 +252,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getAfterStatus_OnEmptyHooks_ReturnsPassed() {
+    void getAfterStatus_OnEmptyHooks_ReturnsPassed() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[2];
@@ -265,7 +265,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getComments_ReturnsCommentsFromArrayOfString() {
+    void getComments_ReturnsCommentsFromArrayOfString() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[0];
@@ -278,7 +278,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getComments_ReturnsCommentsFromArrayOfCommentObject() {
+    void getComments_ReturnsCommentsFromArrayOfCommentObject() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[1];
@@ -291,7 +291,7 @@ public class StepTest extends PageTest {
     }
 
     @Test
-    public void getComments_ReturnsEmptyCommentList() {
+    void getComments_ReturnsEmptyCommentList() {
 
         // given
         Step step = features.get(0).getElements()[0].getSteps()[2];

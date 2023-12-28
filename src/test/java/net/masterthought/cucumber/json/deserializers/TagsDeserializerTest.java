@@ -1,8 +1,8 @@
 package net.masterthought.cucumber.json.deserializers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +10,12 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.json.Tag;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.jupiter.api.Test;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(value = JsonNode.class)
-@PowerMockIgnore("jdk.internal.reflect.*")
-public class TagsDeserializerTest {
+class TagsDeserializerTest {
 
     @Test
-    public void deserialize_returnsTags() {
+    void deserialize_returnsTags() {
 
         // given
         TagsDeserializer tagsDeserializer = new TagsDeserializer();
@@ -46,7 +39,7 @@ public class TagsDeserializerTest {
     }
 
     @Test
-    public void deserialize_OnExcludedTags_returnsTags() {
+    void deserialize_OnExcludedTags_returnsTags() {
 
         // given
         TagsDeserializer tagsDeserializer = new TagsDeserializer();

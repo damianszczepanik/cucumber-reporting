@@ -2,22 +2,21 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.ElementAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FailuresOverviewPageIntegrationTest extends PageTest {
+class FailuresOverviewPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -38,7 +37,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesLead() {
+    void generatePage_generatesLead() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -56,7 +55,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onJsonWithoutFailedSteps_generatesProperMessage() {
+    void generatePage_onJsonWithoutFailedSteps_generatesProperMessage() {
 
         // given
         setUpWithJson(SIMPLE_JSON);
@@ -72,7 +71,7 @@ public class FailuresOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesSummary() {
+    void generatePage_generatesSummary() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

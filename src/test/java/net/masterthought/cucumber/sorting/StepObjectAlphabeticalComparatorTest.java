@@ -5,17 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Comparator;
 
 import net.masterthought.cucumber.json.support.StepObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StepObjectAlphabeticalComparatorTest {
+class StepObjectAlphabeticalComparatorTest {
 
     private final Comparator<StepObject> comparator = new StepObjectAlphabeticalComparator();
 
     @Test
-    public void compareTo_OnDifferentLocation_ReturnsNoneZero() {
+    void compareTo_OnDifferentLocation_ReturnsNoneZero() {
 
         // given
         StepObject step1 = new StepObject("one");
@@ -29,7 +29,7 @@ public class StepObjectAlphabeticalComparatorTest {
     }
 
     @Test
-    public void compareTo_OnSameLocation_ReturnsZero() {
+    void compareTo_OnSameLocation_ReturnsZero() {
 
         // given
         StepObject step1 = new StepObject("one");

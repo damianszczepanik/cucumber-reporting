@@ -28,17 +28,17 @@ import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeatureReportPageIntegrationTest extends PageTest {
+class FeatureReportPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -57,7 +57,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_addsCustomJsFiles() {
+    void generatePage_addsCustomJsFiles() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -75,7 +75,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_addsCustomCssFiles() {
+    void generatePage_addsCustomCssFiles() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -94,7 +94,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableBody() {
+    void generatePage_generatesStatsTableBody() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -113,7 +113,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_OnParallelTesting_generatesQualifierColumn() {
+    void generatePage_OnParallelTesting_generatesQualifierColumn() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -133,7 +133,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesFeatureDetails() {
+    void generatePage_generatesFeatureDetails() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -159,7 +159,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesScenarioDetails() {
+    void generatePage_generatesScenarioDetails() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -193,7 +193,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesHooks() {
+    void generatePage_generatesHooks() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -226,7 +226,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesSteps() {
+    void generatePage_generatesSteps() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -260,7 +260,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_OnBiDimentionalArray_generatesOutput() {
+    void generatePage_OnBiDimentionalArray_generatesOutput() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -279,7 +279,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_OnSingleArray_generatesOutput() {
+    void generatePage_OnSingleArray_generatesOutput() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -298,7 +298,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesArguments() {
+    void generatePage_generatesArguments() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -325,7 +325,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesDocString() {
+    void generatePage_generatesDocString() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -345,7 +345,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesEmbedding() {
+    void generatePage_generatesEmbedding() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -376,7 +376,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_OnRubyFormat_ForAfterHook_generatesEmbedding() {
+    void generatePage_OnRubyFormat_ForAfterHook_generatesEmbedding() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -399,7 +399,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_ForAfterElementHook_generatesOutputs() {
+    void generatePage_ForAfterElementHook_generatesOutputs() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -421,7 +421,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_ForBeforeStepHook_generatesHooks() {
+    void generatePage_ForBeforeStepHook_generatesHooks() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -443,7 +443,7 @@ public class FeatureReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_ForAfterStepHook_generatesHooks() {
+    void generatePage_ForAfterStepHook_generatesHooks() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

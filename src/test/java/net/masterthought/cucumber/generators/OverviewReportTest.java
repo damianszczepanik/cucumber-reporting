@@ -5,15 +5,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import net.masterthought.cucumber.json.support.Status;
 import org.apache.commons.lang3.NotImplementedException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OverviewReportTest {
+class OverviewReportTest {
 
     @Test
-    public void incFeaturesFor_AddsFeatures() {
+    void incFeaturesFor_AddsFeatures() {
 
         // given
         OverviewReport refReport = buildSampleReport();
@@ -29,7 +29,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void incScenarioFor_AddsScenario() {
+    void incScenarioFor_AddsScenario() {
 
         // given
         OverviewReport refReport = buildSampleReport();
@@ -45,7 +45,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getFeatures_ReturnsFeaturesCount() {
+    void getFeatures_ReturnsFeaturesCount() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -57,7 +57,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getPassedFeatures_ReturnsPassedFeaturesCount() {
+    void getPassedFeatures_ReturnsPassedFeaturesCount() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -70,7 +70,7 @@ public class OverviewReportTest {
 
 
     @Test
-    public void getFailedFeatures_ReturnsFAiledFeaturesCount() {
+    void getFailedFeatures_ReturnsFAiledFeaturesCount() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -83,7 +83,7 @@ public class OverviewReportTest {
 
 
     @Test
-    public void getScenarios_ReturnsNumberOfScenarios() {
+    void getScenarios_ReturnsNumberOfScenarios() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -93,7 +93,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getXXXScenarios_ReturnsNumberOfScenariosForStatus() {
+    void getXXXScenarios_ReturnsNumberOfScenariosForStatus() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -104,7 +104,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void incStepsFor_AddsScenario() {
+    void incStepsFor_AddsScenario() {
 
         // given
         OverviewReport refReport = buildSampleReport();
@@ -120,7 +120,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getSteps_ReturnsNumberOfSteps() {
+    void getSteps_ReturnsNumberOfSteps() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -130,7 +130,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getXXXSteps_ReturnsNumberOfStepsForStatus() {
+    void getXXXSteps_ReturnsNumberOfStepsForStatus() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -144,7 +144,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void incDuration_AddsDuration() {
+    void incDuration_AddsDuration() {
 
         // given
         long offset = 5555555;
@@ -159,7 +159,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -169,7 +169,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getFormattedDuration_ReturnsFormattedDuration() {
+    void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -179,7 +179,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getName_ThrowsException() {
+    void getName_ThrowsException() {
 
         // given
         OverviewReport report = buildSampleReport();
@@ -190,7 +190,7 @@ public class OverviewReportTest {
     }
 
     @Test
-    public void getStatus_ThrowsException() {
+    void getStatus_ThrowsException() {
 
         // given
         OverviewReport report = buildSampleReport();

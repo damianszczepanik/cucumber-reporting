@@ -9,21 +9,21 @@ import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Element;
 import org.apache.commons.lang3.NotImplementedException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagObjectTest extends PageTest {
+class TagObjectTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void TagObject_OnNullTagName_ThrowsException() {
+    void TagObject_OnNullTagName_ThrowsException() {
         // given
         String tagName = null;
 
@@ -32,7 +32,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getName_ReturnsTagName() {
+    void getName_ReturnsTagName() {
 
         // given
         final String refName = "yourName";
@@ -46,7 +46,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getReportFileName_ReturnsFileName() {
+    void getReportFileName_ReturnsFileName() {
 
         // given
         TagObject tag = new TagObject("@client:output");
@@ -59,7 +59,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getElements_ReturnsExactAddedElement() {
+    void getElements_ReturnsExactAddedElement() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -75,7 +75,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getFeatures_ThrowsException() {
+    void getFeatures_ThrowsException() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -86,7 +86,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getPassedFeatures_ThrowsException() {
+    void getPassedFeatures_ThrowsException() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -97,7 +97,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getFailedFeatures_ThrowsException() {
+    void getFailedFeatures_ThrowsException() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -108,7 +108,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getScenarios_ReturnsSumOfScenarios() {
+    void getScenarios_ReturnsSumOfScenarios() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -124,7 +124,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getPassedScenarios_ReturnsSumOfPassingScenarios() {
+    void getPassedScenarios_ReturnsSumOfPassingScenarios() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -140,7 +140,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getFailedScenarios_ReturnsSumOfFailedScenarios() {
+    void getFailedScenarios_ReturnsSumOfFailedScenarios() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -156,7 +156,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -173,7 +173,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getSteps_ReturnsSumOfSteps() {
+    void getSteps_ReturnsSumOfSteps() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -189,7 +189,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getNumberOfStatus_OnStatus__ReturnsSumOfStatuses() {
+    void getNumberOfStatus_OnStatus__ReturnsSumOfStatuses() {
 
         // given
         TagObject tag = new TagObject("@checkout");
@@ -207,7 +207,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getStatus_ReturnsStatus() {
+    void getStatus_ReturnsStatus() {
 
         // given
         TagObject tag = new TagObject("hello");
@@ -221,7 +221,7 @@ public class TagObjectTest extends PageTest {
     }
 
     @Test
-    public void getRawStatus_ReturnsRawOfFinalStatus() {
+    void getRawStatus_ReturnsRawOfFinalStatus() {
 
         // given
         TagObject tag = new TagObject("@checkout");

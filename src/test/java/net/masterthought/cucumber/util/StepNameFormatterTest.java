@@ -2,21 +2,20 @@ package net.masterthought.cucumber.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Step;
 
-public class StepNameFormatterTest extends PageTest {
+class StepNameFormatterTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void format_OnNoArgument_ReturnsUnchangedValue() {
+    void format_OnNoArgument_ReturnsUnchangedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[1];
@@ -29,7 +28,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_OnLastPosition_ReturnsFormattedValue() {
+    void format_OnLastPosition_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[0];
@@ -42,7 +41,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_OnEmptyArgument_ReturnsFormattedValue() {
+    void format_OnEmptyArgument_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[1];
@@ -55,7 +54,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_OnArgumentAtEndOfString_ReturnsFormattedValue() {
+    void format_OnArgumentAtEndOfString_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[3];
@@ -68,7 +67,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_ReturnsFormattedValue() {
+    void format_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[4];
@@ -81,7 +80,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_StartPosition_ReturnsFormattedValue() {
+    void format_StartPosition_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[2];
@@ -94,7 +93,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_OnMultipleArguments_ReturnsFormattedValue() {
+    void format_OnMultipleArguments_ReturnsFormattedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[3];
@@ -107,7 +106,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_OnEmptyValue_ReturnsUnchangedValue() {
+    void format_OnEmptyValue_ReturnsUnchangedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[3];
@@ -120,7 +119,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_optionalArgumentNotMatched() {
+    void format_optionalArgumentNotMatched() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[0];
@@ -133,7 +132,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_ReturnsEscapedValues() {
+    void format_ReturnsEscapedValues() {
 
         // given
         Step step = features.get(1).getElements()[0].getSteps()[1];
@@ -146,7 +145,7 @@ public class StepNameFormatterTest extends PageTest {
     }
 
     @Test
-    public void format_shouldEscape() {
+    void format_shouldEscape() {
 
         // given
         String text = "I press <ON> & <C> simulatenously";

@@ -5,23 +5,23 @@ import java.util.List;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ErrorPageTest extends PageTest {
+class ErrorPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // give
         Exception exception = new Exception();

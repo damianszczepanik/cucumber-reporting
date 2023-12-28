@@ -2,23 +2,22 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class DocStringTest extends PageTest {
+class DocStringTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getName_ReturnsFeatureTagName() {
+    void getName_ReturnsFeatureTagName() {
 
         // give
         DocString docString = features.get(0).getElements()[0].getSteps()[1].getDocString();

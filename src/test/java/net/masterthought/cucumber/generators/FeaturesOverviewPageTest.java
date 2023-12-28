@@ -3,24 +3,23 @@ package net.masterthought.cucumber.generators;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeaturesOverviewPageTest extends PageTest {
+class FeaturesOverviewPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    void getWebPage_ReturnsFeatureFileName() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -33,7 +32,7 @@ public class FeaturesOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);

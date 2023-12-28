@@ -6,23 +6,23 @@ import net.masterthought.cucumber.json.Embedding;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class FeatureReportPageTest extends PageTest {
+class FeatureReportPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getWebPage_ReturnsFeatureFileName() {
+    void getWebPage_ReturnsFeatureFileName() {
 
         // given
         Feature feature = features.get(1);
@@ -36,7 +36,7 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // given
         Feature feature = features.get(1);
@@ -52,7 +52,7 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void getMimeType_OnEmbeddingFromV2CucumberReportFile_SupportsScreenshots() {
+    void getMimeType_OnEmbeddingFromV2CucumberReportFile_SupportsScreenshots() {
         // given
         Feature feature = features.get(0);
         Element element = feature.getElements()[0];
@@ -66,7 +66,7 @@ public class FeatureReportPageTest extends PageTest {
     }
 
     @Test
-    public void getMimeType_OnEmbeddingFromV3CucumberReportFile_SupportsScreenshots() {
+    void getMimeType_OnEmbeddingFromV3CucumberReportFile_SupportsScreenshots() {
         // given
         Feature feature = features.get(0);
         Element element = feature.getElements()[0];

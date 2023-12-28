@@ -5,23 +5,22 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.sorting.SortingMethod;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class LiveDemoTest {
+class LiveDemoTest {
 
     // test annotation only to make sure it is generated during "mvn test"
     // what is needed to publish generated report via github.com
     // http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html
     @Test
-    public void generateDemoReport() throws IOException {
+    void generateDemoReport() throws IOException {
         File reportOutputDirectory = new File("target/demo");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("src/test/resources/json/sample.json");

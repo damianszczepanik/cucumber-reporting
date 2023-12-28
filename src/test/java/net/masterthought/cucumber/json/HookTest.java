@@ -2,23 +2,22 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class HookTest extends PageTest {
+class HookTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getResult_ReturnsResult() {
+    void getResult_ReturnsResult() {
 
         // given
         Hook hook = features.get(0).getElements()[1].getAfter()[0];
@@ -31,7 +30,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void getMatch_ReturnsMatch() {
+    void getMatch_ReturnsMatch() {
 
         // given
         Hook hook = features.get(0).getElements()[1].getAfter()[0];
@@ -44,7 +43,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void getOutputs_ReturnsOutputs() {
+    void getOutputs_ReturnsOutputs() {
 
         // given
         Hook hook = features.get(1).getElements()[0].getBefore()[0];
@@ -58,7 +57,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void getEmbeddings_ReturnsEmbeddings() {
+    void getEmbeddings_ReturnsEmbeddings() {
 
         // given
         Hook hook = features.get(1).getElements()[0].getAfter()[0];
@@ -72,7 +71,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void hasContent_WithEmbedding_ReturnsTrue() {
+    void hasContent_WithEmbedding_ReturnsTrue() {
 
         // given
         Hook hook = features.get(1).getElements()[0].getSteps()[0].getBefore()[0];
@@ -86,7 +85,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void hasContent_WithErrorMessage_ReturnsTrue() {
+    void hasContent_WithErrorMessage_ReturnsTrue() {
 
         // given
         Hook hook = features.get(0).getElements()[1].getAfter()[0];
@@ -100,7 +99,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void hasContent_WithEmptyResult_ReturnsFalse() {
+    void hasContent_WithEmptyResult_ReturnsFalse() {
 
         // given
         Hook hook = features.get(1).getElements()[0].getSteps()[1].getAfter()[0];
@@ -114,7 +113,7 @@ public class HookTest extends PageTest {
     }
 
     @Test
-    public void hasContent_OnEmptyHook_ReturnsFalse() {
+    void hasContent_OnEmptyHook_ReturnsFalse() {
 
         // given
         Hook hook = features.get(1).getElements()[0].getBefore()[0];
