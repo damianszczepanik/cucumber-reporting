@@ -3,7 +3,7 @@ package net.masterthought.cucumber.reducers;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import org.junit.jupiter.api.Test;
-import org.powermock.api.support.membermodification.MemberModifier;
+import org.powermock.reflect.Whitebox;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -12,24 +12,19 @@ import java.util.UUID;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static net.masterthought.cucumber.reducers.ReducingMethod.MERGE_FEATURES_WITH_RETEST;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.spy;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 class ReportFeatureWithRetestMergerTest {
 
     private ReportFeatureWithRetestMerger merger = new ReportFeatureWithRetestMerger();
 
     private Element buildElement(String id, boolean isBackground) {
-        try {
-            Element result = new Element();
-            MemberModifier.field(Element.class, "id").set(result, id);
-            MemberModifier.field(Element.class, "type").set(result, isBackground ? "background" : "scenario");
-            MemberModifier.field(Element.class, "startTime").set(result, LocalDateTime.now());
-            return result;
-        }
-        catch (IllegalAccessException e) {
-            return null;
-        }
+        Element result = new Element();
+        Whitebox.setInternalState(result, "id", id);
+        Whitebox.setInternalState(result, "type", isBackground ? "background" : "scenario");
+        Whitebox.setInternalState(result, "startTime", LocalDateTime.now());
+        return result;
     }
 
     private Element buildBackground() {
@@ -44,9 +39,7 @@ class ReportFeatureWithRetestMergerTest {
     void updateElementsOfGivenFeature_NoCoincidencesById() throws IllegalAccessException {
         // given
         Feature feature = new Feature();
-        MemberModifier
-                .field(Feature.class, "elements")
-                .set(feature, new Element[] {buildBackground(), buildScenario(), buildScenario()});
+        Whitebox.setInternalState(feature, "elements", new Element[] {buildBackground(), buildScenario(), buildScenario()});
 
         Element[] newElements = {buildBackground(), buildScenario()};
 
@@ -64,9 +57,7 @@ class ReportFeatureWithRetestMergerTest {
         // given
         Feature feature = new Feature();
         Element[] elements = {buildScenario(), buildBackground(), buildScenario()};
-        MemberModifier
-                .field(Feature.class, "elements")
-                .set(feature, elements);
+        Whitebox.setInternalState(feature, "elements", elements);
 
         Element[] newElements = {buildElement(elements[0].getId(), false)};
 
