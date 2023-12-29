@@ -388,8 +388,7 @@ class ConfigurationTest {
 
         // then
         List<String> returnedPropertiesFiles = configuration.getClassificationFiles();
-        assertThat(returnedPropertiesFiles).hasSize(2);
-        assertThat(returnedPropertiesFiles).containsExactly(
+        assertThat(returnedPropertiesFiles).hasSize(2).containsExactly(
                 ("properties-1.properties"),
                 ("properties-2.properties")
         );
