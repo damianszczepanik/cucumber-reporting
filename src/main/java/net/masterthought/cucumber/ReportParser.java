@@ -8,7 +8,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,8 +19,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.reducers.ReducingMethod;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -134,14 +135,20 @@ public class ReportParser {
     }
 
     private void processClassificationFile(String file) {
+        FileBasedConfigurationBuilder<PropertiesConfiguration> builder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+                .configure(new Parameters().properties().setFile(new File(file))
+                        .setThrowExceptionOnMissing(true));
         try {
-            PropertiesConfiguration config = new PropertiesConfiguration(file);
-            Iterator<String> keys = config.getKeys();
-            while (keys.hasNext()) {
-                String key = keys.next();
-                String value = config.getProperty(key).toString();
-                this.configuration.addClassifications(key, value);
-            }
+            PropertiesConfiguration config = builder.getConfiguration();
+
+            config.getKeys().forEachRemaining(key -> {
+                if (config.getStringArray(key).length > 1) {
+                    // Duplicate keys
+                    this.configuration.addClassifications(key, Arrays.toString(config.getStringArray(key)));
+                } else {
+                    this.configuration.addClassifications(key,config.getString(key));
+                }
+                });
         } catch (ConfigurationException e) {
             throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
         }
