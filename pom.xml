@@ -186,10 +186,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
-                    <systemPropertyVariables>
-                        <!-- JaCoCo runtime must know where to dump coverage: -->
-                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
-                    </systemPropertyVariables>
                     <excludes>
                         <!-- Integration tests should not be counted by code coverage -->
                         <exclude>${test.integration.pattern}</exclude>
