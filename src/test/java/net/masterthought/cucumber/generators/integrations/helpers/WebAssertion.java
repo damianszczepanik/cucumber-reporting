@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.text.TextStringBuilder;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -37,7 +36,7 @@ public class WebAssertion {
 
         assertNotEmpty(inners, cssClass);
         if (inners.size() > 1) {
-            TextStringBuilder sb = new TextStringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (Element inner : inners) {
                 sb.append(inner).append("\n");
             }
@@ -60,7 +59,7 @@ public class WebAssertion {
 
         assertNotEmpty(matched, cssClass);
         if (matched.size() > 1) {
-            TextStringBuilder sb = new TextStringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (Element element : matched) {
                 sb.append(element).append("\n");
             }
