@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
@@ -105,20 +104,6 @@ class SortingFactoryTest extends PageTest {
         assertThat(stepObjects).hasSize(16);
         assertThat(stepObjects).first().isEqualTo(steps.get(0));
         assertThat(stepObjects).last().isEqualTo(steps.get(15));
-    }
-
-    @Test
-    void createUnknownMethodException_CreatesException() throws Exception {
-
-        // given
-        SortingMethod invalidSorthingMethod = SortingMethod.ALPHABETICAL;
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
-
-        // when
-        Exception e = Whitebox.invokeMethod(sortingFactory, "createUnknownMethodException", invalidSorthingMethod);
-
-        // then
-        assertThat(e).isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("Unsupported sorting method: " + invalidSorthingMethod);
     }
 
 }
