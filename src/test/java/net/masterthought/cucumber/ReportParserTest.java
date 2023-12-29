@@ -198,8 +198,7 @@ class ReportParserTest extends ReportGenerator {
 
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
-        assertThat(returnedClassifications).hasSize(8);
-        assertThat(returnedClassifications)
+        assertThat(returnedClassifications).hasSize(8)
                 .contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1))
                 .contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4))
                 .contains(new AbstractMap.SimpleEntry<>("Proxy", "http=//172.22.240.68:18717"), Index.atIndex(6))
@@ -219,8 +218,7 @@ class ReportParserTest extends ReportGenerator {
 
         // then
         List<Map.Entry<String, String>> returnedClassifications = configuration.getClassifications();
-        assertThat(returnedClassifications).hasSize(5);
-        assertThat(returnedClassifications)
+        assertThat(returnedClassifications).hasSize(5)
                 .contains(new AbstractMap.SimpleEntry<>("AutUiVersion", "1.25.3"), Index.atIndex(1))
                 .contains(new AbstractMap.SimpleEntry<>("firefoxVersion", "56.0"), Index.atIndex(4));
     }
@@ -237,8 +235,7 @@ class ReportParserTest extends ReportGenerator {
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
-        assertThat(classifications).hasSize(3);
-        assertThat(classifications).containsExactly(
+        assertThat(classifications).hasSize(3).containsExactly(
                 entry("NodeJsVersion", "8.5.0"),
                 entry("Proxy", "http=//172.22.240.68:18717"),
                 entry("NpmVersion", "5.3.0")
@@ -257,8 +254,7 @@ class ReportParserTest extends ReportGenerator {
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
-        assertThat(classifications).hasSize(1);
-        assertThat(classifications).containsExactly(
+        assertThat(classifications).hasSize(1).containsExactly(
                 entry("BaseUrl_QA", "[Internal=https://internal.test.com, External=https://external.test.com]")
         );
     }
@@ -275,8 +271,7 @@ class ReportParserTest extends ReportGenerator {
 
         // then
         List<Map.Entry<String, String>> classifications = configuration.getClassifications();
-        assertThat(classifications).hasSize(6);
-        assertThat(classifications).containsExactly(
+        assertThat(classifications).hasSize(6).containsExactly(
                 entry("website", "https://en.wikipedia.org/"),
                 entry("language", "English"),
                 entry("message", "Welcome to Wikipedia!"),
