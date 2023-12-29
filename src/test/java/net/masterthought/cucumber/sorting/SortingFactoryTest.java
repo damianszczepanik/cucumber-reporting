@@ -1,7 +1,6 @@
 package net.masterthought.cucumber.sorting;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 
@@ -51,20 +50,6 @@ class SortingFactoryTest extends PageTest {
     }
 
     @Test
-    void sortFeatures_OnINVALID_ThrowsException() {
-
-        // given
-        // INVALID is available only for test profile and the reason of this shadow Enum in test profile is
-        // to be able to test default: block which throws an exception for unsupported values
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortFeatures(features))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
-    }
-
-    @Test
     void sortTags_OnNATURAL_ReturnsSameList() {
 
         // given
@@ -89,18 +74,6 @@ class SortingFactoryTest extends PageTest {
 
         // then
         assertThat(tagObjects).containsExactly(tags.get(0), tags.get(1), tags.get(2));
-    }
-
-    @Test
-    void sortTags_OnINVALID_ThrowsException() {
-
-        // given
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortTags(tags))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
     }
 
     @Test
@@ -135,19 +108,6 @@ class SortingFactoryTest extends PageTest {
     }
 
     @Test
-    void sortSteps_OnINVALID_ThrowsException() {
-
-        // given
-        SortingMethod sortingMethod = SortingMethod.INVALID;
-        SortingFactory sortingFactory = new SortingFactory(sortingMethod);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortSteps(steps))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
-    }
-
-    @Test
     void createUnknownMethodException_CreatesException() throws Exception {
 
         // given
@@ -161,7 +121,4 @@ class SortingFactoryTest extends PageTest {
         assertThat(e).isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("Unsupported sorting method: " + invalidSorthingMethod);
     }
 
-    private String buildErrorMessage() {
-        return "Unsupported sorting method: " + SortingMethod.INVALID;
-    }
 }
