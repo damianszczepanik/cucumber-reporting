@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.io.File;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,7 +82,7 @@ class AbstractPageTest extends PageTest {
             @Override
             public String getWebPage() {
                 // invalid file path
-                return StringUtils.EMPTY;
+                return "";
             }
         };
 

@@ -13,7 +13,6 @@ import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.json.Output;
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 
 /**
@@ -27,7 +26,7 @@ public abstract class PageTest extends ReportGenerator {
         File input = new File(configuration.getReportDirectory(),
                 ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + pageName);
         try {
-            return new DocumentAssertion(Jsoup.parse(input, StandardCharsets.UTF_8.name(), StringUtils.EMPTY));
+            return new DocumentAssertion(Jsoup.parse(input, StandardCharsets.UTF_8.name(), ""));
         } catch (IOException e) {
             throw new ValidationException(e);
         }
