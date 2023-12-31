@@ -16,19 +16,19 @@ import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ConfigurationTest {
+class ConfigurationTest {
 
     private static final File outputDirectory = new File("abc");
 
     private final String projectName = "123";
 
     @Test
-    public void getReportDirectory_ReturnsOutputDirectory() {
+    void getReportDirectory_ReturnsOutputDirectory() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -41,7 +41,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getTrendsStatsFile_ReturnsTrendsFile() {
+    void getTrendsStatsFile_ReturnsTrendsFile() {
 
         // given
         File file = new File("ble");
@@ -55,7 +55,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isTrendsStatsFile_ChecksIfTrendsFileWasSet() {
+    void isTrendsStatsFile_ChecksIfTrendsFileWasSet() {
 
         // given
         File file = new File("ble");
@@ -69,7 +69,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getTrendsLimit_ReturnsLimitForTrends() {
+    void getTrendsLimit_ReturnsLimitForTrends() {
 
         // given
         final int limit = 123;
@@ -83,7 +83,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isTrendsAvailable_OnNoTrendsPage_ReturnsFalse() {
+    void isTrendsAvailable_OnNoTrendsPage_ReturnsFalse() {
 
         // given
         final int limit = -1;
@@ -98,7 +98,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isTrendsAvailable_OnNoTrendsFile_ReturnsFalse() {
+    void isTrendsAvailable_OnNoTrendsFile_ReturnsFalse() {
 
         // given
         final int limit = 10;
@@ -112,7 +112,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getBuildNumber_ReturnsBuildNumber() {
+    void getBuildNumber_ReturnsBuildNumber() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -127,7 +127,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getProjectName_ReturnsProjectName() {
+    void getProjectName_ReturnsProjectName() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -140,7 +140,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getTagsToExcludeFromChart_ReturnsEmptyList() {
+    void getTagsToExcludeFromChart_ReturnsEmptyList() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -153,7 +153,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getDirectorySuffix_ReturnsDirectorySuffix() {
+    void getDirectorySuffix_ReturnsDirectorySuffix() {
 
         // given
         String directorySuffix = "test";
@@ -167,7 +167,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getDirectorySuffixWithSeparator_ReturnsDirectorySuffixWithSeparator() {
+    void getDirectorySuffixWithSeparator_ReturnsDirectorySuffixWithSeparator() {
 
         // given
         String directorySuffix = "test";
@@ -181,7 +181,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getDirectorySuffixWithSeparatorForEmptySuffix_ReturnsEmptyString() {
+    void getDirectorySuffixWithSeparatorForEmptySuffix_ReturnsEmptyString() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -191,7 +191,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getQualifier_ReturnsQualifierWhenSet() {
+    void getQualifier_ReturnsQualifierWhenSet() {
 
         // given
         String jsonFile = "test";
@@ -206,7 +206,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getQualifier_ReturnsNullWhenNotSet() {
+    void getQualifier_ReturnsNullWhenNotSet() {
 
         // given
         String jsonFile = "test";
@@ -217,7 +217,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getQualifier_ReturnsNullWhenSetThenRemoved() {
+    void getQualifier_ReturnsNullWhenSetThenRemoved() {
 
         // given
         String jsonFile = "test";
@@ -233,7 +233,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isQualifierSet_ReturnsTrueWhenSet() {
+    void isQualifierSet_ReturnsTrueWhenSet() {
 
         // given
         String jsonFile = "test";
@@ -248,7 +248,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isQualifierSet_ReturnsTrueWhenNotSet() {
+    void isQualifierSet_ReturnsTrueWhenNotSet() {
 
         // given
         String jsonFile = "test";
@@ -259,7 +259,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void isQualifierSet_ReturnsTrueWhenSetThenRemoved() {
+    void isQualifierSet_ReturnsTrueWhenSetThenRemoved() {
 
         // given
         String jsonFile = "test";
@@ -275,7 +275,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getTagsToExcludeFromChart_addPatterns_ReturnsListWithAllPatterns() {
+    void getTagsToExcludeFromChart_addPatterns_ReturnsListWithAllPatterns() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -291,7 +291,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void setTagsToExcludeFromChart_OnInvalidRegexPattern_ThrowsValidationException() {
+    void setTagsToExcludeFromChart_OnInvalidRegexPattern_ThrowsValidationException() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -301,7 +301,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addClassifications_AddsClassification() {
+    void addClassifications_AddsClassification() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -319,7 +319,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void setSortingMethod_SetsSortingMethod() {
+    void setSortingMethod_SetsSortingMethod() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -333,7 +333,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addReducingMethod_AddsReducingMethod() {
+    void addReducingMethod_AddsReducingMethod() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -347,7 +347,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void containsReducingMethod_ChecksExistenceOfReducingMethod() {
+    void containsReducingMethod_ChecksExistenceOfReducingMethod() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -361,7 +361,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addPresentationMode_AddsPresentationMode() {
+    void addPresentationMode_AddsPresentationMode() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -375,7 +375,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addClassificationFiles_addsPropertyFiles() {
+    void addClassificationFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -396,7 +396,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getNotFailingStatuses_ReturnsNotFailingStatuses() {
+    void getNotFailingStatuses_ReturnsNotFailingStatuses() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -411,7 +411,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void setNotFailingStatuses_SkipsNullValues() {
+    void setNotFailingStatuses_SkipsNullValues() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -426,7 +426,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addCustomCssFiles_addsPropertyFiles() {
+    void addCustomCssFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);
@@ -443,7 +443,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void addCustomJsFiles_addsPropertyFiles() {
+    void addCustomJsFiles_addsPropertyFiles() {
 
         // given
         Configuration configuration = new Configuration(outputDirectory, projectName);

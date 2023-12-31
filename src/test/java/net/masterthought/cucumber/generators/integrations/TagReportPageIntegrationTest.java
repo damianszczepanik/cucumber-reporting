@@ -2,8 +2,6 @@ package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import net.masterthought.cucumber.generators.TagReportPage;
 import net.masterthought.cucumber.generators.integrations.helpers.BriefAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
@@ -12,14 +10,15 @@ import net.masterthought.cucumber.generators.integrations.helpers.LinkAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.json.support.TagObject;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagReportPageIntegrationTest extends PageTest {
+class TagReportPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -38,7 +37,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableBody() {
+    void generatePage_generatesStatsTableBody() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -57,7 +56,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesFeatureNames() {
+    void generatePage_generatesFeatureNames() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -76,7 +75,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesTagsList() {
+    void generatePage_generatesTagsList() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -94,7 +93,7 @@ public class TagReportPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesSteps() {
+    void generatePage_generatesSteps() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

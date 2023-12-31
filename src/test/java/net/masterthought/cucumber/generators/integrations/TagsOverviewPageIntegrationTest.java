@@ -8,15 +8,15 @@ import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.SummaryAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagsOverviewPageIntegrationTest extends PageTest {
+class TagsOverviewPageIntegrationTest extends PageTest {
 
     @Test
-    public void generatePage_generatesTitle() {
+    void generatePage_generatesTitle() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -35,7 +35,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesLead() {
+    void generatePage_generatesLead() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -53,7 +53,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesCharts() {
+    void generatePage_generatesCharts() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -69,7 +69,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_insertsChartData() {
+    void generatePage_insertsChartData() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -93,7 +93,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableHeader() {
+    void generatePage_generatesStatsTableHeader() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -117,7 +117,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableBody() {
+    void generatePage_generatesStatsTableBody() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -152,7 +152,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_WithExculedTags_generatesStatsTableBody() {
+    void generatePage_WithExculedTags_generatesStatsTableBody() {
 
         // given
         configuration.setTagsToExcludeFromChart("@checkout", "@feature.*");
@@ -176,7 +176,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesStatsTableFooter() {
+    void generatePage_generatesStatsTableFooter() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -195,7 +195,7 @@ public class TagsOverviewPageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onJsonWithoutTags_generatesProperMessage() {
+    void generatePage_onJsonWithoutTags_generatesProperMessage() {
 
         // given
         setUpWithJson(SIMPLE_JSON);

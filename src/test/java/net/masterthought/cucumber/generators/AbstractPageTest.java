@@ -8,8 +8,8 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.ReportBuilder;
@@ -23,21 +23,18 @@ import net.masterthought.cucumber.util.Counter;
 import net.masterthought.cucumber.util.StepNameFormatter;
 import net.masterthought.cucumber.util.Util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class AbstractPageTest extends PageTest {
+class AbstractPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void generateReport_CreatesReportFile() {
+    void generateReport_CreatesReportFile() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -53,7 +50,7 @@ public class AbstractPageTest extends PageTest {
 
 
     @Test
-    public void generateReport_DisplaysContentAsEscapedText() {
+    void generateReport_DisplaysContentAsEscapedText() {
 
         // given
         page = new FeatureReportPage(reportResult, configuration, features.get(1));
@@ -79,7 +76,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void generateReport_OnInvalidPath_ThrowsException() {
+    void generateReport_OnInvalidPath_ThrowsException() {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration) {
@@ -96,7 +93,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildProperties_ReturnsProperties() throws Exception {
+    void buildProperties_ReturnsProperties() throws Exception {
 
         // given
         page = new FeaturesOverviewPage(reportResult, configuration);
@@ -112,7 +109,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_AddsCommonProperties() {
+    void buildGeneralParameters_AddsCommonProperties() {
 
         // given
         configuration.addReducingMethod(ReducingMethod.HIDE_EMPTY_HOOKS);
@@ -147,7 +144,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
+    void buildGeneralParameters_OnInvalidBuildNumber_SkipsBuildPreviousNumberProperty() {
 
         // given
         configuration.setBuildNumber("notAnumber");
@@ -164,7 +161,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
+    void buildGeneralParameters_OnBuildNumber_AddsBuildPreviousNumberProperty() {
 
         // given
         configuration.setBuildNumber("12");
@@ -180,7 +177,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnErrorPage_AddsExtraProperties() {
+    void buildGeneralParameters_OnErrorPage_AddsExtraProperties() {
 
         // given
         configuration.setBuildNumber("3@");
@@ -196,7 +193,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnInvalidBuildNumber_DoesNotAddPreviousBuildNumberProperty() {
+    void buildGeneralParameters_OnInvalidBuildNumber_DoesNotAddPreviousBuildNumberProperty() {
 
         // given
         configuration.setBuildNumber("34");
@@ -213,7 +210,7 @@ public class AbstractPageTest extends PageTest {
     }
 
     @Test
-    public void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() throws Exception {
+    void buildGeneralParameters_OnTrendsStatsFile_AddsTrendsFlag() throws Exception {
 
         // given
         configuration.setTrendsStatsFile(TRENDS_FILE);

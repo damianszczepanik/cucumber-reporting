@@ -3,21 +3,21 @@ package net.masterthought.cucumber.json;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagTest extends PageTest {
+class TagTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getName_ReturnsFeatureTagName() {
+    void getName_ReturnsFeatureTagName() {
 
         // given
         Tag tag = features.get(0).getTags()[0];
@@ -30,7 +30,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void getName_ReturnsElementTagName() {
+    void getName_ReturnsElementTagName() {
 
         // given
         Tag tag = features.get(0).getElements()[1].getTags()[2];
@@ -43,7 +43,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void getFileName_ReturnsTagFileName() {
+    void getFileName_ReturnsTagFileName() {
 
         // given
         Tag tag = features.get(1).getElements()[0].getTags()[0];
@@ -56,7 +56,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void generateFileName_OnInvalidTagName_ReturnsValidFileName() {
+    void generateFileName_OnInvalidTagName_ReturnsValidFileName() {
 
         // given
         final String[] tags = {"@up s", "?any", "9/3"};
@@ -69,7 +69,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void hashCode_OnSameName_ReturnsHashCode() {
+    void hashCode_OnSameName_ReturnsHashCode() {
 
         // given
         final String tagName = "@superTaggggg";
@@ -83,7 +83,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void equals_OnSameName_ReturnsTrue() {
+    void equals_OnSameName_ReturnsTrue() {
 
         // given
         final String tagName = "@superTaggggg";
@@ -98,7 +98,7 @@ public class TagTest extends PageTest {
     }
 
     @Test
-    public void equals_OnDifferentName_ReturnsFalse() {
+    void equals_OnDifferentName_ReturnsFalse() {
 
         // given
         final String tagName = "@superTaggggg";

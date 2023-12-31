@@ -4,23 +4,23 @@ import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.util.Util;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StepsOverviewPageTest extends PageTest {
+class StepsOverviewPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getWebPage_ReturnsStepsOverviewFileName() {
+    void getWebPage_ReturnsStepsOverviewFileName() {
 
         // given
         page = new StepsOverviewPage(reportResult, configuration);
@@ -33,7 +33,7 @@ public class StepsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // given
         page = new StepsOverviewPage(reportResult, configuration);

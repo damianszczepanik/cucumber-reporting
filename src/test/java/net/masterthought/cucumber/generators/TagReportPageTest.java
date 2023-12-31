@@ -3,23 +3,23 @@ package net.masterthought.cucumber.generators;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagReportPageTest extends PageTest {
+class TagReportPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getWebPage_ReturnsTagReportFileName() {
+    void getWebPage_ReturnsTagReportFileName() {
 
         // given
         TagObject tag = tags.get(0);
@@ -33,7 +33,7 @@ public class TagReportPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // given
         TagObject tag = tags.get(1);

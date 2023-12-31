@@ -2,24 +2,23 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ElementTest extends PageTest {
+class ElementTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getSteps_ReturnsSteps() {
+    void getSteps_ReturnsSteps() {
 
         // given
         Element element = features.get(0).getElements()[1];
@@ -33,7 +32,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getBefore_ReturnsHooks() {
+    void getBefore_ReturnsHooks() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -47,7 +46,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getAfter_ReturnsHooks() {
+    void getAfter_ReturnsHooks() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -61,7 +60,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getTags_ReturnsTags() {
+    void getTags_ReturnsTags() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -75,7 +74,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getStatus_ReturnsStatus() {
+    void getStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -89,7 +88,7 @@ public class ElementTest extends PageTest {
 
 
     @Test
-    public void getBeforeStatus_ReturnsStatus() {
+    void getBeforeStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -102,7 +101,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getBeforeStatus_OnNoExistingBefore_ReturnsStatus() {
+    void getBeforeStatus_OnNoExistingBefore_ReturnsStatus() {
 
         // given
         Element element = features.get(0).getElements()[0];
@@ -116,7 +115,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getAfterStatus_ReturnsStatus() {
+    void getAfterStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -129,7 +128,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getAfterStatus_OnNoExistingBefore_ReturnsStatus() {
+    void getAfterStatus_OnNoExistingBefore_ReturnsStatus() {
 
         // given
         Element element = features.get(0).getElements()[0];
@@ -143,7 +142,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getStepsStatus_ReturnsStatus() {
+    void getStepsStatus_ReturnsStatus() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -156,7 +155,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getName_ReturnsName() {
+    void getName_ReturnsName() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -169,7 +168,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getKeyword_ReturnsName() {
+    void getKeyword_ReturnsName() {
 
         // given
         Element element = features.get(0).getElements()[0];
@@ -182,7 +181,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getType_ReturnsName() {
+    void getType_ReturnsName() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -195,7 +194,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getDescription_ReturnsDescription() {
+    void getDescription_ReturnsDescription() {
 
         // given
         Element element = features.get(1).getElements()[0];
@@ -208,7 +207,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getDescription_OnMissingDescription_ReturnsEmptyString() {
+    void getDescription_OnMissingDescription_ReturnsEmptyString() {
 
         // given
         Element element = features.get(1).getElements()[1];
@@ -221,7 +220,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void isScenario_ReturnsTrueForScenarios() {
+    void isScenario_ReturnsTrueForScenarios() {
 
         // given
         Feature feature = features.get(0);
@@ -236,7 +235,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getFeature_ReturnsFeature() {
+    void getFeature_ReturnsFeature() {
 
         // given
         Element element = features.get(0).getElements()[0];
@@ -249,7 +248,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // given
         Element element = features.get(0).getElements()[0];
@@ -262,7 +261,7 @@ public class ElementTest extends PageTest {
     }
 
     @Test
-    public void getFormattedDuration_ReturnsFormattedDuration() {
+    void getFormattedDuration_ReturnsFormattedDuration() {
 
         // given
         Element element = features.get(0).getElements()[0];

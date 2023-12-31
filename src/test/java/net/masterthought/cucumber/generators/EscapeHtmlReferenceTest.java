@@ -1,7 +1,7 @@
 package net.masterthought.cucumber.generators;
 
 import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,13 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author M.P. Korstanje (mpkorstanje@github)
  */
-public class EscapeHtmlReferenceTest {
+class EscapeHtmlReferenceTest {
 
     private static final String SOME_REFERENCE = "someReference";
     private final ReferenceInsertionEventHandler insertionEventHandler = new EscapeHtmlReference();
 
     @Test
-    public void referenceInsert_returnNormalText(){
+    void referenceInsert_returnNormalText(){
         // given
         String normalText = "a plain statement";
 
@@ -27,7 +27,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldEscapeHtmlForAnyLabel(){
+    void referenceInsert_shouldEscapeHtmlForAnyLabel(){
         // given
         String html = "<b>a bold statement</b>";
 
@@ -39,7 +39,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldNotEscapeWithSpecialTag(){
+    void referenceInsert_shouldNotEscapeWithSpecialTag(){
         // given
         String html = "<b>a bold statement</b>";
 
@@ -51,7 +51,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldReturnNullForNull(){
+    void referenceInsert_shouldReturnNullForNull(){
         // given
         String html = null;
 
@@ -63,7 +63,7 @@ public class EscapeHtmlReferenceTest {
     }
 
     @Test
-    public void referenceInsert_shouldSanitize(){
+    void referenceInsert_shouldSanitize(){
         // given
         String html = "<a href=\"www.example.com\" rel=\"nofollow noopener noreferrer\">a hyper web reference</a>";
 

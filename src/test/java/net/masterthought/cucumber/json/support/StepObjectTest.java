@@ -4,18 +4,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import net.masterthought.cucumber.ValidationException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sam Park (midopa@github)
  */
-public class StepObjectTest {
+class StepObjectTest {
 
     private StepObject stepObject;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         stepObject = new StepObject("Test step location");
         stepObject.addDuration(1000000000L, Status.PASSED);
         stepObject.addDuration(2200000000L, Status.FAILED);
@@ -23,7 +23,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void StepObject_OnNullLocation_ThrowsException() {
+    void StepObject_OnNullLocation_ThrowsException() {
 
         // given
         String location = null;
@@ -34,7 +34,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getLocation_ReturnsLocation() {
+    void getLocation_ReturnsLocation() {
 
         // given
         // from @Before
@@ -47,7 +47,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void addDuration_ReturnsSumsDurations() {
+    void addDuration_ReturnsSumsDurations() {
 
         // give
         StepObject step = new StepObject("ble bla ble");
@@ -64,7 +64,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedTotalDuration_ReturnsFormattedSumDurations() {
+    void getFormattedTotalDuration_ReturnsFormattedSumDurations() {
 
         // give
         // from @Before
@@ -77,7 +77,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedMaxDuration_ReturnsFormattedMaxDurations() {
+    void getFormattedMaxDuration_ReturnsFormattedMaxDurations() {
 
         // give
         // from @Before
@@ -90,7 +90,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedMaxDuration_ReturnsMaxDurations() {
+    void getFormattedMaxDuration_ReturnsMaxDurations() {
 
         // give
         // from @Before
@@ -103,7 +103,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getAverageDurations_ReturnsTime() {
+    void getAverageDurations_ReturnsTime() {
 
         // given
         // from @Before
@@ -116,7 +116,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getFormattedAverageDuration_ReturnsFormattedSumDurations() {
+    void getFormattedAverageDuration_ReturnsFormattedSumDurations() {
 
         // given
         // from @Before
@@ -129,7 +129,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getPercentageResult_Returns0Percent() {
+    void getPercentageResult_Returns0Percent() {
 
         // given
         // from @Before
@@ -142,7 +142,7 @@ public class StepObjectTest {
     }
 
     @Test
-    public void getPercentageResult_OnOnlyFailures_Returns0Percent() {
+    void getPercentageResult_OnOnlyFailures_Returns0Percent() {
 
         // given
         StepObject step = new StepObject("Test step location");

@@ -5,9 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.StepObject;
 import net.masterthought.cucumber.json.support.TagObject;
@@ -15,15 +14,15 @@ import net.masterthought.cucumber.json.support.TagObject;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ReportResultTest extends ReportGenerator {
+class ReportResultTest extends ReportGenerator {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getAllFeatures_ReturnsFeatures() {
+    void getAllFeatures_ReturnsFeatures() {
 
         // given
         // from @Before
@@ -36,7 +35,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getTags_ReturnsTags() {
+    void getTags_ReturnsTags() {
 
         // given
         // from @Before
@@ -49,7 +48,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getAllSteps_ReturnsSteps() {
+    void getAllSteps_ReturnsSteps() {
 
         // given
         // from @Before
@@ -62,7 +61,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getTagReport_ReturnsTagReport() {
+    void getTagReport_ReturnsTagReport() {
 
         // given
         // from @Before
@@ -75,7 +74,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getAllXXXFeatures_ReturnsFeaturesByStatus() {
+    void getAllXXXFeatures_ReturnsFeaturesByStatus() {
 
         // given
         // from @Before
@@ -90,7 +89,7 @@ public class ReportResultTest extends ReportGenerator {
     }
 
     @Test
-    public void getBuildTime_ReturnsFormattedBuildTime() {
+    void getBuildTime_ReturnsFormattedBuildTime() {
 
         // given
         // from @Before

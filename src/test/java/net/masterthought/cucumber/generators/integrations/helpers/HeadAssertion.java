@@ -1,13 +1,8 @@
 package net.masterthought.cucumber.generators.integrations.helpers;
 
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.filter.NotInFilter;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,17 +1,17 @@
 package net.masterthought.cucumber.reducers;
 
 import net.masterthought.cucumber.json.Feature;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReportFeatureAppendableMergerTest {
+class ReportFeatureAppendableMergerTest {
 
     @Test
-    public void merge_NullSafe() {
+    void merge_NullSafe() {
         // given
         ReportFeatureAppendableMerger merger = new ReportFeatureAppendableMerger();
 
@@ -23,7 +23,7 @@ public class ReportFeatureAppendableMergerTest {
     }
 
     @Test
-    public void merge_ReturnsOriginArray() {
+    void merge_ReturnsOriginArray() {
         // given
         List<Feature> origin = singletonList(new Feature());
 
@@ -35,7 +35,7 @@ public class ReportFeatureAppendableMergerTest {
     }
 
     @Test
-    public void test_ChecksMergerIsAvailableForAllReducingMethods() {
+    void checksMergerIsAvailableForAllReducingMethods() {
         // given
         ReportFeatureAppendableMerger merger = new ReportFeatureAppendableMerger();
 

@@ -5,9 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
@@ -24,15 +23,15 @@ import net.masterthought.cucumber.presentation.PresentationMode;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class PageIntegrationTest extends PageTest {
+class PageIntegrationTest extends PageTest {
 
-    @Before
-    public void prepare() {
+    @BeforeEach
+    void prepare() {
         Locale.setDefault(Locale.ENGLISH);
     }
 
     @Test
-    public void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBar() {
+    void generatePage_onDefaultConfiguration_generatesDefaultItemsInNaviBar() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -56,7 +55,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBar() {
+    void generatePage_onJenkinsConfiguration_generatesAllItemsInNaviBar() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -82,7 +81,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onTrendsStatsFile_generatesAllItemsInNaviBar() {
+    void generatePage_onTrendsStatsFile_generatesAllItemsInNaviBar() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -105,7 +104,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onDefaultConfiguration_generatesSummaryTable() {
+    void generatePage_onDefaultConfiguration_generatesSummaryTable() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -126,7 +125,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumber() {
+    void generatePage_onJenkinsConfiguration_generatesSummaryTableWithBuildNumber() {
 
         // given
         setUpWithJson(SAMPLE_JSON);
@@ -151,7 +150,7 @@ public class PageIntegrationTest extends PageTest {
     }
 
     @Test
-    public void generatePage_generatesFooter() {
+    void generatePage_generatesFooter() {
 
         // given
         setUpWithJson(SAMPLE_JSON);

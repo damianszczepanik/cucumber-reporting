@@ -7,15 +7,15 @@ import static net.masterthought.cucumber.json.support.Status.SKIPPED;
 import static net.masterthought.cucumber.json.support.Status.UNDEFINED;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class StatusTest {
+class StatusTest {
 
     @Test
-    public void valuesOf_ReturnsOrderedStatuses() {
+    void valuesOf_ReturnsOrderedStatuses() {
 
         // given
         // tables displays result with following order
@@ -29,7 +29,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getName_ReturnsNameAsLowerCase() {
+    void getName_ReturnsNameAsLowerCase() {
 
         // given
         final Status status = PASSED;
@@ -43,7 +43,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getLabel_ReturnsNameStartingFromUpperCase() {
+    void getLabel_ReturnsNameStartingFromUpperCase() {
 
         // given
         final Status status = UNDEFINED;
@@ -57,7 +57,7 @@ public class StatusTest {
     }
 
     @Test
-    public void isPassed_ReturnsTrueForPASSEDStatus() {
+    void isPassed_ReturnsTrueForPASSEDStatus() {
 
         // given
         Status status = PASSED;
@@ -70,7 +70,7 @@ public class StatusTest {
     }
 
     @Test
-    public void hasPassed_ReturnsFalseForNoPASSED() {
+    void hasPassed_ReturnsFalseForNoPASSED() {
 
         // given
         Status[] notPassed = {FAILED, SKIPPED, PENDING, UNDEFINED};

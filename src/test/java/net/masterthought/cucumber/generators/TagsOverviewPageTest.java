@@ -7,21 +7,21 @@ import java.util.List;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.velocity.VelocityContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TagsOverviewPageTest extends PageTest {
+class TagsOverviewPageTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getWebPage_ReturnsTagOverviewReportFileName() {
+    void getWebPage_ReturnsTagOverviewReportFileName() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -34,7 +34,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void prepareReport_AddsCustomProperties() {
+    void prepareReport_AddsCustomProperties() {
 
         // given
         page = new TagsOverviewPage(reportResult, configuration);
@@ -53,7 +53,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void generateTagLabels_ReturnsTags() {
+    void generateTagLabels_ReturnsTags() {
 
         // given
         List<TagObject> allTags = this.tags;
@@ -66,7 +66,7 @@ public class TagsOverviewPageTest extends PageTest {
     }
 
     @Test
-    public void generateTagValues_ReturnsTagValues() {
+    void generateTagValues_ReturnsTagValues() {
 
         // given
         List<TagObject> allTags = this.tags;

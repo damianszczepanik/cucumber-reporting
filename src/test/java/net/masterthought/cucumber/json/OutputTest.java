@@ -2,15 +2,15 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class OutputTest {
+class OutputTest {
 
     @Test
-    public void getMessages_ReturnsMessages() {
+    void getMessages_ReturnsMessages() {
 
         // given
         String[] messages = { "a", "b", "c", "a" };

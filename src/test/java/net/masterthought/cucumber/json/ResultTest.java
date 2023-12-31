@@ -2,24 +2,23 @@ package net.masterthought.cucumber.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.support.Status;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class ResultTest extends PageTest {
+class ResultTest extends PageTest {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         setUpWithJson(SAMPLE_JSON);
     }
 
     @Test
-    public void getStatus_ReturnsStatus() {
+    void getStatus_ReturnsStatus() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[1].getResult();
@@ -32,7 +31,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getDuration_ReturnsDuration() {
+    void getDuration_ReturnsDuration() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[3].getResult();
@@ -45,7 +44,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getFormattedDuration_ReturnsDurationAsString() {
+    void getFormattedDuration_ReturnsDurationAsString() {
 
         // give
         Result result = features.get(0).getElements()[0].getSteps()[2].getResult();
@@ -58,7 +57,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getErrorMessage_ReturnsErrorMessage() {
+    void getErrorMessage_ReturnsErrorMessage() {
 
         // given
         Result result = features.get(1).getElements()[0].getSteps()[5].getResult();
@@ -78,7 +77,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getErrorMessageTitle_OnEmptyMessage_ReturnsEmptyTitle() {
+    void getErrorMessageTitle_OnEmptyMessage_ReturnsEmptyTitle() {
 
         // given
         Result result = features.get(1).getElements()[0].getBefore()[1].getResult();
@@ -91,7 +90,7 @@ public class ResultTest extends PageTest {
     }
 
     @Test
-    public void getErrorMessageTitle_OnNullMessage_ReturnsEmptyTitle() {
+    void getErrorMessageTitle_OnNullMessage_ReturnsEmptyTitle() {
 
         // given
         Result result = features.get(0).getElements()[0].getSteps()[0].getResult();
