@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  # Run against master only to not overwhelm sonar given master branch is the base used branch
+  # Community version only allows running against 'main' branch, see https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/github-integration/
 
 jobs:
   build:
