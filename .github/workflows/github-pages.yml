@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    # Do not run on forks as unnecessary
+    if: github.repository_owner == 'damianszczepanik'
     runs-on: ubuntu-latest
 
     steps:
