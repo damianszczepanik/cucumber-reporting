@@ -460,16 +460,17 @@ public class ConfigurationTest {
 
     @Test
     public void getEmbeddingDirectory_CreatesCorrectDirectoryPath() {
-        // Arrange
+
+        // given
         File reportDirectory = new File("target");
         Configuration configuration = new Configuration(reportDirectory, "myProject");
+        String expectedPath = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY +
+                configuration.getDirectorySuffixWithSeparator() + File.separatorChar + configuration.getEmbeddingsDirectory()).getAbsolutePath();
 
-        String expectedPath = new File(reportDirectory, "cucumber-html-reports" + File.separatorChar + "embeddings").getAbsolutePath();
+        // when (no direct action needed for this test)
 
-        // Act
+        // then
         File embeddingDirectory = configuration.getEmbeddingDirectory();
-
-        // Assert
         assertThat(embeddingDirectory.getAbsolutePath()).isEqualTo(expectedPath);
     }
 }

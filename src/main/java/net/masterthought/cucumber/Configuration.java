@@ -395,4 +395,13 @@ public class Configuration {
     public List<String> getCustomJsFiles() {
         return this.customJsFiles;
     }
+
+    /**
+     * Gets the embeddings directory.
+     *
+     * @return the embeddings directory
+     */
+    public String getEmbeddingsDirectory() {
+        return EMBEDDINGS_DIRECTORY;
+    }
 }
