@@ -1,6 +1,7 @@
 package net.masterthought.cucumber.json;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -10,7 +11,6 @@ import net.masterthought.cucumber.json.support.Durationable;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.json.support.StatusCounter;
 import net.masterthought.cucumber.util.Util;
-import org.apache.commons.lang3.StringUtils;
 
 public class Element implements Durationable {
 
@@ -106,7 +106,7 @@ public class Element implements Durationable {
     }
 
     public String getDescription() {
-        return StringUtils.defaultString(description);
+        return Objects.toString(description, "");
     }
 
     public boolean isScenario() {

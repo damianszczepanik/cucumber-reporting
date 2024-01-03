@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,7 +95,7 @@ public class ReportParser {
             }
             String jsonFileName = extractQualifier(jsonFile);
             Arrays.stream(features).forEach(feature ->
-                    feature.setQualifier(StringUtils.defaultString(configuration.getQualifier(jsonFileName), jsonFileName))
+                    feature.setQualifier(Objects.toString(configuration.getQualifier(jsonFileName), jsonFileName))
             );
 
             return features;
