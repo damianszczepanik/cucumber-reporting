@@ -13,10 +13,14 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
+        <byte-buddy.version>1.14.11</byte-buddy.version>
         <jackson.version>2.16.0</jackson.version>
         <junit.version>5.10.1</junit.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
+
+        <!-- Surefire Setup -->
+        <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar</argLine>
     </properties>
 
     <!-- 'oss-parent' should not be used, it was deprecated years ago -->
@@ -116,7 +120,7 @@
                 <jdk>[17,)</jdk>
             </activation>
             <properties>
-                <argLine>--add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+                <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
             </properties>
         </profile>
     </profiles>
@@ -295,6 +299,18 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>5.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${byte-buddy.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${byte-buddy.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
