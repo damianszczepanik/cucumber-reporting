@@ -355,6 +355,8 @@
             <version>3.25.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Usage by ReportParserTest due to optional requirement with commons configuration 2. -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
