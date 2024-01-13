@@ -196,21 +196,16 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    void copyResources_OnInvalidPath_ThrowsException() throws Exception {
+    void copyResources_OnInvalidPath_ThrowsException() {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
         File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
 
-        // then
-        try {
-            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
-            fail("Copying should fail!");
-            // exception depends on operating system or JVM version
-        } catch (ValidationException | InvalidPathException | NullPointerException e) {
-            // passed
-        }
+        // when & then
+        assertThatThrownBy(() ->  Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"}))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
