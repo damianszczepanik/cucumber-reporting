@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators.integrations.helpers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -81,10 +82,10 @@ public class WebAssertion {
     private <T extends WebAssertion> T toAssertion(Element inner, Class<T> clazz) {
         T assertion = null;
         try {
-            assertion = (T) clazz.newInstance();
+            assertion = (T) clazz.getDeclaredConstructor().newInstance();
             assertion.element = inner;
             return assertion;
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -106,8 +107,8 @@ public class WebAssertion {
         for (Element element : inners) {
             T assertion = null;
             try {
-                assertion = (T) clazz.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                assertion = (T) clazz.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new IllegalArgumentException(e);
             }
             assertion.element = element;
