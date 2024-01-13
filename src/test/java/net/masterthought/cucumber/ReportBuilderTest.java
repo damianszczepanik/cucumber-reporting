@@ -215,14 +215,9 @@ class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
         File dir = new File("src/test/resources/js");
 
-        // then
-        try {
-            Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir);
-            fail("Copying should fail!");
-            // exception depends of operating system
-        } catch (ValidationException e) {
-            // passed
-        }
+        // when & then
+        assertThatThrownBy(() ->  Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir))
+            .isInstanceOf(ValidationException.class);
     }
 
     @Test
