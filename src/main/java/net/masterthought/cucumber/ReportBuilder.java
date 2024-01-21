@@ -11,8 +11,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,10 +27,12 @@ import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReportBuilder {
 
-    private static final Logger LOG = Logger.getLogger(ReportBuilder.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ReportBuilder.class);
 
     /**
      * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
@@ -173,8 +173,8 @@ public class ReportBuilder {
         try {
             FileUtils.copyFile(srcFile, tempFile);
         } catch (FileNotFoundException e) {
-            LOG.log(Level.WARNING, "File not found: {0}", srcFile.getAbsolutePath());
-            LOG.log(Level.FINE, "", e);
+            LOG.warn("File not found: {}", srcFile.getAbsolutePath());
+            LOG.debug("", e);
         } catch (IOException | IllegalArgumentException e) {
             throw new ValidationException(e);
         }
@@ -258,7 +258,7 @@ public class ReportBuilder {
     }
 
     private void generateErrorPage(Exception exception) {
-        LOG.log(Level.WARNING, "Unexpected error", exception);
+        LOG.warn("Unexpected error", exception);
         ErrorPage errorPage = new ErrorPage(reportResult, configuration, exception, jsonFiles);
         errorPage.generatePage();
     }

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
@@ -25,6 +23,8 @@ import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class ReportParser {
 
-    private static final Logger LOG = Logger.getLogger(ReportParser.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ReportParser.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final Configuration configuration;
@@ -69,7 +69,7 @@ public class ReportParser {
                 continue;
             }
             Feature[] features = parseForFeature(jsonFile);
-            LOG.log(Level.INFO, () -> String.format("File '%s' contains %d feature(s)", jsonFile, features.length));
+            LOG.info("File '{}' contains {} feature(s)", jsonFile, features.length);
             featureResults.addAll(Arrays.asList(features));
         }
 
@@ -91,7 +91,7 @@ public class ReportParser {
         try (Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8)) {
             Feature[] features = mapper.readValue(reader, Feature[].class);
             if (ArrayUtils.isEmpty(features)) {
-                LOG.log(Level.INFO, () -> String.format("File '%s' does not contain features", jsonFile));
+                LOG.info("File '{}' does not contain features", jsonFile);
             }
             String jsonFileName = extractQualifier(jsonFile);
             Arrays.stream(features).forEach(feature ->
