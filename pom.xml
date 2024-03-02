@@ -13,7 +13,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
-        <byte-buddy.version>1.14.11</byte-buddy.version>
+        <byte-buddy.version>1.14.12</byte-buddy.version>
         <jackson.version>2.16.1</jackson.version>
         <junit.version>5.10.1</junit.version>
         <slf4j.version>2.0.11</slf4j.version>
