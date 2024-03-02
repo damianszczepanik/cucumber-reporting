@@ -14,7 +14,7 @@
         <maven.compile.encoding>UTF-8</maven.compile.encoding>
 
         <byte-buddy.version>1.14.11</byte-buddy.version>
-        <jackson.version>2.16.0</jackson.version>
+        <jackson.version>2.16.1</jackson.version>
         <junit.version>5.10.1</junit.version>
         <slf4j.version>2.0.11</slf4j.version>
 
@@ -202,7 +202,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>3.2.5</version>
                 <configuration>
                     <includes>
                         <!-- Run only integration tests -->
@@ -288,6 +288,13 @@
             <artifactId>owasp-java-html-sanitizer</artifactId>
             <version>20220608.1</version>
         </dependency>
+        <!-- Overriding guava from owasp java html sanitizer 20220608.1 to secure latest -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.0.0-jre</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -345,9 +352,11 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.25.0</version>
+            <version>3.25.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Usage by ReportParserTest due to optional requirement with commons configuration 2. -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
