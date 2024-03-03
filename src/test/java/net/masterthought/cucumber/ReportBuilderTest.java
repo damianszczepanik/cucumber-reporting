@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.fail;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -187,10 +188,10 @@ class ReportBuilderTest extends ReportGenerator {
 
         // then
         try {
-            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
+            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[] { "someFile" });
             fail("Copying should fail!");
-            // exception depends of operating system
-        } catch (ValidationException | NullPointerException e) {
+            // exception depends on operating system or JVM version
+        } catch (ValidationException | InvalidPathException | NullPointerException e) {
             // passed
         }
     }
