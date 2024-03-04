@@ -93,7 +93,7 @@ public class Trends {
      */
     public void addBuild(String buildNumber, Reportable reportable) {
 
-        buildNumbers = (String[]) ArrayUtils.add(buildNumbers, buildNumber);
+        buildNumbers = ArrayUtils.add(buildNumbers, buildNumber);
 
         passedFeatures = ArrayUtils.add(passedFeatures, reportable.getPassedFeatures());
         failedFeatures = ArrayUtils.add(failedFeatures, reportable.getFailedFeatures());

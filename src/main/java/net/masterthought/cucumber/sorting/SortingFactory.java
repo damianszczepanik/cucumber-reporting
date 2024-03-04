@@ -24,36 +24,24 @@ public final class SortingFactory {
     }
 
     public List<Feature> sortFeatures(Collection<Feature> features) {
-        switch (sortingMethod) {
-            case NATURAL:
-                return new ArrayList<>(features);
-            case ALPHABETICAL:
-                return toSortedList(features, new FeaturesAlphabeticalComparator());
-            default:
-                throw createUnknownMethodException(sortingMethod);
+        if (sortingMethod == SortingMethod.NATURAL) {
+           return new ArrayList<>(features);
         }
+        return toSortedList(features, new FeaturesAlphabeticalComparator());
     }
 
     public List<TagObject> sortTags(Collection<TagObject> tags) {
-        switch (sortingMethod) {
-            case NATURAL:
-                return new ArrayList<>(tags);
-            case ALPHABETICAL:
-                return toSortedList(tags, new TagObjectAlphabeticalComparator());
-            default:
-                throw createUnknownMethodException(sortingMethod);
+        if (sortingMethod == SortingMethod.NATURAL) {
+           return new ArrayList<>(tags);
         }
+        return toSortedList(tags, new TagObjectAlphabeticalComparator());
     }
 
     public List<StepObject> sortSteps(Collection<StepObject> steps) {
-        switch (sortingMethod) {
-            case NATURAL:
-                return new ArrayList<>(steps);
-            case ALPHABETICAL:
-                return toSortedList(steps, new StepObjectAlphabeticalComparator());
-            default:
-                throw createUnknownMethodException(sortingMethod);
+        if (sortingMethod == SortingMethod.NATURAL) {
+            return new ArrayList<>(steps);
         }
+        return toSortedList(steps, new StepObjectAlphabeticalComparator());
     }
 
     private static <T> List<T> toSortedList(Collection<T> values, Comparator<T> comparator) {
@@ -62,7 +50,4 @@ public final class SortingFactory {
         return list;
     }
 
-    private RuntimeException createUnknownMethodException(SortingMethod sortingMethod) {
-        return new IllegalArgumentException("Unsupported sorting method: " + sortingMethod);
-    }
 }

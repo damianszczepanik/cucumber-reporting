@@ -24,7 +24,7 @@ class TagsDeserializerTest {
         JsonNode tagNode = buildNode(tagName);
 
         JsonNode rootNode = mock(JsonNode.class);
-        List<JsonNode> tagNodes = new ArrayList();
+        List<JsonNode> tagNodes = new ArrayList<>();
         tagNodes.add(tagNode);
         when(rootNode.iterator()).thenReturn(tagNodes.iterator());
 
@@ -50,7 +50,7 @@ class TagsDeserializerTest {
         JsonNode excludedTagNode = buildNode(excludedTagName);
 
         JsonNode rootNode = mock(JsonNode.class);
-        List<JsonNode> tagNodes = new ArrayList();
+        List<JsonNode> tagNodes = new ArrayList<>();
         tagNodes.add(tagNode);
         tagNodes.add(excludedTagNode);
         when(rootNode.iterator()).thenReturn(tagNodes.iterator());

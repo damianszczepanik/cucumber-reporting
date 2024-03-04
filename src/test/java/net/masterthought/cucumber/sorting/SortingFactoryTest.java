@@ -1,13 +1,11 @@
 package net.masterthought.cucumber.sorting;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Feature;
@@ -51,20 +49,6 @@ class SortingFactoryTest extends PageTest {
     }
 
     @Test
-    void sortFeatures_OnINVALID_ThrowsException() {
-
-        // given
-        // INVALID is available only for test profile and the reason of this shadow Enum in test profile is
-        // to be able to test default: block which throws an exception for unsupported values
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortFeatures(features))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
-    }
-
-    @Test
     void sortTags_OnNATURAL_ReturnsSameList() {
 
         // given
@@ -92,18 +76,6 @@ class SortingFactoryTest extends PageTest {
     }
 
     @Test
-    void sortTags_OnINVALID_ThrowsException() {
-
-        // given
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.INVALID);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortTags(tags))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
-    }
-
-    @Test
     void sortSteps_OnNATURAL_ReturnsSameList() {
 
         // given
@@ -113,8 +85,7 @@ class SortingFactoryTest extends PageTest {
         List<StepObject> stepObjects = sortingFactory.sortSteps(steps);
 
         // then
-        assertThat(stepObjects).hasSize(16);
-        assertThat(stepObjects).first().isEqualTo(steps.get(0));
+        assertThat(stepObjects).hasSize(16).first().isEqualTo(steps.get(0));
         assertThat(stepObjects).last().isEqualTo(steps.get(15));
     }
 
@@ -129,39 +100,8 @@ class SortingFactoryTest extends PageTest {
 
         // then
         // TODO: as the tags are stored in TreeMap, this returns already sorted elements
-        assertThat(stepObjects).hasSize(16);
-        assertThat(stepObjects).first().isEqualTo(steps.get(0));
+        assertThat(stepObjects).hasSize(16).first().isEqualTo(steps.get(0));
         assertThat(stepObjects).last().isEqualTo(steps.get(15));
     }
 
-    @Test
-    void sortSteps_OnINVALID_ThrowsException() {
-
-        // given
-        SortingMethod sortingMethod = SortingMethod.INVALID;
-        SortingFactory sortingFactory = new SortingFactory(sortingMethod);
-
-        // when & then
-        assertThatThrownBy(() -> sortingFactory.sortSteps(steps))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(buildErrorMessage());
-    }
-
-    @Test
-    void createUnknownMethodException_CreatesException() throws Exception {
-
-        // given
-        SortingMethod invalidSorthingMethod = SortingMethod.ALPHABETICAL;
-        SortingFactory sortingFactory = new SortingFactory(SortingMethod.ALPHABETICAL);
-
-        // when
-        Exception e = Whitebox.invokeMethod(sortingFactory, "createUnknownMethodException", invalidSorthingMethod);
-
-        // then
-        assertThat(e).isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("Unsupported sorting method: " + invalidSorthingMethod);
-    }
-
-    private String buildErrorMessage() {
-        return "Unsupported sorting method: " + SortingMethod.INVALID;
-    }
 }
