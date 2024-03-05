@@ -37,6 +37,7 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getMimeType_ReturnsMimeType(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -51,6 +52,7 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getData_ReturnsContent(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -65,8 +67,10 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getDecodedData_ReturnsDecodedContent(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
+        // This assumeThat will cause 6 tests to be skipped from our 'data' usage
         assumeThat(this.decodedData).isNotEqualTo(NO_DECODING);
-        
+
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -81,6 +85,8 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getFileName_ReturnsFileName(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
+        // This assumeThat will cause 6 tests to be skipped from our 'data' usage
         assumeThat(this.fileName).matches("^[^\\.]+\\.[^\\.]+$");
 
         // given
@@ -97,6 +103,7 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getExtension_ReturnsFileExtension(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
@@ -111,6 +118,7 @@ public class EmbeddingWithNameTest {
     @ParameterizedTest(name = "\"{0}\" into \"{2}\"")
     void getName_ReturnsName(String mimeType, String data, String name, String decodedData, String fileName) {
         initEmbeddingWithNameTest(mimeType, data, name, decodedData, fileName);
+
         // given
         Embedding embedding = new Embedding(this.mimeType, this.data, this.name);
 
