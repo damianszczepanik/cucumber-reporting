@@ -3,9 +3,17 @@
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>5.7.9-SNAPSHOT</version>
+    <version>5.8.0</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
+
+    <!-- 'oss-parent' should not be used, it was deprecated years ago -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+        <relativePath />
+    </parent>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -17,7 +25,6 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
         <byte-buddy.version>1.14.12</byte-buddy.version>
-        <jackson.version>2.16.1</jackson.version>
         <junit.version>5.10.2</junit.version>
         <slf4j.version>2.0.11</slf4j.version>
 
@@ -26,14 +33,6 @@
         <!-- Surefire Setup -->
         <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar</argLine>
     </properties>
-
-    <!-- 'oss-parent' should not be used, it was deprecated years ago -->
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-        <relativePath />
-    </parent>
 
     <distributionManagement>
         <snapshotRepository>
@@ -124,7 +123,11 @@
                 <jdk>[17,)</jdk>
             </activation>
             <properties>
-                <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+                <argLine>
+                    -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar
+                    --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens
+                    java.base/java.util=ALL-UNNAMED
+                </argLine>
             </properties>
         </profile>
     </profiles>
@@ -224,7 +227,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson</groupId>
                 <artifactId>jackson-bom</artifactId>
-                <version>${jackson.version}</version>
+                <version>2.16.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
