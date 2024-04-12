@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
@@ -8,8 +10,6 @@ import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -60,7 +60,7 @@ class FeaturesOverviewPageIntegrationTest extends PageTest {
 
         // given
         final String[] names = {"Platform", "Browser", "Branch", "Repository"};
-        final String[] values = {"Win", "Opera", "master", "<a href=\"example.com\" rel=\"nofollow noopener noreferrer\">Example Repository</a>"};
+        final String[] values = {"Win", "Opera", "master", "<a href=\"example.com\" rel=\"noreferrer noopener nofollow\">Example Repository</a>"};
         setUpWithJson(SAMPLE_JSON);
         for (int i = 0; i < names.length; i++) {
             configuration.addClassifications(names[i], values[i]);
