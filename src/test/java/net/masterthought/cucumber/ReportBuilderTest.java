@@ -18,6 +18,7 @@ import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.io.filefilter.WildcardFileFilter.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
@@ -188,7 +189,7 @@ class ReportBuilderTest extends ReportGenerator {
 
         // then
         try {
-            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[] { "someFile" });
+            Whitebox.invokeMethod(builder, "copyResources", dir.getAbsolutePath(), new String[]{"someFile"});
             fail("Copying should fail!");
             // exception depends on operating system or JVM version
         } catch (ValidationException | InvalidPathException | NullPointerException e) {
@@ -527,13 +528,15 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     private File[] countHtmlFiles(Configuration configuration) {
-        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        Builder builder = WildcardFileFilter.builder().setWildcards("*.html");
+        FileFilter fileFilter = builder.get();
         File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {
-        FileFilter fileFilter = new WildcardFileFilter("*.html");
+        Builder builder = WildcardFileFilter.builder().setWildcards("*.html");
+        FileFilter fileFilter = builder.get();
         File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
