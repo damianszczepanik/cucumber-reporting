@@ -27,7 +27,7 @@
 
         <byte-buddy.version>1.14.12</byte-buddy.version>
         <junit.version>5.10.2</junit.version>
-        <slf4j.version>2.0.12</slf4j.version>
+        <slf4j.version>2.0.13</slf4j.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
 
