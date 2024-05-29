@@ -36,7 +36,7 @@ class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    void updateElementsOfGivenFeature_NoCoincidencesById() throws IllegalAccessException {
+    void updateElementsOfGivenFeature_NoCoincidencesById() {
         // given
         Feature feature = new Feature();
         Whitebox.setInternalState(feature, "elements", new Element[] {buildBackground(), buildScenario(), buildScenario()});
@@ -53,7 +53,7 @@ class ReportFeatureWithRetestMergerTest {
     }
 
     @Test
-    void updateElementsOfGivenFeature_WithCoincidenceById() throws IllegalAccessException {
+    void updateElementsOfGivenFeature_WithCoincidenceById() {
         // given
         Feature feature = new Feature();
         Element[] elements = {buildScenario(), buildBackground(), buildScenario()};
