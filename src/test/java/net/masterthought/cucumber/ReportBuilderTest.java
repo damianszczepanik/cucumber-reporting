@@ -221,14 +221,9 @@ class ReportBuilderTest extends ReportGenerator {
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
         File dir = new File("src/test/resources/js");
 
-        // then
-        try {
-            Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir);
-            fail("Copying should fail!");
-            // exception depends of operating system
-        } catch (ValidationException e) {
-            // passed
-        }
+        // when & then
+        assertThatThrownBy(() ->  Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir))
+            .isInstanceOf(ValidationException.class);
     }
 
     @Test
@@ -528,15 +523,13 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     private File[] countHtmlFiles(Configuration configuration) {
-        Builder builder = WildcardFileFilter.builder().setWildcards("*.html");
-        FileFilter fileFilter = builder.get();
+        FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.html").get();
         File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {
-        Builder builder = WildcardFileFilter.builder().setWildcards("*.html");
-        FileFilter fileFilter = builder.get();
+        FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.html").get();
         File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }

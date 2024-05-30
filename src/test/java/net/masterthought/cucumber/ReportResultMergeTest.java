@@ -56,10 +56,10 @@ class ReportResultMergeTest extends ReportGenerator {
 
     @Test
     void unsupportedReportFormat() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            // given
-            configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
+        // given
+        configuration.addReducingMethod(MERGE_FEATURES_WITH_RETEST);
 
+        assertThrows(IllegalArgumentException.class, () -> {
             // when
             // then
             setUpWithJson(SAMPLE_FAILED_JSON, SAMPLE_JSON);

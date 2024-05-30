@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +19,7 @@ class LiveDemoTest {
     // what is needed to publish generated report via github.com
     // http://damianszczepanik.github.io/cucumber-html-reports/overview-features.html
     @Test
-    void generateDemoReport() throws IOException {
+    void generateDemoReport() {
         File reportOutputDirectory = new File("target/demo");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("src/test/resources/json/sample.json");
