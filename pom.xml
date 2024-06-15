@@ -6,13 +6,13 @@
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>9</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
     <packaging>jar</packaging>
-    <version>5.8.1-SNAPSHOT</version>
+    <version>5.8.1</version>
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
 
