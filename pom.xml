@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
-        <byte-buddy.version>1.14.12</byte-buddy.version>
+        <byte-buddy.version>1.14.17</byte-buddy.version>
         <junit.version>5.10.2</junit.version>
         <slf4j.version>2.0.13</slf4j.version>
 
