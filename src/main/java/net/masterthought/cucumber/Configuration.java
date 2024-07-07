@@ -17,7 +17,6 @@ import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class Configuration {
 
@@ -331,7 +330,7 @@ public class Configuration {
      * @param jsonFileName JSON file name - without the extension
      * @param qualifier    Qualifier to use
      */
-    public void setQualifier(@NonNull String jsonFileName, @NonNull String qualifier) {
+    public void setQualifier(String jsonFileName, String qualifier) {
         qualifiers.put(jsonFileName, qualifier);
     }
 
@@ -341,7 +340,7 @@ public class Configuration {
      * @param jsonFileName JSON file name - without the extension
      * @return Qualifier specified for this file or <code>null</code> if none specified
      */
-    public String getQualifier(@NonNull String jsonFileName) {
+    public String getQualifier(String jsonFileName) {
         return qualifiers.get(jsonFileName);
     }
 
@@ -351,7 +350,7 @@ public class Configuration {
      * @param jsonFileName JSON file name - without the extension
      * @return <code>true</code> if the qualifier was specified, <code>false</code> otherwise
      */
-    public boolean containsQualifier(@NonNull String jsonFileName) {
+    public boolean containsQualifier(String jsonFileName) {
         return qualifiers.containsKey(jsonFileName);
     }
 
@@ -360,7 +359,7 @@ public class Configuration {
      *
      * @param jsonFileName JSON file name - without the extension
      */
-    public void removeQualifier(@NonNull String jsonFileName) {
+    public void removeQualifier(String jsonFileName) {
         qualifiers.remove(jsonFileName);
     }
 
