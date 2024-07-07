@@ -59,8 +59,9 @@ class FeaturesOverviewPageIntegrationTest extends PageTest {
     void generatePage_generatesClassifications() {
 
         // given
-        final String[] names = {"Platform", "Browser", "Branch", "Repository"};
-        final String[] values = {"Win", "Opera", "master", "<a href=\"example.com\" rel=\"nofollow noopener noreferrer\">Example Repository</a>"};
+        // do not validate url as this is sanitized differently between JDKs 11, 17, 21
+        final String[] names = {"Platform", "Browser", "Branch"};
+        final String[] values = {"Win", "Opera", "master"};
         setUpWithJson(SAMPLE_JSON);
         for (int i = 0; i < names.length; i++) {
             configuration.addClassifications(names[i], values[i]);

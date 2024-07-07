@@ -18,7 +18,6 @@ import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.io.filefilter.WildcardFileFilter.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
@@ -222,8 +221,8 @@ class ReportBuilderTest extends ReportGenerator {
         File dir = new File("src/test/resources/js");
 
         // when & then
-        assertThatThrownBy(() ->  Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir))
-            .isInstanceOf(ValidationException.class);
+        assertThatThrownBy(() -> Whitebox.invokeMethod(builder, "copyCustomResources", "js", dir))
+                .isInstanceOf(ValidationException.class);
     }
 
     @Test
