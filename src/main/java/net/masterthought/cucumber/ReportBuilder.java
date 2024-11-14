@@ -53,7 +53,7 @@ public class ReportBuilder {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private ReportResult reportResult;
-    protected ReportParser reportParser;
+    private final ReportParser reportParser;
 
     private Configuration configuration;
     private List<String> jsonFiles;
