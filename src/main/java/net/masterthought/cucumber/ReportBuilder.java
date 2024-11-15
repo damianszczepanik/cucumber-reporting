@@ -70,12 +70,6 @@ public class ReportBuilder {
         reportParser = new ReportParser(configuration);
     }
 
-    public ReportBuilder(List<String> jsonFiles, Configuration configuration, ReportParser reportParser) {
-        this.jsonFiles = jsonFiles;
-        this.configuration = configuration;
-        setReportParser(reportParser);
-    }
-
     public ReportParser getReportParser() {
         return reportParser;
     }
