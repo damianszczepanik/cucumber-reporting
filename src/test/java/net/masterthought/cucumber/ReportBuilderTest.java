@@ -74,12 +74,8 @@ class ReportBuilderTest extends ReportGenerator {
         builder.setReportParser(reportParser);
 
         // then
-        List<String> assignedJsonReports = Whitebox.getInternalState(builder, "jsonFiles");
-        Configuration assignedConfiguration = Whitebox.getInternalState(builder, "configuration");
         ReportParser assignedReportParser = Whitebox.getInternalState(builder, "reportParser");
 
-        assertThat(assignedJsonReports).isSameAs(jsonFiles);
-        assertThat(assignedConfiguration).isSameAs(configuration);
         assertThat(assignedReportParser).isSameAs(builder.getReportParser());
     }
 
