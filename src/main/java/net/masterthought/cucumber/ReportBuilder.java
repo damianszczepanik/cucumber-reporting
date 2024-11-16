@@ -53,8 +53,7 @@ public class ReportBuilder {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private ReportResult reportResult;
-    private final ReportParser reportParser;
-
+    private ReportParser reportParser;
     private Configuration configuration;
     private List<String> jsonFiles;
 
@@ -69,6 +68,14 @@ public class ReportBuilder {
         this.jsonFiles = jsonFiles;
         this.configuration = configuration;
         reportParser = new ReportParser(configuration);
+    }
+
+    public ReportParser getReportParser() {
+        return reportParser;
+    }
+
+    public void setReportParser(ReportParser reportParser) {
+        this.reportParser = reportParser;
     }
 
     /**

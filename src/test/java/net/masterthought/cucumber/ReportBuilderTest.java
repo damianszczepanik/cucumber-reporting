@@ -63,6 +63,23 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
+    void ReportBuilder_setsAndGetsCustomReportParser(){
+        // given
+        final List<String> jsonFiles = new ArrayList<>();
+        final Configuration configuration = new Configuration(null, null);
+        final ReportParser reportParser = new ReportParser(configuration);
+
+        // when
+        ReportBuilder builder = new ReportBuilder(jsonFiles, configuration);
+        builder.setReportParser(reportParser);
+
+        // then
+        ReportParser assignedReportParser = Whitebox.getInternalState(builder, "reportParser");
+
+        assertThat(assignedReportParser).isSameAs(builder.getReportParser());
+    }
+
+    @Test
     void generateReports_GeneratesPages() {
 
         // given
