@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - master
-  # do not validate pull requests because SONAR_TOKEN is available only for project owner
+  # Community version only allows running against 'main' branch, see https://docs.sonarsource.com/sonarqube/latest/devops-platform-integration/github-integration/
 
 jobs:
   build:
+    # Do not run sonar on forks because SONAR_TOKEN is available only for project owner
+    if: github.repository_owner == 'damianszczepanik'
     runs-on: ubuntu-latest
 
     steps:
