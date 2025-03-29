@@ -187,9 +187,18 @@ public class ReportBuilder {
         }
     }
 
-    private File createTempFile(String resourceLocation, String resource) {
-        return new File(configuration.getReportDirectory().getAbsoluteFile(),
-                BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
+    private File createTempFile(String resourceType, String fileName) {
+        String fullPath = buildFullPath(resourceType, fileName);
+        return new File(configuration.getReportDirectory().getAbsoluteFile(), fullPath);
+    }
+
+    private String buildFullPath(String resourceType, String fileName) {
+        return BASE_DIRECTORY
+                + configuration.getDirectorySuffixWithSeparator()
+                + File.separatorChar
+                + resourceType  // Changed from resourceLocation
+                + File.separatorChar
+                + fileName;     // Changed from resource
     }
 
     private void generatePages(Trends trends) {
