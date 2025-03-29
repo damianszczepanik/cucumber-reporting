@@ -9,10 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.ReportResult;
-import net.masterthought.cucumber.ValidationException;
+import net.masterthought.cucumber.*;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.util.Counter;
@@ -81,7 +78,7 @@ public abstract class AbstractPage {
 
         Template template = engine.getTemplate("templates/generators/" + templateFileName);
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + getWebPage());
+                ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + getWebPage());
         try (Writer writer = new OutputStreamWriter(new FileOutputStream(reportFile), StandardCharsets.UTF_8)) {
             template.merge(context, writer);
         } catch (IOException e) {

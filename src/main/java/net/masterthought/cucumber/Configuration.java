@@ -170,7 +170,7 @@ public class Configuration {
      * @return directory suffix with prepended separator
      */
     public String getDirectorySuffixWithSeparator() {
-        return StringUtils.isEmpty(directorySuffix) ? "" : ReportBuilder.SUFFIX_SEPARATOR + directorySuffix;
+        return StringUtils.isEmpty(directorySuffix) ? "" : ReportConstants.SUFFIX_SEPARATOR + directorySuffix;
     }
 
     /**
@@ -179,7 +179,7 @@ public class Configuration {
      * @return directory for attachment
      */
     public File getEmbeddingDirectory() {
-        return new File(getReportDirectory().getAbsolutePath(), ReportBuilder.BASE_DIRECTORY +
+        return new File(getReportDirectory().getAbsolutePath(), ReportConstants.BASE_DIRECTORY +
                 this.getDirectorySuffixWithSeparator() + File.separatorChar + Configuration.EMBEDDINGS_DIRECTORY);
     }
 

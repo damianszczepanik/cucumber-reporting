@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportConstants;
 import net.masterthought.cucumber.ReportGenerator;
 import net.masterthought.cucumber.ValidationException;
 import net.masterthought.cucumber.generators.AbstractPage;
@@ -24,7 +25,7 @@ public abstract class PageTest extends ReportGenerator {
 
     protected DocumentAssertion documentFrom(String pageName) {
         File input = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + pageName);
+                ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + pageName);
         try {
             return new DocumentAssertion(Jsoup.parse(input, StandardCharsets.UTF_8.name(), ""));
         } catch (IOException e) {

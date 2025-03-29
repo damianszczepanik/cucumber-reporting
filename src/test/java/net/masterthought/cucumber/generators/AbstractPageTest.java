@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.io.File;
 import java.util.Properties;
 
+import net.masterthought.cucumber.ReportConstants;
 import org.apache.velocity.VelocityContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ class AbstractPageTest extends PageTest {
 
         // then
         File reportFile = new File(configuration.getReportDirectory(),
-                ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + page.getWebPage());
+                ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + page.getWebPage());
         assertThat(reportFile).exists();
     }
 

@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import java.util.List;
 
+import net.masterthought.cucumber.ReportConstants;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.masterthought.cucumber.Configuration;
@@ -22,7 +23,7 @@ public class ErrorPage extends AbstractPage {
 
     @Override
     public String getWebPage() {
-        return ReportBuilder.HOME_PAGE;
+        return ReportConstants.HOME_PAGE;
     }
 
     @Override
