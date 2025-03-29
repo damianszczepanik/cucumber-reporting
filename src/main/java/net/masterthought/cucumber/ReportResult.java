@@ -22,6 +22,8 @@ import net.masterthought.cucumber.reducers.ReportFeatureMergerFactory;
 import net.masterthought.cucumber.sorting.SortingFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import net.masterthought.cucumber.reducers.ReducingMethod;
+import net.masterthought.cucumber.sorting.SortingMethod;
 
 public class ReportResult {
 
@@ -39,11 +41,23 @@ public class ReportResult {
     private final OverviewReport featuresReport = new OverviewReport();
     private final OverviewReport tagsReport = new OverviewReport();
 
+    // Original constructor for backward compatibility
     public ReportResult(List<Feature> features, Configuration configuration) {
-        buildTime = getCurrentTime();
-        sortingFactory = new SortingFactory(configuration.getSortingMethod());
+        this(features,
+                configuration.getSortingMethod(),
+                configuration.getReducingMethods().toArray(new ReducingMethod[0]), // Now correct
+                configuration);
+    }
 
-        List<Feature> mergedFeatures = mergerFactory.get(configuration.getReducingMethods()).merge(features);
+    // New constructor
+    public ReportResult(List<Feature> features,
+                        SortingMethod sortingMethod,
+                        ReducingMethod[] reducingMethods,
+                        Configuration configuration) {
+        buildTime = getCurrentTime();
+        sortingFactory = new SortingFactory(sortingMethod);
+
+        List<Feature> mergedFeatures = mergerFactory.get(List.of(reducingMethods)).merge(features);
 
         for (int i = 0; i < mergedFeatures.size(); i++) {
             mergedFeatures.get(i).setMetaData(i, configuration);
