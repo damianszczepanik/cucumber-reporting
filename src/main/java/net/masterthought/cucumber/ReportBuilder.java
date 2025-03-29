@@ -34,20 +34,6 @@ public class ReportBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReportBuilder.class);
 
-    /**
-     * Page that should be displayed when the reports is generated. Shared between {@link FeaturesOverviewPage} and
-     * {@link ErrorPage}.
-     */
-    public static final String HOME_PAGE = "overview-features.html";
-
-    /**
-     * Subdirectory where the report will be created.
-     */
-    public static final String BASE_DIRECTORY = "cucumber-html-reports";
-    /**
-     * Separator between main directory name and specified suffix
-     */
-    public static final String SUFFIX_SEPARATOR = "_";
 
 
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -189,7 +175,7 @@ public class ReportBuilder {
 
     private File createTempFile(String resourceLocation, String resource) {
         return new File(configuration.getReportDirectory().getAbsoluteFile(),
-                BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
+                ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + resourceLocation + File.separatorChar + resource);
     }
 
     private void generatePages(Trends trends) {

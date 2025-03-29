@@ -2,6 +2,7 @@ package net.masterthought.cucumber.generators;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.masterthought.cucumber.ReportConstants;
 import org.apache.velocity.VelocityContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class FeaturesOverviewPageTest extends PageTest {
         String fileName = page.getWebPage();
 
         // then
-        assertThat(fileName).isEqualTo(ReportBuilder.HOME_PAGE);
+        assertThat(fileName).isEqualTo(ReportConstants.HOME_PAGE);
     }
 
     @Test

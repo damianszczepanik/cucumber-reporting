@@ -11,6 +11,7 @@ import java.util.Base64;
 import com.fasterxml.jackson.databind.JsonNode;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportConstants;
 import net.masterthought.cucumber.json.Embedding;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ class EmbeddingDeserializerTest {
     void setUp() {
         configuration = new Configuration(new File(RANDOM_DIR), "TestProject");
 
-        final String directoryPath = RANDOM_DIR + ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + "/embeddings";
+        final String directoryPath = RANDOM_DIR + ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + "/embeddings";
         final File dir = new File(directoryPath);
         if (!dir.exists()) {
             final boolean created = dir.mkdirs();

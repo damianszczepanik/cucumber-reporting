@@ -36,7 +36,7 @@ class ReportBuilderTest extends ReportGenerator {
         // random temp directory
         reportDirectory.mkdirs();
         // root report directory
-        new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()).mkdir();
+        new File(reportDirectory, ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator()).mkdir();
 
         // refresh the file if it was already copied by another/previous test
         trendsFileTmp = new File(reportDirectory, "trends-tmp.json");
@@ -133,7 +133,7 @@ class ReportBuilderTest extends ReportGenerator {
         reportBuilder.generateReports();
 
         // then
-        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportConstants.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
 
         Trends trends = Whitebox.invokeMethod(reportBuilder, "loadTrends", trendsFileTmp);
@@ -159,7 +159,7 @@ class ReportBuilderTest extends ReportGenerator {
         Reportable result = builder.generateReports();
 
         // then
-        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportConstants.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
         assertThat(result).isNull();
     }
@@ -201,7 +201,7 @@ class ReportBuilderTest extends ReportGenerator {
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
         ReportBuilder builder = new ReportBuilder(Collections.<String>emptyList(), configuration);
-        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        File dir = new File(reportDirectory, ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
 
         // then
         try {
@@ -535,23 +535,23 @@ class ReportBuilderTest extends ReportGenerator {
         Whitebox.invokeMethod(builder, "generateErrorPage", new Exception());
 
         // then
-        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
+        assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportConstants.HOME_PAGE);
     }
 
     private File[] countHtmlFiles(Configuration configuration) {
         FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.html").get();
-        File dir = new File(configuration.getReportDirectory(), ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        File dir = new File(configuration.getReportDirectory(), ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
     private File[] countHtmlFiles() {
         FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.html").get();
-        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        File dir = new File(reportDirectory, ReportConstants.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
         return dir.listFiles(fileFilter);
     }
 
     private static void assertPageExists(File reportDirectory, String directorySuffix, String fileName) {
-        File errorPage = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + directorySuffix + File.separatorChar + fileName);
+        File errorPage = new File(reportDirectory, ReportConstants.BASE_DIRECTORY + directorySuffix + File.separatorChar + fileName);
         assertThat(errorPage).exists();
     }
 }

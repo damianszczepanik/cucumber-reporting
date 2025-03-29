@@ -177,7 +177,7 @@ class ConfigurationTest {
         configuration.setDirectorySuffix(directorySuffix);
 
         // then
-        assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo(ReportBuilder.SUFFIX_SEPARATOR + directorySuffix);
+        assertThat(configuration.getDirectorySuffixWithSeparator()).isEqualTo(ReportConstants.SUFFIX_SEPARATOR + directorySuffix);
     }
 
     @Test

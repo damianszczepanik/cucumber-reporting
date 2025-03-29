@@ -2,12 +2,13 @@ package net.masterthought.cucumber.generators;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.ReportConstants;
 import net.masterthought.cucumber.ReportResult;
 import net.masterthought.cucumber.presentation.PresentationMode;
 
 public class FeaturesOverviewPage extends AbstractPage {
 
-    public static final String WEB_PAGE = ReportBuilder.HOME_PAGE;
+    public static final String WEB_PAGE = ReportConstants.HOME_PAGE;
 
     public FeaturesOverviewPage(ReportResult reportResult, Configuration configuration) {
         super(reportResult, "overviewFeatures.vm", configuration);
