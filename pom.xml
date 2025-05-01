@@ -22,7 +22,7 @@
         <!-- Maven minimum version -->
         <maven.min-version>3.6.3</maven.min-version>
 
-        <byte-buddy.version>1.17.0</byte-buddy.version>
+        <byte-buddy.version>1.17.5</byte-buddy.version>
         <junit.version>5.12.1</junit.version>
         <slf4j.version>2.0.17</slf4j.version>
 
