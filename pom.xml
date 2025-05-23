@@ -5,7 +5,7 @@
 
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
-    <version>5.8.5-SNAPSHOT</version>
+    <version>5.8.5</version>
 
     <name>cucumber-reporting</name>
     <url>https://github.com/damianszczepanik/cucumber-reporting</url>
@@ -47,7 +47,8 @@
         <connection>scm:git:git@github.com:damianszczepanik/cucumber-reporting.git</connection>
         <developerConnection>scm:git:git@github.com:damianszczepanik/cucumber-reporting.git</developerConnection>
         <url>git@github.com:damianszczepanik/cucumber-reporting.git</url>
-    </scm>
+      <tag>cucumber-reporting-5.8.5</tag>
+  </scm>
     <ciManagement>
         <system>GitHub Actions</system>
         <url>https://github.com/damianszczepanik/cucumber-reporting/actions</url>
