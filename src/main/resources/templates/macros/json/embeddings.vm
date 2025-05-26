@@ -27,6 +27,14 @@
         #includeImageReferenceEmbedding($embedding, $foreach.index)
       #elseif ($embedding.getMimeType() == "video/mp4")
         #includeVideoEmbedding($embedding, "mp4", $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/webm")
+        #includeVideoEmbedding($embedding, "webm", $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/mpeg")
+        #includeVideoEmbedding($embedding, "mpeg", $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/ogg")
+        #includeVideoEmbedding($embedding, "ogg", $foreach.index)
+      #elseif ($embedding.getMimeType() == "video/mp2t")
+        #includeVideoEmbedding($embedding, "mp2t", $foreach.index)
       #else
         #includeUnknownEmbedding($embedding, $foreach.index)
       #end
@@ -68,8 +76,8 @@
     </div>
     <div id="embedding-$embeddingId" class="collapse collapsable-details #if ($expand_all_steps) in #end">
       <div class="embedding-content">
-        <video width="854" height="480" controls>
-          <source src="embeddings/$embedding.getFileName()" type="video/mp4">
+        <video controls>
+          <source src="embeddings/$embedding.getFileName()" type="video/$format">
           Your browser does not support the video tag.
         </video>
       </div>
