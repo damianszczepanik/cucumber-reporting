@@ -3,8 +3,17 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 'oss-parent' should not be used, it was deprecated years ago -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+        <relativePath />
+    </parent>
+
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
+    <packaging>jar</packaging>
     <version>5.8.6-SNAPSHOT</version>
 
     <name>cucumber-reporting</name>
@@ -18,9 +27,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-
-        <!-- Maven minimum version -->
-        <maven.min-version>3.6.3</maven.min-version>
 
         <byte-buddy.version>1.17.5</byte-buddy.version>
         <junit.version>5.13.0</junit.version>
@@ -222,35 +228,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <id>enforce-maven</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[${maven.min-version},)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <addSchema>false</addSchema>
-                    <arguments>-Daether.checksums.algorithms=SHA-512,SHA-256,SHA-1,MD5</arguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>
