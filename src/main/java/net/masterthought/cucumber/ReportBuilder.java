@@ -30,6 +30,11 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Converts report objects into HTML report.
+ *
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class ReportBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReportBuilder.class);

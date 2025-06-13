@@ -32,7 +32,7 @@ class ReportBuilderTest extends ReportGenerator {
 
     @BeforeEach
     void setUp() throws IOException {
-        reportDirectory = new File("target", String.valueOf(System.currentTimeMillis()));
+        reportDirectory = new File("target", "generated-reports" + File.separatorChar + System.currentTimeMillis());
         // random temp directory
         reportDirectory.mkdirs();
         // root report directory
@@ -63,7 +63,7 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    void ReportBuilder_setsAndGetsCustomReportParser(){
+    void ReportBuilder_setsAndGetsCustomReportParser() {
         // given
         final List<String> jsonFiles = new ArrayList<>();
         final Configuration configuration = new Configuration(null, null);

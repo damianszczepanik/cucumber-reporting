@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
+ * Takes <code>json</code> files and converts them into objects used for report generation.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class ReportParser {
@@ -147,9 +149,9 @@ public class ReportParser {
                     // Duplicate keys
                     this.configuration.addClassifications(key, Arrays.toString(config.getStringArray(key)));
                 } else {
-                    this.configuration.addClassifications(key,config.getString(key));
+                    this.configuration.addClassifications(key, config.getString(key));
                 }
-                });
+            });
         } catch (ConfigurationException e) {
             throw new ValidationException(String.format("File '%s' doesn't exist or the properties file is invalid!", file), e);
         }

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 class EmbeddingDeserializerTest {
 
-    private static final String RANDOM_DIR = "target" + File.separator + System.currentTimeMillis() + File.separator;
+    private static final String RANDOM_DIR = "target" + File.separator + "generated-reports" + File.separatorChar + System.currentTimeMillis() + File.separator;
 
     private Configuration configuration;
 

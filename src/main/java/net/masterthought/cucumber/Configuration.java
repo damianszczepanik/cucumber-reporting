@@ -18,6 +18,11 @@ import net.masterthought.cucumber.reducers.ReducingMethod;
 import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Defines how and where the report is created.
+ *
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 public class Configuration {
 
     private static final String EMBEDDINGS_DIRECTORY = "embeddings";
