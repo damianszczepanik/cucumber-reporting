@@ -260,7 +260,7 @@ public class Configuration {
      * @return type of reduction
      */
     public List<ReducingMethod> getReducingMethods() {
-        return reducingMethods;
+        return reducingMethods; // Return the list directly
     }
 
     /**
@@ -399,4 +399,6 @@ public class Configuration {
     public List<String> getCustomJsFiles() {
         return this.customJsFiles;
     }
+
+
 }

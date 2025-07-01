@@ -29,6 +29,7 @@ import net.masterthought.cucumber.json.support.TagObject;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.masterthought.cucumber.reducers.ReducingMethod;
 
 /**
  * Converts report objects into HTML report.
@@ -107,7 +108,12 @@ public class ReportBuilder {
 
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
-            reportResult = new ReportResult(features, configuration);
+            reportResult = new ReportResult(
+                    features,
+                    configuration.getSortingMethod(),
+                    configuration.getReducingMethods().toArray(new ReducingMethod[0]), // Using list
+                    configuration
+            );
             Reportable reportable = reportResult.getFeatureReport();
 
             if (configuration.isTrendsAvailable()) {
