@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import com.fasterxml.jackson.core.StreamReadConstraints;
 import net.masterthought.cucumber.json.support.Status;
 import net.masterthought.cucumber.presentation.PresentationMode;
 import net.masterthought.cucumber.reducers.ReducingMethod;
@@ -50,6 +51,8 @@ public class Configuration {
 
     private List<String> customCssFiles = new ArrayList<>();
     private List<String> customJsFiles = new ArrayList<>();
+
+    private int maxStreamStringLength = StreamReadConstraints.DEFAULT_MAX_STRING_LEN;
 
     public Configuration(File reportDirectory, String projectName) {
         this.reportDirectory = reportDirectory;
@@ -398,5 +401,21 @@ public class Configuration {
      */
     public List<String> getCustomJsFiles() {
         return this.customJsFiles;
+    }
+
+    /**
+     * @return stream string length
+     */
+    public int getMaxStreamStringLength() {
+        return maxStreamStringLength;
+    }
+
+    /**
+     * Configures max stream string to allow read bigger report files by <code>jackson-core</code> library.
+     *
+     * @param maxStreamStringLength stream string length
+     */
+    public void setMaxStreamStringLength(int maxStreamStringLength) {
+        this.maxStreamStringLength = maxStreamStringLength;
     }
 }

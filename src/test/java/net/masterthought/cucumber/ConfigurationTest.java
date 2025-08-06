@@ -457,4 +457,19 @@ class ConfigurationTest {
         List<String> returnedJsFiles = configuration.getCustomJsFiles();
         assertThat(returnedJsFiles).containsExactly("custom-code.js");
     }
+
+    @Test
+    void getMaxStreamStringLength_ReturnsMaxStreamStringLength() {
+
+        // given 
+        Configuration configuration = new Configuration(outputDirectory, projectName);
+        int maxStreamStringLength = 12345;
+        configuration.setMaxStreamStringLength(maxStreamStringLength);
+
+        // when
+        int streamLength = configuration.getMaxStreamStringLength();
+
+        // then
+        assertThat(streamLength).isEqualTo(maxStreamStringLength);
+    }
 }
