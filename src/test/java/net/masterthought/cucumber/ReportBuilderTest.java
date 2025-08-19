@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.core.StreamReadConstraints;
 import net.masterthought.cucumber.generators.OverviewReport;
 import net.masterthought.cucumber.json.Feature;
 import org.apache.commons.io.FileUtils;
@@ -163,24 +162,6 @@ class ReportBuilderTest extends ReportGenerator {
         assertPageExists(reportDirectory, configuration.getDirectorySuffixWithSeparator(), ReportBuilder.HOME_PAGE);
         assertThat(countHtmlFiles()).hasSize(1);
         assertThat(result).isNull();
-    }
-
-    @Test
-    void generateReports_resetsDefaultStreamReadConstraints() {
-
-        // given
-        StreamReadConstraints defaultStreamReadConstraints = StreamReadConstraints.defaults();
-        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
-
-        Configuration configuration = new Configuration(reportDirectory, "constraintsProject");
-        configuration.setMaxStreamStringLength(defaultStreamReadConstraints.getMaxStringLength() + 1);
-        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
-
-        // when
-        builder.generateReports();
-
-        // then
-        assertThat(StreamReadConstraints.defaults()).isEqualTo(defaultStreamReadConstraints);
     }
 
     @Test

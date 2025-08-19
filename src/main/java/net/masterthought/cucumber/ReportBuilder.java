@@ -106,10 +106,6 @@ public class ReportBuilder {
             // add metadata info sourced from files
             reportParser.parseClassificationsFiles(configuration.getClassificationFiles());
 
-            StreamReadConstraints defaultStreamReadConstraints = StreamReadConstraints.defaults();
-            StreamReadConstraints streamReadConstraints = StreamReadConstraints.builder().maxStringLength(configuration.getMaxStreamStringLength()).build();
-            StreamReadConstraints.overrideDefaultStreamReadConstraints(streamReadConstraints);
-
             // parse json files for results
             List<Feature> features = reportParser.parseJsonFiles(jsonFiles);
             reportResult = new ReportResult(features, configuration);
@@ -122,9 +118,6 @@ public class ReportBuilder {
 
             // Collect and generate pages in a single pass
             generatePages(trends);
-
-            // reset to default configuration
-            StreamReadConstraints.overrideDefaultStreamReadConstraints(defaultStreamReadConstraints);
 
             return reportable;
 

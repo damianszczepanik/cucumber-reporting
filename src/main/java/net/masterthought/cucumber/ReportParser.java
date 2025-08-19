@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonFactoryBuilder;
+import com.fasterxml.jackson.core.StreamReadConstraints;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,10 +25,10 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Takes <code>json</code> files and converts them into objects used for report generation.
@@ -36,12 +39,18 @@ public class ReportParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReportParser.class);
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
     private final Configuration configuration;
 
     public ReportParser(Configuration configuration) {
         this.configuration = configuration;
 
+        StreamReadConstraints streamReadConstraints = StreamReadConstraints.builder()
+                .maxStringLength(configuration.getMaxStreamStringLength()).build();
+        JsonFactory factoryBuilder = new JsonFactoryBuilder()
+                .streamReadConstraints(streamReadConstraints).build();
+
+        mapper = new ObjectMapper(factoryBuilder);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // this prevents printing eg. 2.20 as 2.2
         mapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
