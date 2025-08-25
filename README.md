@@ -5,7 +5,6 @@
 [![Coverage Status](https://codecov.io/gh/damianszczepanik/cucumber-reporting/branch/master/graph/badge.svg)](https://codecov.io/github/damianszczepanik/cucumber-reporting)
 [![Sonarqube Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_cucumber-reporting&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_cucumber-reporting)
 [![Codacy](https://api.codacy.com/project/badge/grade/7f206992ed364f0896490057fdbdaa2e)](https://app.codacy.com/gh/damianszczepanik/cucumber-reporting/)
-[![Codebeat](https://codebeat.co/badges/cb097d5a-280a-4867-8120-d6f03a874861)](https://codebeat.co/projects/github-com-damianszczepanik-cucumber-reporting)
 [![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/cucumber-reporting/badge.svg)](https://snyk.io/org/damianszczepanik/project/6a2fe301-d56c-49e7-8c78-cd3ff09c3828)
 
 [![Maven Central](https://img.shields.io/maven-central/v/net.masterthought/cucumber-reporting.svg)](http://search.maven.org/#search|gav|1|g%3A%22net.masterthought%22%20AND%20a%3A%22cucumber-reporting%22)
@@ -26,7 +25,9 @@ This project allows you to publish the results of a cucumber run as pretty html 
 ## Install
 
 Add a maven dependency to your pom
+
 ```xml
+
 <dependency>
     <groupId>net.masterthought</groupId>
     <artifactId>cucumber-reporting</artifactId>
@@ -37,31 +38,32 @@ Add a maven dependency to your pom
 Read this if you need further [detailed configuration](https://github.com/jenkinsci/cucumber-reports-plugin/wiki/Detailed-Configuration) instructions for using the Jenkins version of this project
 
 ## Usage
+
 ```Java
-File reportOutputDirectory = new File("target");
-List<String> jsonFiles = new ArrayList<>();
-jsonFiles.add("cucumber-report-1.json");
-jsonFiles.add("cucumber-report-2.json");
+File reportOutputDirectory=new File("target");
+        List<String> jsonFiles=new ArrayList<>();
+        jsonFiles.add("cucumber-report-1.json");
+        jsonFiles.add("cucumber-report-2.json");
 
-String buildNumber = "1";
-String projectName = "cucumberProject";
+        String buildNumber="1";
+        String projectName="cucumberProject";
 
-Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        Configuration configuration=new Configuration(reportOutputDirectory,projectName);
 // optional configuration - check javadoc for details
-configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
+        configuration.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
 // do not make scenario failed when step has status SKIPPED
-configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
-configuration.setBuildNumber(buildNumber);
+        configuration.setNotFailingStatuses(Collections.singleton(Status.SKIPPED));
+        configuration.setBuildNumber(buildNumber);
 // addidtional metadata presented on main page
-configuration.addClassifications("Platform", "Windows");
-configuration.addClassifications("Browser", "Firefox");
-configuration.addClassifications("Branch", "release/1.0");
+        configuration.addClassifications("Platform","Windows");
+        configuration.addClassifications("Browser","Firefox");
+        configuration.addClassifications("Branch","release/1.0");
 
 // optionally add metadata presented on main page via properties file
-List<String> classificationFiles = new ArrayList<>();
-classificationFiles.add("properties-1.properties");
-classificationFiles.add("properties-2.properties");
-configuration.addClassificationFiles(classificationFiles);
+        List<String> classificationFiles=new ArrayList<>();
+        classificationFiles.add("properties-1.properties");
+        classificationFiles.add("properties-2.properties");
+        configuration.addClassificationFiles(classificationFiles);
 
 // optionally specify qualifiers for each of the report json files
         configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
@@ -72,6 +74,7 @@ configuration.addClassificationFiles(classificationFiles);
         Reportable result=reportBuilder.generateReports();
 // and here validate 'result' to decide what to do if report has failed
 ```
+
 There is a feature overview page:
 
 ![feature overview page](./.README/feature-overview.png)
