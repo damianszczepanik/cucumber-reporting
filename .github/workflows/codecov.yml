@@ -19,10 +19,13 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: 17
           distribution: adopt
 
       - name: Generate code coverage
         run: mvn --batch-mode test
 
-      - uses: codecov/codecov-action@v3
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
