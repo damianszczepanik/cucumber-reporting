@@ -93,6 +93,7 @@ class ReportBuilderTest extends ReportGenerator {
 
         // then
         assertThat(countHtmlFiles()).hasSize(9);
+        assertThat(countCSSFiles()).hasSize(3);
         assertThat(result).isNotNull();
     }
 
@@ -111,6 +112,25 @@ class ReportBuilderTest extends ReportGenerator {
 
         // then
         assertThat(countHtmlFiles()).hasSize(10);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void generateReports_WithClassification_GeneratesPages() {
+
+        // given
+        List<String> jsonReports = Arrays.asList(ReportGenerator.reportFromResource(ReportGenerator.SAMPLE_JSON));
+
+        Configuration configuration = new Configuration(reportDirectory, "myProject");
+        ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
+        initWithProperties(SAMPLE_ONE_PROPERTIES);
+        configuration.addClassificationFiles(classificationFiles);
+
+        // when
+        Reportable result = builder.generateReports();
+
+        // then
+        assertThat(configuration.getClassifications()).hasSize(5);
         assertThat(result).isNotNull();
     }
 
@@ -230,7 +250,7 @@ class ReportBuilderTest extends ReportGenerator {
     }
 
     @Test
-    void copyCustomResources_OnDirAsFile_ThrowsIOException() throws Exception {
+    void copyCustomResources_OnDirAsFile_ThrowsIOException() {
 
         // given
         Configuration configuration = new Configuration(reportDirectory, "myProject");
@@ -547,6 +567,12 @@ class ReportBuilderTest extends ReportGenerator {
     private File[] countHtmlFiles() {
         FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.html").get();
         File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator());
+        return dir.listFiles(fileFilter);
+    }
+
+    private File[] countCSSFiles() {
+        FileFilter fileFilter = WildcardFileFilter.builder().setWildcards("*.css").get();
+        File dir = new File(reportDirectory, ReportBuilder.BASE_DIRECTORY + configuration.getDirectorySuffixWithSeparator() + File.separatorChar + "css");
         return dir.listFiles(fileFilter);
     }
 
