@@ -88,12 +88,13 @@ public class Trends {
 
     /**
      * Adds build into the trends.
+     *
      * @param buildNumber number of the build
-     * @param reportable stats for the generated report
+     * @param reportable  stats for the generated report
      */
     public void addBuild(String buildNumber, Reportable reportable) {
 
-        buildNumbers = (String[]) ArrayUtils.add(buildNumbers, buildNumber);
+        buildNumbers = ArrayUtils.add(buildNumbers, buildNumber);
 
         passedFeatures = ArrayUtils.add(passedFeatures, reportable.getPassedFeatures());
         failedFeatures = ArrayUtils.add(failedFeatures, reportable.getFailedFeatures());
@@ -154,11 +155,7 @@ public class Trends {
         if (srcArray.length <= copyingLimit) {
             return srcArray;
         }
-
-        int[] dest = new int[copyingLimit];
-        System.arraycopy(srcArray, srcArray.length - copyingLimit, dest, 0, copyingLimit);
-
-        return dest;
+        return Arrays.copyOfRange(srcArray, srcArray.length - copyingLimit, srcArray.length);
     }
 
     private static long[] copyLastElements(long[] srcArray, int copyingLimit) {
@@ -166,11 +163,7 @@ public class Trends {
         if (srcArray.length <= copyingLimit) {
             return srcArray;
         }
-
-        long[] dest = new long[copyingLimit];
-        System.arraycopy(srcArray, srcArray.length - copyingLimit, dest, 0, copyingLimit);
-
-        return dest;
+        return Arrays.copyOfRange(srcArray, srcArray.length - copyingLimit, srcArray.length);
     }
 
     private static String[] copyLastElements(String[] srcArray, int copyingLimit) {
@@ -178,11 +171,7 @@ public class Trends {
         if (srcArray.length <= copyingLimit) {
             return srcArray;
         }
-
-        String[] dest = new String[copyingLimit];
-        System.arraycopy(srcArray, srcArray.length - copyingLimit, dest, 0, copyingLimit);
-
-        return dest;
+        return Arrays.copyOfRange(srcArray, srcArray.length - copyingLimit, srcArray.length);
     }
 
     /**
