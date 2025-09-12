@@ -1,9 +1,9 @@
 package net.masterthought.cucumber.reducers;
 
-import net.masterthought.cucumber.json.Element;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Comparator;
+
+import net.masterthought.cucumber.json.Element;
+import org.apache.commons.lang3.Strings;
 
 /**
  * Compares two elements and shows if they have the same Id for scenario type
@@ -33,6 +33,6 @@ class ElementComparator implements Comparator<Element> {
 
     private boolean hasSameType(Element element1, Element element2) {
         return element1 != null && element2 != null &&
-                StringUtils.equalsIgnoreCase(element1.getType(), element2.getType());
+                Strings.CI.equals(element1.getType(), element2.getType());
     }
 }

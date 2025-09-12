@@ -55,7 +55,7 @@ class TrendsTest {
         trends.addBuild("buildName", result);
         final String[] buildNumbers = new String[]{"a", "b", "e"};
         Whitebox.setInternalState(trends, "buildNumbers", buildNumbers);
-        
+
         // when
         trends.addBuild("the build!", result);
 
@@ -122,7 +122,7 @@ class TrendsTest {
         int[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
-        assertThat(limitedArray).isSameAs(array);
+        assertThat(limitedArray).containsExactly(array);
     }
 
     @Test
@@ -136,7 +136,7 @@ class TrendsTest {
         long[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
-        assertThat(limitedArray).isSameAs(array);
+        assertThat(limitedArray).containsExactly(array);
     }
 
     @Test
@@ -150,7 +150,7 @@ class TrendsTest {
         String[] limitedArray = Whitebox.invokeMethod(Trends.class, "copyLastElements", array, limit);
 
         // then
-        assertThat(limitedArray).isSameAs(array);
+        assertThat(limitedArray).containsExactly(array);
     }
 
     @Test

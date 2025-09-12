@@ -16,8 +16,8 @@ import net.masterthought.cucumber.sorting.SortingMethod;
  */
 public abstract class ReportGenerator {
 
-    public final static String JSON_DIRECTORY = "json/";
-    public final static String CLASSIFICATIONS_DIRECTORY = "classifications/";
+    public static final String JSON_DIRECTORY = "json/";
+    public static final String CLASSIFICATIONS_DIRECTORY = "classifications/";
 
     protected static final String SAMPLE_JSON = "sample.json";
     protected static final String CUCUMBER_TIMESTAMPED_JSON = "timestamped/all-last-failed.json";
@@ -54,6 +54,7 @@ public abstract class ReportGenerator {
             configuration = new Configuration(reportDirectory, projectName);
             configuration.setSortingMethod(SortingMethod.ALPHABETICAL);
             configuration.getEmbeddingDirectory().mkdirs();
+            configuration.setBuildNumber("123321");
         } catch (URISyntaxException e) {
             throw new ValidationException(e);
         }

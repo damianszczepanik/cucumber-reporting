@@ -24,7 +24,8 @@ class TagReportPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         final TagObject tag = tags.get(0);
         page = new TagReportPage(reportResult, configuration, tag);
-        final String titleValue = String.format("Cucumber Reports  - Tag: %s", tag.getName());
+        final String titleValue = String.format("Cucumber Reports (no %s) - Tag: %s",
+                configuration.getBuildNumber(), tag.getName());
 
         // when
         page.generatePage();

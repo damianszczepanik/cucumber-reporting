@@ -92,7 +92,7 @@ class TagObjectTest extends PageTest {
         TagObject tag = new TagObject("@checkout");
 
         // when & then
-        assertThatThrownBy(() -> tag.getPassedFeatures())
+        assertThatThrownBy(tag::getPassedFeatures)
                 .isInstanceOf(NotImplementedException.class);
     }
 
@@ -103,7 +103,7 @@ class TagObjectTest extends PageTest {
         TagObject tag = new TagObject("@checkout");
 
         // when & then
-        assertThatThrownBy(() -> tag.getFailedFeatures())
+        assertThatThrownBy(tag::getFailedFeatures)
                 .isInstanceOf(NotImplementedException.class);
     }
 

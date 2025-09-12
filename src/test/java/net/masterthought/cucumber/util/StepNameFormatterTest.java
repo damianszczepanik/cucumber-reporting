@@ -2,10 +2,10 @@ package net.masterthought.cucumber.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Step;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class StepNameFormatterTest extends PageTest {
 
@@ -94,19 +94,6 @@ class StepNameFormatterTest extends PageTest {
 
     @Test
     void format_OnMultipleArguments_ReturnsFormattedValue() {
-
-        // given
-        Step step = features.get(0).getElements()[1].getSteps()[3];
-
-        // when
-        String formatted = StepNameFormatter.format(step.getName(), step.getMatch().getArguments(), "<arg>", "</arg>");
-
-        // then
-        assertThat(formatted).isEqualTo("the Account Holder requests <arg>10</arg>, entering PIN <arg>1234</arg>");
-    }
-
-    @Test
-    void format_OnEmptyValue_ReturnsUnchangedValue() {
 
         // given
         Step step = features.get(0).getElements()[1].getSteps()[3];

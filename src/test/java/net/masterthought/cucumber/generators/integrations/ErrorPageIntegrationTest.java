@@ -21,7 +21,8 @@ class ErrorPageIntegrationTest extends PageTest {
         // given
         setUpWithJson(SAMPLE_JSON);
         page = new ErrorPage(reportResult, configuration, cause, jsonReports);
-        final String titleValue = String.format("Cucumber Reports  - Error Page");
+        final String titleValue = String.format("Cucumber Reports (no %s) - Error Page",
+                configuration.getBuildNumber());
 
         // when
         page.generatePage();

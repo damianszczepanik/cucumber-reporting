@@ -1,5 +1,7 @@
 package net.masterthought.cucumber.generators.integrations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,8 +32,6 @@ import net.masterthought.cucumber.presentation.PresentationMode;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -44,7 +44,8 @@ class FeatureReportPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         final Feature feature = features.get(0);
         page = new FeatureReportPage(reportResult, configuration, feature);
-        final String titleValue = String.format("Cucumber Reports  - Feature: %s", feature.getName());
+        final String titleValue = String.format("Cucumber Reports (no %s) - Feature: %s",
+                configuration.getBuildNumber(), feature.getName());
 
         // when
         page.generatePage();
