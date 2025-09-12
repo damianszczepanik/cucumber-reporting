@@ -8,7 +8,7 @@ import net.masterthought.cucumber.ReportBuilder;
  */
 public class NavigationItemAssertion extends LinkAssertion {
 
-    public void hasLinkToJenkins(Configuration configuration) {
+    public void hasLinkToJenkins() {
         hasLabelAndAddress("Jenkins", "../");
     }
 

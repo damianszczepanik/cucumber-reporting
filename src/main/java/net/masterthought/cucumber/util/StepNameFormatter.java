@@ -1,10 +1,9 @@
 package net.masterthought.cucumber.util;
 
-import org.apache.commons.text.StringEscapeUtils;
+import net.masterthought.cucumber.json.support.Argument;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import net.masterthought.cucumber.json.support.Argument;
+import org.apache.commons.text.StringEscapeUtils;
 
 public class StepNameFormatter {
 
@@ -46,7 +45,7 @@ public class StepNameFormatter {
     }
 
     private static boolean isValidArgument(Argument argument) {
-        return argument.getOffset() != null && argument.getVal().length() > 0;
+        return !(argument.getOffset() == null || argument.getVal().isEmpty());
     }
 
     private static void escape(String[] chars) {

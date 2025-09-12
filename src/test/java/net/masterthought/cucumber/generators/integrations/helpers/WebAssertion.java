@@ -61,8 +61,8 @@ public class WebAssertion {
         assertNotEmpty(matched, cssClass);
         if (matched.size() > 1) {
             StringBuilder sb = new StringBuilder();
-            for (Element element : matched) {
-                sb.append(element).append("\n");
+            for (Element matchedElement : matched) {
+                sb.append(matchedElement).append("\n");
             }
             throw new IllegalArgumentException(String.format("Expected one but found %d elements with class '%s': %s",
                     matched.size(), cssClass, sb.toString()));
@@ -104,14 +104,14 @@ public class WebAssertion {
 
     private <T extends WebAssertion> T[] toArray(Elements inners, Class<T> clazz) {
         List<T> elements = new ArrayList<>();
-        for (Element element : inners) {
+        for (Element innersElement : inners) {
             T assertion = null;
             try {
                 assertion = (T) clazz.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new IllegalArgumentException(e);
             }
-            assertion.element = element;
+            assertion.element = innersElement;
             elements.add(assertion);
         }
 

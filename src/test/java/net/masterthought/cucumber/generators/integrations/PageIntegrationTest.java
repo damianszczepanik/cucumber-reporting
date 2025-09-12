@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.util.Locale;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import net.masterthought.cucumber.generators.FailuresOverviewPage;
 import net.masterthought.cucumber.generators.FeaturesOverviewPage;
 import net.masterthought.cucumber.generators.StepsOverviewPage;
@@ -19,6 +17,8 @@ import net.masterthought.cucumber.generators.integrations.helpers.NavigationItem
 import net.masterthought.cucumber.generators.integrations.helpers.TableRowAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
 import net.masterthought.cucumber.presentation.PresentationMode;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -75,7 +75,7 @@ class PageIntegrationTest extends PageTest {
         navigation.hasPluginName();
         assertThat(navigation.getNaviBarLinks()).hasSize(7);
 
-        menuItems[0].hasLinkToJenkins(configuration);
+        menuItems[0].hasLinkToJenkins();
         menuItems[1].hasLinkToPreviousResult(configuration, page.getWebPage());
         menuItems[2].hasLinkToLastResult(configuration, page.getWebPage());
     }
@@ -118,10 +118,10 @@ class PageIntegrationTest extends PageTest {
         BuildInfoAssertion buildInfo = document.getBuildInfo();
 
         TableRowAssertion headValues = buildInfo.getHeaderRow();
-        headValues.hasExactValues("Project", "Date");
+        headValues.hasExactValues("Project", "Number", "Date");
 
         assertThat(buildInfo.getProjectName()).isEqualTo(configuration.getProjectName());
-        buildInfo.hasBuildDate(false);
+        buildInfo.hasBuildDate(true);
     }
 
     @Test

@@ -3,6 +3,7 @@ package net.masterthought.cucumber.util;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import net.masterthought.cucumber.generators.integrations.PageTest;
 import net.masterthought.cucumber.json.Hook;
@@ -74,12 +75,14 @@ class UtilTest extends PageTest {
     void eliminateEmptyHooks_RemovesEmptyHooks() {
 
         // given
-        Hook[] hooks = features.get(0).getElements()[0].getBefore();
+        Hook[] hook = features.get(0).getElements()[1].getAfter();
+        Hook[] emptyHook = new Hook[0];
+        Hook[] hooks = Stream.of(hook, emptyHook).flatMap(Stream::of).toArray(Hook[]::new);
 
         // when
         List<Hook> reducedHooks = Util.eliminateEmptyHooks(hooks);
 
         // then
-        assertThat(reducedHooks).isEmpty();
+        assertThat(reducedHooks).containsExactly(hook);
     }
 }

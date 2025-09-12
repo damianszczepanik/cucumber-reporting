@@ -148,14 +148,14 @@ class OverviewReportTest {
 
         // given
         long offset = 5555555;
-        OverviewReport RefReport = buildSampleReport();
+        OverviewReport refReport = buildSampleReport();
         OverviewReport report = buildSampleReport();
 
         // when
         report.incDurationBy(offset);
 
         // then
-        assertThat(report.getDuration()).isEqualTo(RefReport.getDuration() + offset);
+        assertThat(report.getDuration()).isEqualTo(refReport.getDuration() + offset);
     }
 
     @Test
@@ -185,7 +185,7 @@ class OverviewReportTest {
         OverviewReport report = buildSampleReport();
 
         // when & then
-        assertThatThrownBy(() -> report.getName()).
+        assertThatThrownBy(report::getName).
                 isInstanceOf(NotImplementedException.class);
     }
 
@@ -196,7 +196,7 @@ class OverviewReportTest {
         OverviewReport report = buildSampleReport();
 
         // when & then
-        assertThatThrownBy(() -> report.getStatus())
+        assertThatThrownBy(report::getStatus)
                 .isInstanceOf(NotImplementedException.class);
     }
 

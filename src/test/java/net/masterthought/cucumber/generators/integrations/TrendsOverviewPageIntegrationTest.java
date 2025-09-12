@@ -1,8 +1,6 @@
 package net.masterthought.cucumber.generators.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.jupiter.api.Test;
-import org.powermock.reflect.Whitebox;
 
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Trends;
@@ -10,6 +8,8 @@ import net.masterthought.cucumber.generators.TrendsOverviewPage;
 import net.masterthought.cucumber.generators.integrations.helpers.DocumentAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.LeadAssertion;
 import net.masterthought.cucumber.generators.integrations.helpers.WebAssertion;
+import org.junit.jupiter.api.Test;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -23,7 +23,7 @@ class TrendsOverviewPageIntegrationTest extends PageTest {
         setUpWithJson(SAMPLE_JSON);
         Trends trends = Whitebox.invokeMethod(ReportBuilder.class, "loadTrends", TRENDS_FILE);
         page = new TrendsOverviewPage(reportResult, configuration, trends);
-        final String titleValue = String.format("Cucumber Reports  - Trends Overview",
+        final String titleValue = String.format("Cucumber Reports (no %s) - Trends Overview",
                 configuration.getBuildNumber());
 
         // when

@@ -31,6 +31,7 @@ public class DocumentAssertion extends ReportAssertion {
         return byId("classifications", WebAssertion.class).allBySelector("tbody tr", TableRowAssertion.class);
     }
 
+    @Override
     public SummaryAssertion getReport() {
         return byId("report", SummaryAssertion.class);
     }
