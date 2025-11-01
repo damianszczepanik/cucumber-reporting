@@ -21,7 +21,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
 
         <byte-buddy.version>1.17.7</byte-buddy.version>
-        <junit.version>5.13.2</junit.version>
+        <junit.version>6.0.1</junit.version>
         <slf4j.version>2.0.17</slf4j.version>
 
         <test.integration.pattern>**/*IntegrationTest*.java</test.integration.pattern>
