@@ -23,7 +23,7 @@ jobs:
           distribution: adopt
 
       - name: Build and analyse
-        run: |
+        run: >
           mvn --batch-mode package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.projectKey=damianszczepanik_cucumber-reporting
           -Dsonar.organization=damianszczepanik
