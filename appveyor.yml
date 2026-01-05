@@ -1,4 +1,4 @@
-image: Visual Studio 2019
+image: Visual Studio 2022
 version: '{build}'
 
 init:
@@ -16,6 +16,6 @@ environment:
     - JAVA_HOME: C:\Program Files\Java\JDK21
 
 build_script:
-  - mvn clean package --batch-mode -DskipTest
+  - mvn --batch-mode clean package -DskipTest
 test_script:
-  - mvn clean verify --batch-mode
+  - mvn --batch-mode clean verify
