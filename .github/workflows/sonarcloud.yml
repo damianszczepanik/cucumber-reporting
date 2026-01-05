@@ -22,8 +22,13 @@ jobs:
           java-version: 17
           distribution: adopt
 
-      - name: Build with Maven
-        run: mvn --batch-mode package sonar:sonar -Dsonar.projectKey=damianszczepanik_cucumber-reporting -Dsonar.organization=damianszczepanik -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$SONAR_TOKEN
+      - name: Build and analyse
+        run: |
+          mvn --batch-mode package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.projectKey=damianszczepanik_cucumber-reporting
+          -Dsonar.organization=damianszczepanik
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.token=$SONAR_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
