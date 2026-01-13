@@ -20,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class TrendsOverviewPageTest extends PageTest {
 
-    private final String TRENDS_FILE = pathToSampleFile("cucumber-trends.json");
-    private final String TRENDS_TMP_FILE = TRENDS_FILE + "-tmp";
+    private static final String TRENDS_FILE = pathToSampleFile("cucumber-trends.json");
+    private static final String TRENDS_TMP_FILE = TRENDS_FILE + "-tmp";
 
     @BeforeEach
     void setUp() throws IOException {
