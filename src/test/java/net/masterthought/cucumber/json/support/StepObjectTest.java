@@ -83,10 +83,10 @@ class StepObjectTest {
         // from @Before
 
         // when
-        String duration = stepObject.getFormattedTotalDuration();
+        String duration = stepObject.getFormattedMaxDuration();
 
         // then
-        assertThat(duration).isEqualTo("3.503");
+        assertThat(duration).isEqualTo("2.200");
     }
 
     @Test

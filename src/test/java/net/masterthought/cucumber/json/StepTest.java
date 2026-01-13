@@ -223,21 +223,6 @@ class StepTest extends PageTest {
         assertThat(status).isEqualTo(Status.FAILED);
     }
 
-
-    @Test
-    void getAfterStatus_ReturnsStatusForAfterHooks() {
-
-        // given
-        Step step = features.get(1).getElements()[0].getSteps()[2];
-
-        // when
-        Status status = step.getAfterStatus();
-
-        // then
-        assertThat(status).isEqualTo(Status.PASSED);
-    }
-
-
     @Test
     void getBeforeStatus_OnEmptyHooks_ReturnsPassed() {
 
@@ -261,6 +246,8 @@ class StepTest extends PageTest {
         Status status = step.getAfterStatus();
 
         // then
+        assertThat(step.getBefore()).isEmpty();
+        assertThat(step.getAfter()).isEmpty();
         assertThat(status).isEqualTo(Status.PASSED);
     }
 

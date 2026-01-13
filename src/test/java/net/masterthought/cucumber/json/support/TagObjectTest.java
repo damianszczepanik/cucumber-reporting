@@ -81,7 +81,7 @@ class TagObjectTest extends PageTest {
         TagObject tag = new TagObject("@checkout");
 
         // when & then
-        assertThatThrownBy(() -> tag.getFeatures()).
+        assertThatThrownBy(tag::getFeatures).
                 isInstanceOf(NotImplementedException.class);
     }
 
