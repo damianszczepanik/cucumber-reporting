@@ -3,11 +3,18 @@
 version: 2
 
 updates:
-- package-ecosystem: maven
-  directory: "/"
-  schedule:
-    interval: weekly
-  open-pull-requests-limit: 3
-  target-branch: master
-  commit-message:
-    prefix: "[dependency] "
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: weekly
+    target-branch: master
+    commit-message:
+      prefix: "[dependency] "
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    target-branch: master
+    commit-message:
+      prefix: "[dependency] "
