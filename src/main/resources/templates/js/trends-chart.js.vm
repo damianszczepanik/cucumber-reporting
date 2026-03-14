@@ -4,11 +4,9 @@ $(document).ready(function() {
 
     var failedFeatures = #numberArray($failedFeatures);
     var passedFeatures = #numberArray($passedFeatures);
-    var totalFeatures = #numberArray($totalFeatures);
 
     var failedScenarios = #numberArray($failedScenarios);
     var passedScenarios = #numberArray($passedScenarios);
-    var totalScenarios = #numberArray($totalScenarios);
 
     var passedSteps = #numberArray($passedSteps);
     var failedSteps = #numberArray($failedSteps);
@@ -52,28 +50,6 @@ $(document).ready(function() {
                 borderColor: "rgba(0,192,192,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: "miter",
-                pointBorderColor: "rgba(0,0,0,1)",
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 5,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                spanGaps: false
-            },
-            {
-                label: "Total",
-                data: totalFeatures,
-                fill: false,
-                lineTension: 0.1,
-                backgroundColor: "#C0C0C0",
-                borderColor: "rgba(128,128,128,1)",
-                borderCapStyle: "butt",
-                borderDash: [5, 5],
                 borderDashOffset: 0.0,
                 borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",
@@ -136,28 +112,6 @@ $(document).ready(function() {
                 borderColor: "rgba(0,192,192,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: "miter",
-                pointBorderColor: "rgba(0,0,0,1)",
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 5,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                spanGaps: false
-            },
-            {
-                label: "Total",
-                data: totalScenarios,
-                fill: false,
-                lineTension: 0.1,
-                backgroundColor: "#C0C0C0",
-                borderColor: "rgba(128,128,128,1)",
-                borderCapStyle: "butt",
-                borderDash: [5, 5],
                 borderDashOffset: 0.0,
                 borderJoinStyle: "miter",
                 pointBorderColor: "rgba(0,0,0,1)",

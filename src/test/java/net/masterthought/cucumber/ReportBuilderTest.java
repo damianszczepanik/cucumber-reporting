@@ -292,7 +292,7 @@ class ReportBuilderTest extends ReportGenerator {
         Whitebox.invokeMethod(builder, "generatePages", new Trends());
 
         // then
-        assertThat(countHtmlFiles(configuration)).hasSize(9);
+        assertThat(countHtmlFiles(configuration)).hasSize(10);
     }
 
     @Test
