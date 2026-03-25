@@ -370,14 +370,14 @@ class ReportBuilderTest extends ReportGenerator {
 
         assertThat(trends.getPassedScenarios()).containsExactly(10, 20, 20);
         assertThat(trends.getFailedScenarios()).containsExactly(10, 20, 20);
-        assertThat(trends.getTotalScenarios()).containsExactly(10, 2, 5);
+        assertThat(trends.getTotalScenarios()).containsExactly(20, 40, 40);
 
         assertThat(trends.getPassedFeatures()).containsExactly(9, 18, 25);
         assertThat(trends.getFailedSteps()).containsExactly(10, 30, 50);
         assertThat(trends.getSkippedSteps()).containsExactly(100, 300, 500);
         assertThat(trends.getPendingSteps()).containsExactly(1000, 3000, 5000);
         assertThat(trends.getUndefinedSteps()).containsExactly(10000, 30000, 50000);
-        assertThat(trends.getTotalSteps()).containsExactly(100000, 300000, 500000);
+        assertThat(trends.getTotalSteps()).containsExactly(11111, 33333, 55555);
     }
 
     @Test
