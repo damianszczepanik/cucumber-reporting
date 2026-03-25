@@ -93,8 +93,10 @@ class TrendsOverviewPageIntegrationTest extends PageTest {
         assertThat(document.html()).contains("var buildNumbers =  [ \"01_first\",  \"other build\",  \"05last\", ] ;");
         assertThat(document.html()).contains("var failedFeatures =  [ 1,  2,  5, ] ;");
         assertThat(document.html()).contains("var passedFeatures =  [ 9,  18,  25, ] ;");
+        assertThat(document.html()).contains("var totalFeatures =  [ 10,  20,  30, ] ;");
         assertThat(document.html()).contains("var failedScenarios =  [ 10,  20,  20, ] ;");
         assertThat(document.html()).contains("var passedScenarios =  [ 10,  20,  20, ] ;");
+        assertThat(document.html()).contains("var totalScenarios =  [ 20,  40,  40, ] ;");
         assertThat(document.html()).contains("var passedSteps =  [ 1,  3,  5, ] ;");
         assertThat(document.html()).contains("var failedSteps =  [ 10,  30,  50, ] ;");
         assertThat(document.html()).contains("var skippedSteps =  [ 100,  300,  500, ] ;");

@@ -4,10 +4,10 @@ $(document).ready(function() {
 
     var failedFeatures = #numberArray($failedFeatures);
     var passedFeatures = #numberArray($passedFeatures);
-
+    var totalFeatures = #numberArray($totalFeatures);
     var failedScenarios = #numberArray($failedScenarios);
     var passedScenarios = #numberArray($passedScenarios);
-
+    var totalScenarios = #numberArray($totalScenarios);
     var passedSteps = #numberArray($passedSteps);
     var failedSteps = #numberArray($failedSteps);
     var skippedSteps = #numberArray($skippedSteps);
@@ -26,7 +26,7 @@ $(document).ready(function() {
                 data: failedFeatures,
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: "#F2928C", // same as failed class in css file
+                backgroundColor: "#F2928C",
                 borderColor: "rgba(192,0,0,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
@@ -48,8 +48,31 @@ $(document).ready(function() {
                 data: passedFeatures,
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: "#92DD96", // same as passed class in css file
+                backgroundColor: "#92DD96",
                 borderColor: "rgba(0,192,192,1)",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                pointBorderColor: "rgba(0,0,0,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 5,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                spanGaps: false
+            },
+            {
+                label: "Total",
+                data: totalFeatures,
+                yAxisID: "total-axis",
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: "rgba(128,128,128,0.3)",
+                borderColor: "rgba(128,128,128,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
@@ -77,9 +100,19 @@ $(document).ready(function() {
                 xAxes: [{
                     stacked: true
                 }],
-                yAxes: [{
-                    stacked: true
-                }]
+                yAxes: [
+                    {
+                        stacked: true,
+                        position: "left",
+                        display: "auto"
+                    },
+                    {
+                        id: "total-axis",
+                        stacked: false,
+                        position: "right",
+                        display: "auto"
+                    }
+                ]
             }
         }
     });
@@ -94,7 +127,7 @@ $(document).ready(function() {
                 data: failedScenarios,
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: "#F2928C", // same as failed class in css file
+                backgroundColor: "#F2928C",
                 borderColor: "rgba(192,0,0,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
@@ -116,8 +149,31 @@ $(document).ready(function() {
                 data: passedScenarios,
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: "#92DD96", // same as passed class in css file
+                backgroundColor: "#92DD96",
                 borderColor: "rgba(0,192,192,1)",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                pointBorderColor: "rgba(0,0,0,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 5,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                spanGaps: false
+            },
+            {
+                label: "Total",
+                data: totalScenarios,
+                yAxisID: "total-axis",
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: "rgba(128,128,128,0.3)",
+                borderColor: "rgba(128,128,128,1)",
                 borderCapStyle: "butt",
                 borderDash: [],
                 borderDashOffset: 0.0,
@@ -145,9 +201,19 @@ $(document).ready(function() {
                 xAxes: [{
                     stacked: true
                 }],
-                yAxes: [{
-                    stacked: true
-                }]
+                yAxes: [
+                    {
+                        stacked: true,
+                        position: "left",
+                        display: "auto"
+                    },
+                    {
+                        id: "total-axis",
+                        stacked: false,
+                        position: "right",
+                        display: "auto"
+                    }
+                ]
             }
         }
     });

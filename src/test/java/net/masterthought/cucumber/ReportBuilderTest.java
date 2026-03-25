@@ -284,7 +284,7 @@ class ReportBuilderTest extends ReportGenerator {
 
         // given
         setUpWithJson(SAMPLE_JSON);
-
+        configuration.setTrendsStatsFile(trendsFileTmp);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
         Whitebox.setInternalState(builder, "reportResult", new ReportResult(features, configuration));
 
@@ -292,7 +292,7 @@ class ReportBuilderTest extends ReportGenerator {
         Whitebox.invokeMethod(builder, "generatePages", new Trends());
 
         // then
-        assertThat(countHtmlFiles(configuration)).hasSize(9);
+        assertThat(countHtmlFiles(configuration)).hasSize(10);
     }
 
     @Test
@@ -370,7 +370,7 @@ class ReportBuilderTest extends ReportGenerator {
 
         assertThat(trends.getPassedScenarios()).containsExactly(10, 20, 20);
         assertThat(trends.getFailedScenarios()).containsExactly(10, 20, 20);
-        assertThat(trends.getTotalScenarios()).containsExactly(10, 2, 5);
+        assertThat(trends.getTotalScenarios()).containsExactly(20, 40, 40);
 
         assertThat(trends.getPassedFeatures()).containsExactly(9, 18, 25);
         assertThat(trends.getFailedSteps()).containsExactly(10, 30, 50);
