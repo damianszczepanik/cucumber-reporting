@@ -284,6 +284,7 @@ class ReportBuilderTest extends ReportGenerator {
 
         // given
         setUpWithJson(SAMPLE_JSON);
+        configuration.setTrendsStatsFile(trendsFileTmp);
         ReportBuilder builder = new ReportBuilder(jsonReports, configuration);
         Whitebox.setInternalState(builder, "reportResult", new ReportResult(features, configuration));
 
