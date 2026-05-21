@@ -112,24 +112,24 @@ public class ReportResult {
     }
 
     private void processTag(Tag tag, Element element, Status status) {
-
         TagObject tagObject = addTagObject(tag.getName());
-
-        // if this element was not added by feature tag, add it as element tag
         if (tagObject.addElement(element)) {
+            // Delegate to OverviewReport but keep duration calculation here
             tagsReport.incScenarioFor(status);
 
+            // Maintain original duration calculation logic
             Step[] steps = element.getSteps();
-            for (Step step : steps) {
-                tagsReport.incStepsFor(step.getResult().getStatus());
-                tagsReport.incDurationBy(step.getDuration());
+            if (steps != null) {
+                for (Step step : steps) {
+                    tagsReport.incStepsFor(step.getResult().getStatus());
+                    tagsReport.incDurationBy(step.getDuration()); // Critical for test
+                }
             }
         }
     }
 
     private void countSteps(Resultsable[] steps) {
         for (Resultsable step : steps) {
-
             Match match = step.getMatch();
             // no match = could not find method that was matched to this step -> status is missing
             if (match != null) {
