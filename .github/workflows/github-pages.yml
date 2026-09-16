@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v5.6.0
         with:
           java-version: 11
-          distribution: adopt
+          distribution: temurin
 
       - name: Generate demo report
         run: mvn --batch-mode test
