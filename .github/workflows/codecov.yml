@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-java@v5.6.0
         with:
           java-version: 17
-          distribution: adopt
+          distribution: temurin
 
       - name: Generate code coverage
         run: mvn --batch-mode test
