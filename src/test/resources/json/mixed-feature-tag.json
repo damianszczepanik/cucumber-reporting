@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mixed",
+    "uri": "mixed.feature",
+    "keyword": "Feature",
+    "name": "Mixed scenario results",
+    "line": 2,
+    "tags": [{"name": "@feature", "line": 1}],
+    "elements": [
+      {
+        "id": "mixed;passing",
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Passing scenario",
+        "line": 5,
+        "tags": [{"name": "@feature", "line": 1}, {"name": "@scenario", "line": 4}],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a passing result",
+            "line": 6,
+            "result": {"status": "passed", "duration": 1000000}
+          }
+        ]
+      },
+      {
+        "id": "mixed;failing",
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Failing scenario",
+        "line": 9,
+        "tags": [{"name": "@feature", "line": 1}, {"name": "@scenario", "line": 8}],
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "a failing result",
+            "line": 10,
+            "result": {"status": "failed", "duration": 1000000, "error_message": "Synthetic failure"}
+          }
+        ]
+      }
+    ]
+  }
+]
