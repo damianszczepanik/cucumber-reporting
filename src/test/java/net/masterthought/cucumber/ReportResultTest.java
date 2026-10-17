@@ -74,6 +74,22 @@ class ReportResultTest extends ReportGenerator {
     }
 
     @Test
+    void getTagReport_CountsScenarioStatusesForFeatureTags() {
+        List<Feature> mixedFeatures = new ReportParser(configuration)
+                .parseJsonFiles(List.of(reportFromResource("mixed-feature-tag.json")));
+        ReportResult mixedResult = new ReportResult(mixedFeatures, configuration);
+
+        assertThat(mixedResult.getAllTags()).hasSize(2).allSatisfy(tag -> {
+            assertThat(tag.getScenarios()).isEqualTo(2);
+            assertThat(tag.getPassedScenarios()).isEqualTo(1);
+            assertThat(tag.getFailedScenarios()).isEqualTo(1);
+        });
+        assertThat(mixedResult.getTagReport().getScenarios()).isEqualTo(4);
+        assertThat(mixedResult.getTagReport().getPassedScenarios()).isEqualTo(2);
+        assertThat(mixedResult.getTagReport().getFailedScenarios()).isEqualTo(2);
+    }
+
+    @Test
     void getAllXXXFeatures_ReturnsFeaturesByStatus() {
 
         // given

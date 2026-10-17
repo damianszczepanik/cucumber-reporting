@@ -84,7 +84,7 @@ public class ReportResult {
 
                 // all feature tags should be linked with scenario
                 for (Tag tag : feature.getTags()) {
-                    processTag(tag, element, feature.getStatus());
+                    processTag(tag, element, element.getStatus());
                 }
             }
 
